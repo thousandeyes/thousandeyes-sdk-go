@@ -1,5 +1,7 @@
 package go_thousandeyes
 
+type AccountGroups []AccountGroup
+
 type AccountGroup struct {
 	Aid  int
 	Name string

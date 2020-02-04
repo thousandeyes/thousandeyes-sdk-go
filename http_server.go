@@ -5,9 +5,13 @@ import (
 	"fmt"
 )
 
-type HttpTest struct {
+type HttpServerResponse struct {
+	tests []HttpServer
+}
+
+type HttpServer struct {
 	Agents                Agents         `json:"agents,omitempty"`
-	AlertsEnabled         string         `json:"alertsEnabled,omitempty"`
+	AlertsEnabled         int            `json:"alertsEnabled,omitempty"`
 	AlertRules            []AlertRule    `json:"alertRules,omitempty"`
 	ApiLinks              []interface{}  `json:"apiLinks,omitempty"`
 	CreatedBy             string         `json:"createdBy,omitempty"`
@@ -24,7 +28,7 @@ type HttpTest struct {
 	TestName              string         `json:"testName,omitempty"`
 	Type                  string         `json:"type,omitempty"`
 	AuthType              string         `json:"authType,omitempty"`
-	BandwidthMeasurements string         `json:"bandwidthMeasurements,omitempty"`
+	BandwidthMeasurements int            `json:"bandwidthMeasurements,omitempty"`
 	BgpMeasurements       int            `json:"bgpMeasurements,omitempty"`
 	BgpMonitors           Monitors       `json:"bgpMonitors,omitempty"`
 	ClientCertificate     string         `json:"clientCertificate,omitempty"`
@@ -54,44 +58,57 @@ type HttpTest struct {
 	VerifyCertificate     int            `json:"verifyCertificate,omitempty"`
 }
 
-func (t *HttpTest) AddAgent(id int) {
+func (t *HttpServer) AddAgent(id int) {
 	agent := Agent{AgentId: id}
 	t.Agents = append(t.Agents, agent)
 }
 
-func (c *Client) GetHttpTest(id string) (*HttpTest, error) {
-	resp, err := c.get(fmt.Sprintf("/tests/%s", id))
+func (c *Client) GetHttpServer(id int) (*HttpServer, error) {
+	resp, err := c.get(fmt.Sprintf("/tests/%d", id))
 	if err != nil {
-		return &HttpTest{}, err
+		return &HttpServer{}, err
 	}
-	var target map[string]HttpTest
+	var target map[string][]HttpServer
 	if dErr := c.decodeJSON(resp, &target); dErr != nil {
 		return nil, fmt.Errorf("Could not decode JSON response: %v", dErr)
 	}
-	rootNode := "test"
-	t, nodeOK := target[rootNode]
-	if !nodeOK {
-		return nil, fmt.Errorf("JSON response does not have %s field", rootNode)
-	}
-	return &t, nil
+	return &target["test"][0], nil
 }
 
-func (c Client) CreateHttpTest(t HttpTest) (*HttpTest, error) {
-	res, err := c.post("/tests/http-server/new", t, nil)
+func (c Client) CreateHttpServer(t HttpServer) (*HttpServer, error) {
+	resp, err := c.post("/tests/http-server/new", t, nil)
 	if err != nil {
 		return &t, err
 	}
-	if res.StatusCode != 201 {
-		return &t, errors.New(fmt.Sprintf("failed to create test, response code %d", res.StatusCode))
+	if resp.StatusCode != 201 {
+		return &t, errors.New(fmt.Sprintf("failed to create test, response code %d", resp.StatusCode))
 	}
-	return &t, nil
+	var target map[string][]HttpServer
+	if dErr := c.decodeJSON(resp, &target); dErr != nil {
+		return nil, fmt.Errorf("Could not decode JSON response: %v", dErr)
+	}
+	return &target["test"][0], nil
 }
 
-func (c *Client) DeleteHttpTest(id string) error {
-	_, err := c.delete(fmt.Sprintf("/tests/http-server/%s/delete", id))
-	return err
-}
-
-func (c *Client) UpdateHttpTest(t HttpTest) error {
+func (c *Client) DeleteHttpServer(id int) error {
+	_, err := c.delete(fmt.Sprintf("/tests/http-server/%d/delete", id))
+	if err != nil {
+		return err
+	}
 	return nil
+}
+
+func (c *Client) UpdateHttpServer(id int, t HttpServer) (*HttpServer, error) {
+	resp, err := c.post(fmt.Sprintf("/tests/http-server/%d/update", id), t, nil)
+	if err != nil {
+		return &t, err
+	}
+	if resp.StatusCode != 200 {
+		return &t, errors.New(fmt.Sprintf("failed to update test, response code %d", resp.StatusCode))
+	}
+	var target map[string][]HttpServer
+	if dErr := c.decodeJSON(resp, &target); dErr != nil {
+		return nil, fmt.Errorf("Could not decode JSON response: %v", dErr)
+	}
+	return &target["test"][0], nil
 }
