@@ -1,4 +1,4 @@
-package go_thousandeyes
+package thousandeyes
 
 type Monitor struct {
 	monitorId string

@@ -1,4 +1,6 @@
-package go_thousandeyes
+package thousandeyes
+
+type AccountGroups []AccountGroup
 
 type AccountGroup struct {
 	Aid  int

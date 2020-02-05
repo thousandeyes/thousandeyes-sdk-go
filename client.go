@@ -1,13 +1,11 @@
-package go_thousandeyes
+package thousandeyes
 
 import (
 	"bytes"
 	"encoding/json"
 	"fmt"
 	"io"
-	"net"
 	"net/http"
-	"runtime"
 	"time"
 )
 
@@ -21,18 +19,7 @@ type errorObject struct {
 
 func newDefaultHTTPClient() *http.Client {
 	return &http.Client{
-		Transport: &http.Transport{
-			Proxy: http.ProxyFromEnvironment,
-			DialContext: (&net.Dialer{
-				Timeout:   30 * time.Second,
-				KeepAlive: 30 * time.Second,
-			}).DialContext,
-			MaxIdleConns:          10,
-			IdleConnTimeout:       60 * time.Second,
-			TLSHandshakeTimeout:   10 * time.Second,
-			ExpectContinueTimeout: 1 * time.Second,
-			MaxIdleConnsPerHost:   runtime.GOMAXPROCS(0) + 1,
-		},
+		Timeout: time.Second * 10,
 	}
 }
 
@@ -63,7 +50,6 @@ func (c *Client) delete(path string) (*http.Response, error) {
 }
 
 func (c *Client) put(path string, payload interface{}, headers *map[string]string) (*http.Response, error) {
-
 	if payload != nil {
 		data, err := json.Marshal(payload)
 		if err != nil {
@@ -87,11 +73,11 @@ func (c *Client) get(path string) (*http.Response, error) {
 }
 
 func (c *Client) do(method, path string, body io.Reader, headers *map[string]string) (*http.Response, error) {
-	endpoint := c.apiEndpoint + path
+	endpoint := c.apiEndpoint + path + ".json"
 	req, _ := http.NewRequest(method, endpoint, body)
-	req.Header.Set("Accept", "application/json")
-	req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", c.authToken))
-	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("accept", "application/json")
+	req.Header.Set("authorization", fmt.Sprintf("Bearer %s", c.authToken))
+	req.Header.Set("content-type", "application/json")
 	if headers != nil {
 		for k, v := range *headers {
 			req.Header.Set(k, v)
@@ -114,9 +100,6 @@ func (c *Client) checkResponse(resp *http.Response, err error) (*http.Response, 
 	if 199 >= resp.StatusCode || 300 <= resp.StatusCode {
 		var eo *errorObject
 		var getErr error
-		var buf []byte
-		data, _ := resp.Body.Read(buf)
-		fmt.Println(string(data))
 		if eo, getErr = c.getErrorFromResponse(resp); getErr != nil {
 			return resp, fmt.Errorf("Response did not contain formatted error: %s. HTTP response code: %v. Raw response: %+v", getErr, resp.StatusCode, resp)
 		}
