@@ -1,4 +1,4 @@
-package go_thousandeyes
+package thousandeyes
 
 type Agents []Agent
 

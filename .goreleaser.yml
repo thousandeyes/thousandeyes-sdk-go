@@ -1,0 +1,8 @@
+project_name: go-thousandeyes
+release:
+  github:
+    owner: william20111
+    name: go-thousandeyes
+  draft: false
+  prerelease: true
+  name_template: "{{.ProjectName}}-v{{.Version}}"
