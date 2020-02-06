@@ -26,7 +26,7 @@ type PageLoad struct {
 	AuthType              string        `json:"authType,omitempty"`
 	BandwidthMeasurements int           `json:"bandwidthMeasurements,omitempty"`
 	BgpMeasurements       int           `json:"bgpMeasurements,omitempty"`
-	BgpMonitors           Monitors      `json:"bgpMonitors,omitempty"`
+	BgpMonitors           []Monitor     `json:"bgpMonitors,omitempty"`
 	HttpInterval          int           `json:"httpInterval,omitempty"`
 	HttpVersion           int           `json:"httpVersion,omitempty"`
 	HttpTargetTime        int           `json:"httpTargetTime,omitempty"`
