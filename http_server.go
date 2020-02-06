@@ -13,7 +13,7 @@ type HttpServer struct {
 	Agents                Agents         `json:"agents,omitempty"`
 	AlertsEnabled         int            `json:"alertsEnabled,omitempty"`
 	AlertRules            []AlertRule    `json:"alertRules,omitempty"`
-	ApiLinks              []interface{}  `json:"apiLinks,omitempty"`
+	ApiLinks              []ApiLink      `json:"apiLinks,omitempty"`
 	CreatedBy             string         `json:"createdBy,omitempty"`
 	CreatedDate           string         `json:"createdDate,omitempty"`
 	Description           string         `json:"description,omitempty"`
@@ -30,7 +30,7 @@ type HttpServer struct {
 	AuthType              string         `json:"authType,omitempty"`
 	BandwidthMeasurements int            `json:"bandwidthMeasurements,omitempty"`
 	BgpMeasurements       int            `json:"bgpMeasurements,omitempty"`
-	BgpMonitors           Monitors       `json:"bgpMonitors,omitempty"`
+	BgpMonitors           []Monitor      `json:"bgpMonitors,omitempty"`
 	ClientCertificate     string         `json:"clientCertificate,omitempty"`
 	ContentRegex          string         `json:"contentRegex,omitempty"`
 	DesiredStatusCode     string         `json:"desiredStatusCode,omitempty"`

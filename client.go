@@ -13,35 +13,34 @@ const (
 	apiEndpoint = "https://api.thousandeyes.com/v6"
 )
 
-type errorObject struct {
-	ErrorMessage string `json:"errorMessage,omitempty"`
+type ApiLink struct {
+	Href string `json:"href,omitempty"`
+	Rel  string `json:"rel,omitempty"`
 }
 
-func newDefaultHTTPClient() *http.Client {
-	return &http.Client{
-		Timeout: time.Second * 10,
-	}
+type errorObject struct {
+	ErrorMessage string `json:"errorMessage,omitempty"`
 }
 
 type HTTPClient interface {
 	Do(*http.Request) (*http.Response, error)
 }
 
-var defaultHTTPClient HTTPClient = newDefaultHTTPClient()
-
 // Client wraps http client
 type Client struct {
-	authToken   string
-	apiEndpoint string
-	HTTPClient  HTTPClient
+	AuthToken   string
+	ApiEndpoint string
+	HTTPClient  http.Client
 }
 
 // NewClient creates an API client
 func NewClient(authToken string) *Client {
 	return &Client{
-		authToken:   authToken,
-		apiEndpoint: apiEndpoint,
-		HTTPClient:  defaultHTTPClient,
+		AuthToken:   authToken,
+		ApiEndpoint: apiEndpoint,
+		HTTPClient: http.Client{
+			Timeout: time.Second * 10,
+		},
 	}
 }
 
@@ -73,10 +72,10 @@ func (c *Client) get(path string) (*http.Response, error) {
 }
 
 func (c *Client) do(method, path string, body io.Reader, headers *map[string]string) (*http.Response, error) {
-	endpoint := c.apiEndpoint + path + ".json"
+	endpoint := c.ApiEndpoint + path + ".json"
 	req, _ := http.NewRequest(method, endpoint, body)
 	req.Header.Set("accept", "application/json")
-	req.Header.Set("authorization", fmt.Sprintf("Bearer %s", c.authToken))
+	req.Header.Set("authorization", fmt.Sprintf("Bearer %s", c.AuthToken))
 	req.Header.Set("content-type", "application/json")
 	if headers != nil {
 		for k, v := range *headers {
