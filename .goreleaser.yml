@@ -8,7 +8,7 @@ release:
   name_template: "{{.ProjectName}}-v{{.Version}}"
 builds:
   - id: "default"
-    main: ./command/te/main.go
+    main: ./cmd/te/main.go
     binary: te
     ldflags:
       - -s -w -X main.build={{.Version}}
