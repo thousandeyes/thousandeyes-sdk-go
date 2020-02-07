@@ -11,7 +11,7 @@ func main() {
 	client := thousandeyes.NewClient(os.Getenv("TE_TOKEN"))
 	exampleTest := thousandeyes.HttpServer{
 		TestName: "test",
-		Url:      "https://dashboards.coqa.cloudreach.com",
+		Url:      "https://test.com",
 		Interval: 300,
 	}
 	exampleTest.AddAgent(48620)
