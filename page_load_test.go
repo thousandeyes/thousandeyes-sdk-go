@@ -7,7 +7,7 @@ import (
 )
 
 func TestClient_GetPageLoad(t *testing.T) {
-	out := `{"test":[{"createdDate":"2020-02-06 19:15:36","createdBy":"William Fleming (william.fleming@cloudreach.com)","enabled":1,"savedEvent":0,"testId":1226422,"testName":"test1","type":"page-load","interval":300,"httpInterval":300,"url":"https://dashboards.coqa.cloudreach.com","protocol":"TCP","networkMeasurements":1,"mtuMeasurements":1,"bandwidthMeasurements":0,"bgpMeasurements":1,"usePublicBgp":1,"alertsEnabled":1,"liveShare":0,"httpTimeLimit":5,"httpTargetTime":1000,"httpVersion":2,"pageLoadTimeLimit":10,"pageLoadTargetTime":6,"followRedirects":1,"includeHeaders":1,"sslVersionId":0,"verifyCertificate":1,"useNtlm":0,"authType":"NONE","contentRegex":"","probeMode":"AUTO","agents":[{"agentId":48620,"agentName":"Seattle, WA (Trial) - IPv6","agentType":"Cloud","countryId":"US","ipAddresses":["135.84.184.153"],"location":"Seattle Area","network":"Astute Hosting Inc. (AS 54527)","prefix":"135.84.184.0/22"}],"sharedWithAccounts":[{"aid":176592,"name":"Cloudreach"}],"bgpMonitors":[{"monitorId":62,"ipAddress":"2001:1890:111d:1::63","countryId":"US","monitorName":"New York, NY-6","network":"AT&T Services, Inc. (AS 7018)","monitorType":"Public"}],"numPathTraces":3,"apiLinks":[{"rel":"self","href":"https://api.thousandeyes.com/v6/tests/1226422"},{"rel":"data","href":"https://api.thousandeyes.com/v6/web/http-server/1226422"},{"rel":"data","href":"https://api.thousandeyes.com/v6/web/page-load/1226422"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/metrics/1226422"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/path-vis/1226422"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/bgp-metrics/1226422"}],"sslVersion":"Auto"}]}`
+	out := `{"test":[{"createdDate":"2020-02-06 19:15:36","createdBy":"William Fleming (wfleming@grumpysysadm.com)","enabled":1,"savedEvent":0,"testId":1226422,"testName":"test1","type":"page-load","interval":300,"httpInterval":300,"url":"https://test.com","protocol":"TCP","networkMeasurements":1,"mtuMeasurements":1,"bandwidthMeasurements":0,"bgpMeasurements":1,"usePublicBgp":1,"alertsEnabled":1,"liveShare":0,"httpTimeLimit":5,"httpTargetTime":1000,"httpVersion":2,"pageLoadTimeLimit":10,"pageLoadTargetTime":6,"followRedirects":1,"includeHeaders":1,"sslVersionId":0,"verifyCertificate":1,"useNtlm":0,"authType":"NONE","contentRegex":"","probeMode":"AUTO","agents":[{"agentId":48620,"agentName":"Seattle, WA (Trial) - IPv6","agentType":"Cloud","countryId":"US","ipAddresses":["135.84.184.153"],"location":"Seattle Area","network":"Astute Hosting Inc. (AS 54527)","prefix":"135.84.184.0/22"}],"sharedWithAccounts":[{"aid":176592,"name":"Cloudreach"}],"bgpMonitors":[{"monitorId":62,"ipAddress":"2001:1890:111d:1::63","countryId":"US","monitorName":"New York, NY-6","network":"AT&T Services, Inc. (AS 7018)","monitorType":"Public"}],"numPathTraces":3,"apiLinks":[{"rel":"self","href":"https://api.thousandeyes.com/v6/tests/1226422"},{"rel":"data","href":"https://api.thousandeyes.com/v6/web/http-server/1226422"},{"rel":"data","href":"https://api.thousandeyes.com/v6/web/page-load/1226422"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/metrics/1226422"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/path-vis/1226422"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/bgp-metrics/1226422"}],"sslVersion":"Auto"}]}`
 	setup()
 	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/tests/1226422.json", func(w http.ResponseWriter, r *http.Request) {
@@ -17,7 +17,7 @@ func TestClient_GetPageLoad(t *testing.T) {
 	// Define expected values from the API (based on the JSON we print out above)
 	expected := PageLoad{
 		CreatedDate:           "2020-02-06 19:15:36",
-		CreatedBy:             "William Fleming (william.fleming@cloudreach.com)",
+		CreatedBy:             "William Fleming (wfleming@grumpysysadm.com)",
 		Enabled:               1,
 		SavedEvent:            0,
 		TestId:                1226422,
@@ -25,7 +25,7 @@ func TestClient_GetPageLoad(t *testing.T) {
 		Type:                  "page-load",
 		Interval:              300,
 		HttpInterval:          300,
-		Url:                   "https://dashboards.coqa.cloudreach.com",
+		Url:                   "https://test.com",
 		Protocol:              "TCP",
 		NetworkMeasurements:   1,
 		MtuMeasurements:       1,
@@ -118,4 +118,24 @@ func TestClient_DeletePageLoad(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+}
+
+func TestClient_UpdatePageLoad(t *testing.T) {
+	setup()
+	out := `{"test":[{"testId":1,"testName":"test123","type":"page-load","url":"https://test.com"}]}`
+	mux.HandleFunc("/tests/page-load/1/update.json", func(w http.ResponseWriter, r *http.Request) {
+		assert.Equal(t, "POST", r.Method)
+		_, _ = w.Write([]byte(out))
+	})
+
+	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	id := 1
+	httpS := PageLoad{Url: "https://test.com"}
+	res, err := client.UpdatePageLoad(id, httpS)
+	if err != nil {
+		t.Fatal(err)
+	}
+	expected := PageLoad{TestId: 1, TestName: "test123", Type: "page-load", Url: "https://test.com"}
+	assert.Equal(t, &expected, res)
+
 }
