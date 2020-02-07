@@ -1,4 +1,4 @@
-[![GoDoc](https://godoc.org/github.com/william20111/go-thousandeyes?status.svg)](http://godoc.org/github.com/william20111/go-thousandeyes) [![Go Report Card](https://goreportcard.com/badge/github.com/william20111/go-thousandeyes)](https://goreportcard.com/report/github.com/william20111/go-thousandeyes) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/gojp/goreportcard/blob/master/LICENSE)
+[![GoDoc](https://godoc.org/github.com/william20111/go-thousandeyes?status.svg)](http://godoc.org/github.com/william20111/go-thousandeyes) [![Go Report Card](https://goreportcard.com/badge/github.com/william20111/go-thousandeyes)](https://goreportcard.com/report/github.com/william20111/go-thousandeyes) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/gojp/goreportcard/blob/master/LICENSE) [![codecov](https://codecov.io/gh/william20111/go-thousandeyes/branch/master/graph/badge.svg)](https://codecov.io/gh/william20111/go-thousandeyes)
 # go-thousandeyes
 
 go-thousandeyes is a [go](https://golang.org/) client library for the [Thousandeyes v6 API](https://developer.thousandeyes.com/v6).
