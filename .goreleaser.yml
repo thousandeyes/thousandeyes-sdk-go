@@ -4,5 +4,6 @@ release:
     owner: william20111
     name: go-thousandeyes
   draft: false
+  disable: true
   prerelease: true
   name_template: "{{.ProjectName}}-v{{.Version}}"
