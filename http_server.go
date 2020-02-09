@@ -91,7 +91,7 @@ func (c Client) CreateHttpServer(t HttpServer) (*HttpServer, error) {
 }
 
 func (c *Client) DeleteHttpServer(id int) error {
-	resp, err := c.delete(fmt.Sprintf("/tests/http-server/%d/delete", id))
+	resp, err := c.post(fmt.Sprintf("/tests/http-server/%d/delete", id), nil, nil)
 	if err != nil {
 		return err
 	}
