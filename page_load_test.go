@@ -216,7 +216,7 @@ func TestClient_DeletePageLoad(t *testing.T) {
 	defer teardown()
 	mux.HandleFunc("/tests/page-load/1/delete.json", func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusNoContent)
-		assert.Equal(t, "DELETE", r.Method)
+		assert.Equal(t, "POST", r.Method)
 	})
 
 	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
