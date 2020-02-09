@@ -83,9 +83,12 @@ func (c Client) CreatePageLoad(t PageLoad) (*PageLoad, error) {
 }
 
 func (c *Client) DeletePageLoad(id int) error {
-	_, err := c.delete(fmt.Sprintf("/tests/page-load/%d/delete", id))
+	resp, err := c.post(fmt.Sprintf("/tests/page-load/%d/delete", id), nil, nil)
 	if err != nil {
 		return err
+	}
+	if resp.StatusCode != 204 {
+		return errors.New(fmt.Sprintf("failed to delete page load, response code %d", resp.StatusCode))
 	}
 	return nil
 }

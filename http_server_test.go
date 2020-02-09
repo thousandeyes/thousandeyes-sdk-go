@@ -207,7 +207,8 @@ func TestClient_DeleteHttpServer(t *testing.T) {
 	setup()
 
 	mux.HandleFunc("/tests/http-server/1/delete.json", func(w http.ResponseWriter, r *http.Request) {
-		assert.Equal(t, "DELETE", r.Method)
+		w.WriteHeader(http.StatusNoContent)
+		assert.Equal(t, "POST", r.Method)
 	})
 
 	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
