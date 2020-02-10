@@ -58,5 +58,23 @@ func TestClient_UpdateAlertRule(t *testing.T) {
 	}
 	expected := AlertRule{RuleId: 1, RuleName: "test", RoundsViolatingOutOf: 2, RoundsViolatingRequired: 1}
 	assert.Equal(t, &expected, res)
+}
 
+func TestClient_CreateAlertRule(t *testing.T) {
+	setup()
+	out := `{"ruleId":1, "ruleName": "test", "roundsViolatingOutOf": 2, "roundsViolatingRequired": 1}`
+	mux.HandleFunc("/alert-rules/new.json", func(w http.ResponseWriter, r *http.Request) {
+		assert.Equal(t, "POST", r.Method)
+		w.WriteHeader(http.StatusCreated)
+		_, _ = w.Write([]byte(out))
+	})
+
+	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	u := AlertRule{RuleName: "test", RoundsViolatingOutOf: 2, RoundsViolatingRequired: 1}
+	res, err := client.CreateAlertRule(u)
+	if err != nil {
+		t.Fatal(err)
+	}
+	expected := AlertRule{RuleId: 1, RuleName: "test", RoundsViolatingOutOf: 2, RoundsViolatingRequired: 1}
+	assert.Equal(t, &expected, res)
 }
