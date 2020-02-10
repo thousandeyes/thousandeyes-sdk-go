@@ -58,7 +58,7 @@ func (c Client) CreateWebTransaction(t WebTransaction) (*WebTransaction, error) 
 		return &t, err
 	}
 	if resp.StatusCode != 201 {
-		return &t, errors.New(fmt.Sprintf("failed to create http server, response code %d", resp.StatusCode))
+		return &t, errors.New(fmt.Sprintf("failed to create web transaction, response code %d", resp.StatusCode))
 	}
 	var target map[string][]WebTransaction
 	if dErr := c.decodeJSON(resp, &target); dErr != nil {
@@ -71,6 +71,32 @@ func (c *Client) GetWebTransaction(id int) (*WebTransaction, error) {
 	resp, err := c.get(fmt.Sprintf("/tests/%d", id))
 	if err != nil {
 		return &WebTransaction{}, err
+	}
+	var target map[string][]WebTransaction
+	if dErr := c.decodeJSON(resp, &target); dErr != nil {
+		return nil, fmt.Errorf("Could not decode JSON response: %v", dErr)
+	}
+	return &target["test"][0], nil
+}
+
+func (c *Client) DeleteWebTransaction(id int) error {
+	resp, err := c.post(fmt.Sprintf("/tests/web-transaction/%d/delete", id), nil, nil)
+	if err != nil {
+		return err
+	}
+	if resp.StatusCode != 204 {
+		return errors.New(fmt.Sprintf("failed to delete http server, response code %d", resp.StatusCode))
+	}
+	return nil
+}
+
+func (c *Client) UpdateWebTransaction(id int, t WebTransaction) (*WebTransaction, error) {
+	resp, err := c.post(fmt.Sprintf("/tests/web-transaction/%d/update", id), t, nil)
+	if err != nil {
+		return &t, err
+	}
+	if resp.StatusCode != 200 {
+		return &t, errors.New(fmt.Sprintf("failed to web transaction, response code %d", resp.StatusCode))
 	}
 	var target map[string][]WebTransaction
 	if dErr := c.decodeJSON(resp, &target); dErr != nil {
