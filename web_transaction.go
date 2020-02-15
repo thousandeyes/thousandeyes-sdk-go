@@ -53,7 +53,7 @@ type WebTransaction struct {
 }
 
 func (c Client) CreateWebTransaction(t WebTransaction) (*WebTransaction, error) {
-	resp, err := c.post("/tests/web-transaction/new", t, nil)
+	resp, err := c.post("/tests/web-transactions/new", t, nil)
 	if err != nil {
 		return &t, err
 	}
@@ -80,7 +80,7 @@ func (c *Client) GetWebTransaction(id int) (*WebTransaction, error) {
 }
 
 func (c *Client) DeleteWebTransaction(id int) error {
-	resp, err := c.post(fmt.Sprintf("/tests/web-transaction/%d/delete", id), nil, nil)
+	resp, err := c.post(fmt.Sprintf("/tests/web-transactions/%d/delete", id), nil, nil)
 	if err != nil {
 		return err
 	}
@@ -91,7 +91,7 @@ func (c *Client) DeleteWebTransaction(id int) error {
 }
 
 func (c *Client) UpdateWebTransaction(id int, t WebTransaction) (*WebTransaction, error) {
-	resp, err := c.post(fmt.Sprintf("/tests/web-transaction/%d/update", id), t, nil)
+	resp, err := c.post(fmt.Sprintf("/tests/web-transactions/%d/update", id), t, nil)
 	if err != nil {
 		return &t, err
 	}

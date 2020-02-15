@@ -11,7 +11,7 @@ func TestClient_CreateWebTransaction(t *testing.T) {
 	setup()
 	defer teardown()
 	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
-	mux.HandleFunc("/tests/web-transaction/new.json", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/tests/web-transactions/new.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "POST", r.Method)
 		w.WriteHeader(http.StatusCreated)
 		_, _ = w.Write([]byte(out))
@@ -63,7 +63,7 @@ func TestClient_GetWebTransaction(t *testing.T) {
 func TestClient_DeleteWebTransaction(t *testing.T) {
 	setup()
 
-	mux.HandleFunc("/tests/web-transaction/1/delete.json", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/tests/web-transactions/1/delete.json", func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusNoContent)
 		assert.Equal(t, "POST", r.Method)
 	})
@@ -82,7 +82,7 @@ func TestClient_UpdateWebTransaction(t *testing.T) {
 	setup()
 	defer teardown()
 	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
-	mux.HandleFunc("/tests/web-transaction/1/update.json", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/tests/web-transactions/1/update.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "POST", r.Method)
 		w.WriteHeader(http.StatusOK)
 		_, _ = w.Write([]byte(out))
