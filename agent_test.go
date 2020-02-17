@@ -24,7 +24,6 @@ func TestClient_GetAgents(t *testing.T) {
 			AgentId: 2,
 		},
 	}
-
 	res, err := client.GetAgents()
 	teardown()
 	assert.Nil(t, err)
