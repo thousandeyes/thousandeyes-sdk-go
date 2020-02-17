@@ -255,3 +255,16 @@ func TestPageLoad_AddAgent(t *testing.T) {
 	test.AddAgent(1)
 	assert.Equal(t, expected, test)
 }
+
+func TestClient_GetPageLoadError(t *testing.T) {
+	setup()
+	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	mux.HandleFunc("/tests/page-load/1.json", func(w http.ResponseWriter, r *http.Request) {
+		assert.Equal(t, "GET", r.Method)
+		w.WriteHeader(http.StatusBadRequest)
+	})
+
+	_, err := client.GetPageLoad(1)
+	teardown()
+	assert.Error(t, err)
+}

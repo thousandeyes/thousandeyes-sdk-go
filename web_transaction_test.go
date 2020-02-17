@@ -104,3 +104,16 @@ func TestClient_UpdateWebTransaction(t *testing.T) {
 	assert.Nil(t, err)
 	assert.Equal(t, &expected, res)
 }
+
+func TestClient_GetWebTransactionError(t *testing.T) {
+	setup()
+	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	mux.HandleFunc("/tests/web-transactions/1.json", func(w http.ResponseWriter, r *http.Request) {
+		assert.Equal(t, "GET", r.Method)
+		w.WriteHeader(http.StatusBadRequest)
+	})
+
+	_, err := client.GetWebTransaction(1)
+	teardown()
+	assert.Error(t, err)
+}

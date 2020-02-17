@@ -1,5 +1,7 @@
 package thousandeyes
 
+import "fmt"
+
 type Agents []Agent
 
 type Agent struct {
@@ -42,4 +44,17 @@ type ClusterMember struct {
 type AgentErrorDetails struct {
 	Code        string `json:"code,omitempty"`
 	Description string `json:"description,omitempty"`
+}
+
+func (c *Client) GetAgents() (*Agents, error) {
+	resp, err := c.get("/agents")
+	if err != nil {
+		return &Agents{}, err
+	}
+	var target map[string]Agents
+	if dErr := c.decodeJSON(resp, &target); dErr != nil {
+		return nil, fmt.Errorf("Could not decode JSON response: %v", dErr)
+	}
+	agents := target["agents"]
+	return &agents, nil
 }
