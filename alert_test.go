@@ -24,6 +24,19 @@ func TestClient_GetAlertRule(t *testing.T) {
 	assert.Equal(t, &expected, res)
 }
 
+func TestClient_GetAlertError(t *testing.T) {
+	setup()
+	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	mux.HandleFunc("/alert-rules/1.json", func(w http.ResponseWriter, r *http.Request) {
+		assert.Equal(t, "GET", r.Method)
+		w.WriteHeader(http.StatusBadRequest)
+	})
+
+	_, err := client.GetAlertRule(1)
+	teardown()
+	assert.Error(t, err)
+}
+
 func TestClient_DeleteAlertRule(t *testing.T) {
 	setup()
 	defer teardown()
