@@ -119,3 +119,42 @@ func TestClient_GetAlertStatusCode(t *testing.T) {
 	teardown()
 	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
 }
+
+func TestClient_CreateAlertStatusCode(t *testing.T) {
+	setup()
+	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	mux.HandleFunc("/alert-rules/new.json", func(w http.ResponseWriter, r *http.Request) {
+		assert.Equal(t, "POST", r.Method)
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte(`{}`))
+	})
+	_, err := client.CreateAlertRule(AlertRule{})
+	teardown()
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+}
+
+func TestClient_UpdateAlertRuleStatusCode(t *testing.T) {
+	setup()
+	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	mux.HandleFunc("/alert-rules/1/update.json", func(w http.ResponseWriter, r *http.Request) {
+		assert.Equal(t, "POST", r.Method)
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte(`{}`))
+	})
+	_, err := client.UpdateAlertRule(1, AlertRule{})
+	teardown()
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+}
+
+func TestClient_DeleteAlertRuleStatusCode(t *testing.T) {
+	setup()
+	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	mux.HandleFunc("/alert-rules/1/delete.json", func(w http.ResponseWriter, r *http.Request) {
+		assert.Equal(t, "POST", r.Method)
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte(`{}`))
+	})
+	err := client.DeleteAlertRule(1)
+	teardown()
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+}

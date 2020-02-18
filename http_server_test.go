@@ -287,3 +287,42 @@ func TestClient_GetHttpServerStatusCode(t *testing.T) {
 	teardown()
 	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
 }
+
+func TestClient_CreateHttpServerStatusCode(t *testing.T) {
+	setup()
+	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	mux.HandleFunc("/tests/http-server/new.json", func(w http.ResponseWriter, r *http.Request) {
+		assert.Equal(t, "POST", r.Method)
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte(`{}`))
+	})
+	_, err := client.CreateHttpServer(HttpServer{})
+	teardown()
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+}
+
+func TestClient_UpdateHttpServerStatusCode(t *testing.T) {
+	setup()
+	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	mux.HandleFunc("/tests/http-server/1/update.json", func(w http.ResponseWriter, r *http.Request) {
+		assert.Equal(t, "POST", r.Method)
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte(`{}`))
+	})
+	_, err := client.UpdateHttpServer(1, HttpServer{})
+	teardown()
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+}
+
+func TestClient_DeleteHttpServerStatusCode(t *testing.T) {
+	setup()
+	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	mux.HandleFunc("/tests/http-server/1/delete.json", func(w http.ResponseWriter, r *http.Request) {
+		assert.Equal(t, "POST", r.Method)
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte(`{}`))
+	})
+	err := client.DeleteHttpServer(1)
+	teardown()
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+}

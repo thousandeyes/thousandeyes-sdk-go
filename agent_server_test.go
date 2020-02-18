@@ -139,3 +139,42 @@ func TestClient_GetAgentServerStatusCode(t *testing.T) {
 	teardown()
 	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
 }
+
+func TestClient_CreateAgentServerStatusCode(t *testing.T) {
+	setup()
+	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	mux.HandleFunc("/tests/agent-to-server/new.json", func(w http.ResponseWriter, r *http.Request) {
+		assert.Equal(t, "POST", r.Method)
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte(`{}`))
+	})
+	_, err := client.CreateAgentServer(AgentServer{})
+	teardown()
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+}
+
+func TestClient_UpdateAgentServerStatusCode(t *testing.T) {
+	setup()
+	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	mux.HandleFunc("/tests/agent-to-server/1/update.json", func(w http.ResponseWriter, r *http.Request) {
+		assert.Equal(t, "POST", r.Method)
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte(`{}`))
+	})
+	_, err := client.UpdateAgentServer(1, AgentServer{})
+	teardown()
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+}
+
+func TestClient_DeleteAgentServerStatusCode(t *testing.T) {
+	setup()
+	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	mux.HandleFunc("/tests/agent-to-server/1/delete.json", func(w http.ResponseWriter, r *http.Request) {
+		assert.Equal(t, "POST", r.Method)
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte(`{}`))
+	})
+	err := client.DeleteAgentServer(1)
+	teardown()
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+}
