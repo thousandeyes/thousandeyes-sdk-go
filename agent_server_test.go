@@ -33,6 +33,19 @@ func TestClient_CreateAgentServer(t *testing.T) {
 	assert.Equal(t, &expected, res)
 }
 
+func TestClient_GetAgentServerJsonError(t *testing.T) {
+	out := `{"test":[test]}`
+	setup()
+	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	mux.HandleFunc("/tests/122621.json", func(w http.ResponseWriter, r *http.Request) {
+		assert.Equal(t, "GET", r.Method)
+		_, _ = w.Write([]byte(out))
+	})
+	_, err := client.GetAgentServer(122621)
+	assert.Error(t, err)
+	assert.EqualError(t, err, "Could not decode JSON response: invalid character 'e' in literal true (expecting 'r')")
+}
+
 func TestClient_GetAgentServer(t *testing.T) {
 	out := `{"test": [{"testId":1,"testName":"test","createdDate":"2020-02-06 15:28:07","createdBy":"William Fleming (wfleming@grumpysysadm.com)","Port": 8090}]}`
 	setup()
