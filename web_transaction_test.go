@@ -117,3 +117,16 @@ func TestClient_GetWebTransactionError(t *testing.T) {
 	teardown()
 	assert.Error(t, err)
 }
+
+func TestClient_WebTransactionJsonError(t *testing.T) {
+	out := `{"test": [test]}`
+	setup()
+	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	mux.HandleFunc("/tests/1.json", func(w http.ResponseWriter, r *http.Request) {
+		assert.Equal(t, "GET", r.Method)
+		_, _ = w.Write([]byte(out))
+	})
+	_, err := client.GetWebTransaction(1)
+	assert.Error(t, err)
+	assert.EqualError(t, err, "Could not decode JSON response: invalid character 'e' in literal true (expecting 'r')")
+}
