@@ -124,3 +124,18 @@ func TestClient_GetAgentServerError(t *testing.T) {
 	_, err := client.GetAgentServer(1)
 	assert.Error(t, err)
 }
+
+func TestClient_GetAgentServerStatusCode(t *testing.T) {
+	setup()
+	out := `{"test":[{"testId":1,"testName":"test123"}]}`
+	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	mux.HandleFunc("/tests/1.json", func(w http.ResponseWriter, r *http.Request) {
+		assert.Equal(t, "GET", r.Method)
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte(out))
+	})
+
+	_, err := client.GetPageLoad(1)
+	teardown()
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+}

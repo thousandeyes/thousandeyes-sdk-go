@@ -55,3 +55,18 @@ func TestClient_GetAgentJsonError(t *testing.T) {
 	assert.Error(t, err)
 	assert.EqualError(t, err, "Could not decode JSON response: invalid character 'a' looking for beginning of object key string")
 }
+
+func TestClient_GetAgentStatusCode(t *testing.T) {
+	setup()
+	out := `{"test":[{"testId":1,"testName":"test123"}]}`
+	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	mux.HandleFunc("/agents.json", func(w http.ResponseWriter, r *http.Request) {
+		assert.Equal(t, "GET", r.Method)
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte(out))
+	})
+
+	_, err := client.GetAgents()
+	teardown()
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+}
