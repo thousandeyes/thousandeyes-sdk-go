@@ -16,7 +16,7 @@ type Agent struct {
 	ErrorDetails          []AgentErrorDetails `json:"errorDetails,omitempty"`
 	Hostname              string              `json:"hostname,omitempty"`
 	Prefix                string              `json:"prefix,omitempty"`
-	Enabled               bool                `json:"enabled,omitempty"`
+	Enabled               int                 `json:"enabled,omitempty"`
 	Network               string              `json:"network,omitempty"`
 	CreatedDate           string              `json:"createdDate,omitempty"`
 	LastSeen              string              `json:"lastSeen,omitempty"`

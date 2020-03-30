@@ -7,7 +7,7 @@ import (
 )
 
 func TestClient_GetAgents(t *testing.T) {
-	out := `{"agents":[{"agentId": 1}, {"agentId": 2}]}`
+	out := `{"agents":[{"agentId": 1, "enabled": 1}, {"agentId": 2, "enabled": 0}]}`
 	setup()
 	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/agents.json", func(w http.ResponseWriter, r *http.Request) {
@@ -19,9 +19,11 @@ func TestClient_GetAgents(t *testing.T) {
 	expected := Agents{
 		Agent{
 			AgentId: 1,
+			Enabled: 1,
 		},
 		Agent{
 			AgentId: 2,
+			Enabled: 0,
 		},
 	}
 	res, err := client.GetAgents()
