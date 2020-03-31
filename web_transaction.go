@@ -1,7 +1,6 @@
 package thousandeyes
 
 import (
-	"errors"
 	"fmt"
 )
 
@@ -58,7 +57,7 @@ func (c Client) CreateWebTransaction(t WebTransaction) (*WebTransaction, error) 
 		return &t, err
 	}
 	if resp.StatusCode != 201 {
-		return &t, errors.New(fmt.Sprintf("failed to create web transaction, response code %d", resp.StatusCode))
+		return &t, fmt.Errorf("failed to create web transaction, response code %d", resp.StatusCode)
 	}
 	var target map[string][]WebTransaction
 	if dErr := c.decodeJSON(resp, &target); dErr != nil {
@@ -85,7 +84,7 @@ func (c *Client) DeleteWebTransaction(id int) error {
 		return err
 	}
 	if resp.StatusCode != 204 {
-		return errors.New(fmt.Sprintf("failed to delete http server, response code %d", resp.StatusCode))
+		return fmt.Errorf("failed to delete http server, response code %d", resp.StatusCode)
 	}
 	return nil
 }
@@ -96,7 +95,7 @@ func (c *Client) UpdateWebTransaction(id int, t WebTransaction) (*WebTransaction
 		return &t, err
 	}
 	if resp.StatusCode != 200 {
-		return &t, errors.New(fmt.Sprintf("failed to web transaction, response code %d", resp.StatusCode))
+		return &t, fmt.Errorf("failed to web transaction, response code %d", resp.StatusCode)
 	}
 	var target map[string][]WebTransaction
 	if dErr := c.decodeJSON(resp, &target); dErr != nil {

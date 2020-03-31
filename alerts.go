@@ -1,7 +1,6 @@
 package thousandeyes
 
 import (
-	"errors"
 	"fmt"
 )
 
@@ -46,7 +45,7 @@ func (c Client) CreateAlertRule(a AlertRule) (*AlertRule, error) {
 		return nil, err
 	}
 	if resp.StatusCode != 201 {
-		return nil, errors.New(fmt.Sprintf("failed to create alert rule, response code %d", resp.StatusCode))
+		return nil, fmt.Errorf("failed to create alert rule, response code %d", resp.StatusCode)
 	}
 	var target AlertRule
 	if dErr := c.decodeJSON(resp, &target); dErr != nil {
@@ -61,7 +60,7 @@ func (c Client) GetAlertRule(id int) (*AlertRule, error) {
 		return nil, err
 	}
 	if resp.StatusCode != 200 {
-		return nil, errors.New(fmt.Sprintf("failed to get alert rule, response code %d", resp.StatusCode))
+		return nil, fmt.Errorf("failed to get alert rule, response code %d", resp.StatusCode)
 	}
 	var target AlertRule
 	if dErr := c.decodeJSON(resp, &target); dErr != nil {
@@ -76,7 +75,7 @@ func (c Client) DeleteAlertRule(id int) error {
 		return err
 	}
 	if resp.StatusCode != 204 {
-		return errors.New(fmt.Sprintf("failed to delete alert rule, response code %d", resp.StatusCode))
+		return fmt.Errorf("failed to delete alert rule, response code %d", resp.StatusCode)
 	}
 	return nil
 }
@@ -87,7 +86,7 @@ func (c Client) UpdateAlertRule(id int, a AlertRule) (*AlertRule, error) {
 		return nil, err
 	}
 	if resp.StatusCode != 200 {
-		return nil, errors.New(fmt.Sprintf("failed to update alert rule, response code %d", resp.StatusCode))
+		return nil, fmt.Errorf("failed to update alert rule, response code %d", resp.StatusCode)
 	}
 	var target AlertRule
 	if dErr := c.decodeJSON(resp, &target); dErr != nil {
