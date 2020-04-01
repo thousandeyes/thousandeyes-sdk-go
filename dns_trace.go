@@ -28,8 +28,8 @@ type DNSTrace struct {
 	Interval             int            `json:"interval,omitempty"`
 }
 
-// AddDNSTrace - Add dns trace test
-func (t *DNSTrace) AddDNSTrace(id int) {
+// AddAgent - Add agent to DNS Trace test
+func (t *DNSTrace) AddAgent(id int) {
 	agent := Agent{AgentId: id}
 	t.Agents = append(t.Agents, agent)
 }
