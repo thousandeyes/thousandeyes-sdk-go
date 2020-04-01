@@ -205,7 +205,7 @@ func TestClient_UpdateBGP(t *testing.T) {
 func TestBGP_AddAgent(t *testing.T) {
 	test := BGP{TestName: "test", Agents: Agents{}}
 	expected := BGP{TestName: "test", Agents: []Agent{{AgentId: 1}}}
-	test.AddBGP(1)
+	test.AddAgent(1)
 	assert.Equal(t, expected, test)
 }
 

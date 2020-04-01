@@ -29,8 +29,8 @@ type BGP struct {
 	BgpMonitors        []Monitor      `json:"bgpMonitors,omitempty"`
 }
 
-// AddBGP - Add bgp  test
-func (t *BGP) AddBGP(id int) {
+// AddAgent - Add bgp  test
+func (t *BGP) AddAgent(id int) {
 	agent := Agent{AgentId: id}
 	t.Agents = append(t.Agents, agent)
 }
