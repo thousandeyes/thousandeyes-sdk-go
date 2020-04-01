@@ -84,7 +84,7 @@ func (c *Client) DeleteDNSServer(id int) error {
 		return err
 	}
 	if resp.StatusCode != 204 {
-		return fmt.Errorf("failed to delete page load, response code %d", resp.StatusCode)
+		return fmt.Errorf("failed to delete dms server test, response code %d", resp.StatusCode)
 	}
 	return nil
 }
