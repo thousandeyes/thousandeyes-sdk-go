@@ -12,7 +12,7 @@ func TestClient_CreateAgentAgent(t *testing.T) {
 	setup()
 	defer teardown()
 	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
-	mux.HandleFunc("/tests/agent-to-server/new.json", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/tests/agent-to-agent/new.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "POST", r.Method)
 		w.WriteHeader(http.StatusCreated)
 		_, _ = w.Write([]byte(out))
@@ -76,7 +76,7 @@ func TestClient_GetAgentAgent(t *testing.T) {
 func TestClient_DeleteAgentAgent(t *testing.T) {
 	setup()
 	defer teardown()
-	mux.HandleFunc("/tests/agent-to-server/1/delete.json", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/tests/agent-to-agent/1/delete.json", func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusNoContent)
 		assert.Equal(t, "POST", r.Method)
 	})
@@ -95,7 +95,7 @@ func TestClient_UpdateAgentAgent(t *testing.T) {
 	setup()
 	defer teardown()
 	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
-	mux.HandleFunc("/tests/agent-to-server/1/update.json", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/tests/agent-to-agent/1/update.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "POST", r.Method)
 		w.WriteHeader(http.StatusOK)
 		_, _ = w.Write([]byte(out))
@@ -120,7 +120,7 @@ func TestClient_GetAgentAgentError(t *testing.T) {
 	setup()
 	defer teardown()
 	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
-	mux.HandleFunc("/tests/agent-to-server/1.json", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/tests/agent-to-agent/1.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "GET", r.Method)
 		w.WriteHeader(http.StatusBadRequest)
 	})
@@ -147,7 +147,7 @@ func TestClient_GetAgentAgentStatusCode(t *testing.T) {
 func TestClient_CreateAgentAgentStatusCode(t *testing.T) {
 	setup()
 	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
-	mux.HandleFunc("/tests/agent-to-server/new.json", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/tests/agent-to-agent/new.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "POST", r.Method)
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte(`{}`))
@@ -160,7 +160,7 @@ func TestClient_CreateAgentAgentStatusCode(t *testing.T) {
 func TestClient_UpdateAgentAgentStatusCode(t *testing.T) {
 	setup()
 	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
-	mux.HandleFunc("/tests/agent-to-server/1/update.json", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/tests/agent-to-agent/1/update.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "POST", r.Method)
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte(`{}`))
@@ -173,7 +173,7 @@ func TestClient_UpdateAgentAgentStatusCode(t *testing.T) {
 func TestClient_DeleteAgentAgentStatusCode(t *testing.T) {
 	setup()
 	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
-	mux.HandleFunc("/tests/agent-to-server/1/delete.json", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/tests/agent-to-agent/1/delete.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "POST", r.Method)
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte(`{}`))
