@@ -89,7 +89,7 @@ func (c *Client) DeleteDNSServer(id int) error {
 	return nil
 }
 
-//UpdateDNSServer - - delete dns server test
+//UpdateDNSServer - - Update dns server test
 func (c *Client) UpdateDNSServer(id int, t DNSServer) (*DNSServer, error) {
 	resp, err := c.post(fmt.Sprintf("/tests/dns-server/%d/update", id), t, nil)
 	if err != nil {
