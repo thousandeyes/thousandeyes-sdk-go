@@ -204,14 +204,14 @@ func TestClient_UpdateDNSTrace(t *testing.T) {
 
 }
 
-func TestDNSServer_AddAgent(t *testing.T) {
+func TestDNSTrace_AddAgent(t *testing.T) {
 	test := DNSTrace{TestName: "test", Agents: Agents{}}
 	expected := DNSTrace{TestName: "test", Agents: []Agent{{AgentId: 1}}}
 	test.AddAgent(1)
 	assert.Equal(t, expected, test)
 }
 
-func TestClient_GetDNSServerError(t *testing.T) {
+func TestClient_GetDNSTraceError(t *testing.T) {
 	setup()
 	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/tests/dns-trace/1.json", func(w http.ResponseWriter, r *http.Request) {
