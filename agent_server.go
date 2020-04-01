@@ -1,10 +1,10 @@
 package thousandeyes
 
 import (
-	"errors"
 	"fmt"
 )
 
+// AgentServer  - Agent to server test
 type AgentServer struct {
 	Agents                []Agent        `json:"agents,omitempty"`
 	AlertsEnabled         int            `json:"alertsEnabled,omitempty"`
@@ -35,11 +35,13 @@ type AgentServer struct {
 	Server                string         `json:"server,omitempty"`
 }
 
+// AddAgent - Add agent to server test
 func (t *AgentServer) AddAgent(id int) {
 	agent := Agent{AgentId: id}
 	t.Agents = append(t.Agents, agent)
 }
 
+// GetAgentServer - Get agent to server test
 func (c *Client) GetAgentServer(id int) (*AgentServer, error) {
 	resp, err := c.get(fmt.Sprintf("/tests/%d", id))
 	if err != nil {
@@ -52,13 +54,14 @@ func (c *Client) GetAgentServer(id int) (*AgentServer, error) {
 	return &target["test"][0], nil
 }
 
+// CreateAgentServer  - Create agent to server test
 func (c Client) CreateAgentServer(t AgentServer) (*AgentServer, error) {
 	resp, err := c.post("/tests/agent-to-server/new", t, nil)
 	if err != nil {
 		return &t, err
 	}
 	if resp.StatusCode != 201 {
-		return &t, errors.New(fmt.Sprintf("failed to create agent server, response code %d", resp.StatusCode))
+		return &t, fmt.Errorf("failed to create agent server, response code %d", resp.StatusCode)
 	}
 	var target map[string][]AgentServer
 	if dErr := c.decodeJSON(resp, &target); dErr != nil {
@@ -67,24 +70,26 @@ func (c Client) CreateAgentServer(t AgentServer) (*AgentServer, error) {
 	return &target["test"][0], nil
 }
 
+// DeleteAgentServer  - Delete agent to server test
 func (c *Client) DeleteAgentServer(id int) error {
 	resp, err := c.post(fmt.Sprintf("/tests/agent-to-server/%d/delete", id), nil, nil)
 	if err != nil {
 		return err
 	}
 	if resp.StatusCode != 204 {
-		return errors.New(fmt.Sprintf("failed to delete agent server, response code %d", resp.StatusCode))
+		return fmt.Errorf("failed to delete agent server, response code %d", resp.StatusCode)
 	}
 	return nil
 }
 
+// UpdateAgentServer  - Update agent to server test
 func (c *Client) UpdateAgentServer(id int, t AgentServer) (*AgentServer, error) {
 	resp, err := c.post(fmt.Sprintf("/tests/agent-to-server/%d/update", id), t, nil)
 	if err != nil {
 		return &t, err
 	}
 	if resp.StatusCode != 200 {
-		return &t, errors.New(fmt.Sprintf("failed to update agent server, response code %d", resp.StatusCode))
+		return &t, fmt.Errorf("failed to update agent server, response code %d", resp.StatusCode)
 	}
 	var target map[string][]AgentServer
 	if dErr := c.decodeJSON(resp, &target); dErr != nil {

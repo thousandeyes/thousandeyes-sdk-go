@@ -2,8 +2,10 @@ package thousandeyes
 
 import "fmt"
 
+// Agents - list of agents
 type Agents []Agent
 
+// Agent - Agent struct
 type Agent struct {
 	AgentId               int                 `json:"agentId,omitempty"`
 	AgentName             string              `json:"agentName,omitempty"`
@@ -28,6 +30,7 @@ type Agent struct {
 	TargetForTests        string              `json:"agentType,omitempty"`
 }
 
+//ClusterMember - ClusterMember struct
 type ClusterMember struct {
 	MemberId          int      `json:"memberId,omitempty"`
 	Name              string   `json:"name,omitempty"`
@@ -41,10 +44,13 @@ type ClusterMember struct {
 	TargetForTests    string   `json:"targetForTests,omitempty"`
 }
 
+// AgentErrorDetails - Agent error details
 type AgentErrorDetails struct {
 	Code        string `json:"code,omitempty"`
 	Description string `json:"description,omitempty"`
 }
+
+// GetAgents - Get agents
 
 func (c *Client) GetAgents() (*Agents, error) {
 	resp, err := c.get("/agents")

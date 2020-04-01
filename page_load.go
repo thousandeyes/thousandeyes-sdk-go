@@ -1,7 +1,6 @@
 package thousandeyes
 
 import (
-	"errors"
 	"fmt"
 )
 
@@ -73,7 +72,7 @@ func (c Client) CreatePageLoad(t PageLoad) (*PageLoad, error) {
 		return &t, err
 	}
 	if resp.StatusCode != 201 {
-		return &t, errors.New(fmt.Sprintf("failed to create test, response code %d", resp.StatusCode))
+		return &t, fmt.Errorf("failed to create test, response code %d", resp.StatusCode)
 	}
 	var target map[string][]PageLoad
 	if dErr := c.decodeJSON(resp, &target); dErr != nil {
@@ -88,7 +87,7 @@ func (c *Client) DeletePageLoad(id int) error {
 		return err
 	}
 	if resp.StatusCode != 204 {
-		return errors.New(fmt.Sprintf("failed to delete page load, response code %d", resp.StatusCode))
+		return fmt.Errorf("failed to delete page load, response code %d", resp.StatusCode)
 	}
 	return nil
 }
@@ -99,7 +98,7 @@ func (c *Client) UpdatePageLoad(id int, t PageLoad) (*PageLoad, error) {
 		return &t, err
 	}
 	if resp.StatusCode != 200 {
-		return &t, errors.New(fmt.Sprintf("failed to update test, response code %d", resp.StatusCode))
+		return &t, fmt.Errorf("failed to update test, response code %d", resp.StatusCode)
 	}
 	var target map[string][]PageLoad
 	if dErr := c.decodeJSON(resp, &target); dErr != nil {
