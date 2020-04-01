@@ -71,12 +71,12 @@ func (c *Client) DeleteBGP(id int) error {
 		return err
 	}
 	if resp.StatusCode != 204 {
-		return fmt.Errorf("failed to delete page load, response code %d", resp.StatusCode)
+		return fmt.Errorf("failed to delete bgp test, response code %d", resp.StatusCode)
 	}
 	return nil
 }
 
-//UpdateBGP - - delete bgp trace test
+//UpdateBGP - - Update bgp trace test
 func (c *Client) UpdateBGP(id int, t BGP) (*BGP, error) {
 	resp, err := c.post(fmt.Sprintf("/tests/bgp/%d/update", id), t, nil)
 	if err != nil {
