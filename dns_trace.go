@@ -70,7 +70,7 @@ func (c *Client) DeleteDNSTrace(id int) error {
 		return err
 	}
 	if resp.StatusCode != 204 {
-		return fmt.Errorf("failed to delete page load, response code %d", resp.StatusCode)
+		return fmt.Errorf("failed to delete dns trace test, response code %d", resp.StatusCode)
 	}
 	return nil
 }
