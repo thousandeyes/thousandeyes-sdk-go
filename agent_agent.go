@@ -63,12 +63,12 @@ func (c *Client) GetAgentAgent(id int) (*AgentAgent, error) {
 
 // CreateAgentAgent - Create an agent to agent test
 func (c Client) CreateAgentAgent(t AgentAgent) (*AgentAgent, error) {
-	resp, err := c.post("/tests/agent-to-server/new", t, nil)
+	resp, err := c.post("/tests/agent-to-agent/new", t, nil)
 	if err != nil {
 		return &t, err
 	}
 	if resp.StatusCode != 201 {
-		return &t, fmt.Errorf("failed to create agent server, response code %d", resp.StatusCode)
+		return &t, fmt.Errorf("failed to create agent test, response code %d", resp.StatusCode)
 	}
 	var target map[string][]AgentAgent
 	if dErr := c.decodeJSON(resp, &target); dErr != nil {
@@ -79,24 +79,24 @@ func (c Client) CreateAgentAgent(t AgentAgent) (*AgentAgent, error) {
 
 //DeleteAgentAgent - delete agent to agent test
 func (c *Client) DeleteAgentAgent(id int) error {
-	resp, err := c.post(fmt.Sprintf("/tests/agent-to-server/%d/delete", id), nil, nil)
+	resp, err := c.post(fmt.Sprintf("/tests/agent-to-agent/%d/delete", id), nil, nil)
 	if err != nil {
 		return err
 	}
 	if resp.StatusCode != 204 {
-		return fmt.Errorf("failed to delete agent server, response code %d", resp.StatusCode)
+		return fmt.Errorf("failed to delete agent test, response code %d", resp.StatusCode)
 	}
 	return nil
 }
 
 // UpdateAgentAgent - update agent to agent test
 func (c *Client) UpdateAgentAgent(id int, t AgentAgent) (*AgentAgent, error) {
-	resp, err := c.post(fmt.Sprintf("/tests/agent-to-server/%d/update", id), t, nil)
+	resp, err := c.post(fmt.Sprintf("/tests/agent-to-agent/%d/update", id), t, nil)
 	if err != nil {
 		return &t, err
 	}
 	if resp.StatusCode != 200 {
-		return &t, fmt.Errorf("failed to update agent server, response code %d", resp.StatusCode)
+		return &t, fmt.Errorf("failed to update agent test, response code %d", resp.StatusCode)
 	}
 	var target map[string][]AgentAgent
 	if dErr := c.decodeJSON(resp, &target); dErr != nil {
