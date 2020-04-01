@@ -1,7 +1,6 @@
 package thousandeyes
 
 import (
-	"errors"
 	"fmt"
 )
 
@@ -81,7 +80,7 @@ func (c Client) CreateHttpServer(t HttpServer) (*HttpServer, error) {
 		return &t, err
 	}
 	if resp.StatusCode != 201 {
-		return &t, errors.New(fmt.Sprintf("failed to create http server, response code %d", resp.StatusCode))
+		return &t, fmt.Errorf("failed to create http server, response code %d", resp.StatusCode)
 	}
 	var target map[string][]HttpServer
 	if dErr := c.decodeJSON(resp, &target); dErr != nil {
@@ -96,7 +95,7 @@ func (c *Client) DeleteHttpServer(id int) error {
 		return err
 	}
 	if resp.StatusCode != 204 {
-		return errors.New(fmt.Sprintf("failed to delete http server, response code %d", resp.StatusCode))
+		return fmt.Errorf("failed to delete http server, response code %d", resp.StatusCode)
 	}
 	return nil
 }
@@ -107,7 +106,7 @@ func (c *Client) UpdateHttpServer(id int, t HttpServer) (*HttpServer, error) {
 		return &t, err
 	}
 	if resp.StatusCode != 200 {
-		return &t, errors.New(fmt.Sprintf("failed to update http server, response code %d", resp.StatusCode))
+		return &t, fmt.Errorf("failed to update http server, response code %d", resp.StatusCode)
 	}
 	var target map[string][]HttpServer
 	if dErr := c.decodeJSON(resp, &target); dErr != nil {
