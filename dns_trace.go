@@ -75,7 +75,7 @@ func (c *Client) DeleteDNSTrace(id int) error {
 	return nil
 }
 
-//UpdateDNSTrace - - delete dns trace test
+//UpdateDNSTrace - update dns trace test
 func (c *Client) UpdateDNSTrace(id int, t DNSTrace) (*DNSTrace, error) {
 	resp, err := c.post(fmt.Sprintf("/tests/dns-trace/%d/update", id), t, nil)
 	if err != nil {
