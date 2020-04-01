@@ -42,8 +42,8 @@ type DNSServer struct {
 	RecursiveQueries      int            `json:"recursiveQueries,omitempty"`
 }
 
-// AddDNSServer - Add dns server test
-func (t *DNSServer) AddDNSServer(id int) {
+// AddAgent - Add dns server test
+func (t *DNSServer) AddAgent(id int) {
 	agent := Agent{AgentId: id}
 	t.Agents = append(t.Agents, agent)
 }

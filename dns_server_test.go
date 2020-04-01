@@ -254,7 +254,7 @@ func TestClient_UpdateDNSServer(t *testing.T) {
 func TestDNSServer_AddAgent(t *testing.T) {
 	test := DNSServer{TestName: "test", Agents: Agents{}}
 	expected := DNSServer{TestName: "test", Agents: []Agent{{AgentId: 1}}}
-	test.AddDNSServer(1)
+	test.AddAgent(1)
 	assert.Equal(t, expected, test)
 }
 
