@@ -48,6 +48,13 @@ func TestClient_GetAgentAgentJsonError(t *testing.T) {
 	assert.EqualError(t, err, "Could not decode JSON response: invalid character 'e' in literal true (expecting 'r')")
 }
 
+func TestClient_AddAlertRule(t *testing.T) {
+	test := AgentAgent{TestName: "test", AlertRules: []AlertRule{}}
+	expected := AgentAgent{TestName: "test", AlertRules: []AlertRule{{RuleId: 1}}}
+	test.AddAlertRule(1)
+	assert.Equal(t, expected, test)
+}
+
 func TestClient_GetAgentAgent(t *testing.T) {
 	out := `{"test": [{"testID":1,"testName":"test","createdDate":"2020-02-06 15:28:07","createdBy":"William Fleming (wfleming@grumpysysadm.com)","Port": 8090, "throughputMeasurements" : 1, "throughputDuration":10000}]}`
 	setup()
