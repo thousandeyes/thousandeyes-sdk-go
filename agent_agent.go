@@ -7,39 +7,35 @@ import (
 // AgentAgent - test
 type AgentAgent struct {
 	Agents                 []Agent        `json:"agents,omitempty"`
-	AlertsEnabled          int            `json:"alertsEnabled,omitempty"`
 	AlertRules             []AlertRule    `json:"alertRules,omitempty"`
+	AlertsEnabled          int            `json:"alertsEnabled,omitempty"`
 	ApiLinks               []ApiLink      `json:"apiLinks,omitempty"`
+	BgpMeasurements        int            `json:"bgpMeasurements,omitempty"`
+	BgpMonitors            []Monitor      `json:"bgpMonitors,omitempty"`
 	CreatedBy              string         `json:"createdBy,omitempty"`
 	CreatedDate            string         `json:"createdDate,omitempty"`
 	Description            string         `json:"description,omitempty"`
+	Direction              string         `json:"direction,omitempty"`
+	Dscp                   string         `json:"dscp,omitempty"`
+	DscpID                 int            `json:"dscpId,omitempty"`
 	Enabled                int            `json:"enabled,omitempty"`
 	Groups                 []GroupLabel   `json:"groups,omitempty"`
+	Interval               int            `json:"interval,omitempty"`
 	LiveShare              int            `json:"liveShare,omitempty"`
 	ModifiedBy             string         `json:"modifiedBy,omitempty"`
 	ModifiedDate           string         `json:"modifiedDate,omitempty"`
-	SavedEvent             int            `json:"savedEvent,omitempty"`
-	SharedWithAccounts     []AccountGroup `json:"sharedWithAccounts,omitempty"`
-	TestID                 int            `json:"testId,omitempty"`
-	TestName               string         `json:"testName,omitempty"`
-	Type                   string         `json:"type,omitempty"`
-	BgpMeasurements        int            `json:"bgpMeasurements,omitempty"`
-	BgpMonitors            []Monitor      `json:"bgpMonitors,omitempty"`
-	Interval               int            `json:"interval,omitempty"`
-	Direction              string         `json:"direction,omitempty"`
-	MtuMeasurements        int            `json:"mtuMeasurements,omitempty"`
+	Mss                    int            `json:"mss,omitempty"`
 	NumPathTraces          int            `json:"numPathTraces,omitempty"`
 	Port                   int            `json:"port,omitempty"`
-	ProbeMode              string         `json:"probeMode,omitempty"`
 	Protocol               string         `json:"protocol,omitempty"`
-	Server                 string         `json:"server,omitempty"`
-	Dscp                   string         `json:"dscp,omitempty"`
-	DscpID                 int            `json:"dscpId,omitempty"`
-	Mss                    int            `json:"mss,omitempty"`
+	SharedWithAccounts     []AccountGroup `json:"sharedWithAccounts,omitempty"`
 	TargetAgentID          int            `json:"targetAgentId,omitempty"`
-	ThroughputMeasurements int            `json:"throughputMeasurements,omitempty"`
+	TestID                 int            `json:"testId,omitempty"`
+	TestName               string         `json:"testName,omitempty"`
 	ThroughputDuration     int            `json:"throughputDuration,omitempty"`
+	ThroughputMeasurements int            `json:"throughputMeasurements,omitempty"`
 	ThroughputRate         int            `json:"throughputRate,omitempty"`
+	Type                   string         `json:"type,omitempty"`
 }
 
 // AddAgent - Adds an agent to agent test
