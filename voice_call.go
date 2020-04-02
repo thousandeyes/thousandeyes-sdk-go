@@ -74,7 +74,7 @@ func (c Client) CreateVoiceCall(t VoiceCall) (*VoiceCall, error) {
 		return &t, err
 	}
 	if resp.StatusCode != 201 {
-		return &t, fmt.Errorf("failed to create sip-server test, response code %d", resp.StatusCode)
+		return &t, fmt.Errorf("failed to create voice-call test, response code %d", resp.StatusCode)
 	}
 	var target map[string][]VoiceCall
 	if dErr := c.decodeJSON(resp, &target); dErr != nil {
