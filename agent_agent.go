@@ -48,6 +48,12 @@ func (t *AgentAgent) AddAgent(id int) {
 	t.Agents = append(t.Agents, agent)
 }
 
+// AddAlertRule - Adds an alert to agent test
+func (t *AgentAgent) AddAlertRule(id int) {
+	alertRule := AlertRule{RuleId: id}
+	t.AlertRules = append(t.AlertRules, alertRule)
+}
+
 // GetAgentAgent - Get an agent to agent test
 func (c *Client) GetAgentAgent(id int) (*AgentAgent, error) {
 	resp, err := c.get(fmt.Sprintf("/tests/%d", id))
