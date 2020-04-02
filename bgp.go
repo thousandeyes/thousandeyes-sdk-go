@@ -35,6 +35,12 @@ func (t *BGP) AddAgent(id int) {
 	t.Agents = append(t.Agents, agent)
 }
 
+// AddAlertRule - Adds an alert to agent test
+func (t *BGP) AddAlertRule(id int) {
+	alertRule := AlertRule{RuleId: id}
+	t.AlertRules = append(t.AlertRules, alertRule)
+}
+
 // GetBGP  - get bgp test
 func (c *Client) GetBGP(id int) (*BGP, error) {
 	resp, err := c.get(fmt.Sprintf("/tests/%d", id))
