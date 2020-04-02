@@ -216,6 +216,12 @@ func TestSIPServer_AddAgent(t *testing.T) {
 	test.AddAgent(1)
 	assert.Equal(t, expected, test)
 }
+func TestClient_AddSIPServerAlertRule(t *testing.T) {
+	test := SIPServer{TestName: "test", AlertRules: []AlertRule{}}
+	expected := SIPServer{TestName: "test", AlertRules: []AlertRule{{RuleId: 1}}}
+	test.AddAlertRule(1)
+	assert.Equal(t, expected, test)
+}
 
 func TestClient_GetSIPServerError(t *testing.T) {
 	setup()

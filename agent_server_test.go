@@ -1,9 +1,10 @@
 package thousandeyes
 
 import (
-	"github.com/stretchr/testify/assert"
 	"net/http"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestClient_CreateAgentServer(t *testing.T) {
@@ -31,6 +32,13 @@ func TestClient_CreateAgentServer(t *testing.T) {
 	res, err := client.CreateAgentServer(create)
 	assert.Nil(t, err)
 	assert.Equal(t, &expected, res)
+}
+
+func TestClient_AddAgentServerAlertRule(t *testing.T) {
+	test := AgentServer{TestName: "test", AlertRules: []AlertRule{}}
+	expected := AgentServer{TestName: "test", AlertRules: []AlertRule{{RuleId: 1}}}
+	test.AddAlertRule(1)
+	assert.Equal(t, expected, test)
 }
 
 func TestClient_GetAgentServerJsonError(t *testing.T) {

@@ -4,8 +4,6 @@ import (
 	"fmt"
 )
 
-type AlertRules []AlertRule
-
 type Alert struct {
 	AlertId        int       `json:"alertId,omitempty"`
 	TestId         int       `json:"testId,omitempty"`

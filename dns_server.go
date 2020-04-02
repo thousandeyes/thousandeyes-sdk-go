@@ -48,6 +48,12 @@ func (t *DNSServer) AddAgent(id int) {
 	t.Agents = append(t.Agents, agent)
 }
 
+// AddAlertRule - Adds an alert to agent test
+func (t *DNSServer) AddAlertRule(id int) {
+	alertRule := AlertRule{RuleId: id}
+	t.AlertRules = append(t.AlertRules, alertRule)
+}
+
 // GetDNSServer - get dns server test
 func (c *Client) GetDNSServer(id int) (*DNSServer, error) {
 	resp, err := c.get(fmt.Sprintf("/tests/%d", id))

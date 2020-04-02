@@ -45,6 +45,12 @@ func (t *SIPServer) AddAgent(id int) {
 	t.Agents = append(t.Agents, agent)
 }
 
+// AddAlertRule - Adds an alert to agent test
+func (t *SIPServer) AddAlertRule(id int) {
+	alertRule := AlertRule{RuleId: id}
+	t.AlertRules = append(t.AlertRules, alertRule)
+}
+
 // GetSIPServer  - get sip server test
 func (c *Client) GetSIPServer(id int) (*SIPServer, error) {
 	resp, err := c.get(fmt.Sprintf("/tests/%d", id))
