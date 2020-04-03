@@ -17,7 +17,7 @@ jobs:
       - name: Lint
         run: |
           go get golang.org/x/lint/golint
-          ~/go/bin/golint
+          ~/go/bin/golint -set_exit_status
       - name: Test
         run: go test -race -coverprofile=coverage.txt -covermode=atomic
       - uses: codecov/codecov-action@v1
