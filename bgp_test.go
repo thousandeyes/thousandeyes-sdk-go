@@ -10,7 +10,7 @@ import (
 func TestClient_GetBGP(t *testing.T) {
 	out := `{"test":[{"createdDate":"2020-02-06 15:28:07","createdBy":"William Fleming (wfleming@grumpysysadm.com)","enabled":1,"savedEvent":0,"testId":122621,"testName":"test123","type":"bgp","prefix": "1.2.3.0/20","interval":300,"alertsEnabled":1,"liveShare":0,"probeMode":"AUTO","agents":[{"agentId":48620,"agentName":"Seattle, WA (Trial) - IPv6","agentType":"Cloud","countryId":"US","ipAddresses":["135.84.184.153"],"location":"Seattle Area","network":"Astute Hosting Inc. (AS 54527)","prefix":"135.84.184.0/22"}],"sharedWithAccounts":[{"aid":176592,"name":"Cloudreach"}],"apiLinks":[{"rel":"self","href":"https://api.thousandeyes.com/v6/tests/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/web/dns-trace/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/metrics/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/path-vis/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/bgp-metrics/1226221"}]}]}`
 	setup()
-	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/tests/122621.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "GET", r.Method)
 		_, _ = w.Write([]byte(out))
@@ -31,12 +31,13 @@ func TestClient_GetBGP(t *testing.T) {
 		Prefix:        "1.2.3.0/20",
 		Agents: []Agent{
 			{
-				AgentId:     48620,
+				AgentID:     48620,
 				AgentName:   "Seattle, WA (Trial) - IPv6",
-				CountryId:   "US",
-				IpAddresses: []string{"135.84.184.153"},
+				CountryID:   "US",
+				IPAddresses: []string{"135.84.184.153"},
 				Location:    "Seattle Area",
 				Network:     "Astute Hosting Inc. (AS 54527)",
+				AgentType:   "Cloud",
 				Prefix:      "135.84.184.0/22",
 			},
 		},
@@ -46,7 +47,7 @@ func TestClient_GetBGP(t *testing.T) {
 				Name: "Cloudreach",
 			},
 		},
-		APILinks: []ApiLink{
+		APILinks: APILinks{
 			{
 				Href: "https://api.thousandeyes.com/v6/tests/1226221",
 				Rel:  "self",
@@ -79,7 +80,7 @@ func TestClient_GetBGP(t *testing.T) {
 func TestClient_GetBGPJsonError(t *testing.T) {
 	out := `{"test":[{"createdDate":"2020-02-06 15:28:07",createdBy":"William Fleming (wfleming@grumpysysadm.com)","enabled":1,"savedEvent":0,"testId":122621,"testName":"test123","type":"bgp","prefix": "1.2.3.0/20","interval":300,"alertsEnabled":1,"liveShare":0,"probeMode":"AUTO","agents":[{"agentId":48620,"agentName":"Seattle, WA (Trial) - IPv6","agentType":"Cloud","countryId":"US","ipAddresses":["135.84.184.153"],"location":"Seattle Area","network":"Astute Hosting Inc. (AS 54527)","prefix":"135.84.184.0/22"}],"sharedWithAccounts":[{"aid":176592,"name":"Cloudreach"}],"domain": "webex.com","dnsTransportProtocol":  "UDP"}]"apiLinks":[{"rel":"self","href":"https://api.thousandeyes.com/v6/tests/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/web/dns-trace/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/metrics/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/path-vis/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/bgp-metrics/1226221"}]}]}`
 	setup()
-	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/tests/122621.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "GET", r.Method)
 		_, _ = w.Write([]byte(out))
@@ -92,7 +93,7 @@ func TestClient_GetBGPJsonError(t *testing.T) {
 func TestClient_CreateBGP(t *testing.T) {
 	out := `{"test":[{"createdDate":"2020-02-06 15:28:07","createdBy":"William Fleming (wfleming@grumpysysadm.com)","enabled":1,"savedEvent":0,"testId":122621,"testName":"test123","type":"bgp","prefix": "1.2.3.0/20","interval":300,"alertsEnabled":1,"liveShare":0,"probeMode":"AUTO","agents":[{"agentId":48620,"agentName":"Seattle, WA (Trial) - IPv6","agentType":"Cloud","countryId":"US","ipAddresses":["135.84.184.153"],"location":"Seattle Area","network":"Astute Hosting Inc. (AS 54527)","prefix":"135.84.184.0/22"}],"sharedWithAccounts":[{"aid":176592,"name":"Cloudreach"}],"apiLinks":[{"rel":"self","href":"https://api.thousandeyes.com/v6/tests/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/web/dns-trace/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/metrics/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/path-vis/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/bgp-metrics/1226221"}]}]}`
 	setup()
-	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/tests/bgp/new.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "POST", r.Method)
 		w.WriteHeader(http.StatusCreated)
@@ -115,11 +116,12 @@ func TestClient_CreateBGP(t *testing.T) {
 		AlertsEnabled: 1,
 		Agents: []Agent{
 			{
-				AgentId:     48620,
+				AgentID:     48620,
 				AgentName:   "Seattle, WA (Trial) - IPv6",
-				CountryId:   "US",
-				IpAddresses: []string{"135.84.184.153"},
+				CountryID:   "US",
+				IPAddresses: []string{"135.84.184.153"},
 				Location:    "Seattle Area",
+				AgentType:   "Cloud",
 				Network:     "Astute Hosting Inc. (AS 54527)",
 				Prefix:      "135.84.184.0/22",
 			},
@@ -131,7 +133,7 @@ func TestClient_CreateBGP(t *testing.T) {
 			},
 		},
 
-		APILinks: []ApiLink{
+		APILinks: APILinks{
 			{
 				Href: "https://api.thousandeyes.com/v6/tests/1226221",
 				Rel:  "self",
@@ -173,7 +175,7 @@ func TestClient_DeleteBGP(t *testing.T) {
 		assert.Equal(t, "POST", r.Method)
 	})
 
-	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	id := 1
 	err := client.DeleteBGP(id)
 
@@ -190,7 +192,7 @@ func TestClient_UpdateBGP(t *testing.T) {
 		_, _ = w.Write([]byte(out))
 	})
 
-	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	id := 1
 	dnsS := BGP{}
 	res, err := client.UpdateBGP(id, dnsS)
@@ -204,14 +206,14 @@ func TestClient_UpdateBGP(t *testing.T) {
 
 func TestBGP_AddAgent(t *testing.T) {
 	test := BGP{TestName: "test", Agents: Agents{}}
-	expected := BGP{TestName: "test", Agents: []Agent{{AgentId: 1}}}
+	expected := BGP{TestName: "test", Agents: []Agent{{AgentID: 1}}}
 	test.AddAgent(1)
 	assert.Equal(t, expected, test)
 }
 
 func TestClient_GetBGPError(t *testing.T) {
 	setup()
-	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/tests/bgp/1.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "GET", r.Method)
 		w.WriteHeader(http.StatusBadRequest)
@@ -225,7 +227,7 @@ func TestClient_GetBGPError(t *testing.T) {
 func TestClient_GetBGPStatusCode(t *testing.T) {
 	setup()
 	out := `{"test":[{"testId":1,"testName":"test123","type":"bgp"}]}`
-	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/tests/1.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "GET", r.Method)
 		w.WriteHeader(http.StatusBadRequest)
@@ -239,7 +241,7 @@ func TestClient_GetBGPStatusCode(t *testing.T) {
 
 func TestClient_CreateBGPStatusCode(t *testing.T) {
 	setup()
-	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/tests/bgp/new.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "POST", r.Method)
 		w.WriteHeader(http.StatusBadRequest)
@@ -252,7 +254,7 @@ func TestClient_CreateBGPStatusCode(t *testing.T) {
 
 func TestClient_UpdateBGPStatusCode(t *testing.T) {
 	setup()
-	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/tests/bgp/1/update.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "POST", r.Method)
 		w.WriteHeader(http.StatusBadRequest)
@@ -265,7 +267,7 @@ func TestClient_UpdateBGPStatusCode(t *testing.T) {
 
 func TestClient_DeleteBGPStatusCode(t *testing.T) {
 	setup()
-	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/tests/bgp/1/delete.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "POST", r.Method)
 		w.WriteHeader(http.StatusBadRequest)

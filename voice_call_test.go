@@ -8,9 +8,9 @@ import (
 )
 
 func TestClient_GetVoiceCall(t *testing.T) {
-	out := `{"test":[{"createdDate":"2018-11-03 19:09:42","modifiedDate":"2019-02-06 01:09:56","createdBy":"ThousandEyes (support@thousandeyes.com)","modifiedBy":"ThousandEyes (support@thousandeyes.com)","enabled":1,"savedEvent":0,"testId":814641,"testName":"Voice Call - AWS SIP server","interval":120,"server":"18.234.180.66:5060","bgpMeasurements":1,"usePublicBgp":1,"duration":5,"codec":"G.711 @ 64 Kbps","codecId":0,"dscpId":46,"jitterBuffer":40,"sipTimeLimit":5,"alertsEnabled":0,"liveShare":0,"targetAgentId":69,"numPathTraces":3,"sourceSipCredentials":{"credentialsId":48162,"user":"1006","sipRegistrar":"18.234.180.66","sipProxy":"","authUser":"1006","port":5060,"protocol":"UDP"},"targetSipCredentials":{"credentialsId":48165,"user":"1005","sipRegistrar":"18.234.180.66","sipProxy":"","authUser":"1005","port":5060,"protocol":"UDP"},"sipTargetTime":1000,"dscp":"EF (DSCP 46)","apiLinks":[{"rel":"self","href":"https://api.thousandeyes.com/v6/tests/814641"},{"rel":"data","href":"https://api.thousandeyes.com/v6/voice/sip-server/814641"},{"rel":"data","href":"https://api.thousandeyes.com/v6/voice/rtp-stream/814641"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/bgp-metrics/814641"}]}]}`
+	out := `{"test":[{"createdDate":"2018-11-03 19:09:42","modifiedDate":"2019-02-06 01:09:56","createdBy":"ThousandEyes (support@thousandeyes.com)","modifiedBy":"ThousandEyes (support@thousandeyes.com)","enabled":1,"savedEvent":0,"testId":814641,"testName":"Voice Call - AWS SIP server","interval":120,"server":"18.234.180.66:5060","bgpMeasurements":1,"usePublicBgp":1,"duration":5,"codec":"G.711 @ 64 Kbps","codecId":0,"dscpId":46,"jitterBuffer":40,"sipTimeLimit":5,"alertsEnabled":0,"liveShare":0,"targetAgentID":69,"numPathTraces":3,"sourceSipCredentials":{"credentialsId":48162,"user":"1006","sipRegistrar":"18.234.180.66","sipProxy":"","authUser":"1006","port":5060,"protocol":"UDP"},"targetSipCredentials":{"credentialsId":48165,"user":"1005","sipRegistrar":"18.234.180.66","sipProxy":"","authUser":"1005","port":5060,"protocol":"UDP"},"sipTargetTime":1000,"dscp":"EF (DSCP 46)","apiLinks":[{"rel":"self","href":"https://api.thousandeyes.com/v6/tests/814641"},{"rel":"data","href":"https://api.thousandeyes.com/v6/voice/sip-server/814641"},{"rel":"data","href":"https://api.thousandeyes.com/v6/voice/rtp-stream/814641"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/bgp-metrics/814641"}]}]}`
 	setup()
-	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/tests/122621.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "GET", r.Method)
 		_, _ = w.Write([]byte(out))
@@ -54,7 +54,7 @@ func TestClient_GetVoiceCall(t *testing.T) {
 			SipRegistrar: "18.234.180.66",
 			User:         "1006",
 		},
-		APILinks: []ApiLink{
+		APILinks: APILinks{
 
 			{
 				Rel:  "self",
@@ -84,7 +84,7 @@ func TestClient_GetVoiceCall(t *testing.T) {
 func TestClient_GetVoiceCallJsonError(t *testing.T) {
 	out := `{"test":[{"createdDate":"2020-02-06 15:28:07",createdBy":"William Fleming (wfleming@grumpysysadm.com)","enabled":1,"savedEvent":0,"testId":122621,"testName":"test123","type":"sip-server","interval":300,"alertsEnabled":1,"liveShare":0,"agents":[{"agentId":48620,"agentName":"Seattle, WA (Trial) - IPv6","agentType":"Cloud","countryId":"US","ipAddresses":["135.84.184.153"],"location":"Seattle Area","network":"Astute Hosting Inc. (AS 54527)","prefix":"135.84.184.0/22"}],"sharedWithAccounts":[{"aid":176592,"name":"Cloudreach"}],"domain": "webex.com","dnsTransportProtocol":  "UDP"}]"apiLinks":[{"rel":"self","href":"https://api.thousandeyes.com/v6/tests/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/web/dns-trace/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/metrics/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/path-vis/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/bgp-metrics/1226221"}]}]}`
 	setup()
-	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/tests/122621.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "GET", r.Method)
 		_, _ = w.Write([]byte(out))
@@ -97,7 +97,7 @@ func TestClient_GetVoiceCallJsonError(t *testing.T) {
 func TestClient_CreateVoiceCall(t *testing.T) {
 	out := `{"test":[{"createdDate":"2018-11-03 19:09:42","modifiedDate":"2019-02-06 01:09:56","createdBy":"ThousandEyes (support@thousandeyes.com)","duration" : 5,"modifiedBy":"ThousandEyes (support@thousandeyes.com)","enabled":1,"savedEvent":0,"testId":814641,"testName":"Voice Call - AWS SIP server","interval":120,"server":"18.234.180.66:5060","bgpMeasurements":1,"usePublicBgp":1,"codec":"G.711 @ 64 Kbps","codecId":0,"dscpId":46,"alertsEnabled":0,"numPathTraces":3,"apiLinks":[{"rel":"self","href":"https://api.thousandeyes.com/v6/tests/814641"},{"rel":"data","href":"https://api.thousandeyes.com/v6/voice/sip-server/814641"},{"rel":"data","href":"https://api.thousandeyes.com/v6/voice/rtp-stream/814641"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/bgp-metrics/814641"}]}]}`
 	setup()
-	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/tests/voice-call/new.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "POST", r.Method)
 		w.WriteHeader(http.StatusCreated)
@@ -120,7 +120,7 @@ func TestClient_CreateVoiceCall(t *testing.T) {
 		Duration:        5,
 		BgpMeasurements: 1,
 		Codec:           "G.711 @ 64 Kbps",
-		APILinks: []ApiLink{
+		APILinks: APILinks{
 			{
 				Href: "https://api.thousandeyes.com/v6/tests/814641",
 				Rel:  "self",
@@ -160,7 +160,7 @@ func TestClient_DeleteVoiceCall(t *testing.T) {
 		assert.Equal(t, "POST", r.Method)
 	})
 
-	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	id := 1
 	err := client.DeleteVoiceCall(id)
 
@@ -177,7 +177,7 @@ func TestClient_UpdateVoiceCall(t *testing.T) {
 		_, _ = w.Write([]byte(out))
 	})
 
-	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	id := 1
 	sipS := VoiceCall{
 		TestName:     "Voice Call - AWS SIP server",
@@ -196,14 +196,14 @@ func TestClient_UpdateVoiceCall(t *testing.T) {
 
 func TestVoiceCall_AddAgent(t *testing.T) {
 	test := VoiceCall{TestName: "test", Agents: Agents{}}
-	expected := VoiceCall{TestName: "test", Agents: []Agent{{AgentId: 1}}}
+	expected := VoiceCall{TestName: "test", Agents: []Agent{{AgentID: 1}}}
 	test.AddAgent(1)
 	assert.Equal(t, expected, test)
 }
 
 func TestClient_GetVoiceCallError(t *testing.T) {
 	setup()
-	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/tests/voice-call/1.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "GET", r.Method)
 		w.WriteHeader(http.StatusBadRequest)
@@ -217,7 +217,7 @@ func TestClient_GetVoiceCallError(t *testing.T) {
 func TestClient_GetVoiceCallStatusCode(t *testing.T) {
 	setup()
 	out := `{"test":[{"testId":1,"testName":"test123","type":"sip-server"}]}`
-	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/tests/1.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "GET", r.Method)
 		w.WriteHeader(http.StatusBadRequest)
@@ -231,7 +231,7 @@ func TestClient_GetVoiceCallStatusCode(t *testing.T) {
 
 func TestClient_CreateVoiceCallStatusCode(t *testing.T) {
 	setup()
-	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/tests/voice-call/new.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "POST", r.Method)
 		w.WriteHeader(http.StatusBadRequest)
@@ -244,7 +244,7 @@ func TestClient_CreateVoiceCallStatusCode(t *testing.T) {
 
 func TestClient_UpdateVoiceCallStatusCode(t *testing.T) {
 	setup()
-	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/tests/voice-call/1/update.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "POST", r.Method)
 		w.WriteHeader(http.StatusBadRequest)
@@ -257,7 +257,7 @@ func TestClient_UpdateVoiceCallStatusCode(t *testing.T) {
 
 func TestClient_DeleteVoiceCallStatusCode(t *testing.T) {
 	setup()
-	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/tests/voice-call/1/delete.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "POST", r.Method)
 		w.WriteHeader(http.StatusBadRequest)

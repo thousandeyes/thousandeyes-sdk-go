@@ -4,16 +4,18 @@ import (
 	"fmt"
 )
 
+//  Server - a server ?
 type Server struct {
 	ServerID   int    `json:"serverId,omitempty"`
 	ServerName string `json:"serverName,omitempty"`
 }
 
+// DNSServer - dns server test
 type DNSServer struct {
-	Agents                []Agent        `json:"agents,omitempty"`
+	Agents                Agents         `json:"agents,omitempty"`
 	AlertsEnabled         int            `json:"alertsEnabled,omitempty"`
-	AlertRules            []AlertRule    `json:"alertRules,omitempty"`
-	ApiLinks              []ApiLink      `json:"apiLinks,omitempty"`
+	AlertRules            AlertRules     `json:"alertRules,omitempty"`
+	APILinks              APILinks       `json:"apiLinks,omitempty"`
 	CreatedBy             string         `json:"createdBy,omitempty"`
 	CreatedDate           string         `json:"createdDate,omitempty"`
 	Description           string         `json:"description,omitempty"`
@@ -24,12 +26,12 @@ type DNSServer struct {
 	ModifiedDate          string         `json:"modifiedDate,omitempty"`
 	SavedEvent            int            `json:"savedEvent,omitempty"`
 	SharedWithAccounts    []AccountGroup `json:"sharedWithAccounts,omitempty"`
-	TestId                int            `json:"testId,omitempty"`
+	TestID                int            `json:"testId,omitempty"`
 	TestName              string         `json:"testName,omitempty"`
 	Type                  string         `json:"type,omitempty"`
 	BandwidthMeasurements int            `json:"bandwidthMeasurements,omitempty"`
 	BgpMeasurements       int            `json:"bgpMeasurements,omitempty"`
-	BgpMonitors           []Monitor      `json:"bgpMonitors,omitempty"`
+	BgpMonitors           BGPMonitors    `json:"bgpMonitors,omitempty"`
 	DNSServers            []Server       `json:"dnsServers,omitempty"`
 	DNSTransportProtocol  string         `json:"dnsTransportProtocol,omitempty"`
 	Domain                string         `json:"domain,omitempty"`
@@ -44,13 +46,13 @@ type DNSServer struct {
 
 // AddAgent - Add dns server test
 func (t *DNSServer) AddAgent(id int) {
-	agent := Agent{AgentId: id}
+	agent := Agent{AgentID: id}
 	t.Agents = append(t.Agents, agent)
 }
 
 // AddAlertRule - Adds an alert to agent test
 func (t *DNSServer) AddAlertRule(id int) {
-	alertRule := AlertRule{RuleId: id}
+	alertRule := AlertRule{RuleID: id}
 	t.AlertRules = append(t.AlertRules, alertRule)
 }
 

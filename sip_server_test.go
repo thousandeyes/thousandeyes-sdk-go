@@ -10,7 +10,7 @@ import (
 func TestClient_GetSIPServer(t *testing.T) {
 	out := `{"test":[{"createdDate":"2020-02-06 15:28:07","createdBy":"William Fleming (wfleming@grumpysysadm.com)","enabled":1,"savedEvent":0,"testId":122621,"testName":"test123","type":"sip-server","interval":300,"alertsEnabled":1,"liveShare":0,"agents":[{"agentId":48620,"agentName":"Seattle, WA (Trial) - IPv6","agentType":"Cloud","countryId":"US","ipAddresses":["135.84.184.153"],"location":"Seattle Area","network":"Astute Hosting Inc. (AS 54527)","prefix":"135.84.184.0/22"}],"sharedWithAccounts":[{"aid":176592,"name":"Cloudreach"}],"apiLinks":[{"rel":"self","href":"https://api.thousandeyes.com/v6/tests/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/web/dns-trace/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/metrics/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/path-vis/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/bgp-metrics/1226221"}]}]}`
 	setup()
-	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/tests/122621.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "GET", r.Method)
 		_, _ = w.Write([]byte(out))
@@ -30,10 +30,11 @@ func TestClient_GetSIPServer(t *testing.T) {
 		Interval:      300,
 		Agents: []Agent{
 			{
-				AgentId:     48620,
+				AgentID:     48620,
 				AgentName:   "Seattle, WA (Trial) - IPv6",
-				CountryId:   "US",
-				IpAddresses: []string{"135.84.184.153"},
+				CountryID:   "US",
+				AgentType:   "Cloud",
+				IPAddresses: []string{"135.84.184.153"},
 				Location:    "Seattle Area",
 				Network:     "Astute Hosting Inc. (AS 54527)",
 				Prefix:      "135.84.184.0/22",
@@ -45,7 +46,7 @@ func TestClient_GetSIPServer(t *testing.T) {
 				Name: "Cloudreach",
 			},
 		},
-		APILinks: []ApiLink{
+		APILinks: APILinks{
 			{
 				Href: "https://api.thousandeyes.com/v6/tests/1226221",
 				Rel:  "self",
@@ -78,7 +79,7 @@ func TestClient_GetSIPServer(t *testing.T) {
 func TestClient_GetSIPServerJsonError(t *testing.T) {
 	out := `{"test":[{"createdDate":"2020-02-06 15:28:07",createdBy":"William Fleming (wfleming@grumpysysadm.com)","enabled":1,"savedEvent":0,"testId":122621,"testName":"test123","type":"sip-server","interval":300,"alertsEnabled":1,"liveShare":0,"agents":[{"agentId":48620,"agentName":"Seattle, WA (Trial) - IPv6","agentType":"Cloud","countryId":"US","ipAddresses":["135.84.184.153"],"location":"Seattle Area","network":"Astute Hosting Inc. (AS 54527)","prefix":"135.84.184.0/22"}],"sharedWithAccounts":[{"aid":176592,"name":"Cloudreach"}],"domain": "webex.com","dnsTransportProtocol":  "UDP"}]"apiLinks":[{"rel":"self","href":"https://api.thousandeyes.com/v6/tests/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/web/dns-trace/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/metrics/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/path-vis/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/bgp-metrics/1226221"}]}]}`
 	setup()
-	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/tests/122621.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "GET", r.Method)
 		_, _ = w.Write([]byte(out))
@@ -91,7 +92,7 @@ func TestClient_GetSIPServerJsonError(t *testing.T) {
 func TestClient_CreateSIPServer(t *testing.T) {
 	out := `{"test":[{"createdDate":"2020-02-06 15:28:07","createdBy":"William Fleming (wfleming@grumpysysadm.com)","user" : "usernameA", "password" : "secret", "authUser": "usernameB","enabled":1,"savedEvent":0,"testId":122621,"testName":"test123","type":"sip-server","interval":300,"alertsEnabled":1,"liveShare":0,"agents":[{"agentId":48620,"agentName":"Seattle, WA (Trial) - IPv6","agentType":"Cloud","countryId":"US","ipAddresses":["135.84.184.153"],"location":"Seattle Area","network":"Astute Hosting Inc. (AS 54527)","prefix":"135.84.184.0/22"}],"sharedWithAccounts":[{"aid":176592,"name":"Cloudreach"}],"apiLinks":[{"rel":"self","href":"https://api.thousandeyes.com/v6/tests/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/web/dns-trace/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/metrics/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/path-vis/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/bgp-metrics/1226221"}]}]}`
 	setup()
-	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/tests/sip-server/new.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "POST", r.Method)
 		w.WriteHeader(http.StatusCreated)
@@ -116,10 +117,11 @@ func TestClient_CreateSIPServer(t *testing.T) {
 		AlertsEnabled: 1,
 		Agents: []Agent{
 			{
-				AgentId:     48620,
+				AgentID:     48620,
 				AgentName:   "Seattle, WA (Trial) - IPv6",
-				CountryId:   "US",
-				IpAddresses: []string{"135.84.184.153"},
+				CountryID:   "US",
+				IPAddresses: []string{"135.84.184.153"},
+				AgentType:   "Cloud",
 				Location:    "Seattle Area",
 				Network:     "Astute Hosting Inc. (AS 54527)",
 				Prefix:      "135.84.184.0/22",
@@ -132,7 +134,7 @@ func TestClient_CreateSIPServer(t *testing.T) {
 			},
 		},
 
-		APILinks: []ApiLink{
+		APILinks: APILinks{
 			{
 				Href: "https://api.thousandeyes.com/v6/tests/1226221",
 				Rel:  "self",
@@ -176,7 +178,7 @@ func TestClient_DeleteSIPServer(t *testing.T) {
 		assert.Equal(t, "POST", r.Method)
 	})
 
-	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	id := 1
 	err := client.DeleteSIPServer(id)
 
@@ -193,7 +195,7 @@ func TestClient_UpdateSIPServer(t *testing.T) {
 		_, _ = w.Write([]byte(out))
 	})
 
-	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	id := 1
 	sipS := SIPServer{
 		TestName: "test1",
@@ -212,20 +214,20 @@ func TestClient_UpdateSIPServer(t *testing.T) {
 
 func TestSIPServer_AddAgent(t *testing.T) {
 	test := SIPServer{TestName: "test", Agents: Agents{}}
-	expected := SIPServer{TestName: "test", Agents: []Agent{{AgentId: 1}}}
+	expected := SIPServer{TestName: "test", Agents: []Agent{{AgentID: 1}}}
 	test.AddAgent(1)
 	assert.Equal(t, expected, test)
 }
 func TestClient_AddSIPServerAlertRule(t *testing.T) {
 	test := SIPServer{TestName: "test", AlertRules: []AlertRule{}}
-	expected := SIPServer{TestName: "test", AlertRules: []AlertRule{{RuleId: 1}}}
+	expected := SIPServer{TestName: "test", AlertRules: []AlertRule{{RuleID: 1}}}
 	test.AddAlertRule(1)
 	assert.Equal(t, expected, test)
 }
 
 func TestClient_GetSIPServerError(t *testing.T) {
 	setup()
-	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/tests/sip-server/1.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "GET", r.Method)
 		w.WriteHeader(http.StatusBadRequest)
@@ -239,7 +241,7 @@ func TestClient_GetSIPServerError(t *testing.T) {
 func TestClient_GetSIPServerStatusCode(t *testing.T) {
 	setup()
 	out := `{"test":[{"testId":1,"testName":"test123","type":"sip-server"}]}`
-	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/tests/1.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "GET", r.Method)
 		w.WriteHeader(http.StatusBadRequest)
@@ -253,7 +255,7 @@ func TestClient_GetSIPServerStatusCode(t *testing.T) {
 
 func TestClient_CreateSIPServerStatusCode(t *testing.T) {
 	setup()
-	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/tests/sip-server/new.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "POST", r.Method)
 		w.WriteHeader(http.StatusBadRequest)
@@ -266,7 +268,7 @@ func TestClient_CreateSIPServerStatusCode(t *testing.T) {
 
 func TestClient_UpdateSIPServerStatusCode(t *testing.T) {
 	setup()
-	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/tests/sip-server/1/update.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "POST", r.Method)
 		w.WriteHeader(http.StatusBadRequest)
@@ -279,7 +281,7 @@ func TestClient_UpdateSIPServerStatusCode(t *testing.T) {
 
 func TestClient_DeleteSIPServerStatusCode(t *testing.T) {
 	setup()
-	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/tests/sip-server/1/delete.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "POST", r.Method)
 		w.WriteHeader(http.StatusBadRequest)

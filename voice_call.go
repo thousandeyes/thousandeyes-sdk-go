@@ -19,7 +19,7 @@ type VoiceCall struct {
 	Agents               []Agent        `json:"agents,omitempty"`
 	AlertsEnabled        int            `json:"alertsEnabled,omitempty"`
 	AlertRules           []AlertRule    `json:"alertRules,omitempty"`
-	APILinks             []ApiLink      `json:"apiLinks,omitempty"`
+	APILinks             APILinks       `json:"apiLinks,omitempty"`
 	CreatedBy            string         `json:"createdBy,omitempty"`
 	CreatedDate          string         `json:"createdDate,omitempty"`
 	Description          string         `json:"description,omitempty"`
@@ -45,12 +45,12 @@ type VoiceCall struct {
 	JitterBuffer         int            `json:"jitterBuffer,omitempty"`
 	SIPTargetTime        int            `json:"sipTargetTime,omitempty"`
 	SIPTimeLimit         int            `json:"sipTimeLimit,omitempty"`
-	TargetAgentID        int            `json:"targetAgentId,omitempty"`
+	TargetAgentID        int            `json:"targetAgentID,omitempty"`
 }
 
 // AddAgent - Add agent to voice call  test
 func (t *VoiceCall) AddAgent(id int) {
-	agent := Agent{AgentId: id}
+	agent := Agent{AgentID: id}
 	t.Agents = append(t.Agents, agent)
 }
 

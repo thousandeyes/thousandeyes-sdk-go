@@ -4,25 +4,33 @@ import (
 	"fmt"
 )
 
+// Alerts - list of alerts
+type Alerts []Alert
+
+// Alert - An alert
 type Alert struct {
-	AlertId        int       `json:"alertId,omitempty"`
-	TestId         int       `json:"testId,omitempty"`
-	TestName       string    `json:"testName,omitempty"`
-	Active         int       `json:"active,omitempty"`
-	RuleExpression string    `json:"ruleExpression,omitempty"`
-	DateStart      string    `json:"dateStart,omitempty"`
-	DateEnd        string    `json:"dateEnd,omitempty"`
-	ViolationCount int       `json:"violationCount,omitempty"`
-	RuleName       string    `json:"ruleName,omitempty"`
-	Permalink      string    `json:"permalink,omitempty"`
-	Type           string    `json:"type,omitempty"`
-	Agents         []Agent   `json:"agents,omitempty"`
-	Monitors       []Monitor `json:"monitors,omitempty"`
-	ApiLinks       []ApiLink `json:"apiLinks,omitempty"`
+	AlertID        int      `json:"alertId,omitempty"`
+	TestID         int      `json:"testId,omitempty"`
+	TestName       string   `json:"testName,omitempty"`
+	Active         int      `json:"active,omitempty"`
+	RuleExpression string   `json:"ruleExpression,omitempty"`
+	DateStart      string   `json:"dateStart,omitempty"`
+	DateEnd        string   `json:"dateEnd,omitempty"`
+	ViolationCount int      `json:"violationCount,omitempty"`
+	RuleName       string   `json:"ruleName,omitempty"`
+	Permalink      string   `json:"permalink,omitempty"`
+	Type           string   `json:"type,omitempty"`
+	Agents         Agents   `json:"agents,omitempty"`
+	Monitors       Monitors `json:"monitors,omitempty"`
+	APILinks       APILinks `json:"apiLinks,omitempty"`
 }
 
+// AlertRules - list of alert rules
+type AlertRules []AlertRule
+
+// AlertRule - An alert rule
 type AlertRule struct {
-	RuleId                  int         `json:"ruleId,omitempty"`
+	RuleID                  int         `json:"RuleID,omitempty"`
 	RuleName                string      `json:"ruleName,omitempty"`
 	Expression              string      `json:"expression,omitempty"`
 	Direction               string      `json:"direction,omitempty"`
@@ -37,6 +45,7 @@ type AlertRule struct {
 	Tests                   int         `json:"tests,omitempty"`
 }
 
+// CreateAlertRule - Create alert rule
 func (c Client) CreateAlertRule(a AlertRule) (*AlertRule, error) {
 	resp, err := c.post("/alert-rules/new", a, nil)
 	if err != nil {
@@ -52,6 +61,7 @@ func (c Client) CreateAlertRule(a AlertRule) (*AlertRule, error) {
 	return &target, nil
 }
 
+//GetAlertRule - Get alert rule
 func (c Client) GetAlertRule(id int) (*AlertRule, error) {
 	resp, err := c.get(fmt.Sprintf("/alert-rules/%d", id))
 	if err != nil {
@@ -67,6 +77,7 @@ func (c Client) GetAlertRule(id int) (*AlertRule, error) {
 	return &target, nil
 }
 
+//DeleteAlertRule - delete alert rule
 func (c Client) DeleteAlertRule(id int) error {
 	resp, err := c.post(fmt.Sprintf("/alert-rules/%d/delete", id), nil, nil)
 	if err != nil {
@@ -78,6 +89,7 @@ func (c Client) DeleteAlertRule(id int) error {
 	return nil
 }
 
+//UpdateAlertRule - update alert rule
 func (c Client) UpdateAlertRule(id int, a AlertRule) (*AlertRule, error) {
 	resp, err := c.post(fmt.Sprintf("/alert-rules/%d/update", id), a, nil)
 	if err != nil {

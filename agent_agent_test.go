@@ -11,7 +11,7 @@ func TestClient_CreateAgentAgent(t *testing.T) {
 	out := `{"test": [{"testID":1,"testName":"test","createdDate":"2020-02-06 15:28:07","createdBy":"William Fleming (wfleming@grumpysysadm.com)","throughputMeasurements": 1, "Port": 8090}]}`
 	setup()
 	defer teardown()
-	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/tests/agent-to-agent/new.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "POST", r.Method)
 		w.WriteHeader(http.StatusCreated)
@@ -38,7 +38,7 @@ func TestClient_CreateAgentAgent(t *testing.T) {
 func TestClient_GetAgentAgentJsonError(t *testing.T) {
 	out := `{"test":[test]}`
 	setup()
-	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/tests/122621.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "GET", r.Method)
 		_, _ = w.Write([]byte(out))
@@ -50,7 +50,7 @@ func TestClient_GetAgentAgentJsonError(t *testing.T) {
 
 func TestClient_AddAlertRule(t *testing.T) {
 	test := AgentAgent{TestName: "test", AlertRules: []AlertRule{}}
-	expected := AgentAgent{TestName: "test", AlertRules: []AlertRule{{RuleId: 1}}}
+	expected := AgentAgent{TestName: "test", AlertRules: []AlertRule{{RuleID: 1}}}
 	test.AddAlertRule(1)
 	assert.Equal(t, expected, test)
 }
@@ -59,7 +59,7 @@ func TestClient_GetAgentAgent(t *testing.T) {
 	out := `{"test": [{"testID":1,"testName":"test","createdDate":"2020-02-06 15:28:07","createdBy":"William Fleming (wfleming@grumpysysadm.com)","Port": 8090, "throughputMeasurements" : 1, "throughputDuration":10000}]}`
 	setup()
 	defer teardown()
-	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/tests/1.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "GET", r.Method)
 		w.WriteHeader(http.StatusOK)
@@ -88,7 +88,7 @@ func TestClient_DeleteAgentAgent(t *testing.T) {
 		assert.Equal(t, "POST", r.Method)
 	})
 
-	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	id := 1
 	err := client.DeleteAgentAgent(id)
 
@@ -101,7 +101,7 @@ func TestClient_UpdateAgentAgent(t *testing.T) {
 	out := `{"test": [{"testID":1,"testName":"test","createdDate":"2020-02-06 15:28:07","createdBy":"William Fleming (wfleming@grumpysysadm.com)", "Port": 8090}]}`
 	setup()
 	defer teardown()
-	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/tests/agent-to-agent/1/update.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "POST", r.Method)
 		w.WriteHeader(http.StatusOK)
@@ -126,7 +126,7 @@ func TestClient_UpdateAgentAgent(t *testing.T) {
 func TestClient_GetAgentAgentError(t *testing.T) {
 	setup()
 	defer teardown()
-	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/tests/agent-to-agent/1.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "GET", r.Method)
 		w.WriteHeader(http.StatusBadRequest)
@@ -139,7 +139,7 @@ func TestClient_GetAgentAgentError(t *testing.T) {
 func TestClient_GetAgentAgentStatusCode(t *testing.T) {
 	setup()
 	out := `{"test":[{"testID":1,"testName":"test123"}]}`
-	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/tests/1.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "GET", r.Method)
 		w.WriteHeader(http.StatusBadRequest)
@@ -153,7 +153,7 @@ func TestClient_GetAgentAgentStatusCode(t *testing.T) {
 
 func TestClient_CreateAgentAgentStatusCode(t *testing.T) {
 	setup()
-	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/tests/agent-to-agent/new.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "POST", r.Method)
 		w.WriteHeader(http.StatusBadRequest)
@@ -166,7 +166,7 @@ func TestClient_CreateAgentAgentStatusCode(t *testing.T) {
 
 func TestClient_UpdateAgentAgentStatusCode(t *testing.T) {
 	setup()
-	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/tests/agent-to-agent/1/update.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "POST", r.Method)
 		w.WriteHeader(http.StatusBadRequest)
@@ -179,7 +179,7 @@ func TestClient_UpdateAgentAgentStatusCode(t *testing.T) {
 
 func TestClient_DeleteAgentAgentStatusCode(t *testing.T) {
 	setup()
-	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/tests/agent-to-agent/1/delete.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "POST", r.Method)
 		w.WriteHeader(http.StatusBadRequest)
