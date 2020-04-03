@@ -184,6 +184,13 @@ func TestClient_DeleteDNSTrace(t *testing.T) {
 	}
 }
 
+func TestClient_AddDnstraceAlertRule(t *testing.T) {
+	test := DNSTrace{TestName: "test", AlertRules: []AlertRule{}}
+	expected := DNSTrace{TestName: "test", AlertRules: []AlertRule{{RuleId: 1}}}
+	test.AddAlertRule(1)
+	assert.Equal(t, expected, test)
+}
+
 func TestClient_UpdateDNSTrace(t *testing.T) {
 	setup()
 	out := `{"test":[{"testId":1,"testName":"test123","type":"dns-trace","domain":"webex.com" }]}`
