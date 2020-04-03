@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Lint
         run: |
-          go get -u golang.org/x/lint/golint
+          go get golang.org/x/lint/golint
           ~/go/bin/golint
       - name: Test
         run: go test -race -coverprofile=coverage.txt -covermode=atomic
