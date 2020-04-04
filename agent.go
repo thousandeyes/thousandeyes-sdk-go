@@ -22,12 +22,12 @@ type Agent struct {
 	Network               string              `json:"network,omitempty"`
 	CreatedDate           string              `json:"createdDate,omitempty"`
 	LastSeen              string              `json:"lastSeen,omitempty"`
-	AgentState            string              `json:"agentType,omitempty"`
-	VerifySslCertificates bool                `json:"agentType,omitempty"`
-	KeepBrowserCache      bool                `json:"agentType,omitempty"`
-	Utilization           int                 `json:"agentType,omitempty"`
-	Ipv6Policy            string              `json:"agentType,omitempty"`
-	TargetForTests        string              `json:"agentType,omitempty"`
+	AgentState            string              `json:"agentState,omitempty"`
+	VerifySslCertificates bool                `json:"verifySslCertificate,omitempty"`
+	KeepBrowserCache      bool                `json:"keepBrowserCache,omitempty"`
+	Utilization           int                 `json:"utilization,omitempty"`
+	Ipv6Policy            string              `json:"IPV6Policy,omitempty"`
+	TargetForTests        string              `json:"targetForTests,omitempty"`
 }
 
 //ClusterMember - ClusterMember struct
@@ -51,7 +51,6 @@ type AgentErrorDetails struct {
 }
 
 // GetAgents - Get agents
-
 func (c *Client) GetAgents() (*Agents, error) {
 	resp, err := c.get("/agents")
 	if err != nil {
