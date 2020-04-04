@@ -18,7 +18,6 @@ func TestClient_GetSIPServer(t *testing.T) {
 
 	// Define expected values from the API (based on the JSON we print out above)
 	expected := SIPServer{
-
 		TestID:        122621,
 		Enabled:       1,
 		CreatedBy:     "William Fleming (wfleming@grumpysysadm.com)",
@@ -31,6 +30,7 @@ func TestClient_GetSIPServer(t *testing.T) {
 		Agents: []Agent{
 			{
 				AgentID:     48620,
+				AgentType:   "Cloud",
 				AgentName:   "Seattle, WA (Trial) - IPv6",
 				CountryID:   "US",
 				AgentType:   "Cloud",
@@ -118,6 +118,7 @@ func TestClient_CreateSIPServer(t *testing.T) {
 		Agents: []Agent{
 			{
 				AgentID:     48620,
+				AgentType:   "Cloud",
 				AgentName:   "Seattle, WA (Trial) - IPv6",
 				CountryID:   "US",
 				IPAddresses: []string{"135.84.184.153"},

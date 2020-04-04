@@ -51,6 +51,7 @@ func TestClient_CreatePageLoad(t *testing.T) {
 		Agents: []Agent{
 			{
 				AgentID:     48620,
+				AgentType:   "Cloud",
 				AgentName:   "Seattle, WA (Trial) - IPv6",
 				CountryID:   "US",
 				AgentType:   "Cloud",
@@ -155,6 +156,7 @@ func TestClient_GetPageLoad(t *testing.T) {
 		Agents: []Agent{
 			{
 				AgentID:     48620,
+				AgentType:   "Cloud",
 				AgentName:   "Seattle, WA (Trial) - IPv6",
 				CountryID:   "US",
 				IPAddresses: []string{"135.84.184.153"},

@@ -48,6 +48,7 @@ func TestClient_GetHTTPServer(t *testing.T) {
 		Agents: []Agent{
 			{
 				AgentID:     48620,
+				AgentType:   "Cloud",
 				AgentName:   "Seattle, WA (Trial) - IPv6",
 				CountryID:   "US",
 				IPAddresses: []string{"135.84.184.153"},
@@ -159,6 +160,7 @@ func TestClient_CreateHTTPServer(t *testing.T) {
 		Agents: []Agent{
 			{
 				AgentID:     48620,
+				AgentType:   "Cloud",
 				AgentName:   "Seattle, WA (Trial) - IPv6",
 				CountryID:   "US",
 				AgentType:   "Cloud",
