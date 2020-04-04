@@ -18,7 +18,6 @@ func TestClient_GetBGP(t *testing.T) {
 
 	// Define expected values from the API (based on the JSON we print out above)
 	expected := BGP{
-
 		TestID:        122621,
 		Enabled:       1,
 		CreatedBy:     "William Fleming (wfleming@grumpysysadm.com)",
@@ -32,6 +31,7 @@ func TestClient_GetBGP(t *testing.T) {
 		Agents: []Agent{
 			{
 				AgentId:     48620,
+				AgentType:   "Cloud",
 				AgentName:   "Seattle, WA (Trial) - IPv6",
 				CountryId:   "US",
 				IpAddresses: []string{"135.84.184.153"},
@@ -116,6 +116,7 @@ func TestClient_CreateBGP(t *testing.T) {
 		Agents: []Agent{
 			{
 				AgentId:     48620,
+				AgentType:   "Cloud",
 				AgentName:   "Seattle, WA (Trial) - IPv6",
 				CountryId:   "US",
 				IpAddresses: []string{"135.84.184.153"},
