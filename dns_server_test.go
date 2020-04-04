@@ -41,6 +41,7 @@ func TestClient_GetDNSServer(t *testing.T) {
 		Agents: []Agent{
 			{
 				AgentId:     48620,
+				AgentType:   "Cloud",
 				AgentName:   "Seattle, WA (Trial) - IPv6",
 				CountryId:   "US",
 				IpAddresses: []string{"135.84.184.153"},
@@ -157,6 +158,7 @@ func TestClient_CreateDNSServer(t *testing.T) {
 		Agents: []Agent{
 			{
 				AgentId:     48620,
+				AgentType:   "Cloud",
 				AgentName:   "Seattle, WA (Trial) - IPv6",
 				CountryId:   "US",
 				IpAddresses: []string{"135.84.184.153"},
