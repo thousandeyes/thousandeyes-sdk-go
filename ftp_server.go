@@ -6,7 +6,7 @@ type FTPServer struct {
 	Agents                []Agent        `json:"agents,omitempty"`
 	AlertsEnabled         int            `json:"alertsEnabled,omitempty"`
 	AlertRules            []AlertRule    `json:"alertRules,omitempty"`
-	ApiLinks              []ApiLink      `json:"apiLinks,omitempty"`
+	APILinks              []ApiLink      `json:"apiLinks,omitempty"`
 	CreatedBy             string         `json:"createdBy,omitempty"`
 	CreatedDate           string         `json:"createdDate,omitempty"`
 	Description           string         `json:"description,omitempty"`
@@ -17,12 +17,11 @@ type FTPServer struct {
 	ModifiedDate          string         `json:"modifiedDate,omitempty"`
 	SavedEvent            int            `json:"savedEvent,omitempty"`
 	SharedWithAccounts    []AccountGroup `json:"sharedWithAccounts,omitempty"`
-	TestId                int            `json:"testId,omitempty"`
+	TestID                int            `json:"testId,omitempty"`
 	TestName              string         `json:"testName,omitempty"`
 	Type                  string         `json:"type,omitempty"`
 	BandwidthMeasurements int            `json:"bandwidthMeasurements,omitempty"`
 	BgpMeasurements       int            `json:"bgpMeasurements,omitempty"`
-	Domain                string         `json:"domain,omitempty"`
 	MtuMeasurements       int            `json:"mtuMeasurements,omitempty"`
 	NetworkMeasurements   int            `json:"networkMeasurements,omitempty"`
 	NumPathTraces         int            `json:"numPathTraces,omitempty"`
@@ -72,7 +71,7 @@ func (c Client) CreateFTPServer(t FTPServer) (*FTPServer, error) {
 		return &t, err
 	}
 	if resp.StatusCode != 201 {
-		return &t, fmt.Errorf("failed to create test, response code %d", resp.StatusCode)
+		return &t, fmt.Errorf("failed to create ftp test, response code %d", resp.StatusCode)
 	}
 	var target map[string][]FTPServer
 	if dErr := c.decodeJSON(resp, &target); dErr != nil {
@@ -95,12 +94,12 @@ func (c *Client) DeleteFTPServer(id int) error {
 
 //UpdateFTPServer - - Update ftp server test
 func (c *Client) UpdateFTPServer(id int, t FTPServer) (*FTPServer, error) {
-	resp, err := c.post(fmt.Sprintf("/tests/dns-server/%d/update", id), t, nil)
+	resp, err := c.post(fmt.Sprintf("/tests/ftp-server/%d/update", id), t, nil)
 	if err != nil {
 		return &t, err
 	}
 	if resp.StatusCode != 200 {
-		return &t, fmt.Errorf("failed to update test, response code %d", resp.StatusCode)
+		return &t, fmt.Errorf("failed to update ftp test, response code %d", resp.StatusCode)
 	}
 	var target map[string][]FTPServer
 	if dErr := c.decodeJSON(resp, &target); dErr != nil {
