@@ -1,9 +1,13 @@
 package thousandeyes
 
+// Monitors - List of monitor
+type Monitors []Monitor
+
+// Monitor - A monitor
 type Monitor struct {
-	MonitorId   int    `json:"monitorId,omitempty"`
-	IpAddress   string `json:"ipAddress,omitempty"`
-	CountryId   string `json:"countryId,omitempty"`
+	MonitorID   int    `json:"monitorId,omitempty"`
+	IPAddress   string `json:"ipAddress,omitempty"`
+	CountryID   string `json:"countryId,omitempty"`
 	MonitorName string `json:"monitorName,omitempty"`
 	Network     string `json:"network,omitempty"`
 	MonitorType string `json:"monitorType,omitempty"`

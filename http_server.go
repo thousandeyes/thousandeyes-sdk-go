@@ -4,15 +4,17 @@ import (
 	"fmt"
 )
 
-type HttpServerResponse struct {
-	tests []HttpServer
+// HTTPServerResponse - a http server response
+type HTTPServerResponse struct {
+	tests []HTTPServer
 }
 
-type HttpServer struct {
+// HTTPServer - a http server test
+type HTTPServer struct {
 	Agents                Agents         `json:"agents,omitempty"`
 	AlertsEnabled         int            `json:"alertsEnabled,omitempty"`
 	AlertRules            []AlertRule    `json:"alertRules,omitempty"`
-	ApiLinks              []ApiLink      `json:"apiLinks,omitempty"`
+	APILinks              APILinks       `json:"apiLinks,omitempty"`
 	CreatedBy             string         `json:"createdBy,omitempty"`
 	CreatedDate           string         `json:"createdDate,omitempty"`
 	Description           string         `json:"description,omitempty"`
@@ -23,7 +25,7 @@ type HttpServer struct {
 	ModifiedDate          string         `json:"modifiedDate,omitempty"`
 	SavedEvent            int            `json:"savedEvent,omitempty"`
 	SharedWithAccounts    []AccountGroup `json:"sharedWithAccounts,omitempty"`
-	TestId                int            `json:"testId,omitempty"`
+	TestID                int            `json:"testId,omitempty"`
 	TestName              string         `json:"testName,omitempty"`
 	Type                  string         `json:"type,omitempty"`
 	AuthType              string         `json:"authType,omitempty"`
@@ -34,12 +36,12 @@ type HttpServer struct {
 	ContentRegex          string         `json:"contentRegex,omitempty"`
 	DesiredStatusCode     string         `json:"desiredStatusCode,omitempty"`
 	DownloadLimit         string         `json:"downloadLimit,omitempty"`
-	DnsOverride           string         `json:"dnsOverride,omitempty"`
+	DNSOverride           string         `json:"dnsOverride,omitempty"`
 	FollowRedirects       int            `json:"followRedirects,omitempty"`
 	Headers               []string       `json:"headers,omitempty"`
-	HttpVersion           int            `json:"httpVersion,omitempty"`
-	HttpTargetTime        int            `json:"httpTargetTime,omitempty"`
-	HttpTimeLimit         int            `json:"httpTimeLimit,omitempty"`
+	HTTPVersion           int            `json:"httpVersion,omitempty"`
+	HTTPTargetTime        int            `json:"httpTargetTime,omitempty"`
+	HTTPTimeLimit         int            `json:"httpTimeLimit,omitempty"`
 	Interval              int            `json:"interval,omitempty"`
 	MtuMeasurements       int            `json:"mtuMeasurements,omitempty"`
 	NetworkMeasurements   int            `json:"networkMeasurements,omitempty"`
@@ -49,32 +51,35 @@ type HttpServer struct {
 	ProbeMode             string         `json:"probeMode,omitempty"`
 	Protocol              string         `json:"protocol,omitempty"`
 	SslVersion            string         `json:"sslVersion,omitempty"`
-	SslVersionId          int            `json:"sslVersionId,omitempty"`
-	Url                   string         `json:"url,omitempty"`
+	SslVersionID          int            `json:"sslVersionId,omitempty"`
+	URL                   string         `json:"url,omitempty"`
 	UseNtlm               int            `json:"useNtlm,omitempty"`
 	UserAgent             string         `json:"userAgent,omitempty"`
 	Username              string         `json:"username,omitempty"`
 	VerifyCertificate     int            `json:"verifyCertificate,omitempty"`
 }
 
-func (t *HttpServer) AddAgent(id int) {
-	agent := Agent{AgentId: id}
+// AddAgent - add an agent
+func (t *HTTPServer) AddAgent(id int) {
+	agent := Agent{AgentID: id}
 	t.Agents = append(t.Agents, agent)
 }
 
-func (c *Client) GetHttpServer(id int) (*HttpServer, error) {
+//GetHTTPServer - Get an HTTP Server test
+func (c *Client) GetHTTPServer(id int) (*HTTPServer, error) {
 	resp, err := c.get(fmt.Sprintf("/tests/%d", id))
 	if err != nil {
-		return &HttpServer{}, err
+		return &HTTPServer{}, err
 	}
-	var target map[string][]HttpServer
+	var target map[string][]HTTPServer
 	if dErr := c.decodeJSON(resp, &target); dErr != nil {
 		return nil, fmt.Errorf("Could not decode JSON response: %v", dErr)
 	}
 	return &target["test"][0], nil
 }
 
-func (c Client) CreateHttpServer(t HttpServer) (*HttpServer, error) {
+//CreateHTTPServer - create a http server
+func (c Client) CreateHTTPServer(t HTTPServer) (*HTTPServer, error) {
 	resp, err := c.post("/tests/http-server/new", t, nil)
 	if err != nil {
 		return &t, err
@@ -82,14 +87,15 @@ func (c Client) CreateHttpServer(t HttpServer) (*HttpServer, error) {
 	if resp.StatusCode != 201 {
 		return &t, fmt.Errorf("failed to create http server, response code %d", resp.StatusCode)
 	}
-	var target map[string][]HttpServer
+	var target map[string][]HTTPServer
 	if dErr := c.decodeJSON(resp, &target); dErr != nil {
 		return nil, fmt.Errorf("Could not decode JSON response: %v", dErr)
 	}
 	return &target["test"][0], nil
 }
 
-func (c *Client) DeleteHttpServer(id int) error {
+//DeleteHTTPServer - delete an http server
+func (c *Client) DeleteHTTPServer(id int) error {
 	resp, err := c.post(fmt.Sprintf("/tests/http-server/%d/delete", id), nil, nil)
 	if err != nil {
 		return err
@@ -100,7 +106,8 @@ func (c *Client) DeleteHttpServer(id int) error {
 	return nil
 }
 
-func (c *Client) UpdateHttpServer(id int, t HttpServer) (*HttpServer, error) {
+//UpdateHTTPServer - Update an http server test
+func (c *Client) UpdateHTTPServer(id int, t HTTPServer) (*HTTPServer, error) {
 	resp, err := c.post(fmt.Sprintf("/tests/http-server/%d/update", id), t, nil)
 	if err != nil {
 		return &t, err
@@ -108,7 +115,7 @@ func (c *Client) UpdateHttpServer(id int, t HttpServer) (*HttpServer, error) {
 	if resp.StatusCode != 200 {
 		return &t, fmt.Errorf("failed to update http server, response code %d", resp.StatusCode)
 	}
-	var target map[string][]HttpServer
+	var target map[string][]HTTPServer
 	if dErr := c.decodeJSON(resp, &target); dErr != nil {
 		return nil, fmt.Errorf("Could not decode JSON response: %v", dErr)
 	}

@@ -7,12 +7,12 @@ type Agents []Agent
 
 // Agent - Agent struct
 type Agent struct {
-	AgentId               int                 `json:"agentId,omitempty"`
+	AgentID               int                 `json:"agentId,omitempty"`
 	AgentName             string              `json:"agentName,omitempty"`
 	AgentType             string              `json:"agentType,omitempty"`
-	CountryId             string              `json:"countryId,omitempty"`
+	CountryID             string              `json:"countryId,omitempty"`
 	ClusterMembers        []ClusterMember     `json:"clusterMembers,omitempty"`
-	IpAddresses           []string            `json:"ipAddresses,omitempty"`
+	IPAddresses           []string            `json:"ipAddresses,omitempty"`
 	Groups                GroupLabels         `json:"groups,omitempty"`
 	Location              string              `json:"location,omitempty"`
 	ErrorDetails          []AgentErrorDetails `json:"errorDetails,omitempty"`
@@ -32,10 +32,10 @@ type Agent struct {
 
 //ClusterMember - ClusterMember struct
 type ClusterMember struct {
-	MemberId          int      `json:"memberId,omitempty"`
+	MemberID          int      `json:"memberId,omitempty"`
 	Name              string   `json:"name,omitempty"`
-	IpAddresses       []string `json:"IpAddresses,omitempty"`
-	PublicIpAddresses []string `json:"PublicIpAddresses,omitempty"`
+	IPAddresses       []string `json:"IPAddresses,omitempty"`
+	PublicIPAddresses []string `json:"PublicIPAddresses,omitempty"`
 	Prefix            string   `json:"Prefix,omitempty"`
 	Network           string   `json:"network,omitempty"`
 	LastSeen          string   `json:"lastSeen,omitempty"`

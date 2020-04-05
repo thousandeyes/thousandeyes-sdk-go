@@ -6,10 +6,10 @@ import (
 
 // AgentServer  - Agent to server test
 type AgentServer struct {
-	Agents                []Agent        `json:"agents,omitempty"`
+	Agents                Agents         `json:"agents,omitempty"`
+	AlertRules            AlertRules     `json:"alertRules,omitempty"`
 	AlertsEnabled         int            `json:"alertsEnabled,omitempty"`
-	AlertRules            []AlertRule    `json:"alertRules,omitempty"`
-	ApiLinks              []ApiLink      `json:"apiLinks,omitempty"`
+	APILinks              APILinks       `json:"apiLinks,omitempty"`
 	CreatedBy             string         `json:"createdBy,omitempty"`
 	CreatedDate           string         `json:"createdDate,omitempty"`
 	Description           string         `json:"description,omitempty"`
@@ -20,12 +20,12 @@ type AgentServer struct {
 	ModifiedDate          string         `json:"modifiedDate,omitempty"`
 	SavedEvent            int            `json:"savedEvent,omitempty"`
 	SharedWithAccounts    []AccountGroup `json:"sharedWithAccounts,omitempty"`
-	TestId                int            `json:"testId,omitempty"`
+	TestID                int            `json:"testId,omitempty"`
 	TestName              string         `json:"testName,omitempty"`
 	Type                  string         `json:"type,omitempty"`
 	BandwidthMeasurements int            `json:"bandwidthMeasurements,omitempty"`
 	BgpMeasurements       int            `json:"bgpMeasurements,omitempty"`
-	BgpMonitors           []Monitor      `json:"bgpMonitors,omitempty"`
+	BgpMonitors           BGPMonitors    `json:"bgpMonitors,omitempty"`
 	Interval              int            `json:"interval,omitempty"`
 	MtuMeasurements       int            `json:"mtuMeasurements,omitempty"`
 	NumPathTraces         int            `json:"numPathTraces,omitempty"`
@@ -37,13 +37,13 @@ type AgentServer struct {
 
 // AddAgent - Add agent to server test
 func (t *AgentServer) AddAgent(id int) {
-	agent := Agent{AgentId: id}
+	agent := Agent{AgentID: id}
 	t.Agents = append(t.Agents, agent)
 }
 
 // AddAlertRule - Adds an alert to agent test
 func (t *AgentServer) AddAlertRule(id int) {
-	alertRule := AlertRule{RuleId: id}
+	alertRule := AlertRule{RuleID: id}
 	t.AlertRules = append(t.AlertRules, alertRule)
 }
 

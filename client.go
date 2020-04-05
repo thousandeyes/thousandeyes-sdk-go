@@ -13,7 +13,11 @@ const (
 	apiEndpoint = "https://api.thousandeyes.com/v6"
 )
 
-type ApiLink struct {
+// APILinks - List of APILink
+type APILinks []APILink
+
+// APILink - an api link
+type APILink struct {
 	Href string `json:"href,omitempty"`
 	Rel  string `json:"rel,omitempty"`
 }
@@ -22,6 +26,7 @@ type errorObject struct {
 	ErrorMessage string `json:"errorMessage,omitempty"`
 }
 
+//HTTPClient - an http client
 type HTTPClient interface {
 	Do(*http.Request) (*http.Response, error)
 }
@@ -29,7 +34,7 @@ type HTTPClient interface {
 // Client wraps http client
 type Client struct {
 	AuthToken   string
-	ApiEndpoint string
+	APIEndpoint string
 	HTTPClient  http.Client
 }
 
@@ -37,7 +42,7 @@ type Client struct {
 func NewClient(authToken string) *Client {
 	return &Client{
 		AuthToken:   authToken,
-		ApiEndpoint: apiEndpoint,
+		APIEndpoint: apiEndpoint,
 		HTTPClient: http.Client{
 			Timeout: time.Second * 10,
 		},
@@ -72,7 +77,7 @@ func (c *Client) get(path string) (*http.Response, error) {
 }
 
 func (c *Client) do(method, path string, body io.Reader, headers *map[string]string) (*http.Response, error) {
-	endpoint := c.ApiEndpoint + path + ".json"
+	endpoint := c.APIEndpoint + path + ".json"
 	req, _ := http.NewRequest(method, endpoint, body)
 	req.Header.Set("accept", "application/json")
 	req.Header.Set("authorization", fmt.Sprintf("Bearer %s", c.AuthToken))

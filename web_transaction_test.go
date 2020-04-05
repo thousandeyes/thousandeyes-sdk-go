@@ -1,16 +1,17 @@
 package thousandeyes
 
 import (
-	"github.com/stretchr/testify/assert"
 	"net/http"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestClient_CreateWebTransaction(t *testing.T) {
 	out := `{"test": [{"testId":1,"testName":"test","createdDate":"2020-02-06 15:28:07","createdBy":"William Fleming (wfleming@grumpysysadm.com)","transactionScript":"script here"}]}`
 	setup()
 	defer teardown()
-	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/tests/web-transactions/new.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "POST", r.Method)
 		w.WriteHeader(http.StatusCreated)
@@ -19,7 +20,7 @@ func TestClient_CreateWebTransaction(t *testing.T) {
 
 	// Define expected values from the API (based on the JSON we print out above)
 	expected := WebTransaction{
-		TestId:            1,
+		TestID:            1,
 		TestName:          "test",
 		CreatedDate:       "2020-02-06 15:28:07",
 		CreatedBy:         "William Fleming (wfleming@grumpysysadm.com)",
@@ -39,7 +40,7 @@ func TestClient_GetWebTransaction(t *testing.T) {
 	out := `{"test": [{"testId":1,"testName":"test","createdDate":"2020-02-06 15:28:07","createdBy":"William Fleming (wfleming@grumpysysadm.com)","transactionScript":"script here"}]}`
 	setup()
 	defer teardown()
-	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/tests/1.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "GET", r.Method)
 		w.WriteHeader(http.StatusOK)
@@ -48,7 +49,7 @@ func TestClient_GetWebTransaction(t *testing.T) {
 
 	// Define expected values from the API (based on the JSON we print out above)
 	expected := WebTransaction{
-		TestId:            1,
+		TestID:            1,
 		TestName:          "test",
 		CreatedDate:       "2020-02-06 15:28:07",
 		CreatedBy:         "William Fleming (wfleming@grumpysysadm.com)",
@@ -68,7 +69,7 @@ func TestClient_DeleteWebTransaction(t *testing.T) {
 		assert.Equal(t, "POST", r.Method)
 	})
 
-	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	id := 1
 	err := client.DeleteWebTransaction(id)
 
@@ -81,7 +82,7 @@ func TestClient_UpdateWebTransaction(t *testing.T) {
 	out := `{"test": [{"testId":1,"testName":"test","createdDate":"2020-02-06 15:28:07","createdBy":"William Fleming (wfleming@grumpysysadm.com)","transactionScript":"new script here"}]}`
 	setup()
 	defer teardown()
-	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/tests/web-transactions/1/update.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "POST", r.Method)
 		w.WriteHeader(http.StatusOK)
@@ -90,7 +91,7 @@ func TestClient_UpdateWebTransaction(t *testing.T) {
 
 	// Define expected values from the API (based on the JSON we print out above)
 	expected := WebTransaction{
-		TestId:            1,
+		TestID:            1,
 		TestName:          "test",
 		CreatedDate:       "2020-02-06 15:28:07",
 		CreatedBy:         "William Fleming (wfleming@grumpysysadm.com)",
@@ -107,7 +108,7 @@ func TestClient_UpdateWebTransaction(t *testing.T) {
 
 func TestClient_GetWebTransactionError(t *testing.T) {
 	setup()
-	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/tests/web-transactions/1.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "GET", r.Method)
 		w.WriteHeader(http.StatusBadRequest)
@@ -121,7 +122,7 @@ func TestClient_GetWebTransactionError(t *testing.T) {
 func TestClient_WebTransactionJsonError(t *testing.T) {
 	out := `{"test": [test]}`
 	setup()
-	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/tests/1.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "GET", r.Method)
 		_, _ = w.Write([]byte(out))
@@ -134,7 +135,7 @@ func TestClient_WebTransactionJsonError(t *testing.T) {
 func TestClient_GetWebTransactionStatusCode(t *testing.T) {
 	setup()
 	out := `{"test":[{"testId":1,"testName":"test123"}]}`
-	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/tests/1.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "GET", r.Method)
 		w.WriteHeader(http.StatusBadRequest)
@@ -148,7 +149,7 @@ func TestClient_GetWebTransactionStatusCode(t *testing.T) {
 
 func TestClient_CreateWebTransactionStatusCode(t *testing.T) {
 	setup()
-	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/tests/web-transactions/new.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "POST", r.Method)
 		w.WriteHeader(http.StatusBadRequest)
@@ -161,7 +162,7 @@ func TestClient_CreateWebTransactionStatusCode(t *testing.T) {
 
 func TestClient_UpdateWebTransactionStatusCode(t *testing.T) {
 	setup()
-	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/tests/web-transactions/1/update.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "POST", r.Method)
 		w.WriteHeader(http.StatusBadRequest)
@@ -174,7 +175,7 @@ func TestClient_UpdateWebTransactionStatusCode(t *testing.T) {
 
 func TestClient_DeleteWebTransactionStatusCode(t *testing.T) {
 	setup()
-	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/tests/web-transactions/1/delete.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "POST", r.Method)
 		w.WriteHeader(http.StatusBadRequest)
