@@ -8,15 +8,15 @@ import (
 )
 
 func TestClient_AddAgentAgentAlertRule(t *testing.T) {
-	test := AgentServer{TestName: "test", AlertRules: []AlertRule{}}
-	expected := AgentServer{TestName: "test", AlertRules: []AlertRule{{RuleID: 1}}}
+	test := AgentAgent{TestName: "test", AlertRules: []AlertRule{}}
+	expected := AgentAgent{TestName: "test", AlertRules: []AlertRule{{RuleID: 1}}}
 	test.AddAlertRule(1)
 	assert.Equal(t, expected, test)
 }
 
 func TestClient_AgentAgentAddAgent(t *testing.T) {
-	test := DNSServer{TestName: "test", Agents: Agents{}}
-	expected := DNSServer{TestName: "test", Agents: []Agent{{AgentID: 1}}}
+	test := AgentAgent{TestName: "test", Agents: Agents{}}
+	expected := AgentAgent{TestName: "test", Agents: []Agent{{AgentID: 1}}}
 	test.AddAgent(1)
 	assert.Equal(t, expected, test)
 }
