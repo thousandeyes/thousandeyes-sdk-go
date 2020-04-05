@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-//  Server - a server ?
+// Server - a server ?
 type Server struct {
 	ServerID   int    `json:"serverId,omitempty"`
 	ServerName string `json:"serverName,omitempty"`
