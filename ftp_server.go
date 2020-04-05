@@ -2,11 +2,12 @@ package thousandeyes
 
 import "fmt"
 
+// FTPServer - ftp server test
 type FTPServer struct {
 	Agents                []Agent        `json:"agents,omitempty"`
 	AlertsEnabled         int            `json:"alertsEnabled,omitempty"`
 	AlertRules            []AlertRule    `json:"alertRules,omitempty"`
-	APILinks              []ApiLink      `json:"apiLinks,omitempty"`
+	APILinks              []APILink      `json:"apiLinks,omitempty"`
 	CreatedBy             string         `json:"createdBy,omitempty"`
 	CreatedDate           string         `json:"createdDate,omitempty"`
 	Description           string         `json:"description,omitempty"`
@@ -33,7 +34,7 @@ type FTPServer struct {
 	PathTraceMode         string         `json:"pathTraceMode,omitempty"`
 	ProbeMode             string         `json:"probeMode,omitempty"`
 	RequestType           string         `json:"requestType,omitempty"`
-	Url                   string         `json:"url,omitempty"`
+	URL                   string         `json:"url,omitempty"`
 	UseActiveFtp          int            `json:"useActiveFtp,omitempty"`
 	UseExplicitFtps       int            `json:"useExplicitFtps,omitempty"`
 	Username              string         `json:"username,omitempty"`
@@ -41,13 +42,13 @@ type FTPServer struct {
 
 // AddAgent - Add ftp server test
 func (t *FTPServer) AddAgent(id int) {
-	agent := Agent{AgentId: id}
+	agent := Agent{AgentID: id}
 	t.Agents = append(t.Agents, agent)
 }
 
 // AddAlertRule - Adds an alert to agent test
 func (t *FTPServer) AddAlertRule(id int) {
-	alertRule := AlertRule{RuleId: id}
+	alertRule := AlertRule{RuleID: id}
 	t.AlertRules = append(t.AlertRules, alertRule)
 }
 
@@ -80,7 +81,7 @@ func (c Client) CreateFTPServer(t FTPServer) (*FTPServer, error) {
 	return &target["test"][0], nil
 }
 
-//DeleteFTPServer - delete ftp server test
+// DeleteFTPServer - delete ftp server test
 func (c *Client) DeleteFTPServer(id int) error {
 	resp, err := c.post(fmt.Sprintf("/tests/ftp-server/%d/delete", id), nil, nil)
 	if err != nil {
@@ -92,7 +93,7 @@ func (c *Client) DeleteFTPServer(id int) error {
 	return nil
 }
 
-//UpdateFTPServer - - Update ftp server test
+// UpdateFTPServer - - Update ftp server test
 func (c *Client) UpdateFTPServer(id int, t FTPServer) (*FTPServer, error) {
 	resp, err := c.post(fmt.Sprintf("/tests/ftp-server/%d/update", id), t, nil)
 	if err != nil {
