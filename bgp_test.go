@@ -7,6 +7,20 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+func TestClient_AddBGPAlertRule(t *testing.T) {
+	test := BGP{TestName: "test", AlertRules: []AlertRule{}}
+	expected := BGP{TestName: "test", AlertRules: []AlertRule{{RuleID: 1}}}
+	test.AddAlertRule(1)
+	assert.Equal(t, expected, test)
+}
+
+func TestClient_BGPAddAgent(t *testing.T) {
+	test := BGP{TestName: "test", Agents: Agents{}}
+	expected := BGP{TestName: "test", Agents: []Agent{{AgentID: 1}}}
+	test.AddAgent(1)
+	assert.Equal(t, expected, test)
+}
+
 func TestClient_GetBGP(t *testing.T) {
 	out := `{"test":[{"createdDate":"2020-02-06 15:28:07","createdBy":"William Fleming (wfleming@grumpysysadm.com)","enabled":1,"savedEvent":0,"testId":122621,"testName":"test123","type":"bgp","prefix": "1.2.3.0/20","interval":300,"alertsEnabled":1,"liveShare":0,"probeMode":"AUTO","agents":[{"agentId":48620,"agentName":"Seattle, WA (Trial) - IPv6","agentType":"Cloud","countryId":"US","ipAddresses":["135.84.184.153"],"location":"Seattle Area","network":"Astute Hosting Inc. (AS 54527)","prefix":"135.84.184.0/22"}],"sharedWithAccounts":[{"aid":176592,"name":"Cloudreach"}],"apiLinks":[{"rel":"self","href":"https://api.thousandeyes.com/v6/tests/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/web/dns-trace/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/metrics/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/path-vis/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/bgp-metrics/1226221"}]}]}`
 	setup()
@@ -229,7 +243,7 @@ func TestClient_GetBGPStatusCode(t *testing.T) {
 	mux.HandleFunc("/tests/1.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "GET", r.Method)
 		w.WriteHeader(http.StatusBadRequest)
-		w.Write([]byte(out))
+		_, _ = w.Write([]byte(out))
 	})
 
 	_, err := client.GetBGP(1)
@@ -243,7 +257,7 @@ func TestClient_CreateBGPStatusCode(t *testing.T) {
 	mux.HandleFunc("/tests/bgp/new.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "POST", r.Method)
 		w.WriteHeader(http.StatusBadRequest)
-		w.Write([]byte(`{}`))
+		_, _ = w.Write([]byte(`{}`))
 	})
 	_, err := client.CreateBGP(BGP{})
 	teardown()
@@ -256,7 +270,7 @@ func TestClient_UpdateBGPStatusCode(t *testing.T) {
 	mux.HandleFunc("/tests/bgp/1/update.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "POST", r.Method)
 		w.WriteHeader(http.StatusBadRequest)
-		w.Write([]byte(`{}`))
+		_, _ = w.Write([]byte(`{}`))
 	})
 	_, err := client.UpdateBGP(1, BGP{})
 	teardown()
@@ -269,7 +283,7 @@ func TestClient_DeleteBGPStatusCode(t *testing.T) {
 	mux.HandleFunc("/tests/bgp/1/delete.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "POST", r.Method)
 		w.WriteHeader(http.StatusBadRequest)
-		w.Write([]byte(`{}`))
+		_, _ = w.Write([]byte(`{}`))
 	})
 	err := client.DeleteBGP(1)
 	teardown()
