@@ -18,7 +18,6 @@ func TestClient_GetVoiceCall(t *testing.T) {
 
 	// Define expected values from the API (based on the JSON we print out above)
 	expected := VoiceCall{
-
 		TestID:          814641,
 		Enabled:         1,
 		CreatedBy:       "ThousandEyes (support@thousandeyes.com)",
