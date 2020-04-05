@@ -6,12 +6,12 @@ import (
 
 // AgentAgent - test
 type AgentAgent struct {
-	Agents                 []Agent        `json:"agents,omitempty"`
-	AlertRules             []AlertRule    `json:"alertRules,omitempty"`
+	Agents                 Agents         `json:"agents,omitempty"`
+	AlertRules             AlertRules     `json:"alertRules,omitempty"`
 	AlertsEnabled          int            `json:"alertsEnabled,omitempty"`
-	ApiLinks               []ApiLink      `json:"apiLinks,omitempty"`
+	APILinks               APILinks       `json:"apiLinks,omitempty"`
 	BgpMeasurements        int            `json:"bgpMeasurements,omitempty"`
-	BgpMonitors            []Monitor      `json:"bgpMonitors,omitempty"`
+	BgpMonitors            BGPMonitors    `json:"bgpMonitors,omitempty"`
 	CreatedBy              string         `json:"createdBy,omitempty"`
 	CreatedDate            string         `json:"createdDate,omitempty"`
 	Description            string         `json:"description,omitempty"`
@@ -40,13 +40,13 @@ type AgentAgent struct {
 
 // AddAgent - Adds an agent to agent test
 func (t *AgentAgent) AddAgent(id int) {
-	agent := Agent{AgentId: id}
+	agent := Agent{AgentID: id}
 	t.Agents = append(t.Agents, agent)
 }
 
 // AddAlertRule - Adds an alert to agent test
 func (t *AgentAgent) AddAlertRule(id int) {
-	alertRule := AlertRule{RuleId: id}
+	alertRule := AlertRule{RuleID: id}
 	t.AlertRules = append(t.AlertRules, alertRule)
 }
 

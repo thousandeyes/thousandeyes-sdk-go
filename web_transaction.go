@@ -4,11 +4,12 @@ import (
 	"fmt"
 )
 
+// WebTransaction - a web transcation test
 type WebTransaction struct {
 	Agents                Agents              `json:"agents,omitempty"`
 	AlertsEnabled         int                 `json:"alertsEnabled,omitempty"`
-	AlertRules            []AlertRule         `json:"alertRules,omitempty"`
-	ApiLinks              []ApiLink           `json:"apiLinks,omitempty"`
+	AlertRules            AlertRules          `json:"alertRules,omitempty"`
+	APILinks              APILinks            `json:"apiLinks,omitempty"`
 	CreatedBy             string              `json:"createdBy,omitempty"`
 	CreatedDate           string              `json:"createdDate,omitempty"`
 	Description           string              `json:"description,omitempty"`
@@ -19,7 +20,7 @@ type WebTransaction struct {
 	ModifiedDate          string              `json:"modifiedDate,omitempty"`
 	SavedEvent            int                 `json:"savedEvent,omitempty"`
 	SharedWithAccounts    []AccountGroup      `json:"sharedWithAccounts,omitempty"`
-	TestId                int                 `json:"testId,omitempty"`
+	TestID                int                 `json:"testId,omitempty"`
 	TestName              string              `json:"testName,omitempty"`
 	Type                  string              `json:"type,omitempty"`
 	AuthType              string              `json:"authType,omitempty"`
@@ -28,9 +29,9 @@ type WebTransaction struct {
 	Credentials           []int               `json:"credentials,omitempty"`
 	CustomHeaders         []map[string]string `json:"customHeaders,omitempty"`
 	DesiredStatusCode     string              `json:"desiredStatusCode,omitempty"`
-	HttpTargetTime        int                 `json:"httpTargetTime,omitempty"`
-	HttpTimeLimit         int                 `json:"httpTimeLimit,omitempty"`
-	HttpVersion           int                 `json:"httpVersion,omitempty"`
+	HTTPTargetTime        int                 `json:"httpTargetTime,omitempty"`
+	HTTPTimeLimit         int                 `json:"httpTimeLimit,omitempty"`
+	HTTPVersion           int                 `json:"httpVersion,omitempty"`
 	IncludeHeaders        int                 `json:"ncludeHeaders,omitempty"`
 	Interval              int                 `json:"interval,omitempty"`
 	MtuMeasurements       int                 `json:"mtuMeasurements,omitempty"`
@@ -39,18 +40,19 @@ type WebTransaction struct {
 	Password              string              `json:"password,omitempty"`
 	ProbeMode             string              `json:"probeMode,omitempty"`
 	Protocol              string              `json:"protocol,omitempty"`
-	SslVersionId          int                 `json:"sslVersionId,omitempty"`
+	SslVersionID          int                 `json:"sslVersionId,omitempty"`
 	Subinterval           int                 `json:"subInterval,omitempty"`
 	TargetTime            int                 `json:"targetTime,omitempty"`
 	TimeLimit             int                 `json:"timeLimit,omitempty"`
 	TransactionScript     string              `json:"transactionScript,omitempty"`
-	Url                   string              `json:"url,omitempty"`
+	URL                   string              `json:"url,omitempty"`
 	UseNtlm               int                 `json:"useNtlm,omitempty"`
 	UserAgent             string              `json:"userAgent,omitempty"`
 	Username              string              `json:"username,omitempty"`
 	VerifyCertificate     int                 `json:"verifyCertificate,omitempty"`
 }
 
+// CreateWebTransaction - Create a web transaction test
 func (c Client) CreateWebTransaction(t WebTransaction) (*WebTransaction, error) {
 	resp, err := c.post("/tests/web-transactions/new", t, nil)
 	if err != nil {
@@ -66,6 +68,7 @@ func (c Client) CreateWebTransaction(t WebTransaction) (*WebTransaction, error) 
 	return &target["test"][0], nil
 }
 
+//GetWebTransaction - get a web transactiont test
 func (c *Client) GetWebTransaction(id int) (*WebTransaction, error) {
 	resp, err := c.get(fmt.Sprintf("/tests/%d", id))
 	if err != nil {
@@ -78,6 +81,7 @@ func (c *Client) GetWebTransaction(id int) (*WebTransaction, error) {
 	return &target["test"][0], nil
 }
 
+//DeleteWebTransaction - delete a web transactiont est
 func (c *Client) DeleteWebTransaction(id int) error {
 	resp, err := c.post(fmt.Sprintf("/tests/web-transactions/%d/delete", id), nil, nil)
 	if err != nil {
@@ -89,6 +93,7 @@ func (c *Client) DeleteWebTransaction(id int) error {
 	return nil
 }
 
+// UpdateWebTransaction - update a web transaction test
 func (c *Client) UpdateWebTransaction(id int, t WebTransaction) (*WebTransaction, error) {
 	resp, err := c.post(fmt.Sprintf("/tests/web-transactions/%d/update", id), t, nil)
 	if err != nil {

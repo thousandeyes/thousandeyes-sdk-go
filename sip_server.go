@@ -9,7 +9,7 @@ type SIPServer struct {
 	Agents              []Agent        `json:"agents,omitempty"`
 	AlertsEnabled       int            `json:"alertsEnabled,omitempty"`
 	AlertRules          []AlertRule    `json:"alertRules,omitempty"`
-	APILinks            []ApiLink      `json:"apiLinks,omitempty"`
+	APILinks            APILinks       `json:"apiLinks,omitempty"`
 	CreatedBy           string         `json:"createdBy,omitempty"`
 	CreatedDate         string         `json:"createdDate,omitempty"`
 	Description         string         `json:"description,omitempty"`
@@ -41,13 +41,13 @@ type SIPServer struct {
 
 // AddAgent - Add agemt to sip server  test
 func (t *SIPServer) AddAgent(id int) {
-	agent := Agent{AgentId: id}
+	agent := Agent{AgentID: id}
 	t.Agents = append(t.Agents, agent)
 }
 
 // AddAlertRule - Adds an alert to agent test
 func (t *SIPServer) AddAlertRule(id int) {
-	alertRule := AlertRule{RuleId: id}
+	alertRule := AlertRule{RuleID: id}
 	t.AlertRules = append(t.AlertRules, alertRule)
 }
 

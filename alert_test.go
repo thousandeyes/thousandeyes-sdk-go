@@ -1,22 +1,23 @@
 package thousandeyes
 
 import (
-	"github.com/stretchr/testify/assert"
 	"net/http"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestClient_GetAlertRule(t *testing.T) {
-	out := `{"ruleId":1, "ruleName": "test", "roundsViolatingOutOf": 1, "roundsViolatingRequired": 1}`
+	out := `{"RuleID":1, "ruleName": "test", "roundsViolatingOutOf": 1, "roundsViolatingRequired": 1}`
 	setup()
-	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/alert-rules/1.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "GET", r.Method)
 		w.Write([]byte(out))
 	})
 
 	// Define expected values from the API (based on the JSON we print out above)
-	expected := AlertRule{RuleId: 1, RuleName: "test", RoundsViolatingOutOf: 1, RoundsViolatingRequired: 1}
+	expected := AlertRule{RuleID: 1, RuleName: "test", RoundsViolatingOutOf: 1, RoundsViolatingRequired: 1}
 
 	res, err := client.GetAlertRule(1)
 	teardown()
@@ -26,7 +27,7 @@ func TestClient_GetAlertRule(t *testing.T) {
 
 func TestClient_GetAlertError(t *testing.T) {
 	setup()
-	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/alert-rules/1.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "GET", r.Method)
 		w.WriteHeader(http.StatusBadRequest)
@@ -45,7 +46,7 @@ func TestClient_DeleteAlertRule(t *testing.T) {
 		assert.Equal(t, "POST", r.Method)
 	})
 
-	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	id := 1
 	err := client.DeleteAlertRule(id)
 
@@ -56,46 +57,46 @@ func TestClient_DeleteAlertRule(t *testing.T) {
 
 func TestClient_UpdateAlertRule(t *testing.T) {
 	setup()
-	out := `{"ruleId":1, "ruleName": "test", "roundsViolatingOutOf": 2, "roundsViolatingRequired": 1}`
+	out := `{"RuleID":1, "ruleName": "test", "roundsViolatingOutOf": 2, "roundsViolatingRequired": 1}`
 	mux.HandleFunc("/alert-rules/1/update.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "POST", r.Method)
 		_, _ = w.Write([]byte(out))
 	})
 
-	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	id := 1
 	u := AlertRule{RoundsViolatingOutOf: 2}
 	res, err := client.UpdateAlertRule(id, u)
 	if err != nil {
 		t.Fatal(err)
 	}
-	expected := AlertRule{RuleId: 1, RuleName: "test", RoundsViolatingOutOf: 2, RoundsViolatingRequired: 1}
+	expected := AlertRule{RuleID: 1, RuleName: "test", RoundsViolatingOutOf: 2, RoundsViolatingRequired: 1}
 	assert.Equal(t, &expected, res)
 }
 
 func TestClient_CreateAlertRule(t *testing.T) {
 	setup()
-	out := `{"ruleId":1, "ruleName": "test", "roundsViolatingOutOf": 2, "roundsViolatingRequired": 1}`
+	out := `{"RuleID":1, "ruleName": "test", "roundsViolatingOutOf": 2, "roundsViolatingRequired": 1}`
 	mux.HandleFunc("/alert-rules/new.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "POST", r.Method)
 		w.WriteHeader(http.StatusCreated)
 		_, _ = w.Write([]byte(out))
 	})
 
-	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	u := AlertRule{RuleName: "test", RoundsViolatingOutOf: 2, RoundsViolatingRequired: 1}
 	res, err := client.CreateAlertRule(u)
 	if err != nil {
 		t.Fatal(err)
 	}
-	expected := AlertRule{RuleId: 1, RuleName: "test", RoundsViolatingOutOf: 2, RoundsViolatingRequired: 1}
+	expected := AlertRule{RuleID: 1, RuleName: "test", RoundsViolatingOutOf: 2, RoundsViolatingRequired: 1}
 	assert.Equal(t, &expected, res)
 }
 
 func TestClient_AlertJsonError(t *testing.T) {
 	out := `{"alertRules": [test]}`
 	setup()
-	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/alert-rules/1.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "GET", r.Method)
 		_, _ = w.Write([]byte(out))
@@ -108,7 +109,7 @@ func TestClient_AlertJsonError(t *testing.T) {
 func TestClient_GetAlertStatusCode(t *testing.T) {
 	setup()
 	out := `{"test":[{"testId":1,"testName":"test123"}]}`
-	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/alert-rules/1.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "GET", r.Method)
 		w.WriteHeader(http.StatusBadRequest)
@@ -122,7 +123,7 @@ func TestClient_GetAlertStatusCode(t *testing.T) {
 
 func TestClient_CreateAlertStatusCode(t *testing.T) {
 	setup()
-	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/alert-rules/new.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "POST", r.Method)
 		w.WriteHeader(http.StatusBadRequest)
@@ -135,7 +136,7 @@ func TestClient_CreateAlertStatusCode(t *testing.T) {
 
 func TestClient_UpdateAlertRuleStatusCode(t *testing.T) {
 	setup()
-	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/alert-rules/1/update.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "POST", r.Method)
 		w.WriteHeader(http.StatusBadRequest)
@@ -148,7 +149,7 @@ func TestClient_UpdateAlertRuleStatusCode(t *testing.T) {
 
 func TestClient_DeleteAlertRuleStatusCode(t *testing.T) {
 	setup()
-	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/alert-rules/1/delete.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "POST", r.Method)
 		w.WriteHeader(http.StatusBadRequest)

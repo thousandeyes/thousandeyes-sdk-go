@@ -9,7 +9,7 @@ type BGP struct {
 	Agents             []Agent        `json:"agents,omitempty"`
 	AlertsEnabled      int            `json:"alertsEnabled,omitempty"`
 	AlertRules         []AlertRule    `json:"alertRules,omitempty"`
-	APILinks           []ApiLink      `json:"apiLinks,omitempty"`
+	APILinks           APILinks       `json:"apiLinks,omitempty"`
 	CreatedBy          string         `json:"createdBy,omitempty"`
 	CreatedDate        string         `json:"createdDate,omitempty"`
 	Description        string         `json:"description,omitempty"`
@@ -26,18 +26,18 @@ type BGP struct {
 	Interval           int            `json:"interval,omitempty"`
 	Prefix             string         `json:"prefix,omitempty"`
 	UsePublicBGP       int            `json:"usePublicBgp,omitempty"`
-	BgpMonitors        []Monitor      `json:"bgpMonitors,omitempty"`
+	BgpMonitors        BGPMonitors    `json:"bgpMonitors,omitempty"`
 }
 
 // AddAgent - Add bgp  test
 func (t *BGP) AddAgent(id int) {
-	agent := Agent{AgentId: id}
+	agent := Agent{AgentID: id}
 	t.Agents = append(t.Agents, agent)
 }
 
 // AddAlertRule - Adds an alert to agent test
 func (t *BGP) AddAlertRule(id int) {
-	alertRule := AlertRule{RuleId: id}
+	alertRule := AlertRule{RuleID: id}
 	t.AlertRules = append(t.AlertRules, alertRule)
 }
 
