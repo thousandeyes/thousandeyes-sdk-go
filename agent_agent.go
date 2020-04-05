@@ -6,12 +6,12 @@ import (
 
 // AgentAgent - test
 type AgentAgent struct {
-	Agents                 Agents         `json:"agents,omitempty"`
-	AlertRules             AlertRules     `json:"alertRules,omitempty"`
+	Agents                 []Agent        `json:"agents,omitempty"`
+	AlertRules             []AlertRule    `json:"alertRules,omitempty"`
 	AlertsEnabled          int            `json:"alertsEnabled,omitempty"`
-	APILinks               APILinks       `json:"apiLinks,omitempty"`
+	APILinks               []APILink      `json:"apiLinks,omitempty"`
 	BgpMeasurements        int            `json:"bgpMeasurements,omitempty"`
-	BgpMonitors            BGPMonitors    `json:"bgpMonitors,omitempty"`
+	BgpMonitors            []BGPMonitor   `json:"bgpMonitors,omitempty"`
 	CreatedBy              string         `json:"createdBy,omitempty"`
 	CreatedDate            string         `json:"createdDate,omitempty"`
 	Description            string         `json:"description,omitempty"`
