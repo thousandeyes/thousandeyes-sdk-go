@@ -18,6 +18,7 @@ type DNSPDomain struct {
 	ModifiedDate       string         `json:"modifiedDate,omitempty"`
 	SavedEvent         int            `json:"savedEvent,omitempty"`
 	SharedWithAccounts []AccountGroup `json:"sharedWithAccounts,omitempty"`
+	Type               string         `json:"type"`
 	TestID             int            `json:"testId,omitempty"`
 	TestName           string         `json:"testName,omitempty"`
 	Domain             string         `json:"domain,omitempty"`

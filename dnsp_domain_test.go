@@ -16,7 +16,7 @@ func TestClient_GetDNSPDomain(t *testing.T) {
 		_, _ = w.Write([]byte(out))
 	})
 
-	expected := DNSTrace{
+	expected := DNSPDomain{
 		TestID:        122621,
 		Enabled:       1,
 		CreatedBy:     "William Fleming (wfleming@grumpysysadm.com)",
@@ -98,7 +98,7 @@ func TestClient_CreateDNSPDomain(t *testing.T) {
 		_, _ = w.Write([]byte(out))
 	})
 
-	expected := DNSTrace{
+	expected := DNSPDomain{
 		TestID:        122621,
 		Enabled:       1,
 		CreatedBy:     "William Fleming (wfleming@grumpysysadm.com)",
@@ -187,7 +187,7 @@ func TestClient_AddDNSPDomainAlertRule(t *testing.T) {
 
 func TestClient_UpdateDNSPDomain(t *testing.T) {
 	setup()
-	out := `{"test":[{"testId":1,"testName":"test123","type":"dns-trace","domain":"webex.com" }]}`
+	out := `{"test":[{"testId":1,"testName":"test123","type":"dnsp-domain","domain":"webex.com" }]}`
 	mux.HandleFunc("/tests/dnsp-domain/1/update.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "POST", r.Method)
 		_, _ = w.Write([]byte(out))
@@ -195,8 +195,8 @@ func TestClient_UpdateDNSPDomain(t *testing.T) {
 
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	id := 1
-	dnsp := DNSTrace{Domain: "webex.com"}
-	res, err := client.UpdateDNSTrace(id, dnsp)
+	dnsp := DNSPDomain{Domain: "webex.com"}
+	res, err := client.UpdateDNSPDomain(id, dnsp)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -235,7 +235,7 @@ func TestClient_GetDNSPDomainStatusCode(t *testing.T) {
 		_, _ = w.Write([]byte(out))
 	})
 
-	_, err := client.GetDNSTrace(1)
+	_, err := client.GetDNSPDomain(1)
 	teardown()
 	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
 }
@@ -248,7 +248,7 @@ func TestClient_CreateDNSPDomainStatusCode(t *testing.T) {
 		w.WriteHeader(http.StatusBadRequest)
 		_, _ = w.Write([]byte(`{}`))
 	})
-	_, err := client.CreateDNSTrace(DNSTrace{})
+	_, err := client.CreateDNSPDomain(DNSPDomain{})
 	teardown()
 	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
 }
@@ -274,7 +274,7 @@ func TestClient_DeleteDNSPDomainStatusCode(t *testing.T) {
 		w.WriteHeader(http.StatusBadRequest)
 		_, _ = w.Write([]byte(`{}`))
 	})
-	err := client.DeleteDNSTrace(1)
+	err := client.DeleteDNSPDomain(1)
 	teardown()
 	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
 }
