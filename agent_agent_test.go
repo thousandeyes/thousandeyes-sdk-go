@@ -7,6 +7,20 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+func TestClient_AddAgentAgentAlertRule(t *testing.T) {
+	test := AgentAgent{TestName: "test", AlertRules: []AlertRule{}}
+	expected := AgentAgent{TestName: "test", AlertRules: []AlertRule{{RuleID: 1}}}
+	test.AddAlertRule(1)
+	assert.Equal(t, expected, test)
+}
+
+func TestClient_AgentAgentAddAgent(t *testing.T) {
+	test := AgentAgent{TestName: "test", Agents: Agents{}}
+	expected := AgentAgent{TestName: "test", Agents: []Agent{{AgentID: 1}}}
+	test.AddAgent(1)
+	assert.Equal(t, expected, test)
+}
+
 func TestClient_CreateAgentAgent(t *testing.T) {
 	out := `{"test": [{"testID":1,"testName":"test","createdDate":"2020-02-06 15:28:07","createdBy":"William Fleming (wfleming@grumpysysadm.com)","throughputMeasurements": 1, "Port": 8090}]}`
 	setup()
@@ -143,7 +157,7 @@ func TestClient_GetAgentAgentStatusCode(t *testing.T) {
 	mux.HandleFunc("/tests/1.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "GET", r.Method)
 		w.WriteHeader(http.StatusBadRequest)
-		w.Write([]byte(out))
+		_, _ = w.Write([]byte(out))
 	})
 
 	_, err := client.GetPageLoad(1)
@@ -157,7 +171,7 @@ func TestClient_CreateAgentAgentStatusCode(t *testing.T) {
 	mux.HandleFunc("/tests/agent-to-agent/new.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "POST", r.Method)
 		w.WriteHeader(http.StatusBadRequest)
-		w.Write([]byte(`{}`))
+		_, _ = w.Write([]byte(`{}`))
 	})
 	_, err := client.CreateAgentAgent(AgentAgent{})
 	teardown()
@@ -170,7 +184,7 @@ func TestClient_UpdateAgentAgentStatusCode(t *testing.T) {
 	mux.HandleFunc("/tests/agent-to-agent/1/update.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "POST", r.Method)
 		w.WriteHeader(http.StatusBadRequest)
-		w.Write([]byte(`{}`))
+		_, _ = w.Write([]byte(`{}`))
 	})
 	_, err := client.UpdateAgentAgent(1, AgentAgent{})
 	teardown()
@@ -183,7 +197,7 @@ func TestClient_DeleteAgentAgentStatusCode(t *testing.T) {
 	mux.HandleFunc("/tests/agent-to-agent/1/delete.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "POST", r.Method)
 		w.WriteHeader(http.StatusBadRequest)
-		w.Write([]byte(`{}`))
+		_, _ = w.Write([]byte(`{}`))
 	})
 	err := client.DeleteAgentAgent(1)
 	teardown()
