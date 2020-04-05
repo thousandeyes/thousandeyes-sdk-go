@@ -100,7 +100,6 @@ func TestClient_CreateBGP(t *testing.T) {
 	})
 
 	// Define expected values from the API (based on the JSON we print out above)
-	// Define expected values from the API (based on the JSON we print out above)
 	expected := BGP{
 
 		TestID:        122621,

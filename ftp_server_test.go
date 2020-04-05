@@ -26,7 +26,7 @@ func TestClient_GetFTPServer(t *testing.T) {
 		TestName:      "test123",
 		Type:          "ftp-server",
 		Url:           "webex.com",
-		Protocol:      "TCP",
+		ProbeMode:     "AUTO",
 		Agents: []Agent{
 			{
 				AgentId:     48620,
@@ -89,7 +89,7 @@ func TestClient_GetFTPServerJsonError(t *testing.T) {
 }
 
 func TestClient_CreateFTPServer(t *testing.T) {
-	out := `{"test":[{"createdDate":"2020-02-06 15:28:07","createdBy":"William Fleming (wfleming@grumpysysadm.com)","enabled":1,"savedEvent":0,"testId":122621,"testName":"test123","type":"ftp-server","alertsEnabled":1,"liveShare":0,"probeMode":"AUTO","agents":[{"agentId":48620,"agentName":"Seattle, WA (Trial) - IPv6","agentType":"Cloud","countryId":"US","ipAddresses":["135.84.184.153"],"location":"Seattle Area","network":"Astute Hosting Inc. (AS 54527)","prefix":"135.84.184.0/22"}],"sharedWithAccounts":[{"aid":176592,"name":"Cloudreach"}],"domain": "url.com","apiLinks":[{"rel":"self","href":"https://api.thousandeyes.com/v6/tests/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/web/ftp-server/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/metrics/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/path-vis/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/bgp-metrics/1226221"}]}]}`
+	out := `{"test":[{"createdDate":"2020-02-06 15:28:07","createdBy":"William Fleming (wfleming@grumpysysadm.com)","enabled":1,"savedEvent":0,"testId":122621,"testName":"test123","type":"ftp-server","interval":300,"alertsEnabled":1,"liveShare":0,"protocol": "TCP","probeMode":"AUTO","agents":[{"agentId":48620,"agentName":"Seattle, WA (Trial) - IPv6","agentType":"Cloud","countryId":"US","ipAddresses":["135.84.184.153"],"location":"Seattle Area","network":"Astute Hosting Inc. (AS 54527)","prefix":"135.84.184.0/22"}],"sharedWithAccounts":[{"aid":176592,"name":"Cloudreach"}],"url": "webex.com","apiLinks":[{"rel":"self","href":"https://api.thousandeyes.com/v6/tests/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/web/ftp-server/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/metrics/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/path-vis/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/bgp-metrics/1226221"}]}]}`
 	setup()
 	var client = &Client{ApiEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/tests/ftp-server/new.json", func(w http.ResponseWriter, r *http.Request) {
@@ -110,6 +110,7 @@ func TestClient_CreateFTPServer(t *testing.T) {
 		AlertsEnabled: 1,
 		Url:           "webex.com",
 		Protocol:      "TCP",
+		ProbeMode:     "AUTO",
 		Agents: []Agent{
 			{
 				AgentId:     48620,
@@ -152,12 +153,13 @@ func TestClient_CreateFTPServer(t *testing.T) {
 			},
 		},
 	}
-	create := DNSTrace{
-		TestName: "test1",
-		Domain:   "1.1.1.1",
-		Interval: 300,
+	create := FTPServer{
+		TestName:  "test123",
+		Url:       "webex.com",
+		Protocol:  "TCP",
+		ProbeMode: "AUTO",
 	}
-	res, err := client.CreateDNSTrace(create)
+	res, err := client.CreateFTPServer(create)
 	teardown()
 	assert.Nil(t, err)
 	assert.Equal(t, &expected, res)

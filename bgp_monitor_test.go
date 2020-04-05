@@ -1,7 +1,6 @@
 package thousandeyes
 
 import (
-	"fmt"
 	"net/http"
 	"testing"
 
@@ -23,7 +22,6 @@ func TestClient_GetBGPMonitors(t *testing.T) {
 	}
 
 	res, err := client.GetBPGMonitors()
-	fmt.Println(res)
 	teardown()
 	assert.Nil(t, err)
 	assert.Equal(t, &expected, res)
