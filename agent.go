@@ -23,8 +23,8 @@ type Agent struct {
 	CreatedDate           string              `json:"createdDate,omitempty"`
 	LastSeen              string              `json:"lastSeen,omitempty"`
 	AgentState            string              `json:"agentState,omitempty"`
-	VerifySslCertificates bool                `json:"verifySslCertificate,omitempty"`
-	KeepBrowserCache      bool                `json:"keepBrowserCache,omitempty"`
+	VerifySslCertificates int                 `json:"verifySslCertificate,omitempty"`
+	KeepBrowserCache      int                 `json:"keepBrowserCache,omitempty"`
 	Utilization           int                 `json:"utilization,omitempty"`
 	Ipv6Policy            string              `json:"IPV6Policy,omitempty"`
 	TargetForTests        string              `json:"targetForTests,omitempty"`
