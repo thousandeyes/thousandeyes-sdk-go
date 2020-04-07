@@ -30,13 +30,13 @@ type AlertRules []AlertRule
 
 // AlertRule - An alert rule
 type AlertRule struct {
-	RuleID                  int         `json:"RuleID,omitempty"`
+	RuleID                  int         `json:"ruleId,omitempty"`
 	RuleName                string      `json:"ruleName,omitempty"`
 	Expression              string      `json:"expression,omitempty"`
 	Direction               string      `json:"direction,omitempty"`
 	Notifications           interface{} `json:"notifcations,omitempty"`
-	NotifyOnClear           bool        `json:"notifyOnClear,omitempty"`
-	Default                 bool        `json:"default,omitempty"`
+	NotifyOnClear           int         `json:"notifyOnClear,omitempty"`
+	Default                 int         `json:"default,omitempty"`
 	AlertType               string      `json:"alertType,omitempty"`
 	MinimumSources          int         `json:"minimumSources,omitempty"`
 	MinimumSourcesPct       int         `json:"minimumSourcesPct,omitempty"`
@@ -61,20 +61,24 @@ func (c Client) CreateAlertRule(a AlertRule) (*AlertRule, error) {
 	return &target, nil
 }
 
-//GetAlertRule - Get alert rule
-func (c Client) GetAlertRule(id int) (*AlertRule, error) {
-	resp, err := c.get(fmt.Sprintf("/alert-rules/%d", id))
+//GetAlertRules - Get alert rules
+func (c Client) GetAlertRules() (*AlertRules, error) {
+	resp, err := c.get(fmt.Sprintf("/alert-rules"))
 	if err != nil {
 		return nil, err
 	}
 	if resp.StatusCode != 200 {
 		return nil, fmt.Errorf("failed to get alert rule, response code %d", resp.StatusCode)
 	}
-	var target AlertRule
+
+	var target map[string]AlertRules
+
 	if dErr := c.decodeJSON(resp, &target); dErr != nil {
 		return nil, fmt.Errorf("could not decode JSON response: %v", dErr)
 	}
-	return &target, nil
+	alertRules := target["alertRules"]
+
+	return &alertRules, nil
 }
 
 //DeleteAlertRule - delete alert rule
