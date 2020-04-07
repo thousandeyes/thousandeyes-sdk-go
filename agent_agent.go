@@ -17,7 +17,7 @@ type AgentAgent struct {
 	Description            string         `json:"description,omitempty"`
 	Direction              string         `json:"direction,omitempty"`
 	Dscp                   string         `json:"dscp,omitempty"`
-	DscpID                 int            `json:"dscpId,omitempty"`
+	DscpID                 int            `json:"dscpId"`
 	Enabled                int            `json:"enabled,omitempty"`
 	Groups                 []GroupLabel   `json:"groups,omitempty"`
 	Interval               int            `json:"interval,omitempty"`
