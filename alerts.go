@@ -35,8 +35,8 @@ type AlertRule struct {
 	Expression              string      `json:"expression,omitempty"`
 	Direction               string      `json:"direction,omitempty"`
 	Notifications           interface{} `json:"notifcations,omitempty"`
-	NotifyOnClear           bool        `json:"notifyOnClear,omitempty"`
-	Default                 bool        `json:"default,omitempty"`
+	NotifyOnClear           int         `json:"notifyOnClear,omitempty"`
+	Default                 int         `json:"default,omitempty"`
 	AlertType               string      `json:"alertType,omitempty"`
 	MinimumSources          int         `json:"minimumSources,omitempty"`
 	MinimumSourcesPct       int         `json:"minimumSourcesPct,omitempty"`
