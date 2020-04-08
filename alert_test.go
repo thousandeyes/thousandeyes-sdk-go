@@ -8,18 +8,20 @@ import (
 )
 
 func TestClient_GetAlertRule(t *testing.T) {
-	out := `{"RuleID":1, "ruleName": "test", "roundsViolatingOutOf": 1, "roundsViolatingRequired": 1}`
+	out := `{"alertRules" : [ {"RuleID":1, "ruleName": "test" }]}`
 	setup()
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
-	mux.HandleFunc("/alert-rules/1.json", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/alert-rules.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "GET", r.Method)
 		w.Write([]byte(out))
 	})
 
 	// Define expected values from the API (based on the JSON we print out above)
-	expected := AlertRule{RuleID: 1, RuleName: "test", RoundsViolatingOutOf: 1, RoundsViolatingRequired: 1}
+	expected := AlertRules{
+		AlertRule{RuleID: 1, RuleName: "test"},
+	}
 
-	res, err := client.GetAlertRule(1)
+	res, err := client.GetAlertRules()
 	teardown()
 	assert.Nil(t, err)
 	assert.Equal(t, &expected, res)
@@ -28,12 +30,12 @@ func TestClient_GetAlertRule(t *testing.T) {
 func TestClient_GetAlertError(t *testing.T) {
 	setup()
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
-	mux.HandleFunc("/alert-rules/1.json", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/alert-rules.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "GET", r.Method)
 		w.WriteHeader(http.StatusBadRequest)
 	})
 
-	_, err := client.GetAlertRule(1)
+	_, err := client.GetAlertRules()
 	teardown()
 	assert.Error(t, err)
 }
@@ -97,26 +99,26 @@ func TestClient_AlertJsonError(t *testing.T) {
 	out := `{"alertRules": [test]}`
 	setup()
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
-	mux.HandleFunc("/alert-rules/1.json", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/alert-rules.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "GET", r.Method)
 		_, _ = w.Write([]byte(out))
 	})
-	_, err := client.GetAlertRule(1)
+	_, err := client.GetAlertRules()
 	assert.Error(t, err)
 	assert.EqualError(t, err, "could not decode JSON response: invalid character 'e' in literal true (expecting 'r')")
 }
 
 func TestClient_GetAlertStatusCode(t *testing.T) {
 	setup()
-	out := `{"test":[{"testId":1,"testName":"test123"}]}`
+	out := `{"alertRules":[{"ruleId":1,"ruleName":"test123"}]}`
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
-	mux.HandleFunc("/alert-rules/1.json", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/alert-rules.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "GET", r.Method)
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte(out))
 	})
 
-	_, err := client.GetAlertRule(1)
+	_, err := client.GetAlertRules()
 	teardown()
 	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
 }
