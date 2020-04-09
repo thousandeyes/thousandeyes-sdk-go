@@ -30,7 +30,7 @@ type AlertRules []AlertRule
 
 // AlertRule - An alert rule
 type AlertRule struct {
-	RuleID                  int         `json:"ruleId,omitempty"`
+	RuleID                  int         `json:"ruleId"`
 	RuleName                string      `json:"ruleName,omitempty"`
 	Expression              string      `json:"expression,omitempty"`
 	Direction               string      `json:"direction,omitempty"`

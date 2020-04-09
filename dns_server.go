@@ -38,7 +38,8 @@ type DNSServer struct {
 	Interval              int            `json:"interval,omitempty"`
 	MtuMeasurements       int            `json:"mtuMeasurements,omitempty"`
 	NetworkMeasurements   int            `json:"networkMeasurements,omitempty"`
-	NumPathTraces         int            `json:"numPathTraces,omitempty"`
+	NumPathTraces         int            `json:"numPathTraces"`
+	PathTraceMode         string         `json:"pathTraceMode,omitempty"`
 	ProbeMode             string         `json:"probeMode,omitempty"`
 	Protocol              string         `json:"protocol,omitempty"`
 	RecursiveQueries      int            `json:"recursiveQueries,omitempty"`
@@ -56,7 +57,7 @@ func (t *DNSServer) AddAlertRule(id int) {
 	t.AlertRules = append(t.AlertRules, alertRule)
 }
 
-// GetDNSServer - get dns server test
+//GetDNSServer - get dns server test
 func (c *Client) GetDNSServer(id int) (*DNSServer, error) {
 	resp, err := c.get(fmt.Sprintf("/tests/%d", id))
 	if err != nil {
