@@ -38,7 +38,7 @@ type DNSServer struct {
 	Interval              int            `json:"interval,omitempty"`
 	MtuMeasurements       int            `json:"mtuMeasurements,omitempty"`
 	NetworkMeasurements   int            `json:"networkMeasurements,omitempty"`
-	NumPathTraces         int            `json:"numPathTraces"`
+	NumPathTraces         int            `json:"numPathTraces.omitempty"`
 	PathTraceMode         string         `json:"pathTraceMode,omitempty"`
 	ProbeMode             string         `json:"probeMode,omitempty"`
 	Protocol              string         `json:"protocol,omitempty"`
