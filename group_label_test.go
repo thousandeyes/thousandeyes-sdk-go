@@ -8,7 +8,7 @@ import (
 )
 
 func TestClient_GetGroupLabels(t *testing.T) {
-	out := `{"groups" : [ {"groupId":1, "name": "test" }]}`
+	out := `{"groups" : [ {"groupId":1, "type" : "tests" , "name": "exampleName" }]}`
 	setup()
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/groups.json", func(w http.ResponseWriter, r *http.Request) {
@@ -18,10 +18,57 @@ func TestClient_GetGroupLabels(t *testing.T) {
 
 	// Define expected values from the API (based on the JSON we print out above)
 	expected := GroupLabels{
-		GroupLabel{GroupLabelID: 1, GroupLabelName: "test"},
+		GroupLabel{GroupLabelID: 1, GroupLabelType: "tests", GroupLabelName: "exampleName"},
 	}
 
 	res, err := client.GetGroupLabels()
+	teardown()
+	assert.Nil(t, err)
+	assert.Equal(t, &expected, res)
+
+}
+
+func TestClient_GetGroupLabelsByType(t *testing.T) {
+	out := `{"groups" : [ {"groupId":1, "type" : "tests", "name": "test-agent" }]}`
+	setup()
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
+	mux.HandleFunc("/groups/tests.json", func(w http.ResponseWriter, r *http.Request) {
+		assert.Equal(t, "GET", r.Method)
+		w.Write([]byte(out))
+	})
+
+	// Define expected values from the API (based on the JSON we print out above)
+	expected := GroupLabels{
+		GroupLabel{GroupLabelID: 1, BuiltIn: 0, GroupLabelType: "tests", GroupLabelName: "test-agent"},
+	}
+
+	res, err := client.GetGroupLabelsByType("tests")
+	teardown()
+	assert.Nil(t, err)
+	assert.Equal(t, &expected, res)
+}
+
+func TestClient_GetGroupLabelsByID(t *testing.T) {
+	out := `{
+		"groups" : [
+			{
+				"groupId" : 222, "type" : "tests", "name" : "test-agent"
+			}
+		]
+	}`
+	setup()
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
+	mux.HandleFunc("/groups/222.json", func(w http.ResponseWriter, r *http.Request) {
+		assert.Equal(t, "GET", r.Method)
+		w.Write([]byte(out))
+	})
+
+	// Define expected values from the API (based on the JSON we print out above)
+	expected := GroupLabels{
+		GroupLabel{GroupLabelID: 222, BuiltIn: 0, GroupLabelType: "tests", GroupLabelName: "test-agent"},
+	}
+
+	res, err := client.GetGroupLabelsByID(222)
 	teardown()
 	assert.Nil(t, err)
 	assert.Equal(t, &expected, res)
@@ -59,26 +106,27 @@ func TestClient_DeleteGroupLabel(t *testing.T) {
 
 func TestClient_UpdateGroupLabel(t *testing.T) {
 	setup()
-	out := `{"groupId":1, "name": "test"}`
-	mux.HandleFunc("/groups/1/update.json", func(w http.ResponseWriter, r *http.Request) {
+	out := `{ "groups" : [ { "groupId" : 222, "type" : "tests", "name" : "test-agent" } ] }`
+
+	mux.HandleFunc("/groups/222/update.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "POST", r.Method)
 		_, _ = w.Write([]byte(out))
 	})
 
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
-	id := 1
-	u := GroupLabel{Type: "tests"}
+	id := 222
+	u := GroupLabel{GroupLabelType: "tests"}
 	res, err := client.UpdateGroupLabel(id, u)
 	if err != nil {
 		t.Fatal(err)
 	}
-	expected := GroupLabel{GroupLabelID: 1, GroupLabelName: "test"}
+	expected := GroupLabels{GroupLabel{GroupLabelID: 222, GroupLabelType: "tests", GroupLabelName: "test-agent"}}
 	assert.Equal(t, &expected, res)
 }
 
 func TestClient_CreateGroupLabel(t *testing.T) {
 	setup()
-	out := `{"groupId":1, "name": "test"}`
+	out := `{"groups" : [ {"groupId":1, "name": "test"}]}`
 	mux.HandleFunc("/groups/new.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "POST", r.Method)
 		w.WriteHeader(http.StatusCreated)
@@ -91,7 +139,7 @@ func TestClient_CreateGroupLabel(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	expected := GroupLabel{GroupLabelID: 1, GroupLabelName: "test"}
+	expected := GroupLabels{GroupLabel{GroupLabelID: 1, GroupLabelName: "test"}}
 	assert.Equal(t, &expected, res)
 }
 
