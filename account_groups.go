@@ -17,4 +17,5 @@ type GroupLabel struct {
 	GroupName string
 	GroupID   int
 	BuiltIn   int
+	Type      string
 }
