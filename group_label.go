@@ -7,12 +7,12 @@ type GroupLabels []GroupLabel
 
 // GroupLabel - label
 type GroupLabel struct {
-	GroupLabelName string `json:"name,omitempty"`
-	GroupLabelID   int    `json:"groupId,omitempty"`
-	BuiltIn        int    `json:"builtin,omitempty"`
-	GroupLabelType string `json:"type,omitempty"`
-	Agents         Agents `json:"agents,omitempty"`
-	// Tests     Tests  `json:"tests,omitempty"`  # https://github.com/william20111/go-thousandeyes/issues/49
+	GroupLabelName string      `json:"name,omitempty"`
+	GroupLabelID   int         `json:"groupId,omitempty"`
+	BuiltIn        int         `json:"builtin,omitempty"`
+	GroupLabelType string      `json:"type,omitempty"`
+	Agents         Agents      `json:"agents,omitempty"`
+	Tests          interface{} `json:"tests,omitempty"`
 }
 
 // GetGroupLabels - Get labels
