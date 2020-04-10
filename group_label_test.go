@@ -7,7 +7,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestClient_GetLabels(t *testing.T) {
+func TestClient_GetGroupLabels(t *testing.T) {
 	out := `{"groups" : [ {"groupId":1, "name": "test" }]}`
 	setup()
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
@@ -17,17 +17,17 @@ func TestClient_GetLabels(t *testing.T) {
 	})
 
 	// Define expected values from the API (based on the JSON we print out above)
-	expected := Labels{
-		Label{LabelID: 1, LabelName: "test"},
+	expected := GroupLabels{
+		GroupLabel{GroupLabelID: 1, GroupLabelName: "test"},
 	}
 
-	res, err := client.GetLabels()
+	res, err := client.GetGroupLabels()
 	teardown()
 	assert.Nil(t, err)
 	assert.Equal(t, &expected, res)
 }
 
-func TestClient_GetLabelError(t *testing.T) {
+func TestClient_GetGroupLabelError(t *testing.T) {
 	setup()
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/groups.json", func(w http.ResponseWriter, r *http.Request) {
@@ -35,12 +35,12 @@ func TestClient_GetLabelError(t *testing.T) {
 		w.WriteHeader(http.StatusBadRequest)
 	})
 
-	_, err := client.GetLabels()
+	_, err := client.GetGroupLabels()
 	teardown()
 	assert.Error(t, err)
 }
 
-func TestClient_DeleteLabel(t *testing.T) {
+func TestClient_DeleteGroupLabel(t *testing.T) {
 	setup()
 	defer teardown()
 	mux.HandleFunc("/groups/1/delete.json", func(w http.ResponseWriter, r *http.Request) {
@@ -50,14 +50,14 @@ func TestClient_DeleteLabel(t *testing.T) {
 
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	id := 1
-	err := client.DeleteLabel(id)
+	err := client.DeleteGroupLabel(id)
 
 	if err != nil {
 		t.Fatal(err)
 	}
 }
 
-func TestClient_UpdateLabel(t *testing.T) {
+func TestClient_UpdateGroupLabel(t *testing.T) {
 	setup()
 	out := `{"groupId":1, "name": "test"}`
 	mux.HandleFunc("/groups/1/update.json", func(w http.ResponseWriter, r *http.Request) {
@@ -67,16 +67,16 @@ func TestClient_UpdateLabel(t *testing.T) {
 
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	id := 1
-	u := Label{Type: "tests"}
-	res, err := client.UpdateLabel(id, u)
+	u := GroupLabel{Type: "tests"}
+	res, err := client.UpdateGroupLabel(id, u)
 	if err != nil {
 		t.Fatal(err)
 	}
-	expected := Label{LabelID: 1, LabelName: "test"}
+	expected := GroupLabel{GroupLabelID: 1, GroupLabelName: "test"}
 	assert.Equal(t, &expected, res)
 }
 
-func TestClient_CreateLabel(t *testing.T) {
+func TestClient_CreateGroupLabel(t *testing.T) {
 	setup()
 	out := `{"groupId":1, "name": "test"}`
 	mux.HandleFunc("/groups/new.json", func(w http.ResponseWriter, r *http.Request) {
@@ -86,16 +86,16 @@ func TestClient_CreateLabel(t *testing.T) {
 	})
 
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
-	u := Label{LabelName: "test"}
-	res, err := client.CreateLabel(u)
+	u := GroupLabel{GroupLabelName: "test"}
+	res, err := client.CreateGroupLabel(u)
 	if err != nil {
 		t.Fatal(err)
 	}
-	expected := Label{LabelID: 1, LabelName: "test"}
+	expected := GroupLabel{GroupLabelID: 1, GroupLabelName: "test"}
 	assert.Equal(t, &expected, res)
 }
 
-func TestClient_LabelJsonError(t *testing.T) {
+func TestClient_GroupLabelJsonError(t *testing.T) {
 	out := `{"groups": [test]}`
 	setup()
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
@@ -103,12 +103,12 @@ func TestClient_LabelJsonError(t *testing.T) {
 		assert.Equal(t, "GET", r.Method)
 		_, _ = w.Write([]byte(out))
 	})
-	_, err := client.GetLabels()
+	_, err := client.GetGroupLabels()
 	assert.Error(t, err)
 	assert.EqualError(t, err, "Could not decode JSON response: invalid character 'e' in literal true (expecting 'r')")
 }
 
-func TestClient_GetLabelStatusCode(t *testing.T) {
+func TestClient_GetGroupLabelStatusCode(t *testing.T) {
 	setup()
 	out := `{"groups":[{"groupId":1,"name":"test123"}]}`
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
@@ -118,12 +118,12 @@ func TestClient_GetLabelStatusCode(t *testing.T) {
 		w.Write([]byte(out))
 	})
 
-	_, err := client.GetLabels()
+	_, err := client.GetGroupLabels()
 	teardown()
 	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
 }
 
-func TestClient_CreateLabelStatusCode(t *testing.T) {
+func TestClient_CreateGroupLabelStatusCode(t *testing.T) {
 	setup()
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/groups/new.json", func(w http.ResponseWriter, r *http.Request) {
@@ -131,12 +131,12 @@ func TestClient_CreateLabelStatusCode(t *testing.T) {
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte(`{}`))
 	})
-	_, err := client.CreateLabel(Label{})
+	_, err := client.CreateGroupLabel(GroupLabel{})
 	teardown()
 	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
 }
 
-func TestClient_UpdateLabelStatusCode(t *testing.T) {
+func TestClient_UpdateGroupLabelStatusCode(t *testing.T) {
 	setup()
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/groups/1/update.json", func(w http.ResponseWriter, r *http.Request) {
@@ -144,12 +144,12 @@ func TestClient_UpdateLabelStatusCode(t *testing.T) {
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte(`{}`))
 	})
-	_, err := client.UpdateLabel(1, Label{})
+	_, err := client.UpdateGroupLabel(1, GroupLabel{})
 	teardown()
 	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
 }
 
-func TestClient_DeleteLabelStatusCode(t *testing.T) {
+func TestClient_DeleteGroupLabelStatusCode(t *testing.T) {
 	setup()
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/groups/1/delete.json", func(w http.ResponseWriter, r *http.Request) {
@@ -157,7 +157,7 @@ func TestClient_DeleteLabelStatusCode(t *testing.T) {
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte(`{}`))
 	})
-	err := client.DeleteLabel(1)
+	err := client.DeleteGroupLabel(1)
 	teardown()
 	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
 }

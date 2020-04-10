@@ -2,26 +2,26 @@ package thousandeyes
 
 import "fmt"
 
-// Labels - list of labels
-type Labels []Label
+// GroupLabels - list of labels
+type GroupLabels []GroupLabel
 
-// Label - label
-type Label struct {
-	LabelName string `json:"name,omitempty"`
-	LabelID   int    `json:"groupId,omitempty"`
-	BuiltIn   int    `json:"builtin,omitempty"`
-	Type      string `json:"type,omitempty"`
-	Agents    Agents `json:"agents,omitempty"`
+// GroupLabel - label
+type GroupLabel struct {
+	GroupLabelName string `json:"name,omitempty"`
+	GroupLabelID   int    `json:"groupId,omitempty"`
+	BuiltIn        int    `json:"builtin,omitempty"`
+	Type           string `json:"type,omitempty"`
+	Agents         Agents `json:"agents,omitempty"`
 	// Tests     Tests  `json:"tests,omitempty"`  # https://github.com/william20111/go-thousandeyes/issues/49
 }
 
-// GetLabels - Get labels
-func (c *Client) GetLabels() (*Labels, error) {
+// GetGroupLabels - Get labels
+func (c *Client) GetGroupLabels() (*GroupLabels, error) {
 	resp, err := c.get("/groups")
 	if err != nil {
-		return &Labels{}, err
+		return nil, err
 	}
-	var target map[string]Labels
+	var target map[string]GroupLabels
 	if dErr := c.decodeJSON(resp, &target); dErr != nil {
 		return nil, fmt.Errorf("Could not decode JSON response: %v", dErr)
 	}
@@ -29,13 +29,13 @@ func (c *Client) GetLabels() (*Labels, error) {
 	return &labels, nil
 }
 
-// GetLabelByType - Get label by type
-func (c *Client) GetLabelByType(t string) (*Labels, error) {
+// GetGroupLabelByType - Get label by type
+func (c *Client) GetGroupLabelByType(t string) (*GroupLabel, error) {
 	resp, err := c.get("/groups/" + t)
 	if err != nil {
-		return &Labels{}, err
+		return &GroupLabel{}, err
 	}
-	var target map[string]Labels
+	var target map[string]GroupLabel
 	if dErr := c.decodeJSON(resp, &target); dErr != nil {
 		return nil, fmt.Errorf("Could not decode JSON response: %v", dErr)
 	}
@@ -43,13 +43,13 @@ func (c *Client) GetLabelByType(t string) (*Labels, error) {
 	return &labels, nil
 }
 
-// GetLabel - Get label
-func (c *Client) GetLabel(id int) (*Labels, error) {
+// GetGroupLabel - Get label
+func (c *Client) GetGroupLabel(id int) (*GroupLabel, error) {
 	resp, err := c.get("/groups/" + string(id))
 	if err != nil {
-		return &Labels{}, err
+		return &GroupLabel{}, err
 	}
-	var target map[string]Labels
+	var target map[string]GroupLabel
 	if dErr := c.decodeJSON(resp, &target); dErr != nil {
 		return nil, fmt.Errorf("Could not decode JSON response: %v", dErr)
 	}
@@ -57,8 +57,8 @@ func (c *Client) GetLabel(id int) (*Labels, error) {
 	return &labels, nil
 }
 
-// CreateLabel - Create label
-func (c Client) CreateLabel(a Label) (*Label, error) {
+// CreateGroupLabel - Create label
+func (c Client) CreateGroupLabel(a GroupLabel) (*GroupLabel, error) {
 	resp, err := c.post("/groups/new", a, nil)
 	if err != nil {
 		return nil, err
@@ -66,15 +66,15 @@ func (c Client) CreateLabel(a Label) (*Label, error) {
 	if resp.StatusCode != 201 {
 		return nil, fmt.Errorf("failed to create label, response code %d", resp.StatusCode)
 	}
-	var target Label
+	var target GroupLabel
 	if dErr := c.decodeJSON(resp, &target); dErr != nil {
 		return nil, fmt.Errorf("Could not decode JSON response: %v", dErr)
 	}
 	return &target, nil
 }
 
-//DeleteLabel - delete label
-func (c Client) DeleteLabel(id int) error {
+//DeleteGroupLabel - delete label
+func (c Client) DeleteGroupLabel(id int) error {
 	resp, err := c.post(fmt.Sprintf("/groups/%d/delete", id), nil, nil)
 	if err != nil {
 		return err
@@ -85,8 +85,8 @@ func (c Client) DeleteLabel(id int) error {
 	return nil
 }
 
-//UpdateLabel - update label
-func (c Client) UpdateLabel(id int, a Label) (*Label, error) {
+//UpdateGroupLabel - update label
+func (c Client) UpdateGroupLabel(id int, a GroupLabel) (*GroupLabel, error) {
 	resp, err := c.post(fmt.Sprintf("/groups/%d/update", id), a, nil)
 	if err != nil {
 		return nil, err
@@ -94,7 +94,7 @@ func (c Client) UpdateLabel(id int, a Label) (*Label, error) {
 	if resp.StatusCode != 200 {
 		return nil, fmt.Errorf("failed to update label, response code %d", resp.StatusCode)
 	}
-	var target Label
+	var target GroupLabel
 	if dErr := c.decodeJSON(resp, &target); dErr != nil {
 		return nil, fmt.Errorf("Could not decode JSON response: %v", dErr)
 	}
