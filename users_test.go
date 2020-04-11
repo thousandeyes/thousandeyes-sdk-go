@@ -177,3 +177,29 @@ func TestClient_DeleteUserStatusCode(t *testing.T) {
 	teardown()
 	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
 }
+
+func TestClient_GetUsersJsonError(t *testing.T) {
+	out := `{"users": [test]}`
+	setup()
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
+	mux.HandleFunc("/users.json", func(w http.ResponseWriter, r *http.Request) {
+		assert.Equal(t, "GET", r.Method)
+		_, _ = w.Write([]byte(out))
+	})
+	_, err := client.GetUsers()
+	assert.Error(t, err)
+	assert.EqualError(t, err, "could not decode JSON response: invalid character 'e' in literal true (expecting 'r')")
+}
+
+func TestClient_UpdateUsersJsonError(t *testing.T) {
+	out := `{"users": [test]}`
+	setup()
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
+	mux.HandleFunc("/users/1/update.json", func(w http.ResponseWriter, r *http.Request) {
+		assert.Equal(t, "POST", r.Method)
+		_, _ = w.Write([]byte(out))
+	})
+	_, err := client.UpdateUser(1, User{})
+	assert.Error(t, err)
+	assert.EqualError(t, err, "could not decode JSON response: invalid character 'e' in literal true (expecting 'r')")
+}
