@@ -78,7 +78,7 @@ func (c *Client) CreateUser(user User) (*User, error) {
 	if err != nil {
 		return nil, err
 	}
-	if resp.StatusCode != 200 {
+	if resp.StatusCode != 201 {
 		return nil, fmt.Errorf("failed to update alert rule, response code %d", resp.StatusCode)
 	}
 	var target User

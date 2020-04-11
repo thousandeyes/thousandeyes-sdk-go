@@ -62,8 +62,8 @@ func TestClient_GetUser(t *testing.T) {
 func TestClient_CreateUser(t *testing.T) {
 	setup()
 	out := `{"name": "William Fleming", "email": "wfleming@grumpysysadm.com", "uid": 1}`
-	mux.HandleFunc("/users/1.json", func(w http.ResponseWriter, r *http.Request) {
-		assert.Equal(t, "GET", r.Method)
+	mux.HandleFunc("/users/new.json", func(w http.ResponseWriter, r *http.Request) {
+		assert.Equal(t, "POST", r.Method)
 		w.WriteHeader(http.StatusCreated)
 		_, _ = w.Write([]byte(out))
 	})
