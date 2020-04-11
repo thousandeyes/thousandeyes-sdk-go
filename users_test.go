@@ -191,6 +191,19 @@ func TestClient_GetUsersJsonError(t *testing.T) {
 	assert.EqualError(t, err, "could not decode JSON response: invalid character 'e' in literal true (expecting 'r')")
 }
 
+func TestClient_GetUserJsonError(t *testing.T) {
+	out := `{"users": [test]}`
+	setup()
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
+	mux.HandleFunc("/users/1.json", func(w http.ResponseWriter, r *http.Request) {
+		assert.Equal(t, "GET", r.Method)
+		_, _ = w.Write([]byte(out))
+	})
+	_, err := client.GetUser(1)
+	assert.Error(t, err)
+	assert.EqualError(t, err, "could not decode JSON response: invalid character 'e' in literal true (expecting 'r')")
+}
+
 func TestClient_UpdateUsersJsonError(t *testing.T) {
 	out := `{"users": [test]}`
 	setup()
@@ -200,6 +213,20 @@ func TestClient_UpdateUsersJsonError(t *testing.T) {
 		_, _ = w.Write([]byte(out))
 	})
 	_, err := client.UpdateUser(1, User{})
+	assert.Error(t, err)
+	assert.EqualError(t, err, "could not decode JSON response: invalid character 'e' in literal true (expecting 'r')")
+}
+
+func TestClient_CreateUsersJsonError(t *testing.T) {
+	out := `{"users": [test]}`
+	setup()
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
+	mux.HandleFunc("/users/new.json", func(w http.ResponseWriter, r *http.Request) {
+		assert.Equal(t, "POST", r.Method)
+		w.WriteHeader(http.StatusCreated)
+		_, _ = w.Write([]byte(out))
+	})
+	_, err := client.CreateUser(User{})
 	assert.Error(t, err)
 	assert.EqualError(t, err, "could not decode JSON response: invalid character 'e' in literal true (expecting 'r')")
 }
