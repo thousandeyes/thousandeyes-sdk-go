@@ -5,6 +5,6 @@ type AccountGroups []AccountGroup
 
 // AccountGroup - an account group
 type AccountGroup struct {
-	Aid  int
-	Name string
+	Aid  int    `json:"aid"`
+	Name string `json:"name"`
 }
