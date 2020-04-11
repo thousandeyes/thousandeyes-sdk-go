@@ -98,6 +98,32 @@ func TestClient_DeleteUser(t *testing.T) {
 	_ = client.DeleteUser(1)
 }
 
+func TestClient_UpdateUser(t *testing.T) {
+	setup()
+	out := `{"name": "William Fleming", "email": "william@grumpysysadm.com", "uid": 1}`
+	mux.HandleFunc("/users/1/update.json", func(w http.ResponseWriter, r *http.Request) {
+		assert.Equal(t, "POST", r.Method)
+		w.WriteHeader(http.StatusOK)
+		_, _ = w.Write([]byte(out))
+	})
+
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
+	update := User{
+		Email: "william@grumpysysadm.com",
+	}
+	res, err := client.UpdateUser(1, update)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	expected := User{
+		Name:  "William Fleming",
+		Email: "william@grumpysysadm.com",
+		UID:   1,
+	}
+	assert.Equal(t, &expected, res)
+}
+
 func TestClient_GetUserStatusCode(t *testing.T) {
 	setup()
 	out := `{"alertRules":[{"ruleId":1,"ruleName":"test123"}]}`
