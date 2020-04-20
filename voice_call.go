@@ -4,7 +4,8 @@ import (
 	"fmt"
 )
 
-type sipAuthData struct {
+// SIPAuthData - Authentication fields for SIP tests
+type SIPAuthData struct {
 	AuthUser     string `json:"authUser,omitempty"`
 	Password     string `json:"password,omitempty"`
 	Port         int    `json:"port,omitempty"`
@@ -37,15 +38,15 @@ type VoiceCall struct {
 	BgpMeasurements      int            `json:"bgpMeasurements,omitempty"`
 	Dscp                 string         `json:"dscp,omitempty"`
 	DscpID               int            `json:"dscpId,omitempty"`
-	TargetSipCredentials sipAuthData    `json:"targetSipCredentials,omitempty"`
-	SourceSipCredentials sipAuthData    `json:"sourceSipCredentials,omitempty"`
+	TargetSipCredentials SIPAuthData    `json:"targetSipCredentials,omitempty"`
+	SourceSipCredentials SIPAuthData    `json:"sourceSipCredentials,omitempty"`
 	Codec                string         `json:"codec,omitempty"`
 	CodecID              int            `json:"codecId,omitempty"`
 	Duration             int            `json:"duration,omitempty"`
 	JitterBuffer         int            `json:"jitterBuffer,omitempty"`
 	SIPTargetTime        int            `json:"sipTargetTime,omitempty"`
 	SIPTimeLimit         int            `json:"sipTimeLimit,omitempty"`
-	TargetAgentID        int            `json:"targetAgentID,omitempty"`
+	TargetAgentID        int            `json:"targetAgentId,omitempty"`
 }
 
 // AddAgent - Add agent to voice call  test

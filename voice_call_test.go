@@ -8,7 +8,7 @@ import (
 )
 
 func TestClient_GetVoiceCall(t *testing.T) {
-	out := `{"test":[{"createdDate":"2018-11-03 19:09:42","modifiedDate":"2019-02-06 01:09:56","createdBy":"ThousandEyes (support@thousandeyes.com)","modifiedBy":"ThousandEyes (support@thousandeyes.com)","enabled":1,"savedEvent":0,"testId":814641,"testName":"Voice Call - AWS SIP server","interval":120,"server":"18.234.180.66:5060","bgpMeasurements":1,"usePublicBgp":1,"duration":5,"codec":"G.711 @ 64 Kbps","codecId":0,"dscpId":46,"jitterBuffer":40,"sipTimeLimit":5,"alertsEnabled":0,"liveShare":0,"targetAgentID":69,"numPathTraces":3,"sourceSipCredentials":{"credentialsId":48162,"user":"1006","sipRegistrar":"18.234.180.66","sipProxy":"","authUser":"1006","port":5060,"protocol":"UDP"},"targetSipCredentials":{"credentialsId":48165,"user":"1005","sipRegistrar":"18.234.180.66","sipProxy":"","authUser":"1005","port":5060,"protocol":"UDP"},"sipTargetTime":1000,"dscp":"EF (DSCP 46)","apiLinks":[{"rel":"self","href":"https://api.thousandeyes.com/v6/tests/814641"},{"rel":"data","href":"https://api.thousandeyes.com/v6/voice/sip-server/814641"},{"rel":"data","href":"https://api.thousandeyes.com/v6/voice/rtp-stream/814641"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/bgp-metrics/814641"}]}]}`
+	out := `{"test":[{"createdDate":"2018-11-03 19:09:42","modifiedDate":"2019-02-06 01:09:56","createdBy":"ThousandEyes (support@thousandeyes.com)","modifiedBy":"ThousandEyes (support@thousandeyes.com)","enabled":1,"savedEvent":0,"testId":814641,"testName":"Voice Call - AWS SIP server","interval":120,"server":"18.234.180.66:5060","bgpMeasurements":1,"usePublicBgp":1,"duration":5,"codec":"G.711 @ 64 Kbps","codecId":0,"dscpId":46,"jitterBuffer":40,"sipTimeLimit":5,"alertsEnabled":0,"liveShare":0,"targetAgentId":69,"numPathTraces":3,"sourceSipCredentials":{"credentialsId":48162,"user":"1006","sipRegistrar":"18.234.180.66","sipProxy":"","authUser":"1006","port":5060,"protocol":"UDP"},"targetSipCredentials":{"credentialsId":48165,"user":"1005","sipRegistrar":"18.234.180.66","sipProxy":"","authUser":"1005","port":5060,"protocol":"UDP"},"sipTargetTime":1000,"dscp":"EF (DSCP 46)","apiLinks":[{"rel":"self","href":"https://api.thousandeyes.com/v6/tests/814641"},{"rel":"data","href":"https://api.thousandeyes.com/v6/voice/sip-server/814641"},{"rel":"data","href":"https://api.thousandeyes.com/v6/voice/rtp-stream/814641"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/bgp-metrics/814641"}]}]}`
 	setup()
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/tests/122621.json", func(w http.ResponseWriter, r *http.Request) {
@@ -37,7 +37,7 @@ func TestClient_GetVoiceCall(t *testing.T) {
 		BgpMeasurements: 1,
 		Dscp:            "EF (DSCP 46)",
 		DscpID:          46,
-		TargetSipCredentials: sipAuthData{
+		TargetSipCredentials: SIPAuthData{
 			Protocol:     "UDP",
 			AuthUser:     "1005",
 			Password:     "",
@@ -45,7 +45,7 @@ func TestClient_GetVoiceCall(t *testing.T) {
 			SipRegistrar: "18.234.180.66",
 			User:         "1005",
 		},
-		SourceSipCredentials: sipAuthData{
+		SourceSipCredentials: SIPAuthData{
 			Protocol:     "UDP",
 			AuthUser:     "1006",
 			Password:     "",

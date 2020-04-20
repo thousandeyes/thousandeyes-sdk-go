@@ -13,6 +13,7 @@ type FTPServer struct {
 	Description           string         `json:"description,omitempty"`
 	Enabled               int            `json:"enabled,omitempty"`
 	Groups                []GroupLabel   `json:"groups,omitempty"`
+	Interval              int            `json:"interval,omitempty"`
 	LiveShare             int            `json:"liveShare,omitempty"`
 	ModifiedBy            string         `json:"modifiedBy,omitempty"`
 	ModifiedDate          string         `json:"modifiedDate,omitempty"`

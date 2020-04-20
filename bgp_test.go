@@ -40,7 +40,6 @@ func TestClient_GetBGP(t *testing.T) {
 		AlertsEnabled: 1,
 		TestName:      "test123",
 		Type:          "bgp",
-		Interval:      300,
 		Prefix:        "1.2.3.0/20",
 		Agents: []Agent{
 			{
@@ -123,7 +122,6 @@ func TestClient_CreateBGP(t *testing.T) {
 		SavedEvent:    0,
 		TestName:      "test123",
 		Type:          "bgp",
-		Interval:      300,
 		Prefix:        "1.2.3.0/20",
 		AlertsEnabled: 1,
 		Agents: []Agent{
@@ -171,7 +169,6 @@ func TestClient_CreateBGP(t *testing.T) {
 	create := BGP{
 		TestName: "test1",
 		Prefix:   "1.2.3.0/20",
-		Interval: 300,
 	}
 	res, err := client.CreateBGP(create)
 	teardown()
