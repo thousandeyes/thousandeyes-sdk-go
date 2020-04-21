@@ -1,9 +1,10 @@
 package thousandeyes
 
 import (
-	"github.com/stretchr/testify/assert"
 	"net/http"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestClient_GetFTPServer(t *testing.T) {
@@ -25,6 +26,7 @@ func TestClient_GetFTPServer(t *testing.T) {
 		AlertsEnabled: 1,
 		TestName:      "test123",
 		Type:          "ftp-server",
+		Interval:      300,
 		URL:           "webex.com",
 		ProbeMode:     "AUTO",
 		Agents: []Agent{
@@ -108,6 +110,7 @@ func TestClient_CreateFTPServer(t *testing.T) {
 		TestName:      "test123",
 		Type:          "ftp-server",
 		AlertsEnabled: 1,
+		Interval:      300,
 		URL:           "webex.com",
 		Protocol:      "TCP",
 		ProbeMode:     "AUTO",
