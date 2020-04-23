@@ -18,7 +18,7 @@ type Permission struct {
 	PermissionID           int    `json:"permissionId"`
 }
 
-// GetUsers - get users
+// GetRoles - get roles
 func (c *Client) GetRoles() (*[]AccountGroupRole, error) {
 	resp, err := c.get("/roles")
 	if err != nil {
@@ -32,7 +32,7 @@ func (c *Client) GetRoles() (*[]AccountGroupRole, error) {
 	return &roles, nil
 }
 
-// GetUser - get user
+// GetRole - get role
 func (c *Client) GetRole(id int) (*AccountGroupRole, error) {
 	resp, err := c.get(fmt.Sprintf("/roles/%d", id))
 	if err != nil {
@@ -46,7 +46,7 @@ func (c *Client) GetRole(id int) (*AccountGroupRole, error) {
 	return &role, nil
 }
 
-// DeleteUser - delete user
+// DeleteRole - delete role
 func (c *Client) DeleteRole(id int) error {
 	resp, err := c.post(fmt.Sprintf("/roles/%d/delete", id), nil, nil)
 	if err != nil {
@@ -58,7 +58,7 @@ func (c *Client) DeleteRole(id int) error {
 	return nil
 }
 
-// UpdateUser - update user
+// UpdateRole - update role
 func (c *Client) UpdateRole(id int, role AccountGroupRole) (*AccountGroupRole, error) {
 	resp, err := c.post(fmt.Sprintf("/roles/%d/update", id), role, nil)
 	if err != nil {
@@ -74,7 +74,7 @@ func (c *Client) UpdateRole(id int, role AccountGroupRole) (*AccountGroupRole, e
 	return &target, nil
 }
 
-// CreateUser - create user
+// CreateRole - create role
 func (c *Client) CreateRole(user AccountGroupRole) (*AccountGroupRole, error) {
 	resp, err := c.post("/roles/new", user, nil)
 	if err != nil {
