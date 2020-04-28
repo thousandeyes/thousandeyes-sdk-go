@@ -13,7 +13,7 @@ var AgentCmd = &cobra.Command{
 	Short: "allows for viewing agent details",
 	Long:  `This sub-command displays agent details`,
 	Run: func(cmd *cobra.Command, args []string) {
-		out, err := execute()
+		out, err := agentExecute()
 		if err != nil {
 			fmt.Println(err)
 			os.Exit(1)
@@ -26,16 +26,16 @@ func init() {
 	RootCmd.AddCommand(AgentCmd)
 }
 
-func execute() (Display, error) {
+func agentExecute() (Display, error) {
 	client := thousandeyes.NewClient(os.Getenv("TE_TOKEN"))
 	agents, err := client.GetAgents()
 	if err != nil {
 		return nil, err
 	}
 	table := TableOuput()
-	table.SetHeader([]string{"Agent Name", "Agent Name"})
+	table.SetHeader([]string{"Agent Name", "AgentID", "Enabled"})
 	for _, v := range *agents {
-		fields := []string{v.AgentName, strconv.Itoa(v.AgentID)}
+		fields := []string{v.AgentName, strconv.Itoa(v.AgentID), strconv.Itoa(v.Enabled)}
 		table.Append(fields)
 	}
 	return table, nil
