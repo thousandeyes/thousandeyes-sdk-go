@@ -1,3 +1,0 @@
-package te
-
-func main() {}
