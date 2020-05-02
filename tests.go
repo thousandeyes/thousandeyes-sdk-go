@@ -2,6 +2,7 @@ package thousandeyes
 
 import "fmt"
 
+// GenericTest - GenericTest struct to represent all test types
 type GenericTest struct {
 	Agents             []Agent        `json:"agents,omitempty"`
 	AlertsEnabled      int            `json:"alertsEnabled,omitempty"`
