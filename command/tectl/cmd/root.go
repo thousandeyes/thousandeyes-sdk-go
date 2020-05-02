@@ -8,7 +8,6 @@ import (
 )
 
 var (
-	Output  string
 	Version string
 	RootCmd = &cobra.Command{
 		Use:   "tectl",
@@ -25,7 +24,6 @@ var (
 			fmt.Printf("version: %s", Version)
 		},
 	}
-	cfgFile string
 )
 
 func Execute() error {
@@ -34,12 +32,7 @@ func Execute() error {
 
 func init() {
 	RootCmd.AddCommand(versionCmd)
-	RootCmd.PersistentFlags().StringVar(&cfgFile, "config", "c", "config file (default is $HOME/.tectl.yaml)")
-	RootCmd.PersistentFlags().StringVar(&Output, "output", "o", "text")
-}
-
-type Display interface {
-	Render()
+	RootCmd.AddCommand(GetCmd)
 }
 
 func TableOuput() *tablewriter.Table {
