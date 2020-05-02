@@ -2,13 +2,49 @@
 [![Gitter](https://badges.gitter.im/go-thousandeyes/community.svg)](https://gitter.im/go-thousandeyes/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 # go-thousandeyes
 
-go-thousandeyes is a [go](https://golang.org/) client library for the [Thousandeyes v6 API](https://developer.thousandeyes.com/v6).
+go-thousandeyes is a [go](https://golang.org/) client library for the [Thousandeyes v6 API](https://developer.thousandeyes.com/v6). This repo
+also contains a supporting CLI tool tectl that uses the client lib.
 
 ## Installation
 
 First, download the source code
 ```cli
 go get github.com/william20111/go-thousandeyes
+```
+
+## Usage
+
+### Using `tectl`
+
+```shell script
+tectl get agents           
+AGENT NAME                              AGENTID ENABLED LOCATION                        IPADDRESSES                                                                                                                                                                                                     
+Dallas, TX (Trial)                      4492    0       Dallas Area                     104.130.154.136,104.130.156.108,104.130.141.203,104.130.155.161                                                                                                                                                        
+Chicago, IL (Trial)                     4495    0       Chicago Area                    23.253.167.114,23.253.41.151,23.253.46.129,23.253.47.96                                                                                                                                                                
+Ashburn, VA (Trial)                     4497    0       Ashburn Area                    23.253.149.202,162.242.253.124,23.253.149.138,162.242.252.22                                                                                                                                                           
+Sydney, Australia (Trial)               4500    0       New South Wales, Australia      119.9.24.178,119.9.24.218,119.9.24.167,119.9.24.176,2401:1801:7801:101:ec6e:d653:b713:68cb 
+```
+
+### Using client library
+
+```go
+package main
+
+import (
+	"fmt"
+	"github.com/william20111/go-thousandeyes"
+)
+
+func main() {
+	client := thousandeyes.NewClient("foobar")
+	agents, err := client.GetAgents()
+	if err != nil {
+		panic(err)
+	}
+	for _, a := range *agents {
+		fmt.Println(a.AgentName)
+	}
+}
 ```
 
 ## Contributing

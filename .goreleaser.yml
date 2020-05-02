@@ -8,8 +8,8 @@ release:
   name_template: "{{.ProjectName}}-v{{.Version}}"
 builds:
   - id: "default"
-    main: ./cmd/te/main.go
-    binary: te
+    main: ./command/tectl/main.go
+    binary: tectl
     ldflags:
       - -s -w -X main.build={{.Version}}
     goarch:

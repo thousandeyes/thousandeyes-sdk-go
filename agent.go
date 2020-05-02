@@ -63,3 +63,17 @@ func (c *Client) GetAgents() (*Agents, error) {
 	agents := target["agents"]
 	return &agents, nil
 }
+
+// GetAgent - Get agent
+func (c *Client) GetAgent(id int) (*Agent, error) {
+	resp, err := c.get(fmt.Sprintf("/agents/%d", id))
+	if err != nil {
+		return nil, err
+	}
+	var target map[string][]Agent
+	if dErr := c.decodeJSON(resp, &target); dErr != nil {
+		return nil, fmt.Errorf("Could not decode JSON response: %v", dErr)
+	}
+	agent := target["agents"][0]
+	return &agent, nil
+}
