@@ -30,7 +30,7 @@ func (c *Client) GetTests() (*[]GenericTest, error) {
 	}
 	var target map[string][]GenericTest
 	if dErr := c.decodeJSON(resp, &target); dErr != nil {
-		return nil, fmt.Errorf("Could not decode JSON response: %v", dErr)
+		return nil, fmt.Errorf("could not decode JSON response: %v", dErr)
 	}
 	tests := target["test"]
 	return &tests, nil
@@ -44,7 +44,7 @@ func (c *Client) GetTest(id int) (*GenericTest, error) {
 	}
 	var target map[string][]GenericTest
 	if dErr := c.decodeJSON(resp, &target); dErr != nil {
-		return nil, fmt.Errorf("Could not decode JSON response: %v", dErr)
+		return nil, fmt.Errorf("could not decode JSON response: %v", dErr)
 	}
 	test := target["test"][0]
 	return &test, nil
