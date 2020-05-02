@@ -34,3 +34,17 @@ func (c *Client) GetTests() (*[]GenericTest, error) {
 	tests := target["test"]
 	return &tests, nil
 }
+
+// GetTest - Get test
+func (c *Client) GetTest(id int) (*GenericTest, error) {
+	resp, err := c.get(fmt.Sprintf("/tests/%d", id))
+	if err != nil {
+		return nil, err
+	}
+	var target map[string][]GenericTest
+	if dErr := c.decodeJSON(resp, &target); dErr != nil {
+		return nil, fmt.Errorf("Could not decode JSON response: %v", dErr)
+	}
+	test := target["test"][0]
+	return &test, nil
+}

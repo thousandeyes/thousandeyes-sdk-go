@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+	"github.com/olekukonko/tablewriter"
 	"github.com/spf13/cobra"
 	"github.com/william20111/go-thousandeyes"
 	"os"
@@ -21,15 +22,51 @@ var TestsCmd = &cobra.Command{
 	},
 }
 
-func init() {
-	RootCmd.AddCommand(TestsCmd)
-}
-
 func GetTestsExecute() error {
 	client := thousandeyes.NewClient(os.Getenv("TE_TOKEN"))
+	var table *tablewriter.Table
+	if GetCmd.Flags().Changed("id") {
+		id, err := GetCmd.Flags().GetString("id")
+		if err != nil {
+			return err
+		}
+		table, err = getTest(client, id)
+		if err != nil {
+			return err
+		}
+	} else {
+		var err error
+		table, err = getTests(client)
+		if err != nil {
+			return err
+		}
+	}
+	table.Render()
+	return nil
+}
+
+func getTest(client *thousandeyes.Client, id string) (*tablewriter.Table, error) {
+	intId, err := strconv.Atoi(id)
+	if err != nil {
+		return nil, err
+	}
+	test, err := client.GetTest(intId)
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+	table := TableOuput()
+	table.SetHeader([]string{"Test Name", "TestID", "Type", "Enabled"})
+	fields := []string{test.TestName, strconv.Itoa(test.TestID), test.Type, strconv.Itoa(test.Enabled)}
+	table.Append(fields)
+	return table, nil
+}
+
+func getTests(client *thousandeyes.Client) (*tablewriter.Table, error) {
 	tests, err := client.GetTests()
 	if err != nil {
-		return err
+		fmt.Println(err)
+		os.Exit(1)
 	}
 	table := TableOuput()
 	table.SetHeader([]string{"Test Name", "TestID", "Type", "Enabled"})
@@ -37,6 +74,5 @@ func GetTestsExecute() error {
 		fields := []string{v.TestName, strconv.Itoa(v.TestID), v.Type, strconv.Itoa(v.Enabled)}
 		table.Append(fields)
 	}
-	table.Render()
-	return nil
+	return table, nil
 }
