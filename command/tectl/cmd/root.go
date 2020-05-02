@@ -8,25 +8,26 @@ import (
 )
 
 var (
-	Version string
+	VERSION string
 	RootCmd = &cobra.Command{
 		Use:   "tectl",
 		Short: "tectl is a cli tool for managing thousandeyes",
 		Long:  "tectl is a cli tool for managing thousandeyes and querying the existing configuration",
 		Run: func(cmd *cobra.Command, args []string) {
-			fmt.Printf("tectl version: %s", Version)
+			fmt.Printf("tectl version: %s", VERSION)
 		},
 	}
 	versionCmd = &cobra.Command{
 		Use:   "version",
 		Short: "Print the version number of tectl",
 		Run: func(cmd *cobra.Command, args []string) {
-			fmt.Printf("version: %s", Version)
+			fmt.Printf("version: %s", VERSION)
 		},
 	}
 )
 
-func Execute() error {
+func Execute(version string) error {
+	VERSION = version
 	return RootCmd.Execute()
 }
 
