@@ -21,7 +21,7 @@ type GenericTest struct {
 	Type               string         `json:"type,omitempty"`
 }
 
-// GenericTest  - get all tests
+// GetTests  - get all tests
 func (c *Client) GetTests() (*[]GenericTest, error) {
 	resp, err := c.get("/tests")
 	if err != nil {
