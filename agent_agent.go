@@ -6,36 +6,40 @@ import (
 
 // AgentAgent - test
 type AgentAgent struct {
-	Agents                 []Agent        `json:"agents,omitempty"`
-	AlertRules             []AlertRule    `json:"alertRules,omitempty"`
-	AlertsEnabled          int            `json:"alertsEnabled,omitempty"`
-	APILinks               []APILink      `json:"apiLinks,omitempty"`
-	BgpMeasurements        int            `json:"bgpMeasurements,omitempty"`
-	BgpMonitors            []BGPMonitor   `json:"bgpMonitors,omitempty"`
-	CreatedBy              string         `json:"createdBy,omitempty"`
-	CreatedDate            string         `json:"createdDate,omitempty"`
-	Description            string         `json:"description,omitempty"`
-	Direction              string         `json:"direction,omitempty"`
-	Dscp                   string         `json:"dscp,omitempty"`
-	DscpID                 int            `json:"dscpId"`
-	Enabled                int            `json:"enabled,omitempty"`
-	Groups                 []GroupLabel   `json:"groups,omitempty"`
-	Interval               int            `json:"interval,omitempty"`
-	LiveShare              int            `json:"liveShare,omitempty"`
-	ModifiedBy             string         `json:"modifiedBy,omitempty"`
-	ModifiedDate           string         `json:"modifiedDate,omitempty"`
-	Mss                    int            `json:"mss,omitempty"`
-	NumPathTraces          int            `json:"numPathTraces,omitempty"`
-	Port                   int            `json:"port,omitempty"`
-	Protocol               string         `json:"protocol,omitempty"`
-	SharedWithAccounts     []AccountGroup `json:"sharedWithAccounts,omitempty"`
-	TargetAgentID          int            `json:"targetAgentId,omitempty"`
-	TestID                 int            `json:"testId,omitempty"`
-	TestName               string         `json:"testName,omitempty"`
-	ThroughputDuration     int            `json:"throughputDuration,omitempty"`
-	ThroughputMeasurements int            `json:"throughputMeasurements,omitempty"`
-	ThroughputRate         int            `json:"throughputRate,omitempty"`
-	Type                   string         `json:"type,omitempty"`
+	// Common test fields
+	AlertsEnabled      int            `json:"alertsEnabled,omitempty"`
+	AlertRules         []AlertRule    `json:"alertRules,omitempty"`
+	APILinks           []APILink      `json:"apiLinks,omitempty"`
+	CreatedBy          string         `json:"createdBy,omitempty"`
+	CreatedDate        string         `json:"createdDate,omitempty"`
+	Description        string         `json:"description,omitempty"`
+	Enabled            int            `json:"enabled,omitempty"`
+	Groups             []GroupLabel   `json:"groups,omitempty"`
+	ModifiedBy         string         `json:"modifiedBy,omitempty"`
+	ModifiedDate       string         `json:"modifiedDate,omitempty"`
+	SavedEvent         int            `json:"savedEvent,omitempty"`
+	SharedWithAccounts []AccountGroup `json:"sharedWithAccounts,omitempty"`
+	TestID             int            `json:"testId,omitempty"`
+	TestName           string         `json:"testName,omitempty"`
+	Type               string         `json:"type,omitempty"`
+	// LiveShare is common to all tests except DNS+
+	LiveShare int `json:"liveShare,omitempty"`
+	// Fields unique to this test
+	Agents                 []Agent      `json:"agents,omitempty"`
+	BGPMeasurements        int          `json:"bgpMeasurements,omitempty"`
+	BGPMonitors            []BGPMonitor `json:"bgpMonitors,omitempty"`
+	Direction              string       `json:"direction,omitempty"`
+	DSCP                   string       `json:"dscp,omitempty"`
+	DSCPID                 int          `json:"dscpId"`
+	Interval               int          `json:"interval,omitempty"`
+	MSS                    int          `json:"mss,omitempty"`
+	NumPathTraces          int          `json:"numPathTraces,omitempty"`
+	Port                   int          `json:"port,omitempty"`
+	Protocol               string       `json:"protocol,omitempty"`
+	TargetAgentID          int          `json:"targetAgentId,omitempty"`
+	ThroughputDuration     int          `json:"throughputDuration,omitempty"`
+	ThroughputMeasurements int          `json:"throughputMeasurements,omitempty"`
+	ThroughputRate         int          `json:"throughputRate,omitempty"`
 }
 
 // AddAgent - Adds an agent to agent test

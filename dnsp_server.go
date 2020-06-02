@@ -4,31 +4,25 @@ import "fmt"
 
 // DNSPServer - DNSP server test
 type DNSPServer struct {
-	Agents             []Agent        `json:"agents,omitempty"`
+	// Common test fields
 	AlertsEnabled      int            `json:"alertsEnabled,omitempty"`
 	AlertRules         []AlertRule    `json:"alertRules,omitempty"`
-	APILinks           APILinks       `json:"apiLinks,omitempty"`
+	APILinks           []APILink      `json:"apiLinks,omitempty"`
 	CreatedBy          string         `json:"createdBy,omitempty"`
 	CreatedDate        string         `json:"createdDate,omitempty"`
 	Description        string         `json:"description,omitempty"`
 	Enabled            int            `json:"enabled,omitempty"`
 	Groups             []GroupLabel   `json:"groups,omitempty"`
-	LiveShare          int            `json:"liveShare,omitempty"`
 	ModifiedBy         string         `json:"modifiedBy,omitempty"`
 	ModifiedDate       string         `json:"modifiedDate,omitempty"`
 	SavedEvent         int            `json:"savedEvent,omitempty"`
 	SharedWithAccounts []AccountGroup `json:"sharedWithAccounts,omitempty"`
-	Type               string         `json:"type"`
 	TestID             int            `json:"testId,omitempty"`
 	TestName           string         `json:"testName,omitempty"`
-	Server             string         `json:"server,omitempty"`
-	Interval           int            `json:"interval,omitempty"`
-}
-
-// AddAgent - Add agent to DNSP server test
-func (t *DNSPServer) AddAgent(id int) {
-	agent := Agent{AgentID: id}
-	t.Agents = append(t.Agents, agent)
+	Type               string         `json:"type,omitempty"`
+	// Fields unique to this test
+	Interval int    `json:"interval,omitempty"`
+	Server   string `json:"server,omitempty"`
 }
 
 // AddAlertRule - Adds an alert to agent test

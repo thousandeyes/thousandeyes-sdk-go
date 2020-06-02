@@ -6,23 +6,26 @@ import (
 
 // WebTransaction - a web transcation test
 type WebTransaction struct {
+	// Common test fields
+	AlertsEnabled      int            `json:"alertsEnabled,omitempty"`
+	AlertRules         []AlertRule    `json:"alertRules,omitempty"`
+	APILinks           []APILink      `json:"apiLinks,omitempty"`
+	CreatedBy          string         `json:"createdBy,omitempty"`
+	CreatedDate        string         `json:"createdDate,omitempty"`
+	Description        string         `json:"description,omitempty"`
+	Enabled            int            `json:"enabled,omitempty"`
+	Groups             []GroupLabel   `json:"groups,omitempty"`
+	ModifiedBy         string         `json:"modifiedBy,omitempty"`
+	ModifiedDate       string         `json:"modifiedDate,omitempty"`
+	SavedEvent         int            `json:"savedEvent,omitempty"`
+	SharedWithAccounts []AccountGroup `json:"sharedWithAccounts,omitempty"`
+	TestID             int            `json:"testId,omitempty"`
+	TestName           string         `json:"testName,omitempty"`
+	Type               string         `json:"type,omitempty"`
+	// LiveShare is common to all tests except DNS+
+	LiveShare int `json:"liveShare,omitempty"`
+	// Fields unique to this test
 	Agents                Agents              `json:"agents,omitempty"`
-	AlertsEnabled         int                 `json:"alertsEnabled,omitempty"`
-	AlertRules            AlertRules          `json:"alertRules,omitempty"`
-	APILinks              APILinks            `json:"apiLinks,omitempty"`
-	CreatedBy             string              `json:"createdBy,omitempty"`
-	CreatedDate           string              `json:"createdDate,omitempty"`
-	Description           string              `json:"description,omitempty"`
-	Enabled               int                 `json:"enabled,omitempty"`
-	Groups                []GroupLabels       `json:"groups,omitempty"`
-	LiveShare             int                 `json:"liveShare,omitempty"`
-	ModifiedBy            string              `json:"modifiedBy,omitempty"`
-	ModifiedDate          string              `json:"modifiedDate,omitempty"`
-	SavedEvent            int                 `json:"savedEvent,omitempty"`
-	SharedWithAccounts    []AccountGroup      `json:"sharedWithAccounts,omitempty"`
-	TestID                int                 `json:"testId,omitempty"`
-	TestName              string              `json:"testName,omitempty"`
-	Type                  string              `json:"type,omitempty"`
 	AuthType              string              `json:"authType,omitempty"`
 	BandwidthMeasurements int                 `json:"bandwidthMeasurements,omitempty"`
 	ContentRegex          string              `json:"contentRegex,omitempty"`
@@ -34,19 +37,20 @@ type WebTransaction struct {
 	HTTPVersion           int                 `json:"httpVersion,omitempty"`
 	IncludeHeaders        int                 `json:"ncludeHeaders,omitempty"`
 	Interval              int                 `json:"interval,omitempty"`
-	MtuMeasurements       int                 `json:"mtuMeasurements,omitempty"`
+	MTUMeasurements       int                 `json:"mtuMeasurements,omitempty"`
 	NetworkMeasurements   int                 `json:"networkMeasurements,omitempty"`
 	NumPathTraces         int                 `json:"numPathTraces,omitempty"`
 	Password              string              `json:"password,omitempty"`
+	PathTraceMode         string              `json:"pathTraceMode,omitempty"`
 	ProbeMode             string              `json:"probeMode,omitempty"`
 	Protocol              string              `json:"protocol,omitempty"`
-	SslVersionID          int                 `json:"sslVersionId,omitempty"`
-	Subinterval           int                 `json:"subInterval,omitempty"`
+	SSLVersionID          int                 `json:"sslVersionId,omitempty"`
+	SubInterval           int                 `json:"subInterval,omitempty"`
 	TargetTime            int                 `json:"targetTime,omitempty"`
 	TimeLimit             int                 `json:"timeLimit,omitempty"`
 	TransactionScript     string              `json:"transactionScript,omitempty"`
 	URL                   string              `json:"url,omitempty"`
-	UseNtlm               int                 `json:"useNtlm,omitempty"`
+	UseNTLM               int                 `json:"useNtlm,omitempty"`
 	UserAgent             string              `json:"userAgent,omitempty"`
 	Username              string              `json:"username,omitempty"`
 	VerifyCertificate     int                 `json:"verifyCertificate,omitempty"`

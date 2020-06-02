@@ -109,7 +109,6 @@ func TestClient_CreateSIPServer(t *testing.T) {
 		SavedEvent:    0,
 		TestName:      "test123",
 		Type:          "sip-server",
-		Password:      "secret",
 		User:          "usernameA",
 		Interval:      300,
 		AlertsEnabled: 1,
@@ -157,7 +156,6 @@ func TestClient_CreateSIPServer(t *testing.T) {
 	}
 	create := SIPServer{
 		TestName: "test1",
-		Password: "secret",
 		User:     "usernameA",
 		Interval: 300,
 	}
@@ -196,14 +194,13 @@ func TestClient_UpdateSIPServer(t *testing.T) {
 	id := 1
 	sipS := SIPServer{
 		TestName: "test1",
-		Password: "secret",
 		User:     "usernameA",
 	}
 	res, err := client.UpdateSIPServer(id, sipS)
 	if err != nil {
 		t.Fatal(err)
 	}
-	expected := SIPServer{TestID: 1, TestName: "test123", Type: "sip-server", User: "usernameA", Password: "secret"}
+	expected := SIPServer{TestID: 1, TestName: "test123", Type: "sip-server", User: "usernameA"}
 	assert.Equal(t, &expected, res)
 
 }
