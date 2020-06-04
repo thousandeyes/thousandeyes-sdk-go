@@ -2,11 +2,12 @@ package cmd
 
 import (
 	"fmt"
+	"os"
+	"strconv"
+
 	"github.com/olekukonko/tablewriter"
 	"github.com/spf13/cobra"
 	"github.com/william20111/go-thousandeyes"
-	"os"
-	"strconv"
 )
 
 var TestsCmd = &cobra.Command{
@@ -23,7 +24,7 @@ var TestsCmd = &cobra.Command{
 }
 
 func GetTestsExecute() error {
-	client := thousandeyes.NewClient(os.Getenv("TE_TOKEN"))
+	client := thousandeyes.NewClient(os.Getenv("TE_TOKEN"), os.Getenv("TE_AID"))
 	var table *tablewriter.Table
 	if GetCmd.Flags().Changed("id") {
 		id, err := GetCmd.Flags().GetString("id")

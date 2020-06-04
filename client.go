@@ -33,16 +33,18 @@ type HTTPClient interface {
 
 // Client wraps http client
 type Client struct {
-	AuthToken   string
-	APIEndpoint string
-	HTTPClient  http.Client
+	AuthToken      string
+	AccountGroupID string
+	APIEndpoint    string
+	HTTPClient     http.Client
 }
 
 // NewClient creates an API client
-func NewClient(authToken string) *Client {
+func NewClient(authToken string, accountGroupID string) *Client {
 	return &Client{
-		AuthToken:   authToken,
-		APIEndpoint: apiEndpoint,
+		AuthToken:      authToken,
+		AccountGroupID: accountGroupID,
+		APIEndpoint:    apiEndpoint,
 		HTTPClient: http.Client{
 			Timeout: time.Second * 10,
 		},
@@ -79,6 +81,11 @@ func (c *Client) get(path string) (*http.Response, error) {
 func (c *Client) do(method, path string, body io.Reader, headers *map[string]string) (*http.Response, error) {
 	endpoint := c.APIEndpoint + path + ".json"
 	req, _ := http.NewRequest(method, endpoint, body)
+	if c.AccountGroupID != "" {
+		q := req.URL.Query()
+		q.Add("aid", c.AccountGroupID)
+		req.URL.RawQuery = q.Encode()
+	}
 	req.Header.Set("accept", "application/json")
 	req.Header.Set("authorization", fmt.Sprintf("Bearer %s", c.AuthToken))
 	req.Header.Set("content-type", "application/json")
