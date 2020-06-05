@@ -20,7 +20,8 @@ func setup() {
 	mux = http.NewServeMux()
 	server = httptest.NewServer(mux)
 	var authToken = "foo"
-	client = NewClient(authToken)
+	var accountGroup = "bar"
+	client = NewClient(authToken, accountGroup)
 }
 
 func teardown() {

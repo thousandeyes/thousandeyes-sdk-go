@@ -2,15 +2,16 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/olekukonko/tablewriter"
-	"github.com/william20111/go-thousandeyes"
 	"os"
 	"strconv"
 	"strings"
+
+	"github.com/olekukonko/tablewriter"
+	"github.com/william20111/go-thousandeyes"
 )
 
 func GetAgentsExecute() error {
-	client := thousandeyes.NewClient(os.Getenv("TE_TOKEN"))
+	client := thousandeyes.NewClient(os.Getenv("TE_TOKEN"), os.Getenv("TE_AID"))
 	var table *tablewriter.Table
 	if GetCmd.Flags().Changed("id") {
 		id, err := GetCmd.Flags().GetString("id")
