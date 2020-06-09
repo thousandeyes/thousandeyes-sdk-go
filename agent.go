@@ -78,7 +78,7 @@ func (c *Client) GetAgent(id int) (*Agent, error) {
 	return &agent, nil
 }
 
-// AddAgentToCluster - add agent to cluster
+// AddAgentsToCluster - add agent to cluster
 func (c *Client) AddAgentsToCluster(cluster int, ids []int) (*[]Agent, error) {
 	resp, err := c.post(fmt.Sprintf("/agents/%d/add-to-cluster", cluster), ids, nil)
 	if err != nil {
