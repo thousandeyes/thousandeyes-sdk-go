@@ -77,3 +77,37 @@ func (c *Client) GetAgent(id int) (*Agent, error) {
 	agent := target["agents"][0]
 	return &agent, nil
 }
+
+// AddAgentToCluster - add agent to cluster
+func (c *Client) AddAgentsToCluster(cluster int, ids []int) (*[]Agent, error) {
+	resp, err := c.post(fmt.Sprintf("/agents/%d/add-to-cluster", cluster), ids, nil)
+	if err != nil {
+		return nil, err
+	}
+	if resp.StatusCode != 200 {
+		return nil, fmt.Errorf("failed to add agents to cluster, response code %d", resp.StatusCode)
+	}
+	var target map[string][]Agent
+	if dErr := c.decodeJSON(resp, &target); dErr != nil {
+		return nil, fmt.Errorf("Could not decode JSON response: %v", dErr)
+	}
+	agent := target["agents"]
+	return &agent, nil
+}
+
+// RemoveAgentsFromCluster - remove agent from cluster
+func (c *Client) RemoveAgentsFromCluster(cluster int, ids []int) (*[]Agent, error) {
+	resp, err := c.post(fmt.Sprintf("/agents/%d/remove-from-cluster", cluster), ids, nil)
+	if err != nil {
+		return nil, err
+	}
+	if resp.StatusCode != 200 {
+		return nil, fmt.Errorf("failed to remove agents from cluster, response code %d", resp.StatusCode)
+	}
+	var target map[string][]Agent
+	if dErr := c.decodeJSON(resp, &target); dErr != nil {
+		return nil, fmt.Errorf("Could not decode JSON response: %v", dErr)
+	}
+	agent := target["agents"]
+	return &agent, nil
+}
