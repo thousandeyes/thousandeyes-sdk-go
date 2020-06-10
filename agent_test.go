@@ -172,3 +172,51 @@ func TestClient_RemoveAgentFromClusterJsonError(t *testing.T) {
 	assert.Error(t, err)
 	assert.EqualError(t, err, "Could not decode JSON response: invalid character ':' after array element")
 }
+
+func TestClient_RemoveAgentFromCluster(t *testing.T) {
+	out := `{"agents": [{"agentId": 1, "agentName": "test", "clusterMembers": [{"memberId": 80002, "name": "test"}]}]}`
+	setup()
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
+	mux.HandleFunc("/agents/1/remove-from-cluster.json", func(w http.ResponseWriter, r *http.Request) {
+		assert.Equal(t, "POST", r.Method)
+		_, _ = w.Write([]byte(out))
+	})
+	res, _ := client.RemoveAgentsFromCluster(1, []int{8001})
+	exp := []Agent{
+		{
+			AgentID:   1,
+			AgentName: "test",
+			ClusterMembers: []ClusterMember{
+				{
+					MemberID: 80002,
+					Name:     "test",
+				},
+			},
+		},
+	}
+	assert.Equal(t, res, &exp)
+}
+
+func TestClient_AddAgentToCluster(t *testing.T) {
+	out := `{"agents": [{"agentId": 1, "agentName": "test", "clusterMembers": [{"memberId": 80002, "name": "test"}]}]}`
+	setup()
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
+	mux.HandleFunc("/agents/1/add-to-cluster.json", func(w http.ResponseWriter, r *http.Request) {
+		assert.Equal(t, "POST", r.Method)
+		_, _ = w.Write([]byte(out))
+	})
+	res, _ := client.AddAgentsToCluster(1, []int{8002})
+	exp := []Agent{
+		{
+			AgentID:   1,
+			AgentName: "test",
+			ClusterMembers: []ClusterMember{
+				{
+					MemberID: 80002,
+					Name:     "test",
+				},
+			},
+		},
+	}
+	assert.Equal(t, res, &exp)
+}
