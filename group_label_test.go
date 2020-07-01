@@ -18,7 +18,7 @@ func TestClient_GetGroupLabels(t *testing.T) {
 
 	// Define expected values from the API (based on the JSON we print out above)
 	expected := GroupLabels{
-		GroupLabel{GroupLabelID: 1, GroupLabelType: "tests", GroupLabelName: "exampleName"},
+		GroupLabel{GroupID: 1, Type: "tests", Name: "exampleName"},
 	}
 
 	res, err := client.GetGroupLabels()
@@ -39,7 +39,7 @@ func TestClient_GetGroupLabelsByType(t *testing.T) {
 
 	// Define expected values from the API (based on the JSON we print out above)
 	expected := GroupLabels{
-		GroupLabel{GroupLabelID: 1, BuiltIn: 0, GroupLabelType: "tests", GroupLabelName: "test-agent"},
+		GroupLabel{GroupID: 1, BuiltIn: 0, Type: "tests", Name: "test-agent"},
 	}
 
 	res, err := client.GetGroupLabelsByType("tests")
@@ -48,7 +48,7 @@ func TestClient_GetGroupLabelsByType(t *testing.T) {
 	assert.Equal(t, &expected, res)
 }
 
-func TestClient_GetGroupLabelsByID(t *testing.T) {
+func TestClient_GetGroupLabel(t *testing.T) {
 	out := `{
 		"groups" : [
 			{
@@ -64,17 +64,17 @@ func TestClient_GetGroupLabelsByID(t *testing.T) {
 	})
 
 	// Define expected values from the API (based on the JSON we print out above)
-	expected := GroupLabels{
-		GroupLabel{GroupLabelID: 222, BuiltIn: 0, GroupLabelType: "tests", GroupLabelName: "test-agent"},
+	expected := GroupLabel{
+		GroupID: 222, BuiltIn: 0, Type: "tests", Name: "test-agent",
 	}
 
-	res, err := client.GetGroupLabelsByID(222)
+	res, err := client.GetGroupLabel(222)
 	teardown()
 	assert.Nil(t, err)
 	assert.Equal(t, &expected, res)
 }
 
-func TestClient_GetGroupLabelError(t *testing.T) {
+func TestClient_GetGroupLabelsError(t *testing.T) {
 	setup()
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/groups.json", func(w http.ResponseWriter, r *http.Request) {
@@ -99,7 +99,7 @@ func TestClient_CreateGroupLabelError(t *testing.T) {
 	assert.Error(t, err)
 }
 
-func TestClient_GetGroupLabelByIDError(t *testing.T) {
+func TestClient_GetGroupLabelError(t *testing.T) {
 	setup()
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/groups/1.json", func(w http.ResponseWriter, r *http.Request) {
@@ -107,7 +107,7 @@ func TestClient_GetGroupLabelByIDError(t *testing.T) {
 		w.WriteHeader(http.StatusBadRequest)
 	})
 
-	_, err := client.GetGroupLabelsByID(1)
+	_, err := client.GetGroupLabel(1)
 	teardown()
 	assert.Error(t, err)
 }
@@ -153,12 +153,12 @@ func TestClient_UpdateGroupLabel(t *testing.T) {
 
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	id := 222
-	u := GroupLabel{GroupLabelType: "tests"}
+	u := GroupLabel{Type: "tests"}
 	res, err := client.UpdateGroupLabel(id, u)
 	if err != nil {
 		t.Fatal(err)
 	}
-	expected := GroupLabels{GroupLabel{GroupLabelID: 222, GroupLabelType: "tests", GroupLabelName: "test-agent"}}
+	expected := GroupLabels{GroupLabel{GroupID: 222, Type: "tests", Name: "test-agent"}}
 	assert.Equal(t, &expected, res)
 }
 
@@ -172,16 +172,16 @@ func TestClient_CreateGroupLabel(t *testing.T) {
 	})
 
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
-	u := GroupLabel{GroupLabelName: "test"}
+	u := GroupLabel{Name: "test"}
 	res, err := client.CreateGroupLabel(u)
 	if err != nil {
 		t.Fatal(err)
 	}
-	expected := GroupLabels{GroupLabel{GroupLabelID: 1, GroupLabelName: "test"}}
+	expected := GroupLabel{GroupID: 1, Name: "test"}
 	assert.Equal(t, &expected, res)
 }
 
-func TestClient_GroupLabelJsonError(t *testing.T) {
+func TestClient_GroupLabelsJsonError(t *testing.T) {
 	out := `{"groups": [test]}`
 	setup()
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
@@ -194,7 +194,7 @@ func TestClient_GroupLabelJsonError(t *testing.T) {
 	assert.EqualError(t, err, "Could not decode JSON response: invalid character 'e' in literal true (expecting 'r')")
 }
 
-func TestClient_GroupLabelByTypeJsonError(t *testing.T) {
+func TestClient_GroupLabelsByTypeJsonError(t *testing.T) {
 	out := `{"groups": [test]}`
 	setup()
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
@@ -207,7 +207,7 @@ func TestClient_GroupLabelByTypeJsonError(t *testing.T) {
 	assert.EqualError(t, err, "Could not decode JSON response: invalid character 'e' in literal true (expecting 'r')")
 }
 
-func TestClient_GroupLabelByIDJsonError(t *testing.T) {
+func TestClient_GroupLabelError(t *testing.T) {
 	out := `{"groups": [test]}`
 	setup()
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
@@ -215,12 +215,12 @@ func TestClient_GroupLabelByIDJsonError(t *testing.T) {
 		assert.Equal(t, "GET", r.Method)
 		_, _ = w.Write([]byte(out))
 	})
-	_, err := client.GetGroupLabelsByID(1)
+	_, err := client.GetGroupLabel(1)
 	assert.Error(t, err)
 	assert.EqualError(t, err, "Could not decode JSON response: invalid character 'e' in literal true (expecting 'r')")
 }
 
-func TestClient_GetGroupLabelStatusCode(t *testing.T) {
+func TestClient_GetGroupLabelsStatusCode(t *testing.T) {
 	setup()
 	out := `{"groups":[{"groupId":1,"name":"test123"}]}`
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
@@ -234,6 +234,7 @@ func TestClient_GetGroupLabelStatusCode(t *testing.T) {
 	teardown()
 	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
 }
+
 func TestClient_CreateGroupLabelJsonError(t *testing.T) {
 	out := `{"groups": [test]}`
 	setup()
