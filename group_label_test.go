@@ -89,7 +89,7 @@ func TestClient_GetGroupLabelsError(t *testing.T) {
 func TestClient_CreateGroupLabelError(t *testing.T) {
 	setup()
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
-	mux.HandleFunc("/groups/new.json", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/groups/tests/new.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "POST", r.Method)
 		w.WriteHeader(http.StatusBadRequest)
 	})
@@ -165,14 +165,14 @@ func TestClient_UpdateGroupLabel(t *testing.T) {
 func TestClient_CreateGroupLabel(t *testing.T) {
 	setup()
 	out := `{"groups" : [ {"groupId":1, "name": "test"}]}`
-	mux.HandleFunc("/groups/new.json", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/groups/tests/new.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "POST", r.Method)
 		w.WriteHeader(http.StatusCreated)
 		_, _ = w.Write([]byte(out))
 	})
 
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
-	u := GroupLabel{Name: "test"}
+	u := GroupLabel{Name: "test", Type: "tests", GroupID: 1}
 	res, err := client.CreateGroupLabel(u)
 	if err != nil {
 		t.Fatal(err)
@@ -239,13 +239,13 @@ func TestClient_CreateGroupLabelJsonError(t *testing.T) {
 	out := `{"groups": [test]}`
 	setup()
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
-	mux.HandleFunc("/groups/new.json", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/groups/tests/new.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "POST", r.Method)
 		w.WriteHeader(http.StatusCreated)
 		_, _ = w.Write([]byte(out))
 
 	})
-	_, err := client.CreateGroupLabel(GroupLabel{})
+	_, err := client.CreateGroupLabel(GroupLabel{Type: "tests"})
 	assert.Error(t, err)
 	assert.EqualError(t, err, "Could not decode JSON response: invalid character 'e' in literal true (expecting 'r')")
 }
@@ -279,12 +279,12 @@ func TestClient_DeleteGroupLabelStatusCodeBad(t *testing.T) {
 func TestClient_CreateGroupLabelStatusCode(t *testing.T) {
 	setup()
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
-	mux.HandleFunc("/groups/new.json", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/groups/tests/new.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "POST", r.Method)
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte(`{}`))
 	})
-	_, err := client.CreateGroupLabel(GroupLabel{})
+	_, err := client.CreateGroupLabel(GroupLabel{Type: "tests"})
 	teardown()
 	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
 }

@@ -1,6 +1,8 @@
 package thousandeyes
 
-import "fmt"
+import (
+	"fmt"
+)
 
 // GroupLabels - list of labels
 type GroupLabels []GroupLabel
@@ -51,7 +53,7 @@ func (c *Client) GetGroupLabel(id int) (*GroupLabel, error) {
 	}
 	var target map[string][]GroupLabel
 	if dErr := c.decodeJSON(resp, &target); dErr != nil {
-		return nil, fmt.Errorf("could not decode JSON response: %v more error %+v", dErr, dErr.Error())
+		return nil, fmt.Errorf("Could not decode JSON response: %v", dErr)
 	}
 	return &target["groups"][0], nil
 }
