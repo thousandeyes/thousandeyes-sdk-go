@@ -82,6 +82,8 @@ func Test_setDelay(t *testing.T) {
 		LastTime:           now.Add(-1 * time.Nanosecond),
 		ConcurrentMessages: 3,
 	}
+	// Use state to test instant test below
+	instantTestRate = orgRate
 	delay = setDelay(req, nil)
 	assert.Equal(t, 2*time.Second, delay)
 
