@@ -228,10 +228,8 @@ func setDelay(req *http.Request, resp *http.Response) time.Duration {
 		log.Printf("[INFO] Rate Limited: Sleeping %v before resubmitting\n", delay)
 	}
 	if instantTest {
-		instantTestRate.LastTime = now
 		instantTestRate.ConcurrentMessages = rate.ConcurrentMessages
 	} else {
-		orgRate.LastTime = now
 		orgRate.ConcurrentMessages = rate.ConcurrentMessages
 	}
 	return delay
