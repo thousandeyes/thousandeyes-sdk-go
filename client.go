@@ -120,7 +120,7 @@ func (c *Client) do(method, path string, body io.Reader, headers *map[string]str
 	resp, err := c.HTTPClient.Do(req)
 
 	// Store reported rate limit status
-	storeLimits(req, resp)
+	storeLimits(req, resp, time.Now())
 
 	// If request was rate limited, back off and retry.
 	// We shouldn't typically need to do this, because the above delays should
@@ -169,6 +169,9 @@ func setDelay(req *http.Request, resp *http.Response) time.Duration {
 	// Choose which rate limit applies
 	var delay time.Duration
 	var rate RateLimit
+	if resp == nil {
+		resp = &http.Response{}
+	}
 	now := time.Now()
 	instantTest := isInstantTest(req)
 	if instantTest {
@@ -185,7 +188,7 @@ func setDelay(req *http.Request, resp *http.Response) time.Duration {
 
 	// If this is the first time we've sent this particular request and we
 	// aren't at the end of our remaining requests for the period...
-	if resp == nil && rate.Remaining > 1 {
+	if rate.Remaining > 1 && resp.StatusCode != 429 {
 		baseDelay := 1.0 / float64(rate.Limit) * float64(time.Minute.Nanoseconds())
 		// Requests may not be sent synchroniously, so we need to calculate the ratio of
 		// actual time elapsed to expected delay per message.
@@ -235,7 +238,7 @@ func setDelay(req *http.Request, resp *http.Response) time.Duration {
 }
 
 // storeLimits assigns the global variables to track current rate limit data
-func storeLimits(req *http.Request, resp *http.Response) {
+func storeLimits(req *http.Request, resp *http.Response, now time.Time) {
 	// We discard errors, because an error or blank result also return 0
 	if v := resp.Header.Get("X-Organization-Rate-Limit-Limit"); v != "" {
 		orgRate.Limit, _ = strconv.ParseInt(v, 10, 64)
@@ -257,9 +260,9 @@ func storeLimits(req *http.Request, resp *http.Response) {
 	}
 
 	if isInstantTest(req) {
-		instantTestRate.LastTime = time.Now()
+		instantTestRate.LastTime = now
 	} else {
-		orgRate.LastTime = time.Now()
+		orgRate.LastTime = now
 	}
 }
 
