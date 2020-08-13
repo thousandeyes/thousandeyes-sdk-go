@@ -264,5 +264,5 @@ func storeLimits(req *http.Request, resp *http.Response) {
 }
 
 func isInstantTest(req *http.Request) bool {
-	return strings.HasPrefix(req.URL.RawPath, "/v6/instant") == true || strings.HasPrefix(req.URL.RawPath, "/v6/endpoint-instant")
+	return strings.HasPrefix(req.URL.Path, "/v6/instant") == true || strings.HasPrefix(req.URL.Path, "/v6/endpoint-instant")
 }
