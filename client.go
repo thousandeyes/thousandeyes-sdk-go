@@ -217,6 +217,11 @@ func setDelay(req *http.Request, resp *http.Response) time.Duration {
 		// else calculate delay until resume time.
 		// Assume our clock is roughly in sync with the clock setting the resume time.
 		delay = time.Duration((rate.Reset - now.Unix() + 1) * time.Second.Nanoseconds())
+		// ThousandEyes rates reset within one minute (but not guaranteed).
+		// If we exceed a minute wait time, something may be wrong.
+		if delay > time.Minute {
+			delay = time.Minute
+		}
 		log.Printf("[INFO] Rate Limited: Sleeping %v before resubmitting\n", delay)
 	}
 	if instantTest {
