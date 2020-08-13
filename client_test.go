@@ -73,7 +73,7 @@ func Test_setDelay(t *testing.T) {
 	assert.Equal(t, time.Duration(0), delay)
 
 	// Test subsequent requests with rate limit data
-	// All complications:
+	// All complications from valid state:
 	orgRate = RateLimit{
 		Limit:              240,
 		Remaining:          100,
@@ -84,6 +84,12 @@ func Test_setDelay(t *testing.T) {
 	}
 	delay = setDelay(req, nil)
 	assert.Equal(t, 2*time.Second, delay)
+
+	// Same result should be obtained for an instant test
+	req, _ = http.NewRequest("GET", "https://api.thousandeyes.com/v6/instant/agent-to-server.json", nil)
+	delay = setDelay(req, nil)
+	assert.Equal(t, 2*time.Second, delay)
+	req, _ = http.NewRequest("GET", "https://api.thousandeyes.com/v6/agents.json", nil)
 
 	// LastTime over the minimum delay time should result in the minimum delay time if there
 	// are no concurrent messages and last remaining has not decreased by more than 1.
@@ -104,6 +110,25 @@ func Test_setDelay(t *testing.T) {
 	orgRate.Remaining = 1
 	delay = setDelay(req, nil)
 	assert.Equal(t, 31*time.Second, delay)
+
+	// Test conflicting or invalid states
+	// After reset, LastRemaining may be larger than Remaining
+	orgRate = RateLimit{
+		Limit:              240,
+		Remaining:          240,
+		Reset:              now.Add(30 * time.Second).Unix(),
+		LastRemaining:      2,
+		LastTime:           now.Add(-5 * time.Second),
+		ConcurrentMessages: 0,
+	}
+	delay = setDelay(req, nil)
+	assert.Equal(t, 250*time.Millisecond, delay)
+
+	// Delays over one minute should be shortened to one minute
+	orgRate.Remaining = 0
+	orgRate.Reset = now.Add(120 * time.Second).Unix()
+	delay = setDelay(req, nil)
+	assert.Equal(t, 1*time.Minute, delay)
 
 }
 
