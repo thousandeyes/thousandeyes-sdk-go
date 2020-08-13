@@ -6,48 +6,52 @@ import (
 
 // PageLoad - a page log struct
 type PageLoad struct {
-	Agents                Agents        `json:"agents,omitempty"`
-	AlertsEnabled         int           `json:"alertsEnabled,omitempty"`
-	AlertRules            AlertRules    `json:"alertRules,omitempty"`
-	APILinks              APILinks      `json:"apiLinks,omitempty"`
-	CreatedBy             string        `json:"createdBy,omitempty"`
-	CreatedDate           string        `json:"createdDate,omitempty"`
-	Description           string        `json:"description,omitempty"`
-	Enabled               int           `json:"enabled,omitempty"`
-	Groups                []GroupLabel  `json:"groups,omitempty"`
-	LiveShare             int           `json:"liveShare,omitempty"`
-	ModifiedBy            string        `json:"modifiedBy,omitempty"`
-	ModifiedDate          string        `json:"modifiedDate,omitempty"`
-	SavedEvent            int           `json:"savedEvent,omitempty"`
-	SharedWithAccounts    AccountGroups `json:"sharedWithAccounts,omitempty"`
-	TestID                int           `json:"testId,omitempty"`
-	TestName              string        `json:"testName,omitempty"`
-	Type                  string        `json:"type,omitempty"`
-	AuthType              string        `json:"authType,omitempty"`
-	BandwidthMeasurements int           `json:"bandwidthMeasurements,omitempty"`
-	BgpMeasurements       int           `json:"bgpMeasurements,omitempty"`
-	BgpMonitors           BGPMonitors   `json:"bgpMonitors,omitempty"`
-	HTTPInterval          int           `json:"httpInterval,omitempty"`
-	HTTPVersion           int           `json:"httpVersion,omitempty"`
-	HTTPTargetTime        int           `json:"httpTargetTime,omitempty"`
-	HTTPTimeLimit         int           `json:"httpTimeLimit,omitempty"`
-	IncludeHeaders        int           `json:"includeHeaders,omitempty"`
-	Interval              int           `json:"interval,omitempty"`
-	MtuMeasurements       int           `json:"mtuMeasurements,omitempty"`
-	NetworkMeasurements   int           `json:"networkMeasurements,omitempty"`
-	NumPathTraces         int           `json:"numPathTraces,omitempty"`
-	PageLoadTargetTime    int           `json:"pageLoadTargetTime,omitempty"`
-	PageLoadTimeLimit     int           `json:"pageLoadTimeLimit,omitempty"`
-	Password              string        `json:"password,omitempty"`
-	ProbeMode             string        `json:"probeMode,omitempty"`
-	Protocol              string        `json:"protocol,omitempty"`
-	SslVersion            string        `json:"sslVersion,omitempty"`
-	SslVersionID          int           `json:"sslVersionId,omitempty"`
-	URL                   string        `json:"url,omitempty"`
-	UseNtlm               int           `json:"useNtlm,omitempty"`
-	UserAgent             string        `json:"userAgent,omitempty"`
-	Username              string        `json:"username,omitempty"`
-	VerifyCertificate     int           `json:"verifyCertificate,omitempty"`
+	// Common test fields
+	AlertsEnabled      int            `json:"alertsEnabled,omitempty"`
+	AlertRules         []AlertRule    `json:"alertRules,omitempty"`
+	APILinks           []APILink      `json:"apiLinks,omitempty"`
+	CreatedBy          string         `json:"createdBy,omitempty"`
+	CreatedDate        string         `json:"createdDate,omitempty"`
+	Description        string         `json:"description,omitempty"`
+	Enabled            int            `json:"enabled,omitempty"`
+	Groups             []GroupLabel   `json:"groups,omitempty"`
+	ModifiedBy         string         `json:"modifiedBy,omitempty"`
+	ModifiedDate       string         `json:"modifiedDate,omitempty"`
+	SavedEvent         int            `json:"savedEvent,omitempty"`
+	SharedWithAccounts []AccountGroup `json:"sharedWithAccounts,omitempty"`
+	TestID             int            `json:"testId,omitempty"`
+	TestName           string         `json:"testName,omitempty"`
+	Type               string         `json:"type,omitempty"`
+	// LiveShare is common to all tests except DNS+
+	LiveShare int `json:"liveShare,omitempty"`
+	// Fields unique to this test
+	Agents                Agents       `json:"agents,omitempty"`
+	AuthType              string       `json:"authType,omitempty"`
+	BandwidthMeasurements int          `json:"bandwidthMeasurements,omitempty"`
+	BGPMeasurements       int          `json:"bgpMeasurements,omitempty"`
+	BGPMonitors           []BGPMonitor `json:"bgpMonitors,omitempty"`
+	HTTPInterval          int          `json:"httpInterval,omitempty"`
+	HTTPTargetTime        int          `json:"httpTargetTime,omitempty"`
+	HTTPTimeLimit         int          `json:"httpTimeLimit,omitempty"`
+	HTTPVersion           int          `json:"httpVersion,omitempty"`
+	IncludeHeaders        int          `json:"includeHeaders,omitempty"`
+	Interval              int          `json:"interval,omitempty"`
+	MTUMeasurements       int          `json:"mtuMeasurements,omitempty"`
+	NetworkMeasurements   int          `json:"networkMeasurements,omitempty"`
+	NumPathTraces         int          `json:"numPathTraces,omitempty"`
+	PageLoadTargetTime    int          `json:"pageLoadTargetTime,omitempty"`
+	PageLoadTimeLimit     int          `json:"pageLoadTimeLimit,omitempty"`
+	Password              string       `json:"password,omitempty"`
+	PathTraceMode         string       `json:"pathTraceMode,omitempty"`
+	ProbeMode             string       `json:"probeMode,omitempty"`
+	Protocol              string       `json:"protocol,omitempty"`
+	SSLVersion            string       `json:"sslVersion,omitempty"`
+	SSLVersionID          int          `json:"sslVersionId,omitempty"`
+	URL                   string       `json:"url,omitempty"`
+	UseNTLM               int          `json:"useNtlm,omitempty"`
+	UserAgent             string       `json:"userAgent,omitempty"`
+	Username              string       `json:"username,omitempty"`
+	VerifyCertificate     int          `json:"verifyCertificate,omitempty"`
 }
 
 // AddAgent  - add an aget

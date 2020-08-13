@@ -27,18 +27,6 @@ func TestClient_GetDNSPServer(t *testing.T) {
 		Type:          "dnsp-server",
 		Interval:      300,
 		Server:        "webex.com",
-		Agents: []Agent{
-			{
-				AgentID:     48620,
-				AgentType:   "Cloud",
-				AgentName:   "Seattle, WA (Trial) - IPv6",
-				CountryID:   "US",
-				IPAddresses: []string{"135.84.184.153"},
-				Location:    "Seattle Area",
-				Network:     "Astute Hosting Inc. (AS 54527)",
-				Prefix:      "135.84.184.0/22",
-			},
-		},
 		SharedWithAccounts: []AccountGroup{
 			{
 				Aid:  176592,
@@ -109,18 +97,6 @@ func TestClient_CreateDNSPServer(t *testing.T) {
 		Interval:      300,
 		AlertsEnabled: 1,
 		Server:        "webex.com",
-		Agents: []Agent{
-			{
-				AgentID:     48620,
-				AgentType:   "Cloud",
-				AgentName:   "Seattle, WA (Trial) - IPv6",
-				CountryID:   "US",
-				IPAddresses: []string{"135.84.184.153"},
-				Location:    "Seattle Area",
-				Network:     "Astute Hosting Inc. (AS 54527)",
-				Prefix:      "135.84.184.0/22",
-			},
-		},
 		SharedWithAccounts: []AccountGroup{
 			{
 				Aid:  176592,
@@ -203,13 +179,6 @@ func TestClient_UpdateDNSPServer(t *testing.T) {
 	expected := DNSPServer{TestID: 1, TestName: "test123", Type: "dnsp-server", Server: "webex.com"}
 	assert.Equal(t, &expected, res)
 
-}
-
-func TestDNSPServer_AddAgent(t *testing.T) {
-	test := DNSPServer{TestName: "test", Agents: Agents{}}
-	expected := DNSPServer{TestName: "test", Agents: []Agent{{AgentID: 1}}}
-	test.AddAgent(1)
-	assert.Equal(t, expected, test)
 }
 
 func TestClient_GetDNSPServerError(t *testing.T) {

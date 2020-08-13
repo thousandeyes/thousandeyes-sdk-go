@@ -6,27 +6,30 @@ import (
 
 // BGP - BGP trace test
 type BGP struct {
-	Agents                 []Agent        `json:"agents,omitempty"`
-	AlertsEnabled          int            `json:"alertsEnabled,omitempty"`
-	AlertRules             []AlertRule    `json:"alertRules,omitempty"`
-	APILinks               []APILink      `json:"apiLinks,omitempty"`
-	CreatedBy              string         `json:"createdBy,omitempty"`
-	CreatedDate            string         `json:"createdDate,omitempty"`
-	Description            string         `json:"description,omitempty"`
-	Enabled                int            `json:"enabled,omitempty"`
-	Groups                 []GroupLabel   `json:"groups,omitempty"`
-	LiveShare              int            `json:"liveShare,omitempty"`
-	ModifiedBy             string         `json:"modifiedBy,omitempty"`
-	ModifiedDate           string         `json:"modifiedDate,omitempty"`
-	SavedEvent             int            `json:"savedEvent,omitempty"`
-	SharedWithAccounts     []AccountGroup `json:"sharedWithAccounts,omitempty"`
-	TestID                 int            `json:"testId,omitempty"`
-	TestName               string         `json:"testName,omitempty"`
-	Type                   string         `json:"type,omitempty"`
-	IncludeCoveredPrefixes int            `json:"includeCoveredPrefixes,omitempty"`
-	Prefix                 string         `json:"prefix,omitempty"`
-	UsePublicBGP           int            `json:"usePublicBgp,omitempty"`
-	BgpMonitors            []BGPMonitor   `json:"bgpMonitors,omitempty"`
+	// Common test fields
+	AlertsEnabled      int            `json:"alertsEnabled,omitempty"`
+	AlertRules         []AlertRule    `json:"alertRules,omitempty"`
+	APILinks           []APILink      `json:"apiLinks,omitempty"`
+	CreatedBy          string         `json:"createdBy,omitempty"`
+	CreatedDate        string         `json:"createdDate,omitempty"`
+	Description        string         `json:"description,omitempty"`
+	Enabled            int            `json:"enabled,omitempty"`
+	Groups             []GroupLabel   `json:"groups,omitempty"`
+	ModifiedBy         string         `json:"modifiedBy,omitempty"`
+	ModifiedDate       string         `json:"modifiedDate,omitempty"`
+	SavedEvent         int            `json:"savedEvent,omitempty"`
+	SharedWithAccounts []AccountGroup `json:"sharedWithAccounts,omitempty"`
+	TestID             int            `json:"testId,omitempty"`
+	TestName           string         `json:"testName,omitempty"`
+	Type               string         `json:"type,omitempty"`
+	// LiveShare is common to all tests except DNS+
+	LiveShare int `json:"liveShare,omitempty"`
+	// Fields unique to this test
+	Agents                 []Agent      `json:"agents,omitempty"`
+	BGPMonitors            []BGPMonitor `json:"bgpMonitors,omitempty"`
+	IncludeCoveredPrefixes int          `json:"includeCoveredPrefixes,omitempty"`
+	Prefix                 string       `json:"prefix,omitempty"`
+	UsePublicBGP           int          `json:"usePublicBgp,omitempty"`
 }
 
 // AddAgent - Add bgp  test

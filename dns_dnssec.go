@@ -4,7 +4,7 @@ import "fmt"
 
 // DNSSec - DNSSec test
 type DNSSec struct {
-	Agents             []Agent        `json:"agents,omitempty"`
+	// Common test fields
 	AlertsEnabled      int            `json:"alertsEnabled,omitempty"`
 	AlertRules         []AlertRule    `json:"alertRules,omitempty"`
 	APILinks           []APILink      `json:"apiLinks,omitempty"`
@@ -13,16 +13,19 @@ type DNSSec struct {
 	Description        string         `json:"description,omitempty"`
 	Enabled            int            `json:"enabled,omitempty"`
 	Groups             []GroupLabel   `json:"groups,omitempty"`
-	LiveShare          int            `json:"liveShare,omitempty"`
 	ModifiedBy         string         `json:"modifiedBy,omitempty"`
 	ModifiedDate       string         `json:"modifiedDate,omitempty"`
 	SavedEvent         int            `json:"savedEvent,omitempty"`
 	SharedWithAccounts []AccountGroup `json:"sharedWithAccounts,omitempty"`
-	Type               string         `json:"type"`
 	TestID             int            `json:"testId,omitempty"`
 	TestName           string         `json:"testName,omitempty"`
-	Domain             string         `json:"domain,omitempty"`
-	Interval           int            `json:"interval,omitempty"`
+	Type               string         `json:"type,omitempty"`
+	// LiveShare is common to all tests except DNS+
+	LiveShare int `json:"liveShare,omitempty"`
+	// Fields unique to this test
+	Agents   []Agent `json:"agents,omitempty"`
+	Domain   string  `json:"domain,omitempty"`
+	Interval int     `json:"interval,omitempty"`
 }
 
 // AddAgent - Add agent to DNSSec test
