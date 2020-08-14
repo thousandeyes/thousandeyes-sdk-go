@@ -27,8 +27,7 @@ type RateLimit struct {
 	Remaining          int64
 	Reset              int64
 	LastRemaining      int64
-	LastTime           time.Time
-	ConcurrentMessages int64
+	ConcurrentMessages []time.Time
 }
 
 // APILinks - List of APILink
@@ -114,7 +113,7 @@ func (c *Client) do(method, path string, body io.Reader, headers *map[string]str
 	}
 
 	// Perform any delays required by previously observed rate headers
-	delay := setDelay(req, nil)
+	delay := setDelay(req, nil, time.Now())
 	time.Sleep(delay)
 
 	resp, err := c.HTTPClient.Do(req)
@@ -127,7 +126,7 @@ func (c *Client) do(method, path string, body io.Reader, headers *map[string]str
 	// prevent us from hitting the limit, but there may be other users in an
 	// org who might have triggered the limiting.
 	if resp.StatusCode == 429 {
-		delay := setDelay(req, resp)
+		delay := setDelay(req, resp, time.Now())
 		time.Sleep(delay)
 		resp, err = c.HTTPClient.Do(req)
 	}
@@ -165,14 +164,13 @@ func (c *Client) getErrorFromResponse(resp *http.Response) (*errorObject, error)
 }
 
 // setDelay determines the pause time needed to prevent invoking rate limiting
-func setDelay(req *http.Request, resp *http.Response) time.Duration {
+func setDelay(req *http.Request, resp *http.Response, now time.Time) time.Duration {
 	// Choose which rate limit applies
 	var delay time.Duration
 	var rate RateLimit
 	if resp == nil {
 		resp = &http.Response{}
 	}
-	now := time.Now()
 	instantTest := isInstantTest(req)
 	if instantTest {
 		rate = instantTestRate
@@ -190,9 +188,6 @@ func setDelay(req *http.Request, resp *http.Response) time.Duration {
 	// aren't at the end of our remaining requests for the period...
 	if rate.Remaining > 1 && resp.StatusCode != 429 {
 		baseDelay := 1.0 / float64(rate.Limit) * float64(time.Minute.Nanoseconds())
-		// Requests may not be sent synchroniously, so we need to calculate the ratio of
-		// actual time elapsed to expected delay per message.
-		sinceLast := float64(now.Sub(rate.LastTime).Nanoseconds())
 		// The rate limit is per minute, so if there was a zero response time
 		// then the ideal delay would be the one minute divided by the rate.
 		// To account for potential other users, we will multiply by the
@@ -205,15 +200,18 @@ func setDelay(req *http.Request, resp *http.Response) time.Duration {
 
 		// It's possible that these calls could be made concurrently, in which
 		// case the pacing delay would effectively be divided by the batch size.
-		// To account for this, we compare the number of messages issued in a
-		// window smaller than the base delay and increase accordingly.
-		if sinceLast < baseDelay {
-			rate.ConcurrentMessages++
-			delta += rate.ConcurrentMessages
-		} else {
-			rate.ConcurrentMessages = 0
+		// To account for this, we track messages sent for this session and
+		// account for any that have delays which have not expired.
+		for i, t := range rate.ConcurrentMessages {
+			if t.Sub(now) >= time.Duration(0) {
+				rate.ConcurrentMessages = rate.ConcurrentMessages[i:]
+				break
+			}
 		}
+
+		delta += int64(len(rate.ConcurrentMessages))
 		delay = time.Duration(baseDelay * float64(delta))
+		rate.ConcurrentMessages = append(rate.ConcurrentMessages, now.Add(delay))
 		log.Printf("[INFO] %v of %v requests / min remain.  Sleeping %v to prevent rate limiting.",
 			rate.Remaining, rate.Limit, delay)
 	} else {
@@ -255,12 +253,6 @@ func storeLimits(req *http.Request, resp *http.Response, now time.Time) {
 	}
 	if v := resp.Header.Get("X-Instant-Test-Rate-Limit-Reset"); v != "" {
 		instantTestRate.Reset, _ = strconv.ParseInt(v, 10, 64)
-	}
-
-	if isInstantTest(req) {
-		instantTestRate.LastTime = now
-	} else {
-		orgRate.LastTime = now
 	}
 }
 

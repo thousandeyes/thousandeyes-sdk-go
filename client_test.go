@@ -69,48 +69,66 @@ func Test_setDelay(t *testing.T) {
 
 	// Test initial requests, for which rate limit data is not available
 	orgRate = RateLimit{}
-	delay = setDelay(req, nil)
+	delay = setDelay(req, nil, now)
 	assert.Equal(t, time.Duration(0), delay)
 
 	// Test subsequent requests with rate limit data
+	// Old concurrent messages should be purged.
+	orgRate = RateLimit{
+		Limit:         240,
+		Remaining:     100,
+		Reset:         now.Add(30 * time.Second).Unix(),
+		LastRemaining: 101,
+		ConcurrentMessages: []time.Time{
+			now.Add(-1000 * time.Millisecond),
+			now.Add(-750 * time.Millisecond),
+			now,
+			now.Add(250 * time.Millisecond),
+		},
+	}
+	delay = setDelay(req, nil, now)
+	assert.Equal(t, 750*time.Millisecond, delay)
+
 	// All complications from valid state:
 	orgRate = RateLimit{
-		Limit:              240,
-		Remaining:          100,
-		Reset:              now.Add(30 * time.Second).Unix(),
-		LastRemaining:      104,
-		LastTime:           now.Add(-1 * time.Nanosecond),
-		ConcurrentMessages: 3,
+		Limit:         240,
+		Remaining:     100,
+		Reset:         now.Add(30 * time.Second).Unix(),
+		LastRemaining: 104,
+		ConcurrentMessages: []time.Time{
+			now.Add(1000 * time.Millisecond),
+			now.Add(750 * time.Millisecond),
+			now.Add(500 * time.Millisecond),
+			now.Add(250 * time.Millisecond),
+		},
 	}
-	// Use state to test instant test below
-	instantTestRate = orgRate
-	delay = setDelay(req, nil)
+	instantTestRate = orgRate // Use state to test instant test below
+	delay = setDelay(req, nil, now)
 	assert.Equal(t, 2*time.Second, delay)
 
 	// Same result should be obtained for an instant test
 	req, _ = http.NewRequest("GET", "https://api.thousandeyes.com/v6/instant/agent-to-server.json", nil)
-	delay = setDelay(req, nil)
+	delay = setDelay(req, nil, now)
 	assert.Equal(t, 2*time.Second, delay)
 	req, _ = http.NewRequest("GET", "https://api.thousandeyes.com/v6/agents.json", nil)
 
 	// LastTime over the minimum delay time should result in the minimum delay time if there
 	// are no concurrent messages and last remaining has not decreased by more than 1.
 	orgRate.LastRemaining = 101
-	orgRate.ConcurrentMessages = 0
-	orgRate.LastTime = now.Add(-5 * time.Second)
-	delay = setDelay(req, nil)
+	orgRate.ConcurrentMessages = []time.Time{}
+	delay = setDelay(req, nil, now)
 	assert.Equal(t, time.Duration(250*time.Millisecond), delay)
 
 	// A passed response means we should delay, as this is presently only done
 	// in response to a 429
 	resp.StatusCode = 429
-	delay = setDelay(req, resp)
+	delay = setDelay(req, resp, now)
 	assert.Equal(t, 31*time.Second, delay)
 
 	// Remaining messages being under the minimum should also result in waiting
 	// until reset
 	orgRate.Remaining = 1
-	delay = setDelay(req, nil)
+	delay = setDelay(req, nil, now)
 	assert.Equal(t, 31*time.Second, delay)
 
 	// Test conflicting or invalid states
@@ -120,16 +138,15 @@ func Test_setDelay(t *testing.T) {
 		Remaining:          240,
 		Reset:              now.Add(30 * time.Second).Unix(),
 		LastRemaining:      2,
-		LastTime:           now.Add(-5 * time.Second),
-		ConcurrentMessages: 0,
+		ConcurrentMessages: []time.Time{},
 	}
-	delay = setDelay(req, nil)
+	delay = setDelay(req, nil, now)
 	assert.Equal(t, 250*time.Millisecond, delay)
 
 	// Delays over one minute should be shortened to one minute
 	orgRate.Remaining = 0
 	orgRate.Reset = now.Add(120 * time.Second).Unix()
-	delay = setDelay(req, nil)
+	delay = setDelay(req, nil, now)
 	assert.Equal(t, 1*time.Minute, delay)
 
 }
@@ -141,7 +158,6 @@ func Test_storeLimits(t *testing.T) {
 		Limit:     240,
 		Remaining: 2,
 		Reset:     120,
-		LastTime:  now,
 	}
 
 	var req *http.Request
