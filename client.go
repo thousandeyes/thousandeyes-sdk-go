@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"io"
 	"net/http"
-	"reflect"
 	"time"
 )
 
@@ -102,7 +101,7 @@ func (c *Client) get(path string) (*http.Response, error) {
 }
 
 func (c *Client) do(method, path string, body io.Reader, headers *map[string]string) (*http.Response, error) {
-	if !reflect.ValueOf(c.Limiter).IsNil() {
+	if c.Limiter != nil {
 		c.Limiter.Wait()
 	}
 	endpoint := c.APIEndpoint + path + ".json"
