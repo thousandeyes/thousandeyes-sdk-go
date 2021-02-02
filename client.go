@@ -27,6 +27,7 @@ type errorObject struct {
 	ErrorMessage string `json:"errorMessage,omitempty"`
 }
 
+// Limiter - Rate limiter interface
 type Limiter interface {
 	Wait()
 }
