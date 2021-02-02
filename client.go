@@ -26,9 +26,21 @@ type errorObject struct {
 	ErrorMessage string `json:"errorMessage,omitempty"`
 }
 
+// Limiter - Rate limiter interface
+type Limiter interface {
+	Wait()
+}
+
 //HTTPClient - an http client
 type HTTPClient interface {
 	Do(*http.Request) (*http.Response, error)
+}
+
+// ClientOptions - Thousandeyes client options for accountID, AuthToken & rate limiter
+type ClientOptions struct {
+	Limiter   Limiter
+	AccountID string
+	AuthToken string
 }
 
 // Client wraps http client
@@ -37,17 +49,27 @@ type Client struct {
 	AccountGroupID string
 	APIEndpoint    string
 	HTTPClient     http.Client
+	Limiter        Limiter
+}
+
+// DefaultLimiter -  thousandeyes rate limit is 240 per minute
+type DefaultLimiter struct{}
+
+// Wait - Satisfying the Limiter interface and wait on 300ms to avoid TE 240 per minute default
+func (l DefaultLimiter) Wait() {
+	time.Sleep(time.Millisecond * 300)
 }
 
 // NewClient creates an API client
-func NewClient(authToken string, accountGroupID string) *Client {
+func NewClient(opts *ClientOptions) *Client {
 	return &Client{
-		AuthToken:      authToken,
-		AccountGroupID: accountGroupID,
+		AuthToken:      opts.AuthToken,
+		AccountGroupID: opts.AuthToken,
 		APIEndpoint:    apiEndpoint,
 		HTTPClient: http.Client{
 			Timeout: time.Second * 10,
 		},
+		Limiter: opts.Limiter,
 	}
 }
 
@@ -79,6 +101,9 @@ func (c *Client) get(path string) (*http.Response, error) {
 }
 
 func (c *Client) do(method, path string, body io.Reader, headers *map[string]string) (*http.Response, error) {
+	if c.Limiter != nil {
+		c.Limiter.Wait()
+	}
 	endpoint := c.APIEndpoint + path + ".json"
 	req, _ := http.NewRequest(method, endpoint, body)
 	if c.AccountGroupID != "" {
