@@ -36,6 +36,7 @@ type HTTPClient interface {
 	Do(*http.Request) (*http.Response, error)
 }
 
+// ClientOptions - Thousandeyes client options for accountID, AuthToken & rate limiter
 type ClientOptions struct {
 	Limiter   Limiter
 	AccountID string
@@ -51,9 +52,10 @@ type Client struct {
 	Limiter        Limiter
 }
 
-// default thousandeyes rate limit is 240 per minute
+// DefaultLimiter -  thousandeyes rate limit is 240 per minute
 type DefaultLimiter struct{}
 
+// Wait - Satisfying the Limiter interface and wait on 300ms to avoid TE 240 per minute default
 func (l DefaultLimiter) Wait() {
 	time.Sleep(time.Millisecond * 300)
 }
