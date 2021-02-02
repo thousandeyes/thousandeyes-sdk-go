@@ -11,7 +11,7 @@ import (
 )
 
 func GetAgentsExecute() error {
-	client := thousandeyes.NewClient(os.Getenv("TE_TOKEN"), os.Getenv("TE_AID"))
+	client := thousandeyes.NewClient(&ClientOpts)
 	var table *tablewriter.Table
 	if GetCmd.Flags().Changed("id") {
 		id, err := GetCmd.Flags().GetString("id")

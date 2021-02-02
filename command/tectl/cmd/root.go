@@ -4,11 +4,16 @@ import (
 	"fmt"
 	"github.com/olekukonko/tablewriter"
 	"github.com/spf13/cobra"
+	"github.com/william20111/go-thousandeyes"
 	"os"
 )
 
 var (
-	VERSION string
+	VERSION    string
+	ClientOpts = thousandeyes.ClientOptions{
+		AuthToken: os.Getenv("TE_TOKEN"),
+		AccountID: os.Getenv("TE_AID"),
+	}
 	RootCmd = &cobra.Command{
 		Use:   "tectl",
 		Short: "tectl is a cli tool for managing thousandeyes",
