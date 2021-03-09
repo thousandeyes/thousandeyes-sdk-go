@@ -64,7 +64,7 @@ func (l DefaultLimiter) Wait() {
 func NewClient(opts *ClientOptions) *Client {
 	return &Client{
 		AuthToken:      opts.AuthToken,
-		AccountGroupID: opts.AuthToken,
+		AccountGroupID: opts.AccountID,
 		APIEndpoint:    apiEndpoint,
 		HTTPClient: http.Client{
 			Timeout: time.Second * 10,
