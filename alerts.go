@@ -2,6 +2,7 @@ package thousandeyes
 
 import (
 	"fmt"
+	"log"
 )
 
 // Alerts - list of alerts
@@ -30,19 +31,20 @@ type AlertRules []AlertRule
 
 // AlertRule - An alert rule
 type AlertRule struct {
-	RuleID                  int         `json:"ruleId,omitempty"`
-	RuleName                string      `json:"ruleName,omitempty"`
-	Expression              string      `json:"expression,omitempty"`
-	Direction               string      `json:"direction,omitempty"`
-	Notifications           interface{} `json:"notifcations,omitempty"`
-	NotifyOnClear           int         `json:"notifyOnClear,omitempty"`
-	Default                 int         `json:"default,omitempty"`
-	AlertType               string      `json:"alertType,omitempty"`
-	MinimumSources          int         `json:"minimumSources,omitempty"`
-	MinimumSourcesPct       int         `json:"minimumSourcesPct,omitempty"`
-	RoundsViolatingOutOf    int         `json:"roundsViolatingOutOf,omitempty"`
-	RoundsViolatingRequired int         `json:"roundsViolatingRequired,omitempty"`
-	Tests                   int         `json:"tests,omitempty"`
+	AlertRuleID             int           `json:"alertRuleId,omitempty"`
+	AlertType               string        `json:"alertType,omitempty"`
+	Default                 int           `json:"default,omitempty"`
+	Direction               string        `json:"direction,omitempty"`
+	Expression              string        `json:"expression,omitempty"`
+	MinimumSources          int           `json:"minimumSources,omitempty"`
+	MinimumSourcesPct       int           `json:"minimumSourcesPct,omitempty"`
+	NotifyOnClear           int           `json:"notifyOnClear,omitempty"`
+	RoundsViolatingMode     string        `json:"roundsViolatingMode,omitempty"`
+	RoundsViolatingOutOf    int           `json:"roundsViolatingOutOf,omitempty"`
+	RoundsViolatingRequired int           `json:"roundsViolatingRequired,omitempty"`
+	RuleID                  int           `json:"ruleId,omitempty"`
+	RuleName                string        `json:"ruleName,omitempty"`
+	Tests                   []GenericTest `json:"tests,omitempty"`
 }
 
 // CreateAlertRule - Create alert rule
@@ -58,6 +60,13 @@ func (c Client) CreateAlertRule(a AlertRule) (*AlertRule, error) {
 	if dErr := c.decodeJSON(resp, &target); dErr != nil {
 		return nil, fmt.Errorf("could not decode JSON response: %v", dErr)
 	}
+
+	// Set RuleID, because on creation the V6 API returns this as alertRuleId instead.
+	// We'll also UNset AlertRuleID so that it isn't seen as a change when it isn't
+	// present in other API calls.
+	target.RuleID = target.AlertRuleID
+	target.AlertRuleID = 0
+
 	return &target, nil
 }
 
@@ -79,6 +88,23 @@ func (c Client) GetAlertRules() (*AlertRules, error) {
 	alertRules := target["alertRules"]
 
 	return &alertRules, nil
+}
+
+// GetAlertRule - Get single alert rule by ID
+func (c *Client) GetAlertRule(id int) (*AlertRule, error) {
+	log.Printf("[INFO] Getting Alert Rule %v", id)
+	resp, err := c.get(fmt.Sprintf("/alert-rules/%d", id))
+	if err != nil {
+		return &AlertRule{}, err
+	}
+	var target map[string][]AlertRule
+	if dErr := c.decodeJSON(resp, &target); dErr != nil {
+		return nil, fmt.Errorf("Could not decode JSON response: %v", dErr)
+	}
+	if len(target["alertRules"]) < 1 {
+		return nil, fmt.Errorf("Could not get alert rule %v", id)
+	}
+	return &target["alertRules"][0], nil
 }
 
 //DeleteAlertRule - delete alert rule

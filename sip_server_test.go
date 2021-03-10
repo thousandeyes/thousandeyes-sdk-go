@@ -39,10 +39,10 @@ func TestClient_GetSIPServer(t *testing.T) {
 				Prefix:      "135.84.184.0/22",
 			},
 		},
-		SharedWithAccounts: []AccountGroup{
+		SharedWithAccounts: []SharedWithAccount{
 			{
-				Aid:  176592,
-				Name: "Cloudreach",
+				AID:              176592,
+				AccountGroupName: "Cloudreach",
 			},
 		},
 		APILinks: APILinks{
@@ -89,7 +89,7 @@ func TestClient_GetSIPServerJsonError(t *testing.T) {
 }
 
 func TestClient_CreateSIPServer(t *testing.T) {
-	out := `{"test":[{"createdDate":"2020-02-06 15:28:07","createdBy":"William Fleming (wfleming@grumpysysadm.com)","user" : "usernameA", "password" : "secret", "authUser": "usernameB","enabled":1,"savedEvent":0,"testId":122621,"testName":"test123","type":"sip-server","interval":300,"alertsEnabled":1,"liveShare":0,"agents":[{"agentId":48620,"agentName":"Seattle, WA (Trial) - IPv6","agentType":"Cloud","countryId":"US","ipAddresses":["135.84.184.153"],"location":"Seattle Area","network":"Astute Hosting Inc. (AS 54527)","prefix":"135.84.184.0/22"}],"sharedWithAccounts":[{"aid":176592,"name":"Cloudreach"}],"apiLinks":[{"rel":"self","href":"https://api.thousandeyes.com/v6/tests/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/web/dns-trace/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/metrics/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/path-vis/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/bgp-metrics/1226221"}]}]}`
+	out := `{"test":[{"createdDate":"2020-02-06 15:28:07","createdBy":"William Fleming (wfleming@grumpysysadm.com)", "password" : "secret", "authUser": "usernameB","enabled":1,"savedEvent":0,"testId":122621,"testName":"test123","type":"sip-server","interval":300,"alertsEnabled":1,"liveShare":0,"agents":[{"agentId":48620,"agentName":"Seattle, WA (Trial) - IPv6","agentType":"Cloud","countryId":"US","ipAddresses":["135.84.184.153"],"location":"Seattle Area","network":"Astute Hosting Inc. (AS 54527)","prefix":"135.84.184.0/22"}],"sharedWithAccounts":[{"aid":176592,"name":"Cloudreach"}],"apiLinks":[{"rel":"self","href":"https://api.thousandeyes.com/v6/tests/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/web/dns-trace/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/metrics/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/path-vis/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/bgp-metrics/1226221"}]}]}`
 	setup()
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/tests/sip-server/new.json", func(w http.ResponseWriter, r *http.Request) {
@@ -98,7 +98,6 @@ func TestClient_CreateSIPServer(t *testing.T) {
 		_, _ = w.Write([]byte(out))
 	})
 
-	// Define expected values from the API (based on the JSON we print out above)
 	// Define expected values from the API (based on the JSON we print out above)
 	expected := SIPServer{
 
@@ -109,7 +108,6 @@ func TestClient_CreateSIPServer(t *testing.T) {
 		SavedEvent:    0,
 		TestName:      "test123",
 		Type:          "sip-server",
-		User:          "usernameA",
 		Interval:      300,
 		AlertsEnabled: 1,
 		Agents: []Agent{
@@ -124,10 +122,10 @@ func TestClient_CreateSIPServer(t *testing.T) {
 				Prefix:      "135.84.184.0/22",
 			},
 		},
-		SharedWithAccounts: []AccountGroup{
+		SharedWithAccounts: []SharedWithAccount{
 			{
-				Aid:  176592,
-				Name: "Cloudreach",
+				AID:              176592,
+				AccountGroupName: "Cloudreach",
 			},
 		},
 
@@ -156,7 +154,6 @@ func TestClient_CreateSIPServer(t *testing.T) {
 	}
 	create := SIPServer{
 		TestName: "test1",
-		User:     "usernameA",
 		Interval: 300,
 	}
 	res, err := client.CreateSIPServer(create)
@@ -184,7 +181,7 @@ func TestClient_DeleteSIPServer(t *testing.T) {
 
 func TestClient_UpdateSIPServer(t *testing.T) {
 	setup()
-	out := `{"test":[{"testId":1,"testName":"test123","type":"sip-server","user" : "usernameA", "password" : "secret", "authUser": "usernameB" }]}`
+	out := `{"test":[{"testId":1,"testName":"test123","type":"sip-server", "password" : "secret", "authUser": "usernameB" }]}`
 	mux.HandleFunc("/tests/sip-server/1/update.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "POST", r.Method)
 		_, _ = w.Write([]byte(out))
@@ -194,13 +191,12 @@ func TestClient_UpdateSIPServer(t *testing.T) {
 	id := 1
 	sipS := SIPServer{
 		TestName: "test1",
-		User:     "usernameA",
 	}
 	res, err := client.UpdateSIPServer(id, sipS)
 	if err != nil {
 		t.Fatal(err)
 	}
-	expected := SIPServer{TestID: 1, TestName: "test123", Type: "sip-server", User: "usernameA"}
+	expected := SIPServer{TestID: 1, TestName: "test123", Type: "sip-server"}
 	assert.Equal(t, &expected, res)
 
 }

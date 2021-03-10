@@ -32,6 +32,7 @@ func TestClient_GetHTTPServer(t *testing.T) {
 		MTUMeasurements:       1,
 		BandwidthMeasurements: 0,
 		BGPMeasurements:       1,
+		UsePublicBGP:          1,
 		AlertsEnabled:         1,
 		LiveShare:             0,
 		HTTPTimeLimit:         5,
@@ -57,10 +58,10 @@ func TestClient_GetHTTPServer(t *testing.T) {
 				Prefix:      "135.84.184.0/22",
 			},
 		},
-		SharedWithAccounts: []AccountGroup{
+		SharedWithAccounts: []SharedWithAccount{
 			{
-				Aid:  176592,
-				Name: "Cloudreach",
+				AID:              176592,
+				AccountGroupName: "Cloudreach",
 			},
 		},
 		BGPMonitors: []Monitor{
@@ -143,6 +144,7 @@ func TestClient_CreateHTTPServer(t *testing.T) {
 		MTUMeasurements:       1,
 		BandwidthMeasurements: 0,
 		BGPMeasurements:       1,
+		UsePublicBGP:          1,
 		AlertsEnabled:         1,
 		LiveShare:             0,
 		HTTPTimeLimit:         5,
@@ -168,10 +170,10 @@ func TestClient_CreateHTTPServer(t *testing.T) {
 				Prefix:      "135.84.184.0/22",
 			},
 		},
-		SharedWithAccounts: []AccountGroup{
+		SharedWithAccounts: []SharedWithAccount{
 			{
-				Aid:  176592,
-				Name: "Cloudreach",
+				AID:              176592,
+				AccountGroupName: "Cloudreach",
 			},
 		},
 		BGPMonitors: []Monitor{

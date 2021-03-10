@@ -22,7 +22,7 @@ func TestClient_AgentServerAddAgent(t *testing.T) {
 }
 
 func TestClient_CreateAgentServer(t *testing.T) {
-	out := `{"test": [{"testId":1,"testName":"test","createdDate":"2020-02-06 15:28:07","createdBy":"William Fleming (wfleming@grumpysysadm.com)","Port": 8090}]}`
+	out := `{"test": [{"testId":1,"testName":"test","createdDate":"2020-02-06 15:28:07","createdBy":"William Fleming (wfleming@grumpysysadm.com)","server":"grumpysysadm.com:8090"}]}`
 	setup()
 	defer teardown()
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
@@ -38,10 +38,12 @@ func TestClient_CreateAgentServer(t *testing.T) {
 		CreatedDate: "2020-02-06 15:28:07",
 		CreatedBy:   "William Fleming (wfleming@grumpysysadm.com)",
 		Port:        8090,
+		Server:      "grumpysysadm.com",
 	}
 	create := AgentServer{
 		TestName: "test",
 		Port:     8090,
+		Server:   "grumpysysadm.com",
 	}
 	res, err := client.CreateAgentServer(create)
 	assert.Nil(t, err)
