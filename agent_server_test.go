@@ -202,3 +202,22 @@ func TestClient_DeleteAgentServerStatusCode(t *testing.T) {
 	teardown()
 	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
 }
+
+func TestExtractPort(t *testing.T) {
+	test := AgentServer{
+		Agents: []Agent{
+			{
+				AgentID: 75,
+			},
+		},
+		Interval: 3600,
+		Server:   "foo.com:8888",
+	}
+	result, err := extractPort(test)
+	if err != nil {
+		assert.Error(t, err)
+	}
+	test.Server = "foo.com"
+	test.Port = 8888
+	assert.Equal(t, test, result)
+}
