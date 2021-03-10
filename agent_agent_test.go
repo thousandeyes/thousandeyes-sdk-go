@@ -22,7 +22,7 @@ func TestClient_AgentAgentAddAgent(t *testing.T) {
 }
 
 func TestClient_CreateAgentAgent(t *testing.T) {
-	out := `{"test": [{"testID":1,"testName":"test","createdDate":"2020-02-06 15:28:07","createdBy":"William Fleming (wfleming@grumpysysadm.com)","throughputMeasurements": 1, "Port": 8090}]}`
+	out := `{"test": [{"testID":1,"pathTraceMode": "classic","testName":"test","createdDate":"2020-02-06 15:28:07","createdBy":"William Fleming (wfleming@grumpysysadm.com)","throughputMeasurements": 1, "Port": 8090}]}`
 	setup()
 	defer teardown()
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
@@ -38,11 +38,14 @@ func TestClient_CreateAgentAgent(t *testing.T) {
 		CreatedDate:            "2020-02-06 15:28:07",
 		CreatedBy:              "William Fleming (wfleming@grumpysysadm.com)",
 		Port:                   8090,
+		PathTraceMode:          "classic",
 		ThroughputMeasurements: 1,
 	}
+
 	create := AgentAgent{
-		TestName: "test",
-		Port:     8090,
+		TestName:      "test",
+		Port:          8090,
+		PathTraceMode: "classic",
 	}
 	res, err := client.CreateAgentAgent(create)
 	assert.Nil(t, err)

@@ -37,6 +37,7 @@ type AgentAgent struct {
 	Port                   int          `json:"port,omitempty"`
 	Protocol               string       `json:"protocol,omitempty"`
 	TargetAgentID          int          `json:"targetAgentId,omitempty"`
+	PathTraceMode          string       `json:"pathTraceMode,omitempty"`
 	ThroughputDuration     int          `json:"throughputDuration,omitempty"`
 	ThroughputMeasurements int          `json:"throughputMeasurements,omitempty"`
 	ThroughputRate         int          `json:"throughputRate,omitempty"`
