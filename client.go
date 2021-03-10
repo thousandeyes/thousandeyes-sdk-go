@@ -63,7 +63,7 @@ func NewClient(authToken string, accountGroupID string) *Client {
 		AccountGroupID: accountGroupID,
 		APIEndpoint:    apiEndpoint,
 		HTTPClient: http.Client{
-			Timeout: time.Second * 10,
+			Timeout: time.Second * 20,
 		},
 	}
 }
@@ -117,6 +117,9 @@ func (c *Client) do(method, path string, body io.Reader, headers *map[string]str
 	time.Sleep(delay)
 
 	resp, err := c.HTTPClient.Do(req)
+	if err != nil {
+		return nil, err
+	}
 
 	// Store reported rate limit status
 	storeLimits(req, resp, time.Now())
@@ -236,23 +239,25 @@ func setDelay(req *http.Request, resp *http.Response, now time.Time) time.Durati
 // storeLimits assigns the global variables to track current rate limit data
 func storeLimits(req *http.Request, resp *http.Response, now time.Time) {
 	// We discard errors, because an error or blank result also return 0
-	if v := resp.Header.Get("X-Organization-Rate-Limit-Limit"); v != "" {
-		orgRate.Limit, _ = strconv.ParseInt(v, 10, 64)
-	}
-	if v := resp.Header.Get("X-Organization-Rate-Limit-Remaining"); v != "" {
-		orgRate.Remaining, _ = strconv.ParseInt(v, 10, 64)
-	}
-	if v := resp.Header.Get("X-Organization-Rate-Limit-Reset"); v != "" {
-		orgRate.Reset, _ = strconv.ParseInt(v, 10, 64)
-	}
-	if v := resp.Header.Get("X-Instant-Test-Rate-Limit-Limit"); v != "" {
-		instantTestRate.Limit, _ = strconv.ParseInt(v, 10, 64)
-	}
-	if v := resp.Header.Get("X-Instant-Test-Rate-Limit-Remaining"); v != "" {
-		instantTestRate.Remaining, _ = strconv.ParseInt(v, 10, 64)
-	}
-	if v := resp.Header.Get("X-Instant-Test-Rate-Limit-Reset"); v != "" {
-		instantTestRate.Reset, _ = strconv.ParseInt(v, 10, 64)
+	if resp.Header != nil {
+		if v := resp.Header.Get("X-Organization-Rate-Limit-Limit"); v != "" {
+			orgRate.Limit, _ = strconv.ParseInt(v, 10, 64)
+		}
+		if v := resp.Header.Get("X-Organization-Rate-Limit-Remaining"); v != "" {
+			orgRate.Remaining, _ = strconv.ParseInt(v, 10, 64)
+		}
+		if v := resp.Header.Get("X-Organization-Rate-Limit-Reset"); v != "" {
+			orgRate.Reset, _ = strconv.ParseInt(v, 10, 64)
+		}
+		if v := resp.Header.Get("X-Instant-Test-Rate-Limit-Limit"); v != "" {
+			instantTestRate.Limit, _ = strconv.ParseInt(v, 10, 64)
+		}
+		if v := resp.Header.Get("X-Instant-Test-Rate-Limit-Remaining"); v != "" {
+			instantTestRate.Remaining, _ = strconv.ParseInt(v, 10, 64)
+		}
+		if v := resp.Header.Get("X-Instant-Test-Rate-Limit-Reset"); v != "" {
+			instantTestRate.Reset, _ = strconv.ParseInt(v, 10, 64)
+		}
 	}
 }
 
