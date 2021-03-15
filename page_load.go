@@ -7,21 +7,21 @@ import (
 // PageLoad - a page log struct
 type PageLoad struct {
 	// Common test fields
-	AlertsEnabled      int            `json:"alertsEnabled,omitempty"`
-	AlertRules         []AlertRule    `json:"alertRules,omitempty"`
-	APILinks           []APILink      `json:"apiLinks,omitempty"`
-	CreatedBy          string         `json:"createdBy,omitempty"`
-	CreatedDate        string         `json:"createdDate,omitempty"`
-	Description        string         `json:"description,omitempty"`
-	Enabled            int            `json:"enabled,omitempty"`
-	Groups             []GroupLabel   `json:"groups,omitempty"`
-	ModifiedBy         string         `json:"modifiedBy,omitempty"`
-	ModifiedDate       string         `json:"modifiedDate,omitempty"`
-	SavedEvent         int            `json:"savedEvent,omitempty"`
-	SharedWithAccounts []AccountGroup `json:"sharedWithAccounts,omitempty"`
-	TestID             int            `json:"testId,omitempty"`
-	TestName           string         `json:"testName,omitempty"`
-	Type               string         `json:"type,omitempty"`
+	AlertsEnabled      int                 `json:"alertsEnabled,omitempty"`
+	AlertRules         []AlertRule         `json:"alertRules,omitempty"`
+	APILinks           []APILink           `json:"apiLinks,omitempty"`
+	CreatedBy          string              `json:"createdBy,omitempty"`
+	CreatedDate        string              `json:"createdDate,omitempty"`
+	Description        string              `json:"description,omitempty"`
+	Enabled            int                 `json:"enabled,omitempty"`
+	Groups             []GroupLabel        `json:"groups,omitempty"`
+	ModifiedBy         string              `json:"modifiedBy,omitempty"`
+	ModifiedDate       string              `json:"modifiedDate,omitempty"`
+	SavedEvent         int                 `json:"savedEvent,omitempty"`
+	SharedWithAccounts []SharedWithAccount `json:"sharedWithAccounts,omitempty"`
+	TestID             int                 `json:"testId,omitempty"`
+	TestName           string              `json:"testName,omitempty"`
+	Type               string              `json:"type,omitempty"`
 	// LiveShare is common to all tests except DNS+
 	LiveShare int `json:"liveShare,omitempty"`
 	// Fields unique to this test
@@ -30,6 +30,8 @@ type PageLoad struct {
 	BandwidthMeasurements int          `json:"bandwidthMeasurements,omitempty"`
 	BGPMeasurements       int          `json:"bgpMeasurements,omitempty"`
 	BGPMonitors           []BGPMonitor `json:"bgpMonitors,omitempty"`
+	ContentRegex          string       `json:"contentRegex,omitempty"`
+	FollowRedirects       int          `json:"followRedirects,omitempty"`
 	HTTPInterval          int          `json:"httpInterval,omitempty"`
 	HTTPTargetTime        int          `json:"httpTargetTime,omitempty"`
 	HTTPTimeLimit         int          `json:"httpTimeLimit,omitempty"`
@@ -47,8 +49,10 @@ type PageLoad struct {
 	Protocol              string       `json:"protocol,omitempty"`
 	SSLVersion            string       `json:"sslVersion,omitempty"`
 	SSLVersionID          int          `json:"sslVersionId,omitempty"`
+	Subinterval           int          `json:"subinterval,omitempty"`
 	URL                   string       `json:"url,omitempty"`
 	UseNTLM               int          `json:"useNtlm,omitempty"`
+	UsePublicBGP          int          `json:"usePublicBgp,omitempty"`
 	UserAgent             string       `json:"userAgent,omitempty"`
 	Username              string       `json:"username,omitempty"`
 	VerifyCertificate     int          `json:"verifyCertificate,omitempty"`

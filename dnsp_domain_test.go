@@ -27,10 +27,10 @@ func TestClient_GetDNSPDomain(t *testing.T) {
 		Type:          "dnsp-domain",
 		Interval:      300,
 		Domain:        "webex.com",
-		SharedWithAccounts: []AccountGroup{
+		SharedWithAccounts: []SharedWithAccount{
 			{
-				Aid:  176592,
-				Name: "Cloudreach",
+				AID:              176592,
+				AccountGroupName: "Cloudreach",
 			},
 		},
 		APILinks: APILinks{
@@ -97,10 +97,10 @@ func TestClient_CreateDNSPDomain(t *testing.T) {
 		Interval:      300,
 		AlertsEnabled: 1,
 		Domain:        "webex.com",
-		SharedWithAccounts: []AccountGroup{
+		SharedWithAccounts: []SharedWithAccount{
 			{
-				Aid:  176592,
-				Name: "Cloudreach",
+				AID:              176592,
+				AccountGroupName: "Cloudreach",
 			},
 		},
 

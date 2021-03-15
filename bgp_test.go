@@ -14,13 +14,6 @@ func TestClient_AddBGPAlertRule(t *testing.T) {
 	assert.Equal(t, expected, test)
 }
 
-func TestClient_BGPAddAgent(t *testing.T) {
-	test := BGP{TestName: "test", Agents: Agents{}}
-	expected := BGP{TestName: "test", Agents: []Agent{{AgentID: 1}}}
-	test.AddAgent(1)
-	assert.Equal(t, expected, test)
-}
-
 func TestClient_GetBGP(t *testing.T) {
 	out := `{"test":[{"createdDate":"2020-02-06 15:28:07","createdBy":"William Fleming (wfleming@grumpysysadm.com)","enabled":1,"savedEvent":0,"testId":122621,"testName":"test123","type":"bgp","prefix": "1.2.3.0/20","interval":300,"alertsEnabled":1,"liveShare":0,"probeMode":"AUTO","agents":[{"agentId":48620,"agentName":"Seattle, WA (Trial) - IPv6","agentType":"Cloud","countryId":"US","ipAddresses":["135.84.184.153"],"location":"Seattle Area","network":"Astute Hosting Inc. (AS 54527)","prefix":"135.84.184.0/22"}],"sharedWithAccounts":[{"aid":176592,"name":"Cloudreach"}],"apiLinks":[{"rel":"self","href":"https://api.thousandeyes.com/v6/tests/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/web/dns-trace/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/metrics/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/path-vis/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/bgp-metrics/1226221"}]}]}`
 	setup()
@@ -41,22 +34,10 @@ func TestClient_GetBGP(t *testing.T) {
 		TestName:      "test123",
 		Type:          "bgp",
 		Prefix:        "1.2.3.0/20",
-		Agents: []Agent{
+		SharedWithAccounts: []SharedWithAccount{
 			{
-				AgentID:     48620,
-				AgentType:   "Cloud",
-				AgentName:   "Seattle, WA (Trial) - IPv6",
-				CountryID:   "US",
-				IPAddresses: []string{"135.84.184.153"},
-				Location:    "Seattle Area",
-				Network:     "Astute Hosting Inc. (AS 54527)",
-				Prefix:      "135.84.184.0/22",
-			},
-		},
-		SharedWithAccounts: []AccountGroup{
-			{
-				Aid:  176592,
-				Name: "Cloudreach",
+				AID:              176592,
+				AccountGroupName: "Cloudreach",
 			},
 		},
 		APILinks: APILinks{
@@ -124,22 +105,10 @@ func TestClient_CreateBGP(t *testing.T) {
 		Type:          "bgp",
 		Prefix:        "1.2.3.0/20",
 		AlertsEnabled: 1,
-		Agents: []Agent{
+		SharedWithAccounts: []SharedWithAccount{
 			{
-				AgentID:     48620,
-				AgentType:   "Cloud",
-				AgentName:   "Seattle, WA (Trial) - IPv6",
-				CountryID:   "US",
-				IPAddresses: []string{"135.84.184.153"},
-				Location:    "Seattle Area",
-				Network:     "Astute Hosting Inc. (AS 54527)",
-				Prefix:      "135.84.184.0/22",
-			},
-		},
-		SharedWithAccounts: []AccountGroup{
-			{
-				Aid:  176592,
-				Name: "Cloudreach",
+				AID:              176592,
+				AccountGroupName: "Cloudreach",
 			},
 		},
 
@@ -211,13 +180,6 @@ func TestClient_UpdateBGP(t *testing.T) {
 	expected := BGP{TestID: 1, TestName: "test123", Type: "bgp", Prefix: "1.2.3.0/20"}
 	assert.Equal(t, &expected, res)
 
-}
-
-func TestBGP_AddAgent(t *testing.T) {
-	test := BGP{TestName: "test", Agents: Agents{}}
-	expected := BGP{TestName: "test", Agents: []Agent{{AgentID: 1}}}
-	test.AddAgent(1)
-	assert.Equal(t, expected, test)
 }
 
 func TestClient_GetBGPError(t *testing.T) {

@@ -9,36 +9,40 @@ import (
 // RTPStream - RTPStream trace test
 type RTPStream struct {
 	// Common test fields
-	AlertsEnabled      int            `json:"alertsEnabled,omitempty"`
-	AlertRules         []AlertRule    `json:"alertRules,omitempty"`
-	APILinks           []APILink      `json:"apiLinks,omitempty"`
-	CreatedBy          string         `json:"createdBy,omitempty"`
-	CreatedDate        string         `json:"createdDate,omitempty"`
-	Description        string         `json:"description,omitempty"`
-	Enabled            int            `json:"enabled,omitempty"`
-	Groups             []GroupLabel   `json:"groups,omitempty"`
-	ModifiedBy         string         `json:"modifiedBy,omitempty"`
-	ModifiedDate       string         `json:"modifiedDate,omitempty"`
-	SavedEvent         int            `json:"savedEvent,omitempty"`
-	SharedWithAccounts []AccountGroup `json:"sharedWithAccounts,omitempty"`
-	TestID             int            `json:"testId,omitempty"`
-	TestName           string         `json:"testName,omitempty"`
-	Type               string         `json:"type,omitempty"`
+	AlertsEnabled      int                 `json:"alertsEnabled,omitempty"`
+	AlertRules         []AlertRule         `json:"alertRules,omitempty"`
+	APILinks           []APILink           `json:"apiLinks,omitempty"`
+	CreatedBy          string              `json:"createdBy,omitempty"`
+	CreatedDate        string              `json:"createdDate,omitempty"`
+	Description        string              `json:"description,omitempty"`
+	Enabled            int                 `json:"enabled,omitempty"`
+	Groups             []GroupLabel        `json:"groups,omitempty"`
+	ModifiedBy         string              `json:"modifiedBy,omitempty"`
+	ModifiedDate       string              `json:"modifiedDate,omitempty"`
+	SavedEvent         int                 `json:"savedEvent,omitempty"`
+	SharedWithAccounts []SharedWithAccount `json:"sharedWithAccounts,omitempty"`
+	TestID             int                 `json:"testId,omitempty"`
+	TestName           string              `json:"testName,omitempty"`
+	Type               string              `json:"type,omitempty"`
 	// LiveShare is common to all tests except DNS+
 	LiveShare int `json:"liveShare,omitempty"`
 	// Fields unique to this test
-	Agents          []Agent `json:"agents,omitempty"`
-	BGPMeasurements int     `json:"bgpMeasurements,omitempty"`
-	Codec           string  `json:"codec,omitempty"`
-	CodecID         int     `json:"codecId,omitempty"`
-	DSCP            string  `json:"dscp,omitempty"`
-	DSCPID          int     `json:"dscpId,omitempty"`
-	Duration        int     `json:"duration,omitempty"`
-	Interval        int     `json:"interval,omitempty"`
-	JitterBuffer    int     `json:"jitterBuffer,omitempty"`
-	MTUMeasurements int     `json:"mtuMeasurements,omitempty"`
-	NumPathTraces   int     `json:"numPathTraces,omitempty"`
-	TargetAgentID   int     `json:"targetAgentId,omitempty"`
+	Agents          []Agent      `json:"agents,omitempty"`
+	BGPMeasurements int          `json:"bgpMeasurements,omitempty"`
+	BGPMonitors     []BGPMonitor `json:"bgpMonitors,omitempty"`
+	Codec           string       `json:"codec,omitempty"`
+	CodecID         int          `json:"codecId,omitempty"`
+	DSCP            string       `json:"dscp,omitempty"`
+	DSCPID          int          `json:"dscpId,omitempty"`
+	Duration        int          `json:"duration,omitempty"`
+	Interval        int          `json:"interval,omitempty"`
+	JitterBuffer    int          `json:"jitterBuffer,omitempty"`
+	MTUMeasurements int          `json:"mtuMeasurements,omitempty"`
+	NumPathTraces   int          `json:"numPathTraces,omitempty"`
+	TargetAgentID   int          `json:"targetAgentId,omitempty"`
+	UsePublicBGP    int          `json:"usePublicBgp,omitempty"`
+	// server field is present in response, but we should not track it.
+	//Server          string       `json:"server,omitempty"`
 }
 
 // AddAgent - Add agent to voice call  test

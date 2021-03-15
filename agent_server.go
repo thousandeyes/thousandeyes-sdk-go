@@ -2,26 +2,28 @@ package thousandeyes
 
 import (
 	"fmt"
+	"strconv"
+	"strings"
 )
 
 // AgentServer  - Agent to server test
 type AgentServer struct {
 	// Common test fields
-	AlertsEnabled      int            `json:"alertsEnabled,omitempty"`
-	AlertRules         []AlertRule    `json:"alertRules,omitempty"`
-	APILinks           []APILink      `json:"apiLinks,omitempty"`
-	CreatedBy          string         `json:"createdBy,omitempty"`
-	CreatedDate        string         `json:"createdDate,omitempty"`
-	Description        string         `json:"description,omitempty"`
-	Enabled            int            `json:"enabled,omitempty"`
-	Groups             []GroupLabel   `json:"groups,omitempty"`
-	ModifiedBy         string         `json:"modifiedBy,omitempty"`
-	ModifiedDate       string         `json:"modifiedDate,omitempty"`
-	SavedEvent         int            `json:"savedEvent,omitempty"`
-	SharedWithAccounts []AccountGroup `json:"sharedWithAccounts,omitempty"`
-	TestID             int            `json:"testId,omitempty"`
-	TestName           string         `json:"testName,omitempty"`
-	Type               string         `json:"type,omitempty"`
+	AlertsEnabled      int                 `json:"alertsEnabled,omitempty"`
+	AlertRules         []AlertRule         `json:"alertRules,omitempty"`
+	APILinks           []APILink           `json:"apiLinks,omitempty"`
+	CreatedBy          string              `json:"createdBy,omitempty"`
+	CreatedDate        string              `json:"createdDate,omitempty"`
+	Description        string              `json:"description,omitempty"`
+	Enabled            int                 `json:"enabled,omitempty"`
+	Groups             []GroupLabel        `json:"groups,omitempty"`
+	ModifiedBy         string              `json:"modifiedBy,omitempty"`
+	ModifiedDate       string              `json:"modifiedDate,omitempty"`
+	SavedEvent         int                 `json:"savedEvent,omitempty"`
+	SharedWithAccounts []SharedWithAccount `json:"sharedWithAccounts,omitempty"`
+	TestID             int                 `json:"testId,omitempty"`
+	TestName           string              `json:"testName,omitempty"`
+	Type               string              `json:"type,omitempty"`
 	// LiveShare is common to all tests except DNS+
 	LiveShare int `json:"liveShare,omitempty"`
 	// Fields unique to this test
@@ -31,12 +33,31 @@ type AgentServer struct {
 	BGPMonitors           []BGPMonitor `json:"bgpMonitors,omitempty"`
 	Interval              int          `json:"interval,omitempty"`
 	MTUMeasurements       int          `json:"mtuMeasurements,omitempty"`
+	NetworkMeasurements   int          `json:"networkMeasurements,omitempty"`
 	NumPathTraces         int          `json:"numPathTraces,omitempty"`
-	PathTraceMode         int          `json:"pathTraceMode,omitempty"`
+	PathTraceMode         string       `json:"pathTraceMode,omitempty"`
 	Port                  int          `json:"port,omitempty"`
 	ProbeMode             string       `json:"probeMode,omitempty"`
 	Protocol              string       `json:"protocol,omitempty"`
 	Server                string       `json:"server,omitempty"`
+	UsePublicBGP          int          `json:"usePublicBgp,omitempty"`
+}
+
+// extractPort - Set Server and Port fields if they are combined in the Server field.
+func extractPort(test AgentServer) (AgentServer, error) {
+	// Unfortunately, the V6 API returns the server value with the port,
+	// rather than having them in separate values as the API requires for
+	// submissions.  Not required for ICMP tests.
+	var err error
+	if test.Protocol != "ICMP" && strings.Index(test.Server, ":") != -1 {
+		serverParts := strings.Split(test.Server, ":")
+		test.Server = serverParts[0]
+		test.Port, err = strconv.Atoi(serverParts[1])
+		if err != nil {
+			err = fmt.Errorf("Invalid port in server declaration")
+		}
+	}
+	return test, nil
 }
 
 // AddAgent - Add agent to server test
@@ -61,7 +82,12 @@ func (c *Client) GetAgentServer(id int) (*AgentServer, error) {
 	if dErr := c.decodeJSON(resp, &target); dErr != nil {
 		return nil, fmt.Errorf("Could not decode JSON response: %v", dErr)
 	}
-	return &target["test"][0], nil
+	test := target["test"][0]
+	test, err = extractPort(test)
+	if err != nil {
+		return nil, err
+	}
+	return &test, nil
 }
 
 // CreateAgentServer  - Create agent to server test
@@ -77,7 +103,12 @@ func (c Client) CreateAgentServer(t AgentServer) (*AgentServer, error) {
 	if dErr := c.decodeJSON(resp, &target); dErr != nil {
 		return nil, fmt.Errorf("Could not decode JSON response: %v", dErr)
 	}
-	return &target["test"][0], nil
+	test := target["test"][0]
+	test, err = extractPort(test)
+	if err != nil {
+		return nil, err
+	}
+	return &test, nil
 }
 
 // DeleteAgentServer  - Delete agent to server test

@@ -35,6 +35,8 @@ func TestClient_GetVoiceCall(t *testing.T) {
 		TargetAgentID:   69,
 		Codec:           "G.711 @ 64 Kbps",
 		BGPMeasurements: 1,
+		UsePublicBGP:    1,
+		NumPathTraces:   3,
 		DSCP:            "EF (DSCP 46)",
 		DSCPID:          46,
 		TargetSIPCredentials: SIPAuthData{
@@ -118,6 +120,8 @@ func TestClient_CreateVoiceCall(t *testing.T) {
 		DSCPID:          46,
 		Duration:        5,
 		BGPMeasurements: 1,
+		UsePublicBGP:    1,
+		NumPathTraces:   3,
 		Codec:           "G.711 @ 64 Kbps",
 		APILinks: APILinks{
 			{

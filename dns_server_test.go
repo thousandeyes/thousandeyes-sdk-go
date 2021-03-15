@@ -36,6 +36,7 @@ func TestClient_GetDNSServer(t *testing.T) {
 		AlertsEnabled:         1,
 		RecursiveQueries:      0,
 		BGPMeasurements:       1,
+		UsePublicBGP:          1,
 		Domain:                "webex.com",
 		ProbeMode:             "AUTO",
 		DNSTransportProtocol:  "UDP",
@@ -51,10 +52,10 @@ func TestClient_GetDNSServer(t *testing.T) {
 				Prefix:      "135.84.184.0/22",
 			},
 		},
-		SharedWithAccounts: []AccountGroup{
+		SharedWithAccounts: []SharedWithAccount{
 			{
-				Aid:  176592,
-				Name: "Cloudreach",
+				AID:              176592,
+				AccountGroupName: "Cloudreach",
 			},
 		},
 		DNSServers: []Server{
@@ -152,6 +153,7 @@ func TestClient_CreateDNSServer(t *testing.T) {
 		RecursiveQueries:      0,
 		AlertsEnabled:         1,
 		BGPMeasurements:       1,
+		UsePublicBGP:          1,
 		Domain:                "webex.com",
 		ProbeMode:             "AUTO",
 		DNSTransportProtocol:  "UDP",
@@ -167,10 +169,10 @@ func TestClient_CreateDNSServer(t *testing.T) {
 				Prefix:      "135.84.184.0/22",
 			},
 		},
-		SharedWithAccounts: []AccountGroup{
+		SharedWithAccounts: []SharedWithAccount{
 			{
-				Aid:  176592,
-				Name: "Cloudreach",
+				AID:              176592,
+				AccountGroupName: "Cloudreach",
 			},
 		},
 		DNSServers: []Server{
