@@ -31,10 +31,12 @@ func TestClient_CreatePageLoad(t *testing.T) {
 		HTTPInterval:          300,
 		URL:                   "https://test.com",
 		Protocol:              "TCP",
+		FollowRedirects:       1,
 		NetworkMeasurements:   1,
 		MTUMeasurements:       1,
 		BandwidthMeasurements: 0,
 		BGPMeasurements:       1,
+		UsePublicBGP:          1,
 		AlertsEnabled:         1,
 		LiveShare:             0,
 		HTTPTimeLimit:         5,
@@ -60,10 +62,10 @@ func TestClient_CreatePageLoad(t *testing.T) {
 				Prefix:      "135.84.184.0/22",
 			},
 		},
-		SharedWithAccounts: []AccountGroup{
+		SharedWithAccounts: []SharedWithAccount{
 			{
-				Aid:  176592,
-				Name: "Cloudreach",
+				AID:              176592,
+				AccountGroupName: "Cloudreach",
 			},
 		},
 		BGPMonitors: []BGPMonitor{
@@ -135,10 +137,12 @@ func TestClient_GetPageLoad(t *testing.T) {
 		HTTPInterval:          300,
 		URL:                   "https://test.com",
 		Protocol:              "TCP",
+		FollowRedirects:       1,
 		NetworkMeasurements:   1,
 		MTUMeasurements:       1,
 		BandwidthMeasurements: 0,
 		BGPMeasurements:       1,
+		UsePublicBGP:          1,
 		AlertsEnabled:         1,
 		LiveShare:             0,
 		HTTPTimeLimit:         5,
@@ -164,10 +168,10 @@ func TestClient_GetPageLoad(t *testing.T) {
 				Prefix:      "135.84.184.0/22",
 			},
 		},
-		SharedWithAccounts: []AccountGroup{
+		SharedWithAccounts: []SharedWithAccount{
 			{
-				Aid:  176592,
-				Name: "Cloudreach",
+				AID:              176592,
+				AccountGroupName: "Cloudreach",
 			},
 		},
 		BGPMonitors: []BGPMonitor{

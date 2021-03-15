@@ -7,21 +7,21 @@ import (
 // AgentAgent - test
 type AgentAgent struct {
 	// Common test fields
-	AlertsEnabled      int            `json:"alertsEnabled,omitempty"`
-	AlertRules         []AlertRule    `json:"alertRules,omitempty"`
-	APILinks           []APILink      `json:"apiLinks,omitempty"`
-	CreatedBy          string         `json:"createdBy,omitempty"`
-	CreatedDate        string         `json:"createdDate,omitempty"`
-	Description        string         `json:"description,omitempty"`
-	Enabled            int            `json:"enabled,omitempty"`
-	Groups             []GroupLabel   `json:"groups,omitempty"`
-	ModifiedBy         string         `json:"modifiedBy,omitempty"`
-	ModifiedDate       string         `json:"modifiedDate,omitempty"`
-	SavedEvent         int            `json:"savedEvent,omitempty"`
-	SharedWithAccounts []AccountGroup `json:"sharedWithAccounts,omitempty"`
-	TestID             int            `json:"testId,omitempty"`
-	TestName           string         `json:"testName,omitempty"`
-	Type               string         `json:"type,omitempty"`
+	AlertsEnabled      int                 `json:"alertsEnabled,omitempty"`
+	AlertRules         []AlertRule         `json:"alertRules,omitempty"`
+	APILinks           []APILink           `json:"apiLinks,omitempty"`
+	CreatedBy          string              `json:"createdBy,omitempty"`
+	CreatedDate        string              `json:"createdDate,omitempty"`
+	Description        string              `json:"description,omitempty"`
+	Enabled            int                 `json:"enabled,omitempty"`
+	Groups             []GroupLabel        `json:"groups,omitempty"`
+	ModifiedBy         string              `json:"modifiedBy,omitempty"`
+	ModifiedDate       string              `json:"modifiedDate,omitempty"`
+	SavedEvent         int                 `json:"savedEvent,omitempty"`
+	SharedWithAccounts []SharedWithAccount `json:"sharedWithAccounts,omitempty"`
+	TestID             int                 `json:"testId,omitempty"`
+	TestName           string              `json:"testName,omitempty"`
+	Type               string              `json:"type,omitempty"`
 	// LiveShare is common to all tests except DNS+
 	LiveShare int `json:"liveShare,omitempty"`
 	// Fields unique to this test
@@ -33,7 +33,10 @@ type AgentAgent struct {
 	DSCPID                 int          `json:"dscpId"`
 	Interval               int          `json:"interval,omitempty"`
 	MSS                    int          `json:"mss,omitempty"`
+	NetworkMeasurements    int          `json:"networkMeasurements,omitempty"`
+	MTUMeasurements        int          `json:"mtuMeasurements,omitempty"`
 	NumPathTraces          int          `json:"numPathTraces,omitempty"`
+	PathTraceMode          string       `json:"pathTraceMode,omitempty"`
 	Port                   int          `json:"port,omitempty"`
 	Protocol               string       `json:"protocol,omitempty"`
 	TargetAgentID          int          `json:"targetAgentId,omitempty"`
@@ -41,6 +44,7 @@ type AgentAgent struct {
 	ThroughputDuration     int          `json:"throughputDuration,omitempty"`
 	ThroughputMeasurements int          `json:"throughputMeasurements,omitempty"`
 	ThroughputRate         int          `json:"throughputRate,omitempty"`
+	UsePublicBGP           int          `json:"usePublicBgp,omitempty"`
 }
 
 // AddAgent - Adds an agent to agent test

@@ -22,7 +22,7 @@ func TestClient_AgentServerAddAgent(t *testing.T) {
 }
 
 func TestClient_CreateAgentServer(t *testing.T) {
-	out := `{"test": [{"testId":1,"testName":"test","createdDate":"2020-02-06 15:28:07","createdBy":"William Fleming (wfleming@grumpysysadm.com)","Port": 8090}]}`
+	out := `{"test": [{"testId":1,"testName":"test","createdDate":"2020-02-06 15:28:07","createdBy":"William Fleming (wfleming@grumpysysadm.com)","server":"grumpysysadm.com:8090"}]}`
 	setup()
 	defer teardown()
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
@@ -38,10 +38,12 @@ func TestClient_CreateAgentServer(t *testing.T) {
 		CreatedDate: "2020-02-06 15:28:07",
 		CreatedBy:   "William Fleming (wfleming@grumpysysadm.com)",
 		Port:        8090,
+		Server:      "grumpysysadm.com",
 	}
 	create := AgentServer{
 		TestName: "test",
 		Port:     8090,
+		Server:   "grumpysysadm.com",
 	}
 	res, err := client.CreateAgentServer(create)
 	assert.Nil(t, err)
@@ -199,4 +201,23 @@ func TestClient_DeleteAgentServerStatusCode(t *testing.T) {
 	err := client.DeleteAgentServer(1)
 	teardown()
 	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+}
+
+func TestExtractPort(t *testing.T) {
+	test := AgentServer{
+		Agents: []Agent{
+			{
+				AgentID: 75,
+			},
+		},
+		Interval: 3600,
+		Server:   "foo.com:8888",
+	}
+	result, err := extractPort(test)
+	if err != nil {
+		assert.Error(t, err)
+	}
+	test.Server = "foo.com"
+	test.Port = 8888
+	assert.Equal(t, test, result)
 }
