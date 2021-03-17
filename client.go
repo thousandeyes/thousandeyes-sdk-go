@@ -58,6 +58,7 @@ type ClientOptions struct {
 	Limiter   Limiter
 	AccountID string
 	AuthToken string
+	Timeout   time.Duration
 }
 
 // Client wraps http client
@@ -79,12 +80,24 @@ func (l DefaultLimiter) Wait() {
 
 // NewClient creates an API client
 func NewClient(opts *ClientOptions) *Client {
+	// Set default timeout if a custom duration is 0 or unset (since we
+	// can't tell the difference without using an additional value).
+	// Overriding a default value of 0 has the side effect of preventing
+	// use of http.Client.Timeout behavior of using 0 to mean "no timeout".
+	var timeout time.Duration
+	if opts.Timeout != 0 {
+		timeout = opts.Timeout
+	} else {
+		// Default timeout
+		timeout = time.Second * 20
+	}
+
 	return &Client{
 		AuthToken:      opts.AuthToken,
 		AccountGroupID: opts.AccountID,
 		APIEndpoint:    apiEndpoint,
 		HTTPClient: http.Client{
-			Timeout: time.Second * 20,
+			Timeout: timeout,
 		},
 		Limiter: opts.Limiter,
 	}
