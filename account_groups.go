@@ -19,7 +19,7 @@ type SharedWithAccount struct {
 	AID              int    `json:"aid,omitempty"`
 }
 
-// GetIntegrations - Get third party and webhook integrations
+// GetAccountGroups - Get third party and webhook integrations
 func (c *Client) GetAccountGroups() (*[]SharedWithAccount, error) {
 	resp, err := c.get("/account-groups")
 	if err != nil {
