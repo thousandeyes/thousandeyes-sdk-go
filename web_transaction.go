@@ -35,7 +35,7 @@ type WebTransaction struct {
 	HTTPTargetTime        int                 `json:"httpTargetTime,omitempty"`
 	HTTPTimeLimit         int                 `json:"httpTimeLimit,omitempty"`
 	HTTPVersion           int                 `json:"httpVersion,omitempty"`
-	IncludeHeaders        int                 `json:"ncludeHeaders,omitempty"`
+	IncludeHeaders        int                 `json:"includeHeaders,omitempty"`
 	Interval              int                 `json:"interval,omitempty"`
 	MTUMeasurements       int                 `json:"mtuMeasurements,omitempty"`
 	NetworkMeasurements   int                 `json:"networkMeasurements,omitempty"`
@@ -45,7 +45,7 @@ type WebTransaction struct {
 	ProbeMode             string              `json:"probeMode,omitempty"`
 	Protocol              string              `json:"protocol,omitempty"`
 	SSLVersionID          int                 `json:"sslVersionId,omitempty"`
-	SubInterval           int                 `json:"subInterval,omitempty"`
+	SubInterval           int                 `json:"subinterval,omitempty"`
 	TargetTime            int                 `json:"targetTime,omitempty"`
 	TimeLimit             int                 `json:"timeLimit,omitempty"`
 	TransactionScript     string              `json:"transactionScript,omitempty"`
