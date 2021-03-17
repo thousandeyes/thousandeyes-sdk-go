@@ -33,7 +33,6 @@ func (c *Client) GetAccountGroups() (*[]SharedWithAccount, error) {
 	if _, ok := target["accountGroups"]; !ok {
 		return nil, fmt.Errorf("'accountGroups' not found in JSON response")
 	}
-	fmt.Printf("%v", target)
 
 	// Since the use of this is for the SharedWithAccount configuration,
 	// we will return that type.
