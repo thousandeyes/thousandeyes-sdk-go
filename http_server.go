@@ -9,6 +9,12 @@ type HTTPServerResponse struct {
 	tests []HTTPServer
 }
 
+type CustomHeaders struct {
+	Root    map[string]string            `json:"root,omitempty"`
+	All     map[string]string            `json:"all,omitempty"`
+	Domains map[string]map[string]string `json:"domains,omitempty"`
+}
+
 // HTTPServer - a http server test
 type HTTPServer struct {
 	// Common test fields
@@ -30,39 +36,39 @@ type HTTPServer struct {
 	// LiveShare is common to all tests except DNS+
 	LiveShare int `json:"liveShare,omitempty"`
 	// Fields unique to this test
-	Agents                Agents              `json:"agents,omitempty"`
-	AuthType              string              `json:"authType,omitempty"`
-	BandwidthMeasurements int                 `json:"bandwidthMeasurements,omitempty"`
-	BGPMeasurements       int                 `json:"bgpMeasurements,omitempty"`
-	BGPMonitors           []Monitor           `json:"bgpMonitors,omitempty"`
-	CustomHeaders         []map[string]string `json:"customHeaders,omitempty"`
-	ClientCertificate     string              `json:"clientCertificate,omitempty"`
-	ContentRegex          string              `json:"contentRegex,omitempty"`
-	DesiredStatusCode     string              `json:"desiredStatusCode,omitempty"`
-	DownloadLimit         string              `json:"downloadLimit,omitempty"`
-	DNSOverride           string              `json:"dnsOverride,omitempty"`
-	FollowRedirects       int                 `json:"followRedirects,omitempty"`
-	Headers               []string            `json:"headers,omitempty"`
-	HTTPVersion           int                 `json:"httpVersion,omitempty"`
-	HTTPTargetTime        int                 `json:"httpTargetTime,omitempty"`
-	HTTPTimeLimit         int                 `json:"httpTimeLimit,omitempty"`
-	Interval              int                 `json:"interval,omitempty"`
-	MTUMeasurements       int                 `json:"mtuMeasurements,omitempty"`
-	NetworkMeasurements   int                 `json:"networkMeasurements,omitempty"`
-	NumPathTraces         int                 `json:"numPathTraces,omitempty"`
-	Password              string              `json:"password,omitempty"`
-	PathTraceMode         string              `json:"pathTraceMode,omitempty"`
-	PostBody              string              `json:"postBody,omitempty"`
-	ProbeMode             string              `json:"probeMode,omitempty"`
-	Protocol              string              `json:"protocol,omitempty"`
-	SSLVersion            string              `json:"sslVersion,omitempty"`
-	SSLVersionID          int                 `json:"sslVersionId,omitempty"`
-	URL                   string              `json:"url,omitempty"`
-	UseNTLM               int                 `json:"useNtlm,omitempty"`
-	UsePublicBGP          int                 `json:"usePublicBgp,omitempty"`
-	UserAgent             string              `json:"userAgent,omitempty"`
-	Username              string              `json:"username,omitempty"`
-	VerifyCertificate     int                 `json:"verifyCertificate,omitempty"`
+	Agents                Agents        `json:"agents,omitempty"`
+	AuthType              string        `json:"authType,omitempty"`
+	BandwidthMeasurements int           `json:"bandwidthMeasurements,omitempty"`
+	BGPMeasurements       int           `json:"bgpMeasurements,omitempty"`
+	BGPMonitors           []Monitor     `json:"bgpMonitors,omitempty"`
+	ClientCertificate     string        `json:"clientCertificate,omitempty"`
+	ContentRegex          string        `json:"contentRegex,omitempty"`
+	CustomHeaders         CustomHeaders `json:"customHeaders,omitempty"`
+	DesiredStatusCode     string        `json:"desiredStatusCode,omitempty"`
+	DownloadLimit         string        `json:"downloadLimit,omitempty"`
+	DNSOverride           string        `json:"dnsOverride,omitempty"`
+	FollowRedirects       int           `json:"followRedirects,omitempty"`
+	Headers               []string      `json:"headers,omitempty"`
+	HTTPVersion           int           `json:"httpVersion,omitempty"`
+	HTTPTargetTime        int           `json:"httpTargetTime,omitempty"`
+	HTTPTimeLimit         int           `json:"httpTimeLimit,omitempty"`
+	Interval              int           `json:"interval,omitempty"`
+	MTUMeasurements       int           `json:"mtuMeasurements,omitempty"`
+	NetworkMeasurements   int           `json:"networkMeasurements,omitempty"`
+	NumPathTraces         int           `json:"numPathTraces,omitempty"`
+	Password              string        `json:"password,omitempty"`
+	PathTraceMode         string        `json:"pathTraceMode,omitempty"`
+	PostBody              string        `json:"postBody,omitempty"`
+	ProbeMode             string        `json:"probeMode,omitempty"`
+	Protocol              string        `json:"protocol,omitempty"`
+	SSLVersion            string        `json:"sslVersion,omitempty"`
+	SSLVersionID          int           `json:"sslVersionId,omitempty"`
+	URL                   string        `json:"url,omitempty"`
+	UseNTLM               int           `json:"useNtlm,omitempty"`
+	UsePublicBGP          int           `json:"usePublicBgp,omitempty"`
+	UserAgent             string        `json:"userAgent,omitempty"`
+	Username              string        `json:"username,omitempty"`
+	VerifyCertificate     int           `json:"verifyCertificate,omitempty"`
 }
 
 // AddAgent - add an agent

@@ -25,37 +25,38 @@ type PageLoad struct {
 	// LiveShare is common to all tests except DNS+
 	LiveShare int `json:"liveShare,omitempty"`
 	// Fields unique to this test
-	Agents                Agents       `json:"agents,omitempty"`
-	AuthType              string       `json:"authType,omitempty"`
-	BandwidthMeasurements int          `json:"bandwidthMeasurements,omitempty"`
-	BGPMeasurements       int          `json:"bgpMeasurements,omitempty"`
-	BGPMonitors           []BGPMonitor `json:"bgpMonitors,omitempty"`
-	ContentRegex          string       `json:"contentRegex,omitempty"`
-	FollowRedirects       int          `json:"followRedirects,omitempty"`
-	HTTPInterval          int          `json:"httpInterval,omitempty"`
-	HTTPTargetTime        int          `json:"httpTargetTime,omitempty"`
-	HTTPTimeLimit         int          `json:"httpTimeLimit,omitempty"`
-	HTTPVersion           int          `json:"httpVersion,omitempty"`
-	IncludeHeaders        int          `json:"includeHeaders,omitempty"`
-	Interval              int          `json:"interval,omitempty"`
-	MTUMeasurements       int          `json:"mtuMeasurements,omitempty"`
-	NetworkMeasurements   int          `json:"networkMeasurements,omitempty"`
-	NumPathTraces         int          `json:"numPathTraces,omitempty"`
-	PageLoadTargetTime    int          `json:"pageLoadTargetTime,omitempty"`
-	PageLoadTimeLimit     int          `json:"pageLoadTimeLimit,omitempty"`
-	Password              string       `json:"password,omitempty"`
-	PathTraceMode         string       `json:"pathTraceMode,omitempty"`
-	ProbeMode             string       `json:"probeMode,omitempty"`
-	Protocol              string       `json:"protocol,omitempty"`
-	SSLVersion            string       `json:"sslVersion,omitempty"`
-	SSLVersionID          int          `json:"sslVersionId,omitempty"`
-	Subinterval           int          `json:"subinterval,omitempty"`
-	URL                   string       `json:"url,omitempty"`
-	UseNTLM               int          `json:"useNtlm,omitempty"`
-	UsePublicBGP          int          `json:"usePublicBgp,omitempty"`
-	UserAgent             string       `json:"userAgent,omitempty"`
-	Username              string       `json:"username,omitempty"`
-	VerifyCertificate     int          `json:"verifyCertificate,omitempty"`
+	Agents                Agents        `json:"agents,omitempty"`
+	AuthType              string        `json:"authType,omitempty"`
+	BandwidthMeasurements int           `json:"bandwidthMeasurements,omitempty"`
+	BGPMeasurements       int           `json:"bgpMeasurements,omitempty"`
+	BGPMonitors           []BGPMonitor  `json:"bgpMonitors,omitempty"`
+	ContentRegex          string        `json:"contentRegex,omitempty"`
+	CustomHeaders         CustomHeaders `json:"customHeaders,omitempty"`
+	FollowRedirects       int           `json:"followRedirects,omitempty"`
+	HTTPInterval          int           `json:"httpInterval,omitempty"`
+	HTTPTargetTime        int           `json:"httpTargetTime,omitempty"`
+	HTTPTimeLimit         int           `json:"httpTimeLimit,omitempty"`
+	HTTPVersion           int           `json:"httpVersion,omitempty"`
+	IncludeHeaders        int           `json:"includeHeaders,omitempty"`
+	Interval              int           `json:"interval,omitempty"`
+	MTUMeasurements       int           `json:"mtuMeasurements,omitempty"`
+	NetworkMeasurements   int           `json:"networkMeasurements,omitempty"`
+	NumPathTraces         int           `json:"numPathTraces,omitempty"`
+	PageLoadTargetTime    int           `json:"pageLoadTargetTime,omitempty"`
+	PageLoadTimeLimit     int           `json:"pageLoadTimeLimit,omitempty"`
+	Password              string        `json:"password,omitempty"`
+	PathTraceMode         string        `json:"pathTraceMode,omitempty"`
+	ProbeMode             string        `json:"probeMode,omitempty"`
+	Protocol              string        `json:"protocol,omitempty"`
+	SSLVersion            string        `json:"sslVersion,omitempty"`
+	SSLVersionID          int           `json:"sslVersionId,omitempty"`
+	Subinterval           int           `json:"subinterval,omitempty"`
+	URL                   string        `json:"url,omitempty"`
+	UseNTLM               int           `json:"useNtlm,omitempty"`
+	UsePublicBGP          int           `json:"usePublicBgp,omitempty"`
+	UserAgent             string        `json:"userAgent,omitempty"`
+	Username              string        `json:"username,omitempty"`
+	VerifyCertificate     int           `json:"verifyCertificate,omitempty"`
 }
 
 // AddAgent  - add an aget
