@@ -9,6 +9,8 @@ type HTTPServerResponse struct {
 	tests []HTTPServer
 }
 
+// CustomHeaders represents the JSON object exchanged for specifying
+// custom HTTP headers in HTTP Server, Page Load, and Web Transaction tests.
 type CustomHeaders struct {
 	Root    map[string]string            `json:"root,omitempty"`
 	All     map[string]string            `json:"all,omitempty"`
