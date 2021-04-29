@@ -31,20 +31,21 @@ type AlertRules []AlertRule
 
 // AlertRule - An alert rule
 type AlertRule struct {
-	AlertRuleID             int           `json:"alertRuleId,omitempty"`
-	AlertType               string        `json:"alertType,omitempty"`
-	Default                 int           `json:"default,omitempty"`
-	Direction               string        `json:"direction,omitempty"`
-	Expression              string        `json:"expression,omitempty"`
-	MinimumSources          int           `json:"minimumSources,omitempty"`
-	MinimumSourcesPct       int           `json:"minimumSourcesPct,omitempty"`
-	NotifyOnClear           int           `json:"notifyOnClear,omitempty"`
-	RoundsViolatingMode     string        `json:"roundsViolatingMode,omitempty"`
-	RoundsViolatingOutOf    int           `json:"roundsViolatingOutOf,omitempty"`
-	RoundsViolatingRequired int           `json:"roundsViolatingRequired,omitempty"`
-	RuleID                  int           `json:"ruleId,omitempty"`
-	RuleName                string        `json:"ruleName,omitempty"`
-	Tests                   []GenericTest `json:"tests,omitempty"`
+	AlertRuleID             int    `json:"alertRuleId,omitempty"`
+	AlertType               string `json:"alertType,omitempty"`
+	Default                 int    `json:"default,omitempty"`
+	Direction               string `json:"direction,omitempty"`
+	Expression              string `json:"expression,omitempty"`
+	IncludeCoveredPrefixes  int    `json:"includeCoveredPrefixes,omitempty"`
+	MinimumSources          int    `json:"minimumSources,omitempty"`
+	MinimumSourcesPct       int    `json:"minimumSourcesPct,omitempty"`
+	NotifyOnClear           int    `json:"notifyOnClear,omitempty"`
+	RoundsViolatingMode     string `json:"roundsViolatingMode,omitempty"`
+	RoundsViolatingOutOf    int    `json:"roundsViolatingOutOf,omitempty"`
+	RoundsViolatingRequired int    `json:"roundsViolatingRequired,omitempty"`
+	RuleID                  int    `json:"ruleId,omitempty"`
+	RuleName                string `json:"ruleName,omitempty"`
+	TestIds                 []int  `json:"testIds,omitempty"`
 }
 
 // CreateAlertRule - Create alert rule
