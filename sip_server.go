@@ -94,7 +94,7 @@ func (c *Client) GetSIPServer(id int) (*SIPServer, error) {
 			Port:         sipTarget["test"][i].Port,
 			Protocol:     sipTarget["test"][i].Protocol,
 			SIPProxy:     sipTarget["test"][i].SIPProxy,
-			SIPRegistrar: sipTarget["test"][i].AuthUser,
+			SIPRegistrar: sipTarget["test"][i].SIPRegistrar,
 			User:         sipTarget["test"][i].User,
 		}
 		target["test"][i].TargetSIPCredentials = sipAuth
