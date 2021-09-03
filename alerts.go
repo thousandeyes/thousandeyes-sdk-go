@@ -29,13 +29,13 @@ type Alert struct {
 // AlertRules - list of alert rules
 type AlertRules []AlertRule
 
-// Alert Rule Notification Email struct
+// NotificationEmail - Alert Rule Notification Email structure
 type NotificationEmail struct {
   Message   string   `json:"message,omitempty"`
   Recipient []string `json:"recipient,omitempty"`
 }
 
-// Alert Rule Notification struct
+// Notification - Alert Rule Notification structure
 type Notification struct {
   Email NotificationEmail `json:"email,omitempty"`
 }
