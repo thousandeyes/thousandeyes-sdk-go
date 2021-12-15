@@ -14,10 +14,12 @@ type Metric struct{
 	MaxLatency 	float32 `json:"maxLatency"`
 	Jitter 		float32 `json:"jitter"`
 	MinLatency 	float32 `json:"minLatency"`
-	ServerIP 	string `json:"serverIp"`
-	AgentName   string `json:"agentName,omitempty"`
-	CountryID   string `json:"countryId,omitempty"`
-	AgentID     int    `json:"agentId,omitempty"`	
+	ServerIP 	string  `json:"serverIp"`
+	AgentName   string  `json:"agentName"`
+	CountryID   string  `json:"countryId"`
+	AgentID     int     `json:"agentId"`
+	RoundID     int     `json:"roundId"`
+	PermaLink   string  `json:"permalink"`
 }
 
 // Net - the outcome of a test 

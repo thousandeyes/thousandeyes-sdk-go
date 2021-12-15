@@ -12,4 +12,5 @@ func TestClient_GetNetMetrics(t *testing.T){
 	res, err := client.GetNetMetrics(1869241, "5m")
 	assert.Nil(t, err)
 	assert.Equal(t, 1869241, res.Net.Test.TestID)
+	assert.Equal(t, "https://app.thousandeyes.com/view/tests?__a=208901&testId=1869241&roundId=1639582200&agentId=14410", res.Net.Metrics[0].PermaLink)
 }
