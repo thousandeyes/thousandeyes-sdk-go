@@ -1,9 +1,15 @@
-[![GoDoc](https://godoc.org/github.com/william20111/go-thousandeyes?status.svg)](http://godoc.org/github.com/william20111/go-thousandeyes) [![Go Report Card](https://goreportcard.com/badge/github.com/william20111/go-thousandeyes)](https://goreportcard.com/report/github.com/william20111/go-thousandeyes) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/gojp/goreportcard/blob/master/LICENSE) [![codecov](https://codecov.io/gh/william20111/go-thousandeyes/branch/master/graph/badge.svg)](https://codecov.io/gh/william20111/go-thousandeyes)
+[![GoDoc](https://godoc.org/github.com/thousandeyes/go-thousandeyes?status.svg)](http://godoc.org/github.com/thousandeyes/go-thousandeyes) [![Go Report Card](https://goreportcard.com/badge/github.com/thousandeyes/go-thousandeyes)](https://goreportcard.com/report/github.com/thousandeyes/go-thousandeyes) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/gojp/goreportcard/blob/master/LICENSE) [![codecov](https://codecov.io/gh/thousandeyes/go-thousandeyes/branch/master/graph/badge.svg)](https://codecov.io/gh/thousandeyes/go-thousandeyes)
 [![Gitter](https://badges.gitter.im/go-thousandeyes/community.svg)](https://gitter.im/go-thousandeyes/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 # go-thousandeyes
 
 go-thousandeyes is a [go](https://golang.org/) client library for the [Thousandeyes v6 API](https://developer.thousandeyes.com/v6). This repo
 also contains a supporting CLI tool tectl that uses the client lib.
+
+## Maintenance and Acknowledgements
+
+This project is maintained by the ThousandEyes engineering team and accepts community contributions.
+
+ThousandEyes would like to extend a thank you to William Fleming, John Dyer, and Joshua Blanchard for their contributions and community maintenance of this project.
 
 ## Installation
 
