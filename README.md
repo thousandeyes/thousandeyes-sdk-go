@@ -15,7 +15,7 @@ ThousandEyes would like to extend a thank you to William Fleming, John Dyer, and
 
 First, download the source code
 ```cli
-go get github.com/william20111/go-thousandeyes
+go get github.com/thousandeyes/go-thousandeyes
 ```
 
 ## Usage
@@ -38,7 +38,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/william20111/go-thousandeyes"
+	"github.com/thousandeyes/go-thousandeyes"
 )
 
 func main() {

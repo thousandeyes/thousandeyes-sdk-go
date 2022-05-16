@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/william20111/go-thousandeyes/command/tectl/cmd"
+	"github.com/thousandeyes/go-thousandeyes/command/tectl/cmd"
 )
 
 var (
