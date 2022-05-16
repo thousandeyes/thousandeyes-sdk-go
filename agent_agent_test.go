@@ -8,15 +8,15 @@ import (
 )
 
 func TestClient_AddAgentAgentAlertRule(t *testing.T) {
-	test := AgentAgent{TestName: "test", AlertRules: []AlertRule{}}
-	expected := AgentAgent{TestName: "test", AlertRules: []AlertRule{{RuleID: 1}}}
+	test := AgentAgent{TestName: String("test"), AlertRules: []AlertRule{}}
+	expected := AgentAgent{TestName: String("test"), AlertRules: []AlertRule{{RuleID: 1}}}
 	test.AddAlertRule(1)
 	assert.Equal(t, expected, test)
 }
 
 func TestClient_AgentAgentAddAgent(t *testing.T) {
-	test := AgentAgent{TestName: "test", Agents: Agents{}}
-	expected := AgentAgent{TestName: "test", Agents: []Agent{{AgentID: 1}}}
+	test := AgentAgent{TestName: String("test"), Agents: Agents{}}
+	expected := AgentAgent{TestName: String("test"), Agents: []Agent{{AgentID: 1}}}
 	test.AddAgent(1)
 	assert.Equal(t, expected, test)
 }
@@ -33,19 +33,19 @@ func TestClient_CreateAgentAgent(t *testing.T) {
 	})
 
 	expected := AgentAgent{
-		TestID:                 1,
-		TestName:               "test",
-		CreatedDate:            "2020-02-06 15:28:07",
-		CreatedBy:              "William Fleming (wfleming@grumpysysadm.com)",
-		Port:                   8090,
-		PathTraceMode:          "classic",
-		ThroughputMeasurements: 1,
+		TestID:                 Int64(1),
+		TestName:               String("test"),
+		CreatedDate:            String("2020-02-06 15:28:07"),
+		CreatedBy:              String("William Fleming (wfleming@grumpysysadm.com)"),
+		Port:                   Int(8090),
+		PathTraceMode:          String("classic"),
+		ThroughputMeasurements: Int(1),
 	}
 
 	create := AgentAgent{
-		TestName:      "test",
-		Port:          8090,
-		PathTraceMode: "classic",
+		TestName:      String("test"),
+		Port:          Int(8090),
+		PathTraceMode: String("classic"),
 	}
 	res, err := client.CreateAgentAgent(create)
 	assert.Nil(t, err)
@@ -66,8 +66,8 @@ func TestClient_GetAgentAgentJsonError(t *testing.T) {
 }
 
 func TestClient_AddAlertRule(t *testing.T) {
-	test := AgentAgent{TestName: "test", AlertRules: []AlertRule{}}
-	expected := AgentAgent{TestName: "test", AlertRules: []AlertRule{{RuleID: 1}}}
+	test := AgentAgent{TestName: String("test"), AlertRules: []AlertRule{}}
+	expected := AgentAgent{TestName: String("test"), AlertRules: []AlertRule{{RuleID: 1}}}
 	test.AddAlertRule(1)
 	assert.Equal(t, expected, test)
 }
@@ -84,13 +84,13 @@ func TestClient_GetAgentAgent(t *testing.T) {
 	})
 
 	expected := AgentAgent{
-		TestID:                 1,
-		TestName:               "test",
-		CreatedDate:            "2020-02-06 15:28:07",
-		CreatedBy:              "William Fleming (wfleming@grumpysysadm.com)",
-		Port:                   8090,
-		ThroughputDuration:     10000,
-		ThroughputMeasurements: 1,
+		TestID:                 Int64(1),
+		TestName:               String("test"),
+		CreatedDate:            String("2020-02-06 15:28:07"),
+		CreatedBy:              String("William Fleming (wfleming@grumpysysadm.com)"),
+		Port:                   Int(8090),
+		ThroughputDuration:     Int(10000),
+		ThroughputMeasurements: Int(1),
 	}
 	res, err := client.GetAgentAgent(1)
 	assert.Nil(t, err)
@@ -126,14 +126,14 @@ func TestClient_UpdateAgentAgent(t *testing.T) {
 	})
 
 	expected := AgentAgent{
-		TestID:      1,
-		TestName:    "test",
-		CreatedDate: "2020-02-06 15:28:07",
-		CreatedBy:   "William Fleming (wfleming@grumpysysadm.com)",
-		Port:        8090,
+		TestID:      Int64(1),
+		TestName:    String("test"),
+		CreatedDate: String("2020-02-06 15:28:07"),
+		CreatedBy:   String("William Fleming (wfleming@grumpysysadm.com)"),
+		Port:        Int(8090),
 	}
 	update := AgentAgent{
-		Port: 8090,
+		Port: Int(8090),
 	}
 	res, err := client.UpdateAgentAgent(1, update)
 	assert.Nil(t, err)
