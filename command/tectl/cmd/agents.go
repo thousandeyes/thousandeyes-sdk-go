@@ -7,7 +7,7 @@ import (
 	"strings"
 
 	"github.com/olekukonko/tablewriter"
-	"github.com/william20111/go-thousandeyes"
+	"github.com/thousandeyes/go-thousandeyes"
 )
 
 func GetAgentsExecute() error {
