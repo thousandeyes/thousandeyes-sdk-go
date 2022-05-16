@@ -64,8 +64,8 @@ func TestClient_CreatePageLoad(t *testing.T) {
 		},
 		SharedWithAccounts: []SharedWithAccount{
 			{
-				AID:              176592,
-				AccountGroupName: "Cloudreach",
+				AID:              Int(176592),
+				AccountGroupName: String("Cloudreach"),
 			},
 		},
 		BGPMonitors: []BGPMonitor{
@@ -170,8 +170,8 @@ func TestClient_GetPageLoad(t *testing.T) {
 		},
 		SharedWithAccounts: []SharedWithAccount{
 			{
-				AID:              176592,
-				AccountGroupName: "Cloudreach",
+				AID:              Int(176592),
+				AccountGroupName: String("Cloudreach"),
 			},
 		},
 		BGPMonitors: []BGPMonitor{

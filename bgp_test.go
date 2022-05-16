@@ -36,8 +36,8 @@ func TestClient_GetBGP(t *testing.T) {
 		Prefix:        "1.2.3.0/20",
 		SharedWithAccounts: []SharedWithAccount{
 			{
-				AID:              176592,
-				AccountGroupName: "Cloudreach",
+				AID:              Int(176592),
+				AccountGroupName: String("Cloudreach"),
 			},
 		},
 		APILinks: APILinks{
@@ -107,8 +107,8 @@ func TestClient_CreateBGP(t *testing.T) {
 		AlertsEnabled: 1,
 		SharedWithAccounts: []SharedWithAccount{
 			{
-				AID:              176592,
-				AccountGroupName: "Cloudreach",
+				AID:              Int(176592),
+				AccountGroupName: String("Cloudreach"),
 			},
 		},
 

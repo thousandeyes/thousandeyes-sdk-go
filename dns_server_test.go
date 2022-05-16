@@ -54,8 +54,8 @@ func TestClient_GetDNSServer(t *testing.T) {
 		},
 		SharedWithAccounts: []SharedWithAccount{
 			{
-				AID:              176592,
-				AccountGroupName: "Cloudreach",
+				AID:              Int(176592),
+				AccountGroupName: String("Cloudreach"),
 			},
 		},
 		DNSServers: []Server{
@@ -171,8 +171,8 @@ func TestClient_CreateDNSServer(t *testing.T) {
 		},
 		SharedWithAccounts: []SharedWithAccount{
 			{
-				AID:              176592,
-				AccountGroupName: "Cloudreach",
+				AID:              Int(176592),
+				AccountGroupName: String("Cloudreach"),
 			},
 		},
 		DNSServers: []Server{

@@ -59,8 +59,8 @@ func TestClient_GetHTTPServer(t *testing.T) {
 		},
 		SharedWithAccounts: []SharedWithAccount{
 			{
-				AID:              176592,
-				AccountGroupName: "Cloudreach",
+				AID:              Int(176592),
+				AccountGroupName: String("Cloudreach"),
 			},
 		},
 		BGPMonitors: []Monitor{
@@ -170,8 +170,8 @@ func TestClient_CreateHTTPServer(t *testing.T) {
 		},
 		SharedWithAccounts: []SharedWithAccount{
 			{
-				AID:              176592,
-				AccountGroupName: "Cloudreach",
+				AID:              Int(176592),
+				AccountGroupName: String("Cloudreach"),
 			},
 		},
 		BGPMonitors: []Monitor{

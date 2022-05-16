@@ -41,8 +41,8 @@ func TestClient_GetDNSSec(t *testing.T) {
 		},
 		SharedWithAccounts: []SharedWithAccount{
 			{
-				AID:              176592,
-				AccountGroupName: "Cloudreach",
+				AID:              Int(176592),
+				AccountGroupName: String("Cloudreach"),
 			},
 		},
 		APILinks: []APILink{
@@ -123,8 +123,8 @@ func TestClient_CreateDNSSec(t *testing.T) {
 		},
 		SharedWithAccounts: []SharedWithAccount{
 			{
-				AID:              176592,
-				AccountGroupName: "Cloudreach",
+				AID:              Int(176592),
+				AccountGroupName: String("Cloudreach"),
 			},
 		},
 
