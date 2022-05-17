@@ -8,8 +8,8 @@ import (
 )
 
 func TestClient_AddBGPAlertRule(t *testing.T) {
-	test := BGP{TestName: "test", AlertRules: []AlertRule{}}
-	expected := BGP{TestName: "test", AlertRules: []AlertRule{{RuleID: Int(1)}}}
+	test := BGP{TestName: String("test"), AlertRules: []AlertRule{}}
+	expected := BGP{TestName: String("test"), AlertRules: []AlertRule{{RuleID: Int(1)}}}
 	test.AddAlertRule(1)
 	assert.Equal(t, expected, test)
 }
@@ -25,15 +25,16 @@ func TestClient_GetBGP(t *testing.T) {
 
 	// Define expected values from the API (based on the JSON we print out above)
 	expected := BGP{
-		TestID:        122621,
-		Enabled:       1,
-		CreatedBy:     "William Fleming (wfleming@grumpysysadm.com)",
-		CreatedDate:   "2020-02-06 15:28:07",
-		SavedEvent:    0,
-		AlertsEnabled: 1,
-		TestName:      "test123",
-		Type:          "bgp",
-		Prefix:        "1.2.3.0/20",
+		TestID:        Int(122621),
+		Enabled:       Int(1),
+		CreatedBy:     String("William Fleming (wfleming@grumpysysadm.com)"),
+		CreatedDate:   String("2020-02-06 15:28:07"),
+		SavedEvent:    Int(0),
+		AlertsEnabled: Int(1),
+		TestName:      String("test123"),
+		Type:          String("bgp"),
+		LiveShare:     Int(0),
+		Prefix:        String("1.2.3.0/20"),
 		SharedWithAccounts: []SharedWithAccount{
 			{
 				AID:              Int(176592),
@@ -95,16 +96,16 @@ func TestClient_CreateBGP(t *testing.T) {
 
 	// Define expected values from the API (based on the JSON we print out above)
 	expected := BGP{
-
-		TestID:        122621,
-		Enabled:       1,
-		CreatedBy:     "William Fleming (wfleming@grumpysysadm.com)",
-		CreatedDate:   "2020-02-06 15:28:07",
-		SavedEvent:    0,
-		TestName:      "test123",
-		Type:          "bgp",
-		Prefix:        "1.2.3.0/20",
-		AlertsEnabled: 1,
+		TestID:        Int(122621),
+		Enabled:       Int(1),
+		CreatedBy:     String("William Fleming (wfleming@grumpysysadm.com)"),
+		CreatedDate:   String("2020-02-06 15:28:07"),
+		SavedEvent:    Int(0),
+		TestName:      String("test123"),
+		Type:          String("bgp"),
+		LiveShare:     Int(0),
+		Prefix:        String("1.2.3.0/20"),
+		AlertsEnabled: Int(1),
 		SharedWithAccounts: []SharedWithAccount{
 			{
 				AID:              Int(176592),
@@ -136,8 +137,8 @@ func TestClient_CreateBGP(t *testing.T) {
 		},
 	}
 	create := BGP{
-		TestName: "test1",
-		Prefix:   "1.2.3.0/20",
+		TestName: String("test1"),
+		Prefix:   String("1.2.3.0/20"),
 	}
 	res, err := client.CreateBGP(create)
 	teardown()
@@ -177,7 +178,12 @@ func TestClient_UpdateBGP(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	expected := BGP{TestID: 1, TestName: "test123", Type: "bgp", Prefix: "1.2.3.0/20"}
+	expected := BGP{
+		TestID:   Int(1),
+		TestName: String("test123"),
+		Type:     String("bgp"),
+		Prefix:   String("1.2.3.0/20"),
+	}
 	assert.Equal(t, &expected, res)
 
 }
