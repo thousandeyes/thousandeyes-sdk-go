@@ -14,7 +14,7 @@ type Server struct {
 type DNSServer struct {
 	// Common test fields
 	AlertsEnabled      int                 `json:"alertsEnabled,omitempty"`
-	AlertRules         []AlertRule         `json:"alertRules,omitempty"`
+	AlertRules         []AlertRule         `json:"alertRules"`
 	APILinks           []APILink           `json:"apiLinks,omitempty"`
 	CreatedBy          string              `json:"createdBy,omitempty"`
 	CreatedDate        string              `json:"createdDate,omitempty"`
