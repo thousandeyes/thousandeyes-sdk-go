@@ -8,15 +8,15 @@ import (
 )
 
 func TestClient_AddAgentSeverAlertRule(t *testing.T) {
-	test := AgentServer{TestName: "test", AlertRules: []AlertRule{}}
-	expected := AgentServer{TestName: "test", AlertRules: []AlertRule{{RuleID: 1}}}
+	test := AgentServer{TestName: String("test"), AlertRules: []AlertRule{}}
+	expected := AgentServer{TestName: String("test"), AlertRules: []AlertRule{{RuleID: 1}}}
 	test.AddAlertRule(1)
 	assert.Equal(t, expected, test)
 }
 
 func TestClient_AgentServerAddAgent(t *testing.T) {
-	test := AgentServer{TestName: "test", Agents: Agents{}}
-	expected := AgentServer{TestName: "test", Agents: []Agent{{AgentID: Int(1)}}}
+	test := AgentServer{TestName: String("test"), Agents: Agents{}}
+	expected := AgentServer{TestName: String("test"), Agents: []Agent{{AgentID: Int(1)}}}
 	test.AddAgent(Int(1))
 	assert.Equal(t, expected, test)
 }
@@ -33,17 +33,17 @@ func TestClient_CreateAgentServer(t *testing.T) {
 	})
 
 	expected := AgentServer{
-		TestID:      1,
-		TestName:    "test",
-		CreatedDate: "2020-02-06 15:28:07",
-		CreatedBy:   "William Fleming (wfleming@grumpysysadm.com)",
-		Port:        8090,
-		Server:      "grumpysysadm.com",
+		TestID:      Int64(1),
+		TestName:    String("test"),
+		CreatedDate: String("2020-02-06 15:28:07"),
+		CreatedBy:   String("William Fleming (wfleming@grumpysysadm.com)"),
+		Port:        Int(8090),
+		Server:      String("grumpysysadm.com"),
 	}
 	create := AgentServer{
-		TestName: "test",
-		Port:     8090,
-		Server:   "grumpysysadm.com",
+		TestName: String("test"),
+		Port:     Int(8090),
+		Server:   String("grumpysysadm.com"),
 	}
 	res, err := client.CreateAgentServer(create)
 	assert.Nil(t, err)
@@ -51,8 +51,8 @@ func TestClient_CreateAgentServer(t *testing.T) {
 }
 
 func TestClient_AddAgentServerAlertRule(t *testing.T) {
-	test := AgentServer{TestName: "test", AlertRules: []AlertRule{}}
-	expected := AgentServer{TestName: "test", AlertRules: []AlertRule{{RuleID: 1}}}
+	test := AgentServer{TestName: String("test"), AlertRules: []AlertRule{}}
+	expected := AgentServer{TestName: String("test"), AlertRules: []AlertRule{{RuleID: 1}}}
 	test.AddAlertRule(1)
 	assert.Equal(t, expected, test)
 }
@@ -82,11 +82,11 @@ func TestClient_GetAgentServer(t *testing.T) {
 	})
 
 	expected := AgentServer{
-		TestID:      1,
-		TestName:    "test",
-		CreatedDate: "2020-02-06 15:28:07",
-		CreatedBy:   "William Fleming (wfleming@grumpysysadm.com)",
-		Port:        8090,
+		TestID:      Int64(1),
+		TestName:    String("test"),
+		CreatedDate: String("2020-02-06 15:28:07"),
+		CreatedBy:   String("William Fleming (wfleming@grumpysysadm.com)"),
+		Port:        Int(8090),
 	}
 	res, err := client.GetAgentServer(1)
 	assert.Nil(t, err)
@@ -122,14 +122,14 @@ func TestClient_UpdateAgentServer(t *testing.T) {
 	})
 
 	expected := AgentServer{
-		TestID:      1,
-		TestName:    "test",
-		CreatedDate: "2020-02-06 15:28:07",
-		CreatedBy:   "William Fleming (wfleming@grumpysysadm.com)",
-		Port:        8090,
+		TestID:      Int64(1),
+		TestName:    String("test"),
+		CreatedDate: String("2020-02-06 15:28:07"),
+		CreatedBy:   String("William Fleming (wfleming@grumpysysadm.com)"),
+		Port:        Int(8090),
 	}
 	update := AgentServer{
-		Port: 8090,
+		Port: Int(8090),
 	}
 	res, err := client.UpdateAgentServer(1, update)
 	assert.Nil(t, err)
@@ -210,14 +210,14 @@ func TestExtractPort(t *testing.T) {
 				AgentID: Int(75),
 			},
 		},
-		Interval: 3600,
-		Server:   "foo.com:8888",
+		Interval: Int(3600),
+		Server:   String("foo.com:8888"),
 	}
 	result, err := extractPort(test)
 	if err != nil {
 		assert.Error(t, err)
 	}
-	test.Server = "foo.com"
-	test.Port = 8888
+	test.Server = String("foo.com")
+	test.Port = Int(8888)
 	assert.Equal(t, test, result)
 }
