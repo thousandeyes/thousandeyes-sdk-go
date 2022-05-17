@@ -70,11 +70,11 @@ func TestClient_CreatePageLoad(t *testing.T) {
 		},
 		BGPMonitors: []BGPMonitor{
 			{
-				MonitorID:   62,
-				IPAddress:   "2001:1890:111d:1::63",
-				MonitorName: "New York, NY-6",
-				Network:     "AT&T Services, Inc. (AS 7018)",
-				MonitorType: "Public",
+				MonitorID:   Int(62),
+				IPAddress:   String("2001:1890:111d:1::63"),
+				MonitorName: String("New York, NY-6"),
+				Network:     String("AT&T Services, Inc. (AS 7018)"),
+				MonitorType: String("Public"),
 			},
 		},
 		NumPathTraces: 3,
@@ -176,11 +176,11 @@ func TestClient_GetPageLoad(t *testing.T) {
 		},
 		BGPMonitors: []BGPMonitor{
 			{
-				MonitorID:   62,
-				IPAddress:   "2001:1890:111d:1::63",
-				MonitorName: "New York, NY-6",
-				Network:     "AT&T Services, Inc. (AS 7018)",
-				MonitorType: "Public",
+				MonitorID:   Int(62),
+				IPAddress:   String("2001:1890:111d:1::63"),
+				MonitorName: String("New York, NY-6"),
+				Network:     String("AT&T Services, Inc. (AS 7018)"),
+				MonitorType: String("Public"),
 			},
 		},
 		NumPathTraces: 3,

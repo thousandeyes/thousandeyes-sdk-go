@@ -66,11 +66,11 @@ func TestClient_GetDNSServer(t *testing.T) {
 		},
 		BGPMonitors: []BGPMonitor{
 			{
-				MonitorID:   64,
-				IPAddress:   "2001:240:100:ff::2497:2",
-				MonitorName: "Tokyo-3",
-				Network:     "IIJ Internet Initiative Japan Inc. (AS 2497)",
-				MonitorType: "Public",
+				MonitorID:   Int(64),
+				IPAddress:   String("2001:240:100:ff::2497:2"),
+				MonitorName: String("Tokyo-3"),
+				Network:     String("IIJ Internet Initiative Japan Inc. (AS 2497)"),
+				MonitorType: String("Public"),
 			},
 		},
 		APILinks: APILinks{
@@ -183,11 +183,11 @@ func TestClient_CreateDNSServer(t *testing.T) {
 		},
 		BGPMonitors: []BGPMonitor{
 			{
-				MonitorID:   64,
-				IPAddress:   "2001:240:100:ff::2497:2",
-				MonitorName: "Tokyo-3",
-				Network:     "IIJ Internet Initiative Japan Inc. (AS 2497)",
-				MonitorType: "Public",
+				MonitorID:   Int(64),
+				IPAddress:   String("2001:240:100:ff::2497:2"),
+				MonitorName: String("Tokyo-3"),
+				Network:     String("IIJ Internet Initiative Japan Inc. (AS 2497)"),
+				MonitorType: String("Public"),
 			},
 		},
 		APILinks: APILinks{
