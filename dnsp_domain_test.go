@@ -156,7 +156,7 @@ func TestClient_DeleteDNSPDomain(t *testing.T) {
 
 func TestClient_AddDNSPDomainAlertRule(t *testing.T) {
 	test := DNSPDomain{TestName: "test", AlertRules: []AlertRule{}}
-	expected := DNSPDomain{TestName: "test", AlertRules: []AlertRule{{RuleID: 1}}}
+	expected := DNSPDomain{TestName: "test", AlertRules: []AlertRule{{RuleID: Int(1)}}}
 	test.AddAlertRule(1)
 	assert.Equal(t, expected, test)
 }

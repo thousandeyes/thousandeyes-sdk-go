@@ -105,7 +105,7 @@ func TestClient_GetDNSServer(t *testing.T) {
 
 func TestClient_AddDnsserverAlertRule(t *testing.T) {
 	test := DNSServer{TestName: "test", AlertRules: []AlertRule{}}
-	expected := DNSServer{TestName: "test", AlertRules: []AlertRule{{RuleID: 1}}}
+	expected := DNSServer{TestName: "test", AlertRules: []AlertRule{{RuleID: Int(1)}}}
 	test.AddAlertRule(1)
 	assert.Equal(t, expected, test)
 }

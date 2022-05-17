@@ -9,7 +9,7 @@ import (
 
 func TestClient_AddAgentSeverAlertRule(t *testing.T) {
 	test := AgentServer{TestName: String("test"), AlertRules: []AlertRule{}}
-	expected := AgentServer{TestName: String("test"), AlertRules: []AlertRule{{RuleID: 1}}}
+	expected := AgentServer{TestName: String("test"), AlertRules: []AlertRule{{RuleID: Int(1)}}}
 	test.AddAlertRule(1)
 	assert.Equal(t, expected, test)
 }
@@ -52,7 +52,7 @@ func TestClient_CreateAgentServer(t *testing.T) {
 
 func TestClient_AddAgentServerAlertRule(t *testing.T) {
 	test := AgentServer{TestName: String("test"), AlertRules: []AlertRule{}}
-	expected := AgentServer{TestName: String("test"), AlertRules: []AlertRule{{RuleID: 1}}}
+	expected := AgentServer{TestName: String("test"), AlertRules: []AlertRule{{RuleID: Int(1)}}}
 	test.AddAlertRule(1)
 	assert.Equal(t, expected, test)
 }

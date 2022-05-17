@@ -180,7 +180,7 @@ func TestClient_DeleteDNSSec(t *testing.T) {
 
 func TestClient_AddDNSSecAlertRule(t *testing.T) {
 	test := DNSSec{TestName: "test", AlertRules: []AlertRule{}}
-	expected := DNSSec{TestName: "test", AlertRules: []AlertRule{{RuleID: 1}}}
+	expected := DNSSec{TestName: "test", AlertRules: []AlertRule{{RuleID: Int(1)}}}
 	test.AddAlertRule(1)
 	assert.Equal(t, expected, test)
 }

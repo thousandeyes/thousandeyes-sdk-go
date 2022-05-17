@@ -187,7 +187,7 @@ func TestClient_DeleteFTPServer(t *testing.T) {
 
 func TestClient_AddFTPServerAlertRule(t *testing.T) {
 	test := FTPServer{TestName: "test", AlertRules: []AlertRule{}}
-	expected := FTPServer{TestName: "test", AlertRules: []AlertRule{{RuleID: 1}}}
+	expected := FTPServer{TestName: "test", AlertRules: []AlertRule{{RuleID: Int(1)}}}
 	test.AddAlertRule(1)
 	assert.Equal(t, expected, test)
 }

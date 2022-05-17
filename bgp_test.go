@@ -9,7 +9,7 @@ import (
 
 func TestClient_AddBGPAlertRule(t *testing.T) {
 	test := BGP{TestName: "test", AlertRules: []AlertRule{}}
-	expected := BGP{TestName: "test", AlertRules: []AlertRule{{RuleID: 1}}}
+	expected := BGP{TestName: "test", AlertRules: []AlertRule{{RuleID: Int(1)}}}
 	test.AddAlertRule(1)
 	assert.Equal(t, expected, test)
 }

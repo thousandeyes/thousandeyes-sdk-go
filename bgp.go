@@ -33,7 +33,7 @@ type BGP struct {
 
 // AddAlertRule - Adds an alert to agent test
 func (t *BGP) AddAlertRule(id int) {
-	alertRule := AlertRule{RuleID: id}
+	alertRule := AlertRule{RuleID: Int(id)}
 	t.AlertRules = append(t.AlertRules, alertRule)
 }
 

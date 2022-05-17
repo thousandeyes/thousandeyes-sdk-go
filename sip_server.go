@@ -52,7 +52,7 @@ func (t *SIPServer) AddAgent(id *int) {
 
 // AddAlertRule - Adds an alert to agent test
 func (t *SIPServer) AddAlertRule(id int) {
-	alertRule := AlertRule{RuleID: id}
+	alertRule := AlertRule{RuleID: Int(id)}
 	t.AlertRules = append(t.AlertRules, alertRule)
 }
 

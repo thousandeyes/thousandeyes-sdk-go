@@ -156,7 +156,7 @@ func TestClient_DeleteDNSPServer(t *testing.T) {
 
 func TestClient_AddDNSPServerAlertRule(t *testing.T) {
 	test := DNSPServer{TestName: "test", AlertRules: []AlertRule{}}
-	expected := DNSPServer{TestName: "test", AlertRules: []AlertRule{{RuleID: 1}}}
+	expected := DNSPServer{TestName: "test", AlertRules: []AlertRule{{RuleID: Int(1)}}}
 	test.AddAlertRule(1)
 	assert.Equal(t, expected, test)
 }

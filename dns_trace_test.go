@@ -187,7 +187,7 @@ func TestClient_DeleteDNSTrace(t *testing.T) {
 
 func TestClient_AddDnstraceAlertRule(t *testing.T) {
 	test := DNSTrace{TestName: "test", AlertRules: []AlertRule{}}
-	expected := DNSTrace{TestName: "test", AlertRules: []AlertRule{{RuleID: 1}}}
+	expected := DNSTrace{TestName: "test", AlertRules: []AlertRule{{RuleID: Int(1)}}}
 	test.AddAlertRule(1)
 	assert.Equal(t, expected, test)
 }
