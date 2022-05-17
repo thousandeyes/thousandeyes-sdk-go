@@ -50,7 +50,7 @@ type DNSServer struct {
 }
 
 // AddAgent - Add dns server test
-func (t *DNSServer) AddAgent(id int) {
+func (t *DNSServer) AddAgent(id *int) {
 	agent := Agent{AgentID: id}
 	t.Agents = append(t.Agents, agent)
 }

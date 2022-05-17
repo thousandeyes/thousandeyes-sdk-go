@@ -60,7 +60,7 @@ type PageLoad struct {
 }
 
 // AddAgent  - add an aget
-func (t *PageLoad) AddAgent(id int) {
+func (t *PageLoad) AddAgent(id *int) {
 	agent := Agent{AgentID: id}
 	t.Agents = append(t.Agents, agent)
 }

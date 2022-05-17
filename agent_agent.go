@@ -47,7 +47,7 @@ type AgentAgent struct {
 }
 
 // AddAgent - Adds an agent to agent test
-func (t *AgentAgent) AddAgent(id int) {
+func (t *AgentAgent) AddAgent(id *int) {
 	agent := Agent{AgentID: id}
 	t.Agents = append(t.Agents, agent)
 }

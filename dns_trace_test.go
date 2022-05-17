@@ -31,14 +31,14 @@ func TestClient_GetDNSTrace(t *testing.T) {
 		DNSTransportProtocol: "UDP",
 		Agents: []Agent{
 			{
-				AgentID:     48620,
-				AgentType:   "Cloud",
-				AgentName:   "Seattle, WA (Trial) - IPv6",
-				CountryID:   "US",
+				AgentID:     Int(48620),
+				AgentType:   String("Cloud"),
+				AgentName:   String("Seattle, WA (Trial) - IPv6"),
+				CountryID:   String("US"),
 				IPAddresses: []string{"135.84.184.153"},
-				Location:    "Seattle Area",
-				Network:     "Astute Hosting Inc. (AS 54527)",
-				Prefix:      "135.84.184.0/22",
+				Location:    String("Seattle Area"),
+				Network:     String("Astute Hosting Inc. (AS 54527)"),
+				Prefix:      String("135.84.184.0/22"),
 			},
 		},
 		SharedWithAccounts: []SharedWithAccount{
@@ -117,14 +117,14 @@ func TestClient_CreateDNSTrace(t *testing.T) {
 		DNSTransportProtocol: "UDP",
 		Agents: []Agent{
 			{
-				AgentID:     48620,
-				AgentType:   "Cloud",
-				AgentName:   "Seattle, WA (Trial) - IPv6",
-				CountryID:   "US",
+				AgentID:     Int(48620),
+				AgentType:   String("Cloud"),
+				AgentName:   String("Seattle, WA (Trial) - IPv6"),
+				CountryID:   String("US"),
 				IPAddresses: []string{"135.84.184.153"},
-				Location:    "Seattle Area",
-				Network:     "Astute Hosting Inc. (AS 54527)",
-				Prefix:      "135.84.184.0/22",
+				Location:    String("Seattle Area"),
+				Network:     String("Astute Hosting Inc. (AS 54527)"),
+				Prefix:      String("135.84.184.0/22"),
 			},
 		},
 		SharedWithAccounts: []SharedWithAccount{
@@ -214,8 +214,8 @@ func TestClient_UpdateDNSTrace(t *testing.T) {
 
 func TestDNSTrace_AddAgent(t *testing.T) {
 	test := DNSTrace{TestName: "test", Agents: Agents{}}
-	expected := DNSTrace{TestName: "test", Agents: []Agent{{AgentID: 1}}}
-	test.AddAgent(1)
+	expected := DNSTrace{TestName: "test", Agents: []Agent{{AgentID: Int(1)}}}
+	test.AddAgent(Int(1))
 	assert.Equal(t, expected, test)
 }
 

@@ -16,8 +16,8 @@ func TestClient_AddAgentSeverAlertRule(t *testing.T) {
 
 func TestClient_AgentServerAddAgent(t *testing.T) {
 	test := AgentServer{TestName: "test", Agents: Agents{}}
-	expected := AgentServer{TestName: "test", Agents: []Agent{{AgentID: 1}}}
-	test.AddAgent(1)
+	expected := AgentServer{TestName: "test", Agents: []Agent{{AgentID: Int(1)}}}
+	test.AddAgent(Int(1))
 	assert.Equal(t, expected, test)
 }
 
@@ -207,7 +207,7 @@ func TestExtractPort(t *testing.T) {
 	test := AgentServer{
 		Agents: []Agent{
 			{
-				AgentID: 75,
+				AgentID: Int(75),
 			},
 		},
 		Interval: 3600,

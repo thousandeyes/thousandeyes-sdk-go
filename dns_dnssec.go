@@ -29,7 +29,7 @@ type DNSSec struct {
 }
 
 // AddAgent - Add agent to DNSSec test
-func (t *DNSSec) AddAgent(id int) {
+func (t *DNSSec) AddAgent(id *int) {
 	agent := Agent{AgentID: id}
 	t.Agents = append(t.Agents, agent)
 }

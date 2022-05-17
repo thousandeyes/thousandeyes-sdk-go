@@ -199,8 +199,8 @@ func TestClient_UpdateVoiceCall(t *testing.T) {
 
 func TestVoiceCall_AddAgent(t *testing.T) {
 	test := VoiceCall{TestName: "test", Agents: Agents{}}
-	expected := VoiceCall{TestName: "test", Agents: []Agent{{AgentID: 1}}}
-	test.AddAgent(1)
+	expected := VoiceCall{TestName: "test", Agents: []Agent{{AgentID: Int(1)}}}
+	test.AddAgent(Int(1))
 	assert.Equal(t, expected, test)
 }
 

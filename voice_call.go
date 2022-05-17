@@ -55,7 +55,7 @@ type VoiceCall struct {
 }
 
 // AddAgent - Add agent to voice call  test
-func (t *VoiceCall) AddAgent(id int) {
+func (t *VoiceCall) AddAgent(id *int) {
 	agent := Agent{AgentID: id}
 	t.Agents = append(t.Agents, agent)
 }

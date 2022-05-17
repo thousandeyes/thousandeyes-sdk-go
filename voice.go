@@ -46,7 +46,7 @@ type RTPStream struct {
 }
 
 // AddAgent - Add agent to voice call  test
-func (t *RTPStream) AddAgent(id int) {
+func (t *RTPStream) AddAgent(id *int) {
 	agent := Agent{AgentID: id}
 	t.Agents = append(t.Agents, agent)
 }

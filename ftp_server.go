@@ -44,7 +44,7 @@ type FTPServer struct {
 }
 
 // AddAgent - Add ftp server test
-func (t *FTPServer) AddAgent(id int) {
+func (t *FTPServer) AddAgent(id *int) {
 	agent := Agent{AgentID: id}
 	t.Agents = append(t.Agents, agent)
 }
