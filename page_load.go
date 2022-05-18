@@ -22,8 +22,8 @@ type PageLoad struct {
 	TestID             int                 `json:"testId,omitempty"`
 	TestName           string              `json:"testName,omitempty"`
 	Type               string              `json:"type,omitempty"`
-	// LiveShare is common to all tests except DNS+
-	LiveShare int `json:"liveShare,omitempty"`
+	LiveShare          int                 `json:"liveShare,omitempty"`
+
 	// Fields unique to this test
 	Agents                Agents        `json:"agents,omitempty"`
 	AuthType              string        `json:"authType,omitempty"`

@@ -20,8 +20,8 @@ type FTPServer struct {
 	TestID             int                 `json:"testId,omitempty"`
 	TestName           string              `json:"testName,omitempty"`
 	Type               string              `json:"type,omitempty"`
-	// LiveSVhare is common to all tests except DNS+
-	LiveShare int `json:"liveShare,omitempty"`
+	LiveShare          int                 `json:"liveShare,omitempty"`
+
 	// Fields unique to this test
 	Agents              []Agent `json:"agents,omitempty"`
 	BGPMeasurements     int     `json:"bgpMeasurements,omitempty"`
