@@ -47,24 +47,24 @@ func TestClient_GetSIPServer(t *testing.T) {
 		},
 		APILinks: APILinks{
 			{
-				Href: "https://api.thousandeyes.com/v6/tests/1226221",
-				Rel:  "self",
+				Href: String("https://api.thousandeyes.com/v6/tests/1226221"),
+				Rel:  String("self"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/web/dns-trace/1226221",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/web/dns-trace/1226221"),
+				Rel:  String("data"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/net/metrics/1226221",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/net/metrics/1226221"),
+				Rel:  String("data"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/net/path-vis/1226221",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/net/path-vis/1226221"),
+				Rel:  String("data"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/net/bgp-metrics/1226221",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/net/bgp-metrics/1226221"),
+				Rel:  String("data"),
 			},
 		},
 	}
@@ -131,24 +131,24 @@ func TestClient_CreateSIPServer(t *testing.T) {
 
 		APILinks: APILinks{
 			{
-				Href: "https://api.thousandeyes.com/v6/tests/1226221",
-				Rel:  "self",
+				Href: String("https://api.thousandeyes.com/v6/tests/1226221"),
+				Rel:  String("self"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/web/dns-trace/1226221",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/web/dns-trace/1226221"),
+				Rel:  String("data"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/net/metrics/1226221",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/net/metrics/1226221"),
+				Rel:  String("data"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/net/path-vis/1226221",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/net/path-vis/1226221"),
+				Rel:  String("data"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/net/bgp-metrics/1226221",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/net/bgp-metrics/1226221"),
+				Rel:  String("data"),
 			},
 		},
 	}
@@ -239,7 +239,7 @@ func TestClient_GetSIPServerStatusCode(t *testing.T) {
 
 	_, err := client.GetSIPServer(1)
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }
 
 func TestClient_CreateSIPServerStatusCode(t *testing.T) {
@@ -252,7 +252,7 @@ func TestClient_CreateSIPServerStatusCode(t *testing.T) {
 	})
 	_, err := client.CreateSIPServer(SIPServer{})
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }
 
 func TestClient_UpdateSIPServerStatusCode(t *testing.T) {
@@ -265,7 +265,7 @@ func TestClient_UpdateSIPServerStatusCode(t *testing.T) {
 	})
 	_, err := client.UpdateSIPServer(1, SIPServer{})
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }
 
 func TestClient_DeleteSIPServerStatusCode(t *testing.T) {
@@ -278,5 +278,5 @@ func TestClient_DeleteSIPServerStatusCode(t *testing.T) {
 	})
 	err := client.DeleteSIPServer(1)
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }

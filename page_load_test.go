@@ -80,25 +80,25 @@ func TestClient_CreatePageLoad(t *testing.T) {
 		NumPathTraces: 3,
 		APILinks: APILinks{
 			{
-				Rel:  "self",
-				Href: "https://api.thousandeyes.com/v6/tests/1226422",
+				Rel:  String("self"),
+				Href: String("https://api.thousandeyes.com/v6/tests/1226422"),
 			},
 			{
-				Rel:  "data",
-				Href: "https://api.thousandeyes.com/v6/web/http-server/1226422",
+				Rel:  String("data"),
+				Href: String("https://api.thousandeyes.com/v6/web/http-server/1226422"),
 			}, {
-				Rel:  "data",
-				Href: "https://api.thousandeyes.com/v6/web/page-load/1226422"},
+				Rel:  String("data"),
+				Href: String("https://api.thousandeyes.com/v6/web/page-load/1226422")},
 			{
-				Rel:  "data",
-				Href: "https://api.thousandeyes.com/v6/net/metrics/1226422",
+				Rel:  String("data"),
+				Href: String("https://api.thousandeyes.com/v6/net/metrics/1226422"),
 			},
 			{
-				Rel:  "data",
-				Href: "https://api.thousandeyes.com/v6/net/path-vis/1226422",
+				Rel:  String("data"),
+				Href: String("https://api.thousandeyes.com/v6/net/path-vis/1226422"),
 			}, {
-				Rel:  "data",
-				Href: "https://api.thousandeyes.com/v6/net/bgp-metrics/1226422",
+				Rel:  String("data"),
+				Href: String("https://api.thousandeyes.com/v6/net/bgp-metrics/1226422"),
 			},
 		},
 		SSLVersion: "Auto",
@@ -186,25 +186,25 @@ func TestClient_GetPageLoad(t *testing.T) {
 		NumPathTraces: 3,
 		APILinks: APILinks{
 			{
-				Rel:  "self",
-				Href: "https://api.thousandeyes.com/v6/tests/1226422",
+				Rel:  String("self"),
+				Href: String("https://api.thousandeyes.com/v6/tests/1226422"),
 			},
 			{
-				Rel:  "data",
-				Href: "https://api.thousandeyes.com/v6/web/http-server/1226422",
+				Rel:  String("data"),
+				Href: String("https://api.thousandeyes.com/v6/web/http-server/1226422"),
 			}, {
-				Rel:  "data",
-				Href: "https://api.thousandeyes.com/v6/web/page-load/1226422"},
+				Rel:  String("data"),
+				Href: String("https://api.thousandeyes.com/v6/web/page-load/1226422")},
 			{
-				Rel:  "data",
-				Href: "https://api.thousandeyes.com/v6/net/metrics/1226422",
+				Rel:  String("data"),
+				Href: String("https://api.thousandeyes.com/v6/net/metrics/1226422"),
 			},
 			{
-				Rel:  "data",
-				Href: "https://api.thousandeyes.com/v6/net/path-vis/1226422",
+				Rel:  String("data"),
+				Href: String("https://api.thousandeyes.com/v6/net/path-vis/1226422"),
 			}, {
-				Rel:  "data",
-				Href: "https://api.thousandeyes.com/v6/net/bgp-metrics/1226422",
+				Rel:  String("data"),
+				Href: String("https://api.thousandeyes.com/v6/net/bgp-metrics/1226422"),
 			},
 		},
 		SSLVersion: "Auto",
@@ -299,7 +299,7 @@ func TestClient_GetPageLoadStatusCode(t *testing.T) {
 
 	_, err := client.GetPageLoad(1)
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }
 
 func TestClient_CreatePageLoadStatusCode(t *testing.T) {
@@ -312,7 +312,7 @@ func TestClient_CreatePageLoadStatusCode(t *testing.T) {
 	})
 	_, err := client.CreatePageLoad(PageLoad{})
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }
 
 func TestClient_UpdatePageLoadStatusCode(t *testing.T) {
@@ -325,7 +325,7 @@ func TestClient_UpdatePageLoadStatusCode(t *testing.T) {
 	})
 	_, err := client.UpdatePageLoad(1, PageLoad{})
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }
 
 func TestClient_DeletePageLoadStatusCode(t *testing.T) {
@@ -338,5 +338,5 @@ func TestClient_DeletePageLoadStatusCode(t *testing.T) {
 	})
 	err := client.DeletePageLoad(1)
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }

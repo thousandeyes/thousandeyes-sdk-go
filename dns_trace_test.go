@@ -49,24 +49,24 @@ func TestClient_GetDNSTrace(t *testing.T) {
 		},
 		APILinks: APILinks{
 			{
-				Href: "https://api.thousandeyes.com/v6/tests/1226221",
-				Rel:  "self",
+				Href: String("https://api.thousandeyes.com/v6/tests/1226221"),
+				Rel:  String("self"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/web/dns-trace/1226221",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/web/dns-trace/1226221"),
+				Rel:  String("data"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/net/metrics/1226221",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/net/metrics/1226221"),
+				Rel:  String("data"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/net/path-vis/1226221",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/net/path-vis/1226221"),
+				Rel:  String("data"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/net/bgp-metrics/1226221",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/net/bgp-metrics/1226221"),
+				Rel:  String("data"),
 			},
 		},
 	}
@@ -136,24 +136,24 @@ func TestClient_CreateDNSTrace(t *testing.T) {
 
 		APILinks: APILinks{
 			{
-				Href: "https://api.thousandeyes.com/v6/tests/1226221",
-				Rel:  "self",
+				Href: String("https://api.thousandeyes.com/v6/tests/1226221"),
+				Rel:  String("self"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/web/dns-trace/1226221",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/web/dns-trace/1226221"),
+				Rel:  String("data"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/net/metrics/1226221",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/net/metrics/1226221"),
+				Rel:  String("data"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/net/path-vis/1226221",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/net/path-vis/1226221"),
+				Rel:  String("data"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/net/bgp-metrics/1226221",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/net/bgp-metrics/1226221"),
+				Rel:  String("data"),
 			},
 		},
 	}
@@ -244,7 +244,7 @@ func TestClient_GetDNSTraceStatusCode(t *testing.T) {
 
 	_, err := client.GetDNSTrace(1)
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }
 
 func TestClient_CreateDNSTraceStatusCode(t *testing.T) {
@@ -257,7 +257,7 @@ func TestClient_CreateDNSTraceStatusCode(t *testing.T) {
 	})
 	_, err := client.CreateDNSTrace(DNSTrace{})
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }
 
 func TestClient_UpdateDNSTraceStatusCode(t *testing.T) {
@@ -270,7 +270,7 @@ func TestClient_UpdateDNSTraceStatusCode(t *testing.T) {
 	})
 	_, err := client.UpdateDNSTrace(1, DNSTrace{})
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }
 
 func TestClient_DeleteDNSTraceStatusCode(t *testing.T) {
@@ -283,5 +283,5 @@ func TestClient_DeleteDNSTraceStatusCode(t *testing.T) {
 	})
 	err := client.DeleteDNSTrace(1)
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }

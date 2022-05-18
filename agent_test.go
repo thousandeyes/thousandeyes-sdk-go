@@ -99,7 +99,7 @@ func TestClient_GetAgentsStatusCode(t *testing.T) {
 
 	_, err := client.GetAgents()
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }
 
 func TestClient_GetAgentStatusCode(t *testing.T) {
@@ -114,7 +114,7 @@ func TestClient_GetAgentStatusCode(t *testing.T) {
 
 	_, err := client.GetAgent(1)
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }
 
 func TestClient_AddAgentToClusterStatusCode(t *testing.T) {
@@ -129,7 +129,7 @@ func TestClient_AddAgentToClusterStatusCode(t *testing.T) {
 
 	_, err := client.AddAgentsToCluster(1, []int{8001})
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }
 
 func TestClient_RemoveAgentToClusterStatusCode(t *testing.T) {
@@ -144,7 +144,7 @@ func TestClient_RemoveAgentToClusterStatusCode(t *testing.T) {
 
 	_, err := client.RemoveAgentsFromCluster(1, []int{8001})
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }
 
 func TestClient_AddAgentToClusterJsonError(t *testing.T) {

@@ -18,7 +18,7 @@ func TestClient_GetTestStatusCode(t *testing.T) {
 
 	_, err := client.GetTest(1)
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }
 
 func TestClient_GetTestsStatusCode(t *testing.T) {
@@ -33,7 +33,7 @@ func TestClient_GetTestsStatusCode(t *testing.T) {
 
 	_, err := client.GetTests()
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }
 
 func TestClient_GetGenericTestsJsonError(t *testing.T) {

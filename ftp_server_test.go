@@ -43,24 +43,24 @@ func TestClient_GetFTPServer(t *testing.T) {
 		},
 		APILinks: []APILink{
 			{
-				Href: "https://api.thousandeyes.com/v6/tests/1226221",
-				Rel:  "self",
+				Href: String("https://api.thousandeyes.com/v6/tests/1226221"),
+				Rel:  String("self"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/web/ftp-server/1226221",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/web/ftp-server/1226221"),
+				Rel:  String("data"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/net/metrics/1226221",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/net/metrics/1226221"),
+				Rel:  String("data"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/net/path-vis/1226221",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/net/path-vis/1226221"),
+				Rel:  String("data"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/net/bgp-metrics/1226221",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/net/bgp-metrics/1226221"),
+				Rel:  String("data"),
 			},
 		},
 		SharedWithAccounts: []SharedWithAccount{
@@ -135,24 +135,24 @@ func TestClient_CreateFTPServer(t *testing.T) {
 
 		APILinks: []APILink{
 			{
-				Href: "https://api.thousandeyes.com/v6/tests/1226221",
-				Rel:  "self",
+				Href: String("https://api.thousandeyes.com/v6/tests/1226221"),
+				Rel:  String("self"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/web/ftp-server/1226221",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/web/ftp-server/1226221"),
+				Rel:  String("data"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/net/metrics/1226221",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/net/metrics/1226221"),
+				Rel:  String("data"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/net/path-vis/1226221",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/net/path-vis/1226221"),
+				Rel:  String("data"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/net/bgp-metrics/1226221",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/net/bgp-metrics/1226221"),
+				Rel:  String("data"),
 			},
 		},
 	}
@@ -244,7 +244,7 @@ func TestClient_GetFTPServerStatusCode(t *testing.T) {
 
 	_, err := client.GetFTPServer(1)
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }
 
 func TestClient_CreateFTPServerStatusCode(t *testing.T) {
@@ -257,7 +257,7 @@ func TestClient_CreateFTPServerStatusCode(t *testing.T) {
 	})
 	_, err := client.CreateFTPServer(FTPServer{})
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }
 
 func TestClient_UpdateFTPServerStatusCode(t *testing.T) {
@@ -270,7 +270,7 @@ func TestClient_UpdateFTPServerStatusCode(t *testing.T) {
 	})
 	_, err := client.UpdateFTPServer(1, FTPServer{})
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }
 
 func TestClient_DeleteFTPServerCode(t *testing.T) {
@@ -283,5 +283,5 @@ func TestClient_DeleteFTPServerCode(t *testing.T) {
 	})
 	err := client.DeleteFTPServer(1)
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }

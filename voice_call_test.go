@@ -58,20 +58,20 @@ func TestClient_GetVoiceCall(t *testing.T) {
 		APILinks: APILinks{
 
 			{
-				Rel:  "self",
-				Href: "https://api.thousandeyes.com/v6/tests/814641",
+				Rel:  String("self"),
+				Href: String("https://api.thousandeyes.com/v6/tests/814641"),
 			},
 			{
-				Rel:  "data",
-				Href: "https://api.thousandeyes.com/v6/voice/sip-server/814641",
+				Rel:  String("data"),
+				Href: String("https://api.thousandeyes.com/v6/voice/sip-server/814641"),
 			},
 			{
-				Rel:  "data",
-				Href: "https://api.thousandeyes.com/v6/voice/rtp-stream/814641",
+				Rel:  String("data"),
+				Href: String("https://api.thousandeyes.com/v6/voice/rtp-stream/814641"),
 			},
 			{
-				Rel:  "data",
-				Href: "https://api.thousandeyes.com/v6/net/bgp-metrics/814641",
+				Rel:  String("data"),
+				Href: String("https://api.thousandeyes.com/v6/net/bgp-metrics/814641"),
 			},
 		},
 	}
@@ -125,20 +125,20 @@ func TestClient_CreateVoiceCall(t *testing.T) {
 		Codec:           "G.711 @ 64 Kbps",
 		APILinks: APILinks{
 			{
-				Href: "https://api.thousandeyes.com/v6/tests/814641",
-				Rel:  "self",
+				Href: String("https://api.thousandeyes.com/v6/tests/814641"),
+				Rel:  String("self"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/voice/sip-server/814641",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/voice/sip-server/814641"),
+				Rel:  String("data"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/voice/rtp-stream/814641",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/voice/rtp-stream/814641"),
+				Rel:  String("data"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/net/bgp-metrics/814641",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/net/bgp-metrics/814641"),
+				Rel:  String("data"),
 			},
 		},
 	}
@@ -229,7 +229,7 @@ func TestClient_GetVoiceCallStatusCode(t *testing.T) {
 
 	_, err := client.GetVoiceCall(1)
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }
 
 func TestClient_CreateVoiceCallStatusCode(t *testing.T) {
@@ -242,7 +242,7 @@ func TestClient_CreateVoiceCallStatusCode(t *testing.T) {
 	})
 	_, err := client.CreateVoiceCall(VoiceCall{})
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }
 
 func TestClient_UpdateVoiceCallStatusCode(t *testing.T) {
@@ -255,7 +255,7 @@ func TestClient_UpdateVoiceCallStatusCode(t *testing.T) {
 	})
 	_, err := client.UpdateVoiceCall(1, VoiceCall{})
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }
 
 func TestClient_DeleteVoiceCallStatusCode(t *testing.T) {
@@ -268,5 +268,5 @@ func TestClient_DeleteVoiceCallStatusCode(t *testing.T) {
 	})
 	err := client.DeleteVoiceCall(1)
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }

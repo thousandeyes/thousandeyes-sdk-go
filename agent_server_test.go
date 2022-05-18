@@ -161,7 +161,7 @@ func TestClient_GetAgentServerStatusCode(t *testing.T) {
 
 	_, err := client.GetPageLoad(1)
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }
 
 func TestClient_CreateAgentServerStatusCode(t *testing.T) {
@@ -174,7 +174,7 @@ func TestClient_CreateAgentServerStatusCode(t *testing.T) {
 	})
 	_, err := client.CreateAgentServer(AgentServer{})
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }
 
 func TestClient_UpdateAgentServerStatusCode(t *testing.T) {
@@ -187,7 +187,7 @@ func TestClient_UpdateAgentServerStatusCode(t *testing.T) {
 	})
 	_, err := client.UpdateAgentServer(1, AgentServer{})
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }
 
 func TestClient_DeleteAgentServerStatusCode(t *testing.T) {
@@ -200,7 +200,7 @@ func TestClient_DeleteAgentServerStatusCode(t *testing.T) {
 	})
 	err := client.DeleteAgentServer(1)
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }
 
 func TestExtractPort(t *testing.T) {

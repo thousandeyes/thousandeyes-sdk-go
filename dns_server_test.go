@@ -75,24 +75,24 @@ func TestClient_GetDNSServer(t *testing.T) {
 		},
 		APILinks: APILinks{
 			{
-				Href: "https://api.thousandeyes.com/v6/tests/1226221",
-				Rel:  "self",
+				Href: String("https://api.thousandeyes.com/v6/tests/1226221"),
+				Rel:  String("self"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/web/dns-server/1226221",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/web/dns-server/1226221"),
+				Rel:  String("data"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/net/metrics/1226221",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/net/metrics/1226221"),
+				Rel:  String("data"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/net/path-vis/1226221",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/net/path-vis/1226221"),
+				Rel:  String("data"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/net/bgp-metrics/1226221",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/net/bgp-metrics/1226221"),
+				Rel:  String("data"),
 			},
 		},
 	}
@@ -192,24 +192,24 @@ func TestClient_CreateDNSServer(t *testing.T) {
 		},
 		APILinks: APILinks{
 			{
-				Href: "https://api.thousandeyes.com/v6/tests/1226221",
-				Rel:  "self",
+				Href: String("https://api.thousandeyes.com/v6/tests/1226221"),
+				Rel:  String("self"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/web/dns-server/1226221",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/web/dns-server/1226221"),
+				Rel:  String("data"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/net/metrics/1226221",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/net/metrics/1226221"),
+				Rel:  String("data"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/net/path-vis/1226221",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/net/path-vis/1226221"),
+				Rel:  String("data"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/net/bgp-metrics/1226221",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/net/bgp-metrics/1226221"),
+				Rel:  String("data"),
 			},
 		},
 	}
@@ -294,7 +294,7 @@ func TestClient_GetDNSServerStatusCode(t *testing.T) {
 
 	_, err := client.GetDNSServer(1)
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }
 
 func TestClient_CreateDNSServerStatusCode(t *testing.T) {
@@ -307,7 +307,7 @@ func TestClient_CreateDNSServerStatusCode(t *testing.T) {
 	})
 	_, err := client.CreateDNSServer(DNSServer{})
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }
 
 func TestClient_UpdateDNSServerStatusCode(t *testing.T) {
@@ -320,7 +320,7 @@ func TestClient_UpdateDNSServerStatusCode(t *testing.T) {
 	})
 	_, err := client.UpdateDNSServer(1, DNSServer{})
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }
 
 func TestClient_DeleteDNSServerStatusCode(t *testing.T) {
@@ -333,5 +333,5 @@ func TestClient_DeleteDNSServerStatusCode(t *testing.T) {
 	})
 	err := client.DeleteDNSServer(1)
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }

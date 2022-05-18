@@ -136,7 +136,7 @@ func TestClient_GetUserStatusCode(t *testing.T) {
 
 	_, err := client.GetUsers()
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }
 
 func TestClient_CreateUserStatusCode(t *testing.T) {
@@ -149,7 +149,7 @@ func TestClient_CreateUserStatusCode(t *testing.T) {
 	})
 	_, err := client.CreateUser(User{})
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }
 
 func TestClient_UpdateUserStatusCode(t *testing.T) {
@@ -162,7 +162,7 @@ func TestClient_UpdateUserStatusCode(t *testing.T) {
 	})
 	_, err := client.UpdateUser(1, User{})
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }
 
 func TestClient_DeleteUserStatusCode(t *testing.T) {
@@ -175,7 +175,7 @@ func TestClient_DeleteUserStatusCode(t *testing.T) {
 	})
 	err := client.DeleteUser(1)
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }
 
 func TestClient_GetUsersJsonError(t *testing.T) {

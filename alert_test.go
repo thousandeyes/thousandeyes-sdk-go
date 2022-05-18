@@ -120,7 +120,7 @@ func TestClient_GetAlertStatusCode(t *testing.T) {
 
 	_, err := client.GetAlertRules()
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }
 
 func TestClient_CreateAlertStatusCode(t *testing.T) {
@@ -133,7 +133,7 @@ func TestClient_CreateAlertStatusCode(t *testing.T) {
 	})
 	_, err := client.CreateAlertRule(AlertRule{})
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }
 
 func TestClient_UpdateAlertRuleStatusCode(t *testing.T) {
@@ -146,7 +146,7 @@ func TestClient_UpdateAlertRuleStatusCode(t *testing.T) {
 	})
 	_, err := client.UpdateAlertRule(1, AlertRule{})
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }
 
 func TestClient_DeleteAlertRuleStatusCode(t *testing.T) {
@@ -159,5 +159,5 @@ func TestClient_DeleteAlertRuleStatusCode(t *testing.T) {
 	})
 	err := client.DeleteAlertRule(1)
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }
