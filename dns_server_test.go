@@ -8,7 +8,7 @@ import (
 )
 
 func TestClient_GetDNSServer(t *testing.T) {
-	out := `{"test":[{"createdDate":"2020-02-06 15:28:07","createdBy":"William Fleming (wfleming@grumpysysadm.com)","numPathTraces":3,"pathTraceMode": "classic", "enabled":1,"savedEvent":0,"testId":122621,"testName":"test123","type":"dns-server","interval":300,"protocol":"UDP","networkMeasurements":1,"mtuMeasurements":1,"bandwidthMeasurements":0,"bgpMeasurements":1,"usePublicBGP":1,"alertsEnabled":1,"liveShare":0,"probeMode":"AUTO","agents":[{"agentId":48620,"agentName":"Seattle, WA (Trial) - IPv6","agentType":"Cloud","countryId":"US","ipAddresses":["135.84.184.153"],"location":"Seattle Area","network":"Astute Hosting Inc. (AS 54527)","prefix":"135.84.184.0/22"}],"sharedWithAccounts":[{"aid":176592,"name":"Cloudreach"}],"bgpMonitors":[{"monitorId":64,"ipAddress":"2001:240:100:ff::2497:2","countryId":"JP","monitorName":"Tokyo-3","network":"IIJ Internet Initiative Japan Inc. (AS 2497)","monitorType":"Public"}],"numPathTraces":3,"domain": "webex.com","dnsTransportProtocol":  "UDP", "dnsServers" : [{"serverId": 123,"serverName":"1.1.1.1"}],"apiLinks":[{"rel":"self","href":"https://api.thousandeyes.com/v6/tests/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/web/dns-server/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/metrics/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/path-vis/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/bgp-metrics/1226221"}]}]}`
+	out := `{"test":[{"createdDate":"2020-02-06 15:28:07","createdBy":"William Fleming (wfleming@grumpysysadm.com)","numPathTraces":3,"pathTraceMode": "classic", "enabled":1,"savedEvent":0,"testId":122621,"testName":"test123","type":"dns-server","interval":300,"protocol":"UDP","networkMeasurements":1,"mtuMeasurements":1,"bandwidthMeasurements":0,"bgpMeasurements":1,"usePublicBGP":1,"alertsEnabled":1,"liveShare":0,"probeMode":"AUTO","recursiveQueries":0,"agents":[{"agentId":48620,"agentName":"Seattle, WA (Trial) - IPv6","agentType":"Cloud","countryId":"US","ipAddresses":["135.84.184.153"],"location":"Seattle Area","network":"Astute Hosting Inc. (AS 54527)","prefix":"135.84.184.0/22"}],"sharedWithAccounts":[{"aid":176592,"name":"Cloudreach"}],"bgpMonitors":[{"monitorId":64,"ipAddress":"2001:240:100:ff::2497:2","countryId":"JP","monitorName":"Tokyo-3","network":"IIJ Internet Initiative Japan Inc. (AS 2497)","monitorType":"Public"}],"numPathTraces":3,"domain": "webex.com","dnsTransportProtocol":  "UDP", "dnsServers" : [{"serverId": 123,"serverName":"1.1.1.1"}],"apiLinks":[{"rel":"self","href":"https://api.thousandeyes.com/v6/tests/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/web/dns-server/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/metrics/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/path-vis/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/bgp-metrics/1226221"}]}]}`
 	setup()
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/tests/122621.json", func(w http.ResponseWriter, r *http.Request) {
@@ -19,27 +19,28 @@ func TestClient_GetDNSServer(t *testing.T) {
 	// Define expected values from the API (based on the JSON we print out above)
 	expected := DNSServer{
 
-		TestID:                122621,
-		Enabled:               1,
-		CreatedBy:             "William Fleming (wfleming@grumpysysadm.com)",
-		CreatedDate:           "2020-02-06 15:28:07",
-		SavedEvent:            0,
-		TestName:              "test123",
-		Type:                  "dns-server",
-		Interval:              300,
-		Protocol:              "UDP",
-		NetworkMeasurements:   1,
-		MTUMeasurements:       1,
-		BandwidthMeasurements: 0,
-		NumPathTraces:         3,
-		PathTraceMode:         "classic",
-		AlertsEnabled:         1,
-		RecursiveQueries:      0,
-		BGPMeasurements:       1,
-		UsePublicBGP:          1,
-		Domain:                "webex.com",
-		ProbeMode:             "AUTO",
-		DNSTransportProtocol:  "UDP",
+		TestID:                Int64(122621),
+		Enabled:               Int(1),
+		CreatedBy:             String("William Fleming (wfleming@grumpysysadm.com)"),
+		CreatedDate:           String("2020-02-06 15:28:07"),
+		SavedEvent:            Int(0),
+		TestName:              String("test123"),
+		Type:                  String("dns-server"),
+		Interval:              Int(300),
+		LiveShare:             Int(0),
+		Protocol:              String("UDP"),
+		NetworkMeasurements:   Int(1),
+		MTUMeasurements:       Int(1),
+		BandwidthMeasurements: Int(0),
+		NumPathTraces:         Int(3),
+		PathTraceMode:         String("classic"),
+		AlertsEnabled:         Int(1),
+		RecursiveQueries:      Int(0),
+		BGPMeasurements:       Int(1),
+		UsePublicBGP:          Int(1),
+		Domain:                String("webex.com"),
+		ProbeMode:             String("AUTO"),
+		DNSTransportProtocol:  String("UDP"),
 		Agents: []Agent{
 			{
 				AgentID:     Int(48620),
@@ -60,8 +61,8 @@ func TestClient_GetDNSServer(t *testing.T) {
 		},
 		DNSServers: []Server{
 			{
-				ServerID:   123,
-				ServerName: "1.1.1.1",
+				ServerID:   Int(123),
+				ServerName: String("1.1.1.1"),
 			},
 		},
 		BGPMonitors: []BGPMonitor{
@@ -104,8 +105,8 @@ func TestClient_GetDNSServer(t *testing.T) {
 }
 
 func TestClient_AddDnsserverAlertRule(t *testing.T) {
-	test := DNSServer{TestName: "test", AlertRules: []AlertRule{}}
-	expected := DNSServer{TestName: "test", AlertRules: []AlertRule{{RuleID: Int(1)}}}
+	test := DNSServer{TestName: String("test"), AlertRules: []AlertRule{}}
+	expected := DNSServer{TestName: String("test"), AlertRules: []AlertRule{{RuleID: Int(1)}}}
 	test.AddAlertRule(1)
 	assert.Equal(t, expected, test)
 }
@@ -124,7 +125,7 @@ func TestClient_GetDNSServerJsonError(t *testing.T) {
 }
 
 func TestClient_CreateDNSServer(t *testing.T) {
-	out := `{"test":[{"createdDate":"2020-02-06 15:28:07","createdBy":"William Fleming (wfleming@grumpysysadm.com)","numPathTraces": 3,"enabled":1,"savedEvent":0,"testId":122621,"testName":"test123","type":"dns-server","interval":300,"protocol":"UDP","networkMeasurements":1,"mtuMeasurements":1,"bandwidthMeasurements":0,"bgpMeasurements":1,"usePublicBGP":1,"alertsEnabled":1,"liveShare":0,"probeMode":"AUTO","agents":[{"agentId":48620,"agentName":"Seattle, WA (Trial) - IPv6","agentType":"Cloud","countryId":"US","ipAddresses":["135.84.184.153"],"location":"Seattle Area","network":"Astute Hosting Inc. (AS 54527)","prefix":"135.84.184.0/22"}],"sharedWithAccounts":[{"aid":176592,"name":"Cloudreach"}],"bgpMonitors":[{"monitorId":64,"ipAddress":"2001:240:100:ff::2497:2","countryId":"JP","monitorName":"Tokyo-3","network":"IIJ Internet Initiative Japan Inc. (AS 2497)","monitorType":"Public"}],"numPathTraces":3,"domain": "webex.com","dnsTransportProtocol":  "UDP", "dnsServers" : [{"serverId": 123,"serverName":"1.1.1.1"}],"apiLinks":[{"rel":"self","href":"https://api.thousandeyes.com/v6/tests/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/web/dns-server/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/metrics/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/path-vis/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/bgp-metrics/1226221"}]}]}`
+	out := `{"test":[{"createdDate":"2020-02-06 15:28:07","createdBy":"William Fleming (wfleming@grumpysysadm.com)","numPathTraces": 3,"enabled":1,"savedEvent":0,"testId":122621,"testName":"test123","type":"dns-server","interval":300,"protocol":"UDP","networkMeasurements":1,"mtuMeasurements":1,"bandwidthMeasurements":0,"bgpMeasurements":1,"usePublicBGP":1,"alertsEnabled":1,"liveShare":0,"probeMode":"AUTO","recursiveQueries":0,"agents":[{"agentId":48620,"agentName":"Seattle, WA (Trial) - IPv6","agentType":"Cloud","countryId":"US","ipAddresses":["135.84.184.153"],"location":"Seattle Area","network":"Astute Hosting Inc. (AS 54527)","prefix":"135.84.184.0/22"}],"sharedWithAccounts":[{"aid":176592,"name":"Cloudreach"}],"bgpMonitors":[{"monitorId":64,"ipAddress":"2001:240:100:ff::2497:2","countryId":"JP","monitorName":"Tokyo-3","network":"IIJ Internet Initiative Japan Inc. (AS 2497)","monitorType":"Public"}],"numPathTraces":3,"domain": "webex.com","dnsTransportProtocol":  "UDP", "dnsServers" : [{"serverId": 123,"serverName":"1.1.1.1"}],"apiLinks":[{"rel":"self","href":"https://api.thousandeyes.com/v6/tests/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/web/dns-server/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/metrics/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/path-vis/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/bgp-metrics/1226221"}]}]}`
 	setup()
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/tests/dns-server/new.json", func(w http.ResponseWriter, r *http.Request) {
@@ -137,26 +138,27 @@ func TestClient_CreateDNSServer(t *testing.T) {
 	// Define expected values from the API (based on the JSON we print out above)
 	expected := DNSServer{
 
-		TestID:                122621,
-		Enabled:               1,
-		CreatedBy:             "William Fleming (wfleming@grumpysysadm.com)",
-		CreatedDate:           "2020-02-06 15:28:07",
-		SavedEvent:            0,
-		TestName:              "test123",
-		Type:                  "dns-server",
-		Interval:              300,
-		Protocol:              "UDP",
-		NetworkMeasurements:   1,
-		MTUMeasurements:       1,
-		BandwidthMeasurements: 0,
-		NumPathTraces:         3,
-		RecursiveQueries:      0,
-		AlertsEnabled:         1,
-		BGPMeasurements:       1,
-		UsePublicBGP:          1,
-		Domain:                "webex.com",
-		ProbeMode:             "AUTO",
-		DNSTransportProtocol:  "UDP",
+		TestID:                Int64(122621),
+		Enabled:               Int(1),
+		CreatedBy:             String("William Fleming (wfleming@grumpysysadm.com)"),
+		CreatedDate:           String("2020-02-06 15:28:07"),
+		SavedEvent:            Int(0),
+		TestName:              String("test123"),
+		Type:                  String("dns-server"),
+		Interval:              Int(300),
+		LiveShare:             Int(0),
+		Protocol:              String("UDP"),
+		NetworkMeasurements:   Int(1),
+		MTUMeasurements:       Int(1),
+		BandwidthMeasurements: Int(0),
+		NumPathTraces:         Int(3),
+		RecursiveQueries:      Int(0),
+		AlertsEnabled:         Int(1),
+		BGPMeasurements:       Int(1),
+		UsePublicBGP:          Int(1),
+		Domain:                String("webex.com"),
+		ProbeMode:             String("AUTO"),
+		DNSTransportProtocol:  String("UDP"),
 		Agents: []Agent{
 			{
 				AgentID:     Int(48620),
@@ -177,8 +179,8 @@ func TestClient_CreateDNSServer(t *testing.T) {
 		},
 		DNSServers: []Server{
 			{
-				ServerID:   123,
-				ServerName: "1.1.1.1",
+				ServerID:   Int(123),
+				ServerName: String("1.1.1.1"),
 			},
 		},
 		BGPMonitors: []BGPMonitor{
@@ -214,10 +216,10 @@ func TestClient_CreateDNSServer(t *testing.T) {
 		},
 	}
 	create := DNSServer{
-		TestName:      "test1",
-		Domain:        "1.1.1.1",
-		Interval:      300,
-		NumPathTraces: 3,
+		TestName:      String("test1"),
+		Domain:        String("1.1.1.1"),
+		Interval:      Int(300),
+		NumPathTraces: Int(3),
 	}
 	res, err := client.CreateDNSServer(create)
 	teardown()
@@ -252,19 +254,19 @@ func TestClient_UpdateDNSServer(t *testing.T) {
 
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	id := 1
-	dnsS := DNSServer{Domain: "webex.com"}
+	dnsS := DNSServer{Domain: String("webex.com")}
 	res, err := client.UpdateDNSServer(id, dnsS)
 	if err != nil {
 		t.Fatal(err)
 	}
-	expected := DNSServer{TestID: 1, TestName: "test123", Type: "dns-server", Domain: "webex.com"}
+	expected := DNSServer{TestID: Int64(1), TestName: String("test123"), Type: String("dns-server"), Domain: String("webex.com")}
 	assert.Equal(t, &expected, res)
 
 }
 
 func TestDNSServer_AddAgent(t *testing.T) {
-	test := DNSServer{TestName: "test", Agents: Agents{}}
-	expected := DNSServer{TestName: "test", Agents: []Agent{{AgentID: Int(1)}}}
+	test := DNSServer{TestName: String("test"), Agents: Agents{}}
+	expected := DNSServer{TestName: String("test"), Agents: []Agent{{AgentID: Int(1)}}}
 	test.AddAgent(Int(1))
 	assert.Equal(t, expected, test)
 }

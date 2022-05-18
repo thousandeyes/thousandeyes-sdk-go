@@ -6,47 +6,47 @@ import (
 
 // Server - a server ?
 type Server struct {
-	ServerID   int    `json:"serverId,omitempty"`
-	ServerName string `json:"serverName,omitempty"`
+	ServerID   *int    `json:"serverId,omitempty"`
+	ServerName *string `json:"serverName,omitempty"`
 }
 
 // DNSServer - dns server test
 type DNSServer struct {
 	// Common test fields
-	AlertsEnabled      int                 `json:"alertsEnabled,omitempty"`
+	AlertsEnabled      *int                `json:"alertsEnabled,omitempty"`
 	AlertRules         []AlertRule         `json:"alertRules"`
 	APILinks           []APILink           `json:"apiLinks,omitempty"`
-	CreatedBy          string              `json:"createdBy,omitempty"`
-	CreatedDate        string              `json:"createdDate,omitempty"`
-	Description        string              `json:"description,omitempty"`
-	Enabled            int                 `json:"enabled,omitempty"`
+	CreatedBy          *string             `json:"createdBy,omitempty"`
+	CreatedDate        *string             `json:"createdDate,omitempty"`
+	Description        *string             `json:"description,omitempty"`
+	Enabled            *int                `json:"enabled,omitempty"`
 	Groups             []GroupLabel        `json:"groups,omitempty"`
-	ModifiedBy         string              `json:"modifiedBy,omitempty"`
-	ModifiedDate       string              `json:"modifiedDate,omitempty"`
-	SavedEvent         int                 `json:"savedEvent,omitempty"`
+	ModifiedBy         *string             `json:"modifiedBy,omitempty"`
+	ModifiedDate       *string             `json:"modifiedDate,omitempty"`
+	SavedEvent         *int                `json:"savedEvent,omitempty"`
 	SharedWithAccounts []SharedWithAccount `json:"sharedWithAccounts,omitempty"`
-	TestID             int                 `json:"testId,omitempty"`
-	TestName           string              `json:"testName,omitempty"`
-	Type               string              `json:"type,omitempty"`
-	LiveShare          int                 `json:"liveShare,omitempty"`
+	TestID             *int64              `json:"testId,omitempty"`
+	TestName           *string             `json:"testName,omitempty"`
+	Type               *string             `json:"type,omitempty"`
+	LiveShare          *int                `json:"liveShare,omitempty"`
 
 	// Fields unique to this test
 	Agents                Agents       `json:"agents,omitempty"`
-	BandwidthMeasurements int          `json:"bandwidthMeasurements,omitempty"`
-	BGPMeasurements       int          `json:"bgpMeasurements,omitempty"`
+	BandwidthMeasurements *int         `json:"bandwidthMeasurements,omitempty"`
+	BGPMeasurements       *int         `json:"bgpMeasurements,omitempty"`
 	BGPMonitors           []BGPMonitor `json:"bgpMonitors,omitempty"`
 	DNSServers            []Server     `json:"dnsServers,omitempty"`
-	DNSTransportProtocol  string       `json:"dnsTransportProtocol,omitempty"`
-	Domain                string       `json:"domain,omitempty"`
-	Interval              int          `json:"interval,omitempty"`
-	MTUMeasurements       int          `json:"mtuMeasurements,omitempty"`
-	NetworkMeasurements   int          `json:"networkMeasurements,omitempty"`
-	NumPathTraces         int          `json:"numPathTraces,omitempty"`
-	PathTraceMode         string       `json:"pathTraceMode,omitempty"`
-	ProbeMode             string       `json:"probeMode,omitempty"`
-	Protocol              string       `json:"protocol,omitempty"`
-	RecursiveQueries      int          `json:"recursiveQueries,omitempty"`
-	UsePublicBGP          int          `json:"usePublicBgp,omitempty"`
+	DNSTransportProtocol  *string      `json:"dnsTransportProtocol,omitempty"`
+	Domain                *string      `json:"domain,omitempty"`
+	Interval              *int         `json:"interval,omitempty"`
+	MTUMeasurements       *int         `json:"mtuMeasurements,omitempty"`
+	NetworkMeasurements   *int         `json:"networkMeasurements,omitempty"`
+	NumPathTraces         *int         `json:"numPathTraces,omitempty"`
+	PathTraceMode         *string      `json:"pathTraceMode,omitempty"`
+	ProbeMode             *string      `json:"probeMode,omitempty"`
+	Protocol              *string      `json:"protocol,omitempty"`
+	RecursiveQueries      *int         `json:"recursiveQueries,omitempty"`
+	UsePublicBGP          *int         `json:"usePublicBgp,omitempty"`
 }
 
 // AddAgent - Add dns server test
