@@ -17,16 +17,17 @@ func TestClient_GetDNSSec(t *testing.T) {
 	})
 
 	expected := DNSSec{
-		TestID:        122621,
-		Enabled:       1,
-		CreatedBy:     "William Fleming (wfleming@grumpysysadm.com)",
-		CreatedDate:   "2020-02-06 15:28:07",
-		SavedEvent:    0,
-		AlertsEnabled: 1,
-		TestName:      "test123",
-		Type:          "dns-dnssec",
-		Interval:      300,
-		Domain:        "webex.com",
+		TestID:        Int64(122621),
+		Enabled:       Int(1),
+		CreatedBy:     String("William Fleming (wfleming@grumpysysadm.com)"),
+		CreatedDate:   String("2020-02-06 15:28:07"),
+		SavedEvent:    Int(0),
+		AlertsEnabled: Int(1),
+		TestName:      String("test123"),
+		Type:          String("dns-dnssec"),
+		Interval:      Int(300),
+		LiveShare:     Int(0),
+		Domain:        String("webex.com"),
 		Agents: []Agent{
 			{
 				AgentID:     Int(48620),
@@ -99,16 +100,17 @@ func TestClient_CreateDNSSec(t *testing.T) {
 	})
 
 	expected := DNSSec{
-		TestID:        122621,
-		Enabled:       1,
-		CreatedBy:     "William Fleming (wfleming@grumpysysadm.com)",
-		CreatedDate:   "2020-02-06 15:28:07",
-		SavedEvent:    0,
-		TestName:      "test123",
-		Type:          "dns-dnssec",
-		Interval:      300,
-		AlertsEnabled: 1,
-		Domain:        "webex.com",
+		TestID:        Int64(122621),
+		Enabled:       Int(1),
+		CreatedBy:     String("William Fleming (wfleming@grumpysysadm.com)"),
+		CreatedDate:   String("2020-02-06 15:28:07"),
+		SavedEvent:    Int(0),
+		TestName:      String("test123"),
+		Type:          String("dns-dnssec"),
+		Interval:      Int(300),
+		LiveShare:     Int(0),
+		AlertsEnabled: Int(1),
+		Domain:        String("webex.com"),
 		Agents: []Agent{
 			{
 				AgentID:     Int(48620),
@@ -152,9 +154,9 @@ func TestClient_CreateDNSSec(t *testing.T) {
 		},
 	}
 	create := DNSSec{
-		TestName: "test123",
-		Domain:   "webex.com",
-		Interval: 300,
+		TestName: String("test123"),
+		Domain:   String("webex.com"),
+		Interval: Int(300),
 	}
 	res, err := client.CreateDNSSec(create)
 	teardown()
@@ -179,8 +181,8 @@ func TestClient_DeleteDNSSec(t *testing.T) {
 }
 
 func TestClient_AddDNSSecAlertRule(t *testing.T) {
-	test := DNSSec{TestName: "test", AlertRules: []AlertRule{}}
-	expected := DNSSec{TestName: "test", AlertRules: []AlertRule{{RuleID: Int(1)}}}
+	test := DNSSec{TestName: String("test"), AlertRules: []AlertRule{}}
+	expected := DNSSec{TestName: String("test"), AlertRules: []AlertRule{{RuleID: Int(1)}}}
 	test.AddAlertRule(1)
 	assert.Equal(t, expected, test)
 }
@@ -195,19 +197,19 @@ func TestClient_UpdateDNSSec(t *testing.T) {
 
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	id := 1
-	dnsp := DNSSec{Domain: "webex.com"}
+	dnsp := DNSSec{Domain: String("webex.com")}
 	res, err := client.UpdateDNSSec(id, dnsp)
 	if err != nil {
 		t.Fatal(err)
 	}
-	expected := DNSSec{TestID: 1, TestName: "test123", Type: "dns-dnssec", Domain: "webex.com"}
+	expected := DNSSec{TestID: Int64(1), TestName: String("test123"), Type: String("dns-dnssec"), Domain: String("webex.com")}
 	assert.Equal(t, &expected, res)
 
 }
 
 func TestDNSSec_AddAgent(t *testing.T) {
-	test := DNSSec{TestName: "test", Agents: Agents{}}
-	expected := DNSSec{TestName: "test", Agents: []Agent{{AgentID: Int(1)}}}
+	test := DNSSec{TestName: String("test"), Agents: Agents{}}
+	expected := DNSSec{TestName: String("test"), Agents: []Agent{{AgentID: Int(1)}}}
 	test.AddAgent(Int(1))
 	assert.Equal(t, expected, test)
 }
