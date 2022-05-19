@@ -18,15 +18,16 @@ func TestClient_GetSIPServer(t *testing.T) {
 
 	// Define expected values from the API (based on the JSON we print out above)
 	expected := SIPServer{
-		TestID:        122621,
-		Enabled:       1,
-		CreatedBy:     "William Fleming (wfleming@grumpysysadm.com)",
-		CreatedDate:   "2020-02-06 15:28:07",
-		SavedEvent:    0,
-		AlertsEnabled: 1,
-		TestName:      "test123",
-		Type:          "sip-server",
-		Interval:      300,
+		TestID:        Int64(122621),
+		Enabled:       Int(1),
+		CreatedBy:     String("William Fleming (wfleming@grumpysysadm.com)"),
+		CreatedDate:   String("2020-02-06 15:28:07"),
+		SavedEvent:    Int(0),
+		AlertsEnabled: Int(1),
+		TestName:      String("test123"),
+		Type:          String("sip-server"),
+		Interval:      Int(300),
+		LiveShare:     Int(0),
 		Agents: []Agent{
 			{
 				AgentID:     Int(48620),
@@ -101,15 +102,16 @@ func TestClient_CreateSIPServer(t *testing.T) {
 	// Define expected values from the API (based on the JSON we print out above)
 	expected := SIPServer{
 
-		TestID:        122621,
-		Enabled:       1,
-		CreatedBy:     "William Fleming (wfleming@grumpysysadm.com)",
-		CreatedDate:   "2020-02-06 15:28:07",
-		SavedEvent:    0,
-		TestName:      "test123",
-		Type:          "sip-server",
-		Interval:      300,
-		AlertsEnabled: 1,
+		TestID:        Int64(122621),
+		Enabled:       Int(1),
+		CreatedBy:     String("William Fleming (wfleming@grumpysysadm.com)"),
+		CreatedDate:   String("2020-02-06 15:28:07"),
+		SavedEvent:    Int(0),
+		TestName:      String("test123"),
+		Type:          String("sip-server"),
+		Interval:      Int(300),
+		AlertsEnabled: Int(1),
+		LiveShare:     Int(0),
 		Agents: []Agent{
 			{
 				AgentID:     Int(48620),
@@ -153,8 +155,8 @@ func TestClient_CreateSIPServer(t *testing.T) {
 		},
 	}
 	create := SIPServer{
-		TestName: "test1",
-		Interval: 300,
+		TestName: String("test1"),
+		Interval: Int(300),
 	}
 	res, err := client.CreateSIPServer(create)
 	teardown()
@@ -190,26 +192,26 @@ func TestClient_UpdateSIPServer(t *testing.T) {
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	id := 1
 	sipS := SIPServer{
-		TestName: "test1",
+		TestName: String("test1"),
 	}
 	res, err := client.UpdateSIPServer(id, sipS)
 	if err != nil {
 		t.Fatal(err)
 	}
-	expected := SIPServer{TestID: 1, TestName: "test123", Type: "sip-server"}
+	expected := SIPServer{TestID: Int64(1), TestName: String("test123"), Type: String("sip-server")}
 	assert.Equal(t, &expected, res)
 
 }
 
 func TestSIPServer_AddAgent(t *testing.T) {
-	test := SIPServer{TestName: "test", Agents: Agents{}}
-	expected := SIPServer{TestName: "test", Agents: []Agent{{AgentID: Int(1)}}}
+	test := SIPServer{TestName: String("test"), Agents: Agents{}}
+	expected := SIPServer{TestName: String("test"), Agents: []Agent{{AgentID: Int(1)}}}
 	test.AddAgent(Int(1))
 	assert.Equal(t, expected, test)
 }
 func TestClient_AddSIPServerAlertRule(t *testing.T) {
-	test := SIPServer{TestName: "test", AlertRules: []AlertRule{}}
-	expected := SIPServer{TestName: "test", AlertRules: []AlertRule{{RuleID: Int(1)}}}
+	test := SIPServer{TestName: String("test"), AlertRules: []AlertRule{}}
+	expected := SIPServer{TestName: String("test"), AlertRules: []AlertRule{{RuleID: Int(1)}}}
 	test.AddAlertRule(1)
 	assert.Equal(t, expected, test)
 }
