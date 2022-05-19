@@ -20,36 +20,37 @@ func TestClient_CreatePageLoad(t *testing.T) {
 
 	// Define expected values from the API (based on the JSON we print out above)
 	expected := PageLoad{
-		CreatedDate:           "2020-02-06 19:15:36",
-		CreatedBy:             "William Fleming (wfleming@grumpysysadm.com)",
-		Enabled:               1,
-		SavedEvent:            0,
-		TestID:                1226422,
-		TestName:              "test1",
-		Type:                  "page-load",
-		Interval:              300,
-		HTTPInterval:          300,
-		URL:                   "https://test.com",
-		Protocol:              "TCP",
-		FollowRedirects:       1,
-		NetworkMeasurements:   1,
-		MTUMeasurements:       1,
-		BandwidthMeasurements: 0,
-		BGPMeasurements:       1,
-		UsePublicBGP:          1,
-		AlertsEnabled:         1,
-		LiveShare:             0,
-		HTTPTimeLimit:         5,
-		HTTPTargetTime:        1000,
-		HTTPVersion:           2,
-		PageLoadTimeLimit:     10,
-		PageLoadTargetTime:    6,
-		IncludeHeaders:        1,
-		SSLVersionID:          0,
-		VerifyCertificate:     1,
-		UseNTLM:               0,
-		AuthType:              "NONE",
-		ProbeMode:             "AUTO",
+		CreatedDate:           String("2020-02-06 19:15:36"),
+		CreatedBy:             String("William Fleming (wfleming@grumpysysadm.com)"),
+		Enabled:               Int(1),
+		SavedEvent:            Int(0),
+		TestID:                Int64(1226422),
+		TestName:              String("test1"),
+		Type:                  String("page-load"),
+		Interval:              Int(300),
+		HTTPInterval:          Int(300),
+		URL:                   String("https://test.com"),
+		Protocol:              String("TCP"),
+		FollowRedirects:       Int(1),
+		NetworkMeasurements:   Int(1),
+		MTUMeasurements:       Int(1),
+		BandwidthMeasurements: Int(0),
+		BGPMeasurements:       Int(1),
+		UsePublicBGP:          Int(1),
+		AlertsEnabled:         Int(1),
+		LiveShare:             Int(0),
+		HTTPTimeLimit:         Int(5),
+		HTTPTargetTime:        Int(1000),
+		HTTPVersion:           Int(2),
+		PageLoadTimeLimit:     Int(10),
+		PageLoadTargetTime:    Int(6),
+		IncludeHeaders:        Int(1),
+		SSLVersionID:          Int(0),
+		VerifyCertificate:     Int(1),
+		UseNTLM:               Int(0),
+		AuthType:              String("NONE"),
+		ProbeMode:             String("AUTO"),
+		ContentRegex:          String(""),
 		Agents: []Agent{
 			{
 				AgentID:     Int(48620),
@@ -77,7 +78,7 @@ func TestClient_CreatePageLoad(t *testing.T) {
 				MonitorType: String("Public"),
 			},
 		},
-		NumPathTraces: 3,
+		NumPathTraces: Int(3),
 		APILinks: APILinks{
 			{
 				Rel:  String("self"),
@@ -101,13 +102,13 @@ func TestClient_CreatePageLoad(t *testing.T) {
 				Href: String("https://api.thousandeyes.com/v6/net/bgp-metrics/1226422"),
 			},
 		},
-		SSLVersion: "Auto",
+		SSLVersion: String("Auto"),
 	}
 	create := PageLoad{
-		TestName:     "test1",
-		URL:          "https://test.com",
-		Interval:     300,
-		HTTPInterval: 300,
+		TestName:     String("test1"),
+		URL:          String("https://test.com"),
+		Interval:     Int(300),
+		HTTPInterval: Int(300),
 	}
 	res, err := client.CreatePageLoad(create)
 	teardown()
@@ -126,36 +127,37 @@ func TestClient_GetPageLoad(t *testing.T) {
 
 	// Define expected values from the API (based on the JSON we print out above)
 	expected := PageLoad{
-		CreatedDate:           "2020-02-06 19:15:36",
-		CreatedBy:             "William Fleming (wfleming@grumpysysadm.com)",
-		Enabled:               1,
-		SavedEvent:            0,
-		TestID:                1226422,
-		TestName:              "test1",
-		Type:                  "page-load",
-		Interval:              300,
-		HTTPInterval:          300,
-		URL:                   "https://test.com",
-		Protocol:              "TCP",
-		FollowRedirects:       1,
-		NetworkMeasurements:   1,
-		MTUMeasurements:       1,
-		BandwidthMeasurements: 0,
-		BGPMeasurements:       1,
-		UsePublicBGP:          1,
-		AlertsEnabled:         1,
-		LiveShare:             0,
-		HTTPTimeLimit:         5,
-		HTTPTargetTime:        1000,
-		HTTPVersion:           2,
-		PageLoadTimeLimit:     10,
-		PageLoadTargetTime:    6,
-		IncludeHeaders:        1,
-		SSLVersionID:          0,
-		VerifyCertificate:     1,
-		UseNTLM:               0,
-		AuthType:              "NONE",
-		ProbeMode:             "AUTO",
+		CreatedDate:           String("2020-02-06 19:15:36"),
+		CreatedBy:             String("William Fleming (wfleming@grumpysysadm.com)"),
+		Enabled:               Int(1),
+		SavedEvent:            Int(0),
+		TestID:                Int64(1226422),
+		TestName:              String("test1"),
+		Type:                  String("page-load"),
+		Interval:              Int(300),
+		HTTPInterval:          Int(300),
+		URL:                   String("https://test.com"),
+		Protocol:              String("TCP"),
+		FollowRedirects:       Int(1),
+		NetworkMeasurements:   Int(1),
+		MTUMeasurements:       Int(1),
+		BandwidthMeasurements: Int(0),
+		BGPMeasurements:       Int(1),
+		UsePublicBGP:          Int(1),
+		AlertsEnabled:         Int(1),
+		LiveShare:             Int(0),
+		HTTPTimeLimit:         Int(5),
+		HTTPTargetTime:        Int(1000),
+		HTTPVersion:           Int(2),
+		PageLoadTimeLimit:     Int(10),
+		PageLoadTargetTime:    Int(6),
+		IncludeHeaders:        Int(1),
+		SSLVersionID:          Int(0),
+		VerifyCertificate:     Int(1),
+		UseNTLM:               Int(0),
+		AuthType:              String("NONE"),
+		ProbeMode:             String("AUTO"),
+		ContentRegex:          String(""),
 		Agents: []Agent{
 			{
 				AgentID:     Int(48620),
@@ -183,7 +185,7 @@ func TestClient_GetPageLoad(t *testing.T) {
 				MonitorType: String("Public"),
 			},
 		},
-		NumPathTraces: 3,
+		NumPathTraces: Int(3),
 		APILinks: APILinks{
 			{
 				Rel:  String("self"),
@@ -207,7 +209,7 @@ func TestClient_GetPageLoad(t *testing.T) {
 				Href: String("https://api.thousandeyes.com/v6/net/bgp-metrics/1226422"),
 			},
 		},
-		SSLVersion: "Auto",
+		SSLVersion: String("Auto"),
 	}
 
 	res, err := client.GetPageLoad(1226422)
@@ -244,19 +246,19 @@ func TestClient_UpdatePageLoad(t *testing.T) {
 
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	id := 1
-	httpS := PageLoad{URL: "https://test.com"}
+	httpS := PageLoad{URL: String("https://test.com")}
 	res, err := client.UpdatePageLoad(id, httpS)
 	if err != nil {
 		t.Fatal(err)
 	}
-	expected := PageLoad{TestID: 1, TestName: "test123", Type: "page-load", URL: "https://test.com"}
+	expected := PageLoad{TestID: Int64(1), TestName: String("test123"), Type: String("page-load"), URL: String("https://test.com")}
 	assert.Equal(t, &expected, res)
 
 }
 
 func TestPageLoad_AddAgent(t *testing.T) {
-	test := PageLoad{TestName: "test", Agents: Agents{}}
-	expected := PageLoad{TestName: "test", Agents: []Agent{{AgentID: Int(1)}}}
+	test := PageLoad{TestName: String("test"), Agents: Agents{}}
+	expected := PageLoad{TestName: String("test"), Agents: []Agent{{AgentID: Int(1)}}}
 	test.AddAgent(Int(1))
 	assert.Equal(t, expected, test)
 }
