@@ -20,17 +20,17 @@ func TestClient_GetIntegrations(t *testing.T) {
 	// Define expected values from the API (based on the JSON we print out above)
 	expected := []Integration{
 		{
-			AuthMethod:      "Auth Token",
-			IntegrationID:   "pgd-9999",
-			IntegrationName: "Test PD Integration",
-			IntegrationType: "PAGER_DUTY",
+			AuthMethod:      String("Auth Token"),
+			IntegrationID:   String("pgd-9999"),
+			IntegrationName: String("Test PD Integration"),
+			IntegrationType: String("PAGER_DUTY"),
 		},
 		{
-			AuthMethod:      "Basic",
-			IntegrationID:   "wb-999",
-			IntegrationName: "Test Webhook Integration",
-			IntegrationType: "WEBHOOK",
-			Target:          "https://grumpysysadm.com/",
+			AuthMethod:      String("Basic"),
+			IntegrationID:   String("wb-999"),
+			IntegrationName: String("Test Webhook Integration"),
+			IntegrationType: String("WEBHOOK"),
+			Target:          String("https://grumpysysadm.com/"),
 		},
 	}
 
