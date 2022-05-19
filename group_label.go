@@ -9,10 +9,10 @@ type GroupLabels []GroupLabel
 
 // GroupLabel - label
 type GroupLabel struct {
-	Name    string        `json:"name,omitempty"`
-	GroupID int           `json:"groupId,omitempty"`
-	BuiltIn int           `json:"builtin,omitempty"`
-	Type    string        `json:"type,omitempty"`
+	Name    *string       `json:"name,omitempty"`
+	GroupID *int64        `json:"groupId,omitempty"`
+	BuiltIn *int          `json:"builtin,omitempty"`
+	Type    *string       `json:"type,omitempty"`
 	Agents  []Agent       `json:"agents,omitempty"`
 	Tests   []GenericTest `json:"tests,omitempty"`
 }
@@ -60,10 +60,13 @@ func (c *Client) GetGroupLabel(id int) (*GroupLabel, error) {
 
 // CreateGroupLabel - Create label
 func (c Client) CreateGroupLabel(a GroupLabel) (*GroupLabel, error) {
-	path := fmt.Sprintf("/groups/%s/new", a.Type)
+	if a.Type == nil {
+		a.Type = String("")
+	}
+	path := fmt.Sprintf("/groups/%s/new", *a.Type)
 	// Now we must set Type to blank.  Because even though it's required to know the submit path,
 	// TE will return an error if we also submit it a part of the object.
-	a.Type = ""
+	a.Type = String("")
 	resp, err := c.post(path, a, nil)
 	if err != nil {
 		return nil, err
