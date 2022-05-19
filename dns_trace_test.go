@@ -18,17 +18,18 @@ func TestClient_GetDNSTrace(t *testing.T) {
 
 	// Define expected values from the API (based on the JSON we print out above)
 	expected := DNSTrace{
-		TestID:               122621,
-		Enabled:              1,
-		CreatedBy:            "William Fleming (wfleming@grumpysysadm.com)",
-		CreatedDate:          "2020-02-06 15:28:07",
-		SavedEvent:           0,
-		AlertsEnabled:        1,
-		TestName:             "test123",
-		Type:                 "dns-trace",
-		Interval:             300,
-		Domain:               "webex.com",
-		DNSTransportProtocol: "UDP",
+		TestID:               Int64(122621),
+		Enabled:              Int(1),
+		CreatedBy:            String("William Fleming (wfleming@grumpysysadm.com)"),
+		CreatedDate:          String("2020-02-06 15:28:07"),
+		SavedEvent:           Int(0),
+		AlertsEnabled:        Int(1),
+		TestName:             String("test123"),
+		Type:                 String("dns-trace"),
+		Interval:             Int(300),
+		LiveShare:            Int(0),
+		Domain:               String("webex.com"),
+		DNSTransportProtocol: String("UDP"),
 		Agents: []Agent{
 			{
 				AgentID:     Int(48620),
@@ -104,17 +105,18 @@ func TestClient_CreateDNSTrace(t *testing.T) {
 	// Define expected values from the API (based on the JSON we print out above)
 	expected := DNSTrace{
 
-		TestID:               122621,
-		Enabled:              1,
-		CreatedBy:            "William Fleming (wfleming@grumpysysadm.com)",
-		CreatedDate:          "2020-02-06 15:28:07",
-		SavedEvent:           0,
-		TestName:             "test123",
-		Type:                 "dns-trace",
-		Interval:             300,
-		AlertsEnabled:        1,
-		Domain:               "webex.com",
-		DNSTransportProtocol: "UDP",
+		TestID:               Int64(122621),
+		Enabled:              Int(1),
+		CreatedBy:            String("William Fleming (wfleming@grumpysysadm.com)"),
+		CreatedDate:          String("2020-02-06 15:28:07"),
+		SavedEvent:           Int(0),
+		TestName:             String("test123"),
+		Type:                 String("dns-trace"),
+		Interval:             Int(300),
+		AlertsEnabled:        Int(1),
+		LiveShare:            Int(0),
+		Domain:               String("webex.com"),
+		DNSTransportProtocol: String("UDP"),
 		Agents: []Agent{
 			{
 				AgentID:     Int(48620),
@@ -158,9 +160,9 @@ func TestClient_CreateDNSTrace(t *testing.T) {
 		},
 	}
 	create := DNSTrace{
-		TestName: "test1",
-		Domain:   "1.1.1.1",
-		Interval: 300,
+		TestName: String("test1"),
+		Domain:   String("1.1.1.1"),
+		Interval: Int(300),
 	}
 	res, err := client.CreateDNSTrace(create)
 	teardown()
@@ -186,8 +188,8 @@ func TestClient_DeleteDNSTrace(t *testing.T) {
 }
 
 func TestClient_AddDnstraceAlertRule(t *testing.T) {
-	test := DNSTrace{TestName: "test", AlertRules: []AlertRule{}}
-	expected := DNSTrace{TestName: "test", AlertRules: []AlertRule{{RuleID: Int(1)}}}
+	test := DNSTrace{TestName: String("test"), AlertRules: []AlertRule{}}
+	expected := DNSTrace{TestName: String("test"), AlertRules: []AlertRule{{RuleID: Int(1)}}}
 	test.AddAlertRule(1)
 	assert.Equal(t, expected, test)
 }
@@ -202,19 +204,19 @@ func TestClient_UpdateDNSTrace(t *testing.T) {
 
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	id := 1
-	dnsS := DNSTrace{Domain: "webex.com"}
+	dnsS := DNSTrace{Domain: String("webex.com")}
 	res, err := client.UpdateDNSTrace(id, dnsS)
 	if err != nil {
 		t.Fatal(err)
 	}
-	expected := DNSTrace{TestID: 1, TestName: "test123", Type: "dns-trace", Domain: "webex.com"}
+	expected := DNSTrace{TestID: Int64(1), TestName: String("test123"), Type: String("dns-trace"), Domain: String("webex.com")}
 	assert.Equal(t, &expected, res)
 
 }
 
 func TestDNSTrace_AddAgent(t *testing.T) {
-	test := DNSTrace{TestName: "test", Agents: Agents{}}
-	expected := DNSTrace{TestName: "test", Agents: []Agent{{AgentID: Int(1)}}}
+	test := DNSTrace{TestName: String("test"), Agents: Agents{}}
+	expected := DNSTrace{TestName: String("test"), Agents: []Agent{{AgentID: Int(1)}}}
 	test.AddAgent(Int(1))
 	assert.Equal(t, expected, test)
 }
