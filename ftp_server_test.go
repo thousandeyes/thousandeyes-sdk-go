@@ -18,17 +18,18 @@ func TestClient_GetFTPServer(t *testing.T) {
 
 	// Define expected values from the API (based on the JSON we print out above)
 	expected := FTPServer{
-		TestID:        122621,
-		Enabled:       1,
-		CreatedBy:     "William Fleming (wfleming@grumpysysadm.com)",
-		CreatedDate:   "2020-02-06 15:28:07",
-		SavedEvent:    0,
-		AlertsEnabled: 1,
-		TestName:      "test123",
-		Type:          "ftp-server",
-		Interval:      300,
-		URL:           "webex.com",
-		ProbeMode:     "AUTO",
+		TestID:        Int64(122621),
+		Enabled:       Int(1),
+		CreatedBy:     String("William Fleming (wfleming@grumpysysadm.com)"),
+		CreatedDate:   String("2020-02-06 15:28:07"),
+		SavedEvent:    Int(0),
+		AlertsEnabled: Int(1),
+		TestName:      String("test123"),
+		Type:          String("ftp-server"),
+		LiveShare:     Int(0),
+		Interval:      Int(300),
+		URL:           String("webex.com"),
+		ProbeMode:     String("AUTO"),
 		Agents: []Agent{
 			{
 				AgentID:     Int(48620),
@@ -102,18 +103,19 @@ func TestClient_CreateFTPServer(t *testing.T) {
 
 	// Define expected values from the API (based on the JSON we print out above)
 	expected := FTPServer{
-		TestID:        122621,
-		Enabled:       1,
-		CreatedBy:     "William Fleming (wfleming@grumpysysadm.com)",
-		CreatedDate:   "2020-02-06 15:28:07",
-		SavedEvent:    0,
-		TestName:      "test123",
-		Type:          "ftp-server",
-		AlertsEnabled: 1,
-		Interval:      300,
-		URL:           "webex.com",
-		Protocol:      "TCP",
-		ProbeMode:     "AUTO",
+		TestID:        Int64(122621),
+		Enabled:       Int(1),
+		CreatedBy:     String("William Fleming (wfleming@grumpysysadm.com)"),
+		CreatedDate:   String("2020-02-06 15:28:07"),
+		SavedEvent:    Int(0),
+		TestName:      String("test123"),
+		Type:          String("ftp-server"),
+		AlertsEnabled: Int(1),
+		Interval:      Int(300),
+		LiveShare:     Int(0),
+		URL:           String("webex.com"),
+		Protocol:      String("TCP"),
+		ProbeMode:     String("AUTO"),
 		Agents: []Agent{
 			{
 				AgentID:     Int(48620),
@@ -157,10 +159,10 @@ func TestClient_CreateFTPServer(t *testing.T) {
 		},
 	}
 	create := FTPServer{
-		TestName:  "test123",
-		URL:       "webex.com",
-		Protocol:  "TCP",
-		ProbeMode: "AUTO",
+		TestName:  String("test123"),
+		URL:       String("webex.com"),
+		Protocol:  String("TCP"),
+		ProbeMode: String("AUTO"),
 	}
 	res, err := client.CreateFTPServer(create)
 	teardown()
@@ -186,8 +188,8 @@ func TestClient_DeleteFTPServer(t *testing.T) {
 }
 
 func TestClient_AddFTPServerAlertRule(t *testing.T) {
-	test := FTPServer{TestName: "test", AlertRules: []AlertRule{}}
-	expected := FTPServer{TestName: "test", AlertRules: []AlertRule{{RuleID: Int(1)}}}
+	test := FTPServer{TestName: String("test"), AlertRules: []AlertRule{}}
+	expected := FTPServer{TestName: String("test"), AlertRules: []AlertRule{{RuleID: Int(1)}}}
 	test.AddAlertRule(1)
 	assert.Equal(t, expected, test)
 }
@@ -202,19 +204,19 @@ func TestClient_UpdateFTPServer(t *testing.T) {
 
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	id := 1
-	ftpServer := FTPServer{URL: "webex.com"}
+	ftpServer := FTPServer{URL: String("webex.com")}
 	res, err := client.UpdateFTPServer(id, ftpServer)
 	if err != nil {
 		t.Fatal(err)
 	}
-	expected := FTPServer{TestID: 1, TestName: "test123", Type: "ftp-server", URL: "webex.com"}
+	expected := FTPServer{TestID: Int64(1), TestName: String("test123"), Type: String("ftp-server"), URL: String("webex.com")}
 	assert.Equal(t, &expected, res)
 
 }
 
 func TestFTPServer_AddAgent(t *testing.T) {
-	test := FTPServer{TestName: "test", Agents: Agents{}}
-	expected := FTPServer{TestName: "test", Agents: []Agent{{AgentID: Int(1)}}}
+	test := FTPServer{TestName: String("test"), Agents: Agents{}}
+	expected := FTPServer{TestName: String("test"), Agents: []Agent{{AgentID: Int(1)}}}
 	test.AddAgent(Int(1))
 	assert.Equal(t, expected, test)
 }
