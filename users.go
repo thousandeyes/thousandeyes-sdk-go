@@ -7,9 +7,9 @@ import (
 
 // User - a user
 type User struct {
-	Name                 string             `json:"name,omitempty"`
-	Email                string             `json:"email,omitempty"`
-	UID                  int                `json:"uid,omitempty"`
+	Name                 *string            `json:"name,omitempty"`
+	Email                *string            `json:"email,omitempty"`
+	UID                  *int               `json:"uid,omitempty"`
 	LastLogin            *time.Time         `json:"lastLogin,omitempty"`
 	DateRegistered       *time.Time         `json:"dateRegistered,omitempty"`
 	LoginAccountGroup    AccountGroup       `json:"loginAccountGroup,omitempty"`
