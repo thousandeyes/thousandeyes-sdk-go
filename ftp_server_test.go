@@ -217,7 +217,7 @@ func TestClient_UpdateFTPServer(t *testing.T) {
 func TestFTPServer_AddAgent(t *testing.T) {
 	test := FTPServer{TestName: String("test"), Agents: Agents{}}
 	expected := FTPServer{TestName: String("test"), Agents: []Agent{{AgentID: Int(1)}}}
-	test.AddAgent(Int(1))
+	test.AddAgent(1)
 	assert.Equal(t, expected, test)
 }
 

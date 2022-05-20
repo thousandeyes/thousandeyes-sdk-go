@@ -259,7 +259,7 @@ func TestClient_UpdatePageLoad(t *testing.T) {
 func TestPageLoad_AddAgent(t *testing.T) {
 	test := PageLoad{TestName: String("test"), Agents: Agents{}}
 	expected := PageLoad{TestName: String("test"), Agents: []Agent{{AgentID: Int(1)}}}
-	test.AddAgent(Int(1))
+	test.AddAgent(1)
 	assert.Equal(t, expected, test)
 }
 

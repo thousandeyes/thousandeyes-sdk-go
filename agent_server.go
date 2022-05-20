@@ -64,8 +64,8 @@ func extractPort(test AgentServer) (AgentServer, error) {
 }
 
 // AddAgent - Add agent to server test
-func (t *AgentServer) AddAgent(id *int) {
-	agent := Agent{AgentID: id}
+func (t *AgentServer) AddAgent(id int) {
+	agent := Agent{AgentID: Int(id)}
 	t.Agents = append(t.Agents, agent)
 }
 

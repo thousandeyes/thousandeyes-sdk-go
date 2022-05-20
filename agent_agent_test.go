@@ -17,7 +17,7 @@ func TestClient_AddAgentAgentAlertRule(t *testing.T) {
 func TestClient_AgentAgentAddAgent(t *testing.T) {
 	test := AgentAgent{TestName: String("test"), Agents: Agents{}}
 	expected := AgentAgent{TestName: String("test"), Agents: []Agent{{AgentID: Int(1)}}}
-	test.AddAgent(Int(1))
+	test.AddAgent(1)
 	assert.Equal(t, expected, test)
 }
 

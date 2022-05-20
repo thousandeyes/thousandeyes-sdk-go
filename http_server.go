@@ -73,8 +73,8 @@ type HTTPServer struct {
 }
 
 // AddAgent - add an agent
-func (t *HTTPServer) AddAgent(id *int) {
-	agent := Agent{AgentID: id}
+func (t *HTTPServer) AddAgent(id int) {
+	agent := Agent{AgentID: Int(id)}
 	t.Agents = append(t.Agents, agent)
 }
 

@@ -45,8 +45,8 @@ type SIPServer struct {
 }
 
 // AddAgent - Add agemt to sip server  test
-func (t *SIPServer) AddAgent(id *int) {
-	agent := Agent{AgentID: id}
+func (t *SIPServer) AddAgent(id int) {
+	agent := Agent{AgentID: Int(id)}
 	t.Agents = append(t.Agents, agent)
 }
 

@@ -17,7 +17,7 @@ func TestClient_AddAgentSeverAlertRule(t *testing.T) {
 func TestClient_AgentServerAddAgent(t *testing.T) {
 	test := AgentServer{TestName: String("test"), Agents: Agents{}}
 	expected := AgentServer{TestName: String("test"), Agents: []Agent{{AgentID: Int(1)}}}
-	test.AddAgent(Int(1))
+	test.AddAgent(1)
 	assert.Equal(t, expected, test)
 }
 

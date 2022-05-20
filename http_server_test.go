@@ -259,7 +259,7 @@ func TestClient_UpdateHTTPServer(t *testing.T) {
 func TestHTTPServer_AddAgent(t *testing.T) {
 	test := HTTPServer{TestName: String("test"), Agents: Agents{}}
 	expected := HTTPServer{TestName: String("test"), Agents: []Agent{{AgentID: Int(1)}}}
-	test.AddAgent(Int(1))
+	test.AddAgent(1)
 	assert.Equal(t, expected, test)
 }
 

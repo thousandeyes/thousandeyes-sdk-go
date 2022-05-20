@@ -210,7 +210,7 @@ func TestClient_UpdateDNSSec(t *testing.T) {
 func TestDNSSec_AddAgent(t *testing.T) {
 	test := DNSSec{TestName: String("test"), Agents: Agents{}}
 	expected := DNSSec{TestName: String("test"), Agents: []Agent{{AgentID: Int(1)}}}
-	test.AddAgent(Int(1))
+	test.AddAgent(1)
 	assert.Equal(t, expected, test)
 }
 

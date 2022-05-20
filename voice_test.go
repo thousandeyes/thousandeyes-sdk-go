@@ -185,7 +185,7 @@ func TestClient_UpdateRTPStream(t *testing.T) {
 func TestRTPStream_AddAgent(t *testing.T) {
 	test := RTPStream{TestName: String("test"), Agents: Agents{}}
 	expected := RTPStream{TestName: String("test"), Agents: []Agent{{AgentID: Int(1)}}}
-	test.AddAgent(Int(1))
+	test.AddAgent(1)
 	assert.Equal(t, expected, test)
 }
 

@@ -32,8 +32,8 @@ type DNSTrace struct {
 }
 
 // AddAgent - Add agent to DNS Trace test
-func (t *DNSTrace) AddAgent(id *int) {
-	agent := Agent{AgentID: id}
+func (t *DNSTrace) AddAgent(id int) {
+	agent := Agent{AgentID: Int(id)}
 	t.Agents = append(t.Agents, agent)
 }
 
