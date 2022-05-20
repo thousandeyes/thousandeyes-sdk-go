@@ -25,7 +25,7 @@ func TestClient_GetBGP(t *testing.T) {
 
 	// Define expected values from the API (based on the JSON we print out above)
 	expected := BGP{
-		TestID:        Int(122621),
+		TestID:        Int64(122621),
 		Enabled:       Int(1),
 		CreatedBy:     String("William Fleming (wfleming@grumpysysadm.com)"),
 		CreatedDate:   String("2020-02-06 15:28:07"),
@@ -96,7 +96,7 @@ func TestClient_CreateBGP(t *testing.T) {
 
 	// Define expected values from the API (based on the JSON we print out above)
 	expected := BGP{
-		TestID:        Int(122621),
+		TestID:        Int64(122621),
 		Enabled:       Int(1),
 		CreatedBy:     String("William Fleming (wfleming@grumpysysadm.com)"),
 		CreatedDate:   String("2020-02-06 15:28:07"),
@@ -179,7 +179,7 @@ func TestClient_UpdateBGP(t *testing.T) {
 		t.Fatal(err)
 	}
 	expected := BGP{
-		TestID:   Int(1),
+		TestID:   Int64(1),
 		TestName: String("test123"),
 		Type:     String("bgp"),
 		Prefix:   String("1.2.3.0/20"),

@@ -11,7 +11,7 @@ type Alerts []Alert
 // Alert - An alert
 type Alert struct {
 	AlertID        *int     `json:"alertId,omitempty"`
-	TestID         *int     `json:"testId,omitempty"`
+	TestID         *int64   `json:"testId,omitempty"`
 	TestName       *string  `json:"testName,omitempty"`
 	Active         *int     `json:"active,omitempty"`
 	RuleExpression *string  `json:"ruleExpression,omitempty"`

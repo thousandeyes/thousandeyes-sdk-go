@@ -19,7 +19,7 @@ type BGP struct {
 	ModifiedDate       *string             `json:"modifiedDate,omitempty"`
 	SavedEvent         *int                `json:"savedEvent,omitempty"`
 	SharedWithAccounts []SharedWithAccount `json:"sharedWithAccounts,omitempty"`
-	TestID             *int                `json:"testId,omitempty"`
+	TestID             *int64              `json:"testId,omitempty"`
 	TestName           *string             `json:"testName,omitempty"`
 	Type               *string             `json:"type,omitempty"`
 	LiveShare          *int                `json:"liveShare,omitempty"`
