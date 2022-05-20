@@ -18,42 +18,46 @@ func TestClient_GetVoiceCall(t *testing.T) {
 
 	// Define expected values from the API (based on the JSON we print out above)
 	expected := VoiceCall{
-		TestID:          814641,
-		Enabled:         1,
-		CreatedBy:       "ThousandEyes (support@thousandeyes.com)",
-		CreatedDate:     "2018-11-03 19:09:42",
-		SavedEvent:      0,
-		AlertsEnabled:   0,
-		TestName:        "Voice Call - AWS SIP server",
-		Interval:        120,
-		Duration:        5,
-		JitterBuffer:    40,
-		SIPTargetTime:   1000,
-		SIPTimeLimit:    5,
-		ModifiedDate:    "2019-02-06 01:09:56",
-		ModifiedBy:      "ThousandEyes (support@thousandeyes.com)",
-		TargetAgentID:   69,
-		Codec:           "G.711 @ 64 Kbps",
-		BGPMeasurements: 1,
-		UsePublicBGP:    1,
-		NumPathTraces:   3,
-		DSCP:            "EF (DSCP 46)",
-		DSCPID:          46,
+		TestID:          Int64(814641),
+		Enabled:         Int(1),
+		CreatedBy:       String("ThousandEyes (support@thousandeyes.com)"),
+		CreatedDate:     String("2018-11-03 19:09:42"),
+		SavedEvent:      Int(0),
+		AlertsEnabled:   Int(0),
+		TestName:        String("Voice Call - AWS SIP server"),
+		Interval:        Int(120),
+		LiveShare:       Int(0),
+		Duration:        Int(5),
+		JitterBuffer:    Int(40),
+		SIPTargetTime:   Int(1000),
+		SIPTimeLimit:    Int(5),
+		ModifiedDate:    String("2019-02-06 01:09:56"),
+		ModifiedBy:      String("ThousandEyes (support@thousandeyes.com)"),
+		TargetAgentID:   Int(69),
+		Codec:           String("G.711 @ 64 Kbps"),
+		CodecID:         Int(0),
+		BGPMeasurements: Int(1),
+		UsePublicBGP:    Int(1),
+		NumPathTraces:   Int(3),
+		DSCP:            String("EF (DSCP 46)"),
+		DSCPID:          Int(46),
 		TargetSIPCredentials: SIPAuthData{
-			Protocol:     "UDP",
-			AuthUser:     "1005",
-			Password:     "",
-			Port:         5060,
-			SIPRegistrar: "18.234.180.66",
-			User:         "1005",
+			Protocol:     String("UDP"),
+			AuthUser:     String("1005"),
+			Password:     nil,
+			Port:         Int(5060),
+			SIPProxy:     String(""),
+			SIPRegistrar: String("18.234.180.66"),
+			User:         String("1005"),
 		},
 		SourceSIPCredentials: SIPAuthData{
-			Protocol:     "UDP",
-			AuthUser:     "1006",
-			Password:     "",
-			Port:         5060,
-			SIPRegistrar: "18.234.180.66",
-			User:         "1006",
+			Protocol:     String("UDP"),
+			AuthUser:     String("1006"),
+			Password:     nil,
+			Port:         Int(5060),
+			SIPProxy:     String(""),
+			SIPRegistrar: String("18.234.180.66"),
+			User:         String("1006"),
 		},
 		APILinks: APILinks{
 
@@ -107,22 +111,23 @@ func TestClient_CreateVoiceCall(t *testing.T) {
 
 	// Define expected values from the API (based on the JSON we print out above)
 	expected := VoiceCall{
-		TestID:          814641,
-		Enabled:         1,
-		ModifiedBy:      "ThousandEyes (support@thousandeyes.com)",
-		ModifiedDate:    "2019-02-06 01:09:56",
-		CreatedBy:       "ThousandEyes (support@thousandeyes.com)",
-		CreatedDate:     "2018-11-03 19:09:42",
-		SavedEvent:      0,
-		TestName:        "Voice Call - AWS SIP server",
-		Interval:        120,
-		AlertsEnabled:   0,
-		DSCPID:          46,
-		Duration:        5,
-		BGPMeasurements: 1,
-		UsePublicBGP:    1,
-		NumPathTraces:   3,
-		Codec:           "G.711 @ 64 Kbps",
+		TestID:          Int64(814641),
+		Enabled:         Int(1),
+		ModifiedBy:      String("ThousandEyes (support@thousandeyes.com)"),
+		ModifiedDate:    String("2019-02-06 01:09:56"),
+		CreatedBy:       String("ThousandEyes (support@thousandeyes.com)"),
+		CreatedDate:     String("2018-11-03 19:09:42"),
+		SavedEvent:      Int(0),
+		TestName:        String("Voice Call - AWS SIP server"),
+		Interval:        Int(120),
+		AlertsEnabled:   Int(0),
+		DSCPID:          Int(46),
+		Duration:        Int(5),
+		BGPMeasurements: Int(1),
+		UsePublicBGP:    Int(1),
+		NumPathTraces:   Int(3),
+		Codec:           String("G.711 @ 64 Kbps"),
+		CodecID:         Int(0),
 		APILinks: APILinks{
 			{
 				Href: String("https://api.thousandeyes.com/v6/tests/814641"),
@@ -143,11 +148,11 @@ func TestClient_CreateVoiceCall(t *testing.T) {
 		},
 	}
 	create := VoiceCall{
-		TestName: "test1",
-		DSCPID:   46,
-		Duration: 5,
-		Interval: 120,
-		Codec:    "G.711 @ 64 Kbps",
+		TestName: String("test1"),
+		DSCPID:   Int(46),
+		Duration: Int(5),
+		Interval: Int(120),
+		Codec:    String("G.711 @ 64 Kbps"),
 	}
 	res, err := client.CreateVoiceCall(create)
 	teardown()
@@ -183,23 +188,23 @@ func TestClient_UpdateVoiceCall(t *testing.T) {
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	id := 1
 	sipS := VoiceCall{
-		TestName:     "Voice Call - AWS SIP server",
-		CodecID:      0,
-		Codec:        "G.711 @ 64 Kbps",
-		JitterBuffer: 40,
+		TestName:     String("Voice Call - AWS SIP server"),
+		CodecID:      Int(0),
+		Codec:        String("G.711 @ 64 Kbps"),
+		JitterBuffer: Int(40),
 	}
 	res, err := client.UpdateVoiceCall(id, sipS)
 	if err != nil {
 		t.Fatal(err)
 	}
-	expected := VoiceCall{Interval: 120, TestID: 1234, Codec: "G.711 @ 64 Kbps", TestName: "Voice Call - AWS SIP server", CodecID: 0, JitterBuffer: 40}
+	expected := VoiceCall{AlertsEnabled: Int(0), Interval: Int(120), TestID: Int64(1234), Codec: String("G.711 @ 64 Kbps"), TestName: String("Voice Call - AWS SIP server"), CodecID: Int(0), JitterBuffer: Int(40)}
 	assert.Equal(t, &expected, res)
 
 }
 
 func TestVoiceCall_AddAgent(t *testing.T) {
-	test := VoiceCall{TestName: "test", Agents: Agents{}}
-	expected := VoiceCall{TestName: "test", Agents: []Agent{{AgentID: Int(1)}}}
+	test := VoiceCall{TestName: String("test"), Agents: Agents{}}
+	expected := VoiceCall{TestName: String("test"), Agents: []Agent{{AgentID: Int(1)}}}
 	test.AddAgent(Int(1))
 	assert.Equal(t, expected, test)
 }

@@ -20,15 +20,15 @@ func TestClient_CreateWebTransaction(t *testing.T) {
 
 	// Define expected values from the API (based on the JSON we print out above)
 	expected := WebTransaction{
-		TestID:            1,
-		TestName:          "test",
-		CreatedDate:       "2020-02-06 15:28:07",
-		CreatedBy:         "William Fleming (wfleming@grumpysysadm.com)",
-		TransactionScript: "script here",
+		TestID:            Int64(1),
+		TestName:          String("test"),
+		CreatedDate:       String("2020-02-06 15:28:07"),
+		CreatedBy:         String("William Fleming (wfleming@grumpysysadm.com)"),
+		TransactionScript: String("script here"),
 	}
 	create := WebTransaction{
-		TestName:          "test",
-		TransactionScript: "script here",
+		TestName:          String("test"),
+		TransactionScript: String("script here"),
 	}
 	res, err := client.CreateWebTransaction(create)
 	teardown()
@@ -49,11 +49,11 @@ func TestClient_GetWebTransaction(t *testing.T) {
 
 	// Define expected values from the API (based on the JSON we print out above)
 	expected := WebTransaction{
-		TestID:            1,
-		TestName:          "test",
-		CreatedDate:       "2020-02-06 15:28:07",
-		CreatedBy:         "William Fleming (wfleming@grumpysysadm.com)",
-		TransactionScript: "script here",
+		TestID:            Int64(1),
+		TestName:          String("test"),
+		CreatedDate:       String("2020-02-06 15:28:07"),
+		CreatedBy:         String("William Fleming (wfleming@grumpysysadm.com)"),
+		TransactionScript: String("script here"),
 	}
 	res, err := client.GetWebTransaction(1)
 	teardown()
@@ -91,14 +91,14 @@ func TestClient_UpdateWebTransaction(t *testing.T) {
 
 	// Define expected values from the API (based on the JSON we print out above)
 	expected := WebTransaction{
-		TestID:            1,
-		TestName:          "test",
-		CreatedDate:       "2020-02-06 15:28:07",
-		CreatedBy:         "William Fleming (wfleming@grumpysysadm.com)",
-		TransactionScript: "new script here",
+		TestID:            Int64(1),
+		TestName:          String("test"),
+		CreatedDate:       String("2020-02-06 15:28:07"),
+		CreatedBy:         String("William Fleming (wfleming@grumpysysadm.com)"),
+		TransactionScript: String("new script here"),
 	}
 	update := WebTransaction{
-		TransactionScript: "new script here",
+		TransactionScript: String("new script here"),
 	}
 	res, err := client.UpdateWebTransaction(1, update)
 	teardown()
