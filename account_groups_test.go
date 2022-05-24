@@ -20,8 +20,8 @@ func TestClient_GetAccountGroups(t *testing.T) {
 	// Define expected values from the API (based on the JSON we print out above)
 	expected := []SharedWithAccount{
 		{
-			AccountGroupName: "Test Account",
-			AID:              1,
+			AccountGroupName: String("Test Account"),
+			AID:              Int(1),
 		},
 	}
 

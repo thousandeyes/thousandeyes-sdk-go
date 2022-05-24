@@ -17,54 +17,55 @@ func TestClient_GetDNSSec(t *testing.T) {
 	})
 
 	expected := DNSSec{
-		TestID:        122621,
-		Enabled:       1,
-		CreatedBy:     "William Fleming (wfleming@grumpysysadm.com)",
-		CreatedDate:   "2020-02-06 15:28:07",
-		SavedEvent:    0,
-		AlertsEnabled: 1,
-		TestName:      "test123",
-		Type:          "dns-dnssec",
-		Interval:      300,
-		Domain:        "webex.com",
+		TestID:        Int64(122621),
+		Enabled:       Int(1),
+		CreatedBy:     String("William Fleming (wfleming@grumpysysadm.com)"),
+		CreatedDate:   String("2020-02-06 15:28:07"),
+		SavedEvent:    Int(0),
+		AlertsEnabled: Int(1),
+		TestName:      String("test123"),
+		Type:          String("dns-dnssec"),
+		Interval:      Int(300),
+		LiveShare:     Int(0),
+		Domain:        String("webex.com"),
 		Agents: []Agent{
 			{
-				AgentID:     48620,
-				AgentType:   "Cloud",
-				AgentName:   "Seattle, WA (Trial) - IPv6",
-				CountryID:   "US",
+				AgentID:     Int(48620),
+				AgentType:   String("Cloud"),
+				AgentName:   String("Seattle, WA (Trial) - IPv6"),
+				CountryID:   String("US"),
 				IPAddresses: []string{"135.84.184.153"},
-				Location:    "Seattle Area",
-				Network:     "Astute Hosting Inc. (AS 54527)",
-				Prefix:      "135.84.184.0/22",
+				Location:    String("Seattle Area"),
+				Network:     String("Astute Hosting Inc. (AS 54527)"),
+				Prefix:      String("135.84.184.0/22"),
 			},
 		},
 		SharedWithAccounts: []SharedWithAccount{
 			{
-				AID:              176592,
-				AccountGroupName: "Cloudreach",
+				AID:              Int(176592),
+				AccountGroupName: String("Cloudreach"),
 			},
 		},
 		APILinks: []APILink{
 			{
-				Href: "https://api.thousandeyes.com/v6/tests/1226221",
-				Rel:  "self",
+				Href: String("https://api.thousandeyes.com/v6/tests/1226221"),
+				Rel:  String("self"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/web/dns-dnssec/1226221",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/web/dns-dnssec/1226221"),
+				Rel:  String("data"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/net/metrics/1226221",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/net/metrics/1226221"),
+				Rel:  String("data"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/net/path-vis/1226221",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/net/path-vis/1226221"),
+				Rel:  String("data"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/net/bgp-metrics/1226221",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/net/bgp-metrics/1226221"),
+				Rel:  String("data"),
 			},
 		},
 	}
@@ -99,62 +100,63 @@ func TestClient_CreateDNSSec(t *testing.T) {
 	})
 
 	expected := DNSSec{
-		TestID:        122621,
-		Enabled:       1,
-		CreatedBy:     "William Fleming (wfleming@grumpysysadm.com)",
-		CreatedDate:   "2020-02-06 15:28:07",
-		SavedEvent:    0,
-		TestName:      "test123",
-		Type:          "dns-dnssec",
-		Interval:      300,
-		AlertsEnabled: 1,
-		Domain:        "webex.com",
+		TestID:        Int64(122621),
+		Enabled:       Int(1),
+		CreatedBy:     String("William Fleming (wfleming@grumpysysadm.com)"),
+		CreatedDate:   String("2020-02-06 15:28:07"),
+		SavedEvent:    Int(0),
+		TestName:      String("test123"),
+		Type:          String("dns-dnssec"),
+		Interval:      Int(300),
+		LiveShare:     Int(0),
+		AlertsEnabled: Int(1),
+		Domain:        String("webex.com"),
 		Agents: []Agent{
 			{
-				AgentID:     48620,
-				AgentType:   "Cloud",
-				AgentName:   "Seattle, WA (Trial) - IPv6",
-				CountryID:   "US",
+				AgentID:     Int(48620),
+				AgentType:   String("Cloud"),
+				AgentName:   String("Seattle, WA (Trial) - IPv6"),
+				CountryID:   String("US"),
 				IPAddresses: []string{"135.84.184.153"},
-				Location:    "Seattle Area",
-				Network:     "Astute Hosting Inc. (AS 54527)",
-				Prefix:      "135.84.184.0/22",
+				Location:    String("Seattle Area"),
+				Network:     String("Astute Hosting Inc. (AS 54527)"),
+				Prefix:      String("135.84.184.0/22"),
 			},
 		},
 		SharedWithAccounts: []SharedWithAccount{
 			{
-				AID:              176592,
-				AccountGroupName: "Cloudreach",
+				AID:              Int(176592),
+				AccountGroupName: String("Cloudreach"),
 			},
 		},
 
 		APILinks: []APILink{
 			{
-				Href: "https://api.thousandeyes.com/v6/tests/1226221",
-				Rel:  "self",
+				Href: String("https://api.thousandeyes.com/v6/tests/1226221"),
+				Rel:  String("self"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/web/dns-dnssec/1226221",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/web/dns-dnssec/1226221"),
+				Rel:  String("data"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/net/metrics/1226221",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/net/metrics/1226221"),
+				Rel:  String("data"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/net/path-vis/1226221",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/net/path-vis/1226221"),
+				Rel:  String("data"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/net/bgp-metrics/1226221",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/net/bgp-metrics/1226221"),
+				Rel:  String("data"),
 			},
 		},
 	}
 	create := DNSSec{
-		TestName: "test123",
-		Domain:   "webex.com",
-		Interval: 300,
+		TestName: String("test123"),
+		Domain:   String("webex.com"),
+		Interval: Int(300),
 	}
 	res, err := client.CreateDNSSec(create)
 	teardown()
@@ -179,8 +181,8 @@ func TestClient_DeleteDNSSec(t *testing.T) {
 }
 
 func TestClient_AddDNSSecAlertRule(t *testing.T) {
-	test := DNSSec{TestName: "test", AlertRules: []AlertRule{}}
-	expected := DNSSec{TestName: "test", AlertRules: []AlertRule{{RuleID: 1}}}
+	test := DNSSec{TestName: String("test"), AlertRules: []AlertRule{}}
+	expected := DNSSec{TestName: String("test"), AlertRules: []AlertRule{{RuleID: Int(1)}}}
 	test.AddAlertRule(1)
 	assert.Equal(t, expected, test)
 }
@@ -195,19 +197,19 @@ func TestClient_UpdateDNSSec(t *testing.T) {
 
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	id := 1
-	dnsp := DNSSec{Domain: "webex.com"}
+	dnsp := DNSSec{Domain: String("webex.com")}
 	res, err := client.UpdateDNSSec(id, dnsp)
 	if err != nil {
 		t.Fatal(err)
 	}
-	expected := DNSSec{TestID: 1, TestName: "test123", Type: "dns-dnssec", Domain: "webex.com"}
+	expected := DNSSec{TestID: Int64(1), TestName: String("test123"), Type: String("dns-dnssec"), Domain: String("webex.com")}
 	assert.Equal(t, &expected, res)
 
 }
 
 func TestDNSSec_AddAgent(t *testing.T) {
-	test := DNSSec{TestName: "test", Agents: Agents{}}
-	expected := DNSSec{TestName: "test", Agents: []Agent{{AgentID: 1}}}
+	test := DNSSec{TestName: String("test"), Agents: Agents{}}
+	expected := DNSSec{TestName: String("test"), Agents: []Agent{{AgentID: Int(1)}}}
 	test.AddAgent(1)
 	assert.Equal(t, expected, test)
 }
@@ -237,7 +239,7 @@ func TestClient_GetDNSSecStatusCode(t *testing.T) {
 
 	_, err := client.GetDNSSec(1)
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }
 
 func TestClient_CreateDNSSecStatusCode(t *testing.T) {
@@ -250,7 +252,7 @@ func TestClient_CreateDNSSecStatusCode(t *testing.T) {
 	})
 	_, err := client.CreateDNSSec(DNSSec{})
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }
 
 func TestClient_UpdateDNSSecStatusCode(t *testing.T) {
@@ -263,7 +265,7 @@ func TestClient_UpdateDNSSecStatusCode(t *testing.T) {
 	})
 	_, err := client.UpdateDNSSec(1, DNSSec{})
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }
 
 func TestClient_DeleteDNSSecStatusCode(t *testing.T) {
@@ -276,5 +278,5 @@ func TestClient_DeleteDNSSecStatusCode(t *testing.T) {
 	})
 	err := client.DeleteDNSSec(1)
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }

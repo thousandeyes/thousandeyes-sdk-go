@@ -7,53 +7,53 @@ import (
 // WebTransaction - a web transcation test
 type WebTransaction struct {
 	// Common test fields
-	AlertsEnabled      int                 `json:"alertsEnabled,omitempty"`
-	AlertRules         []AlertRule         `json:"alertRules,omitempty"`
+	AlertsEnabled      *int                `json:"alertsEnabled,omitempty"`
+	AlertRules         []AlertRule         `json:"alertRules"`
 	APILinks           []APILink           `json:"apiLinks,omitempty"`
-	CreatedBy          string              `json:"createdBy,omitempty"`
-	CreatedDate        string              `json:"createdDate,omitempty"`
-	Description        string              `json:"description,omitempty"`
-	Enabled            int                 `json:"enabled,omitempty"`
+	CreatedBy          *string             `json:"createdBy,omitempty"`
+	CreatedDate        *string             `json:"createdDate,omitempty"`
+	Description        *string             `json:"description,omitempty"`
+	Enabled            *int                `json:"enabled,omitempty"`
 	Groups             []GroupLabel        `json:"groups,omitempty"`
-	ModifiedBy         string              `json:"modifiedBy,omitempty"`
-	ModifiedDate       string              `json:"modifiedDate,omitempty"`
-	SavedEvent         int                 `json:"savedEvent,omitempty"`
+	ModifiedBy         *string             `json:"modifiedBy,omitempty"`
+	ModifiedDate       *string             `json:"modifiedDate,omitempty"`
+	SavedEvent         *int                `json:"savedEvent,omitempty"`
 	SharedWithAccounts []SharedWithAccount `json:"sharedWithAccounts,omitempty"`
-	TestID             int                 `json:"testId,omitempty"`
-	TestName           string              `json:"testName,omitempty"`
-	Type               string              `json:"type,omitempty"`
-	// LiveShare is common to all tests except DNS+
-	LiveShare int `json:"liveShare,omitempty"`
+	TestID             *int64              `json:"testId,omitempty"`
+	TestName           *string             `json:"testName,omitempty"`
+	Type               *string             `json:"type,omitempty"`
+	LiveShare          *int                `json:"liveShare,omitempty"`
+
 	// Fields unique to this test
 	Agents                Agents        `json:"agents,omitempty"`
-	AuthType              string        `json:"authType,omitempty"`
-	BandwidthMeasurements int           `json:"bandwidthMeasurements,omitempty"`
-	ContentRegex          string        `json:"contentRegex,omitempty"`
+	AuthType              *string       `json:"authType,omitempty"`
+	BandwidthMeasurements *int          `json:"bandwidthMeasurements,omitempty"`
+	ContentRegex          *string       `json:"contentRegex,omitempty"`
 	Credentials           []int         `json:"credentials,omitempty"`
 	CustomHeaders         CustomHeaders `json:"customHeaders,omitempty"`
-	DesiredStatusCode     string        `json:"desiredStatusCode,omitempty"`
-	HTTPTargetTime        int           `json:"httpTargetTime,omitempty"`
-	HTTPTimeLimit         int           `json:"httpTimeLimit,omitempty"`
-	HTTPVersion           int           `json:"httpVersion,omitempty"`
-	IncludeHeaders        int           `json:"includeHeaders,omitempty"`
-	Interval              int           `json:"interval,omitempty"`
-	MTUMeasurements       int           `json:"mtuMeasurements,omitempty"`
-	NetworkMeasurements   int           `json:"networkMeasurements,omitempty"`
-	NumPathTraces         int           `json:"numPathTraces,omitempty"`
-	Password              string        `json:"password,omitempty"`
-	PathTraceMode         string        `json:"pathTraceMode,omitempty"`
-	ProbeMode             string        `json:"probeMode,omitempty"`
-	Protocol              string        `json:"protocol,omitempty"`
-	SSLVersionID          int           `json:"sslVersionId,omitempty"`
-	SubInterval           int           `json:"subinterval,omitempty"`
-	TargetTime            int           `json:"targetTime,omitempty"`
-	TimeLimit             int           `json:"timeLimit,omitempty"`
-	TransactionScript     string        `json:"transactionScript,omitempty"`
-	URL                   string        `json:"url,omitempty"`
-	UseNTLM               int           `json:"useNtlm,omitempty"`
-	UserAgent             string        `json:"userAgent,omitempty"`
-	Username              string        `json:"username,omitempty"`
-	VerifyCertificate     int           `json:"verifyCertificate,omitempty"`
+	DesiredStatusCode     *string       `json:"desiredStatusCode,omitempty"`
+	HTTPTargetTime        *int          `json:"httpTargetTime,omitempty"`
+	HTTPTimeLimit         *int          `json:"httpTimeLimit,omitempty"`
+	HTTPVersion           *int          `json:"httpVersion,omitempty"`
+	IncludeHeaders        *int          `json:"includeHeaders,omitempty"`
+	Interval              *int          `json:"interval,omitempty"`
+	MTUMeasurements       *int          `json:"mtuMeasurements,omitempty"`
+	NetworkMeasurements   *int          `json:"networkMeasurements,omitempty"`
+	NumPathTraces         *int          `json:"numPathTraces,omitempty"`
+	Password              *string       `json:"password,omitempty"`
+	PathTraceMode         *string       `json:"pathTraceMode,omitempty"`
+	ProbeMode             *string       `json:"probeMode,omitempty"`
+	Protocol              *string       `json:"protocol,omitempty"`
+	SSLVersionID          *int          `json:"sslVersionId,omitempty"`
+	SubInterval           *int          `json:"subinterval,omitempty"`
+	TargetTime            *int          `json:"targetTime,omitempty"`
+	TimeLimit             *int          `json:"timeLimit,omitempty"`
+	TransactionScript     *string       `json:"transactionScript,omitempty"`
+	URL                   *string       `json:"url,omitempty"`
+	UseNTLM               *int          `json:"useNtlm,omitempty"`
+	UserAgent             *string       `json:"userAgent,omitempty"`
+	Username              *string       `json:"username,omitempty"`
+	VerifyCertificate     *int          `json:"verifyCertificate,omitempty"`
 }
 
 // CreateWebTransaction - Create a web transaction test

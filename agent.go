@@ -7,47 +7,47 @@ type Agents []Agent
 
 // Agent - Agent struct
 type Agent struct {
-	AgentID               int                 `json:"agentId,omitempty"`
-	AgentName             string              `json:"agentName,omitempty"`
-	AgentType             string              `json:"agentType,omitempty"`
-	CountryID             string              `json:"countryId,omitempty"`
+	AgentID               *int                `json:"agentId,omitempty"`
+	AgentName             *string             `json:"agentName,omitempty"`
+	AgentType             *string             `json:"agentType,omitempty"`
+	CountryID             *string             `json:"countryId,omitempty"`
 	ClusterMembers        []ClusterMember     `json:"clusterMembers,omitempty"`
 	IPAddresses           []string            `json:"ipAddresses,omitempty"`
 	Groups                GroupLabels         `json:"groups,omitempty"`
-	Location              string              `json:"location,omitempty"`
+	Location              *string             `json:"location,omitempty"`
 	ErrorDetails          []AgentErrorDetails `json:"errorDetails,omitempty"`
-	Hostname              string              `json:"hostname,omitempty"`
-	Prefix                string              `json:"prefix,omitempty"`
-	Enabled               int                 `json:"enabled,omitempty"`
-	Network               string              `json:"network,omitempty"`
-	CreatedDate           string              `json:"createdDate,omitempty"`
-	LastSeen              string              `json:"lastSeen,omitempty"`
-	AgentState            string              `json:"agentState,omitempty"`
-	VerifySslCertificates int                 `json:"verifySslCertificate,omitempty"`
-	KeepBrowserCache      int                 `json:"keepBrowserCache,omitempty"`
-	Utilization           int                 `json:"utilization,omitempty"`
-	Ipv6Policy            string              `json:"IPV6Policy,omitempty"`
-	TargetForTests        string              `json:"targetForTests,omitempty"`
+	Hostname              *string             `json:"hostname,omitempty"`
+	Prefix                *string             `json:"prefix,omitempty"`
+	Enabled               *int                `json:"enabled,omitempty"`
+	Network               *string             `json:"network,omitempty"`
+	CreatedDate           *string             `json:"createdDate,omitempty"`
+	LastSeen              *string             `json:"lastSeen,omitempty"`
+	AgentState            *string             `json:"agentState,omitempty"`
+	VerifySslCertificates *int                `json:"verifySslCertificate,omitempty"`
+	KeepBrowserCache      *int                `json:"keepBrowserCache,omitempty"`
+	Utilization           *int                `json:"utilization,omitempty"`
+	Ipv6Policy            *string             `json:"IPV6Policy,omitempty"`
+	TargetForTests        *string             `json:"targetForTests,omitempty"`
 }
 
 //ClusterMember - ClusterMember struct
 type ClusterMember struct {
-	MemberID          int      `json:"memberId,omitempty"`
-	Name              string   `json:"name,omitempty"`
+	MemberID          *int     `json:"memberId,omitempty"`
+	Name              *string  `json:"name,omitempty"`
 	IPAddresses       []string `json:"IPAddresses,omitempty"`
 	PublicIPAddresses []string `json:"PublicIPAddresses,omitempty"`
-	Prefix            string   `json:"Prefix,omitempty"`
-	Network           string   `json:"network,omitempty"`
-	LastSeen          string   `json:"lastSeen,omitempty"`
-	AgentState        string   `json:"agentState,omitempty"`
-	Utilization       int      `json:"utilization,omitempty"`
-	TargetForTests    string   `json:"targetForTests,omitempty"`
+	Prefix            *string  `json:"Prefix,omitempty"`
+	Network           *string  `json:"network,omitempty"`
+	LastSeen          *string  `json:"lastSeen,omitempty"`
+	AgentState        *string  `json:"agentState,omitempty"`
+	Utilization       *int     `json:"utilization,omitempty"`
+	TargetForTests    *string  `json:"targetForTests,omitempty"`
 }
 
 // AgentErrorDetails - Agent error details
 type AgentErrorDetails struct {
-	Code        string `json:"code,omitempty"`
-	Description string `json:"description,omitempty"`
+	Code        *string `json:"code,omitempty"`
+	Description *string `json:"description,omitempty"`
 }
 
 // GetAgents - Get agents

@@ -8,8 +8,8 @@ import (
 )
 
 func TestClient_AddBGPAlertRule(t *testing.T) {
-	test := BGP{TestName: "test", AlertRules: []AlertRule{}}
-	expected := BGP{TestName: "test", AlertRules: []AlertRule{{RuleID: 1}}}
+	test := BGP{TestName: String("test"), AlertRules: []AlertRule{}}
+	expected := BGP{TestName: String("test"), AlertRules: []AlertRule{{RuleID: Int(1)}}}
 	test.AddAlertRule(1)
 	assert.Equal(t, expected, test)
 }
@@ -25,41 +25,42 @@ func TestClient_GetBGP(t *testing.T) {
 
 	// Define expected values from the API (based on the JSON we print out above)
 	expected := BGP{
-		TestID:        122621,
-		Enabled:       1,
-		CreatedBy:     "William Fleming (wfleming@grumpysysadm.com)",
-		CreatedDate:   "2020-02-06 15:28:07",
-		SavedEvent:    0,
-		AlertsEnabled: 1,
-		TestName:      "test123",
-		Type:          "bgp",
-		Prefix:        "1.2.3.0/20",
+		TestID:        Int64(122621),
+		Enabled:       Int(1),
+		CreatedBy:     String("William Fleming (wfleming@grumpysysadm.com)"),
+		CreatedDate:   String("2020-02-06 15:28:07"),
+		SavedEvent:    Int(0),
+		AlertsEnabled: Int(1),
+		TestName:      String("test123"),
+		Type:          String("bgp"),
+		LiveShare:     Int(0),
+		Prefix:        String("1.2.3.0/20"),
 		SharedWithAccounts: []SharedWithAccount{
 			{
-				AID:              176592,
-				AccountGroupName: "Cloudreach",
+				AID:              Int(176592),
+				AccountGroupName: String("Cloudreach"),
 			},
 		},
 		APILinks: APILinks{
 			{
-				Href: "https://api.thousandeyes.com/v6/tests/1226221",
-				Rel:  "self",
+				Href: String("https://api.thousandeyes.com/v6/tests/1226221"),
+				Rel:  String("self"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/web/dns-trace/1226221",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/web/dns-trace/1226221"),
+				Rel:  String("data"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/net/metrics/1226221",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/net/metrics/1226221"),
+				Rel:  String("data"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/net/path-vis/1226221",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/net/path-vis/1226221"),
+				Rel:  String("data"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/net/bgp-metrics/1226221",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/net/bgp-metrics/1226221"),
+				Rel:  String("data"),
 			},
 		},
 	}
@@ -95,49 +96,49 @@ func TestClient_CreateBGP(t *testing.T) {
 
 	// Define expected values from the API (based on the JSON we print out above)
 	expected := BGP{
-
-		TestID:        122621,
-		Enabled:       1,
-		CreatedBy:     "William Fleming (wfleming@grumpysysadm.com)",
-		CreatedDate:   "2020-02-06 15:28:07",
-		SavedEvent:    0,
-		TestName:      "test123",
-		Type:          "bgp",
-		Prefix:        "1.2.3.0/20",
-		AlertsEnabled: 1,
+		TestID:        Int64(122621),
+		Enabled:       Int(1),
+		CreatedBy:     String("William Fleming (wfleming@grumpysysadm.com)"),
+		CreatedDate:   String("2020-02-06 15:28:07"),
+		SavedEvent:    Int(0),
+		TestName:      String("test123"),
+		Type:          String("bgp"),
+		LiveShare:     Int(0),
+		Prefix:        String("1.2.3.0/20"),
+		AlertsEnabled: Int(1),
 		SharedWithAccounts: []SharedWithAccount{
 			{
-				AID:              176592,
-				AccountGroupName: "Cloudreach",
+				AID:              Int(176592),
+				AccountGroupName: String("Cloudreach"),
 			},
 		},
 
 		APILinks: APILinks{
 			{
-				Href: "https://api.thousandeyes.com/v6/tests/1226221",
-				Rel:  "self",
+				Href: String("https://api.thousandeyes.com/v6/tests/1226221"),
+				Rel:  String("self"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/web/dns-trace/1226221",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/web/dns-trace/1226221"),
+				Rel:  String("data"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/net/metrics/1226221",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/net/metrics/1226221"),
+				Rel:  String("data"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/net/path-vis/1226221",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/net/path-vis/1226221"),
+				Rel:  String("data"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/net/bgp-metrics/1226221",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/net/bgp-metrics/1226221"),
+				Rel:  String("data"),
 			},
 		},
 	}
 	create := BGP{
-		TestName: "test1",
-		Prefix:   "1.2.3.0/20",
+		TestName: String("test1"),
+		Prefix:   String("1.2.3.0/20"),
 	}
 	res, err := client.CreateBGP(create)
 	teardown()
@@ -177,7 +178,12 @@ func TestClient_UpdateBGP(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	expected := BGP{TestID: 1, TestName: "test123", Type: "bgp", Prefix: "1.2.3.0/20"}
+	expected := BGP{
+		TestID:   Int64(1),
+		TestName: String("test123"),
+		Type:     String("bgp"),
+		Prefix:   String("1.2.3.0/20"),
+	}
 	assert.Equal(t, &expected, res)
 
 }
@@ -207,7 +213,7 @@ func TestClient_GetBGPStatusCode(t *testing.T) {
 
 	_, err := client.GetBGP(1)
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }
 
 func TestClient_CreateBGPStatusCode(t *testing.T) {
@@ -220,7 +226,7 @@ func TestClient_CreateBGPStatusCode(t *testing.T) {
 	})
 	_, err := client.CreateBGP(BGP{})
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }
 
 func TestClient_UpdateBGPStatusCode(t *testing.T) {
@@ -233,7 +239,7 @@ func TestClient_UpdateBGPStatusCode(t *testing.T) {
 	})
 	_, err := client.UpdateBGP(1, BGP{})
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }
 
 func TestClient_DeleteBGPStatusCode(t *testing.T) {
@@ -246,5 +252,5 @@ func TestClient_DeleteBGPStatusCode(t *testing.T) {
 	})
 	err := client.DeleteBGP(1)
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }

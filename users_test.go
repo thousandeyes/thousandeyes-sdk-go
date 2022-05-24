@@ -23,14 +23,14 @@ func TestClient_GetUsers(t *testing.T) {
 	}
 	expected := []User{
 		{
-			Name:  "William Fleming",
-			Email: "wfleming@grumpysysadm.com",
-			UID:   1,
+			Name:  String("William Fleming"),
+			Email: String("wfleming@grumpysysadm.com"),
+			UID:   Int(1),
 		},
 		{
-			Name:  "Test User 2",
-			Email: "wfleming@grumpysysadm.com",
-			UID:   2,
+			Name:  String("Test User 2"),
+			Email: String("wfleming@grumpysysadm.com"),
+			UID:   Int(2),
 		},
 	}
 	assert.Equal(t, &expected, res)
@@ -52,9 +52,9 @@ func TestClient_GetUser(t *testing.T) {
 		t.Fatal(err)
 	}
 	expected := User{
-		Name:  "William Fleming",
-		Email: "wfleming@grumpysysadm.com",
-		UID:   1,
+		Name:  String("William Fleming"),
+		Email: String("wfleming@grumpysysadm.com"),
+		UID:   Int(1),
 	}
 	assert.Equal(t, &expected, res)
 }
@@ -70,8 +70,8 @@ func TestClient_CreateUser(t *testing.T) {
 
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	create := User{
-		Name:  "William Fleming",
-		Email: "wfleming@grumpysysadm.com",
+		Name:  String("William Fleming"),
+		Email: String("wfleming@grumpysysadm.com"),
 	}
 	res, err := client.CreateUser(create)
 	if err != nil {
@@ -79,9 +79,9 @@ func TestClient_CreateUser(t *testing.T) {
 	}
 
 	expected := User{
-		Name:  "William Fleming",
-		Email: "wfleming@grumpysysadm.com",
-		UID:   1,
+		Name:  String("William Fleming"),
+		Email: String("wfleming@grumpysysadm.com"),
+		UID:   Int(1),
 	}
 	assert.Equal(t, &expected, res)
 }
@@ -109,7 +109,7 @@ func TestClient_UpdateUser(t *testing.T) {
 
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	update := User{
-		Email: "william@grumpysysadm.com",
+		Email: String("william@grumpysysadm.com"),
 	}
 	res, err := client.UpdateUser(1, update)
 	if err != nil {
@@ -117,9 +117,9 @@ func TestClient_UpdateUser(t *testing.T) {
 	}
 
 	expected := User{
-		Name:  "William Fleming",
-		Email: "william@grumpysysadm.com",
-		UID:   1,
+		Name:  String("William Fleming"),
+		Email: String("william@grumpysysadm.com"),
+		UID:   Int(1),
 	}
 	assert.Equal(t, &expected, res)
 }
@@ -136,7 +136,7 @@ func TestClient_GetUserStatusCode(t *testing.T) {
 
 	_, err := client.GetUsers()
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }
 
 func TestClient_CreateUserStatusCode(t *testing.T) {
@@ -149,7 +149,7 @@ func TestClient_CreateUserStatusCode(t *testing.T) {
 	})
 	_, err := client.CreateUser(User{})
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }
 
 func TestClient_UpdateUserStatusCode(t *testing.T) {
@@ -162,7 +162,7 @@ func TestClient_UpdateUserStatusCode(t *testing.T) {
 	})
 	_, err := client.UpdateUser(1, User{})
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }
 
 func TestClient_DeleteUserStatusCode(t *testing.T) {
@@ -175,7 +175,7 @@ func TestClient_DeleteUserStatusCode(t *testing.T) {
 	})
 	err := client.DeleteUser(1)
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }
 
 func TestClient_GetUsersJsonError(t *testing.T) {

@@ -18,53 +18,54 @@ func TestClient_GetSIPServer(t *testing.T) {
 
 	// Define expected values from the API (based on the JSON we print out above)
 	expected := SIPServer{
-		TestID:        122621,
-		Enabled:       1,
-		CreatedBy:     "William Fleming (wfleming@grumpysysadm.com)",
-		CreatedDate:   "2020-02-06 15:28:07",
-		SavedEvent:    0,
-		AlertsEnabled: 1,
-		TestName:      "test123",
-		Type:          "sip-server",
-		Interval:      300,
+		TestID:        Int64(122621),
+		Enabled:       Int(1),
+		CreatedBy:     String("William Fleming (wfleming@grumpysysadm.com)"),
+		CreatedDate:   String("2020-02-06 15:28:07"),
+		SavedEvent:    Int(0),
+		AlertsEnabled: Int(1),
+		TestName:      String("test123"),
+		Type:          String("sip-server"),
+		Interval:      Int(300),
+		LiveShare:     Int(0),
 		Agents: []Agent{
 			{
-				AgentID:     48620,
-				AgentType:   "Cloud",
-				AgentName:   "Seattle, WA (Trial) - IPv6",
-				CountryID:   "US",
+				AgentID:     Int(48620),
+				AgentType:   String("Cloud"),
+				AgentName:   String("Seattle, WA (Trial) - IPv6"),
+				CountryID:   String("US"),
 				IPAddresses: []string{"135.84.184.153"},
-				Location:    "Seattle Area",
-				Network:     "Astute Hosting Inc. (AS 54527)",
-				Prefix:      "135.84.184.0/22",
+				Location:    String("Seattle Area"),
+				Network:     String("Astute Hosting Inc. (AS 54527)"),
+				Prefix:      String("135.84.184.0/22"),
 			},
 		},
 		SharedWithAccounts: []SharedWithAccount{
 			{
-				AID:              176592,
-				AccountGroupName: "Cloudreach",
+				AID:              Int(176592),
+				AccountGroupName: String("Cloudreach"),
 			},
 		},
 		APILinks: APILinks{
 			{
-				Href: "https://api.thousandeyes.com/v6/tests/1226221",
-				Rel:  "self",
+				Href: String("https://api.thousandeyes.com/v6/tests/1226221"),
+				Rel:  String("self"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/web/dns-trace/1226221",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/web/dns-trace/1226221"),
+				Rel:  String("data"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/net/metrics/1226221",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/net/metrics/1226221"),
+				Rel:  String("data"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/net/path-vis/1226221",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/net/path-vis/1226221"),
+				Rel:  String("data"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/net/bgp-metrics/1226221",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/net/bgp-metrics/1226221"),
+				Rel:  String("data"),
 			},
 		},
 	}
@@ -101,60 +102,61 @@ func TestClient_CreateSIPServer(t *testing.T) {
 	// Define expected values from the API (based on the JSON we print out above)
 	expected := SIPServer{
 
-		TestID:        122621,
-		Enabled:       1,
-		CreatedBy:     "William Fleming (wfleming@grumpysysadm.com)",
-		CreatedDate:   "2020-02-06 15:28:07",
-		SavedEvent:    0,
-		TestName:      "test123",
-		Type:          "sip-server",
-		Interval:      300,
-		AlertsEnabled: 1,
+		TestID:        Int64(122621),
+		Enabled:       Int(1),
+		CreatedBy:     String("William Fleming (wfleming@grumpysysadm.com)"),
+		CreatedDate:   String("2020-02-06 15:28:07"),
+		SavedEvent:    Int(0),
+		TestName:      String("test123"),
+		Type:          String("sip-server"),
+		Interval:      Int(300),
+		AlertsEnabled: Int(1),
+		LiveShare:     Int(0),
 		Agents: []Agent{
 			{
-				AgentID:     48620,
-				AgentType:   "Cloud",
-				AgentName:   "Seattle, WA (Trial) - IPv6",
-				CountryID:   "US",
+				AgentID:     Int(48620),
+				AgentType:   String("Cloud"),
+				AgentName:   String("Seattle, WA (Trial) - IPv6"),
+				CountryID:   String("US"),
 				IPAddresses: []string{"135.84.184.153"},
-				Location:    "Seattle Area",
-				Network:     "Astute Hosting Inc. (AS 54527)",
-				Prefix:      "135.84.184.0/22",
+				Location:    String("Seattle Area"),
+				Network:     String("Astute Hosting Inc. (AS 54527)"),
+				Prefix:      String("135.84.184.0/22"),
 			},
 		},
 		SharedWithAccounts: []SharedWithAccount{
 			{
-				AID:              176592,
-				AccountGroupName: "Cloudreach",
+				AID:              Int(176592),
+				AccountGroupName: String("Cloudreach"),
 			},
 		},
 
 		APILinks: APILinks{
 			{
-				Href: "https://api.thousandeyes.com/v6/tests/1226221",
-				Rel:  "self",
+				Href: String("https://api.thousandeyes.com/v6/tests/1226221"),
+				Rel:  String("self"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/web/dns-trace/1226221",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/web/dns-trace/1226221"),
+				Rel:  String("data"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/net/metrics/1226221",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/net/metrics/1226221"),
+				Rel:  String("data"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/net/path-vis/1226221",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/net/path-vis/1226221"),
+				Rel:  String("data"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/net/bgp-metrics/1226221",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/net/bgp-metrics/1226221"),
+				Rel:  String("data"),
 			},
 		},
 	}
 	create := SIPServer{
-		TestName: "test1",
-		Interval: 300,
+		TestName: String("test1"),
+		Interval: Int(300),
 	}
 	res, err := client.CreateSIPServer(create)
 	teardown()
@@ -190,26 +192,26 @@ func TestClient_UpdateSIPServer(t *testing.T) {
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	id := 1
 	sipS := SIPServer{
-		TestName: "test1",
+		TestName: String("test1"),
 	}
 	res, err := client.UpdateSIPServer(id, sipS)
 	if err != nil {
 		t.Fatal(err)
 	}
-	expected := SIPServer{TestID: 1, TestName: "test123", Type: "sip-server"}
+	expected := SIPServer{TestID: Int64(1), TestName: String("test123"), Type: String("sip-server")}
 	assert.Equal(t, &expected, res)
 
 }
 
 func TestSIPServer_AddAgent(t *testing.T) {
-	test := SIPServer{TestName: "test", Agents: Agents{}}
-	expected := SIPServer{TestName: "test", Agents: []Agent{{AgentID: 1}}}
+	test := SIPServer{TestName: String("test"), Agents: Agents{}}
+	expected := SIPServer{TestName: String("test"), Agents: []Agent{{AgentID: Int(1)}}}
 	test.AddAgent(1)
 	assert.Equal(t, expected, test)
 }
 func TestClient_AddSIPServerAlertRule(t *testing.T) {
-	test := SIPServer{TestName: "test", AlertRules: []AlertRule{}}
-	expected := SIPServer{TestName: "test", AlertRules: []AlertRule{{RuleID: 1}}}
+	test := SIPServer{TestName: String("test"), AlertRules: []AlertRule{}}
+	expected := SIPServer{TestName: String("test"), AlertRules: []AlertRule{{RuleID: Int(1)}}}
 	test.AddAlertRule(1)
 	assert.Equal(t, expected, test)
 }
@@ -239,7 +241,7 @@ func TestClient_GetSIPServerStatusCode(t *testing.T) {
 
 	_, err := client.GetSIPServer(1)
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }
 
 func TestClient_CreateSIPServerStatusCode(t *testing.T) {
@@ -252,7 +254,7 @@ func TestClient_CreateSIPServerStatusCode(t *testing.T) {
 	})
 	_, err := client.CreateSIPServer(SIPServer{})
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }
 
 func TestClient_UpdateSIPServerStatusCode(t *testing.T) {
@@ -265,7 +267,7 @@ func TestClient_UpdateSIPServerStatusCode(t *testing.T) {
 	})
 	_, err := client.UpdateSIPServer(1, SIPServer{})
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }
 
 func TestClient_DeleteSIPServerStatusCode(t *testing.T) {
@@ -278,5 +280,5 @@ func TestClient_DeleteSIPServerStatusCode(t *testing.T) {
 	})
 	err := client.DeleteSIPServer(1)
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }

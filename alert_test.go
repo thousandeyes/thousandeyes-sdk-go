@@ -18,7 +18,7 @@ func TestClient_GetAlertRule(t *testing.T) {
 
 	// Define expected values from the API (based on the JSON we print out above)
 	expected := AlertRules{
-		AlertRule{RuleID: 1, RuleName: "test"},
+		AlertRule{RuleID: Int(1), RuleName: String("test")},
 	}
 
 	res, err := client.GetAlertRules()
@@ -67,18 +67,18 @@ func TestClient_UpdateAlertRule(t *testing.T) {
 
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	id := 1
-	u := AlertRule{RoundsViolatingOutOf: 2}
+	u := AlertRule{RoundsViolatingOutOf: Int(2)}
 	res, err := client.UpdateAlertRule(id, u)
 	if err != nil {
 		t.Fatal(err)
 	}
-	expected := AlertRule{RuleID: 1, RuleName: "test", RoundsViolatingOutOf: 2, RoundsViolatingRequired: 1}
+	expected := AlertRule{RuleID: Int(1), RuleName: String("test"), RoundsViolatingOutOf: Int(2), RoundsViolatingRequired: Int(1)}
 	assert.Equal(t, &expected, res)
 }
 
 func TestClient_CreateAlertRule(t *testing.T) {
 	setup()
-	out := `{"AlertRuleID":1, "ruleName": "test", "roundsViolatingOutOf": 2, "roundsViolatingRequired": 1}`
+	out := `{"alertRuleId": 1, "ruleName": "test", "roundsViolatingOutOf": 2, "roundsViolatingRequired": 1}`
 	mux.HandleFunc("/alert-rules/new.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "POST", r.Method)
 		w.WriteHeader(http.StatusCreated)
@@ -86,12 +86,12 @@ func TestClient_CreateAlertRule(t *testing.T) {
 	})
 
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
-	u := AlertRule{RuleName: "test", RoundsViolatingOutOf: 2, RoundsViolatingRequired: 1}
+	u := AlertRule{RuleName: String("test"), RoundsViolatingOutOf: Int(2), RoundsViolatingRequired: Int(1)}
 	res, err := client.CreateAlertRule(u)
 	if err != nil {
 		t.Fatal(err)
 	}
-	expected := AlertRule{RuleID: 1, RuleName: "test", RoundsViolatingOutOf: 2, RoundsViolatingRequired: 1}
+	expected := AlertRule{RuleID: Int(1), RuleName: String("test"), RoundsViolatingOutOf: Int(2), RoundsViolatingRequired: Int(1)}
 	assert.Equal(t, &expected, res)
 }
 
@@ -120,7 +120,7 @@ func TestClient_GetAlertStatusCode(t *testing.T) {
 
 	_, err := client.GetAlertRules()
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }
 
 func TestClient_CreateAlertStatusCode(t *testing.T) {
@@ -133,7 +133,7 @@ func TestClient_CreateAlertStatusCode(t *testing.T) {
 	})
 	_, err := client.CreateAlertRule(AlertRule{})
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }
 
 func TestClient_UpdateAlertRuleStatusCode(t *testing.T) {
@@ -146,7 +146,7 @@ func TestClient_UpdateAlertRuleStatusCode(t *testing.T) {
 	})
 	_, err := client.UpdateAlertRule(1, AlertRule{})
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }
 
 func TestClient_DeleteAlertRuleStatusCode(t *testing.T) {
@@ -159,5 +159,5 @@ func TestClient_DeleteAlertRuleStatusCode(t *testing.T) {
 	})
 	err := client.DeleteAlertRule(1)
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }

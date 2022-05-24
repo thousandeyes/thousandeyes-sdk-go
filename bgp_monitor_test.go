@@ -19,7 +19,7 @@ func TestClient_GetBGPMonitors(t *testing.T) {
 
 	// Define expected values from the API (based on the JSON we print out above)
 	expected := BGPMonitors{
-		BGPMonitor{MonitorID: 1, MonitorName: "test", MonitorType: "bgp", IPAddress: "1.2.3.4"},
+		BGPMonitor{MonitorID: Int(1), MonitorName: String("test"), MonitorType: String("bgp"), IPAddress: String("1.2.3.4")},
 	}
 
 	res, err := client.GetBPGMonitors()

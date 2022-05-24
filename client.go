@@ -35,12 +35,12 @@ type APILinks []APILink
 
 // APILink - an api link
 type APILink struct {
-	Href string `json:"href,omitempty"`
-	Rel  string `json:"rel,omitempty"`
+	Href *string `json:"href,omitempty"`
+	Rel  *string `json:"rel,omitempty"`
 }
 
 type errorObject struct {
-	ErrorMessage string `json:"errorMessage,omitempty"`
+	ErrorMessage *string `json:"errorMessage,omitempty"`
 }
 
 // Limiter - Rate limiter interface

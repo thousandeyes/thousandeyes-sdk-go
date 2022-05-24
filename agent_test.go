@@ -19,12 +19,12 @@ func TestClient_GetAgents(t *testing.T) {
 	// Define expected values from the API (based on the JSON we print out above)
 	expected := Agents{
 		Agent{
-			AgentID: 1,
-			Enabled: 1,
+			AgentID: Int(1),
+			Enabled: Int(1),
 		},
 		Agent{
-			AgentID: 2,
-			Enabled: 0,
+			AgentID: Int(2),
+			Enabled: Int(0),
 		},
 	}
 	res, err := client.GetAgents()
@@ -41,7 +41,7 @@ func TestClient_GetAgent(t *testing.T) {
 		assert.Equal(t, "GET", r.Method)
 		_, _ = w.Write([]byte(out))
 	})
-	expected := Agent{AgentID: 1, Enabled: 1}
+	expected := Agent{AgentID: Int(1), Enabled: Int(1)}
 	res, err := client.GetAgent(1)
 	teardown()
 	assert.Nil(t, err)
@@ -99,7 +99,7 @@ func TestClient_GetAgentsStatusCode(t *testing.T) {
 
 	_, err := client.GetAgents()
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }
 
 func TestClient_GetAgentStatusCode(t *testing.T) {
@@ -114,7 +114,7 @@ func TestClient_GetAgentStatusCode(t *testing.T) {
 
 	_, err := client.GetAgent(1)
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }
 
 func TestClient_AddAgentToClusterStatusCode(t *testing.T) {
@@ -129,7 +129,7 @@ func TestClient_AddAgentToClusterStatusCode(t *testing.T) {
 
 	_, err := client.AddAgentsToCluster(1, []int{8001})
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }
 
 func TestClient_RemoveAgentToClusterStatusCode(t *testing.T) {
@@ -144,7 +144,7 @@ func TestClient_RemoveAgentToClusterStatusCode(t *testing.T) {
 
 	_, err := client.RemoveAgentsFromCluster(1, []int{8001})
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }
 
 func TestClient_AddAgentToClusterJsonError(t *testing.T) {
@@ -184,12 +184,12 @@ func TestClient_RemoveAgentFromCluster(t *testing.T) {
 	res, _ := client.RemoveAgentsFromCluster(1, []int{8001})
 	exp := []Agent{
 		{
-			AgentID:   1,
-			AgentName: "test",
+			AgentID:   Int(1),
+			AgentName: String("test"),
 			ClusterMembers: []ClusterMember{
 				{
-					MemberID: 80002,
-					Name:     "test",
+					MemberID: Int(80002),
+					Name:     String("test"),
 				},
 			},
 		},
@@ -208,12 +208,12 @@ func TestClient_AddAgentToCluster(t *testing.T) {
 	res, _ := client.AddAgentsToCluster(1, []int{8002})
 	exp := []Agent{
 		{
-			AgentID:   1,
-			AgentName: "test",
+			AgentID:   Int(1),
+			AgentName: String("test"),
 			ClusterMembers: []ClusterMember{
 				{
-					MemberID: 80002,
-					Name:     "test",
+					MemberID: Int(80002),
+					Name:     String("test"),
 				},
 			},
 		},

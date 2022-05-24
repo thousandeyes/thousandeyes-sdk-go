@@ -23,16 +23,16 @@ func TestClient_GetRoles(t *testing.T) {
 	}
 	expected := []AccountGroupRole{
 		{
-			RoleName:                 "admin",
-			RoleID:                   2,
-			HasManagementPermissions: 0,
-			Builtin:                  0,
+			RoleName:                 String("admin"),
+			RoleID:                   Int(2),
+			HasManagementPermissions: Int(0),
+			Builtin:                  Int(0),
 		},
 		{
-			RoleName:                 "user1",
-			RoleID:                   1,
-			HasManagementPermissions: 1,
-			Builtin:                  1,
+			RoleName:                 String("user1"),
+			RoleID:                   Int(1),
+			HasManagementPermissions: Int(1),
+			Builtin:                  Int(1),
 		},
 	}
 	assert.Equal(t, &expected, res)
@@ -54,10 +54,10 @@ func TestClient_GetRole(t *testing.T) {
 		t.Fatal(err)
 	}
 	expected := AccountGroupRole{
-		RoleName:                 "admin",
-		RoleID:                   1,
-		HasManagementPermissions: 0,
-		Builtin:                  0,
+		RoleName:                 String("admin"),
+		RoleID:                   Int(1),
+		HasManagementPermissions: Int(0),
+		Builtin:                  Int(0),
 	}
 	assert.Equal(t, &expected, res)
 }
@@ -73,8 +73,8 @@ func TestClient_CreateRole(t *testing.T) {
 
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	create := AccountGroupRole{
-		RoleName:                 "William Test",
-		HasManagementPermissions: 1,
+		RoleName:                 String("William Test"),
+		HasManagementPermissions: Int(1),
 	}
 	res, err := client.CreateRole(create)
 	if err != nil {
@@ -82,10 +82,10 @@ func TestClient_CreateRole(t *testing.T) {
 	}
 
 	expected := AccountGroupRole{
-		RoleName:                 "William Test",
-		HasManagementPermissions: 1,
-		Builtin:                  0,
-		RoleID:                   1000,
+		RoleName:                 String("William Test"),
+		HasManagementPermissions: Int(1),
+		Builtin:                  Int(0),
+		RoleID:                   Int(1000),
 	}
 	assert.Equal(t, &expected, res)
 }
@@ -113,8 +113,8 @@ func TestClient_UpdateRole(t *testing.T) {
 
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	update := AccountGroupRole{
-		RoleName:                 "William Test",
-		HasManagementPermissions: 1,
+		RoleName:                 String("William Test"),
+		HasManagementPermissions: Int(1),
 	}
 	res, err := client.UpdateRole(1, update)
 	if err != nil {
@@ -122,10 +122,10 @@ func TestClient_UpdateRole(t *testing.T) {
 	}
 
 	expected := AccountGroupRole{
-		RoleName:                 "William Test",
-		RoleID:                   1000,
-		HasManagementPermissions: 1,
-		Builtin:                  0,
+		RoleName:                 String("William Test"),
+		RoleID:                   Int(1000),
+		HasManagementPermissions: Int(1),
+		Builtin:                  Int(0),
 	}
 	assert.Equal(t, &expected, res)
 }
@@ -142,7 +142,7 @@ func TestClient_GetRoleStatusCode(t *testing.T) {
 
 	_, err := client.GetRoles()
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }
 
 func TestClient_CreateRoleStatusCode(t *testing.T) {
@@ -155,7 +155,7 @@ func TestClient_CreateRoleStatusCode(t *testing.T) {
 	})
 	_, err := client.CreateRole(AccountGroupRole{})
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }
 
 func TestClient_UpdateRoleStatusCode(t *testing.T) {
@@ -168,7 +168,7 @@ func TestClient_UpdateRoleStatusCode(t *testing.T) {
 	})
 	_, err := client.UpdateRole(1, AccountGroupRole{})
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }
 
 func TestClient_DeleteRoleStatusCode(t *testing.T) {
@@ -181,7 +181,7 @@ func TestClient_DeleteRoleStatusCode(t *testing.T) {
 	})
 	err := client.DeleteRole(1)
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }
 
 func TestClient_GetRolesJsonError(t *testing.T) {

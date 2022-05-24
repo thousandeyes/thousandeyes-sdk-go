@@ -18,83 +18,82 @@ func TestClient_GetHTTPServer(t *testing.T) {
 
 	// Define expected values from the API (based on the JSON we print out above)
 	expected := HTTPServer{
-		TestID:                122621,
-		Enabled:               1,
-		CreatedBy:             "William Fleming (wfleming@grumpysysadm.com)",
-		CreatedDate:           "2020-02-06 15:28:07",
-		SavedEvent:            0,
-		TestName:              "test123",
-		Type:                  "http-server",
-		Interval:              300,
-		URL:                   "https://test.com",
-		Protocol:              "TCP",
-		NetworkMeasurements:   1,
-		MTUMeasurements:       1,
-		BandwidthMeasurements: 0,
-		BGPMeasurements:       1,
-		UsePublicBGP:          1,
-		AlertsEnabled:         1,
-		LiveShare:             0,
-		HTTPTimeLimit:         5,
-		HTTPTargetTime:        1000,
-		HTTPVersion:           2,
-		FollowRedirects:       1,
-		NumPathTraces:         3,
-		SSLVersionID:          0,
-		VerifyCertificate:     1,
-		UseNTLM:               0,
-		AuthType:              "NONE",
-		ContentRegex:          "",
-		ProbeMode:             "AUTO",
+		TestID:                Int64(122621),
+		Enabled:               Int(1),
+		CreatedBy:             String("William Fleming (wfleming@grumpysysadm.com)"),
+		CreatedDate:           String("2020-02-06 15:28:07"),
+		SavedEvent:            Int(0),
+		TestName:              String("test123"),
+		Type:                  String("http-server"),
+		Interval:              Int(300),
+		URL:                   String("https://test.com"),
+		Protocol:              String("TCP"),
+		NetworkMeasurements:   Int(1),
+		MTUMeasurements:       Int(1),
+		BandwidthMeasurements: Int(0),
+		BGPMeasurements:       Int(1),
+		AlertsEnabled:         Int(1),
+		LiveShare:             Int(0),
+		HTTPTimeLimit:         Int(5),
+		HTTPTargetTime:        Int(1000),
+		HTTPVersion:           Int(2),
+		FollowRedirects:       Int(1),
+		NumPathTraces:         Int(3),
+		SSLVersionID:          Int(0),
+		VerifyCertificate:     Int(1),
+		UseNTLM:               Int(0),
+		AuthType:              String("NONE"),
+		ContentRegex:          String(""),
+		ProbeMode:             String("AUTO"),
 		Agents: []Agent{
 			{
-				AgentID:     48620,
-				AgentType:   "Cloud",
-				AgentName:   "Seattle, WA (Trial) - IPv6",
-				CountryID:   "US",
+				AgentID:     Int(48620),
+				AgentType:   String("Cloud"),
+				AgentName:   String("Seattle, WA (Trial) - IPv6"),
+				CountryID:   String("US"),
 				IPAddresses: []string{"135.84.184.153"},
-				Location:    "Seattle Area",
-				Network:     "Astute Hosting Inc. (AS 54527)",
-				Prefix:      "135.84.184.0/22",
+				Location:    String("Seattle Area"),
+				Network:     String("Astute Hosting Inc. (AS 54527)"),
+				Prefix:      String("135.84.184.0/22"),
 			},
 		},
 		SharedWithAccounts: []SharedWithAccount{
 			{
-				AID:              176592,
-				AccountGroupName: "Cloudreach",
+				AID:              Int(176592),
+				AccountGroupName: String("Cloudreach"),
 			},
 		},
 		BGPMonitors: []Monitor{
 			{
-				MonitorID:   64,
-				IPAddress:   "2001:240:100:ff::2497:2",
-				CountryID:   "JP",
-				MonitorName: "Tokyo-3",
-				Network:     "IIJ Internet Initiative Japan Inc. (AS 2497)",
-				MonitorType: "Public",
+				MonitorID:   Int(64),
+				IPAddress:   String("2001:240:100:ff::2497:2"),
+				CountryID:   String("JP"),
+				MonitorName: String("Tokyo-3"),
+				Network:     String("IIJ Internet Initiative Japan Inc. (AS 2497)"),
+				MonitorType: String("Public"),
 			},
 		},
-		SSLVersion: "Auto",
+		SSLVersion: String("Auto"),
 		APILinks: APILinks{
 			{
-				Href: "https://api.thousandeyes.com/v6/tests/1226221",
-				Rel:  "self",
+				Href: String("https://api.thousandeyes.com/v6/tests/1226221"),
+				Rel:  String("self"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/web/http-server/1226221",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/web/http-server/1226221"),
+				Rel:  String("data"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/net/metrics/1226221",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/net/metrics/1226221"),
+				Rel:  String("data"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/net/path-vis/1226221",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/net/path-vis/1226221"),
+				Rel:  String("data"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/net/bgp-metrics/1226221",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/net/bgp-metrics/1226221"),
+				Rel:  String("data"),
 			},
 		},
 	}
@@ -130,90 +129,89 @@ func TestClient_CreateHTTPServer(t *testing.T) {
 
 	// Define expected values from the API (based on the JSON we print out above)
 	expected := HTTPServer{
-		TestID:                122621,
-		Enabled:               1,
-		CreatedBy:             "William Fleming (wfleming@grumpysysadm.com)",
-		CreatedDate:           "2020-02-06 15:28:07",
-		SavedEvent:            0,
-		TestName:              "test123",
-		Type:                  "http-server",
-		Interval:              300,
-		URL:                   "https://test.com",
-		Protocol:              "TCP",
-		NetworkMeasurements:   1,
-		MTUMeasurements:       1,
-		BandwidthMeasurements: 0,
-		BGPMeasurements:       1,
-		UsePublicBGP:          1,
-		AlertsEnabled:         1,
-		LiveShare:             0,
-		HTTPTimeLimit:         5,
-		HTTPTargetTime:        1000,
-		HTTPVersion:           2,
-		FollowRedirects:       1,
-		NumPathTraces:         3,
-		SSLVersionID:          0,
-		VerifyCertificate:     1,
-		UseNTLM:               0,
-		AuthType:              "NONE",
-		ContentRegex:          "",
-		ProbeMode:             "AUTO",
+		TestID:                Int64(122621),
+		Enabled:               Int(1),
+		CreatedBy:             String("William Fleming (wfleming@grumpysysadm.com)"),
+		CreatedDate:           String("2020-02-06 15:28:07"),
+		SavedEvent:            Int(0),
+		TestName:              String("test123"),
+		Type:                  String("http-server"),
+		Interval:              Int(300),
+		URL:                   String("https://test.com"),
+		Protocol:              String("TCP"),
+		NetworkMeasurements:   Int(1),
+		MTUMeasurements:       Int(1),
+		BandwidthMeasurements: Int(0),
+		BGPMeasurements:       Int(1),
+		AlertsEnabled:         Int(1),
+		LiveShare:             Int(0),
+		HTTPTimeLimit:         Int(5),
+		HTTPTargetTime:        Int(1000),
+		HTTPVersion:           Int(2),
+		FollowRedirects:       Int(1),
+		NumPathTraces:         Int(3),
+		SSLVersionID:          Int(0),
+		VerifyCertificate:     Int(1),
+		UseNTLM:               Int(0),
+		AuthType:              String("NONE"),
+		ContentRegex:          String(""),
+		ProbeMode:             String("AUTO"),
 		Agents: []Agent{
 			{
-				AgentID:     48620,
-				AgentType:   "Cloud",
-				AgentName:   "Seattle, WA (Trial) - IPv6",
-				CountryID:   "US",
+				AgentID:     Int(48620),
+				AgentType:   String("Cloud"),
+				AgentName:   String("Seattle, WA (Trial) - IPv6"),
+				CountryID:   String("US"),
 				IPAddresses: []string{"135.84.184.153"},
-				Location:    "Seattle Area",
-				Network:     "Astute Hosting Inc. (AS 54527)",
-				Prefix:      "135.84.184.0/22",
+				Location:    String("Seattle Area"),
+				Network:     String("Astute Hosting Inc. (AS 54527)"),
+				Prefix:      String("135.84.184.0/22"),
 			},
 		},
 		SharedWithAccounts: []SharedWithAccount{
 			{
-				AID:              176592,
-				AccountGroupName: "Cloudreach",
+				AID:              Int(176592),
+				AccountGroupName: String("Cloudreach"),
 			},
 		},
 		BGPMonitors: []Monitor{
 			{
-				MonitorID:   64,
-				IPAddress:   "2001:240:100:ff::2497:2",
-				CountryID:   "JP",
-				MonitorName: "Tokyo-3",
-				Network:     "IIJ Internet Initiative Japan Inc. (AS 2497)",
-				MonitorType: "Public",
+				MonitorID:   Int(64),
+				IPAddress:   String("2001:240:100:ff::2497:2"),
+				CountryID:   String("JP"),
+				MonitorName: String("Tokyo-3"),
+				Network:     String("IIJ Internet Initiative Japan Inc. (AS 2497)"),
+				MonitorType: String("Public"),
 			},
 		},
-		SSLVersion: "Auto",
+		SSLVersion: String("Auto"),
 		APILinks: APILinks{
 			{
-				Href: "https://api.thousandeyes.com/v6/tests/1226221",
-				Rel:  "self",
+				Href: String("https://api.thousandeyes.com/v6/tests/1226221"),
+				Rel:  String("self"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/web/http-server/1226221",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/web/http-server/1226221"),
+				Rel:  String("data"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/net/metrics/1226221",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/net/metrics/1226221"),
+				Rel:  String("data"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/net/path-vis/1226221",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/net/path-vis/1226221"),
+				Rel:  String("data"),
 			},
 			{
-				Href: "https://api.thousandeyes.com/v6/net/bgp-metrics/1226221",
-				Rel:  "data",
+				Href: String("https://api.thousandeyes.com/v6/net/bgp-metrics/1226221"),
+				Rel:  String("data"),
 			},
 		},
 	}
 	create := HTTPServer{
-		TestName: "test1",
-		URL:      "https://test.com",
-		Interval: 300,
+		TestName: String("test1"),
+		URL:      String("https://test.com"),
+		Interval: Int(300),
 	}
 	res, err := client.CreateHTTPServer(create)
 	teardown()
@@ -248,19 +246,19 @@ func TestClient_UpdateHTTPServer(t *testing.T) {
 
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	id := 1
-	httpS := HTTPServer{URL: "https://test.com"}
+	httpS := HTTPServer{URL: String("https://test.com")}
 	res, err := client.UpdateHTTPServer(id, httpS)
 	if err != nil {
 		t.Fatal(err)
 	}
-	expected := HTTPServer{TestID: 1, TestName: "test123", Type: "http-server", URL: "https://test.com"}
+	expected := HTTPServer{TestID: Int64(1), TestName: String("test123"), Type: String("http-server"), URL: String("https://test.com")}
 	assert.Equal(t, &expected, res)
 
 }
 
 func TestHTTPServer_AddAgent(t *testing.T) {
-	test := HTTPServer{TestName: "test", Agents: Agents{}}
-	expected := HTTPServer{TestName: "test", Agents: []Agent{{AgentID: 1}}}
+	test := HTTPServer{TestName: String("test"), Agents: Agents{}}
+	expected := HTTPServer{TestName: String("test"), Agents: []Agent{{AgentID: Int(1)}}}
 	test.AddAgent(1)
 	assert.Equal(t, expected, test)
 }
@@ -290,7 +288,7 @@ func TestClient_GetHTTPServerStatusCode(t *testing.T) {
 
 	_, err := client.GetHTTPServer(1)
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }
 
 func TestClient_CreateHTTPServerStatusCode(t *testing.T) {
@@ -303,7 +301,7 @@ func TestClient_CreateHTTPServerStatusCode(t *testing.T) {
 	})
 	_, err := client.CreateHTTPServer(HTTPServer{})
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }
 
 func TestClient_UpdateHTTPServerStatusCode(t *testing.T) {
@@ -316,7 +314,7 @@ func TestClient_UpdateHTTPServerStatusCode(t *testing.T) {
 	})
 	_, err := client.UpdateHTTPServer(1, HTTPServer{})
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }
 
 func TestClient_DeleteHTTPServerStatusCode(t *testing.T) {
@@ -329,5 +327,5 @@ func TestClient_DeleteHTTPServerStatusCode(t *testing.T) {
 	})
 	err := client.DeleteHTTPServer(1)
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{}")
+	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
 }
