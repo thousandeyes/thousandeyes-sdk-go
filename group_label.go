@@ -12,7 +12,7 @@ type GroupLabels []GroupLabel
 type GroupLabel struct {
 	Name    *string       `json:"name,omitempty"`
 	GroupID *int64        `json:"groupId,omitempty"`
-	BuiltIn *bool         `json:"builtin,omitempty"`
+	Builtin *bool         `json:"builtin,omitempty"`
 	Type    *string       `json:"type,omitempty"`
 	Agents  []Agent       `json:"agents,omitempty"`
 	Tests   []GenericTest `json:"tests,omitempty"`

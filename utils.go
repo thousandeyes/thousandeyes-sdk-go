@@ -9,7 +9,6 @@ var booleanFields = []string{
 	"bandwidthMeasurements",
 	"bgpMeasurements",
 	"builtin",
-	"builtIn",
 	"enabled",
 	"followRedirects",
 	"hasManagementPermissions",
