@@ -26,7 +26,7 @@ var booleanFields = []string{
 	"throughputMeasurements",
 	"useActiveFtp",
 	"useExplicitFtps",
-	"useNTLM",
+	"useNtlm",
 	"usePublicBGP",
 	"verifyCertificate",
 	"verifySslCertificates",
