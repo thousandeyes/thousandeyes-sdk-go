@@ -1,6 +1,7 @@
 package thousandeyes
 
 import (
+	"encoding/json"
 	"fmt"
 )
 
@@ -13,40 +14,69 @@ type Server struct {
 // DNSServer - dns server test
 type DNSServer struct {
 	// Common test fields
-	AlertsEnabled      *int                `json:"alertsEnabled,omitempty"`
+	AlertsEnabled      *bool               `json:"alertsEnabled,omitempty"`
 	AlertRules         []AlertRule         `json:"alertRules"`
 	APILinks           []APILink           `json:"apiLinks,omitempty"`
 	CreatedBy          *string             `json:"createdBy,omitempty"`
 	CreatedDate        *string             `json:"createdDate,omitempty"`
 	Description        *string             `json:"description,omitempty"`
-	Enabled            *int                `json:"enabled,omitempty"`
+	Enabled            *bool               `json:"enabled,omitempty"`
 	Groups             []GroupLabel        `json:"groups,omitempty"`
 	ModifiedBy         *string             `json:"modifiedBy,omitempty"`
 	ModifiedDate       *string             `json:"modifiedDate,omitempty"`
-	SavedEvent         *int                `json:"savedEvent,omitempty"`
+	SavedEvent         *bool               `json:"savedEvent,omitempty"`
 	SharedWithAccounts []SharedWithAccount `json:"sharedWithAccounts,omitempty"`
 	TestID             *int64              `json:"testId,omitempty"`
 	TestName           *string             `json:"testName,omitempty"`
 	Type               *string             `json:"type,omitempty"`
-	LiveShare          *int                `json:"liveShare,omitempty"`
+	LiveShare          *bool               `json:"liveShare,omitempty"`
 
 	// Fields unique to this test
 	Agents                Agents       `json:"agents,omitempty"`
-	BandwidthMeasurements *int         `json:"bandwidthMeasurements,omitempty"`
-	BGPMeasurements       *int         `json:"bgpMeasurements,omitempty"`
+	BandwidthMeasurements *bool        `json:"bandwidthMeasurements,omitempty"`
+	BGPMeasurements       *bool        `json:"bgpMeasurements,omitempty"`
 	BGPMonitors           []BGPMonitor `json:"bgpMonitors,omitempty"`
 	DNSServers            []Server     `json:"dnsServers,omitempty"`
 	DNSTransportProtocol  *string      `json:"dnsTransportProtocol,omitempty"`
 	Domain                *string      `json:"domain,omitempty"`
 	Interval              *int         `json:"interval,omitempty"`
-	MTUMeasurements       *int         `json:"mtuMeasurements,omitempty"`
-	NetworkMeasurements   *int         `json:"networkMeasurements,omitempty"`
+	MTUMeasurements       *bool        `json:"mtuMeasurements,omitempty"`
+	NetworkMeasurements   *bool        `json:"networkMeasurements,omitempty"`
 	NumPathTraces         *int         `json:"numPathTraces,omitempty"`
 	PathTraceMode         *string      `json:"pathTraceMode,omitempty"`
 	ProbeMode             *string      `json:"probeMode,omitempty"`
 	Protocol              *string      `json:"protocol,omitempty"`
-	RecursiveQueries      *int         `json:"recursiveQueries,omitempty"`
-	UsePublicBGP          *int         `json:"usePublicBgp,omitempty"`
+	RecursiveQueries      *bool        `json:"recursiveQueries,omitempty"`
+	UsePublicBGP          *bool        `json:"usePublicBgp,omitempty"`
+}
+
+// MarshalJSON implements the json.Marshaler interface. It ensures
+// that ThousandEyes int fields that only use the values 0 or 1 are
+// treated as booleans.
+func (t DNSServer) MarshalJSON() ([]byte, error) {
+	type aliasTest DNSServer
+
+	data, err := json.Marshal((aliasTest)(t))
+	if err != nil {
+		return nil, err
+	}
+
+	return jsonBoolToInt(data)
+}
+
+// UnmarshalJSON implements the json.Unmarshaler interface. It ensures
+// that ThousandEyes int fields that only use the values 0 or 1 are
+// treated as booleans.
+func (t *DNSServer) UnmarshalJSON(data []byte) error {
+	type aliasTest DNSServer
+	test := (*aliasTest)(t)
+
+	data, err := jsonIntToBool(data)
+	if err != nil {
+		return err
+	}
+
+	return json.Unmarshal(data, &test)
 }
 
 // AddAgent - Add dns server test

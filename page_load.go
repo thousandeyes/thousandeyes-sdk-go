@@ -1,46 +1,47 @@
 package thousandeyes
 
 import (
+	"encoding/json"
 	"fmt"
 )
 
 // PageLoad - a page log struct
 type PageLoad struct {
 	// Common test fields
-	AlertsEnabled      *int                `json:"alertsEnabled,omitempty"`
+	AlertsEnabled      *bool               `json:"alertsEnabled,omitempty"`
 	AlertRules         []AlertRule         `json:"alertRules"`
 	APILinks           []APILink           `json:"apiLinks,omitempty"`
 	CreatedBy          *string             `json:"createdBy,omitempty"`
 	CreatedDate        *string             `json:"createdDate,omitempty"`
 	Description        *string             `json:"description,omitempty"`
-	Enabled            *int                `json:"enabled,omitempty"`
+	Enabled            *bool               `json:"enabled,omitempty"`
 	Groups             []GroupLabel        `json:"groups,omitempty"`
 	ModifiedBy         *string             `json:"modifiedBy,omitempty"`
 	ModifiedDate       *string             `json:"modifiedDate,omitempty"`
-	SavedEvent         *int                `json:"savedEvent,omitempty"`
+	SavedEvent         *bool               `json:"savedEvent,omitempty"`
 	SharedWithAccounts []SharedWithAccount `json:"sharedWithAccounts,omitempty"`
 	TestID             *int64              `json:"testId,omitempty"`
 	TestName           *string             `json:"testName,omitempty"`
 	Type               *string             `json:"type,omitempty"`
-	LiveShare          *int                `json:"liveShare,omitempty"`
+	LiveShare          *bool               `json:"liveShare,omitempty"`
 
 	// Fields unique to this test
 	Agents                Agents        `json:"agents,omitempty"`
 	AuthType              *string       `json:"authType,omitempty"`
-	BandwidthMeasurements *int          `json:"bandwidthMeasurements,omitempty"`
-	BGPMeasurements       *int          `json:"bgpMeasurements,omitempty"`
+	BandwidthMeasurements *bool         `json:"bandwidthMeasurements,omitempty"`
+	BGPMeasurements       *bool         `json:"bgpMeasurements,omitempty"`
 	BGPMonitors           []BGPMonitor  `json:"bgpMonitors,omitempty"`
 	ContentRegex          *string       `json:"contentRegex,omitempty"`
 	CustomHeaders         CustomHeaders `json:"customHeaders,omitempty"`
-	FollowRedirects       *int          `json:"followRedirects,omitempty"`
+	FollowRedirects       *bool         `json:"followRedirects,omitempty"`
 	HTTPInterval          *int          `json:"httpInterval,omitempty"`
 	HTTPTargetTime        *int          `json:"httpTargetTime,omitempty"`
 	HTTPTimeLimit         *int          `json:"httpTimeLimit,omitempty"`
 	HTTPVersion           *int          `json:"httpVersion,omitempty"`
-	IncludeHeaders        *int          `json:"includeHeaders,omitempty"`
+	IncludeHeaders        *bool         `json:"includeHeaders,omitempty"`
 	Interval              *int          `json:"interval,omitempty"`
-	MTUMeasurements       *int          `json:"mtuMeasurements,omitempty"`
-	NetworkMeasurements   *int          `json:"networkMeasurements,omitempty"`
+	MTUMeasurements       *bool         `json:"mtuMeasurements,omitempty"`
+	NetworkMeasurements   *bool         `json:"networkMeasurements,omitempty"`
 	NumPathTraces         *int          `json:"numPathTraces,omitempty"`
 	PageLoadTargetTime    *int          `json:"pageLoadTargetTime,omitempty"`
 	PageLoadTimeLimit     *int          `json:"pageLoadTimeLimit,omitempty"`
@@ -52,11 +53,40 @@ type PageLoad struct {
 	SSLVersionID          *int          `json:"sslVersionId,omitempty"`
 	Subinterval           *int          `json:"subinterval,omitempty"`
 	URL                   *string       `json:"url,omitempty"`
-	UseNTLM               *int          `json:"useNtlm,omitempty"`
-	UsePublicBGP          *int          `json:"usePublicBgp,omitempty"`
+	UseNTLM               *bool         `json:"useNtlm,omitempty"`
+	UsePublicBGP          *bool         `json:"usePublicBgp,omitempty"`
 	UserAgent             *string       `json:"userAgent,omitempty"`
 	Username              *string       `json:"username,omitempty"`
-	VerifyCertificate     *int          `json:"verifyCertificate,omitempty"`
+	VerifyCertificate     *bool         `json:"verifyCertificate,omitempty"`
+}
+
+// MarshalJSON implements the json.Marshaler interface. It ensures
+// that ThousandEyes int fields that only use the values 0 or 1 are
+// treated as booleans.
+func (t PageLoad) MarshalJSON() ([]byte, error) {
+	type aliasTest PageLoad
+
+	data, err := json.Marshal((aliasTest)(t))
+	if err != nil {
+		return nil, err
+	}
+
+	return jsonBoolToInt(data)
+}
+
+// UnmarshalJSON implements the json.Unmarshaler interface. It ensures
+// that ThousandEyes int fields that only use the values 0 or 1 are
+// treated as booleans.
+func (t *PageLoad) UnmarshalJSON(data []byte) error {
+	type aliasTest PageLoad
+	test := (*aliasTest)(t)
+
+	data, err := jsonIntToBool(data)
+	if err != nil {
+		return err
+	}
+
+	return json.Unmarshal(data, &test)
 }
 
 // AddAgent  - add an aget

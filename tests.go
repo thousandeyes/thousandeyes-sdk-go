@@ -1,27 +1,59 @@
 package thousandeyes
 
-import "fmt"
+import (
+	"encoding/json"
+	"fmt"
+)
 
 // GenericTest - GenericTest struct to represent all test types
 type GenericTest struct {
 	// Common test fields
-	AlertsEnabled      *int                `json:"alertsEnabled,omitempty"`
+	AlertsEnabled      *bool               `json:"alertsEnabled,omitempty"`
 	AlertRules         []AlertRule         `json:"alertRules"`
 	APILinks           []APILink           `json:"apiLinks,omitempty"`
 	CreatedBy          *string             `json:"createdBy,omitempty"`
 	CreatedDate        *string             `json:"createdDate,omitempty"`
 	Description        *string             `json:"description,omitempty"`
-	Enabled            *int                `json:"enabled,omitempty"`
+	Enabled            *bool               `json:"enabled,omitempty"`
 	Groups             []GroupLabel        `json:"groups,omitempty"`
 	ModifiedBy         *string             `json:"modifiedBy,omitempty"`
 	ModifiedDate       *string             `json:"modifiedDate,omitempty"`
-	SavedEvent         *int                `json:"savedEvent,omitempty"`
+	SavedEvent         *bool               `json:"savedEvent,omitempty"`
 	SharedWithAccounts []SharedWithAccount `json:"sharedWithAccounts,omitempty"`
 	TestID             *int64              `json:"testId,omitempty"`
 	TestName           *string             `json:"testName,omitempty"`
 	Type               *string             `json:"type,omitempty"`
 	// Fields unique to this test
 	Agents []Agent `json:"agents,omitempty"`
+}
+
+// MarshalJSON implements the json.Marshaler interface. It ensures
+// that ThousandEyes int fields that only use the values 0 or 1 are
+// treated as booleans.
+func (t GenericTest) MarshalJSON() ([]byte, error) {
+	type aliasTest GenericTest
+
+	data, err := json.Marshal((aliasTest)(t))
+	if err != nil {
+		return nil, err
+	}
+
+	return jsonBoolToInt(data)
+}
+
+// UnmarshalJSON implements the json.Unmarshaler interface. It ensures
+// that ThousandEyes int fields that only use the values 0 or 1 are
+// treated as booleans.
+func (t *GenericTest) UnmarshalJSON(data []byte) error {
+	type aliasTest GenericTest
+	test := (*aliasTest)(t)
+
+	data, err := jsonIntToBool(data)
+	if err != nil {
+		return err
+	}
+
+	return json.Unmarshal(data, &test)
 }
 
 // GetTests  - get all tests

@@ -39,7 +39,7 @@ func TestClient_GetGroupLabelsByType(t *testing.T) {
 
 	// Define expected values from the API (based on the JSON we print out above)
 	expected := GroupLabels{
-		GroupLabel{GroupID: Int64(1), BuiltIn: Int(0), Type: String("tests"), Name: String("test-agent")},
+		GroupLabel{GroupID: Int64(1), BuiltIn: Bool(false), Type: String("tests"), Name: String("test-agent")},
 	}
 
 	res, err := client.GetGroupLabelsByType("tests")
@@ -65,7 +65,7 @@ func TestClient_GetGroupLabel(t *testing.T) {
 
 	// Define expected values from the API (based on the JSON we print out above)
 	expected := GroupLabel{
-		GroupID: Int64(222), BuiltIn: Int(0), Type: String("tests"), Name: String("test-agent"),
+		GroupID: Int64(222), BuiltIn: Bool(false), Type: String("tests"), Name: String("test-agent"),
 	}
 
 	res, err := client.GetGroupLabel(222)

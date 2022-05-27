@@ -8,10 +8,15 @@ var booleanFields = []string{
 	"alertsEnabled",
 	"bandwidthMeasurements",
 	"bgpMeasurements",
+	"builtin",
+	"builtIn",
 	"enabled",
 	"followRedirects",
+	"hasManagementPermissions",
 	"includeCoveredPrefixes",
 	"includeHeaders",
+	"isManagementPermission",
+	"keepBrowserCache",
 	"liveShare",
 	"mtuMeasurements",
 	"networkMeasurements",
@@ -24,6 +29,7 @@ var booleanFields = []string{
 	"useNTLM",
 	"usePublicBGP",
 	"verifyCertificate",
+	"verifySslCertificates",
 }
 
 // Bool is a helper routine that allocates a new bool value

@@ -1,21 +1,82 @@
 package thousandeyes
 
-import "fmt"
+import (
+	"encoding/json"
+	"fmt"
+)
 
 // AccountGroupRole - an account group role
 type AccountGroupRole struct {
 	RoleName                 *string      `json:"roleName,omitempty"`
 	RoleID                   *int         `json:"roleId,omitempty"`
-	HasManagementPermissions *int         `json:"hasManagementPermissions,omitempty"`
-	Builtin                  *int         `json:"builtin,omitempty"`
+	HasManagementPermissions *bool        `json:"hasManagementPermissions,omitempty"`
+	Builtin                  *bool        `json:"builtin,omitempty"`
 	Permissions              []Permission `json:"permissions,omitempty"`
 }
 
 // Permission - permission attached to roles
 type Permission struct {
-	IsManagementPermission *int    `json:"isManagementPermission"`
+	IsManagementPermission *bool   `json:"isManagementPermission"`
 	Label                  *string `json:"label"`
 	PermissionID           *int    `json:"permissionId"`
+}
+
+// MarshalJSON implements the json.Marshaler interface. It ensures
+// that ThousandEyes int fields that only use the values 0 or 1 are
+// treated as booleans.
+func (t AccountGroupRole) MarshalJSON() ([]byte, error) {
+	type alias AccountGroupRole
+
+	data, err := json.Marshal((alias)(t))
+	if err != nil {
+		return nil, err
+	}
+
+	return jsonBoolToInt(data)
+}
+
+// UnmarshalJSON implements the json.Unmarshaler interface. It ensures
+// that ThousandEyes int fields that only use the values 0 or 1 are
+// treated as booleans.
+func (t *AccountGroupRole) UnmarshalJSON(data []byte) error {
+	type alias AccountGroupRole
+	test := (*alias)(t)
+
+	data, err := jsonIntToBool(data)
+	if err != nil {
+		return err
+	}
+
+	return json.Unmarshal(data, &test)
+}
+
+// MarshalJSON implements the json.Marshaler interface. It ensures
+// that ThousandEyes int fields that only use the values 0 or 1 are
+// treated as booleans.
+func (t Permission) MarshalJSON() ([]byte, error) {
+	type alias Permission
+
+	data, err := json.Marshal((alias)(t))
+	if err != nil {
+		return nil, err
+	}
+
+	return jsonBoolToInt(data)
+}
+
+// UnmarshalJSON implements the json.Unmarshaler interface. It ensures
+// that ThousandEyes int fields that only use the values 0 or 1 are
+// treated as booleans.
+func (t *Permission) UnmarshalJSON(data []byte) error {
+	type alias Permission
+	test := (*alias)(t)
+
+	data, err := jsonIntToBool(data)
+	if err != nil {
+		return err
+	}
+
+	return json.Unmarshal(data, &test)
 }
 
 // GetRoles - get roles

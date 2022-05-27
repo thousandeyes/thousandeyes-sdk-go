@@ -1,33 +1,34 @@
 package thousandeyes
 
 import (
+	"encoding/json"
 	"fmt"
 )
 
 // WebTransaction - a web transcation test
 type WebTransaction struct {
 	// Common test fields
-	AlertsEnabled      *int                `json:"alertsEnabled,omitempty"`
+	AlertsEnabled      *bool               `json:"alertsEnabled,omitempty"`
 	AlertRules         []AlertRule         `json:"alertRules"`
 	APILinks           []APILink           `json:"apiLinks,omitempty"`
 	CreatedBy          *string             `json:"createdBy,omitempty"`
 	CreatedDate        *string             `json:"createdDate,omitempty"`
 	Description        *string             `json:"description,omitempty"`
-	Enabled            *int                `json:"enabled,omitempty"`
+	Enabled            *bool               `json:"enabled,omitempty"`
 	Groups             []GroupLabel        `json:"groups,omitempty"`
 	ModifiedBy         *string             `json:"modifiedBy,omitempty"`
 	ModifiedDate       *string             `json:"modifiedDate,omitempty"`
-	SavedEvent         *int                `json:"savedEvent,omitempty"`
+	SavedEvent         *bool               `json:"savedEvent,omitempty"`
 	SharedWithAccounts []SharedWithAccount `json:"sharedWithAccounts,omitempty"`
 	TestID             *int64              `json:"testId,omitempty"`
 	TestName           *string             `json:"testName,omitempty"`
 	Type               *string             `json:"type,omitempty"`
-	LiveShare          *int                `json:"liveShare,omitempty"`
+	LiveShare          *bool               `json:"liveShare,omitempty"`
 
 	// Fields unique to this test
 	Agents                Agents        `json:"agents,omitempty"`
 	AuthType              *string       `json:"authType,omitempty"`
-	BandwidthMeasurements *int          `json:"bandwidthMeasurements,omitempty"`
+	BandwidthMeasurements *bool         `json:"bandwidthMeasurements,omitempty"`
 	ContentRegex          *string       `json:"contentRegex,omitempty"`
 	Credentials           []int         `json:"credentials,omitempty"`
 	CustomHeaders         CustomHeaders `json:"customHeaders,omitempty"`
@@ -35,10 +36,10 @@ type WebTransaction struct {
 	HTTPTargetTime        *int          `json:"httpTargetTime,omitempty"`
 	HTTPTimeLimit         *int          `json:"httpTimeLimit,omitempty"`
 	HTTPVersion           *int          `json:"httpVersion,omitempty"`
-	IncludeHeaders        *int          `json:"includeHeaders,omitempty"`
+	IncludeHeaders        *bool         `json:"includeHeaders,omitempty"`
 	Interval              *int          `json:"interval,omitempty"`
-	MTUMeasurements       *int          `json:"mtuMeasurements,omitempty"`
-	NetworkMeasurements   *int          `json:"networkMeasurements,omitempty"`
+	MTUMeasurements       *bool         `json:"mtuMeasurements,omitempty"`
+	NetworkMeasurements   *bool         `json:"networkMeasurements,omitempty"`
 	NumPathTraces         *int          `json:"numPathTraces,omitempty"`
 	Password              *string       `json:"password,omitempty"`
 	PathTraceMode         *string       `json:"pathTraceMode,omitempty"`
@@ -50,10 +51,39 @@ type WebTransaction struct {
 	TimeLimit             *int          `json:"timeLimit,omitempty"`
 	TransactionScript     *string       `json:"transactionScript,omitempty"`
 	URL                   *string       `json:"url,omitempty"`
-	UseNTLM               *int          `json:"useNtlm,omitempty"`
+	UseNTLM               *bool         `json:"useNtlm,omitempty"`
 	UserAgent             *string       `json:"userAgent,omitempty"`
 	Username              *string       `json:"username,omitempty"`
-	VerifyCertificate     *int          `json:"verifyCertificate,omitempty"`
+	VerifyCertificate     *bool         `json:"verifyCertificate,omitempty"`
+}
+
+// MarshalJSON implements the json.Marshaler interface. It ensures
+// that ThousandEyes int fields that only use the values 0 or 1 are
+// treated as booleans.
+func (t WebTransaction) MarshalJSON() ([]byte, error) {
+	type aliasTest WebTransaction
+
+	data, err := json.Marshal((aliasTest)(t))
+	if err != nil {
+		return nil, err
+	}
+
+	return jsonBoolToInt(data)
+}
+
+// UnmarshalJSON implements the json.Unmarshaler interface. It ensures
+// that ThousandEyes int fields that only use the values 0 or 1 are
+// treated as booleans.
+func (t *WebTransaction) UnmarshalJSON(data []byte) error {
+	type aliasTest WebTransaction
+	test := (*aliasTest)(t)
+
+	data, err := jsonIntToBool(data)
+	if err != nil {
+		return err
+	}
+
+	return json.Unmarshal(data, &test)
 }
 
 // CreateWebTransaction - Create a web transaction test

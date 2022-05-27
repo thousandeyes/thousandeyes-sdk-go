@@ -19,14 +19,14 @@ func TestClient_GetVoiceCall(t *testing.T) {
 	// Define expected values from the API (based on the JSON we print out above)
 	expected := VoiceCall{
 		TestID:          Int64(814641),
-		Enabled:         Int(1),
+		Enabled:         Bool(true),
 		CreatedBy:       String("ThousandEyes (support@thousandeyes.com)"),
 		CreatedDate:     String("2018-11-03 19:09:42"),
-		SavedEvent:      Int(0),
-		AlertsEnabled:   Int(0),
+		SavedEvent:      Bool(false),
+		AlertsEnabled:   Bool(false),
 		TestName:        String("Voice Call - AWS SIP server"),
 		Interval:        Int(120),
-		LiveShare:       Int(0),
+		LiveShare:       Bool(false),
 		Duration:        Int(5),
 		JitterBuffer:    Int(40),
 		SIPTargetTime:   Int(1000),
@@ -36,8 +36,8 @@ func TestClient_GetVoiceCall(t *testing.T) {
 		TargetAgentID:   Int(69),
 		Codec:           String("G.711 @ 64 Kbps"),
 		CodecID:         Int(0),
-		BGPMeasurements: Int(1),
-		UsePublicBGP:    Int(1),
+		BGPMeasurements: Bool(true),
+		UsePublicBGP:    Bool(true),
 		NumPathTraces:   Int(3),
 		DSCP:            String("EF (DSCP 46)"),
 		DSCPID:          Int(46),
@@ -112,19 +112,19 @@ func TestClient_CreateVoiceCall(t *testing.T) {
 	// Define expected values from the API (based on the JSON we print out above)
 	expected := VoiceCall{
 		TestID:          Int64(814641),
-		Enabled:         Int(1),
+		Enabled:         Bool(true),
 		ModifiedBy:      String("ThousandEyes (support@thousandeyes.com)"),
 		ModifiedDate:    String("2019-02-06 01:09:56"),
 		CreatedBy:       String("ThousandEyes (support@thousandeyes.com)"),
 		CreatedDate:     String("2018-11-03 19:09:42"),
-		SavedEvent:      Int(0),
+		SavedEvent:      Bool(false),
 		TestName:        String("Voice Call - AWS SIP server"),
 		Interval:        Int(120),
-		AlertsEnabled:   Int(0),
+		AlertsEnabled:   Bool(false),
 		DSCPID:          Int(46),
 		Duration:        Int(5),
-		BGPMeasurements: Int(1),
-		UsePublicBGP:    Int(1),
+		BGPMeasurements: Bool(true),
+		UsePublicBGP:    Bool(true),
 		NumPathTraces:   Int(3),
 		Codec:           String("G.711 @ 64 Kbps"),
 		CodecID:         Int(0),
@@ -197,7 +197,7 @@ func TestClient_UpdateVoiceCall(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	expected := VoiceCall{AlertsEnabled: Int(0), Interval: Int(120), TestID: Int64(1234), Codec: String("G.711 @ 64 Kbps"), TestName: String("Voice Call - AWS SIP server"), CodecID: Int(0), JitterBuffer: Int(40)}
+	expected := VoiceCall{AlertsEnabled: Bool(false), Interval: Int(120), TestID: Int64(1234), Codec: String("G.711 @ 64 Kbps"), TestName: String("Voice Call - AWS SIP server"), CodecID: Int(0), JitterBuffer: Int(40)}
 	assert.Equal(t, &expected, res)
 
 }

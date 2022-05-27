@@ -1,6 +1,7 @@
 package thousandeyes
 
 import (
+	"encoding/json"
 	"fmt"
 )
 
@@ -11,10 +12,39 @@ type GroupLabels []GroupLabel
 type GroupLabel struct {
 	Name    *string       `json:"name,omitempty"`
 	GroupID *int64        `json:"groupId,omitempty"`
-	BuiltIn *int          `json:"builtin,omitempty"`
+	BuiltIn *bool         `json:"builtin,omitempty"`
 	Type    *string       `json:"type,omitempty"`
 	Agents  []Agent       `json:"agents,omitempty"`
 	Tests   []GenericTest `json:"tests,omitempty"`
+}
+
+// MarshalJSON implements the json.Marshaler interface. It ensures
+// that ThousandEyes int fields that only use the values 0 or 1 are
+// treated as booleans.
+func (t GroupLabel) MarshalJSON() ([]byte, error) {
+	type alias GroupLabel
+
+	data, err := json.Marshal((alias)(t))
+	if err != nil {
+		return nil, err
+	}
+
+	return jsonBoolToInt(data)
+}
+
+// UnmarshalJSON implements the json.Unmarshaler interface. It ensures
+// that ThousandEyes int fields that only use the values 0 or 1 are
+// treated as booleans.
+func (t *GroupLabel) UnmarshalJSON(data []byte) error {
+	type alias GroupLabel
+	test := (*alias)(t)
+
+	data, err := jsonIntToBool(data)
+	if err != nil {
+		return err
+	}
+
+	return json.Unmarshal(data, &test)
 }
 
 // GetGroupLabels - Get labels

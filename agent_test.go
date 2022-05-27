@@ -20,11 +20,11 @@ func TestClient_GetAgents(t *testing.T) {
 	expected := Agents{
 		Agent{
 			AgentID: Int(1),
-			Enabled: Int(1),
+			Enabled: Bool(true),
 		},
 		Agent{
 			AgentID: Int(2),
-			Enabled: Int(0),
+			Enabled: Bool(false),
 		},
 	}
 	res, err := client.GetAgents()
@@ -41,7 +41,7 @@ func TestClient_GetAgent(t *testing.T) {
 		assert.Equal(t, "GET", r.Method)
 		_, _ = w.Write([]byte(out))
 	})
-	expected := Agent{AgentID: Int(1), Enabled: Int(1)}
+	expected := Agent{AgentID: Int(1), Enabled: Bool(true)}
 	res, err := client.GetAgent(1)
 	teardown()
 	assert.Nil(t, err)

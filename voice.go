@@ -1,6 +1,7 @@
 package thousandeyes
 
 import (
+	"encoding/json"
 	"fmt"
 )
 
@@ -9,26 +10,26 @@ import (
 // RTPStream - RTPStream trace test
 type RTPStream struct {
 	// Common test fields
-	AlertsEnabled      *int                `json:"alertsEnabled,omitempty"`
+	AlertsEnabled      *bool               `json:"alertsEnabled,omitempty"`
 	AlertRules         []AlertRule         `json:"alertRules"`
 	APILinks           []APILink           `json:"apiLinks,omitempty"`
 	CreatedBy          *string             `json:"createdBy,omitempty"`
 	CreatedDate        *string             `json:"createdDate,omitempty"`
 	Description        *string             `json:"description,omitempty"`
-	Enabled            *int                `json:"enabled,omitempty"`
+	Enabled            *bool               `json:"enabled,omitempty"`
 	Groups             []GroupLabel        `json:"groups,omitempty"`
 	ModifiedBy         *string             `json:"modifiedBy,omitempty"`
 	ModifiedDate       *string             `json:"modifiedDate,omitempty"`
-	SavedEvent         *int                `json:"savedEvent,omitempty"`
+	SavedEvent         *bool               `json:"savedEvent,omitempty"`
 	SharedWithAccounts []SharedWithAccount `json:"sharedWithAccounts,omitempty"`
 	TestID             *int64              `json:"testId,omitempty"`
 	TestName           *string             `json:"testName,omitempty"`
 	Type               *string             `json:"type,omitempty"`
-	LiveShare          *int                `json:"liveShare,omitempty"`
+	LiveShare          *bool               `json:"liveShare,omitempty"`
 
 	// Fields unique to this test
 	Agents          []Agent      `json:"agents,omitempty"`
-	BGPMeasurements *int         `json:"bgpMeasurements,omitempty"`
+	BGPMeasurements *bool        `json:"bgpMeasurements,omitempty"`
 	BGPMonitors     []BGPMonitor `json:"bgpMonitors,omitempty"`
 	Codec           *string      `json:"codec,omitempty"`
 	CodecID         *int         `json:"codecId,omitempty"`
@@ -37,12 +38,41 @@ type RTPStream struct {
 	Duration        *int         `json:"duration,omitempty"`
 	Interval        *int         `json:"interval,omitempty"`
 	JitterBuffer    *int         `json:"jitterBuffer,omitempty"`
-	MTUMeasurements *int         `json:"mtuMeasurements,omitempty"`
+	MTUMeasurements *bool        `json:"mtuMeasurements,omitempty"`
 	NumPathTraces   *int         `json:"numPathTraces,omitempty"`
 	TargetAgentID   *int         `json:"targetAgentId,omitempty"`
-	UsePublicBGP    *int         `json:"usePublicBgp,omitempty"`
+	UsePublicBGP    *bool        `json:"usePublicBgp,omitempty"`
 	// server field is present in response, but we should not track it.
 	//Server          *string       `json:"server,omitempty"`
+}
+
+// MarshalJSON implements the json.Marshaler interface. It ensures
+// that ThousandEyes int fields that only use the values 0 or 1 are
+// treated as booleans.
+func (t RTPStream) MarshalJSON() ([]byte, error) {
+	type aliasTest RTPStream
+
+	data, err := json.Marshal((aliasTest)(t))
+	if err != nil {
+		return nil, err
+	}
+
+	return jsonBoolToInt(data)
+}
+
+// UnmarshalJSON implements the json.Unmarshaler interface. It ensures
+// that ThousandEyes int fields that only use the values 0 or 1 are
+// treated as booleans.
+func (t *RTPStream) UnmarshalJSON(data []byte) error {
+	type aliasTest RTPStream
+	test := (*aliasTest)(t)
+
+	data, err := jsonIntToBool(data)
+	if err != nil {
+		return err
+	}
+
+	return json.Unmarshal(data, &test)
 }
 
 // AddAgent - Add agent to voice call  test

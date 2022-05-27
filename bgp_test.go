@@ -26,14 +26,14 @@ func TestClient_GetBGP(t *testing.T) {
 	// Define expected values from the API (based on the JSON we print out above)
 	expected := BGP{
 		TestID:        Int64(122621),
-		Enabled:       Int(1),
+		Enabled:       Bool(true),
 		CreatedBy:     String("William Fleming (wfleming@grumpysysadm.com)"),
 		CreatedDate:   String("2020-02-06 15:28:07"),
-		SavedEvent:    Int(0),
-		AlertsEnabled: Int(1),
+		SavedEvent:    Bool(false),
+		AlertsEnabled: Bool(true),
 		TestName:      String("test123"),
 		Type:          String("bgp"),
-		LiveShare:     Int(0),
+		LiveShare:     Bool(false),
 		Prefix:        String("1.2.3.0/20"),
 		SharedWithAccounts: []SharedWithAccount{
 			{
@@ -97,15 +97,15 @@ func TestClient_CreateBGP(t *testing.T) {
 	// Define expected values from the API (based on the JSON we print out above)
 	expected := BGP{
 		TestID:        Int64(122621),
-		Enabled:       Int(1),
+		Enabled:       Bool(true),
 		CreatedBy:     String("William Fleming (wfleming@grumpysysadm.com)"),
 		CreatedDate:   String("2020-02-06 15:28:07"),
-		SavedEvent:    Int(0),
+		SavedEvent:    Bool(false),
 		TestName:      String("test123"),
 		Type:          String("bgp"),
-		LiveShare:     Int(0),
+		LiveShare:     Bool(false),
 		Prefix:        String("1.2.3.0/20"),
-		AlertsEnabled: Int(1),
+		AlertsEnabled: Bool(true),
 		SharedWithAccounts: []SharedWithAccount{
 			{
 				AID:              Int(176592),
