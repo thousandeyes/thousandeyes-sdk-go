@@ -9,14 +9,14 @@ import (
 type AccountGroupRole struct {
 	RoleName                 *string      `json:"roleName,omitempty"`
 	RoleID                   *int         `json:"roleId,omitempty"`
-	HasManagementPermissions *bool        `json:"hasManagementPermissions,omitempty"`
-	Builtin                  *bool        `json:"builtin,omitempty"`
+	HasManagementPermissions *bool        `json:"hasManagementPermissions,omitempty" te:"int-bool"`
+	Builtin                  *bool        `json:"builtin,omitempty" te:"int-bool"`
 	Permissions              []Permission `json:"permissions,omitempty"`
 }
 
 // Permission - permission attached to roles
 type Permission struct {
-	IsManagementPermission *bool   `json:"isManagementPermission"`
+	IsManagementPermission *bool   `json:"isManagementPermission" te:"int-bool"`
 	Label                  *string `json:"label"`
 	PermissionID           *int    `json:"permissionId"`
 }
@@ -32,7 +32,7 @@ func (t AccountGroupRole) MarshalJSON() ([]byte, error) {
 		return nil, err
 	}
 
-	return jsonBoolToInt(data)
+	return jsonBoolToInt(&t, data)
 }
 
 // UnmarshalJSON implements the json.Unmarshaler interface. It ensures
@@ -42,7 +42,7 @@ func (t *AccountGroupRole) UnmarshalJSON(data []byte) error {
 	type alias AccountGroupRole
 	test := (*alias)(t)
 
-	data, err := jsonIntToBool(data)
+	data, err := jsonIntToBool(t, data)
 	if err != nil {
 		return err
 	}
@@ -61,7 +61,7 @@ func (t Permission) MarshalJSON() ([]byte, error) {
 		return nil, err
 	}
 
-	return jsonBoolToInt(data)
+	return jsonBoolToInt(&t, data)
 }
 
 // UnmarshalJSON implements the json.Unmarshaler interface. It ensures
@@ -71,7 +71,7 @@ func (t *Permission) UnmarshalJSON(data []byte) error {
 	type alias Permission
 	test := (*alias)(t)
 
-	data, err := jsonIntToBool(data)
+	data, err := jsonIntToBool(t, data)
 	if err != nil {
 		return err
 	}

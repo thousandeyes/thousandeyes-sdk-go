@@ -2,34 +2,9 @@ package thousandeyes
 
 import (
 	"encoding/json"
+	"reflect"
+	"strings"
 )
-
-var booleanFields = []string{
-	"alertsEnabled",
-	"bandwidthMeasurements",
-	"bgpMeasurements",
-	"builtin",
-	"enabled",
-	"followRedirects",
-	"hasManagementPermissions",
-	"includeCoveredPrefixes",
-	"includeHeaders",
-	"isManagementPermission",
-	"keepBrowserCache",
-	"liveShare",
-	"mtuMeasurements",
-	"networkMeasurements",
-	"recursiveQueries",
-	"registerEnabled",
-	"savedEvent",
-	"throughputMeasurements",
-	"useActiveFtp",
-	"useExplicitFtps",
-	"useNtlm",
-	"usePublicBGP",
-	"verifyCertificate",
-	"verifySslCertificates",
-}
 
 // Bool is a helper routine that allocates a new bool value
 // to store v and returns a pointer to it.
@@ -58,9 +33,28 @@ func elem(str string, elems []string) bool {
 	return false
 }
 
+// booleanFieldsFromStruct receives a struct pointer and returns the
+// JSON keys for fields tagged with "te:int-bool".
+func booleanFieldsFromStruct(structPtr interface{}) []string {
+	booleanFields := []string{}
+	v := reflect.ValueOf(structPtr).Elem()
+	t := reflect.TypeOf(v.Interface())
+
+	for i := 0; i < t.NumField(); i++ {
+		if tag, ok := t.Field(i).Tag.Lookup("te"); ok && tag == "int-bool" {
+			jsonKey := strings.Split(t.Field(i).Tag.Get("json"), ",")[0]
+			booleanFields = append(booleanFields, jsonKey)
+		}
+	}
+
+	return booleanFields
+}
+
 // jsonBoolToInt is a helper routine that transforms ThousandEyes
 // boolean fields to an int value. It is used by JSON marshalers.
-func jsonBoolToInt(data []byte) ([]byte, error) {
+func jsonBoolToInt(structPtr interface{}, data []byte) ([]byte, error) {
+	booleanFields := booleanFieldsFromStruct(structPtr)
+
 	var jsonMap map[string]interface{}
 	if err := json.Unmarshal(data, &jsonMap); err != nil {
 		return nil, err
@@ -81,7 +75,9 @@ func jsonBoolToInt(data []byte) ([]byte, error) {
 
 // jsonIntToBool is a helper routine that transforms ThousandEyes int
 // fields to a boolean value. It is used by JSON unmarshalers.
-func jsonIntToBool(data []byte) ([]byte, error) {
+func jsonIntToBool(structPtr interface{}, data []byte) ([]byte, error) {
+	booleanFields := booleanFieldsFromStruct(structPtr)
+
 	var jsonMap map[string]interface{}
 	if err := json.Unmarshal(data, &jsonMap); err != nil {
 		return nil, err

@@ -21,13 +21,13 @@ type Agent struct {
 	ErrorDetails          []AgentErrorDetails `json:"errorDetails,omitempty"`
 	Hostname              *string             `json:"hostname,omitempty"`
 	Prefix                *string             `json:"prefix,omitempty"`
-	Enabled               *bool               `json:"enabled,omitempty"`
+	Enabled               *bool               `json:"enabled,omitempty" te:"int-bool"`
 	Network               *string             `json:"network,omitempty"`
 	CreatedDate           *string             `json:"createdDate,omitempty"`
 	LastSeen              *string             `json:"lastSeen,omitempty"`
 	AgentState            *string             `json:"agentState,omitempty"`
-	VerifySslCertificates *bool               `json:"verifySslCertificate,omitempty"`
-	KeepBrowserCache      *bool               `json:"keepBrowserCache,omitempty"`
+	VerifySslCertificates *bool               `json:"verifySslCertificate,omitempty" te:"int-bool"`
+	KeepBrowserCache      *bool               `json:"keepBrowserCache,omitempty" te:"int-bool"`
 	Utilization           *int                `json:"utilization,omitempty"`
 	Ipv6Policy            *string             `json:"IPV6Policy,omitempty"`
 	TargetForTests        *string             `json:"targetForTests,omitempty"`
@@ -64,7 +64,7 @@ func (t Agent) MarshalJSON() ([]byte, error) {
 		return nil, err
 	}
 
-	return jsonBoolToInt(data)
+	return jsonBoolToInt(&t, data)
 }
 
 // UnmarshalJSON implements the json.Unmarshaler interface. It ensures
@@ -74,7 +74,7 @@ func (t *Agent) UnmarshalJSON(data []byte) error {
 	type alias Agent
 	test := (*alias)(t)
 
-	data, err := jsonIntToBool(data)
+	data, err := jsonIntToBool(t, data)
 	if err != nil {
 		return err
 	}

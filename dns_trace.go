@@ -8,22 +8,22 @@ import (
 // DNSTrace - DNS trace test
 type DNSTrace struct {
 	// Common test fields
-	AlertsEnabled      *bool               `json:"alertsEnabled,omitempty"`
+	AlertsEnabled      *bool               `json:"alertsEnabled,omitempty" te:"int-bool"`
 	AlertRules         []AlertRule         `json:"alertRules"`
 	APILinks           []APILink           `json:"apiLinks,omitempty"`
 	CreatedBy          *string             `json:"createdBy,omitempty"`
 	CreatedDate        *string             `json:"createdDate,omitempty"`
 	Description        *string             `json:"description,omitempty"`
-	Enabled            *bool               `json:"enabled,omitempty"`
+	Enabled            *bool               `json:"enabled,omitempty" te:"int-bool"`
 	Groups             []GroupLabel        `json:"groups,omitempty"`
 	ModifiedBy         *string             `json:"modifiedBy,omitempty"`
 	ModifiedDate       *string             `json:"modifiedDate,omitempty"`
-	SavedEvent         *bool               `json:"savedEvent,omitempty"`
+	SavedEvent         *bool               `json:"savedEvent,omitempty" te:"int-bool"`
 	SharedWithAccounts []SharedWithAccount `json:"sharedWithAccounts,omitempty"`
 	TestID             *int64              `json:"testId,omitempty"`
 	TestName           *string             `json:"testName,omitempty"`
 	Type               *string             `json:"type,omitempty"`
-	LiveShare          *bool               `json:"liveShare,omitempty"`
+	LiveShare          *bool               `json:"liveShare,omitempty" te:"int-bool"`
 
 	// Fields unique to this test
 	Agents               []Agent `json:"agents,omitempty"`
@@ -43,7 +43,7 @@ func (t DNSTrace) MarshalJSON() ([]byte, error) {
 		return nil, err
 	}
 
-	return jsonBoolToInt(data)
+	return jsonBoolToInt(&t, data)
 }
 
 // UnmarshalJSON implements the json.Unmarshaler interface. It ensures
@@ -53,7 +53,7 @@ func (t *DNSTrace) UnmarshalJSON(data []byte) error {
 	type aliasTest DNSTrace
 	test := (*aliasTest)(t)
 
-	data, err := jsonIntToBool(data)
+	data, err := jsonIntToBool(t, data)
 	if err != nil {
 		return err
 	}

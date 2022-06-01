@@ -10,38 +10,38 @@ import (
 // AgentServer  - Agent to server test
 type AgentServer struct {
 	// Common test fields
-	AlertsEnabled      *bool               `json:"alertsEnabled,omitempty"`
+	AlertsEnabled      *bool               `json:"alertsEnabled,omitempty" te:"int-bool"`
 	AlertRules         []AlertRule         `json:"alertRules"`
 	APILinks           []APILink           `json:"apiLinks,omitempty"`
 	CreatedBy          *string             `json:"createdBy,omitempty"`
 	CreatedDate        *string             `json:"createdDate,omitempty"`
 	Description        *string             `json:"description,omitempty"`
-	Enabled            *bool               `json:"enabled,omitempty"`
+	Enabled            *bool               `json:"enabled,omitempty" te:"int-bool"`
 	Groups             []GroupLabel        `json:"groups,omitempty"`
 	ModifiedBy         *string             `json:"modifiedBy,omitempty"`
 	ModifiedDate       *string             `json:"modifiedDate,omitempty"`
-	SavedEvent         *bool               `json:"savedEvent,omitempty"`
+	SavedEvent         *bool               `json:"savedEvent,omitempty" te:"int-bool"`
 	SharedWithAccounts []SharedWithAccount `json:"sharedWithAccounts,omitempty"`
 	TestID             *int64              `json:"testId,omitempty"`
 	TestName           *string             `json:"testName,omitempty"`
 	Type               *string             `json:"type,omitempty"`
-	LiveShare          *bool               `json:"liveShare,omitempty"`
+	LiveShare          *bool               `json:"liveShare,omitempty" te:"int-bool"`
 
 	// Fields unique to this test
 	Agents                Agents       `json:"agents,omitempty"`
-	BandwidthMeasurements *bool        `json:"bandwidthMeasurements,omitempty"`
-	BGPMeasurements       *bool        `json:"bgpMeasurements,omitempty"`
+	BandwidthMeasurements *bool        `json:"bandwidthMeasurements,omitempty" te:"int-bool"`
+	BGPMeasurements       *bool        `json:"bgpMeasurements,omitempty" te:"int-bool"`
 	BGPMonitors           []BGPMonitor `json:"bgpMonitors,omitempty"`
 	Interval              *int         `json:"interval,omitempty"`
-	MTUMeasurements       *bool        `json:"mtuMeasurements,omitempty"`
-	NetworkMeasurements   *bool        `json:"networkMeasurements,omitempty"`
+	MTUMeasurements       *bool        `json:"mtuMeasurements,omitempty" te:"int-bool"`
+	NetworkMeasurements   *bool        `json:"networkMeasurements,omitempty" te:"int-bool"`
 	NumPathTraces         *int         `json:"numPathTraces,omitempty"`
 	PathTraceMode         *string      `json:"pathTraceMode,omitempty"`
 	Port                  *int         `json:"port,omitempty"`
 	ProbeMode             *string      `json:"probeMode,omitempty"`
 	Protocol              *string      `json:"protocol,omitempty"`
 	Server                *string      `json:"server,omitempty"`
-	UsePublicBGP          *bool        `json:"usePublicBgp,omitempty"`
+	UsePublicBGP          *bool        `json:"usePublicBgp,omitempty" te:"int-bool"`
 }
 
 // MarshalJSON implements the json.Marshaler interface. It ensures
@@ -55,7 +55,7 @@ func (t AgentServer) MarshalJSON() ([]byte, error) {
 		return nil, err
 	}
 
-	return jsonBoolToInt(data)
+	return jsonBoolToInt(&t, data)
 }
 
 // UnmarshalJSON implements the json.Unmarshaler interface. It ensures
@@ -65,7 +65,7 @@ func (t *AgentServer) UnmarshalJSON(data []byte) error {
 	type aliasTest AgentServer
 	test := (*aliasTest)(t)
 
-	data, err := jsonIntToBool(data)
+	data, err := jsonIntToBool(t, data)
 	if err != nil {
 		return err
 	}

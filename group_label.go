@@ -12,7 +12,7 @@ type GroupLabels []GroupLabel
 type GroupLabel struct {
 	Name    *string       `json:"name,omitempty"`
 	GroupID *int64        `json:"groupId,omitempty"`
-	Builtin *bool         `json:"builtin,omitempty"`
+	Builtin *bool         `json:"builtin,omitempty" te:"int-bool"`
 	Type    *string       `json:"type,omitempty"`
 	Agents  []Agent       `json:"agents,omitempty"`
 	Tests   []GenericTest `json:"tests,omitempty"`
@@ -29,7 +29,7 @@ func (t GroupLabel) MarshalJSON() ([]byte, error) {
 		return nil, err
 	}
 
-	return jsonBoolToInt(data)
+	return jsonBoolToInt(&t, data)
 }
 
 // UnmarshalJSON implements the json.Unmarshaler interface. It ensures
@@ -39,7 +39,7 @@ func (t *GroupLabel) UnmarshalJSON(data []byte) error {
 	type alias GroupLabel
 	test := (*alias)(t)
 
-	data, err := jsonIntToBool(data)
+	data, err := jsonIntToBool(t, data)
 	if err != nil {
 		return err
 	}

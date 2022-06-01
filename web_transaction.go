@@ -8,27 +8,27 @@ import (
 // WebTransaction - a web transcation test
 type WebTransaction struct {
 	// Common test fields
-	AlertsEnabled      *bool               `json:"alertsEnabled,omitempty"`
+	AlertsEnabled      *bool               `json:"alertsEnabled,omitempty" te:"int-bool"`
 	AlertRules         []AlertRule         `json:"alertRules"`
 	APILinks           []APILink           `json:"apiLinks,omitempty"`
 	CreatedBy          *string             `json:"createdBy,omitempty"`
 	CreatedDate        *string             `json:"createdDate,omitempty"`
 	Description        *string             `json:"description,omitempty"`
-	Enabled            *bool               `json:"enabled,omitempty"`
+	Enabled            *bool               `json:"enabled,omitempty" te:"int-bool"`
 	Groups             []GroupLabel        `json:"groups,omitempty"`
 	ModifiedBy         *string             `json:"modifiedBy,omitempty"`
 	ModifiedDate       *string             `json:"modifiedDate,omitempty"`
-	SavedEvent         *bool               `json:"savedEvent,omitempty"`
+	SavedEvent         *bool               `json:"savedEvent,omitempty" te:"int-bool"`
 	SharedWithAccounts []SharedWithAccount `json:"sharedWithAccounts,omitempty"`
 	TestID             *int64              `json:"testId,omitempty"`
 	TestName           *string             `json:"testName,omitempty"`
 	Type               *string             `json:"type,omitempty"`
-	LiveShare          *bool               `json:"liveShare,omitempty"`
+	LiveShare          *bool               `json:"liveShare,omitempty" te:"int-bool"`
 
 	// Fields unique to this test
 	Agents                Agents        `json:"agents,omitempty"`
 	AuthType              *string       `json:"authType,omitempty"`
-	BandwidthMeasurements *bool         `json:"bandwidthMeasurements,omitempty"`
+	BandwidthMeasurements *bool         `json:"bandwidthMeasurements,omitempty" te:"int-bool"`
 	ContentRegex          *string       `json:"contentRegex,omitempty"`
 	Credentials           []int         `json:"credentials,omitempty"`
 	CustomHeaders         CustomHeaders `json:"customHeaders,omitempty"`
@@ -36,10 +36,10 @@ type WebTransaction struct {
 	HTTPTargetTime        *int          `json:"httpTargetTime,omitempty"`
 	HTTPTimeLimit         *int          `json:"httpTimeLimit,omitempty"`
 	HTTPVersion           *int          `json:"httpVersion,omitempty"`
-	IncludeHeaders        *bool         `json:"includeHeaders,omitempty"`
+	IncludeHeaders        *bool         `json:"includeHeaders,omitempty" te:"int-bool"`
 	Interval              *int          `json:"interval,omitempty"`
-	MTUMeasurements       *bool         `json:"mtuMeasurements,omitempty"`
-	NetworkMeasurements   *bool         `json:"networkMeasurements,omitempty"`
+	MTUMeasurements       *bool         `json:"mtuMeasurements,omitempty" te:"int-bool"`
+	NetworkMeasurements   *bool         `json:"networkMeasurements,omitempty" te:"int-bool"`
 	NumPathTraces         *int          `json:"numPathTraces,omitempty"`
 	Password              *string       `json:"password,omitempty"`
 	PathTraceMode         *string       `json:"pathTraceMode,omitempty"`
@@ -51,10 +51,10 @@ type WebTransaction struct {
 	TimeLimit             *int          `json:"timeLimit,omitempty"`
 	TransactionScript     *string       `json:"transactionScript,omitempty"`
 	URL                   *string       `json:"url,omitempty"`
-	UseNTLM               *bool         `json:"useNtlm,omitempty"`
+	UseNTLM               *bool         `json:"useNtlm,omitempty" te:"int-bool"`
 	UserAgent             *string       `json:"userAgent,omitempty"`
 	Username              *string       `json:"username,omitempty"`
-	VerifyCertificate     *bool         `json:"verifyCertificate,omitempty"`
+	VerifyCertificate     *bool         `json:"verifyCertificate,omitempty" te:"int-bool"`
 }
 
 // MarshalJSON implements the json.Marshaler interface. It ensures
@@ -68,7 +68,7 @@ func (t WebTransaction) MarshalJSON() ([]byte, error) {
 		return nil, err
 	}
 
-	return jsonBoolToInt(data)
+	return jsonBoolToInt(&t, data)
 }
 
 // UnmarshalJSON implements the json.Unmarshaler interface. It ensures
@@ -78,7 +78,7 @@ func (t *WebTransaction) UnmarshalJSON(data []byte) error {
 	type aliasTest WebTransaction
 	test := (*aliasTest)(t)
 
-	data, err := jsonIntToBool(data)
+	data, err := jsonIntToBool(t, data)
 	if err != nil {
 		return err
 	}
