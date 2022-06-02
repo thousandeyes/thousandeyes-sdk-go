@@ -30,19 +30,19 @@ func TestClient_GetFTPServer(t *testing.T) {
 		Interval:      Int(300),
 		URL:           String("webex.com"),
 		ProbeMode:     String("AUTO"),
-		Agents: []Agent{
+		Agents: &[]Agent{
 			{
 				AgentID:     Int(48620),
 				AgentType:   String("Cloud"),
 				AgentName:   String("Seattle, WA (Trial) - IPv6"),
 				CountryID:   String("US"),
-				IPAddresses: []string{"135.84.184.153"},
+				IPAddresses: &[]string{"135.84.184.153"},
 				Location:    String("Seattle Area"),
 				Network:     String("Astute Hosting Inc. (AS 54527)"),
 				Prefix:      String("135.84.184.0/22"),
 			},
 		},
-		APILinks: []APILink{
+		APILinks: &[]APILink{
 			{
 				Href: String("https://api.thousandeyes.com/v6/tests/1226221"),
 				Rel:  String("self"),
@@ -64,7 +64,7 @@ func TestClient_GetFTPServer(t *testing.T) {
 				Rel:  String("data"),
 			},
 		},
-		SharedWithAccounts: []SharedWithAccount{
+		SharedWithAccounts: &[]SharedWithAccount{
 			{
 				AID:              Int(176592),
 				AccountGroupName: String("Cloudreach"),
@@ -116,26 +116,26 @@ func TestClient_CreateFTPServer(t *testing.T) {
 		URL:           String("webex.com"),
 		Protocol:      String("TCP"),
 		ProbeMode:     String("AUTO"),
-		Agents: []Agent{
+		Agents: &[]Agent{
 			{
 				AgentID:     Int(48620),
 				AgentType:   String("Cloud"),
 				AgentName:   String("Seattle, WA (Trial) - IPv6"),
 				CountryID:   String("US"),
-				IPAddresses: []string{"135.84.184.153"},
+				IPAddresses: &[]string{"135.84.184.153"},
 				Location:    String("Seattle Area"),
 				Network:     String("Astute Hosting Inc. (AS 54527)"),
 				Prefix:      String("135.84.184.0/22"),
 			},
 		},
-		SharedWithAccounts: []SharedWithAccount{
+		SharedWithAccounts: &[]SharedWithAccount{
 			{
 				AID:              Int(176592),
 				AccountGroupName: String("Cloudreach"),
 			},
 		},
 
-		APILinks: []APILink{
+		APILinks: &[]APILink{
 			{
 				Href: String("https://api.thousandeyes.com/v6/tests/1226221"),
 				Rel:  String("self"),
@@ -188,8 +188,8 @@ func TestClient_DeleteFTPServer(t *testing.T) {
 }
 
 func TestClient_AddFTPServerAlertRule(t *testing.T) {
-	test := FTPServer{TestName: String("test"), AlertRules: []AlertRule{}}
-	expected := FTPServer{TestName: String("test"), AlertRules: []AlertRule{{RuleID: Int(1)}}}
+	test := FTPServer{TestName: String("test"), AlertRules: &[]AlertRule{}}
+	expected := FTPServer{TestName: String("test"), AlertRules: &[]AlertRule{{RuleID: Int(1)}}}
 	test.AddAlertRule(1)
 	assert.Equal(t, expected, test)
 }
@@ -215,8 +215,8 @@ func TestClient_UpdateFTPServer(t *testing.T) {
 }
 
 func TestFTPServer_AddAgent(t *testing.T) {
-	test := FTPServer{TestName: String("test"), Agents: Agents{}}
-	expected := FTPServer{TestName: String("test"), Agents: []Agent{{AgentID: Int(1)}}}
+	test := FTPServer{TestName: String("test"), Agents: &[]Agent{}}
+	expected := FTPServer{TestName: String("test"), Agents: &[]Agent{{AgentID: Int(1)}}}
 	test.AddAgent(1)
 	assert.Equal(t, expected, test)
 }

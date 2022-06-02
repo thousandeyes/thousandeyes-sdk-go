@@ -51,25 +51,25 @@ func TestClient_CreatePageLoad(t *testing.T) {
 		AuthType:              String("NONE"),
 		ProbeMode:             String("AUTO"),
 		ContentRegex:          String(""),
-		Agents: []Agent{
+		Agents: &[]Agent{
 			{
 				AgentID:     Int(48620),
 				AgentType:   String("Cloud"),
 				AgentName:   String("Seattle, WA (Trial) - IPv6"),
 				CountryID:   String("US"),
-				IPAddresses: []string{"135.84.184.153"},
+				IPAddresses: &[]string{"135.84.184.153"},
 				Location:    String("Seattle Area"),
 				Network:     String("Astute Hosting Inc. (AS 54527)"),
 				Prefix:      String("135.84.184.0/22"),
 			},
 		},
-		SharedWithAccounts: []SharedWithAccount{
+		SharedWithAccounts: &[]SharedWithAccount{
 			{
 				AID:              Int(176592),
 				AccountGroupName: String("Cloudreach"),
 			},
 		},
-		BGPMonitors: []BGPMonitor{
+		BGPMonitors: &[]BGPMonitor{
 			{
 				MonitorID:   Int(62),
 				IPAddress:   String("2001:1890:111d:1::63"),
@@ -79,7 +79,7 @@ func TestClient_CreatePageLoad(t *testing.T) {
 			},
 		},
 		NumPathTraces: Int(3),
-		APILinks: APILinks{
+		APILinks: &[]APILink{
 			{
 				Rel:  String("self"),
 				Href: String("https://api.thousandeyes.com/v6/tests/1226422"),
@@ -158,25 +158,25 @@ func TestClient_GetPageLoad(t *testing.T) {
 		AuthType:              String("NONE"),
 		ProbeMode:             String("AUTO"),
 		ContentRegex:          String(""),
-		Agents: []Agent{
+		Agents: &[]Agent{
 			{
 				AgentID:     Int(48620),
 				AgentType:   String("Cloud"),
 				AgentName:   String("Seattle, WA (Trial) - IPv6"),
 				CountryID:   String("US"),
-				IPAddresses: []string{"135.84.184.153"},
+				IPAddresses: &[]string{"135.84.184.153"},
 				Location:    String("Seattle Area"),
 				Network:     String("Astute Hosting Inc. (AS 54527)"),
 				Prefix:      String("135.84.184.0/22"),
 			},
 		},
-		SharedWithAccounts: []SharedWithAccount{
+		SharedWithAccounts: &[]SharedWithAccount{
 			{
 				AID:              Int(176592),
 				AccountGroupName: String("Cloudreach"),
 			},
 		},
-		BGPMonitors: []BGPMonitor{
+		BGPMonitors: &[]BGPMonitor{
 			{
 				MonitorID:   Int(62),
 				IPAddress:   String("2001:1890:111d:1::63"),
@@ -186,7 +186,7 @@ func TestClient_GetPageLoad(t *testing.T) {
 			},
 		},
 		NumPathTraces: Int(3),
-		APILinks: APILinks{
+		APILinks: &[]APILink{
 			{
 				Rel:  String("self"),
 				Href: String("https://api.thousandeyes.com/v6/tests/1226422"),
@@ -257,8 +257,8 @@ func TestClient_UpdatePageLoad(t *testing.T) {
 }
 
 func TestPageLoad_AddAgent(t *testing.T) {
-	test := PageLoad{TestName: String("test"), Agents: Agents{}}
-	expected := PageLoad{TestName: String("test"), Agents: []Agent{{AgentID: Int(1)}}}
+	test := PageLoad{TestName: String("test"), Agents: &[]Agent{}}
+	expected := PageLoad{TestName: String("test"), Agents: &[]Agent{{AgentID: Int(1)}}}
 	test.AddAgent(1)
 	assert.Equal(t, expected, test)
 }

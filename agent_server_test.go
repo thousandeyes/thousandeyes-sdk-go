@@ -8,15 +8,15 @@ import (
 )
 
 func TestClient_AddAgentSeverAlertRule(t *testing.T) {
-	test := AgentServer{TestName: String("test"), AlertRules: []AlertRule{}}
-	expected := AgentServer{TestName: String("test"), AlertRules: []AlertRule{{RuleID: Int(1)}}}
+	test := AgentServer{TestName: String("test"), AlertRules: &[]AlertRule{}}
+	expected := AgentServer{TestName: String("test"), AlertRules: &[]AlertRule{{RuleID: Int(1)}}}
 	test.AddAlertRule(1)
 	assert.Equal(t, expected, test)
 }
 
 func TestClient_AgentServerAddAgent(t *testing.T) {
-	test := AgentServer{TestName: String("test"), Agents: Agents{}}
-	expected := AgentServer{TestName: String("test"), Agents: []Agent{{AgentID: Int(1)}}}
+	test := AgentServer{TestName: String("test"), Agents: &[]Agent{}}
+	expected := AgentServer{TestName: String("test"), Agents: &[]Agent{{AgentID: Int(1)}}}
 	test.AddAgent(1)
 	assert.Equal(t, expected, test)
 }
@@ -51,8 +51,8 @@ func TestClient_CreateAgentServer(t *testing.T) {
 }
 
 func TestClient_AddAgentServerAlertRule(t *testing.T) {
-	test := AgentServer{TestName: String("test"), AlertRules: []AlertRule{}}
-	expected := AgentServer{TestName: String("test"), AlertRules: []AlertRule{{RuleID: Int(1)}}}
+	test := AgentServer{TestName: String("test"), AlertRules: &[]AlertRule{}}
+	expected := AgentServer{TestName: String("test"), AlertRules: &[]AlertRule{{RuleID: Int(1)}}}
 	test.AddAlertRule(1)
 	assert.Equal(t, expected, test)
 }
@@ -205,7 +205,7 @@ func TestClient_DeleteAgentServerStatusCode(t *testing.T) {
 
 func TestExtractPort(t *testing.T) {
 	test := AgentServer{
-		Agents: []Agent{
+		Agents: &[]Agent{
 			{
 				AgentID: Int(75),
 			},

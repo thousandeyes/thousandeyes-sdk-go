@@ -10,12 +10,12 @@ type GroupLabels []GroupLabel
 
 // GroupLabel - label
 type GroupLabel struct {
-	Name    *string       `json:"name,omitempty"`
-	GroupID *int64        `json:"groupId,omitempty"`
-	Builtin *bool         `json:"builtin,omitempty" te:"int-bool"`
-	Type    *string       `json:"type,omitempty"`
-	Agents  []Agent       `json:"agents,omitempty"`
-	Tests   []GenericTest `json:"tests,omitempty"`
+	Name    *string        `json:"name,omitempty"`
+	GroupID *int64         `json:"groupId,omitempty"`
+	Builtin *bool          `json:"builtin,omitempty" te:"int-bool"`
+	Type    *string        `json:"type,omitempty"`
+	Agents  *[]Agent       `json:"agents,omitempty"`
+	Tests   *[]GenericTest `json:"tests,omitempty"`
 }
 
 // MarshalJSON implements the json.Marshaler interface. It ensures

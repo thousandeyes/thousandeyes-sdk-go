@@ -28,25 +28,25 @@ func TestClient_GetSIPServer(t *testing.T) {
 		Type:          String("sip-server"),
 		Interval:      Int(300),
 		LiveShare:     Bool(false),
-		Agents: []Agent{
+		Agents: &[]Agent{
 			{
 				AgentID:     Int(48620),
 				AgentType:   String("Cloud"),
 				AgentName:   String("Seattle, WA (Trial) - IPv6"),
 				CountryID:   String("US"),
-				IPAddresses: []string{"135.84.184.153"},
+				IPAddresses: &[]string{"135.84.184.153"},
 				Location:    String("Seattle Area"),
 				Network:     String("Astute Hosting Inc. (AS 54527)"),
 				Prefix:      String("135.84.184.0/22"),
 			},
 		},
-		SharedWithAccounts: []SharedWithAccount{
+		SharedWithAccounts: &[]SharedWithAccount{
 			{
 				AID:              Int(176592),
 				AccountGroupName: String("Cloudreach"),
 			},
 		},
-		APILinks: APILinks{
+		APILinks: &[]APILink{
 			{
 				Href: String("https://api.thousandeyes.com/v6/tests/1226221"),
 				Rel:  String("self"),
@@ -112,26 +112,26 @@ func TestClient_CreateSIPServer(t *testing.T) {
 		Interval:      Int(300),
 		AlertsEnabled: Bool(true),
 		LiveShare:     Bool(false),
-		Agents: []Agent{
+		Agents: &[]Agent{
 			{
 				AgentID:     Int(48620),
 				AgentType:   String("Cloud"),
 				AgentName:   String("Seattle, WA (Trial) - IPv6"),
 				CountryID:   String("US"),
-				IPAddresses: []string{"135.84.184.153"},
+				IPAddresses: &[]string{"135.84.184.153"},
 				Location:    String("Seattle Area"),
 				Network:     String("Astute Hosting Inc. (AS 54527)"),
 				Prefix:      String("135.84.184.0/22"),
 			},
 		},
-		SharedWithAccounts: []SharedWithAccount{
+		SharedWithAccounts: &[]SharedWithAccount{
 			{
 				AID:              Int(176592),
 				AccountGroupName: String("Cloudreach"),
 			},
 		},
 
-		APILinks: APILinks{
+		APILinks: &[]APILink{
 			{
 				Href: String("https://api.thousandeyes.com/v6/tests/1226221"),
 				Rel:  String("self"),
@@ -204,14 +204,14 @@ func TestClient_UpdateSIPServer(t *testing.T) {
 }
 
 func TestSIPServer_AddAgent(t *testing.T) {
-	test := SIPServer{TestName: String("test"), Agents: Agents{}}
-	expected := SIPServer{TestName: String("test"), Agents: []Agent{{AgentID: Int(1)}}}
+	test := SIPServer{TestName: String("test"), Agents: &[]Agent{}}
+	expected := SIPServer{TestName: String("test"), Agents: &[]Agent{{AgentID: Int(1)}}}
 	test.AddAgent(1)
 	assert.Equal(t, expected, test)
 }
 func TestClient_AddSIPServerAlertRule(t *testing.T) {
-	test := SIPServer{TestName: String("test"), AlertRules: []AlertRule{}}
-	expected := SIPServer{TestName: String("test"), AlertRules: []AlertRule{{RuleID: Int(1)}}}
+	test := SIPServer{TestName: String("test"), AlertRules: &[]AlertRule{}}
+	expected := SIPServer{TestName: String("test"), AlertRules: &[]AlertRule{{RuleID: Int(1)}}}
 	test.AddAlertRule(1)
 	assert.Equal(t, expected, test)
 }

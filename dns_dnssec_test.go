@@ -28,25 +28,25 @@ func TestClient_GetDNSSec(t *testing.T) {
 		Interval:      Int(300),
 		LiveShare:     Bool(false),
 		Domain:        String("webex.com"),
-		Agents: []Agent{
+		Agents: &[]Agent{
 			{
 				AgentID:     Int(48620),
 				AgentType:   String("Cloud"),
 				AgentName:   String("Seattle, WA (Trial) - IPv6"),
 				CountryID:   String("US"),
-				IPAddresses: []string{"135.84.184.153"},
+				IPAddresses: &[]string{"135.84.184.153"},
 				Location:    String("Seattle Area"),
 				Network:     String("Astute Hosting Inc. (AS 54527)"),
 				Prefix:      String("135.84.184.0/22"),
 			},
 		},
-		SharedWithAccounts: []SharedWithAccount{
+		SharedWithAccounts: &[]SharedWithAccount{
 			{
 				AID:              Int(176592),
 				AccountGroupName: String("Cloudreach"),
 			},
 		},
-		APILinks: []APILink{
+		APILinks: &[]APILink{
 			{
 				Href: String("https://api.thousandeyes.com/v6/tests/1226221"),
 				Rel:  String("self"),
@@ -111,26 +111,26 @@ func TestClient_CreateDNSSec(t *testing.T) {
 		LiveShare:     Bool(false),
 		AlertsEnabled: Bool(true),
 		Domain:        String("webex.com"),
-		Agents: []Agent{
+		Agents: &[]Agent{
 			{
 				AgentID:     Int(48620),
 				AgentType:   String("Cloud"),
 				AgentName:   String("Seattle, WA (Trial) - IPv6"),
 				CountryID:   String("US"),
-				IPAddresses: []string{"135.84.184.153"},
+				IPAddresses: &[]string{"135.84.184.153"},
 				Location:    String("Seattle Area"),
 				Network:     String("Astute Hosting Inc. (AS 54527)"),
 				Prefix:      String("135.84.184.0/22"),
 			},
 		},
-		SharedWithAccounts: []SharedWithAccount{
+		SharedWithAccounts: &[]SharedWithAccount{
 			{
 				AID:              Int(176592),
 				AccountGroupName: String("Cloudreach"),
 			},
 		},
 
-		APILinks: []APILink{
+		APILinks: &[]APILink{
 			{
 				Href: String("https://api.thousandeyes.com/v6/tests/1226221"),
 				Rel:  String("self"),
@@ -181,8 +181,8 @@ func TestClient_DeleteDNSSec(t *testing.T) {
 }
 
 func TestClient_AddDNSSecAlertRule(t *testing.T) {
-	test := DNSSec{TestName: String("test"), AlertRules: []AlertRule{}}
-	expected := DNSSec{TestName: String("test"), AlertRules: []AlertRule{{RuleID: Int(1)}}}
+	test := DNSSec{TestName: String("test"), AlertRules: &[]AlertRule{}}
+	expected := DNSSec{TestName: String("test"), AlertRules: &[]AlertRule{{RuleID: Int(1)}}}
 	test.AddAlertRule(1)
 	assert.Equal(t, expected, test)
 }
@@ -208,8 +208,8 @@ func TestClient_UpdateDNSSec(t *testing.T) {
 }
 
 func TestDNSSec_AddAgent(t *testing.T) {
-	test := DNSSec{TestName: String("test"), Agents: Agents{}}
-	expected := DNSSec{TestName: String("test"), Agents: []Agent{{AgentID: Int(1)}}}
+	test := DNSSec{TestName: String("test"), Agents: &[]Agent{}}
+	expected := DNSSec{TestName: String("test"), Agents: &[]Agent{{AgentID: Int(1)}}}
 	test.AddAgent(1)
 	assert.Equal(t, expected, test)
 }

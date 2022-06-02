@@ -13,37 +13,37 @@ type HTTPServerResponse struct {
 // CustomHeaders represents the JSON object exchanged for specifying
 // custom HTTP headers in HTTP Server, Page Load, and Web Transaction tests.
 type CustomHeaders struct {
-	Root    map[string]string            `json:"root,omitempty"`
-	All     map[string]string            `json:"all,omitempty"`
-	Domains map[string]map[string]string `json:"domains,omitempty"`
+	Root    *map[string]string            `json:"root,omitempty"`
+	All     *map[string]string            `json:"all,omitempty"`
+	Domains *map[string]map[string]string `json:"domains,omitempty"`
 }
 
 // HTTPServer - a http server test
 type HTTPServer struct {
 	// Common test fields
-	AlertsEnabled      *bool               `json:"alertsEnabled,omitempty" te:"int-bool"`
-	AlertRules         []AlertRule         `json:"alertRules"`
-	APILinks           []APILink           `json:"apiLinks,omitempty"`
-	CreatedBy          *string             `json:"createdBy,omitempty"`
-	CreatedDate        *string             `json:"createdDate,omitempty"`
-	Description        *string             `json:"description,omitempty"`
-	Enabled            *bool               `json:"enabled,omitempty" te:"int-bool"`
-	Groups             []GroupLabel        `json:"groups,omitempty"`
-	ModifiedBy         *string             `json:"modifiedBy,omitempty"`
-	ModifiedDate       *string             `json:"modifiedDate,omitempty"`
-	SavedEvent         *bool               `json:"savedEvent,omitempty" te:"int-bool"`
-	SharedWithAccounts []SharedWithAccount `json:"sharedWithAccounts,omitempty"`
-	TestID             *int64              `json:"testId,omitempty"`
-	TestName           *string             `json:"testName,omitempty"`
-	Type               *string             `json:"type,omitempty"`
-	LiveShare          *bool               `json:"liveShare,omitempty" te:"int-bool"`
+	AlertsEnabled      *bool                `json:"alertsEnabled,omitempty" te:"int-bool"`
+	AlertRules         *[]AlertRule         `json:"alertRules"`
+	APILinks           *[]APILink           `json:"apiLinks,omitempty"`
+	CreatedBy          *string              `json:"createdBy,omitempty"`
+	CreatedDate        *string              `json:"createdDate,omitempty"`
+	Description        *string              `json:"description,omitempty"`
+	Enabled            *bool                `json:"enabled,omitempty" te:"int-bool"`
+	Groups             *[]GroupLabel        `json:"groups,omitempty"`
+	ModifiedBy         *string              `json:"modifiedBy,omitempty"`
+	ModifiedDate       *string              `json:"modifiedDate,omitempty"`
+	SavedEvent         *bool                `json:"savedEvent,omitempty" te:"int-bool"`
+	SharedWithAccounts *[]SharedWithAccount `json:"sharedWithAccounts,omitempty"`
+	TestID             *int64               `json:"testId,omitempty"`
+	TestName           *string              `json:"testName,omitempty"`
+	Type               *string              `json:"type,omitempty"`
+	LiveShare          *bool                `json:"liveShare,omitempty" te:"int-bool"`
 
 	// Fields unique to this test
-	Agents                Agents         `json:"agents,omitempty"`
+	Agents                *[]Agent       `json:"agents,omitempty"`
 	AuthType              *string        `json:"authType,omitempty"`
 	BandwidthMeasurements *bool          `json:"bandwidthMeasurements,omitempty" te:"int-bool"`
 	BGPMeasurements       *bool          `json:"bgpMeasurements,omitempty" te:"int-bool"`
-	BGPMonitors           []Monitor      `json:"bgpMonitors,omitempty"`
+	BGPMonitors           *[]Monitor     `json:"bgpMonitors,omitempty"`
 	ClientCertificate     *string        `json:"clientCertificate,omitempty"`
 	ContentRegex          *string        `json:"contentRegex,omitempty"`
 	CustomHeaders         *CustomHeaders `json:"customHeaders,omitempty"`
@@ -51,7 +51,7 @@ type HTTPServer struct {
 	DownloadLimit         *string        `json:"downloadLimit,omitempty"`
 	DNSOverride           *string        `json:"dnsOverride,omitempty"`
 	FollowRedirects       *bool          `json:"followRedirects,omitempty" te:"int-bool"`
-	Headers               []string       `json:"headers,omitempty"`
+	Headers               *[]string      `json:"headers,omitempty"`
 	HTTPVersion           *int           `json:"httpVersion,omitempty"`
 	HTTPTargetTime        *int           `json:"httpTargetTime,omitempty"`
 	HTTPTimeLimit         *int           `json:"httpTimeLimit,omitempty"`
@@ -105,7 +105,7 @@ func (t *HTTPServer) UnmarshalJSON(data []byte) error {
 // AddAgent - add an agent
 func (t *HTTPServer) AddAgent(id int) {
 	agent := Agent{AgentID: Int(id)}
-	t.Agents = append(t.Agents, agent)
+	*t.Agents = append(*t.Agents, agent)
 }
 
 //GetHTTPServer - Get an HTTP Server test

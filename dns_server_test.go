@@ -41,31 +41,31 @@ func TestClient_GetDNSServer(t *testing.T) {
 		Domain:                String("webex.com"),
 		ProbeMode:             String("AUTO"),
 		DNSTransportProtocol:  String("UDP"),
-		Agents: []Agent{
+		Agents: &[]Agent{
 			{
 				AgentID:     Int(48620),
 				AgentType:   String("Cloud"),
 				AgentName:   String("Seattle, WA (Trial) - IPv6"),
 				CountryID:   String("US"),
-				IPAddresses: []string{"135.84.184.153"},
+				IPAddresses: &[]string{"135.84.184.153"},
 				Location:    String("Seattle Area"),
 				Network:     String("Astute Hosting Inc. (AS 54527)"),
 				Prefix:      String("135.84.184.0/22"),
 			},
 		},
-		SharedWithAccounts: []SharedWithAccount{
+		SharedWithAccounts: &[]SharedWithAccount{
 			{
 				AID:              Int(176592),
 				AccountGroupName: String("Cloudreach"),
 			},
 		},
-		DNSServers: []Server{
+		DNSServers: &[]Server{
 			{
 				ServerID:   Int(123),
 				ServerName: String("1.1.1.1"),
 			},
 		},
-		BGPMonitors: []BGPMonitor{
+		BGPMonitors: &[]BGPMonitor{
 			{
 				MonitorID:   Int(64),
 				IPAddress:   String("2001:240:100:ff::2497:2"),
@@ -74,7 +74,7 @@ func TestClient_GetDNSServer(t *testing.T) {
 				MonitorType: String("Public"),
 			},
 		},
-		APILinks: APILinks{
+		APILinks: &[]APILink{
 			{
 				Href: String("https://api.thousandeyes.com/v6/tests/1226221"),
 				Rel:  String("self"),
@@ -105,8 +105,8 @@ func TestClient_GetDNSServer(t *testing.T) {
 }
 
 func TestClient_AddDnsserverAlertRule(t *testing.T) {
-	test := DNSServer{TestName: String("test"), AlertRules: []AlertRule{}}
-	expected := DNSServer{TestName: String("test"), AlertRules: []AlertRule{{RuleID: Int(1)}}}
+	test := DNSServer{TestName: String("test"), AlertRules: &[]AlertRule{}}
+	expected := DNSServer{TestName: String("test"), AlertRules: &[]AlertRule{{RuleID: Int(1)}}}
 	test.AddAlertRule(1)
 	assert.Equal(t, expected, test)
 }
@@ -159,31 +159,31 @@ func TestClient_CreateDNSServer(t *testing.T) {
 		Domain:                String("webex.com"),
 		ProbeMode:             String("AUTO"),
 		DNSTransportProtocol:  String("UDP"),
-		Agents: []Agent{
+		Agents: &[]Agent{
 			{
 				AgentID:     Int(48620),
 				AgentType:   String("Cloud"),
 				AgentName:   String("Seattle, WA (Trial) - IPv6"),
 				CountryID:   String("US"),
-				IPAddresses: []string{"135.84.184.153"},
+				IPAddresses: &[]string{"135.84.184.153"},
 				Location:    String("Seattle Area"),
 				Network:     String("Astute Hosting Inc. (AS 54527)"),
 				Prefix:      String("135.84.184.0/22"),
 			},
 		},
-		SharedWithAccounts: []SharedWithAccount{
+		SharedWithAccounts: &[]SharedWithAccount{
 			{
 				AID:              Int(176592),
 				AccountGroupName: String("Cloudreach"),
 			},
 		},
-		DNSServers: []Server{
+		DNSServers: &[]Server{
 			{
 				ServerID:   Int(123),
 				ServerName: String("1.1.1.1"),
 			},
 		},
-		BGPMonitors: []BGPMonitor{
+		BGPMonitors: &[]BGPMonitor{
 			{
 				MonitorID:   Int(64),
 				IPAddress:   String("2001:240:100:ff::2497:2"),
@@ -192,7 +192,7 @@ func TestClient_CreateDNSServer(t *testing.T) {
 				MonitorType: String("Public"),
 			},
 		},
-		APILinks: APILinks{
+		APILinks: &[]APILink{
 			{
 				Href: String("https://api.thousandeyes.com/v6/tests/1226221"),
 				Rel:  String("self"),
@@ -265,8 +265,8 @@ func TestClient_UpdateDNSServer(t *testing.T) {
 }
 
 func TestDNSServer_AddAgent(t *testing.T) {
-	test := DNSServer{TestName: String("test"), Agents: Agents{}}
-	expected := DNSServer{TestName: String("test"), Agents: []Agent{{AgentID: Int(1)}}}
+	test := DNSServer{TestName: String("test"), Agents: &[]Agent{}}
+	expected := DNSServer{TestName: String("test"), Agents: &[]Agent{{AgentID: Int(1)}}}
 	test.AddAgent(1)
 	assert.Equal(t, expected, test)
 }

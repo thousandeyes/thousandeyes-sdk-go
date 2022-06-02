@@ -19,40 +19,40 @@ type SIPAuthData struct {
 // VoiceCall - VoiceCall trace test
 type VoiceCall struct {
 	// Common test fields
-	AlertsEnabled      *bool               `json:"alertsEnabled,omitempty" te:"int-bool"`
-	AlertRules         []AlertRule         `json:"alertRules"`
-	APILinks           []APILink           `json:"apiLinks,omitempty"`
-	CreatedBy          *string             `json:"createdBy,omitempty"`
-	CreatedDate        *string             `json:"createdDate,omitempty"`
-	Description        *string             `json:"description,omitempty"`
-	Enabled            *bool               `json:"enabled,omitempty" te:"int-bool"`
-	Groups             []GroupLabel        `json:"groups,omitempty"`
-	ModifiedBy         *string             `json:"modifiedBy,omitempty"`
-	ModifiedDate       *string             `json:"modifiedDate,omitempty"`
-	SavedEvent         *bool               `json:"savedEvent,omitempty" te:"int-bool"`
-	SharedWithAccounts []SharedWithAccount `json:"sharedWithAccounts,omitempty"`
-	TestID             *int64              `json:"testId,omitempty"`
-	TestName           *string             `json:"testName,omitempty"`
-	Type               *string             `json:"type,omitempty"`
-	LiveShare          *bool               `json:"liveShare,omitempty" te:"int-bool"`
+	AlertsEnabled      *bool                `json:"alertsEnabled,omitempty" te:"int-bool"`
+	AlertRules         *[]AlertRule         `json:"alertRules"`
+	APILinks           *[]APILink           `json:"apiLinks,omitempty"`
+	CreatedBy          *string              `json:"createdBy,omitempty"`
+	CreatedDate        *string              `json:"createdDate,omitempty"`
+	Description        *string              `json:"description,omitempty"`
+	Enabled            *bool                `json:"enabled,omitempty" te:"int-bool"`
+	Groups             *[]GroupLabel        `json:"groups,omitempty"`
+	ModifiedBy         *string              `json:"modifiedBy,omitempty"`
+	ModifiedDate       *string              `json:"modifiedDate,omitempty"`
+	SavedEvent         *bool                `json:"savedEvent,omitempty" te:"int-bool"`
+	SharedWithAccounts *[]SharedWithAccount `json:"sharedWithAccounts,omitempty"`
+	TestID             *int64               `json:"testId,omitempty"`
+	TestName           *string              `json:"testName,omitempty"`
+	Type               *string              `json:"type,omitempty"`
+	LiveShare          *bool                `json:"liveShare,omitempty" te:"int-bool"`
 
 	// Fields unique to this test
-	Agents               []Agent     `json:"agents,omitempty"`
-	BGPMeasurements      *bool       `json:"bgpMeasurements,omitempty" te:"int-bool"`
-	Codec                *string     `json:"codec,omitempty"`
-	CodecID              *int        `json:"codecId,omitempty"`
-	DSCP                 *string     `json:"dscp,omitempty"`
-	DSCPID               *int        `json:"dscpId,omitempty"`
-	Duration             *int        `json:"duration,omitempty"`
-	Interval             *int        `json:"interval,omitempty"`
-	JitterBuffer         *int        `json:"jitterBuffer,omitempty"`
-	NumPathTraces        *int        `json:"numPathTraces,omitempty"`
-	SIPTargetTime        *int        `json:"sipTargetTime,omitempty"`
-	SIPTimeLimit         *int        `json:"sipTimeLimit,omitempty"`
-	SourceSIPCredentials SIPAuthData `json:"sourceSipCredentials,omitempty"`
-	TargetAgentID        *int        `json:"targetAgentId,omitempty"`
-	TargetSIPCredentials SIPAuthData `json:"targetSipCredentials,omitempty"`
-	UsePublicBGP         *bool       `json:"usePublicBgp,omitempty" te:"int-bool"`
+	Agents               *[]Agent     `json:"agents,omitempty"`
+	BGPMeasurements      *bool        `json:"bgpMeasurements,omitempty" te:"int-bool"`
+	Codec                *string      `json:"codec,omitempty"`
+	CodecID              *int         `json:"codecId,omitempty"`
+	DSCP                 *string      `json:"dscp,omitempty"`
+	DSCPID               *int         `json:"dscpId,omitempty"`
+	Duration             *int         `json:"duration,omitempty"`
+	Interval             *int         `json:"interval,omitempty"`
+	JitterBuffer         *int         `json:"jitterBuffer,omitempty"`
+	NumPathTraces        *int         `json:"numPathTraces,omitempty"`
+	SIPTargetTime        *int         `json:"sipTargetTime,omitempty"`
+	SIPTimeLimit         *int         `json:"sipTimeLimit,omitempty"`
+	SourceSIPCredentials *SIPAuthData `json:"sourceSipCredentials,omitempty"`
+	TargetAgentID        *int         `json:"targetAgentId,omitempty"`
+	TargetSIPCredentials *SIPAuthData `json:"targetSipCredentials,omitempty"`
+	UsePublicBGP         *bool        `json:"usePublicBgp,omitempty" te:"int-bool"`
 }
 
 // MarshalJSON implements the json.Marshaler interface. It ensures
@@ -87,7 +87,7 @@ func (t *VoiceCall) UnmarshalJSON(data []byte) error {
 // AddAgent - Add agent to voice call  test
 func (t *VoiceCall) AddAgent(id int) {
 	agent := Agent{AgentID: Int(id)}
-	t.Agents = append(t.Agents, agent)
+	*t.Agents = append(*t.Agents, agent)
 }
 
 // GetVoiceCall  - get voice call test

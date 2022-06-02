@@ -30,25 +30,25 @@ func TestClient_GetDNSTrace(t *testing.T) {
 		LiveShare:            Bool(false),
 		Domain:               String("webex.com"),
 		DNSTransportProtocol: String("UDP"),
-		Agents: []Agent{
+		Agents: &[]Agent{
 			{
 				AgentID:     Int(48620),
 				AgentType:   String("Cloud"),
 				AgentName:   String("Seattle, WA (Trial) - IPv6"),
 				CountryID:   String("US"),
-				IPAddresses: []string{"135.84.184.153"},
+				IPAddresses: &[]string{"135.84.184.153"},
 				Location:    String("Seattle Area"),
 				Network:     String("Astute Hosting Inc. (AS 54527)"),
 				Prefix:      String("135.84.184.0/22"),
 			},
 		},
-		SharedWithAccounts: []SharedWithAccount{
+		SharedWithAccounts: &[]SharedWithAccount{
 			{
 				AID:              Int(176592),
 				AccountGroupName: String("Cloudreach"),
 			},
 		},
-		APILinks: APILinks{
+		APILinks: &[]APILink{
 			{
 				Href: String("https://api.thousandeyes.com/v6/tests/1226221"),
 				Rel:  String("self"),
@@ -117,26 +117,26 @@ func TestClient_CreateDNSTrace(t *testing.T) {
 		LiveShare:            Bool(false),
 		Domain:               String("webex.com"),
 		DNSTransportProtocol: String("UDP"),
-		Agents: []Agent{
+		Agents: &[]Agent{
 			{
 				AgentID:     Int(48620),
 				AgentType:   String("Cloud"),
 				AgentName:   String("Seattle, WA (Trial) - IPv6"),
 				CountryID:   String("US"),
-				IPAddresses: []string{"135.84.184.153"},
+				IPAddresses: &[]string{"135.84.184.153"},
 				Location:    String("Seattle Area"),
 				Network:     String("Astute Hosting Inc. (AS 54527)"),
 				Prefix:      String("135.84.184.0/22"),
 			},
 		},
-		SharedWithAccounts: []SharedWithAccount{
+		SharedWithAccounts: &[]SharedWithAccount{
 			{
 				AID:              Int(176592),
 				AccountGroupName: String("Cloudreach"),
 			},
 		},
 
-		APILinks: APILinks{
+		APILinks: &[]APILink{
 			{
 				Href: String("https://api.thousandeyes.com/v6/tests/1226221"),
 				Rel:  String("self"),
@@ -188,8 +188,8 @@ func TestClient_DeleteDNSTrace(t *testing.T) {
 }
 
 func TestClient_AddDnstraceAlertRule(t *testing.T) {
-	test := DNSTrace{TestName: String("test"), AlertRules: []AlertRule{}}
-	expected := DNSTrace{TestName: String("test"), AlertRules: []AlertRule{{RuleID: Int(1)}}}
+	test := DNSTrace{TestName: String("test"), AlertRules: &[]AlertRule{}}
+	expected := DNSTrace{TestName: String("test"), AlertRules: &[]AlertRule{{RuleID: Int(1)}}}
 	test.AddAlertRule(1)
 	assert.Equal(t, expected, test)
 }
@@ -215,8 +215,8 @@ func TestClient_UpdateDNSTrace(t *testing.T) {
 }
 
 func TestDNSTrace_AddAgent(t *testing.T) {
-	test := DNSTrace{TestName: String("test"), Agents: Agents{}}
-	expected := DNSTrace{TestName: String("test"), Agents: []Agent{{AgentID: Int(1)}}}
+	test := DNSTrace{TestName: String("test"), Agents: &[]Agent{}}
+	expected := DNSTrace{TestName: String("test"), Agents: &[]Agent{{AgentID: Int(1)}}}
 	test.AddAgent(1)
 	assert.Equal(t, expected, test)
 }

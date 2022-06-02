@@ -186,7 +186,7 @@ func TestClient_RemoveAgentFromCluster(t *testing.T) {
 		{
 			AgentID:   Int(1),
 			AgentName: String("test"),
-			ClusterMembers: []ClusterMember{
+			ClusterMembers: &[]ClusterMember{
 				{
 					MemberID: Int(80002),
 					Name:     String("test"),
@@ -210,7 +210,7 @@ func TestClient_AddAgentToCluster(t *testing.T) {
 		{
 			AgentID:   Int(1),
 			AgentName: String("test"),
-			ClusterMembers: []ClusterMember{
+			ClusterMembers: &[]ClusterMember{
 				{
 					MemberID: Int(80002),
 					Name:     String("test"),
