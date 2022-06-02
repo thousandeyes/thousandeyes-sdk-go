@@ -39,7 +39,7 @@ func TestClient_GetRTPStream(t *testing.T) {
 		DSCP:            String("EF (DSCP 46)"),
 		DSCPID:          Int(46),
 		NumPathTraces:   Int(3),
-		APILinks: APILinks{
+		APILinks: &[]APILink{
 
 			{
 				Rel:  String("self"),
@@ -108,7 +108,7 @@ func TestClient_CreateRTPStream(t *testing.T) {
 		NumPathTraces:   Int(3),
 		Codec:           String("G.711 @ 64 Kbps"),
 		CodecID:         Int(0),
-		APILinks: APILinks{
+		APILinks: &[]APILink{
 			{
 				Href: String("https://api.thousandeyes.com/v6/tests/814641"),
 				Rel:  String("self"),
@@ -183,8 +183,8 @@ func TestClient_UpdateRTPStream(t *testing.T) {
 }
 
 func TestRTPStream_AddAgent(t *testing.T) {
-	test := RTPStream{TestName: String("test"), Agents: Agents{}}
-	expected := RTPStream{TestName: String("test"), Agents: []Agent{{AgentID: Int(1)}}}
+	test := RTPStream{TestName: String("test"), Agents: &[]Agent{}}
+	expected := RTPStream{TestName: String("test"), Agents: &[]Agent{{AgentID: Int(1)}}}
 	test.AddAgent(1)
 	assert.Equal(t, expected, test)
 }

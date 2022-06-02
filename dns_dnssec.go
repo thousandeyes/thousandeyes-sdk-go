@@ -8,27 +8,27 @@ import (
 // DNSSec - DNSSec test
 type DNSSec struct {
 	// Common test fields
-	AlertsEnabled      *bool               `json:"alertsEnabled,omitempty" te:"int-bool"`
-	AlertRules         []AlertRule         `json:"alertRules"`
-	APILinks           []APILink           `json:"apiLinks,omitempty"`
-	CreatedBy          *string             `json:"createdBy,omitempty"`
-	CreatedDate        *string             `json:"createdDate,omitempty"`
-	Description        *string             `json:"description,omitempty"`
-	Enabled            *bool               `json:"enabled,omitempty" te:"int-bool"`
-	Groups             []GroupLabel        `json:"groups,omitempty"`
-	ModifiedBy         *string             `json:"modifiedBy,omitempty"`
-	ModifiedDate       *string             `json:"modifiedDate,omitempty"`
-	SavedEvent         *bool               `json:"savedEvent,omitempty" te:"int-bool"`
-	SharedWithAccounts []SharedWithAccount `json:"sharedWithAccounts,omitempty"`
-	TestID             *int64              `json:"testId,omitempty"`
-	TestName           *string             `json:"testName,omitempty"`
-	Type               *string             `json:"type,omitempty"`
-	LiveShare          *bool               `json:"liveShare,omitempty" te:"int-bool"`
+	AlertsEnabled      *bool                `json:"alertsEnabled,omitempty" te:"int-bool"`
+	AlertRules         *[]AlertRule         `json:"alertRules"`
+	APILinks           *[]APILink           `json:"apiLinks,omitempty"`
+	CreatedBy          *string              `json:"createdBy,omitempty"`
+	CreatedDate        *string              `json:"createdDate,omitempty"`
+	Description        *string              `json:"description,omitempty"`
+	Enabled            *bool                `json:"enabled,omitempty" te:"int-bool"`
+	Groups             *[]GroupLabel        `json:"groups,omitempty"`
+	ModifiedBy         *string              `json:"modifiedBy,omitempty"`
+	ModifiedDate       *string              `json:"modifiedDate,omitempty"`
+	SavedEvent         *bool                `json:"savedEvent,omitempty" te:"int-bool"`
+	SharedWithAccounts *[]SharedWithAccount `json:"sharedWithAccounts,omitempty"`
+	TestID             *int64               `json:"testId,omitempty"`
+	TestName           *string              `json:"testName,omitempty"`
+	Type               *string              `json:"type,omitempty"`
+	LiveShare          *bool                `json:"liveShare,omitempty" te:"int-bool"`
 
 	// Fields unique to this test
-	Agents   []Agent `json:"agents,omitempty"`
-	Domain   *string `json:"domain,omitempty"`
-	Interval *int    `json:"interval,omitempty"`
+	Agents   *[]Agent `json:"agents,omitempty"`
+	Domain   *string  `json:"domain,omitempty"`
+	Interval *int     `json:"interval,omitempty"`
 }
 
 // MarshalJSON implements the json.Marshaler interface. It ensures
@@ -63,13 +63,13 @@ func (t *DNSSec) UnmarshalJSON(data []byte) error {
 // AddAgent - Add agent to DNSSec test
 func (t *DNSSec) AddAgent(id int) {
 	agent := Agent{AgentID: Int(id)}
-	t.Agents = append(t.Agents, agent)
+	*t.Agents = append(*t.Agents, agent)
 }
 
 // AddAlertRule - Adds an alert to agent test
 func (t *DNSSec) AddAlertRule(id int) {
 	alertRule := AlertRule{RuleID: Int(id)}
-	t.AlertRules = append(t.AlertRules, alertRule)
+	*t.AlertRules = append(*t.AlertRules, alertRule)
 }
 
 // GetDNSSec - get DNSSec test

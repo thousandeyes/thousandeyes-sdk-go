@@ -10,20 +10,20 @@ type Alerts []Alert
 
 // Alert - An alert
 type Alert struct {
-	AlertID        *int     `json:"alertId,omitempty"`
-	TestID         *int64   `json:"testId,omitempty"`
-	TestName       *string  `json:"testName,omitempty"`
-	Active         *int     `json:"active,omitempty"`
-	RuleExpression *string  `json:"ruleExpression,omitempty"`
-	DateStart      *string  `json:"dateStart,omitempty"`
-	DateEnd        *string  `json:"dateEnd,omitempty"`
-	ViolationCount *int     `json:"violationCount,omitempty"`
-	RuleName       *string  `json:"ruleName,omitempty"`
-	Permalink      *string  `json:"permalink,omitempty"`
-	Type           *string  `json:"type,omitempty"`
-	Agents         Agents   `json:"agents,omitempty"`
-	Monitors       Monitors `json:"monitors,omitempty"`
-	APILinks       APILinks `json:"apiLinks,omitempty"`
+	AlertID        *int       `json:"alertId,omitempty"`
+	TestID         *int64     `json:"testId,omitempty"`
+	TestName       *string    `json:"testName,omitempty"`
+	Active         *int       `json:"active,omitempty"`
+	RuleExpression *string    `json:"ruleExpression,omitempty"`
+	DateStart      *string    `json:"dateStart,omitempty"`
+	DateEnd        *string    `json:"dateEnd,omitempty"`
+	ViolationCount *int       `json:"violationCount,omitempty"`
+	RuleName       *string    `json:"ruleName,omitempty"`
+	Permalink      *string    `json:"permalink,omitempty"`
+	Type           *string    `json:"type,omitempty"`
+	Agents         *[]Agent   `json:"agents,omitempty"`
+	Monitors       *[]Monitor `json:"monitors,omitempty"`
+	APILinks       *[]APILink `json:"apiLinks,omitempty"`
 }
 
 // AlertRules - list of alert rules
@@ -31,33 +31,33 @@ type AlertRules []AlertRule
 
 // NotificationEmail - Alert Rule Notification Email structure
 type NotificationEmail struct {
-	Message   *string  `json:"message,omitempty"`
-	Recipient []string `json:"recipient,omitempty"`
+	Message   *string   `json:"message,omitempty"`
+	Recipient *[]string `json:"recipient,omitempty"`
 }
 
 // Notification - Alert Rule Notification structure
 type Notification struct {
-	Email NotificationEmail `json:"email,omitempty"`
+	Email *NotificationEmail `json:"email,omitempty"`
 }
 
 // AlertRule - An alert rule
 type AlertRule struct {
-	AlertRuleID             *int         `json:"alertRuleId,omitempty"`
-	AlertType               *string      `json:"alertType,omitempty"`
-	Default                 *int         `json:"default,omitempty"`
-	Direction               *string      `json:"direction,omitempty"`
-	Expression              *string      `json:"expression,omitempty"`
-	IncludeCoveredPrefixes  *int         `json:"includeCoveredPrefixes,omitempty"`
-	MinimumSources          *int         `json:"minimumSources,omitempty"`
-	MinimumSourcesPct       *int         `json:"minimumSourcesPct,omitempty"`
-	NotifyOnClear           *int         `json:"notifyOnClear,omitempty"`
-	RoundsViolatingMode     *string      `json:"roundsViolatingMode,omitempty"`
-	RoundsViolatingOutOf    *int         `json:"roundsViolatingOutOf,omitempty"`
-	RoundsViolatingRequired *int         `json:"roundsViolatingRequired,omitempty"`
-	RuleID                  *int         `json:"ruleId,omitempty"`
-	RuleName                *string      `json:"ruleName,omitempty"`
-	TestIds                 []int        `json:"testIds,omitempty"`
-	Notifications           Notification `json:"notifications,omitempty"`
+	AlertRuleID             *int          `json:"alertRuleId,omitempty"`
+	AlertType               *string       `json:"alertType,omitempty"`
+	Default                 *int          `json:"default,omitempty"`
+	Direction               *string       `json:"direction,omitempty"`
+	Expression              *string       `json:"expression,omitempty"`
+	IncludeCoveredPrefixes  *int          `json:"includeCoveredPrefixes,omitempty"`
+	MinimumSources          *int          `json:"minimumSources,omitempty"`
+	MinimumSourcesPct       *int          `json:"minimumSourcesPct,omitempty"`
+	NotifyOnClear           *int          `json:"notifyOnClear,omitempty"`
+	RoundsViolatingMode     *string       `json:"roundsViolatingMode,omitempty"`
+	RoundsViolatingOutOf    *int          `json:"roundsViolatingOutOf,omitempty"`
+	RoundsViolatingRequired *int          `json:"roundsViolatingRequired,omitempty"`
+	RuleID                  *int          `json:"ruleId,omitempty"`
+	RuleName                *string       `json:"ruleName,omitempty"`
+	TestIds                 *[]int        `json:"testIds,omitempty"`
+	Notifications           *Notification `json:"notifications,omitempty"`
 }
 
 // CreateAlertRule - Create alert rule

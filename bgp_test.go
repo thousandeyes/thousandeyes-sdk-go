@@ -8,8 +8,8 @@ import (
 )
 
 func TestClient_AddBGPAlertRule(t *testing.T) {
-	test := BGP{TestName: String("test"), AlertRules: []AlertRule{}}
-	expected := BGP{TestName: String("test"), AlertRules: []AlertRule{{RuleID: Int(1)}}}
+	test := BGP{TestName: String("test"), AlertRules: &[]AlertRule{}}
+	expected := BGP{TestName: String("test"), AlertRules: &[]AlertRule{{RuleID: Int(1)}}}
 	test.AddAlertRule(1)
 	assert.Equal(t, expected, test)
 }
@@ -35,13 +35,13 @@ func TestClient_GetBGP(t *testing.T) {
 		Type:          String("bgp"),
 		LiveShare:     Bool(false),
 		Prefix:        String("1.2.3.0/20"),
-		SharedWithAccounts: []SharedWithAccount{
+		SharedWithAccounts: &[]SharedWithAccount{
 			{
 				AID:              Int(176592),
 				AccountGroupName: String("Cloudreach"),
 			},
 		},
-		APILinks: APILinks{
+		APILinks: &[]APILink{
 			{
 				Href: String("https://api.thousandeyes.com/v6/tests/1226221"),
 				Rel:  String("self"),
@@ -106,14 +106,14 @@ func TestClient_CreateBGP(t *testing.T) {
 		LiveShare:     Bool(false),
 		Prefix:        String("1.2.3.0/20"),
 		AlertsEnabled: Bool(true),
-		SharedWithAccounts: []SharedWithAccount{
+		SharedWithAccounts: &[]SharedWithAccount{
 			{
 				AID:              Int(176592),
 				AccountGroupName: String("Cloudreach"),
 			},
 		},
 
-		APILinks: APILinks{
+		APILinks: &[]APILink{
 			{
 				Href: String("https://api.thousandeyes.com/v6/tests/1226221"),
 				Rel:  String("self"),

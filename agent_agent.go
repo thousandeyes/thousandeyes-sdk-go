@@ -8,43 +8,43 @@ import (
 // AgentAgent - test
 type AgentAgent struct {
 	// Common test fields
-	AlertsEnabled      *bool               `json:"alertsEnabled,omitempty" te:"int-bool"`
-	AlertRules         []AlertRule         `json:"alertRules"`
-	APILinks           []APILink           `json:"apiLinks,omitempty"`
-	CreatedBy          *string             `json:"createdBy,omitempty"`
-	CreatedDate        *string             `json:"createdDate,omitempty"`
-	Description        *string             `json:"description,omitempty"`
-	Enabled            *bool               `json:"enabled,omitempty" te:"int-bool"`
-	Groups             []GroupLabel        `json:"groups,omitempty"`
-	ModifiedBy         *string             `json:"modifiedBy,omitempty"`
-	ModifiedDate       *string             `json:"modifiedDate,omitempty"`
-	SavedEvent         *bool               `json:"savedEvent,omitempty" te:"int-bool"`
-	SharedWithAccounts []SharedWithAccount `json:"sharedWithAccounts,omitempty"`
-	TestID             *int64              `json:"testId,omitempty"`
-	TestName           *string             `json:"testName,omitempty"`
-	Type               *string             `json:"type,omitempty"`
-	LiveShare          *bool               `json:"liveShare,omitempty" te:"int-bool"`
+	AlertsEnabled      *bool                `json:"alertsEnabled,omitempty" te:"int-bool"`
+	AlertRules         *[]AlertRule         `json:"alertRules"`
+	APILinks           *[]APILink           `json:"apiLinks,omitempty"`
+	CreatedBy          *string              `json:"createdBy,omitempty"`
+	CreatedDate        *string              `json:"createdDate,omitempty"`
+	Description        *string              `json:"description,omitempty"`
+	Enabled            *bool                `json:"enabled,omitempty" te:"int-bool"`
+	Groups             *[]GroupLabel        `json:"groups,omitempty"`
+	ModifiedBy         *string              `json:"modifiedBy,omitempty"`
+	ModifiedDate       *string              `json:"modifiedDate,omitempty"`
+	SavedEvent         *bool                `json:"savedEvent,omitempty" te:"int-bool"`
+	SharedWithAccounts *[]SharedWithAccount `json:"sharedWithAccounts,omitempty"`
+	TestID             *int64               `json:"testId,omitempty"`
+	TestName           *string              `json:"testName,omitempty"`
+	Type               *string              `json:"type,omitempty"`
+	LiveShare          *bool                `json:"liveShare,omitempty" te:"int-bool"`
 
 	// Fields unique to this test
-	Agents                 []Agent      `json:"agents,omitempty"`
-	BGPMeasurements        *bool        `json:"bgpMeasurements,omitempty" te:"int-bool"`
-	BGPMonitors            []BGPMonitor `json:"bgpMonitors,omitempty"`
-	Direction              *string      `json:"direction,omitempty"`
-	DSCP                   *string      `json:"dscp,omitempty"`
-	DSCPID                 *int         `json:"dscpId"`
-	Interval               *int         `json:"interval,omitempty"`
-	MSS                    *int         `json:"mss,omitempty"`
-	NetworkMeasurements    *bool        `json:"networkMeasurements,omitempty" te:"int-bool"`
-	MTUMeasurements        *bool        `json:"mtuMeasurements,omitempty" te:"int-bool"`
-	NumPathTraces          *int         `json:"numPathTraces,omitempty"`
-	PathTraceMode          *string      `json:"pathTraceMode,omitempty"`
-	Port                   *int         `json:"port,omitempty"`
-	Protocol               *string      `json:"protocol,omitempty"`
-	TargetAgentID          *int         `json:"targetAgentId,omitempty"`
-	ThroughputDuration     *int         `json:"throughputDuration,omitempty"`
-	ThroughputMeasurements *bool        `json:"throughputMeasurements,omitempty" te:"int-bool"`
-	ThroughputRate         *int         `json:"throughputRate,omitempty"`
-	UsePublicBGP           *bool        `json:"usePublicBgp,omitempty" te:"int-bool"`
+	Agents                 *[]Agent      `json:"agents,omitempty"`
+	BGPMeasurements        *bool         `json:"bgpMeasurements,omitempty" te:"int-bool"`
+	BGPMonitors            *[]BGPMonitor `json:"bgpMonitors,omitempty"`
+	Direction              *string       `json:"direction,omitempty"`
+	DSCP                   *string       `json:"dscp,omitempty"`
+	DSCPID                 *int          `json:"dscpId"`
+	Interval               *int          `json:"interval,omitempty"`
+	MSS                    *int          `json:"mss,omitempty"`
+	NetworkMeasurements    *bool         `json:"networkMeasurements,omitempty" te:"int-bool"`
+	MTUMeasurements        *bool         `json:"mtuMeasurements,omitempty" te:"int-bool"`
+	NumPathTraces          *int          `json:"numPathTraces,omitempty"`
+	PathTraceMode          *string       `json:"pathTraceMode,omitempty"`
+	Port                   *int          `json:"port,omitempty"`
+	Protocol               *string       `json:"protocol,omitempty"`
+	TargetAgentID          *int          `json:"targetAgentId,omitempty"`
+	ThroughputDuration     *int          `json:"throughputDuration,omitempty"`
+	ThroughputMeasurements *bool         `json:"throughputMeasurements,omitempty" te:"int-bool"`
+	ThroughputRate         *int          `json:"throughputRate,omitempty"`
+	UsePublicBGP           *bool         `json:"usePublicBgp,omitempty" te:"int-bool"`
 }
 
 // MarshalJSON implements the json.Marshaler interface. It ensures
@@ -79,13 +79,13 @@ func (t *AgentAgent) UnmarshalJSON(data []byte) error {
 // AddAgent - Adds an agent to agent test
 func (t *AgentAgent) AddAgent(id int) {
 	agent := Agent{AgentID: Int(id)}
-	t.Agents = append(t.Agents, agent)
+	*t.Agents = append(*t.Agents, agent)
 }
 
 // AddAlertRule - Adds an alert to agent test
 func (t *AgentAgent) AddAlertRule(id int) {
 	alertRule := AlertRule{RuleID: Int(id)}
-	t.AlertRules = append(t.AlertRules, alertRule)
+	*t.AlertRules = append(*t.AlertRules, alertRule)
 }
 
 // GetAgentAgent - Get an agent to agent test

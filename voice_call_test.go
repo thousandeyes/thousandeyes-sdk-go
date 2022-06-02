@@ -41,7 +41,7 @@ func TestClient_GetVoiceCall(t *testing.T) {
 		NumPathTraces:   Int(3),
 		DSCP:            String("EF (DSCP 46)"),
 		DSCPID:          Int(46),
-		TargetSIPCredentials: SIPAuthData{
+		TargetSIPCredentials: &SIPAuthData{
 			Protocol:     String("UDP"),
 			AuthUser:     String("1005"),
 			Password:     nil,
@@ -50,7 +50,7 @@ func TestClient_GetVoiceCall(t *testing.T) {
 			SIPRegistrar: String("18.234.180.66"),
 			User:         String("1005"),
 		},
-		SourceSIPCredentials: SIPAuthData{
+		SourceSIPCredentials: &SIPAuthData{
 			Protocol:     String("UDP"),
 			AuthUser:     String("1006"),
 			Password:     nil,
@@ -59,7 +59,7 @@ func TestClient_GetVoiceCall(t *testing.T) {
 			SIPRegistrar: String("18.234.180.66"),
 			User:         String("1006"),
 		},
-		APILinks: APILinks{
+		APILinks: &[]APILink{
 
 			{
 				Rel:  String("self"),
@@ -128,7 +128,7 @@ func TestClient_CreateVoiceCall(t *testing.T) {
 		NumPathTraces:   Int(3),
 		Codec:           String("G.711 @ 64 Kbps"),
 		CodecID:         Int(0),
-		APILinks: APILinks{
+		APILinks: &[]APILink{
 			{
 				Href: String("https://api.thousandeyes.com/v6/tests/814641"),
 				Rel:  String("self"),
@@ -203,8 +203,8 @@ func TestClient_UpdateVoiceCall(t *testing.T) {
 }
 
 func TestVoiceCall_AddAgent(t *testing.T) {
-	test := VoiceCall{TestName: String("test"), Agents: Agents{}}
-	expected := VoiceCall{TestName: String("test"), Agents: []Agent{{AgentID: Int(1)}}}
+	test := VoiceCall{TestName: String("test"), Agents: &[]Agent{}}
+	expected := VoiceCall{TestName: String("test"), Agents: &[]Agent{{AgentID: Int(1)}}}
 	test.AddAgent(1)
 	assert.Equal(t, expected, test)
 }

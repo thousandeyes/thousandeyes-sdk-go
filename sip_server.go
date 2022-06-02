@@ -10,39 +10,39 @@ import (
 // SIPServer - SIPServer trace test
 type SIPServer struct {
 	// Common test fields
-	AlertsEnabled      *bool               `json:"alertsEnabled,omitempty" te:"int-bool"`
-	AlertRules         []AlertRule         `json:"alertRules"`
-	APILinks           []APILink           `json:"apiLinks,omitempty"`
-	CreatedBy          *string             `json:"createdBy,omitempty"`
-	CreatedDate        *string             `json:"createdDate,omitempty"`
-	Description        *string             `json:"description,omitempty"`
-	Enabled            *bool               `json:"enabled,omitempty" te:"int-bool"`
-	Groups             []GroupLabel        `json:"groups,omitempty"`
-	ModifiedBy         *string             `json:"modifiedBy,omitempty"`
-	ModifiedDate       *string             `json:"modifiedDate,omitempty"`
-	SavedEvent         *bool               `json:"savedEvent,omitempty" te:"int-bool"`
-	SharedWithAccounts []SharedWithAccount `json:"sharedWithAccounts,omitempty"`
-	TestID             *int64              `json:"testId,omitempty"`
-	TestName           *string             `json:"testName,omitempty"`
-	Type               *string             `json:"type,omitempty"`
-	LiveShare          *bool               `json:"liveShare,omitempty" te:"int-bool"`
+	AlertsEnabled      *bool                `json:"alertsEnabled,omitempty" te:"int-bool"`
+	AlertRules         *[]AlertRule         `json:"alertRules"`
+	APILinks           *[]APILink           `json:"apiLinks,omitempty"`
+	CreatedBy          *string              `json:"createdBy,omitempty"`
+	CreatedDate        *string              `json:"createdDate,omitempty"`
+	Description        *string              `json:"description,omitempty"`
+	Enabled            *bool                `json:"enabled,omitempty" te:"int-bool"`
+	Groups             *[]GroupLabel        `json:"groups,omitempty"`
+	ModifiedBy         *string              `json:"modifiedBy,omitempty"`
+	ModifiedDate       *string              `json:"modifiedDate,omitempty"`
+	SavedEvent         *bool                `json:"savedEvent,omitempty" te:"int-bool"`
+	SharedWithAccounts *[]SharedWithAccount `json:"sharedWithAccounts,omitempty"`
+	TestID             *int64               `json:"testId,omitempty"`
+	TestName           *string              `json:"testName,omitempty"`
+	Type               *string              `json:"type,omitempty"`
+	LiveShare          *bool                `json:"liveShare,omitempty" te:"int-bool"`
 
 	// Fields unique to this test
-	Agents                []Agent     `json:"agents,omitempty"`
-	BandwidthMeasurements *bool       `json:"bandwidthMeasurements,omitempty" te:"int-bool"`
-	BGPMeasurements       *bool       `json:"bgpMeasurements,omitempty" te:"int-bool"`
-	Interval              *int        `json:"interval,omitempty"`
-	MTUMeasurements       *bool       `json:"mtuMeasurements,omitempty" te:"int-bool"`
-	NetworkMeasurements   *bool       `json:"networkMeasurements,omitempty" te:"int-bool"`
-	NumPathTraces         *int        `json:"numPathTraces,omitempty"`
-	OptionsRegex          *string     `json:"options_regex,omitempty"`
-	PathTraceMode         *string     `json:"pathTraceMode,omitempty"`
-	ProbeMode             *string     `json:"probeMode,omitempty"`
-	RegisterEnabled       *bool       `json:"registerEnabled,omitempty" te:"int-bool"`
-	SIPTargetTime         *int        `json:"sipTargetTime,omitempty"`
-	SIPTimeLimit          *int        `json:"sipTimeLimit,omitempty"`
-	TargetSIPCredentials  SIPAuthData `json:"targetSipCredentials,omitempty"`
-	UsePublicBGP          *bool       `json:"usePublicBgp,omitempty" te:"int-bool"`
+	Agents                *[]Agent     `json:"agents,omitempty"`
+	BandwidthMeasurements *bool        `json:"bandwidthMeasurements,omitempty" te:"int-bool"`
+	BGPMeasurements       *bool        `json:"bgpMeasurements,omitempty" te:"int-bool"`
+	Interval              *int         `json:"interval,omitempty"`
+	MTUMeasurements       *bool        `json:"mtuMeasurements,omitempty" te:"int-bool"`
+	NetworkMeasurements   *bool        `json:"networkMeasurements,omitempty" te:"int-bool"`
+	NumPathTraces         *int         `json:"numPathTraces,omitempty"`
+	OptionsRegex          *string      `json:"options_regex,omitempty"`
+	PathTraceMode         *string      `json:"pathTraceMode,omitempty"`
+	ProbeMode             *string      `json:"probeMode,omitempty"`
+	RegisterEnabled       *bool        `json:"registerEnabled,omitempty" te:"int-bool"`
+	SIPTargetTime         *int         `json:"sipTargetTime,omitempty"`
+	SIPTimeLimit          *int         `json:"sipTimeLimit,omitempty"`
+	TargetSIPCredentials  *SIPAuthData `json:"targetSipCredentials,omitempty"`
+	UsePublicBGP          *bool        `json:"usePublicBgp,omitempty" te:"int-bool"`
 }
 
 // MarshalJSON implements the json.Marshaler interface. It ensures
@@ -77,13 +77,13 @@ func (t *SIPServer) UnmarshalJSON(data []byte) error {
 // AddAgent - Add agemt to sip server  test
 func (t *SIPServer) AddAgent(id int) {
 	agent := Agent{AgentID: Int(id)}
-	t.Agents = append(t.Agents, agent)
+	*t.Agents = append(*t.Agents, agent)
 }
 
 // AddAlertRule - Adds an alert to agent test
 func (t *SIPServer) AddAlertRule(id int) {
 	alertRule := AlertRule{RuleID: Int(id)}
-	t.AlertRules = append(t.AlertRules, alertRule)
+	*t.AlertRules = append(*t.AlertRules, alertRule)
 }
 
 // GetSIPServer  - get sip server test
@@ -118,16 +118,18 @@ func (c *Client) GetSIPServer(id int) (*SIPServer, error) {
 		return nil, fmt.Errorf("Could not decode JSON response: %v", dErr)
 	}
 	for i := range target["test"] {
-		sipAuth := SIPAuthData{
-			AuthUser:     sipTarget["test"][i].AuthUser,
-			Password:     sipTarget["test"][i].Password,
-			Port:         sipTarget["test"][i].Port,
-			Protocol:     sipTarget["test"][i].Protocol,
-			SIPProxy:     sipTarget["test"][i].SIPProxy,
-			SIPRegistrar: sipTarget["test"][i].SIPRegistrar,
-			User:         sipTarget["test"][i].User,
+		if sipTarget["test"][i].AuthUser != nil {
+			sipAuth := &SIPAuthData{
+				AuthUser:     sipTarget["test"][i].AuthUser,
+				Password:     sipTarget["test"][i].Password,
+				Port:         sipTarget["test"][i].Port,
+				Protocol:     sipTarget["test"][i].Protocol,
+				SIPProxy:     sipTarget["test"][i].SIPProxy,
+				SIPRegistrar: sipTarget["test"][i].SIPRegistrar,
+				User:         sipTarget["test"][i].User,
+			}
+			target["test"][i].TargetSIPCredentials = sipAuth
 		}
-		target["test"][i].TargetSIPCredentials = sipAuth
 	}
 	return &target["test"][0], nil
 }

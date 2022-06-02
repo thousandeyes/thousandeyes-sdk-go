@@ -7,11 +7,11 @@ import (
 
 // AccountGroupRole - an account group role
 type AccountGroupRole struct {
-	RoleName                 *string      `json:"roleName,omitempty"`
-	RoleID                   *int         `json:"roleId,omitempty"`
-	HasManagementPermissions *bool        `json:"hasManagementPermissions,omitempty" te:"int-bool"`
-	Builtin                  *bool        `json:"builtin,omitempty" te:"int-bool"`
-	Permissions              []Permission `json:"permissions,omitempty"`
+	RoleName                 *string       `json:"roleName,omitempty"`
+	RoleID                   *int          `json:"roleId,omitempty"`
+	HasManagementPermissions *bool         `json:"hasManagementPermissions,omitempty" te:"int-bool"`
+	Builtin                  *bool         `json:"builtin,omitempty" te:"int-bool"`
+	Permissions              *[]Permission `json:"permissions,omitempty"`
 }
 
 // Permission - permission attached to roles

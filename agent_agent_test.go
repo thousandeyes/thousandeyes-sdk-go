@@ -8,15 +8,15 @@ import (
 )
 
 func TestClient_AddAgentAgentAlertRule(t *testing.T) {
-	test := AgentAgent{TestName: String("test"), AlertRules: []AlertRule{}}
-	expected := AgentAgent{TestName: String("test"), AlertRules: []AlertRule{{RuleID: Int(1)}}}
+	test := AgentAgent{TestName: String("test"), AlertRules: &[]AlertRule{}}
+	expected := AgentAgent{TestName: String("test"), AlertRules: &[]AlertRule{{RuleID: Int(1)}}}
 	test.AddAlertRule(1)
 	assert.Equal(t, expected, test)
 }
 
 func TestClient_AgentAgentAddAgent(t *testing.T) {
-	test := AgentAgent{TestName: String("test"), Agents: Agents{}}
-	expected := AgentAgent{TestName: String("test"), Agents: []Agent{{AgentID: Int(1)}}}
+	test := AgentAgent{TestName: String("test"), Agents: &[]Agent{}}
+	expected := AgentAgent{TestName: String("test"), Agents: &[]Agent{{AgentID: Int(1)}}}
 	test.AddAgent(1)
 	assert.Equal(t, expected, test)
 }
@@ -66,8 +66,8 @@ func TestClient_GetAgentAgentJsonError(t *testing.T) {
 }
 
 func TestClient_AddAlertRule(t *testing.T) {
-	test := AgentAgent{TestName: String("test"), AlertRules: []AlertRule{}}
-	expected := AgentAgent{TestName: String("test"), AlertRules: []AlertRule{{RuleID: Int(1)}}}
+	test := AgentAgent{TestName: String("test"), AlertRules: &[]AlertRule{}}
+	expected := AgentAgent{TestName: String("test"), AlertRules: &[]AlertRule{{RuleID: Int(1)}}}
 	test.AddAlertRule(1)
 	assert.Equal(t, expected, test)
 }
