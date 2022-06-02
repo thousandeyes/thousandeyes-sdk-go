@@ -1,34 +1,64 @@
 package thousandeyes
 
 import (
+	"encoding/json"
 	"fmt"
 )
 
 // BGP - BGP trace test
 type BGP struct {
 	// Common test fields
-	AlertsEnabled      *int                `json:"alertsEnabled,omitempty"`
+	AlertsEnabled      *bool               `json:"alertsEnabled,omitempty" te:"int-bool"`
 	AlertRules         []AlertRule         `json:"alertRules"`
 	APILinks           []APILink           `json:"apiLinks,omitempty"`
 	CreatedBy          *string             `json:"createdBy,omitempty"`
 	CreatedDate        *string             `json:"createdDate,omitempty"`
 	Description        *string             `json:"description,omitempty"`
-	Enabled            *int                `json:"enabled,omitempty"`
+	Enabled            *bool               `json:"enabled,omitempty" te:"int-bool"`
 	Groups             []GroupLabel        `json:"groups,omitempty"`
 	ModifiedBy         *string             `json:"modifiedBy,omitempty"`
 	ModifiedDate       *string             `json:"modifiedDate,omitempty"`
-	SavedEvent         *int                `json:"savedEvent,omitempty"`
+	SavedEvent         *bool               `json:"savedEvent,omitempty" te:"int-bool"`
 	SharedWithAccounts []SharedWithAccount `json:"sharedWithAccounts,omitempty"`
 	TestID             *int64              `json:"testId,omitempty"`
 	TestName           *string             `json:"testName,omitempty"`
 	Type               *string             `json:"type,omitempty"`
-	LiveShare          *int                `json:"liveShare,omitempty"`
+	LiveShare          *bool               `json:"liveShare,omitempty" te:"int-bool"`
 
 	// Fields unique to this test
 	BGPMonitors            []BGPMonitor `json:"bgpMonitors,omitempty"`
-	IncludeCoveredPrefixes *int         `json:"includeCoveredPrefixes,omitempty"`
+	IncludeCoveredPrefixes *bool        `json:"includeCoveredPrefixes,omitempty" te:"int-bool"`
 	Prefix                 *string      `json:"prefix,omitempty"`
-	UsePublicBGP           *int         `json:"usePublicBgp,omitempty"`
+	UsePublicBGP           *bool        `json:"usePublicBgp,omitempty" te:"int-bool"`
+}
+
+// MarshalJSON implements the json.Marshaler interface. It ensures
+// that ThousandEyes int fields that only use the values 0 or 1 are
+// treated as booleans.
+func (t BGP) MarshalJSON() ([]byte, error) {
+	type aliasTest BGP
+
+	data, err := json.Marshal((aliasTest)(t))
+	if err != nil {
+		return nil, err
+	}
+
+	return jsonBoolToInt(&t, data)
+}
+
+// UnmarshalJSON implements the json.Unmarshaler interface. It ensures
+// that ThousandEyes int fields that only use the values 0 or 1 are
+// treated as booleans.
+func (t *BGP) UnmarshalJSON(data []byte) error {
+	type aliasTest BGP
+	test := (*aliasTest)(t)
+
+	data, err := jsonIntToBool(t, data)
+	if err != nil {
+		return err
+	}
+
+	return json.Unmarshal(data, &test)
 }
 
 // AddAlertRule - Adds an alert to agent test

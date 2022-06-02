@@ -1,6 +1,7 @@
 package thousandeyes
 
 import (
+	"encoding/json"
 	"fmt"
 )
 
@@ -20,28 +21,28 @@ type CustomHeaders struct {
 // HTTPServer - a http server test
 type HTTPServer struct {
 	// Common test fields
-	AlertsEnabled      *int                `json:"alertsEnabled,omitempty"`
+	AlertsEnabled      *bool               `json:"alertsEnabled,omitempty" te:"int-bool"`
 	AlertRules         []AlertRule         `json:"alertRules"`
 	APILinks           []APILink           `json:"apiLinks,omitempty"`
 	CreatedBy          *string             `json:"createdBy,omitempty"`
 	CreatedDate        *string             `json:"createdDate,omitempty"`
 	Description        *string             `json:"description,omitempty"`
-	Enabled            *int                `json:"enabled,omitempty"`
+	Enabled            *bool               `json:"enabled,omitempty" te:"int-bool"`
 	Groups             []GroupLabel        `json:"groups,omitempty"`
 	ModifiedBy         *string             `json:"modifiedBy,omitempty"`
 	ModifiedDate       *string             `json:"modifiedDate,omitempty"`
-	SavedEvent         *int                `json:"savedEvent,omitempty"`
+	SavedEvent         *bool               `json:"savedEvent,omitempty" te:"int-bool"`
 	SharedWithAccounts []SharedWithAccount `json:"sharedWithAccounts,omitempty"`
 	TestID             *int64              `json:"testId,omitempty"`
 	TestName           *string             `json:"testName,omitempty"`
 	Type               *string             `json:"type,omitempty"`
-	LiveShare          *int                `json:"liveShare,omitempty"`
+	LiveShare          *bool               `json:"liveShare,omitempty" te:"int-bool"`
 
 	// Fields unique to this test
 	Agents                Agents         `json:"agents,omitempty"`
 	AuthType              *string        `json:"authType,omitempty"`
-	BandwidthMeasurements *int           `json:"bandwidthMeasurements,omitempty"`
-	BGPMeasurements       *int           `json:"bgpMeasurements,omitempty"`
+	BandwidthMeasurements *bool          `json:"bandwidthMeasurements,omitempty" te:"int-bool"`
+	BGPMeasurements       *bool          `json:"bgpMeasurements,omitempty" te:"int-bool"`
 	BGPMonitors           []Monitor      `json:"bgpMonitors,omitempty"`
 	ClientCertificate     *string        `json:"clientCertificate,omitempty"`
 	ContentRegex          *string        `json:"contentRegex,omitempty"`
@@ -49,14 +50,14 @@ type HTTPServer struct {
 	DesiredStatusCode     *string        `json:"desiredStatusCode,omitempty"`
 	DownloadLimit         *string        `json:"downloadLimit,omitempty"`
 	DNSOverride           *string        `json:"dnsOverride,omitempty"`
-	FollowRedirects       *int           `json:"followRedirects,omitempty"`
+	FollowRedirects       *bool          `json:"followRedirects,omitempty" te:"int-bool"`
 	Headers               []string       `json:"headers,omitempty"`
 	HTTPVersion           *int           `json:"httpVersion,omitempty"`
 	HTTPTargetTime        *int           `json:"httpTargetTime,omitempty"`
 	HTTPTimeLimit         *int           `json:"httpTimeLimit,omitempty"`
 	Interval              *int           `json:"interval,omitempty"`
-	MTUMeasurements       *int           `json:"mtuMeasurements,omitempty"`
-	NetworkMeasurements   *int           `json:"networkMeasurements,omitempty"`
+	MTUMeasurements       *bool          `json:"mtuMeasurements,omitempty" te:"int-bool"`
+	NetworkMeasurements   *bool          `json:"networkMeasurements,omitempty" te:"int-bool"`
 	NumPathTraces         *int           `json:"numPathTraces,omitempty"`
 	Password              *string        `json:"password,omitempty"`
 	PathTraceMode         *string        `json:"pathTraceMode,omitempty"`
@@ -66,10 +67,39 @@ type HTTPServer struct {
 	SSLVersion            *string        `json:"sslVersion,omitempty"`
 	SSLVersionID          *int           `json:"sslVersionId,omitempty"`
 	URL                   *string        `json:"url,omitempty"`
-	UseNTLM               *int           `json:"useNtlm,omitempty"` // TODO: BasicAuth not working
+	UseNTLM               *bool          `json:"useNtlm,omitempty" te:"int-bool"` // TODO: BasicAuth not working
 	UserAgent             *string        `json:"userAgent,omitempty"`
 	Username              *string        `json:"username,omitempty"`
-	VerifyCertificate     *int           `json:"verifyCertificate,omitempty"`
+	VerifyCertificate     *bool          `json:"verifyCertificate,omitempty" te:"int-bool"`
+}
+
+// MarshalJSON implements the json.Marshaler interface. It ensures
+// that ThousandEyes int fields that only use the values 0 or 1 are
+// treated as booleans.
+func (t HTTPServer) MarshalJSON() ([]byte, error) {
+	type aliasTest HTTPServer
+
+	data, err := json.Marshal((aliasTest)(t))
+	if err != nil {
+		return nil, err
+	}
+
+	return jsonBoolToInt(&t, data)
+}
+
+// UnmarshalJSON implements the json.Unmarshaler interface. It ensures
+// that ThousandEyes int fields that only use the values 0 or 1 are
+// treated as booleans.
+func (t *HTTPServer) UnmarshalJSON(data []byte) error {
+	type aliasTest HTTPServer
+	test := (*aliasTest)(t)
+
+	data, err := jsonIntToBool(t, data)
+	if err != nil {
+		return err
+	}
+
+	return json.Unmarshal(data, &test)
 }
 
 // AddAgent - add an agent

@@ -1,36 +1,39 @@
 package thousandeyes
 
-import "fmt"
+import (
+	"encoding/json"
+	"fmt"
+)
 
 // FTPServer - ftp server test
 type FTPServer struct {
 	// Common test fields
-	AlertsEnabled      *int                `json:"alertsEnabled,omitempty"`
+	AlertsEnabled      *bool               `json:"alertsEnabled,omitempty" te:"int-bool"`
 	AlertRules         []AlertRule         `json:"alertRules"`
 	APILinks           []APILink           `json:"apiLinks,omitempty"`
 	CreatedBy          *string             `json:"createdBy,omitempty"`
 	CreatedDate        *string             `json:"createdDate,omitempty"`
 	Description        *string             `json:"description,omitempty"`
-	Enabled            *int                `json:"enabled,omitempty"`
+	Enabled            *bool               `json:"enabled,omitempty" te:"int-bool"`
 	Groups             []GroupLabel        `json:"groups,omitempty"`
 	ModifiedBy         *string             `json:"modifiedBy,omitempty"`
 	ModifiedDate       *string             `json:"modifiedDate,omitempty"`
-	SavedEvent         *int                `json:"savedEvent,omitempty"`
+	SavedEvent         *bool               `json:"savedEvent,omitempty" te:"int-bool"`
 	SharedWithAccounts []SharedWithAccount `json:"sharedWithAccounts,omitempty"`
 	TestID             *int64              `json:"testId,omitempty"`
 	TestName           *string             `json:"testName,omitempty"`
 	Type               *string             `json:"type,omitempty"`
-	LiveShare          *int                `json:"liveShare,omitempty"`
+	LiveShare          *bool               `json:"liveShare,omitempty" te:"int-bool"`
 
 	// Fields unique to this test
 	Agents              []Agent `json:"agents,omitempty"`
-	BGPMeasurements     *int    `json:"bgpMeasurements,omitempty"`
+	BGPMeasurements     *bool   `json:"bgpMeasurements,omitempty" te:"int-bool"`
 	DownloadLimit       *int    `json:"downloadLimit,omitempty"`
 	FTPTargetTime       *int    `json:"ftpTargetTime,omitempty"`
 	FTPTimeLimit        *int    `json:"ftpTimeLimit,omitempty"`
 	Interval            *int    `json:"interval,omitempty"`
-	MTUMeasurements     *int    `json:"mtuMeasurements,omitempty"`
-	NetworkMeasurements *int    `json:"networkMeasurements,omitempty"`
+	MTUMeasurements     *bool   `json:"mtuMeasurements,omitempty" te:"int-bool"`
+	NetworkMeasurements *bool   `json:"networkMeasurements,omitempty" te:"int-bool"`
 	NumPathTraces       *int    `json:"numPathTraces,omitempty"`
 	Password            *string `json:"password,omitempty"`
 	PathTraceMode       *string `json:"pathTraceMode,omitempty"`
@@ -41,6 +44,35 @@ type FTPServer struct {
 	UseActiveFTP        *int    `json:"useActiveFtp,omitempty"`
 	UseExplicitFTPS     *int    `json:"useExplicitFtps,omitempty"`
 	Username            *string `json:"username,omitempty"`
+}
+
+// MarshalJSON implements the json.Marshaler interface. It ensures
+// that ThousandEyes int fields that only use the values 0 or 1 are
+// treated as booleans.
+func (t FTPServer) MarshalJSON() ([]byte, error) {
+	type aliasTest FTPServer
+
+	data, err := json.Marshal((aliasTest)(t))
+	if err != nil {
+		return nil, err
+	}
+
+	return jsonBoolToInt(&t, data)
+}
+
+// UnmarshalJSON implements the json.Unmarshaler interface. It ensures
+// that ThousandEyes int fields that only use the values 0 or 1 are
+// treated as booleans.
+func (t *FTPServer) UnmarshalJSON(data []byte) error {
+	type aliasTest FTPServer
+	test := (*aliasTest)(t)
+
+	data, err := jsonIntToBool(t, data)
+	if err != nil {
+		return err
+	}
+
+	return json.Unmarshal(data, &test)
 }
 
 // AddAgent - Add ftp server test

@@ -8,7 +8,7 @@ import (
 )
 
 func TestClient_GetRTPStream(t *testing.T) {
-	out := `{"test":[{"createdDate":"2018-11-03 19:09:42","modifiedDate":"2019-02-06 01:09:56","createdBy":"ThousandEyes (support@thousandeyes.com)","modifiedBy":"ThousandEyes (support@thousandeyes.com)","enabled":1,"savedEvent":0,"testId":814641,"testName":"RTP Stream - AWS RTP server","interval":120,"bgpMeasurements":1,"numPathTraces":3,"usePublicBGP":1,"duration":5,"codec":"G.711 @ 64 Kbps","codecId":0,"dscpId":46,"jitterBuffer":40,"sipTimeLimit":5,"alertsEnabled":0,"liveShare":0,"targetAgentId":69,"numPathTraces":3,"sourceSipCredentials":{"credentialsId":48162,"user":"1006","sipRegistrar":"18.234.180.66","sipProxy":"","authUser":"1006","port":5060,"protocol":"UDP"},"targetSipCredentials":{"credentialsId":48165,"user":"1005","sipRegistrar":"18.234.180.66","sipProxy":"","authUser":"1005","port":5060,"protocol":"UDP"},"sipTargetTime":1000,"dscp":"EF (DSCP 46)","apiLinks":[{"rel":"self","href":"https://api.thousandeyes.com/v6/tests/814641"},{"rel":"data","href":"https://api.thousandeyes.com/v6/voice/sip-server/814641"},{"rel":"data","href":"https://api.thousandeyes.com/v6/voice/rtp-stream/814641"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/bgp-metrics/814641"}]}]}`
+	out := `{"test":[{"createdDate":"2018-11-03 19:09:42","modifiedDate":"2019-02-06 01:09:56","createdBy":"ThousandEyes (support@thousandeyes.com)","modifiedBy":"ThousandEyes (support@thousandeyes.com)","enabled":1,"savedEvent":0,"testId":814641,"testName":"RTP Stream - AWS RTP server","interval":120,"bgpMeasurements":1,"numPathTraces":3,"usePublicBgp":1,"duration":5,"codec":"G.711 @ 64 Kbps","codecId":0,"dscpId":46,"jitterBuffer":40,"sipTimeLimit":5,"alertsEnabled":0,"liveShare":0,"targetAgentId":69,"numPathTraces":3,"sourceSipCredentials":{"credentialsId":48162,"user":"1006","sipRegistrar":"18.234.180.66","sipProxy":"","authUser":"1006","port":5060,"protocol":"UDP"},"targetSipCredentials":{"credentialsId":48165,"user":"1005","sipRegistrar":"18.234.180.66","sipProxy":"","authUser":"1005","port":5060,"protocol":"UDP"},"sipTargetTime":1000,"dscp":"EF (DSCP 46)","apiLinks":[{"rel":"self","href":"https://api.thousandeyes.com/v6/tests/814641"},{"rel":"data","href":"https://api.thousandeyes.com/v6/voice/sip-server/814641"},{"rel":"data","href":"https://api.thousandeyes.com/v6/voice/rtp-stream/814641"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/bgp-metrics/814641"}]}]}`
 	setup()
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/tests/122621.json", func(w http.ResponseWriter, r *http.Request) {
@@ -19,14 +19,14 @@ func TestClient_GetRTPStream(t *testing.T) {
 	// Define expected values from the API (based on the JSON we print out above)
 	expected := RTPStream{
 		TestID:          Int64(814641),
-		Enabled:         Int(1),
+		Enabled:         Bool(true),
 		CreatedBy:       String("ThousandEyes (support@thousandeyes.com)"),
 		CreatedDate:     String("2018-11-03 19:09:42"),
-		SavedEvent:      Int(0),
-		AlertsEnabled:   Int(0),
+		SavedEvent:      Bool(false),
+		AlertsEnabled:   Bool(false),
 		TestName:        String("RTP Stream - AWS RTP server"),
 		Interval:        Int(120),
-		LiveShare:       Int(0),
+		LiveShare:       Bool(false),
 		Duration:        Int(5),
 		JitterBuffer:    Int(40),
 		ModifiedDate:    String("2019-02-06 01:09:56"),
@@ -34,8 +34,8 @@ func TestClient_GetRTPStream(t *testing.T) {
 		TargetAgentID:   Int(69),
 		Codec:           String("G.711 @ 64 Kbps"),
 		CodecID:         Int(0),
-		BGPMeasurements: Int(1),
-		UsePublicBGP:    Int(1),
+		BGPMeasurements: Bool(true),
+		UsePublicBGP:    Bool(true),
 		DSCP:            String("EF (DSCP 46)"),
 		DSCPID:          Int(46),
 		NumPathTraces:   Int(3),
@@ -80,7 +80,7 @@ func TestClient_GetRTPStreamJsonError(t *testing.T) {
 }
 
 func TestClient_CreateRTPStream(t *testing.T) {
-	out := `{"test":[{"createdDate":"2018-11-03 19:09:42","modifiedDate":"2019-02-06 01:09:56","createdBy":"ThousandEyes (support@thousandeyes.com)","duration" : 5,"modifiedBy":"ThousandEyes (support@thousandeyes.com)","enabled":1,"savedEvent":0,"testId":814641,"testName":"RTP Stream - AWS RTP server","interval":120,"bgpMeasurements":1,"usePublicBGP":1,"codec":"G.711 @ 64 Kbps","codecId":0,"dscpId":46,"alertsEnabled":0,"numPathTraces":3,"apiLinks":[{"rel":"self","href":"https://api.thousandeyes.com/v6/tests/814641"},{"rel":"data","href":"https://api.thousandeyes.com/v6/voice/sip-server/814641"},{"rel":"data","href":"https://api.thousandeyes.com/v6/voice/rtp-stream/814641"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/bgp-metrics/814641"}]}]}`
+	out := `{"test":[{"createdDate":"2018-11-03 19:09:42","modifiedDate":"2019-02-06 01:09:56","createdBy":"ThousandEyes (support@thousandeyes.com)","duration" : 5,"modifiedBy":"ThousandEyes (support@thousandeyes.com)","enabled":1,"savedEvent":0,"testId":814641,"testName":"RTP Stream - AWS RTP server","interval":120,"bgpMeasurements":1,"usePublicBgp":1,"codec":"G.711 @ 64 Kbps","codecId":0,"dscpId":46,"alertsEnabled":0,"numPathTraces":3,"apiLinks":[{"rel":"self","href":"https://api.thousandeyes.com/v6/tests/814641"},{"rel":"data","href":"https://api.thousandeyes.com/v6/voice/sip-server/814641"},{"rel":"data","href":"https://api.thousandeyes.com/v6/voice/rtp-stream/814641"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/bgp-metrics/814641"}]}]}`
 	setup()
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/tests/voice/new.json", func(w http.ResponseWriter, r *http.Request) {
@@ -92,19 +92,19 @@ func TestClient_CreateRTPStream(t *testing.T) {
 	// Define expected values from the API (based on the JSON we print out above)
 	expected := RTPStream{
 		TestID:          Int64(814641),
-		Enabled:         Int(1),
+		Enabled:         Bool(true),
 		ModifiedBy:      String("ThousandEyes (support@thousandeyes.com)"),
 		ModifiedDate:    String("2019-02-06 01:09:56"),
 		CreatedBy:       String("ThousandEyes (support@thousandeyes.com)"),
 		CreatedDate:     String("2018-11-03 19:09:42"),
-		SavedEvent:      Int(0),
+		SavedEvent:      Bool(false),
 		TestName:        String("RTP Stream - AWS RTP server"),
 		Interval:        Int(120),
-		AlertsEnabled:   Int(0),
+		AlertsEnabled:   Bool(false),
 		DSCPID:          Int(46),
 		Duration:        Int(5),
-		BGPMeasurements: Int(1),
-		UsePublicBGP:    Int(1),
+		BGPMeasurements: Bool(true),
+		UsePublicBGP:    Bool(true),
 		NumPathTraces:   Int(3),
 		Codec:           String("G.711 @ 64 Kbps"),
 		CodecID:         Int(0),
@@ -177,7 +177,7 @@ func TestClient_UpdateRTPStream(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	expected := RTPStream{AlertsEnabled: Int(0), Interval: Int(120), TestID: Int64(1234), Codec: String("G.711 @ 64 Kbps"), TestName: String("RTP Stream - AWS RTP server"), CodecID: Int(0), JitterBuffer: Int(40)}
+	expected := RTPStream{AlertsEnabled: Bool(false), Interval: Int(120), TestID: Int64(1234), Codec: String("G.711 @ 64 Kbps"), TestName: String("RTP Stream - AWS RTP server"), CodecID: Int(0), JitterBuffer: Int(40)}
 	assert.Equal(t, &expected, res)
 
 }

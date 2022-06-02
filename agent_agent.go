@@ -1,49 +1,79 @@
 package thousandeyes
 
 import (
+	"encoding/json"
 	"fmt"
 )
 
 // AgentAgent - test
 type AgentAgent struct {
 	// Common test fields
-	AlertsEnabled      *int                `json:"alertsEnabled,omitempty"`
+	AlertsEnabled      *bool               `json:"alertsEnabled,omitempty" te:"int-bool"`
 	AlertRules         []AlertRule         `json:"alertRules"`
 	APILinks           []APILink           `json:"apiLinks,omitempty"`
 	CreatedBy          *string             `json:"createdBy,omitempty"`
 	CreatedDate        *string             `json:"createdDate,omitempty"`
 	Description        *string             `json:"description,omitempty"`
-	Enabled            *int                `json:"enabled,omitempty"`
+	Enabled            *bool               `json:"enabled,omitempty" te:"int-bool"`
 	Groups             []GroupLabel        `json:"groups,omitempty"`
 	ModifiedBy         *string             `json:"modifiedBy,omitempty"`
 	ModifiedDate       *string             `json:"modifiedDate,omitempty"`
-	SavedEvent         *int                `json:"savedEvent,omitempty"`
+	SavedEvent         *bool               `json:"savedEvent,omitempty" te:"int-bool"`
 	SharedWithAccounts []SharedWithAccount `json:"sharedWithAccounts,omitempty"`
 	TestID             *int64              `json:"testId,omitempty"`
 	TestName           *string             `json:"testName,omitempty"`
 	Type               *string             `json:"type,omitempty"`
-	LiveShare          *int                `json:"liveShare,omitempty"`
+	LiveShare          *bool               `json:"liveShare,omitempty" te:"int-bool"`
 
 	// Fields unique to this test
 	Agents                 []Agent      `json:"agents,omitempty"`
-	BGPMeasurements        *int         `json:"bgpMeasurements,omitempty"`
+	BGPMeasurements        *bool        `json:"bgpMeasurements,omitempty" te:"int-bool"`
 	BGPMonitors            []BGPMonitor `json:"bgpMonitors,omitempty"`
 	Direction              *string      `json:"direction,omitempty"`
 	DSCP                   *string      `json:"dscp,omitempty"`
 	DSCPID                 *int         `json:"dscpId"`
 	Interval               *int         `json:"interval,omitempty"`
 	MSS                    *int         `json:"mss,omitempty"`
-	NetworkMeasurements    *int         `json:"networkMeasurements,omitempty"`
-	MTUMeasurements        *int         `json:"mtuMeasurements,omitempty"`
+	NetworkMeasurements    *bool        `json:"networkMeasurements,omitempty" te:"int-bool"`
+	MTUMeasurements        *bool        `json:"mtuMeasurements,omitempty" te:"int-bool"`
 	NumPathTraces          *int         `json:"numPathTraces,omitempty"`
 	PathTraceMode          *string      `json:"pathTraceMode,omitempty"`
 	Port                   *int         `json:"port,omitempty"`
 	Protocol               *string      `json:"protocol,omitempty"`
 	TargetAgentID          *int         `json:"targetAgentId,omitempty"`
 	ThroughputDuration     *int         `json:"throughputDuration,omitempty"`
-	ThroughputMeasurements *int         `json:"throughputMeasurements,omitempty"`
+	ThroughputMeasurements *bool        `json:"throughputMeasurements,omitempty" te:"int-bool"`
 	ThroughputRate         *int         `json:"throughputRate,omitempty"`
-	UsePublicBGP           *int         `json:"usePublicBgp,omitempty"`
+	UsePublicBGP           *bool        `json:"usePublicBgp,omitempty" te:"int-bool"`
+}
+
+// MarshalJSON implements the json.Marshaler interface. It ensures
+// that ThousandEyes int fields that only use the values 0 or 1 are
+// treated as booleans.
+func (t AgentAgent) MarshalJSON() ([]byte, error) {
+	type aliasTest AgentAgent
+
+	data, err := json.Marshal((aliasTest)(t))
+	if err != nil {
+		return nil, err
+	}
+
+	return jsonBoolToInt(&t, data)
+}
+
+// UnmarshalJSON implements the json.Unmarshaler interface. It ensures
+// that ThousandEyes int fields that only use the values 0 or 1 are
+// treated as booleans.
+func (t *AgentAgent) UnmarshalJSON(data []byte) error {
+	type aliasTest AgentAgent
+	test := (*aliasTest)(t)
+
+	data, err := jsonIntToBool(t, data)
+	if err != nil {
+		return err
+	}
+
+	return json.Unmarshal(data, &test)
 }
 
 // AddAgent - Adds an agent to agent test

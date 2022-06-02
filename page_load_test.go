@@ -8,7 +8,7 @@ import (
 )
 
 func TestClient_CreatePageLoad(t *testing.T) {
-	out := `{"test":[{"createdDate":"2020-02-06 19:15:36","createdBy":"William Fleming (wfleming@grumpysysadm.com)","enabled":1,"savedEvent":0,"testId":1226422,"testName":"test1","type":"page-load","interval":300,"httpInterval":300,"url":"https://test.com","protocol":"TCP","networkMeasurements":1,"mtuMeasurements":1,"bandwidthMeasurements":0,"bgpMeasurements":1,"usePublicBGP":1,"alertsEnabled":1,"liveShare":0,"httpTimeLimit":5,"httpTargetTime":1000,"httpVersion":2,"pageLoadTimeLimit":10,"pageLoadTargetTime":6,"followRedirects":1,"includeHeaders":1,"sslVersionId":0,"verifyCertificate":1,"useNTLM":0,"authType":"NONE","contentRegex":"","probeMode":"AUTO","agents":[{"agentId":48620,"agentName":"Seattle, WA (Trial) - IPv6","agentType":"Cloud","countryId":"US","ipAddresses":["135.84.184.153"],"location":"Seattle Area","network":"Astute Hosting Inc. (AS 54527)","prefix":"135.84.184.0/22"}],"sharedWithAccounts":[{"aid":176592,"name":"Cloudreach"}],"bgpMonitors":[{"monitorId":62,"ipAddress":"2001:1890:111d:1::63","countryId":"US","monitorName":"New York, NY-6","network":"AT&T Services, Inc. (AS 7018)","monitorType":"Public"}],"numPathTraces":3,"apiLinks":[{"rel":"self","href":"https://api.thousandeyes.com/v6/tests/1226422"},{"rel":"data","href":"https://api.thousandeyes.com/v6/web/http-server/1226422"},{"rel":"data","href":"https://api.thousandeyes.com/v6/web/page-load/1226422"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/metrics/1226422"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/path-vis/1226422"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/bgp-metrics/1226422"}],"sslVersion":"Auto"}]}`
+	out := `{"test":[{"createdDate":"2020-02-06 19:15:36","createdBy":"William Fleming (wfleming@grumpysysadm.com)","enabled":1,"savedEvent":0,"testId":1226422,"testName":"test1","type":"page-load","interval":300,"httpInterval":300,"url":"https://test.com","protocol":"TCP","networkMeasurements":1,"mtuMeasurements":1,"bandwidthMeasurements":0,"bgpMeasurements":1,"usePublicBgp":1,"alertsEnabled":1,"liveShare":0,"httpTimeLimit":5,"httpTargetTime":1000,"httpVersion":2,"pageLoadTimeLimit":10,"pageLoadTargetTime":6,"followRedirects":1,"includeHeaders":1,"sslVersionId":0,"verifyCertificate":1,"useNtlm":0,"authType":"NONE","contentRegex":"","probeMode":"AUTO","agents":[{"agentId":48620,"agentName":"Seattle, WA (Trial) - IPv6","agentType":"Cloud","countryId":"US","ipAddresses":["135.84.184.153"],"location":"Seattle Area","network":"Astute Hosting Inc. (AS 54527)","prefix":"135.84.184.0/22"}],"sharedWithAccounts":[{"aid":176592,"name":"Cloudreach"}],"bgpMonitors":[{"monitorId":62,"ipAddress":"2001:1890:111d:1::63","countryId":"US","monitorName":"New York, NY-6","network":"AT&T Services, Inc. (AS 7018)","monitorType":"Public"}],"numPathTraces":3,"apiLinks":[{"rel":"self","href":"https://api.thousandeyes.com/v6/tests/1226422"},{"rel":"data","href":"https://api.thousandeyes.com/v6/web/http-server/1226422"},{"rel":"data","href":"https://api.thousandeyes.com/v6/web/page-load/1226422"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/metrics/1226422"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/path-vis/1226422"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/bgp-metrics/1226422"}],"sslVersion":"Auto"}]}`
 	setup()
 	defer teardown()
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
@@ -22,8 +22,8 @@ func TestClient_CreatePageLoad(t *testing.T) {
 	expected := PageLoad{
 		CreatedDate:           String("2020-02-06 19:15:36"),
 		CreatedBy:             String("William Fleming (wfleming@grumpysysadm.com)"),
-		Enabled:               Int(1),
-		SavedEvent:            Int(0),
+		Enabled:               Bool(true),
+		SavedEvent:            Bool(false),
 		TestID:                Int64(1226422),
 		TestName:              String("test1"),
 		Type:                  String("page-load"),
@@ -31,23 +31,23 @@ func TestClient_CreatePageLoad(t *testing.T) {
 		HTTPInterval:          Int(300),
 		URL:                   String("https://test.com"),
 		Protocol:              String("TCP"),
-		FollowRedirects:       Int(1),
-		NetworkMeasurements:   Int(1),
-		MTUMeasurements:       Int(1),
-		BandwidthMeasurements: Int(0),
-		BGPMeasurements:       Int(1),
-		UsePublicBGP:          Int(1),
-		AlertsEnabled:         Int(1),
-		LiveShare:             Int(0),
+		FollowRedirects:       Bool(true),
+		NetworkMeasurements:   Bool(true),
+		MTUMeasurements:       Bool(true),
+		BandwidthMeasurements: Bool(false),
+		BGPMeasurements:       Bool(true),
+		UsePublicBGP:          Bool(true),
+		AlertsEnabled:         Bool(true),
+		LiveShare:             Bool(false),
 		HTTPTimeLimit:         Int(5),
 		HTTPTargetTime:        Int(1000),
 		HTTPVersion:           Int(2),
 		PageLoadTimeLimit:     Int(10),
 		PageLoadTargetTime:    Int(6),
-		IncludeHeaders:        Int(1),
+		IncludeHeaders:        Bool(true),
 		SSLVersionID:          Int(0),
-		VerifyCertificate:     Int(1),
-		UseNTLM:               Int(0),
+		VerifyCertificate:     Bool(true),
+		UseNTLM:               Bool(false),
 		AuthType:              String("NONE"),
 		ProbeMode:             String("AUTO"),
 		ContentRegex:          String(""),
@@ -117,7 +117,7 @@ func TestClient_CreatePageLoad(t *testing.T) {
 }
 
 func TestClient_GetPageLoad(t *testing.T) {
-	out := `{"test":[{"createdDate":"2020-02-06 19:15:36","createdBy":"William Fleming (wfleming@grumpysysadm.com)","enabled":1,"savedEvent":0,"testId":1226422,"testName":"test1","type":"page-load","interval":300,"httpInterval":300,"url":"https://test.com","protocol":"TCP","networkMeasurements":1,"mtuMeasurements":1,"bandwidthMeasurements":0,"bgpMeasurements":1,"usePublicBGP":1,"alertsEnabled":1,"liveShare":0,"httpTimeLimit":5,"httpTargetTime":1000,"httpVersion":2,"pageLoadTimeLimit":10,"pageLoadTargetTime":6,"followRedirects":1,"includeHeaders":1,"sslVersionId":0,"verifyCertificate":1,"useNTLM":0,"authType":"NONE","contentRegex":"","probeMode":"AUTO","agents":[{"agentId":48620,"agentName":"Seattle, WA (Trial) - IPv6","agentType":"Cloud","countryId":"US","ipAddresses":["135.84.184.153"],"location":"Seattle Area","network":"Astute Hosting Inc. (AS 54527)","prefix":"135.84.184.0/22"}],"sharedWithAccounts":[{"aid":176592,"name":"Cloudreach"}],"bgpMonitors":[{"monitorId":62,"ipAddress":"2001:1890:111d:1::63","countryId":"US","monitorName":"New York, NY-6","network":"AT&T Services, Inc. (AS 7018)","monitorType":"Public"}],"numPathTraces":3,"apiLinks":[{"rel":"self","href":"https://api.thousandeyes.com/v6/tests/1226422"},{"rel":"data","href":"https://api.thousandeyes.com/v6/web/http-server/1226422"},{"rel":"data","href":"https://api.thousandeyes.com/v6/web/page-load/1226422"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/metrics/1226422"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/path-vis/1226422"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/bgp-metrics/1226422"}],"sslVersion":"Auto"}]}`
+	out := `{"test":[{"createdDate":"2020-02-06 19:15:36","createdBy":"William Fleming (wfleming@grumpysysadm.com)","enabled":1,"savedEvent":0,"testId":1226422,"testName":"test1","type":"page-load","interval":300,"httpInterval":300,"url":"https://test.com","protocol":"TCP","networkMeasurements":1,"mtuMeasurements":1,"bandwidthMeasurements":0,"bgpMeasurements":1,"usePublicBgp":1,"alertsEnabled":1,"liveShare":0,"httpTimeLimit":5,"httpTargetTime":1000,"httpVersion":2,"pageLoadTimeLimit":10,"pageLoadTargetTime":6,"followRedirects":1,"includeHeaders":1,"sslVersionId":0,"verifyCertificate":1,"useNtlm":0,"authType":"NONE","contentRegex":"","probeMode":"AUTO","agents":[{"agentId":48620,"agentName":"Seattle, WA (Trial) - IPv6","agentType":"Cloud","countryId":"US","ipAddresses":["135.84.184.153"],"location":"Seattle Area","network":"Astute Hosting Inc. (AS 54527)","prefix":"135.84.184.0/22"}],"sharedWithAccounts":[{"aid":176592,"name":"Cloudreach"}],"bgpMonitors":[{"monitorId":62,"ipAddress":"2001:1890:111d:1::63","countryId":"US","monitorName":"New York, NY-6","network":"AT&T Services, Inc. (AS 7018)","monitorType":"Public"}],"numPathTraces":3,"apiLinks":[{"rel":"self","href":"https://api.thousandeyes.com/v6/tests/1226422"},{"rel":"data","href":"https://api.thousandeyes.com/v6/web/http-server/1226422"},{"rel":"data","href":"https://api.thousandeyes.com/v6/web/page-load/1226422"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/metrics/1226422"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/path-vis/1226422"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/bgp-metrics/1226422"}],"sslVersion":"Auto"}]}`
 	setup()
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/tests/1226422.json", func(w http.ResponseWriter, r *http.Request) {
@@ -129,8 +129,8 @@ func TestClient_GetPageLoad(t *testing.T) {
 	expected := PageLoad{
 		CreatedDate:           String("2020-02-06 19:15:36"),
 		CreatedBy:             String("William Fleming (wfleming@grumpysysadm.com)"),
-		Enabled:               Int(1),
-		SavedEvent:            Int(0),
+		Enabled:               Bool(true),
+		SavedEvent:            Bool(false),
 		TestID:                Int64(1226422),
 		TestName:              String("test1"),
 		Type:                  String("page-load"),
@@ -138,23 +138,23 @@ func TestClient_GetPageLoad(t *testing.T) {
 		HTTPInterval:          Int(300),
 		URL:                   String("https://test.com"),
 		Protocol:              String("TCP"),
-		FollowRedirects:       Int(1),
-		NetworkMeasurements:   Int(1),
-		MTUMeasurements:       Int(1),
-		BandwidthMeasurements: Int(0),
-		BGPMeasurements:       Int(1),
-		UsePublicBGP:          Int(1),
-		AlertsEnabled:         Int(1),
-		LiveShare:             Int(0),
+		FollowRedirects:       Bool(true),
+		NetworkMeasurements:   Bool(true),
+		MTUMeasurements:       Bool(true),
+		BandwidthMeasurements: Bool(false),
+		BGPMeasurements:       Bool(true),
+		UsePublicBGP:          Bool(true),
+		AlertsEnabled:         Bool(true),
+		LiveShare:             Bool(false),
 		HTTPTimeLimit:         Int(5),
 		HTTPTargetTime:        Int(1000),
 		HTTPVersion:           Int(2),
 		PageLoadTimeLimit:     Int(10),
 		PageLoadTargetTime:    Int(6),
-		IncludeHeaders:        Int(1),
+		IncludeHeaders:        Bool(true),
 		SSLVersionID:          Int(0),
-		VerifyCertificate:     Int(1),
-		UseNTLM:               Int(0),
+		VerifyCertificate:     Bool(true),
+		UseNTLM:               Bool(false),
 		AuthType:              String("NONE"),
 		ProbeMode:             String("AUTO"),
 		ContentRegex:          String(""),

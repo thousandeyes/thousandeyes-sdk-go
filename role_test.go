@@ -25,14 +25,14 @@ func TestClient_GetRoles(t *testing.T) {
 		{
 			RoleName:                 String("admin"),
 			RoleID:                   Int(2),
-			HasManagementPermissions: Int(0),
-			Builtin:                  Int(0),
+			HasManagementPermissions: Bool(false),
+			Builtin:                  Bool(false),
 		},
 		{
 			RoleName:                 String("user1"),
 			RoleID:                   Int(1),
-			HasManagementPermissions: Int(1),
-			Builtin:                  Int(1),
+			HasManagementPermissions: Bool(true),
+			Builtin:                  Bool(true),
 		},
 	}
 	assert.Equal(t, &expected, res)
@@ -56,8 +56,8 @@ func TestClient_GetRole(t *testing.T) {
 	expected := AccountGroupRole{
 		RoleName:                 String("admin"),
 		RoleID:                   Int(1),
-		HasManagementPermissions: Int(0),
-		Builtin:                  Int(0),
+		HasManagementPermissions: Bool(false),
+		Builtin:                  Bool(false),
 	}
 	assert.Equal(t, &expected, res)
 }
@@ -74,7 +74,7 @@ func TestClient_CreateRole(t *testing.T) {
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	create := AccountGroupRole{
 		RoleName:                 String("William Test"),
-		HasManagementPermissions: Int(1),
+		HasManagementPermissions: Bool(true),
 	}
 	res, err := client.CreateRole(create)
 	if err != nil {
@@ -83,8 +83,8 @@ func TestClient_CreateRole(t *testing.T) {
 
 	expected := AccountGroupRole{
 		RoleName:                 String("William Test"),
-		HasManagementPermissions: Int(1),
-		Builtin:                  Int(0),
+		HasManagementPermissions: Bool(true),
+		Builtin:                  Bool(false),
 		RoleID:                   Int(1000),
 	}
 	assert.Equal(t, &expected, res)
@@ -114,7 +114,7 @@ func TestClient_UpdateRole(t *testing.T) {
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	update := AccountGroupRole{
 		RoleName:                 String("William Test"),
-		HasManagementPermissions: Int(1),
+		HasManagementPermissions: Bool(true),
 	}
 	res, err := client.UpdateRole(1, update)
 	if err != nil {
@@ -124,8 +124,8 @@ func TestClient_UpdateRole(t *testing.T) {
 	expected := AccountGroupRole{
 		RoleName:                 String("William Test"),
 		RoleID:                   Int(1000),
-		HasManagementPermissions: Int(1),
-		Builtin:                  Int(0),
+		HasManagementPermissions: Bool(true),
+		Builtin:                  Bool(false),
 	}
 	assert.Equal(t, &expected, res)
 }

@@ -19,15 +19,15 @@ func TestClient_GetSIPServer(t *testing.T) {
 	// Define expected values from the API (based on the JSON we print out above)
 	expected := SIPServer{
 		TestID:        Int64(122621),
-		Enabled:       Int(1),
+		Enabled:       Bool(true),
 		CreatedBy:     String("William Fleming (wfleming@grumpysysadm.com)"),
 		CreatedDate:   String("2020-02-06 15:28:07"),
-		SavedEvent:    Int(0),
-		AlertsEnabled: Int(1),
+		SavedEvent:    Bool(false),
+		AlertsEnabled: Bool(true),
 		TestName:      String("test123"),
 		Type:          String("sip-server"),
 		Interval:      Int(300),
-		LiveShare:     Int(0),
+		LiveShare:     Bool(false),
 		Agents: []Agent{
 			{
 				AgentID:     Int(48620),
@@ -103,15 +103,15 @@ func TestClient_CreateSIPServer(t *testing.T) {
 	expected := SIPServer{
 
 		TestID:        Int64(122621),
-		Enabled:       Int(1),
+		Enabled:       Bool(true),
 		CreatedBy:     String("William Fleming (wfleming@grumpysysadm.com)"),
 		CreatedDate:   String("2020-02-06 15:28:07"),
-		SavedEvent:    Int(0),
+		SavedEvent:    Bool(false),
 		TestName:      String("test123"),
 		Type:          String("sip-server"),
 		Interval:      Int(300),
-		AlertsEnabled: Int(1),
-		LiveShare:     Int(0),
+		AlertsEnabled: Bool(true),
+		LiveShare:     Bool(false),
 		Agents: []Agent{
 			{
 				AgentID:     Int(48620),

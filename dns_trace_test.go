@@ -19,15 +19,15 @@ func TestClient_GetDNSTrace(t *testing.T) {
 	// Define expected values from the API (based on the JSON we print out above)
 	expected := DNSTrace{
 		TestID:               Int64(122621),
-		Enabled:              Int(1),
+		Enabled:              Bool(true),
 		CreatedBy:            String("William Fleming (wfleming@grumpysysadm.com)"),
 		CreatedDate:          String("2020-02-06 15:28:07"),
-		SavedEvent:           Int(0),
-		AlertsEnabled:        Int(1),
+		SavedEvent:           Bool(false),
+		AlertsEnabled:        Bool(true),
 		TestName:             String("test123"),
 		Type:                 String("dns-trace"),
 		Interval:             Int(300),
-		LiveShare:            Int(0),
+		LiveShare:            Bool(false),
 		Domain:               String("webex.com"),
 		DNSTransportProtocol: String("UDP"),
 		Agents: []Agent{
@@ -106,15 +106,15 @@ func TestClient_CreateDNSTrace(t *testing.T) {
 	expected := DNSTrace{
 
 		TestID:               Int64(122621),
-		Enabled:              Int(1),
+		Enabled:              Bool(true),
 		CreatedBy:            String("William Fleming (wfleming@grumpysysadm.com)"),
 		CreatedDate:          String("2020-02-06 15:28:07"),
-		SavedEvent:           Int(0),
+		SavedEvent:           Bool(false),
 		TestName:             String("test123"),
 		Type:                 String("dns-trace"),
 		Interval:             Int(300),
-		AlertsEnabled:        Int(1),
-		LiveShare:            Int(0),
+		AlertsEnabled:        Bool(true),
+		LiveShare:            Bool(false),
 		Domain:               String("webex.com"),
 		DNSTransportProtocol: String("UDP"),
 		Agents: []Agent{

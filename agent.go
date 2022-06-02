@@ -1,6 +1,9 @@
 package thousandeyes
 
-import "fmt"
+import (
+	"encoding/json"
+	"fmt"
+)
 
 // Agents - list of agents
 type Agents []Agent
@@ -18,13 +21,13 @@ type Agent struct {
 	ErrorDetails          []AgentErrorDetails `json:"errorDetails,omitempty"`
 	Hostname              *string             `json:"hostname,omitempty"`
 	Prefix                *string             `json:"prefix,omitempty"`
-	Enabled               *int                `json:"enabled,omitempty"`
+	Enabled               *bool               `json:"enabled,omitempty" te:"int-bool"`
 	Network               *string             `json:"network,omitempty"`
 	CreatedDate           *string             `json:"createdDate,omitempty"`
 	LastSeen              *string             `json:"lastSeen,omitempty"`
 	AgentState            *string             `json:"agentState,omitempty"`
-	VerifySslCertificates *int                `json:"verifySslCertificate,omitempty"`
-	KeepBrowserCache      *int                `json:"keepBrowserCache,omitempty"`
+	VerifySslCertificates *bool               `json:"verifySslCertificate,omitempty" te:"int-bool"`
+	KeepBrowserCache      *bool               `json:"keepBrowserCache,omitempty" te:"int-bool"`
 	Utilization           *int                `json:"utilization,omitempty"`
 	Ipv6Policy            *string             `json:"IPV6Policy,omitempty"`
 	TargetForTests        *string             `json:"targetForTests,omitempty"`
@@ -48,6 +51,35 @@ type ClusterMember struct {
 type AgentErrorDetails struct {
 	Code        *string `json:"code,omitempty"`
 	Description *string `json:"description,omitempty"`
+}
+
+// MarshalJSON implements the json.Marshaler interface. It ensures
+// that ThousandEyes int fields that only use the values 0 or 1 are
+// treated as booleans.
+func (t Agent) MarshalJSON() ([]byte, error) {
+	type alias Agent
+
+	data, err := json.Marshal((alias)(t))
+	if err != nil {
+		return nil, err
+	}
+
+	return jsonBoolToInt(&t, data)
+}
+
+// UnmarshalJSON implements the json.Unmarshaler interface. It ensures
+// that ThousandEyes int fields that only use the values 0 or 1 are
+// treated as booleans.
+func (t *Agent) UnmarshalJSON(data []byte) error {
+	type alias Agent
+	test := (*alias)(t)
+
+	data, err := jsonIntToBool(t, data)
+	if err != nil {
+		return err
+	}
+
+	return json.Unmarshal(data, &test)
 }
 
 // GetAgents - Get agents

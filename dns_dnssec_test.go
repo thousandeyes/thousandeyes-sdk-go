@@ -18,15 +18,15 @@ func TestClient_GetDNSSec(t *testing.T) {
 
 	expected := DNSSec{
 		TestID:        Int64(122621),
-		Enabled:       Int(1),
+		Enabled:       Bool(true),
 		CreatedBy:     String("William Fleming (wfleming@grumpysysadm.com)"),
 		CreatedDate:   String("2020-02-06 15:28:07"),
-		SavedEvent:    Int(0),
-		AlertsEnabled: Int(1),
+		SavedEvent:    Bool(false),
+		AlertsEnabled: Bool(true),
 		TestName:      String("test123"),
 		Type:          String("dns-dnssec"),
 		Interval:      Int(300),
-		LiveShare:     Int(0),
+		LiveShare:     Bool(false),
 		Domain:        String("webex.com"),
 		Agents: []Agent{
 			{
@@ -101,15 +101,15 @@ func TestClient_CreateDNSSec(t *testing.T) {
 
 	expected := DNSSec{
 		TestID:        Int64(122621),
-		Enabled:       Int(1),
+		Enabled:       Bool(true),
 		CreatedBy:     String("William Fleming (wfleming@grumpysysadm.com)"),
 		CreatedDate:   String("2020-02-06 15:28:07"),
-		SavedEvent:    Int(0),
+		SavedEvent:    Bool(false),
 		TestName:      String("test123"),
 		Type:          String("dns-dnssec"),
 		Interval:      Int(300),
-		LiveShare:     Int(0),
-		AlertsEnabled: Int(1),
+		LiveShare:     Bool(false),
+		AlertsEnabled: Bool(true),
 		Domain:        String("webex.com"),
 		Agents: []Agent{
 			{

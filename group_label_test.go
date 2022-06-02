@@ -29,7 +29,7 @@ func TestClient_GetGroupLabels(t *testing.T) {
 }
 
 func TestClient_GetGroupLabelsByType(t *testing.T) {
-	out := `{"groups" : [ {"groupId":1, "type" : "tests", "name": "test-agent", "builtIn": 0 }]}`
+	out := `{"groups" : [ {"groupId":1, "type" : "tests", "name": "test-agent", "builtin": 0 }]}`
 	setup()
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/groups/tests.json", func(w http.ResponseWriter, r *http.Request) {
@@ -39,7 +39,7 @@ func TestClient_GetGroupLabelsByType(t *testing.T) {
 
 	// Define expected values from the API (based on the JSON we print out above)
 	expected := GroupLabels{
-		GroupLabel{GroupID: Int64(1), BuiltIn: Int(0), Type: String("tests"), Name: String("test-agent")},
+		GroupLabel{GroupID: Int64(1), Builtin: Bool(false), Type: String("tests"), Name: String("test-agent")},
 	}
 
 	res, err := client.GetGroupLabelsByType("tests")
@@ -52,7 +52,7 @@ func TestClient_GetGroupLabel(t *testing.T) {
 	out := `{
 		"groups" : [
 			{
-				"groupId" : 222, "type" : "tests", "name" : "test-agent", "builtIn": 0
+				"groupId" : 222, "type" : "tests", "name" : "test-agent", "builtin": 0
 			}
 		]
 	}`
@@ -65,7 +65,7 @@ func TestClient_GetGroupLabel(t *testing.T) {
 
 	// Define expected values from the API (based on the JSON we print out above)
 	expected := GroupLabel{
-		GroupID: Int64(222), BuiltIn: Int(0), Type: String("tests"), Name: String("test-agent"),
+		GroupID: Int64(222), Builtin: Bool(false), Type: String("tests"), Name: String("test-agent"),
 	}
 
 	res, err := client.GetGroupLabel(222)

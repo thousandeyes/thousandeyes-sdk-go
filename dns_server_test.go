@@ -8,7 +8,7 @@ import (
 )
 
 func TestClient_GetDNSServer(t *testing.T) {
-	out := `{"test":[{"createdDate":"2020-02-06 15:28:07","createdBy":"William Fleming (wfleming@grumpysysadm.com)","numPathTraces":3,"pathTraceMode": "classic", "enabled":1,"savedEvent":0,"testId":122621,"testName":"test123","type":"dns-server","interval":300,"protocol":"UDP","networkMeasurements":1,"mtuMeasurements":1,"bandwidthMeasurements":0,"bgpMeasurements":1,"usePublicBGP":1,"alertsEnabled":1,"liveShare":0,"probeMode":"AUTO","recursiveQueries":0,"agents":[{"agentId":48620,"agentName":"Seattle, WA (Trial) - IPv6","agentType":"Cloud","countryId":"US","ipAddresses":["135.84.184.153"],"location":"Seattle Area","network":"Astute Hosting Inc. (AS 54527)","prefix":"135.84.184.0/22"}],"sharedWithAccounts":[{"aid":176592,"name":"Cloudreach"}],"bgpMonitors":[{"monitorId":64,"ipAddress":"2001:240:100:ff::2497:2","countryId":"JP","monitorName":"Tokyo-3","network":"IIJ Internet Initiative Japan Inc. (AS 2497)","monitorType":"Public"}],"numPathTraces":3,"domain": "webex.com","dnsTransportProtocol":  "UDP", "dnsServers" : [{"serverId": 123,"serverName":"1.1.1.1"}],"apiLinks":[{"rel":"self","href":"https://api.thousandeyes.com/v6/tests/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/web/dns-server/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/metrics/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/path-vis/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/bgp-metrics/1226221"}]}]}`
+	out := `{"test":[{"createdDate":"2020-02-06 15:28:07","createdBy":"William Fleming (wfleming@grumpysysadm.com)","numPathTraces":3,"pathTraceMode": "classic", "enabled":1,"savedEvent":0,"testId":122621,"testName":"test123","type":"dns-server","interval":300,"protocol":"UDP","networkMeasurements":1,"mtuMeasurements":1,"bandwidthMeasurements":0,"bgpMeasurements":1,"usePublicBgp":1,"alertsEnabled":1,"liveShare":0,"probeMode":"AUTO","recursiveQueries":0,"agents":[{"agentId":48620,"agentName":"Seattle, WA (Trial) - IPv6","agentType":"Cloud","countryId":"US","ipAddresses":["135.84.184.153"],"location":"Seattle Area","network":"Astute Hosting Inc. (AS 54527)","prefix":"135.84.184.0/22"}],"sharedWithAccounts":[{"aid":176592,"name":"Cloudreach"}],"bgpMonitors":[{"monitorId":64,"ipAddress":"2001:240:100:ff::2497:2","countryId":"JP","monitorName":"Tokyo-3","network":"IIJ Internet Initiative Japan Inc. (AS 2497)","monitorType":"Public"}],"numPathTraces":3,"domain": "webex.com","dnsTransportProtocol":  "UDP", "dnsServers" : [{"serverId": 123,"serverName":"1.1.1.1"}],"apiLinks":[{"rel":"self","href":"https://api.thousandeyes.com/v6/tests/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/web/dns-server/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/metrics/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/path-vis/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/bgp-metrics/1226221"}]}]}`
 	setup()
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/tests/122621.json", func(w http.ResponseWriter, r *http.Request) {
@@ -20,24 +20,24 @@ func TestClient_GetDNSServer(t *testing.T) {
 	expected := DNSServer{
 
 		TestID:                Int64(122621),
-		Enabled:               Int(1),
+		Enabled:               Bool(true),
 		CreatedBy:             String("William Fleming (wfleming@grumpysysadm.com)"),
 		CreatedDate:           String("2020-02-06 15:28:07"),
-		SavedEvent:            Int(0),
+		SavedEvent:            Bool(false),
 		TestName:              String("test123"),
 		Type:                  String("dns-server"),
 		Interval:              Int(300),
-		LiveShare:             Int(0),
+		LiveShare:             Bool(false),
 		Protocol:              String("UDP"),
-		NetworkMeasurements:   Int(1),
-		MTUMeasurements:       Int(1),
-		BandwidthMeasurements: Int(0),
+		NetworkMeasurements:   Bool(true),
+		MTUMeasurements:       Bool(true),
+		BandwidthMeasurements: Bool(false),
 		NumPathTraces:         Int(3),
 		PathTraceMode:         String("classic"),
-		AlertsEnabled:         Int(1),
-		RecursiveQueries:      Int(0),
-		BGPMeasurements:       Int(1),
-		UsePublicBGP:          Int(1),
+		AlertsEnabled:         Bool(true),
+		RecursiveQueries:      Bool(false),
+		BGPMeasurements:       Bool(true),
+		UsePublicBGP:          Bool(true),
 		Domain:                String("webex.com"),
 		ProbeMode:             String("AUTO"),
 		DNSTransportProtocol:  String("UDP"),
@@ -112,7 +112,7 @@ func TestClient_AddDnsserverAlertRule(t *testing.T) {
 }
 
 func TestClient_GetDNSServerJsonError(t *testing.T) {
-	out := `{"test":[{"createdDate":"2020-02-06 15:28:07",createdBy":"William Fleming (wfleming@grumpysysadm.com)","enabled":1,"savedEvent":0,"testId":122621,"testName":"test123","type":"dns-server","interval":300,"protocol":"UDP","networkMeasurements":1,"mtuMeasurements":1,"bandwidthMeasurements":0,"bgpMeasurements":1,"usePublicBGP":1,"alertsEnabled":1,"liveShare":0,"probeMode":"AUTO","agents":[{"agentId":48620,"agentName":"Seattle, WA (Trial) - IPv6","agentType":"Cloud","countryId":"US","ipAddresses":["135.84.184.153"],"location":"Seattle Area","network":"Astute Hosting Inc. (AS 54527)","prefix":"135.84.184.0/22"}],"sharedWithAccounts":[{"aid":176592,"name":"Cloudreach"}],"bgpMonitors":[{"monitorId":64,"ipAddress":"2001:240:100:ff::2497:2","countryId":"JP","monitorName":"Tokyo-3","network":"IIJ Internet Initiative Japan Inc. (AS 2497)","monitorType":"Public"}],"numPathTraces":3,"domain": "webex.com","dnsTransportProtocol":  "UDP", "dnsServers" : [{"serverId": 123,"serverName":"1.1.1.1"}]}]"apiLinks":[{"rel":"self","href":"https://api.thousandeyes.com/v6/tests/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/web/dns-server/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/metrics/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/path-vis/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/bgp-metrics/1226221"}]}]}`
+	out := `{"test":[{"createdDate":"2020-02-06 15:28:07",createdBy":"William Fleming (wfleming@grumpysysadm.com)","enabled":1,"savedEvent":0,"testId":122621,"testName":"test123","type":"dns-server","interval":300,"protocol":"UDP","networkMeasurements":1,"mtuMeasurements":1,"bandwidthMeasurements":0,"bgpMeasurements":1,"usePublicBgp":1,"alertsEnabled":1,"liveShare":0,"probeMode":"AUTO","agents":[{"agentId":48620,"agentName":"Seattle, WA (Trial) - IPv6","agentType":"Cloud","countryId":"US","ipAddresses":["135.84.184.153"],"location":"Seattle Area","network":"Astute Hosting Inc. (AS 54527)","prefix":"135.84.184.0/22"}],"sharedWithAccounts":[{"aid":176592,"name":"Cloudreach"}],"bgpMonitors":[{"monitorId":64,"ipAddress":"2001:240:100:ff::2497:2","countryId":"JP","monitorName":"Tokyo-3","network":"IIJ Internet Initiative Japan Inc. (AS 2497)","monitorType":"Public"}],"numPathTraces":3,"domain": "webex.com","dnsTransportProtocol":  "UDP", "dnsServers" : [{"serverId": 123,"serverName":"1.1.1.1"}]}]"apiLinks":[{"rel":"self","href":"https://api.thousandeyes.com/v6/tests/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/web/dns-server/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/metrics/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/path-vis/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/bgp-metrics/1226221"}]}]}`
 	setup()
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/tests/122621.json", func(w http.ResponseWriter, r *http.Request) {
@@ -125,7 +125,7 @@ func TestClient_GetDNSServerJsonError(t *testing.T) {
 }
 
 func TestClient_CreateDNSServer(t *testing.T) {
-	out := `{"test":[{"createdDate":"2020-02-06 15:28:07","createdBy":"William Fleming (wfleming@grumpysysadm.com)","numPathTraces": 3,"enabled":1,"savedEvent":0,"testId":122621,"testName":"test123","type":"dns-server","interval":300,"protocol":"UDP","networkMeasurements":1,"mtuMeasurements":1,"bandwidthMeasurements":0,"bgpMeasurements":1,"usePublicBGP":1,"alertsEnabled":1,"liveShare":0,"probeMode":"AUTO","recursiveQueries":0,"agents":[{"agentId":48620,"agentName":"Seattle, WA (Trial) - IPv6","agentType":"Cloud","countryId":"US","ipAddresses":["135.84.184.153"],"location":"Seattle Area","network":"Astute Hosting Inc. (AS 54527)","prefix":"135.84.184.0/22"}],"sharedWithAccounts":[{"aid":176592,"name":"Cloudreach"}],"bgpMonitors":[{"monitorId":64,"ipAddress":"2001:240:100:ff::2497:2","countryId":"JP","monitorName":"Tokyo-3","network":"IIJ Internet Initiative Japan Inc. (AS 2497)","monitorType":"Public"}],"numPathTraces":3,"domain": "webex.com","dnsTransportProtocol":  "UDP", "dnsServers" : [{"serverId": 123,"serverName":"1.1.1.1"}],"apiLinks":[{"rel":"self","href":"https://api.thousandeyes.com/v6/tests/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/web/dns-server/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/metrics/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/path-vis/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/bgp-metrics/1226221"}]}]}`
+	out := `{"test":[{"createdDate":"2020-02-06 15:28:07","createdBy":"William Fleming (wfleming@grumpysysadm.com)","numPathTraces": 3,"enabled":1,"savedEvent":0,"testId":122621,"testName":"test123","type":"dns-server","interval":300,"protocol":"UDP","networkMeasurements":1,"mtuMeasurements":1,"bandwidthMeasurements":0,"bgpMeasurements":1,"usePublicBgp":1,"alertsEnabled":1,"liveShare":0,"probeMode":"AUTO","recursiveQueries":0,"agents":[{"agentId":48620,"agentName":"Seattle, WA (Trial) - IPv6","agentType":"Cloud","countryId":"US","ipAddresses":["135.84.184.153"],"location":"Seattle Area","network":"Astute Hosting Inc. (AS 54527)","prefix":"135.84.184.0/22"}],"sharedWithAccounts":[{"aid":176592,"name":"Cloudreach"}],"bgpMonitors":[{"monitorId":64,"ipAddress":"2001:240:100:ff::2497:2","countryId":"JP","monitorName":"Tokyo-3","network":"IIJ Internet Initiative Japan Inc. (AS 2497)","monitorType":"Public"}],"numPathTraces":3,"domain": "webex.com","dnsTransportProtocol":  "UDP", "dnsServers" : [{"serverId": 123,"serverName":"1.1.1.1"}],"apiLinks":[{"rel":"self","href":"https://api.thousandeyes.com/v6/tests/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/web/dns-server/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/metrics/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/path-vis/1226221"},{"rel":"data","href":"https://api.thousandeyes.com/v6/net/bgp-metrics/1226221"}]}]}`
 	setup()
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	mux.HandleFunc("/tests/dns-server/new.json", func(w http.ResponseWriter, r *http.Request) {
@@ -139,23 +139,23 @@ func TestClient_CreateDNSServer(t *testing.T) {
 	expected := DNSServer{
 
 		TestID:                Int64(122621),
-		Enabled:               Int(1),
+		Enabled:               Bool(true),
 		CreatedBy:             String("William Fleming (wfleming@grumpysysadm.com)"),
 		CreatedDate:           String("2020-02-06 15:28:07"),
-		SavedEvent:            Int(0),
+		SavedEvent:            Bool(false),
 		TestName:              String("test123"),
 		Type:                  String("dns-server"),
 		Interval:              Int(300),
-		LiveShare:             Int(0),
+		LiveShare:             Bool(false),
 		Protocol:              String("UDP"),
-		NetworkMeasurements:   Int(1),
-		MTUMeasurements:       Int(1),
-		BandwidthMeasurements: Int(0),
+		NetworkMeasurements:   Bool(true),
+		MTUMeasurements:       Bool(true),
+		BandwidthMeasurements: Bool(false),
 		NumPathTraces:         Int(3),
-		RecursiveQueries:      Int(0),
-		AlertsEnabled:         Int(1),
-		BGPMeasurements:       Int(1),
-		UsePublicBGP:          Int(1),
+		RecursiveQueries:      Bool(false),
+		AlertsEnabled:         Bool(true),
+		BGPMeasurements:       Bool(true),
+		UsePublicBGP:          Bool(true),
 		Domain:                String("webex.com"),
 		ProbeMode:             String("AUTO"),
 		DNSTransportProtocol:  String("UDP"),

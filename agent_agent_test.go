@@ -39,7 +39,7 @@ func TestClient_CreateAgentAgent(t *testing.T) {
 		CreatedBy:              String("William Fleming (wfleming@grumpysysadm.com)"),
 		Port:                   Int(8090),
 		PathTraceMode:          String("classic"),
-		ThroughputMeasurements: Int(1),
+		ThroughputMeasurements: Bool(true),
 	}
 
 	create := AgentAgent{
@@ -90,7 +90,7 @@ func TestClient_GetAgentAgent(t *testing.T) {
 		CreatedBy:              String("William Fleming (wfleming@grumpysysadm.com)"),
 		Port:                   Int(8090),
 		ThroughputDuration:     Int(10000),
-		ThroughputMeasurements: Int(1),
+		ThroughputMeasurements: Bool(true),
 	}
 	res, err := client.GetAgentAgent(1)
 	assert.Nil(t, err)
