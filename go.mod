@@ -1,4 +1,4 @@
-module github.com/thousandeyes/go-thousandeyes
+module github.com/thousandeyes/go-thousandeyes/v2
 
 go 1.13
 

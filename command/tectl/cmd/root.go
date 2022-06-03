@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/olekukonko/tablewriter"
 	"github.com/spf13/cobra"
-	"github.com/thousandeyes/go-thousandeyes"
+	"github.com/thousandeyes/go-thousandeyes/v2"
 	"os"
 )
 
