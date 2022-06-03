@@ -42,7 +42,13 @@ func getAgents(client *thousandeyes.Client) (*tablewriter.Table, error) {
 	table := TableOuput()
 	table.SetHeader([]string{"Agent Name", "AgentID", "Enabled", "Location", "IpAddresses"})
 	for _, v := range *agents {
-		fields := []string{v.AgentName, strconv.Itoa(v.AgentID), strconv.Itoa(v.Enabled), v.Location, strings.Join(v.IPAddresses, ",")}
+		fields := []string{
+			*v.AgentName,
+			strconv.Itoa(*v.AgentID),
+			strconv.FormatBool(*v.Enabled),
+			*v.Location,
+			strings.Join(*v.IPAddresses, ","),
+		}
 		table.Append(fields)
 	}
 	return table, nil
@@ -60,7 +66,13 @@ func getAgent(client *thousandeyes.Client, id string) (*tablewriter.Table, error
 	}
 	table := TableOuput()
 	table.SetHeader([]string{"Agent Name", "AgentID", "Enabled", "Location", "IpAddresses"})
-	fields := []string{agent.AgentName, strconv.Itoa(agent.AgentID), strconv.Itoa(agent.Enabled), agent.Location, strings.Join(agent.IPAddresses, ",")}
+	fields := []string{
+		*agent.AgentName,
+		strconv.Itoa(*agent.AgentID),
+		strconv.FormatBool(*agent.Enabled),
+		*agent.Location,
+		strings.Join(*agent.IPAddresses, ","),
+	}
 	table.Append(fields)
 	return table, nil
 }

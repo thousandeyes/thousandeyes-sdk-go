@@ -58,7 +58,12 @@ func getTest(client *thousandeyes.Client, id string) (*tablewriter.Table, error)
 	}
 	table := TableOuput()
 	table.SetHeader([]string{"Test Name", "TestID", "Type", "Enabled"})
-	fields := []string{test.TestName, strconv.Itoa(test.TestID), test.Type, strconv.Itoa(test.Enabled)}
+	fields := []string{
+		*test.TestName,
+		strconv.FormatInt(*test.TestID, 10),
+		*test.Type,
+		strconv.FormatBool(*test.Enabled),
+	}
 	table.Append(fields)
 	return table, nil
 }
@@ -72,7 +77,11 @@ func getTests(client *thousandeyes.Client) (*tablewriter.Table, error) {
 	table := TableOuput()
 	table.SetHeader([]string{"Test Name", "TestID", "Type", "Enabled"})
 	for _, v := range *tests {
-		fields := []string{v.TestName, strconv.Itoa(v.TestID), v.Type, strconv.Itoa(v.Enabled)}
+		fields := []string{
+			*v.TestName,
+			strconv.FormatInt(*v.TestID, 10),
+			*v.Type, strconv.FormatBool(*v.Enabled),
+		}
 		table.Append(fields)
 	}
 	return table, nil
