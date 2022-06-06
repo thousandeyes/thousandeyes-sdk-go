@@ -64,7 +64,7 @@ func TestClient_GetRole(t *testing.T) {
 
 func TestClient_CreateRole(t *testing.T) {
 	setup()
-	out := `{"roleName": "William Test", "roleId": 1000, "hasManagementPermissions": 1, "builtin": 0}`
+	out := `{"roleName": "ThousandEyes SRE", "roleId": 1000, "hasManagementPermissions": 1, "builtin": 0}`
 	mux.HandleFunc("/roles/new.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "POST", r.Method)
 		w.WriteHeader(http.StatusCreated)
@@ -73,7 +73,7 @@ func TestClient_CreateRole(t *testing.T) {
 
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	create := AccountGroupRole{
-		RoleName:                 String("William Test"),
+		RoleName:                 String("ThousandEyes SRE"),
 		HasManagementPermissions: Bool(true),
 	}
 	res, err := client.CreateRole(create)
@@ -82,7 +82,7 @@ func TestClient_CreateRole(t *testing.T) {
 	}
 
 	expected := AccountGroupRole{
-		RoleName:                 String("William Test"),
+		RoleName:                 String("ThousandEyes SRE"),
 		HasManagementPermissions: Bool(true),
 		Builtin:                  Bool(false),
 		RoleID:                   Int(1000),
@@ -104,7 +104,7 @@ func TestClient_DeleteRole(t *testing.T) {
 
 func TestClient_UpdateRole(t *testing.T) {
 	setup()
-	out := `{"roleName": "William Test", "roleId": 1000, "hasManagementPermissions": 1, "builtin": 0}`
+	out := `{"roleName": "ThousandEyes SRE", "roleId": 1000, "hasManagementPermissions": 1, "builtin": 0}`
 	mux.HandleFunc("/roles/1/update.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "POST", r.Method)
 		w.WriteHeader(http.StatusOK)
@@ -113,7 +113,7 @@ func TestClient_UpdateRole(t *testing.T) {
 
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	update := AccountGroupRole{
-		RoleName:                 String("William Test"),
+		RoleName:                 String("ThousandEyes SRE"),
 		HasManagementPermissions: Bool(true),
 	}
 	res, err := client.UpdateRole(1, update)
@@ -122,7 +122,7 @@ func TestClient_UpdateRole(t *testing.T) {
 	}
 
 	expected := AccountGroupRole{
-		RoleName:                 String("William Test"),
+		RoleName:                 String("ThousandEyes SRE"),
 		RoleID:                   Int(1000),
 		HasManagementPermissions: Bool(true),
 		Builtin:                  Bool(false),
