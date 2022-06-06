@@ -1,8 +1,8 @@
-[![GoDoc](https://godoc.org/github.com/thousandeyes/go-thousandeyes?status.svg)](http://godoc.org/github.com/thousandeyes/go-thousandeyes) [![Go Report Card](https://goreportcard.com/badge/github.com/thousandeyes/go-thousandeyes)](https://goreportcard.com/report/github.com/thousandeyes/go-thousandeyes) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/gojp/goreportcard/blob/master/LICENSE) [![codecov](https://codecov.io/gh/thousandeyes/go-thousandeyes/branch/master/graph/badge.svg)](https://codecov.io/gh/thousandeyes/go-thousandeyes)
+[![GoDoc](https://godoc.org/github.com/thousandeyes/thousandeyes-sdk-go?status.svg)](http://godoc.org/github.com/thousandeyes/thousandeyes-sdk-go) [![Go Report Card](https://goreportcard.com/badge/github.com/thousandeyes/thousandeyes-sdk-go)](https://goreportcard.com/report/github.com/thousandeyes/thousandeyes-sdk-go) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/gojp/goreportcard/blob/master/LICENSE) [![codecov](https://codecov.io/gh/thousandeyes/thousandeyes-sdk-go/branch/master/graph/badge.svg)](https://codecov.io/gh/thousandeyes/thousandeyes-sdk-go)
 [![Gitter](https://badges.gitter.im/go-thousandeyes/community.svg)](https://gitter.im/go-thousandeyes/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
-# go-thousandeyes
+# thousandeyes-sdk-go
 
-go-thousandeyes is a [go](https://golang.org/) client library for the [Thousandeyes v6 API](https://developer.thousandeyes.com/v6). This repo
+thousandeyes-sdk-go is a [go](https://golang.org/) client library for the [Thousandeyes v6 API](https://developer.thousandeyes.com/v6). This repo
 also contains a supporting CLI tool tectl that uses the client lib.
 
 ## Maintenance and Acknowledgements
@@ -15,7 +15,7 @@ ThousandEyes would like to extend a thank you to William Fleming, John Dyer, and
 
 First, download the source code
 ```cli
-go get github.com/thousandeyes/go-thousandeyes/v2
+go get github.com/thousandeyes/thousandeyes-sdk-go/v2
 ```
 
 ## Usage
@@ -38,7 +38,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/thousandeyes/go-thousandeyes/v2"
+	"github.com/thousandeyes/thousandeyes-sdk-go/v2"
 )
 
 func main() {
