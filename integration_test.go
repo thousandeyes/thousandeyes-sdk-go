@@ -8,7 +8,7 @@ import (
 )
 
 func TestClient_GetIntegrations(t *testing.T) {
-	out := `{"integrations":{"thirdParty":[{"authMethod":"Auth Token","integrationId":"pgd-9999","integrationName":"Test PD Integration","integrationType":"PAGER_DUTY"}],"webhook":[{"authMethod":"Basic","integrationId":"wb-999","integrationName":"Test Webhook Integration","integrationType":"WEBHOOK","target":"https://grumpysysadm.com/"}]}}`
+	out := `{"integrations":{"thirdParty":[{"authMethod":"Auth Token","integrationId":"pgd-9999","integrationName":"Test PD Integration","integrationType":"PAGER_DUTY"}],"webhook":[{"authMethod":"Basic","integrationId":"wb-999","integrationName":"Test Webhook Integration","integrationType":"WEBHOOK","target":"https://thousandeyes.com/"}]}}`
 	setup()
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 
@@ -30,7 +30,7 @@ func TestClient_GetIntegrations(t *testing.T) {
 			IntegrationID:   String("wb-999"),
 			IntegrationName: String("Test Webhook Integration"),
 			IntegrationType: String("WEBHOOK"),
-			Target:          String("https://grumpysysadm.com/"),
+			Target:          String("https://thousandeyes.com/"),
 		},
 	}
 
