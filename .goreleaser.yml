@@ -1,8 +1,8 @@
-project_name: go-thousandeyes
+project_name: thousandeyes-sdk-go
 release:
   github:
-    owner: william20111
-    name: go-thousandeyes
+    owner: thousandeyes
+    name: thousandeyes-sdk-go
   draft: false
   prerelease: true
   name_template: "{{.ProjectName}}-v{{.Version}}"
