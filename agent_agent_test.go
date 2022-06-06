@@ -22,7 +22,7 @@ func TestClient_AgentAgentAddAgent(t *testing.T) {
 }
 
 func TestClient_CreateAgentAgent(t *testing.T) {
-	out := `{"test": [{"testID":1,"pathTraceMode": "classic","testName":"test","createdDate":"2020-02-06 15:28:07","createdBy":"William Fleming (wfleming@grumpysysadm.com)","throughputMeasurements": 1, "Port": 8090}]}`
+	out := `{"test": [{"testID":1,"pathTraceMode": "classic","testName":"test","createdDate":"2020-02-06 15:28:07","createdBy":"ThousandEyes SRE (test.example@thousandeyes.com)","throughputMeasurements": 1, "Port": 8090}]}`
 	setup()
 	defer teardown()
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
@@ -36,7 +36,7 @@ func TestClient_CreateAgentAgent(t *testing.T) {
 		TestID:                 Int64(1),
 		TestName:               String("test"),
 		CreatedDate:            String("2020-02-06 15:28:07"),
-		CreatedBy:              String("William Fleming (wfleming@grumpysysadm.com)"),
+		CreatedBy:              String("ThousandEyes SRE (test.example@thousandeyes.com)"),
 		Port:                   Int(8090),
 		PathTraceMode:          String("classic"),
 		ThroughputMeasurements: Bool(true),
@@ -73,7 +73,7 @@ func TestClient_AddAlertRule(t *testing.T) {
 }
 
 func TestClient_GetAgentAgent(t *testing.T) {
-	out := `{"test": [{"testID":1,"testName":"test","createdDate":"2020-02-06 15:28:07","createdBy":"William Fleming (wfleming@grumpysysadm.com)","Port": 8090, "throughputMeasurements" : 1, "throughputDuration":10000}]}`
+	out := `{"test": [{"testID":1,"testName":"test","createdDate":"2020-02-06 15:28:07","createdBy":"ThousandEyes SRE (test.example@thousandeyes.com)","Port": 8090, "throughputMeasurements" : 1, "throughputDuration":10000}]}`
 	setup()
 	defer teardown()
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
@@ -87,7 +87,7 @@ func TestClient_GetAgentAgent(t *testing.T) {
 		TestID:                 Int64(1),
 		TestName:               String("test"),
 		CreatedDate:            String("2020-02-06 15:28:07"),
-		CreatedBy:              String("William Fleming (wfleming@grumpysysadm.com)"),
+		CreatedBy:              String("ThousandEyes SRE (test.example@thousandeyes.com)"),
 		Port:                   Int(8090),
 		ThroughputDuration:     Int(10000),
 		ThroughputMeasurements: Bool(true),
@@ -115,7 +115,7 @@ func TestClient_DeleteAgentAgent(t *testing.T) {
 }
 
 func TestClient_UpdateAgentAgent(t *testing.T) {
-	out := `{"test": [{"testID":1,"testName":"test","createdDate":"2020-02-06 15:28:07","createdBy":"William Fleming (wfleming@grumpysysadm.com)", "Port": 8090}]}`
+	out := `{"test": [{"testID":1,"testName":"test","createdDate":"2020-02-06 15:28:07","createdBy":"ThousandEyes SRE (test.example@thousandeyes.com)", "Port": 8090}]}`
 	setup()
 	defer teardown()
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
@@ -129,7 +129,7 @@ func TestClient_UpdateAgentAgent(t *testing.T) {
 		TestID:      Int64(1),
 		TestName:    String("test"),
 		CreatedDate: String("2020-02-06 15:28:07"),
-		CreatedBy:   String("William Fleming (wfleming@grumpysysadm.com)"),
+		CreatedBy:   String("ThousandEyes SRE (test.example@thousandeyes.com)"),
 		Port:        Int(8090),
 	}
 	update := AgentAgent{

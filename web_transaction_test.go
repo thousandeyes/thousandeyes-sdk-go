@@ -8,7 +8,7 @@ import (
 )
 
 func TestClient_CreateWebTransaction(t *testing.T) {
-	out := `{"test": [{"testId":1,"testName":"test","createdDate":"2020-02-06 15:28:07","createdBy":"William Fleming (wfleming@grumpysysadm.com)","transactionScript":"script here"}]}`
+	out := `{"test": [{"testId":1,"testName":"test","createdDate":"2020-02-06 15:28:07","createdBy":"ThousandEyes SRE (test.example@thousandeyes.com)","transactionScript":"script here"}]}`
 	setup()
 	defer teardown()
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
@@ -23,7 +23,7 @@ func TestClient_CreateWebTransaction(t *testing.T) {
 		TestID:            Int64(1),
 		TestName:          String("test"),
 		CreatedDate:       String("2020-02-06 15:28:07"),
-		CreatedBy:         String("William Fleming (wfleming@grumpysysadm.com)"),
+		CreatedBy:         String("ThousandEyes SRE (test.example@thousandeyes.com)"),
 		TransactionScript: String("script here"),
 	}
 	create := WebTransaction{
@@ -37,7 +37,7 @@ func TestClient_CreateWebTransaction(t *testing.T) {
 }
 
 func TestClient_GetWebTransaction(t *testing.T) {
-	out := `{"test": [{"testId":1,"testName":"test","createdDate":"2020-02-06 15:28:07","createdBy":"William Fleming (wfleming@grumpysysadm.com)","transactionScript":"script here"}]}`
+	out := `{"test": [{"testId":1,"testName":"test","createdDate":"2020-02-06 15:28:07","createdBy":"ThousandEyes SRE (test.example@thousandeyes.com)","transactionScript":"script here"}]}`
 	setup()
 	defer teardown()
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
@@ -52,7 +52,7 @@ func TestClient_GetWebTransaction(t *testing.T) {
 		TestID:            Int64(1),
 		TestName:          String("test"),
 		CreatedDate:       String("2020-02-06 15:28:07"),
-		CreatedBy:         String("William Fleming (wfleming@grumpysysadm.com)"),
+		CreatedBy:         String("ThousandEyes SRE (test.example@thousandeyes.com)"),
 		TransactionScript: String("script here"),
 	}
 	res, err := client.GetWebTransaction(1)
@@ -79,7 +79,7 @@ func TestClient_DeleteWebTransaction(t *testing.T) {
 }
 
 func TestClient_UpdateWebTransaction(t *testing.T) {
-	out := `{"test": [{"testId":1,"testName":"test","createdDate":"2020-02-06 15:28:07","createdBy":"William Fleming (wfleming@grumpysysadm.com)","transactionScript":"new script here"}]}`
+	out := `{"test": [{"testId":1,"testName":"test","createdDate":"2020-02-06 15:28:07","createdBy":"ThousandEyes SRE (test.example@thousandeyes.com)","transactionScript":"new script here"}]}`
 	setup()
 	defer teardown()
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
@@ -94,7 +94,7 @@ func TestClient_UpdateWebTransaction(t *testing.T) {
 		TestID:            Int64(1),
 		TestName:          String("test"),
 		CreatedDate:       String("2020-02-06 15:28:07"),
-		CreatedBy:         String("William Fleming (wfleming@grumpysysadm.com)"),
+		CreatedBy:         String("ThousandEyes SRE (test.example@thousandeyes.com)"),
 		TransactionScript: String("new script here"),
 	}
 	update := WebTransaction{

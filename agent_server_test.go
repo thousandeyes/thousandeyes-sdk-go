@@ -22,7 +22,7 @@ func TestClient_AgentServerAddAgent(t *testing.T) {
 }
 
 func TestClient_CreateAgentServer(t *testing.T) {
-	out := `{"test": [{"testId":1,"testName":"test","createdDate":"2020-02-06 15:28:07","createdBy":"William Fleming (wfleming@grumpysysadm.com)","server":"grumpysysadm.com:8090"}]}`
+	out := `{"test": [{"testId":1,"testName":"test","createdDate":"2020-02-06 15:28:07","createdBy":"ThousandEyes SRE (test.example@thousandeyes.com)","server":"thousandeyes.com:8090"}]}`
 	setup()
 	defer teardown()
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
@@ -36,14 +36,14 @@ func TestClient_CreateAgentServer(t *testing.T) {
 		TestID:      Int64(1),
 		TestName:    String("test"),
 		CreatedDate: String("2020-02-06 15:28:07"),
-		CreatedBy:   String("William Fleming (wfleming@grumpysysadm.com)"),
+		CreatedBy:   String("ThousandEyes SRE (test.example@thousandeyes.com)"),
 		Port:        Int(8090),
-		Server:      String("grumpysysadm.com"),
+		Server:      String("thousandeyes.com"),
 	}
 	create := AgentServer{
 		TestName: String("test"),
 		Port:     Int(8090),
-		Server:   String("grumpysysadm.com"),
+		Server:   String("thousandeyes.com"),
 	}
 	res, err := client.CreateAgentServer(create)
 	assert.Nil(t, err)
@@ -71,7 +71,7 @@ func TestClient_GetAgentServerJsonError(t *testing.T) {
 }
 
 func TestClient_GetAgentServer(t *testing.T) {
-	out := `{"test": [{"testId":1,"testName":"test","createdDate":"2020-02-06 15:28:07","createdBy":"William Fleming (wfleming@grumpysysadm.com)","Port": 8090}]}`
+	out := `{"test": [{"testId":1,"testName":"test","createdDate":"2020-02-06 15:28:07","createdBy":"ThousandEyes SRE (test.example@thousandeyes.com)","Port": 8090}]}`
 	setup()
 	defer teardown()
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
@@ -85,7 +85,7 @@ func TestClient_GetAgentServer(t *testing.T) {
 		TestID:      Int64(1),
 		TestName:    String("test"),
 		CreatedDate: String("2020-02-06 15:28:07"),
-		CreatedBy:   String("William Fleming (wfleming@grumpysysadm.com)"),
+		CreatedBy:   String("ThousandEyes SRE (test.example@thousandeyes.com)"),
 		Port:        Int(8090),
 	}
 	res, err := client.GetAgentServer(1)
@@ -111,7 +111,7 @@ func TestClient_DeleteAgentServer(t *testing.T) {
 }
 
 func TestClient_UpdateAgentServer(t *testing.T) {
-	out := `{"test": [{"testId":1,"testName":"test","createdDate":"2020-02-06 15:28:07","createdBy":"William Fleming (wfleming@grumpysysadm.com)", "Port": 8090}]}`
+	out := `{"test": [{"testId":1,"testName":"test","createdDate":"2020-02-06 15:28:07","createdBy":"ThousandEyes SRE (test.example@thousandeyes.com)", "Port": 8090}]}`
 	setup()
 	defer teardown()
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
@@ -125,7 +125,7 @@ func TestClient_UpdateAgentServer(t *testing.T) {
 		TestID:      Int64(1),
 		TestName:    String("test"),
 		CreatedDate: String("2020-02-06 15:28:07"),
-		CreatedBy:   String("William Fleming (wfleming@grumpysysadm.com)"),
+		CreatedBy:   String("ThousandEyes SRE (test.example@thousandeyes.com)"),
 		Port:        Int(8090),
 	}
 	update := AgentServer{
