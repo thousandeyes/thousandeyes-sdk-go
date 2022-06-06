@@ -8,7 +8,7 @@ import (
 
 func TestClient_GetUsers(t *testing.T) {
 	setup()
-	out := `{"users": [{"name": "William Fleming", "email": "test.example@thousandeyes.com", "uid": 1}, {"name": "Test User 2", "email": "test.example@thousandeyes.com", "uid": 2}]}`
+	out := `{"users": [{"name": "ThousandEyes SRE", "email": "test.example@thousandeyes.com", "uid": 1}, {"name": "Test User 2", "email": "test.example@thousandeyes.com", "uid": 2}]}`
 	mux.HandleFunc("/users.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "GET", r.Method)
 		w.WriteHeader(http.StatusCreated)
@@ -23,7 +23,7 @@ func TestClient_GetUsers(t *testing.T) {
 	}
 	expected := []User{
 		{
-			Name:  String("William Fleming"),
+			Name:  String("ThousandEyes SRE"),
 			Email: String("test.example@thousandeyes.com"),
 			UID:   Int(1),
 		},
@@ -38,7 +38,7 @@ func TestClient_GetUsers(t *testing.T) {
 
 func TestClient_GetUser(t *testing.T) {
 	setup()
-	out := `{"users": [{"name": "William Fleming", "email": "test.example@thousandeyes.com", "uid": 1}]}`
+	out := `{"users": [{"name": "ThousandEyes SRE", "email": "test.example@thousandeyes.com", "uid": 1}]}`
 	mux.HandleFunc("/users/1.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "GET", r.Method)
 		w.WriteHeader(http.StatusCreated)
@@ -52,7 +52,7 @@ func TestClient_GetUser(t *testing.T) {
 		t.Fatal(err)
 	}
 	expected := User{
-		Name:  String("William Fleming"),
+		Name:  String("ThousandEyes SRE"),
 		Email: String("test.example@thousandeyes.com"),
 		UID:   Int(1),
 	}
@@ -61,7 +61,7 @@ func TestClient_GetUser(t *testing.T) {
 
 func TestClient_CreateUser(t *testing.T) {
 	setup()
-	out := `{"name": "William Fleming", "email": "test.example@thousandeyes.com", "uid": 1}`
+	out := `{"name": "ThousandEyes SRE", "email": "test.example@thousandeyes.com", "uid": 1}`
 	mux.HandleFunc("/users/new.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "POST", r.Method)
 		w.WriteHeader(http.StatusCreated)
@@ -70,7 +70,7 @@ func TestClient_CreateUser(t *testing.T) {
 
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
 	create := User{
-		Name:  String("William Fleming"),
+		Name:  String("ThousandEyes SRE"),
 		Email: String("test.example@thousandeyes.com"),
 	}
 	res, err := client.CreateUser(create)
@@ -79,7 +79,7 @@ func TestClient_CreateUser(t *testing.T) {
 	}
 
 	expected := User{
-		Name:  String("William Fleming"),
+		Name:  String("ThousandEyes SRE"),
 		Email: String("test.example@thousandeyes.com"),
 		UID:   Int(1),
 	}
@@ -100,7 +100,7 @@ func TestClient_DeleteUser(t *testing.T) {
 
 func TestClient_UpdateUser(t *testing.T) {
 	setup()
-	out := `{"name": "William Fleming", "email": "text.example@thousandeyes.com", "uid": 1}`
+	out := `{"name": "ThousandEyes SRE", "email": "text.example@thousandeyes.com", "uid": 1}`
 	mux.HandleFunc("/users/1/update.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "POST", r.Method)
 		w.WriteHeader(http.StatusOK)
@@ -117,7 +117,7 @@ func TestClient_UpdateUser(t *testing.T) {
 	}
 
 	expected := User{
-		Name:  String("William Fleming"),
+		Name:  String("ThousandEyes SRE"),
 		Email: String("text.example@thousandeyes.com"),
 		UID:   Int(1),
 	}
