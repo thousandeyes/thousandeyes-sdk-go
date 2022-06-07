@@ -1,60 +1,55 @@
-[![GoDoc](https://godoc.org/github.com/thousandeyes/thousandeyes-sdk-go?status.svg)](http://godoc.org/github.com/thousandeyes/thousandeyes-sdk-go) [![Go Report Card](https://goreportcard.com/badge/github.com/thousandeyes/thousandeyes-sdk-go)](https://goreportcard.com/report/github.com/thousandeyes/thousandeyes-sdk-go) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/gojp/goreportcard/blob/master/LICENSE) [![codecov](https://codecov.io/gh/thousandeyes/thousandeyes-sdk-go/branch/master/graph/badge.svg)](https://codecov.io/gh/thousandeyes/thousandeyes-sdk-go)
-[![Gitter](https://badges.gitter.im/go-thousandeyes/community.svg)](https://gitter.im/go-thousandeyes/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+[![GoDoc](https://godoc.org/github.com/thousandeyes/thousandeyes-sdk-go?status.svg)](http://godoc.org/github.com/thousandeyes/thousandeyes-sdk-go) [![Go Report Card](https://goreportcard.com/badge/github.com/thousandeyes/thousandeyes-sdk-go)](https://goreportcard.com/report/github.com/thousandeyes/thousandeyes-sdk-go) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/gojp/goreportcard/blob/master/LICENSE)
+
 # thousandeyes-sdk-go
-
-thousandeyes-sdk-go is a [go](https://golang.org/) client library for the [Thousandeyes v6 API](https://developer.thousandeyes.com/v6). This repo
-also contains a supporting CLI tool tectl that uses the client lib.
-
-## Maintenance and Acknowledgements
-
-This project is maintained by the ThousandEyes engineering team and accepts community contributions.
-
-ThousandEyes would like to extend a thank you to William Fleming, John Dyer, and Joshua Blanchard for their contributions and community maintenance of this project.
+`thousandeyes-sdk-go` is a [go](https://golang.org/) client library for the [Thousandeyes v6 API](https://developer.thousandeyes.com/v6).
 
 ## Installation
+thousandeyes-sdk-go is compatible with modern Go releases in module mode, with Go installed:
 
-First, download the source code
 ```cli
 go get github.com/thousandeyes/thousandeyes-sdk-go/v2
 ```
 
-## Usage
+will resolve and add the package to the current development module, along with its dependencies.
 
-### Using `tectl`
-
-```shell script
-tectl get agents           
-AGENT NAME                              AGENTID ENABLED LOCATION                        IPADDRESSES                                                                                                                                                                                                     
-Dallas, TX (Trial)                      4492    0       Dallas Area                     104.130.154.136,104.130.156.108,104.130.141.203,104.130.155.161                                                                                                                                                        
-Chicago, IL (Trial)                     4495    0       Chicago Area                    23.253.167.114,23.253.41.151,23.253.46.129,23.253.47.96                                                                                                                                                                
-Ashburn, VA (Trial)                     4497    0       Ashburn Area                    23.253.149.202,162.242.253.124,23.253.149.138,162.242.252.22                                                                                                                                                           
-Sydney, Australia (Trial)               4500    0       New South Wales, Australia      119.9.24.178,119.9.24.218,119.9.24.167,119.9.24.176,2401:1801:7801:101:ec6e:d653:b713:68cb 
+Alternatively the same can be achieved if you use import in a package:
+```go
+import "github.com/thousandeyes/thousandeyes-sdk-go/v2"
 ```
 
-### Using client library
+and run go get without parameters.
+
+## Usage
+Example code to list ThousandEyes agents:
 
 ```go
 package main
 
 import (
 	"fmt"
+	"os"
+
 	"github.com/thousandeyes/thousandeyes-sdk-go/v2"
 )
 
 func main() {
-	client := thousandeyes.NewClient("foobar")
+	opts := thousandeyes.ClientOptions{
+		AuthToken: os.Getenv("TE_TOKEN"),
+		AccountID: os.Getenv("TE_AID"),
+	}
+
+	client := thousandeyes.NewClient(&opts)
 	agents, err := client.GetAgents()
 	if err != nil {
 		panic(err)
 	}
 	for _, a := range *agents {
-		fmt.Println(a.AgentName)
+		fmt.Println(*a.AgentName)
 	}
 }
 ```
 
 ## Contributing
-
 1. Fork it
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
@@ -62,11 +57,9 @@ func main() {
 5. Create a new Pull Request
 
 ## License
+This library is distributed under the Apache 2.0 license found in the [LICENSE](/LICENSE) file.
 
-[Apache 2](http://www.apache.org/licenses/LICENSE-2.0)
+## Maintenance and Acknowledgements
+This project is maintained by the ThousandEyes engineering team and accepts community contributions.
 
-## Mentions
-
-This is my first golang library and i have heavily leaned on [go-pagerduty](https://github.com/PagerDuty/go-pagerduty)
-library for inspiration. Its a library I use and I have implemented a similar client interface based on their HttpClient
-wrapper. So thanks for the great oss lib!
+ThousandEyes would like to extend a thank you to William Fleming, John Dyer, and Joshua Blanchard for their contributions and community maintenance of this project.
