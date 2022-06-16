@@ -1,6 +1,7 @@
 package thousandeyes
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 )
@@ -44,13 +45,13 @@ type Notification struct {
 type AlertRule struct {
 	AlertRuleID             *int          `json:"alertRuleId,omitempty"`
 	AlertType               *string       `json:"alertType,omitempty"`
-	Default                 *int          `json:"default,omitempty"`
+	Default                 *bool         `json:"default,omitempty" te:"int-bool"`
 	Direction               *string       `json:"direction,omitempty"`
 	Expression              *string       `json:"expression,omitempty"`
 	IncludeCoveredPrefixes  *int          `json:"includeCoveredPrefixes,omitempty"`
 	MinimumSources          *int          `json:"minimumSources,omitempty"`
 	MinimumSourcesPct       *int          `json:"minimumSourcesPct,omitempty"`
-	NotifyOnClear           *int          `json:"notifyOnClear,omitempty"`
+	NotifyOnClear           *bool         `json:"notifyOnClear,omitempty" te:"int-bool"`
 	RoundsViolatingMode     *string       `json:"roundsViolatingMode,omitempty"`
 	RoundsViolatingOutOf    *int          `json:"roundsViolatingOutOf,omitempty"`
 	RoundsViolatingRequired *int          `json:"roundsViolatingRequired,omitempty"`
@@ -58,6 +59,35 @@ type AlertRule struct {
 	RuleName                *string       `json:"ruleName,omitempty"`
 	TestIds                 *[]int        `json:"testIds,omitempty"`
 	Notifications           *Notification `json:"notifications,omitempty"`
+}
+
+// MarshalJSON implements the json.Marshaler interface. It ensures
+// that ThousandEyes int fields that only use the values 0 or 1 are
+// treated as booleans.
+func (t AlertRule) MarshalJSON() ([]byte, error) {
+	type alias AlertRule
+
+	data, err := json.Marshal((alias)(t))
+	if err != nil {
+		return nil, err
+	}
+
+	return jsonBoolToInt(&t, data)
+}
+
+// UnmarshalJSON implements the json.Unmarshaler interface. It ensures
+// that ThousandEyes int fields that only use the values 0 or 1 are
+// treated as booleans.
+func (t *AlertRule) UnmarshalJSON(data []byte) error {
+	type alias AlertRule
+	test := (*alias)(t)
+
+	data, err := jsonIntToBool(t, data)
+	if err != nil {
+		return err
+	}
+
+	return json.Unmarshal(data, &test)
 }
 
 // CreateAlertRule - Create alert rule
