@@ -246,7 +246,7 @@ func TestClient_GetFTPServerStatusCode(t *testing.T) {
 
 	_, err := client.GetFTPServer(1)
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
+	assert.ErrorContains(t, err, "Response did not contain formatted error: %!s(<nil>). HTTP response code: 400")
 }
 
 func TestClient_CreateFTPServerStatusCode(t *testing.T) {
@@ -259,7 +259,7 @@ func TestClient_CreateFTPServerStatusCode(t *testing.T) {
 	})
 	_, err := client.CreateFTPServer(FTPServer{})
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
+	assert.ErrorContains(t, err, "Response did not contain formatted error: %!s(<nil>). HTTP response code: 400")
 }
 
 func TestClient_UpdateFTPServerStatusCode(t *testing.T) {
@@ -272,7 +272,7 @@ func TestClient_UpdateFTPServerStatusCode(t *testing.T) {
 	})
 	_, err := client.UpdateFTPServer(1, FTPServer{})
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
+	assert.ErrorContains(t, err, "Response did not contain formatted error: %!s(<nil>). HTTP response code: 400")
 }
 
 func TestClient_DeleteFTPServerCode(t *testing.T) {
@@ -285,5 +285,5 @@ func TestClient_DeleteFTPServerCode(t *testing.T) {
 	})
 	err := client.DeleteFTPServer(1)
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
+	assert.ErrorContains(t, err, "Response did not contain formatted error: %!s(<nil>). HTTP response code: 400")
 }

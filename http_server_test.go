@@ -288,7 +288,7 @@ func TestClient_GetHTTPServerStatusCode(t *testing.T) {
 
 	_, err := client.GetHTTPServer(1)
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
+	assert.ErrorContains(t, err, "Response did not contain formatted error: %!s(<nil>). HTTP response code: 400")
 }
 
 func TestClient_CreateHTTPServerStatusCode(t *testing.T) {
@@ -301,7 +301,7 @@ func TestClient_CreateHTTPServerStatusCode(t *testing.T) {
 	})
 	_, err := client.CreateHTTPServer(HTTPServer{})
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
+	assert.ErrorContains(t, err, "Response did not contain formatted error: %!s(<nil>). HTTP response code: 400")
 }
 
 func TestClient_UpdateHTTPServerStatusCode(t *testing.T) {
@@ -314,7 +314,7 @@ func TestClient_UpdateHTTPServerStatusCode(t *testing.T) {
 	})
 	_, err := client.UpdateHTTPServer(1, HTTPServer{})
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
+	assert.ErrorContains(t, err, "Response did not contain formatted error: %!s(<nil>). HTTP response code: 400")
 }
 
 func TestClient_DeleteHTTPServerStatusCode(t *testing.T) {
@@ -327,5 +327,5 @@ func TestClient_DeleteHTTPServerStatusCode(t *testing.T) {
 	})
 	err := client.DeleteHTTPServer(1)
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
+	assert.ErrorContains(t, err, "Response did not contain formatted error: %!s(<nil>). HTTP response code: 400")
 }

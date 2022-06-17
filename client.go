@@ -188,10 +188,10 @@ func (c *Client) checkResponse(resp *http.Response, err error) (*http.Response, 
 	if 199 >= resp.StatusCode || 300 <= resp.StatusCode {
 		var eo *errorObject
 		var getErr error
-		if eo, getErr = c.getErrorFromResponse(resp); getErr != nil {
+		if eo, getErr = c.getErrorFromResponse(resp); getErr != nil || eo.ErrorMessage == nil {
 			return resp, fmt.Errorf("Response did not contain formatted error: %s. HTTP response code: %v. Raw response: %+v", getErr, resp.StatusCode, resp)
 		}
-		return resp, fmt.Errorf("Failed call API endpoint. HTTP response code: %v. Error: %v", resp.StatusCode, eo)
+		return resp, fmt.Errorf("Failed call API endpoint. HTTP response code: %v. Error: %s", resp.StatusCode, *eo.ErrorMessage)
 	}
 	return resp, nil
 }

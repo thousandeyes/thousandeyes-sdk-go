@@ -142,7 +142,7 @@ func TestClient_GetRoleStatusCode(t *testing.T) {
 
 	_, err := client.GetRoles()
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
+	assert.ErrorContains(t, err, "Response did not contain formatted error: %!s(<nil>). HTTP response code: 400")
 }
 
 func TestClient_CreateRoleStatusCode(t *testing.T) {
@@ -155,7 +155,7 @@ func TestClient_CreateRoleStatusCode(t *testing.T) {
 	})
 	_, err := client.CreateRole(AccountGroupRole{})
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
+	assert.ErrorContains(t, err, "Response did not contain formatted error: %!s(<nil>). HTTP response code: 400")
 }
 
 func TestClient_UpdateRoleStatusCode(t *testing.T) {
@@ -168,7 +168,7 @@ func TestClient_UpdateRoleStatusCode(t *testing.T) {
 	})
 	_, err := client.UpdateRole(1, AccountGroupRole{})
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
+	assert.ErrorContains(t, err, "Response did not contain formatted error: %!s(<nil>). HTTP response code: 400")
 }
 
 func TestClient_DeleteRoleStatusCode(t *testing.T) {
@@ -181,7 +181,7 @@ func TestClient_DeleteRoleStatusCode(t *testing.T) {
 	})
 	err := client.DeleteRole(1)
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
+	assert.ErrorContains(t, err, "Response did not contain formatted error: %!s(<nil>). HTTP response code: 400")
 }
 
 func TestClient_GetRolesJsonError(t *testing.T) {

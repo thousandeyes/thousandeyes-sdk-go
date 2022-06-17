@@ -301,7 +301,7 @@ func TestClient_GetPageLoadStatusCode(t *testing.T) {
 
 	_, err := client.GetPageLoad(1)
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
+	assert.ErrorContains(t, err, "Response did not contain formatted error: %!s(<nil>). HTTP response code: 400")
 }
 
 func TestClient_CreatePageLoadStatusCode(t *testing.T) {
@@ -314,7 +314,7 @@ func TestClient_CreatePageLoadStatusCode(t *testing.T) {
 	})
 	_, err := client.CreatePageLoad(PageLoad{})
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
+	assert.ErrorContains(t, err, "Response did not contain formatted error: %!s(<nil>). HTTP response code: 400")
 }
 
 func TestClient_UpdatePageLoadStatusCode(t *testing.T) {
@@ -327,7 +327,7 @@ func TestClient_UpdatePageLoadStatusCode(t *testing.T) {
 	})
 	_, err := client.UpdatePageLoad(1, PageLoad{})
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
+	assert.ErrorContains(t, err, "Response did not contain formatted error: %!s(<nil>). HTTP response code: 400")
 }
 
 func TestClient_DeletePageLoadStatusCode(t *testing.T) {
@@ -340,5 +340,5 @@ func TestClient_DeletePageLoadStatusCode(t *testing.T) {
 	})
 	err := client.DeletePageLoad(1)
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
+	assert.ErrorContains(t, err, "Response did not contain formatted error: %!s(<nil>). HTTP response code: 400")
 }
