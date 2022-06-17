@@ -232,7 +232,7 @@ func TestClient_GetGroupLabelsStatusCode(t *testing.T) {
 
 	_, err := client.GetGroupLabels()
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
+	assert.ErrorContains(t, err, "Response did not contain formatted error: %!s(<nil>). HTTP response code: 400")
 }
 
 func TestClient_CreateGroupLabelJsonError(t *testing.T) {
@@ -286,7 +286,7 @@ func TestClient_CreateGroupLabelStatusCode(t *testing.T) {
 	})
 	_, err := client.CreateGroupLabel(GroupLabel{Type: String("tests")})
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
+	assert.ErrorContains(t, err, "Response did not contain formatted error: %!s(<nil>). HTTP response code: 400")
 }
 
 func TestClient_UpdateGroupLabelStatusCode(t *testing.T) {
@@ -299,7 +299,7 @@ func TestClient_UpdateGroupLabelStatusCode(t *testing.T) {
 	})
 	_, err := client.UpdateGroupLabel(1, GroupLabel{})
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
+	assert.ErrorContains(t, err, "Response did not contain formatted error: %!s(<nil>). HTTP response code: 400")
 }
 
 func TestClient_DeleteGroupLabelStatusCode(t *testing.T) {
@@ -312,5 +312,5 @@ func TestClient_DeleteGroupLabelStatusCode(t *testing.T) {
 	})
 	err := client.DeleteGroupLabel(1)
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
+	assert.ErrorContains(t, err, "Response did not contain formatted error: %!s(<nil>). HTTP response code: 400")
 }

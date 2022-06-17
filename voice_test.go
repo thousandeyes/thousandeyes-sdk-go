@@ -214,7 +214,7 @@ func TestClient_GetRTPStreamStatusCode(t *testing.T) {
 
 	_, err := client.GetRTPStream(1)
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
+	assert.ErrorContains(t, err, "Response did not contain formatted error: %!s(<nil>). HTTP response code: 400")
 }
 
 func TestClient_CreateRTPStreamStatusCode(t *testing.T) {
@@ -227,7 +227,7 @@ func TestClient_CreateRTPStreamStatusCode(t *testing.T) {
 	})
 	_, err := client.CreateRTPStream(RTPStream{})
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
+	assert.ErrorContains(t, err, "Response did not contain formatted error: %!s(<nil>). HTTP response code: 400")
 }
 
 func TestClient_UpdateRTPStreamStatusCode(t *testing.T) {
@@ -240,7 +240,7 @@ func TestClient_UpdateRTPStreamStatusCode(t *testing.T) {
 	})
 	_, err := client.UpdateRTPStream(1, RTPStream{})
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
+	assert.ErrorContains(t, err, "Response did not contain formatted error: %!s(<nil>). HTTP response code: 400")
 }
 
 func TestClient_DeleteRTPStreamStatusCode(t *testing.T) {
@@ -253,5 +253,5 @@ func TestClient_DeleteRTPStreamStatusCode(t *testing.T) {
 	})
 	err := client.DeleteRTPStream(1)
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
+	assert.ErrorContains(t, err, "Response did not contain formatted error: %!s(<nil>). HTTP response code: 400")
 }

@@ -296,7 +296,7 @@ func TestClient_GetDNSServerStatusCode(t *testing.T) {
 
 	_, err := client.GetDNSServer(1)
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
+	assert.ErrorContains(t, err, "Response did not contain formatted error: %!s(<nil>). HTTP response code: 400")
 }
 
 func TestClient_CreateDNSServerStatusCode(t *testing.T) {
@@ -309,7 +309,7 @@ func TestClient_CreateDNSServerStatusCode(t *testing.T) {
 	})
 	_, err := client.CreateDNSServer(DNSServer{})
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
+	assert.ErrorContains(t, err, "Response did not contain formatted error: %!s(<nil>). HTTP response code: 400")
 }
 
 func TestClient_UpdateDNSServerStatusCode(t *testing.T) {
@@ -322,7 +322,7 @@ func TestClient_UpdateDNSServerStatusCode(t *testing.T) {
 	})
 	_, err := client.UpdateDNSServer(1, DNSServer{})
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
+	assert.ErrorContains(t, err, "Response did not contain formatted error: %!s(<nil>). HTTP response code: 400")
 }
 
 func TestClient_DeleteDNSServerStatusCode(t *testing.T) {
@@ -335,5 +335,5 @@ func TestClient_DeleteDNSServerStatusCode(t *testing.T) {
 	})
 	err := client.DeleteDNSServer(1)
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
+	assert.ErrorContains(t, err, "Response did not contain formatted error: %!s(<nil>). HTTP response code: 400")
 }

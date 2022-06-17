@@ -213,7 +213,7 @@ func TestClient_GetBGPStatusCode(t *testing.T) {
 
 	_, err := client.GetBGP(1)
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
+	assert.ErrorContains(t, err, "Response did not contain formatted error: %!s(<nil>). HTTP response code: 400")
 }
 
 func TestClient_CreateBGPStatusCode(t *testing.T) {
@@ -226,7 +226,7 @@ func TestClient_CreateBGPStatusCode(t *testing.T) {
 	})
 	_, err := client.CreateBGP(BGP{})
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
+	assert.ErrorContains(t, err, "Response did not contain formatted error: %!s(<nil>). HTTP response code: 400")
 }
 
 func TestClient_UpdateBGPStatusCode(t *testing.T) {
@@ -239,7 +239,7 @@ func TestClient_UpdateBGPStatusCode(t *testing.T) {
 	})
 	_, err := client.UpdateBGP(1, BGP{})
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
+	assert.ErrorContains(t, err, "Response did not contain formatted error: %!s(<nil>). HTTP response code: 400")
 }
 
 func TestClient_DeleteBGPStatusCode(t *testing.T) {
@@ -252,5 +252,5 @@ func TestClient_DeleteBGPStatusCode(t *testing.T) {
 	})
 	err := client.DeleteBGP(1)
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
+	assert.ErrorContains(t, err, "Response did not contain formatted error: %!s(<nil>). HTTP response code: 400")
 }

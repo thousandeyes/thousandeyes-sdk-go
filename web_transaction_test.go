@@ -144,7 +144,7 @@ func TestClient_GetWebTransactionStatusCode(t *testing.T) {
 
 	_, err := client.GetWebTransaction(1)
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
+	assert.ErrorContains(t, err, "Response did not contain formatted error: %!s(<nil>). HTTP response code: 400")
 }
 
 func TestClient_CreateWebTransactionStatusCode(t *testing.T) {
@@ -157,7 +157,7 @@ func TestClient_CreateWebTransactionStatusCode(t *testing.T) {
 	})
 	_, err := client.CreateWebTransaction(WebTransaction{})
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
+	assert.ErrorContains(t, err, "Response did not contain formatted error: %!s(<nil>). HTTP response code: 400")
 }
 
 func TestClient_UpdateWebTransactionStatusCode(t *testing.T) {
@@ -170,7 +170,7 @@ func TestClient_UpdateWebTransactionStatusCode(t *testing.T) {
 	})
 	_, err := client.UpdateWebTransaction(1, WebTransaction{})
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
+	assert.ErrorContains(t, err, "Response did not contain formatted error: %!s(<nil>). HTTP response code: 400")
 }
 
 func TestClient_DeleteWebTransactionStatusCode(t *testing.T) {
@@ -183,5 +183,5 @@ func TestClient_DeleteWebTransactionStatusCode(t *testing.T) {
 	})
 	err := client.DeleteWebTransaction(1)
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
+	assert.ErrorContains(t, err, "Response did not contain formatted error: %!s(<nil>). HTTP response code: 400")
 }

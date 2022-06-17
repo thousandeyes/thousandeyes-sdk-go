@@ -241,7 +241,7 @@ func TestClient_GetSIPServerStatusCode(t *testing.T) {
 
 	_, err := client.GetSIPServer(1)
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
+	assert.ErrorContains(t, err, "Response did not contain formatted error: %!s(<nil>). HTTP response code: 400")
 }
 
 func TestClient_CreateSIPServerStatusCode(t *testing.T) {
@@ -254,7 +254,7 @@ func TestClient_CreateSIPServerStatusCode(t *testing.T) {
 	})
 	_, err := client.CreateSIPServer(SIPServer{})
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
+	assert.ErrorContains(t, err, "Response did not contain formatted error: %!s(<nil>). HTTP response code: 400")
 }
 
 func TestClient_UpdateSIPServerStatusCode(t *testing.T) {
@@ -267,7 +267,7 @@ func TestClient_UpdateSIPServerStatusCode(t *testing.T) {
 	})
 	_, err := client.UpdateSIPServer(1, SIPServer{})
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
+	assert.ErrorContains(t, err, "Response did not contain formatted error: %!s(<nil>). HTTP response code: 400")
 }
 
 func TestClient_DeleteSIPServerStatusCode(t *testing.T) {
@@ -280,5 +280,5 @@ func TestClient_DeleteSIPServerStatusCode(t *testing.T) {
 	})
 	err := client.DeleteSIPServer(1)
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
+	assert.ErrorContains(t, err, "Response did not contain formatted error: %!s(<nil>). HTTP response code: 400")
 }

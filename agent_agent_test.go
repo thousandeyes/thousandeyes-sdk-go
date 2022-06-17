@@ -165,7 +165,7 @@ func TestClient_GetAgentAgentStatusCode(t *testing.T) {
 
 	_, err := client.GetPageLoad(1)
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
+	assert.ErrorContains(t, err, "Response did not contain formatted error: %!s(<nil>). HTTP response code: 400")
 }
 
 func TestClient_CreateAgentAgentStatusCode(t *testing.T) {
@@ -178,7 +178,7 @@ func TestClient_CreateAgentAgentStatusCode(t *testing.T) {
 	})
 	_, err := client.CreateAgentAgent(AgentAgent{})
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
+	assert.ErrorContains(t, err, "Response did not contain formatted error: %!s(<nil>). HTTP response code: 400")
 }
 
 func TestClient_UpdateAgentAgentStatusCode(t *testing.T) {
@@ -191,7 +191,7 @@ func TestClient_UpdateAgentAgentStatusCode(t *testing.T) {
 	})
 	_, err := client.UpdateAgentAgent(1, AgentAgent{})
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
+	assert.ErrorContains(t, err, "Response did not contain formatted error: %!s(<nil>). HTTP response code: 400")
 }
 
 func TestClient_DeleteAgentAgentStatusCode(t *testing.T) {
@@ -204,5 +204,5 @@ func TestClient_DeleteAgentAgentStatusCode(t *testing.T) {
 	})
 	err := client.DeleteAgentAgent(1)
 	teardown()
-	assert.EqualError(t, err, "Failed call API endpoint. HTTP response code: 400. Error: &{<nil>}")
+	assert.ErrorContains(t, err, "Response did not contain formatted error: %!s(<nil>). HTTP response code: 400")
 }
