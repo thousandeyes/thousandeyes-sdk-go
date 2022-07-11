@@ -7,6 +7,17 @@ import (
 	"io/ioutil"
 )
 
+// SIPAuthData - Authentication fields for SIP tests
+type SIPAuthData struct {
+	AuthUser     *string `json:"authUser,omitempty"`
+	Password     *string `json:"password,omitempty"`
+	Port         *int    `json:"port,omitempty"`
+	Protocol     *string `json:"protocol,omitempty"`
+	SIPProxy     *string `json:"sipProxy,omitempty"`
+	SIPRegistrar *string `json:"sipRegistrar,omitempty"`
+	User         *string `json:"user,omitempty"`
+}
+
 // SIPServer - SIPServer trace test
 type SIPServer struct {
 	// Common test fields
