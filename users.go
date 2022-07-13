@@ -32,7 +32,7 @@ func (c *Client) GetUsers() (*[]User, error) {
 }
 
 // GetUser - get user
-func (c *Client) GetUser(id int) (*User, error) {
+func (c *Client) GetUser(id int64) (*User, error) {
 	resp, err := c.get(fmt.Sprintf("/users/%d", id))
 	if err != nil {
 		return nil, err
@@ -46,7 +46,7 @@ func (c *Client) GetUser(id int) (*User, error) {
 }
 
 // DeleteUser - delete user
-func (c *Client) DeleteUser(id int) error {
+func (c *Client) DeleteUser(id int64) error {
 	resp, err := c.post(fmt.Sprintf("/users/%d/delete", id), nil, nil)
 	if err != nil {
 		return err
@@ -58,7 +58,7 @@ func (c *Client) DeleteUser(id int) error {
 }
 
 // UpdateUser - update user
-func (c *Client) UpdateUser(id int, user User) (*User, error) {
+func (c *Client) UpdateUser(id int64, user User) (*User, error) {
 	resp, err := c.post(fmt.Sprintf("/users/%d/update", id), user, nil)
 	if err != nil {
 		return nil, err

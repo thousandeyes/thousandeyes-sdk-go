@@ -98,7 +98,7 @@ func (t *SIPServer) AddAlertRule(id int64) {
 }
 
 // GetSIPServer  - get sip server test
-func (c *Client) GetSIPServer(id int) (*SIPServer, error) {
+func (c *Client) GetSIPServer(id int64) (*SIPServer, error) {
 	resp, err := c.get(fmt.Sprintf("/tests/%d", id))
 	if err != nil {
 		return &SIPServer{}, err
@@ -162,7 +162,7 @@ func (c Client) CreateSIPServer(t SIPServer) (*SIPServer, error) {
 }
 
 //DeleteSIPServer - delete sip server test
-func (c *Client) DeleteSIPServer(id int) error {
+func (c *Client) DeleteSIPServer(id int64) error {
 	resp, err := c.post(fmt.Sprintf("/tests/sip-server/%d/delete", id), nil, nil)
 	if err != nil {
 		return err
@@ -174,7 +174,7 @@ func (c *Client) DeleteSIPServer(id int) error {
 }
 
 //UpdateSIPServer - - update sip server test
-func (c *Client) UpdateSIPServer(id int, t SIPServer) (*SIPServer, error) {
+func (c *Client) UpdateSIPServer(id int64, t SIPServer) (*SIPServer, error) {
 	resp, err := c.post(fmt.Sprintf("/tests/sip-server/%d/update", id), t, nil)
 	if err != nil {
 		return &t, err

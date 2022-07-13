@@ -72,7 +72,7 @@ func (c *Client) GetTests() (*[]GenericTest, error) {
 }
 
 // GetTest - Get test
-func (c *Client) GetTest(id int) (*GenericTest, error) {
+func (c *Client) GetTest(id int64) (*GenericTest, error) {
 	resp, err := c.get(fmt.Sprintf("/tests/%d", id))
 	if err != nil {
 		return nil, err

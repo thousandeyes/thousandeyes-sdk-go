@@ -68,7 +68,7 @@ func (t *BGP) AddAlertRule(id int64) {
 }
 
 // GetBGP  - get bgp test
-func (c *Client) GetBGP(id int) (*BGP, error) {
+func (c *Client) GetBGP(id int64) (*BGP, error) {
 	resp, err := c.get(fmt.Sprintf("/tests/%d", id))
 	if err != nil {
 		return &BGP{}, err
@@ -97,7 +97,7 @@ func (c Client) CreateBGP(t BGP) (*BGP, error) {
 }
 
 //DeleteBGP - delete bgp test
-func (c *Client) DeleteBGP(id int) error {
+func (c *Client) DeleteBGP(id int64) error {
 	resp, err := c.post(fmt.Sprintf("/tests/bgp/%d/delete", id), nil, nil)
 	if err != nil {
 		return err
@@ -109,7 +109,7 @@ func (c *Client) DeleteBGP(id int) error {
 }
 
 //UpdateBGP - - Update bgp trace test
-func (c *Client) UpdateBGP(id int, t BGP) (*BGP, error) {
+func (c *Client) UpdateBGP(id int64, t BGP) (*BGP, error) {
 	resp, err := c.post(fmt.Sprintf("/tests/bgp/%d/update", id), t, nil)
 	if err != nil {
 		return &t, err

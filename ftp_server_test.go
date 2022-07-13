@@ -179,7 +179,7 @@ func TestClient_DeleteFTPServer(t *testing.T) {
 	})
 
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
-	id := 1
+	id := int64(1)
 	err := client.DeleteFTPServer(id)
 
 	if err != nil {
@@ -203,7 +203,7 @@ func TestClient_UpdateFTPServer(t *testing.T) {
 	})
 
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
-	id := 1
+	id := int64(1)
 	ftpServer := FTPServer{URL: String("webex.com")}
 	res, err := client.UpdateFTPServer(id, ftpServer)
 	if err != nil {

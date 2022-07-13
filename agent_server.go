@@ -106,7 +106,7 @@ func (t *AgentServer) AddAlertRule(id int64) {
 }
 
 // GetAgentServer - Get agent to server test
-func (c *Client) GetAgentServer(id int) (*AgentServer, error) {
+func (c *Client) GetAgentServer(id int64) (*AgentServer, error) {
 	resp, err := c.get(fmt.Sprintf("/tests/%d", id))
 	if err != nil {
 		return &AgentServer{}, err
@@ -145,7 +145,7 @@ func (c Client) CreateAgentServer(t AgentServer) (*AgentServer, error) {
 }
 
 // DeleteAgentServer  - Delete agent to server test
-func (c *Client) DeleteAgentServer(id int) error {
+func (c *Client) DeleteAgentServer(id int64) error {
 	resp, err := c.post(fmt.Sprintf("/tests/agent-to-server/%d/delete", id), nil, nil)
 	if err != nil {
 		return err
@@ -157,7 +157,7 @@ func (c *Client) DeleteAgentServer(id int) error {
 }
 
 // UpdateAgentServer  - Update agent to server test
-func (c *Client) UpdateAgentServer(id int, t AgentServer) (*AgentServer, error) {
+func (c *Client) UpdateAgentServer(id int64, t AgentServer) (*AgentServer, error) {
 	resp, err := c.post(fmt.Sprintf("/tests/agent-to-server/%d/update", id), t, nil)
 	if err != nil {
 		return &t, err

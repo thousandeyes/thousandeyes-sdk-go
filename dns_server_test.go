@@ -236,7 +236,7 @@ func TestClient_DeleteDNSServer(t *testing.T) {
 	})
 
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
-	id := 1
+	id := int64(1)
 	err := client.DeleteDNSServer(id)
 
 	if err != nil {
@@ -253,7 +253,7 @@ func TestClient_UpdateDNSServer(t *testing.T) {
 	})
 
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
-	id := 1
+	id := int64(1)
 	dnsS := DNSServer{Domain: String("webex.com")}
 	res, err := client.UpdateDNSServer(id, dnsS)
 	if err != nil {

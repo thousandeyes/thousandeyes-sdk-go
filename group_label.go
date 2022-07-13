@@ -76,7 +76,7 @@ func (c *Client) GetGroupLabelsByType(t string) (*GroupLabels, error) {
 }
 
 // GetGroupLabel - Get single group label by ID
-func (c *Client) GetGroupLabel(id int) (*GroupLabel, error) {
+func (c *Client) GetGroupLabel(id int64) (*GroupLabel, error) {
 	resp, err := c.get(fmt.Sprintf("/groups/%d", id))
 	if err != nil {
 		return &GroupLabel{}, err
@@ -114,7 +114,7 @@ func (c Client) CreateGroupLabel(a GroupLabel) (*GroupLabel, error) {
 }
 
 //DeleteGroupLabel - delete label
-func (c Client) DeleteGroupLabel(id int) error {
+func (c Client) DeleteGroupLabel(id int64) error {
 	resp, err := c.post(fmt.Sprintf("/groups/%d/delete", id), nil, nil)
 	if err != nil {
 		return err
@@ -126,7 +126,7 @@ func (c Client) DeleteGroupLabel(id int) error {
 }
 
 //UpdateGroupLabel - update label
-func (c Client) UpdateGroupLabel(id int, a GroupLabel) (*GroupLabels, error) {
+func (c Client) UpdateGroupLabel(id int64, a GroupLabel) (*GroupLabels, error) {
 	resp, err := c.post(fmt.Sprintf("/groups/%d/update", id), a, nil)
 	if err != nil {
 		return nil, err

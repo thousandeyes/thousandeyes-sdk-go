@@ -82,7 +82,7 @@ func (t *RTPStream) AddAgent(id int64) {
 }
 
 // GetRTPStream - get voice call test
-func (c *Client) GetRTPStream(id int) (*RTPStream, error) {
+func (c *Client) GetRTPStream(id int64) (*RTPStream, error) {
 	resp, err := c.get(fmt.Sprintf("/tests/%d", id))
 	if err != nil {
 		return &RTPStream{}, err
@@ -111,7 +111,7 @@ func (c Client) CreateRTPStream(t RTPStream) (*RTPStream, error) {
 }
 
 //DeleteRTPStream - delete voice call test
-func (c *Client) DeleteRTPStream(id int) error {
+func (c *Client) DeleteRTPStream(id int64) error {
 	resp, err := c.post(fmt.Sprintf("/tests/voice/%d/delete", id), nil, nil)
 	if err != nil {
 		return err
@@ -123,7 +123,7 @@ func (c *Client) DeleteRTPStream(id int) error {
 }
 
 //UpdateRTPStream - update voice call test
-func (c *Client) UpdateRTPStream(id int, t RTPStream) (*RTPStream, error) {
+func (c *Client) UpdateRTPStream(id int64, t RTPStream) (*RTPStream, error) {
 	resp, err := c.post(fmt.Sprintf("/tests/voice/%d/update", id), t, nil)
 	if err != nil {
 		return &t, err

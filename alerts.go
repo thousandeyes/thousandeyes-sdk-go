@@ -134,7 +134,7 @@ func (c Client) GetAlertRules() (*AlertRules, error) {
 }
 
 // GetAlertRule - Get single alert rule by ID
-func (c *Client) GetAlertRule(id int) (*AlertRule, error) {
+func (c *Client) GetAlertRule(id int64) (*AlertRule, error) {
 	log.Printf("[INFO] Getting Alert Rule %v", id)
 	resp, err := c.get(fmt.Sprintf("/alert-rules/%d", id))
 	if err != nil {
@@ -151,7 +151,7 @@ func (c *Client) GetAlertRule(id int) (*AlertRule, error) {
 }
 
 //DeleteAlertRule - delete alert rule
-func (c Client) DeleteAlertRule(id int) error {
+func (c Client) DeleteAlertRule(id int64) error {
 	resp, err := c.post(fmt.Sprintf("/alert-rules/%d/delete", id), nil, nil)
 	if err != nil {
 		return err
@@ -163,7 +163,7 @@ func (c Client) DeleteAlertRule(id int) error {
 }
 
 //UpdateAlertRule - update alert rule
-func (c Client) UpdateAlertRule(id int, a AlertRule) (*AlertRule, error) {
+func (c Client) UpdateAlertRule(id int64, a AlertRule) (*AlertRule, error) {
 	resp, err := c.post(fmt.Sprintf("/alert-rules/%d/update", id), a, nil)
 	if err != nil {
 		return nil, err

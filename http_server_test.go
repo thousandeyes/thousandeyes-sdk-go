@@ -228,7 +228,7 @@ func TestClient_DeleteHTTPServer(t *testing.T) {
 	})
 
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
-	id := 1
+	id := int64(1)
 	err := client.DeleteHTTPServer(id)
 
 	if err != nil {
@@ -245,7 +245,7 @@ func TestClient_UpdateHTTPServer(t *testing.T) {
 	})
 
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
-	id := 1
+	id := int64(1)
 	httpS := HTTPServer{URL: String("https://test.com")}
 	res, err := client.UpdateHTTPServer(id, httpS)
 	if err != nil {

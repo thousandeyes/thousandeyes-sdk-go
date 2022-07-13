@@ -173,7 +173,7 @@ func TestClient_DeleteSIPServer(t *testing.T) {
 	})
 
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
-	id := 1
+	id := int64(1)
 	err := client.DeleteSIPServer(id)
 
 	if err != nil {
@@ -190,7 +190,7 @@ func TestClient_UpdateSIPServer(t *testing.T) {
 	})
 
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
-	id := 1
+	id := int64(1)
 	sipS := SIPServer{
 		TestName: String("test1"),
 	}

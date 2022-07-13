@@ -149,7 +149,7 @@ func TestClient_DeleteRTPStream(t *testing.T) {
 	})
 
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
-	id := 1
+	id := int64(1)
 	err := client.DeleteRTPStream(id)
 
 	if err != nil {
@@ -166,7 +166,7 @@ func TestClient_UpdateRTPStream(t *testing.T) {
 	})
 
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
-	id := 1
+	id := int64(1)
 	sipS := RTPStream{
 		TestName:     String("RTP Stream - AWS RTP server"),
 		CodecID:      Int64(0),

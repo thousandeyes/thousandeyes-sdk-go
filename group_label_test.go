@@ -134,7 +134,7 @@ func TestClient_DeleteGroupLabel(t *testing.T) {
 	})
 
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
-	id := 1
+	id := int64(1)
 	err := client.DeleteGroupLabel(id)
 
 	if err != nil {
@@ -152,7 +152,7 @@ func TestClient_UpdateGroupLabel(t *testing.T) {
 	})
 
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
-	id := 222
+	id := int64(222)
 	u := GroupLabel{Type: String("tests")}
 	res, err := client.UpdateGroupLabel(id, u)
 	if err != nil {
