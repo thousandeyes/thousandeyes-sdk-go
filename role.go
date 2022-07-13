@@ -8,7 +8,7 @@ import (
 // AccountGroupRole - an account group role
 type AccountGroupRole struct {
 	RoleName                 *string       `json:"roleName,omitempty"`
-	RoleID                   *int          `json:"roleId,omitempty"`
+	RoleID                   *int64        `json:"roleId,omitempty"`
 	HasManagementPermissions *bool         `json:"hasManagementPermissions,omitempty" te:"int-bool"`
 	Builtin                  *bool         `json:"builtin,omitempty" te:"int-bool"`
 	Permissions              *[]Permission `json:"permissions,omitempty"`
@@ -18,7 +18,7 @@ type AccountGroupRole struct {
 type Permission struct {
 	IsManagementPermission *bool   `json:"isManagementPermission" te:"int-bool"`
 	Label                  *string `json:"label"`
-	PermissionID           *int    `json:"permissionId"`
+	PermissionID           *int64  `json:"permissionId"`
 }
 
 // MarshalJSON implements the json.Marshaler interface. It ensures

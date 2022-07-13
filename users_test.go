@@ -25,12 +25,12 @@ func TestClient_GetUsers(t *testing.T) {
 		{
 			Name:  String("ThousandEyes SRE"),
 			Email: String("test.example@thousandeyes.com"),
-			UID:   Int(1),
+			UID:   Int64(1),
 		},
 		{
 			Name:  String("Test User 2"),
 			Email: String("test.example@thousandeyes.com"),
-			UID:   Int(2),
+			UID:   Int64(2),
 		},
 	}
 	assert.Equal(t, &expected, res)
@@ -54,7 +54,7 @@ func TestClient_GetUser(t *testing.T) {
 	expected := User{
 		Name:  String("ThousandEyes SRE"),
 		Email: String("test.example@thousandeyes.com"),
-		UID:   Int(1),
+		UID:   Int64(1),
 	}
 	assert.Equal(t, &expected, res)
 }
@@ -81,7 +81,7 @@ func TestClient_CreateUser(t *testing.T) {
 	expected := User{
 		Name:  String("ThousandEyes SRE"),
 		Email: String("test.example@thousandeyes.com"),
-		UID:   Int(1),
+		UID:   Int64(1),
 	}
 	assert.Equal(t, &expected, res)
 }
@@ -119,7 +119,7 @@ func TestClient_UpdateUser(t *testing.T) {
 	expected := User{
 		Name:  String("ThousandEyes SRE"),
 		Email: String("text.example@thousandeyes.com"),
-		UID:   Int(1),
+		UID:   Int64(1),
 	}
 	assert.Equal(t, &expected, res)
 }

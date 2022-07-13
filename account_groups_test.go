@@ -21,7 +21,7 @@ func TestClient_GetAccountGroups(t *testing.T) {
 	expected := []SharedWithAccount{
 		{
 			AccountGroupName: String("Test Account"),
-			AID:              Int(1),
+			AID:              Int64(1),
 		},
 	}
 

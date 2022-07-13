@@ -5,7 +5,7 @@ type Monitors []Monitor
 
 // Monitor - A monitor
 type Monitor struct {
-	MonitorID   *int    `json:"monitorId,omitempty"`
+	MonitorID   *int64  `json:"monitorId,omitempty"`
 	IPAddress   *string `json:"ipAddress,omitempty"`
 	CountryID   *string `json:"countryId,omitempty"`
 	MonitorName *string `json:"monitorName,omitempty"`

@@ -50,7 +50,7 @@ type PageLoad struct {
 	ProbeMode             *string        `json:"probeMode,omitempty"`
 	Protocol              *string        `json:"protocol,omitempty"`
 	SSLVersion            *string        `json:"sslVersion,omitempty"`
-	SSLVersionID          *int           `json:"sslVersionId,omitempty"`
+	SSLVersionID          *int64         `json:"sslVersionId,omitempty"`
 	Subinterval           *int           `json:"subinterval,omitempty"`
 	URL                   *string        `json:"url,omitempty"`
 	UseNTLM               *bool          `json:"useNtlm,omitempty" te:"int-bool"`
@@ -90,8 +90,8 @@ func (t *PageLoad) UnmarshalJSON(data []byte) error {
 }
 
 // AddAgent  - add an aget
-func (t *PageLoad) AddAgent(id int) {
-	agent := Agent{AgentID: Int(id)}
+func (t *PageLoad) AddAgent(id int64) {
+	agent := Agent{AgentID: Int64(id)}
 	*t.Agents = append(*t.Agents, agent)
 }
 

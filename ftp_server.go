@@ -76,14 +76,14 @@ func (t *FTPServer) UnmarshalJSON(data []byte) error {
 }
 
 // AddAgent - Add ftp server test
-func (t *FTPServer) AddAgent(id int) {
-	agent := Agent{AgentID: Int(id)}
+func (t *FTPServer) AddAgent(id int64) {
+	agent := Agent{AgentID: Int64(id)}
 	*t.Agents = append(*t.Agents, agent)
 }
 
 // AddAlertRule - Adds an alert to agent test
-func (t *FTPServer) AddAlertRule(id int) {
-	alertRule := AlertRule{RuleID: Int(id)}
+func (t *FTPServer) AddAlertRule(id int64) {
+	alertRule := AlertRule{RuleID: Int64(id)}
 	*t.AlertRules = append(*t.AlertRules, alertRule)
 }
 

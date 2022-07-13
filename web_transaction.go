@@ -45,7 +45,7 @@ type WebTransaction struct {
 	PathTraceMode         *string        `json:"pathTraceMode,omitempty"`
 	ProbeMode             *string        `json:"probeMode,omitempty"`
 	Protocol              *string        `json:"protocol,omitempty"`
-	SSLVersionID          *int           `json:"sslVersionId,omitempty"`
+	SSLVersionID          *int64         `json:"sslVersionId,omitempty"`
 	SubInterval           *int           `json:"subinterval,omitempty"`
 	TargetTime            *int           `json:"targetTime,omitempty"`
 	TimeLimit             *int           `json:"timeLimit,omitempty"`

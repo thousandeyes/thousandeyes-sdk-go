@@ -9,7 +9,7 @@ import (
 
 func TestClient_AddBGPAlertRule(t *testing.T) {
 	test := BGP{TestName: String("test"), AlertRules: &[]AlertRule{}}
-	expected := BGP{TestName: String("test"), AlertRules: &[]AlertRule{{RuleID: Int(1)}}}
+	expected := BGP{TestName: String("test"), AlertRules: &[]AlertRule{{RuleID: Int64(1)}}}
 	test.AddAlertRule(1)
 	assert.Equal(t, expected, test)
 }
@@ -37,7 +37,7 @@ func TestClient_GetBGP(t *testing.T) {
 		Prefix:        String("1.2.3.0/20"),
 		SharedWithAccounts: &[]SharedWithAccount{
 			{
-				AID:              Int(176592),
+				AID:              Int64(176592),
 				AccountGroupName: String("Cloudreach"),
 			},
 		},
@@ -108,7 +108,7 @@ func TestClient_CreateBGP(t *testing.T) {
 		AlertsEnabled: Bool(true),
 		SharedWithAccounts: &[]SharedWithAccount{
 			{
-				AID:              Int(176592),
+				AID:              Int64(176592),
 				AccountGroupName: String("Cloudreach"),
 			},
 		},

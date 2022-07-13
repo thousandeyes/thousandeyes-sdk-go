@@ -65,7 +65,7 @@ type HTTPServer struct {
 	ProbeMode             *string        `json:"probeMode,omitempty"`
 	Protocol              *string        `json:"protocol,omitempty"`
 	SSLVersion            *string        `json:"sslVersion,omitempty"`
-	SSLVersionID          *int           `json:"sslVersionId,omitempty"`
+	SSLVersionID          *int64         `json:"sslVersionId,omitempty"`
 	URL                   *string        `json:"url,omitempty"`
 	UseNTLM               *bool          `json:"useNtlm,omitempty" te:"int-bool"` // TODO: BasicAuth not working
 	UserAgent             *string        `json:"userAgent,omitempty"`
@@ -103,8 +103,8 @@ func (t *HTTPServer) UnmarshalJSON(data []byte) error {
 }
 
 // AddAgent - add an agent
-func (t *HTTPServer) AddAgent(id int) {
-	agent := Agent{AgentID: Int(id)}
+func (t *HTTPServer) AddAgent(id int64) {
+	agent := Agent{AgentID: Int64(id)}
 	*t.Agents = append(*t.Agents, agent)
 }
 

@@ -10,7 +10,7 @@ type Agents []Agent
 
 // Agent - Agent struct
 type Agent struct {
-	AgentID               *int                 `json:"agentId,omitempty"`
+	AgentID               *int64               `json:"agentId,omitempty"`
 	AgentName             *string              `json:"agentName,omitempty"`
 	AgentType             *string              `json:"agentType,omitempty"`
 	CountryID             *string              `json:"countryId,omitempty"`
@@ -35,7 +35,7 @@ type Agent struct {
 
 //ClusterMember - ClusterMember struct
 type ClusterMember struct {
-	MemberID          *int      `json:"memberId,omitempty"`
+	MemberID          *int64    `json:"memberId,omitempty"`
 	Name              *string   `json:"name,omitempty"`
 	IPAddresses       *[]string `json:"IPAddresses,omitempty"`
 	PublicIPAddresses *[]string `json:"PublicIPAddresses,omitempty"`

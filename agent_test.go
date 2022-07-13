@@ -19,11 +19,11 @@ func TestClient_GetAgents(t *testing.T) {
 	// Define expected values from the API (based on the JSON we print out above)
 	expected := Agents{
 		Agent{
-			AgentID: Int(1),
+			AgentID: Int64(1),
 			Enabled: Bool(true),
 		},
 		Agent{
-			AgentID: Int(2),
+			AgentID: Int64(2),
 			Enabled: Bool(false),
 		},
 	}
@@ -41,7 +41,7 @@ func TestClient_GetAgent(t *testing.T) {
 		assert.Equal(t, "GET", r.Method)
 		_, _ = w.Write([]byte(out))
 	})
-	expected := Agent{AgentID: Int(1), Enabled: Bool(true)}
+	expected := Agent{AgentID: Int64(1), Enabled: Bool(true)}
 	res, err := client.GetAgent(1)
 	teardown()
 	assert.Nil(t, err)
@@ -184,11 +184,11 @@ func TestClient_RemoveAgentFromCluster(t *testing.T) {
 	res, _ := client.RemoveAgentsFromCluster(1, []int{8001})
 	exp := []Agent{
 		{
-			AgentID:   Int(1),
+			AgentID:   Int64(1),
 			AgentName: String("test"),
 			ClusterMembers: &[]ClusterMember{
 				{
-					MemberID: Int(80002),
+					MemberID: Int64(80002),
 					Name:     String("test"),
 				},
 			},
@@ -208,11 +208,11 @@ func TestClient_AddAgentToCluster(t *testing.T) {
 	res, _ := client.AddAgentsToCluster(1, []int{8002})
 	exp := []Agent{
 		{
-			AgentID:   Int(1),
+			AgentID:   Int64(1),
 			AgentName: String("test"),
 			ClusterMembers: &[]ClusterMember{
 				{
-					MemberID: Int(80002),
+					MemberID: Int64(80002),
 					Name:     String("test"),
 				},
 			},

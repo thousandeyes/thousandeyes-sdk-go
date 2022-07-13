@@ -31,13 +31,13 @@ func TestClient_GetRTPStream(t *testing.T) {
 		JitterBuffer:    Int(40),
 		ModifiedDate:    String("2019-02-06 01:09:56"),
 		ModifiedBy:      String("ThousandEyes (support@thousandeyes.com)"),
-		TargetAgentID:   Int(69),
+		TargetAgentID:   Int64(69),
 		Codec:           String("G.711 @ 64 Kbps"),
-		CodecID:         Int(0),
+		CodecID:         Int64(0),
 		BGPMeasurements: Bool(true),
 		UsePublicBGP:    Bool(true),
 		DSCP:            String("EF (DSCP 46)"),
-		DSCPID:          Int(46),
+		DSCPID:          Int64(46),
 		NumPathTraces:   Int(3),
 		APILinks: &[]APILink{
 
@@ -101,13 +101,13 @@ func TestClient_CreateRTPStream(t *testing.T) {
 		TestName:        String("RTP Stream - AWS RTP server"),
 		Interval:        Int(120),
 		AlertsEnabled:   Bool(false),
-		DSCPID:          Int(46),
+		DSCPID:          Int64(46),
 		Duration:        Int(5),
 		BGPMeasurements: Bool(true),
 		UsePublicBGP:    Bool(true),
 		NumPathTraces:   Int(3),
 		Codec:           String("G.711 @ 64 Kbps"),
-		CodecID:         Int(0),
+		CodecID:         Int64(0),
 		APILinks: &[]APILink{
 			{
 				Href: String("https://api.thousandeyes.com/v6/tests/814641"),
@@ -129,7 +129,7 @@ func TestClient_CreateRTPStream(t *testing.T) {
 	}
 	create := RTPStream{
 		TestName: String("test1"),
-		DSCPID:   Int(46),
+		DSCPID:   Int64(46),
 		Duration: Int(5),
 		Interval: Int(120),
 		Codec:    String("G.711 @ 64 Kbps"),
@@ -169,7 +169,7 @@ func TestClient_UpdateRTPStream(t *testing.T) {
 	id := 1
 	sipS := RTPStream{
 		TestName:     String("RTP Stream - AWS RTP server"),
-		CodecID:      Int(0),
+		CodecID:      Int64(0),
 		Codec:        String("G.711 @ 64 Kbps"),
 		JitterBuffer: Int(40),
 	}
@@ -177,14 +177,14 @@ func TestClient_UpdateRTPStream(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	expected := RTPStream{AlertsEnabled: Bool(false), Interval: Int(120), TestID: Int64(1234), Codec: String("G.711 @ 64 Kbps"), TestName: String("RTP Stream - AWS RTP server"), CodecID: Int(0), JitterBuffer: Int(40)}
+	expected := RTPStream{AlertsEnabled: Bool(false), Interval: Int(120), TestID: Int64(1234), Codec: String("G.711 @ 64 Kbps"), TestName: String("RTP Stream - AWS RTP server"), CodecID: Int64(0), JitterBuffer: Int(40)}
 	assert.Equal(t, &expected, res)
 
 }
 
 func TestRTPStream_AddAgent(t *testing.T) {
 	test := RTPStream{TestName: String("test"), Agents: &[]Agent{}}
-	expected := RTPStream{TestName: String("test"), Agents: &[]Agent{{AgentID: Int(1)}}}
+	expected := RTPStream{TestName: String("test"), Agents: &[]Agent{{AgentID: Int64(1)}}}
 	test.AddAgent(1)
 	assert.Equal(t, expected, test)
 }

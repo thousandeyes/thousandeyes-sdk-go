@@ -8,7 +8,7 @@ type AccountGroups []AccountGroup
 // AccountGroup - An account within a ThousandEyes organization
 type AccountGroup struct {
 	AccountGroupName *string `json:"accountGroupName,omitempty"`
-	AID              *int    `json:"aid,omitempty"`
+	AID              *int64  `json:"aid,omitempty"`
 }
 
 // SharedWithAccount describes accounts with which a resource is shared.
@@ -16,7 +16,7 @@ type AccountGroup struct {
 // in JSON object names.
 type SharedWithAccount struct {
 	AccountGroupName *string `json:"name,omitempty"`
-	AID              *int    `json:"aid,omitempty"`
+	AID              *int64  `json:"aid,omitempty"`
 }
 
 // GetAccountGroups - Get third party and webhook integrations
