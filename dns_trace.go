@@ -74,7 +74,7 @@ func (t *DNSTrace) AddAlertRule(id int64) {
 }
 
 // GetDNSTrace - get dns trace test
-func (c *Client) GetDNSTrace(id int) (*DNSTrace, error) {
+func (c *Client) GetDNSTrace(id int64) (*DNSTrace, error) {
 	resp, err := c.get(fmt.Sprintf("/tests/%d", id))
 	if err != nil {
 		return &DNSTrace{}, err
@@ -103,7 +103,7 @@ func (c Client) CreateDNSTrace(t DNSTrace) (*DNSTrace, error) {
 }
 
 //DeleteDNSTrace - delete dns trace test
-func (c *Client) DeleteDNSTrace(id int) error {
+func (c *Client) DeleteDNSTrace(id int64) error {
 	resp, err := c.post(fmt.Sprintf("/tests/dns-trace/%d/delete", id), nil, nil)
 	if err != nil {
 		return err
@@ -115,7 +115,7 @@ func (c *Client) DeleteDNSTrace(id int) error {
 }
 
 //UpdateDNSTrace - update dns trace test
-func (c *Client) UpdateDNSTrace(id int, t DNSTrace) (*DNSTrace, error) {
+func (c *Client) UpdateDNSTrace(id int64, t DNSTrace) (*DNSTrace, error) {
 	resp, err := c.post(fmt.Sprintf("/tests/dns-trace/%d/update", id), t, nil)
 	if err != nil {
 		return &t, err

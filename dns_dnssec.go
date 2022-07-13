@@ -73,7 +73,7 @@ func (t *DNSSec) AddAlertRule(id int64) {
 }
 
 // GetDNSSec - get DNSSec test
-func (c *Client) GetDNSSec(id int) (*DNSSec, error) {
+func (c *Client) GetDNSSec(id int64) (*DNSSec, error) {
 	resp, err := c.get(fmt.Sprintf("/tests/%d", id))
 	if err != nil {
 		return &DNSSec{}, err
@@ -102,7 +102,7 @@ func (c Client) CreateDNSSec(t DNSSec) (*DNSSec, error) {
 }
 
 // DeleteDNSSec - delete DNSSec test
-func (c *Client) DeleteDNSSec(id int) error {
+func (c *Client) DeleteDNSSec(id int64) error {
 	resp, err := c.post(fmt.Sprintf("/tests/dns-dnssec/%d/delete", id), nil, nil)
 	if err != nil {
 		return err
@@ -114,7 +114,7 @@ func (c *Client) DeleteDNSSec(id int) error {
 }
 
 // UpdateDNSSec - update DNSSec test
-func (c *Client) UpdateDNSSec(id int, t DNSSec) (*DNSSec, error) {
+func (c *Client) UpdateDNSSec(id int64, t DNSSec) (*DNSSec, error) {
 	resp, err := c.post(fmt.Sprintf("/tests/dns-dnssec/%d/update", id), t, nil)
 	if err != nil {
 		return &t, err

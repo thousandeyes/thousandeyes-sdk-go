@@ -94,7 +94,7 @@ func (c *Client) GetRoles() (*[]AccountGroupRole, error) {
 }
 
 // GetRole - get role
-func (c *Client) GetRole(id int) (*AccountGroupRole, error) {
+func (c *Client) GetRole(id int64) (*AccountGroupRole, error) {
 	resp, err := c.get(fmt.Sprintf("/roles/%d", id))
 	if err != nil {
 		return nil, err
@@ -108,7 +108,7 @@ func (c *Client) GetRole(id int) (*AccountGroupRole, error) {
 }
 
 // DeleteRole - delete role
-func (c *Client) DeleteRole(id int) error {
+func (c *Client) DeleteRole(id int64) error {
 	resp, err := c.post(fmt.Sprintf("/roles/%d/delete", id), nil, nil)
 	if err != nil {
 		return err
@@ -120,7 +120,7 @@ func (c *Client) DeleteRole(id int) error {
 }
 
 // UpdateRole - update role
-func (c *Client) UpdateRole(id int, role AccountGroupRole) (*AccountGroupRole, error) {
+func (c *Client) UpdateRole(id int64, role AccountGroupRole) (*AccountGroupRole, error) {
 	resp, err := c.post(fmt.Sprintf("/roles/%d/update", id), role, nil)
 	if err != nil {
 		return nil, err

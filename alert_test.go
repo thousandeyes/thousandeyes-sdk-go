@@ -49,7 +49,7 @@ func TestClient_DeleteAlertRule(t *testing.T) {
 	})
 
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
-	id := 1
+	id := int64(1)
 	err := client.DeleteAlertRule(id)
 
 	if err != nil {
@@ -66,7 +66,7 @@ func TestClient_UpdateAlertRule(t *testing.T) {
 	})
 
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
-	id := 1
+	id := int64(1)
 	u := AlertRule{RoundsViolatingOutOf: Int(2)}
 	res, err := client.UpdateAlertRule(id, u)
 	if err != nil {

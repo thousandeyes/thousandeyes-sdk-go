@@ -89,7 +89,7 @@ func (t *AgentAgent) AddAlertRule(id int64) {
 }
 
 // GetAgentAgent - Get an agent to agent test
-func (c *Client) GetAgentAgent(id int) (*AgentAgent, error) {
+func (c *Client) GetAgentAgent(id int64) (*AgentAgent, error) {
 	resp, err := c.get(fmt.Sprintf("/tests/%d", id))
 	if err != nil {
 		return &AgentAgent{}, err
@@ -118,7 +118,7 @@ func (c Client) CreateAgentAgent(t AgentAgent) (*AgentAgent, error) {
 }
 
 //DeleteAgentAgent - delete agent to agent test
-func (c *Client) DeleteAgentAgent(id int) error {
+func (c *Client) DeleteAgentAgent(id int64) error {
 	resp, err := c.post(fmt.Sprintf("/tests/agent-to-agent/%d/delete", id), nil, nil)
 	if err != nil {
 		return err
@@ -130,7 +130,7 @@ func (c *Client) DeleteAgentAgent(id int) error {
 }
 
 // UpdateAgentAgent - update agent to agent test
-func (c *Client) UpdateAgentAgent(id int, t AgentAgent) (*AgentAgent, error) {
+func (c *Client) UpdateAgentAgent(id int64, t AgentAgent) (*AgentAgent, error) {
 	resp, err := c.post(fmt.Sprintf("/tests/agent-to-agent/%d/update", id), t, nil)
 	if err != nil {
 		return &t, err

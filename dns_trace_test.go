@@ -179,7 +179,7 @@ func TestClient_DeleteDNSTrace(t *testing.T) {
 	})
 
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
-	id := 1
+	id := int64(1)
 	err := client.DeleteDNSTrace(id)
 
 	if err != nil {
@@ -203,7 +203,7 @@ func TestClient_UpdateDNSTrace(t *testing.T) {
 	})
 
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
-	id := 1
+	id := int64(1)
 	dnsS := DNSTrace{Domain: String("webex.com")}
 	res, err := client.UpdateDNSTrace(id, dnsS)
 	if err != nil {

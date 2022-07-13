@@ -155,7 +155,7 @@ func TestClient_DeleteBGP(t *testing.T) {
 	})
 
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
-	id := 1
+	id := int64(1)
 	err := client.DeleteBGP(id)
 
 	if err != nil {
@@ -172,7 +172,7 @@ func TestClient_UpdateBGP(t *testing.T) {
 	})
 
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
-	id := 1
+	id := int64(1)
 	dnsS := BGP{}
 	res, err := client.UpdateBGP(id, dnsS)
 	if err != nil {

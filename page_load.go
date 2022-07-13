@@ -96,7 +96,7 @@ func (t *PageLoad) AddAgent(id int64) {
 }
 
 //GetPageLoad - get page load test
-func (c *Client) GetPageLoad(id int) (*PageLoad, error) {
+func (c *Client) GetPageLoad(id int64) (*PageLoad, error) {
 	resp, err := c.get(fmt.Sprintf("/tests/%d", id))
 	if err != nil {
 		return &PageLoad{}, err
@@ -125,7 +125,7 @@ func (c Client) CreatePageLoad(t PageLoad) (*PageLoad, error) {
 }
 
 // DeletePageLoad - Delete page load tes
-func (c *Client) DeletePageLoad(id int) error {
+func (c *Client) DeletePageLoad(id int64) error {
 	resp, err := c.post(fmt.Sprintf("/tests/page-load/%d/delete", id), nil, nil)
 	if err != nil {
 		return err
@@ -137,7 +137,7 @@ func (c *Client) DeletePageLoad(id int) error {
 }
 
 //UpdatePageLoad - Upload page load
-func (c *Client) UpdatePageLoad(id int, t PageLoad) (*PageLoad, error) {
+func (c *Client) UpdatePageLoad(id int64, t PageLoad) (*PageLoad, error) {
 	resp, err := c.post(fmt.Sprintf("/tests/page-load/%d/update", id), t, nil)
 	if err != nil {
 		return &t, err

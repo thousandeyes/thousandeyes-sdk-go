@@ -88,7 +88,7 @@ func (t *FTPServer) AddAlertRule(id int64) {
 }
 
 // GetFTPServer - get ftp server test
-func (c *Client) GetFTPServer(id int) (*FTPServer, error) {
+func (c *Client) GetFTPServer(id int64) (*FTPServer, error) {
 	resp, err := c.get(fmt.Sprintf("/tests/%d", id))
 	if err != nil {
 		return &FTPServer{}, err
@@ -117,7 +117,7 @@ func (c Client) CreateFTPServer(t FTPServer) (*FTPServer, error) {
 }
 
 // DeleteFTPServer - delete ftp server test
-func (c *Client) DeleteFTPServer(id int) error {
+func (c *Client) DeleteFTPServer(id int64) error {
 	resp, err := c.post(fmt.Sprintf("/tests/ftp-server/%d/delete", id), nil, nil)
 	if err != nil {
 		return err
@@ -129,7 +129,7 @@ func (c *Client) DeleteFTPServer(id int) error {
 }
 
 // UpdateFTPServer - - Update ftp server test
-func (c *Client) UpdateFTPServer(id int, t FTPServer) (*FTPServer, error) {
+func (c *Client) UpdateFTPServer(id int64, t FTPServer) (*FTPServer, error) {
 	resp, err := c.post(fmt.Sprintf("/tests/ftp-server/%d/update", id), t, nil)
 	if err != nil {
 		return &t, err

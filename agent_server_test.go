@@ -102,7 +102,7 @@ func TestClient_DeleteAgentServer(t *testing.T) {
 	})
 
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
-	id := 1
+	id := int64(1)
 	err := client.DeleteAgentServer(id)
 
 	if err != nil {

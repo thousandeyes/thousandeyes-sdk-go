@@ -227,7 +227,7 @@ func TestClient_DeletePageLoad(t *testing.T) {
 	})
 
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
-	id := 1
+	id := int64(1)
 	err := client.DeletePageLoad(id)
 
 	if err != nil {
@@ -245,7 +245,7 @@ func TestClient_UpdatePageLoad(t *testing.T) {
 	})
 
 	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
-	id := 1
+	id := int64(1)
 	httpS := PageLoad{URL: String("https://test.com")}
 	res, err := client.UpdatePageLoad(id, httpS)
 	if err != nil {

@@ -109,7 +109,7 @@ func (t *HTTPServer) AddAgent(id int64) {
 }
 
 //GetHTTPServer - Get an HTTP Server test
-func (c *Client) GetHTTPServer(id int) (*HTTPServer, error) {
+func (c *Client) GetHTTPServer(id int64) (*HTTPServer, error) {
 	resp, err := c.get(fmt.Sprintf("/tests/%d", id))
 	if err != nil {
 		return &HTTPServer{}, err
@@ -138,7 +138,7 @@ func (c Client) CreateHTTPServer(t HTTPServer) (*HTTPServer, error) {
 }
 
 //DeleteHTTPServer - delete an http server
-func (c *Client) DeleteHTTPServer(id int) error {
+func (c *Client) DeleteHTTPServer(id int64) error {
 	resp, err := c.post(fmt.Sprintf("/tests/http-server/%d/delete", id), nil, nil)
 	if err != nil {
 		return err
@@ -150,7 +150,7 @@ func (c *Client) DeleteHTTPServer(id int) error {
 }
 
 //UpdateHTTPServer - Update an http server test
-func (c *Client) UpdateHTTPServer(id int, t HTTPServer) (*HTTPServer, error) {
+func (c *Client) UpdateHTTPServer(id int64, t HTTPServer) (*HTTPServer, error) {
 	resp, err := c.post(fmt.Sprintf("/tests/http-server/%d/update", id), t, nil)
 	if err != nil {
 		return &t, err

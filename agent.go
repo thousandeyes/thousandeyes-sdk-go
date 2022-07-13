@@ -97,7 +97,7 @@ func (c *Client) GetAgents() (*Agents, error) {
 }
 
 // GetAgent - Get agent
-func (c *Client) GetAgent(id int) (*Agent, error) {
+func (c *Client) GetAgent(id int64) (*Agent, error) {
 	resp, err := c.get(fmt.Sprintf("/agents/%d", id))
 	if err != nil {
 		return nil, err

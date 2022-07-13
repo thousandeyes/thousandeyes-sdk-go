@@ -103,7 +103,7 @@ func (c Client) CreateWebTransaction(t WebTransaction) (*WebTransaction, error) 
 }
 
 //GetWebTransaction - get a web transactiont test
-func (c *Client) GetWebTransaction(id int) (*WebTransaction, error) {
+func (c *Client) GetWebTransaction(id int64) (*WebTransaction, error) {
 	resp, err := c.get(fmt.Sprintf("/tests/%d", id))
 	if err != nil {
 		return &WebTransaction{}, err
@@ -116,7 +116,7 @@ func (c *Client) GetWebTransaction(id int) (*WebTransaction, error) {
 }
 
 //DeleteWebTransaction - delete a web transactiont est
-func (c *Client) DeleteWebTransaction(id int) error {
+func (c *Client) DeleteWebTransaction(id int64) error {
 	resp, err := c.post(fmt.Sprintf("/tests/web-transactions/%d/delete", id), nil, nil)
 	if err != nil {
 		return err
@@ -128,7 +128,7 @@ func (c *Client) DeleteWebTransaction(id int) error {
 }
 
 // UpdateWebTransaction - update a web transaction test
-func (c *Client) UpdateWebTransaction(id int, t WebTransaction) (*WebTransaction, error) {
+func (c *Client) UpdateWebTransaction(id int64, t WebTransaction) (*WebTransaction, error) {
 	resp, err := c.post(fmt.Sprintf("/tests/web-transactions/%d/update", id), t, nil)
 	if err != nil {
 		return &t, err
