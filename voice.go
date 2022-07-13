@@ -32,15 +32,15 @@ type RTPStream struct {
 	BGPMeasurements *bool         `json:"bgpMeasurements,omitempty" te:"int-bool"`
 	BGPMonitors     *[]BGPMonitor `json:"bgpMonitors,omitempty"`
 	Codec           *string       `json:"codec,omitempty"`
-	CodecID         *int          `json:"codecId,omitempty"`
+	CodecID         *int64        `json:"codecId,omitempty"`
 	DSCP            *string       `json:"dscp,omitempty"`
-	DSCPID          *int          `json:"dscpId,omitempty"`
+	DSCPID          *int64        `json:"dscpId,omitempty"`
 	Duration        *int          `json:"duration,omitempty"`
 	Interval        *int          `json:"interval,omitempty"`
 	JitterBuffer    *int          `json:"jitterBuffer,omitempty"`
 	MTUMeasurements *bool         `json:"mtuMeasurements,omitempty" te:"int-bool"`
 	NumPathTraces   *int          `json:"numPathTraces,omitempty"`
-	TargetAgentID   *int          `json:"targetAgentId,omitempty"`
+	TargetAgentID   *int64        `json:"targetAgentId,omitempty"`
 	UsePublicBGP    *bool         `json:"usePublicBgp,omitempty" te:"int-bool"`
 	// server field is present in response, but we should not track it.
 	//Server          *string       `json:"server,omitempty"`
@@ -76,8 +76,8 @@ func (t *RTPStream) UnmarshalJSON(data []byte) error {
 }
 
 // AddAgent - Add agent to voice call  test
-func (t *RTPStream) AddAgent(id int) {
-	agent := Agent{AgentID: Int(id)}
+func (t *RTPStream) AddAgent(id int64) {
+	agent := Agent{AgentID: Int64(id)}
 	*t.Agents = append(*t.Agents, agent)
 }
 

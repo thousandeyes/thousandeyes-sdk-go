@@ -62,8 +62,8 @@ func (t *BGP) UnmarshalJSON(data []byte) error {
 }
 
 // AddAlertRule - Adds an alert to agent test
-func (t *BGP) AddAlertRule(id int) {
-	alertRule := AlertRule{RuleID: Int(id)}
+func (t *BGP) AddAlertRule(id int64) {
+	alertRule := AlertRule{RuleID: Int64(id)}
 	*t.AlertRules = append(*t.AlertRules, alertRule)
 }
 

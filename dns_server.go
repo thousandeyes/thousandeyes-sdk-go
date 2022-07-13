@@ -7,7 +7,7 @@ import (
 
 // Server - a server ?
 type Server struct {
-	ServerID   *int    `json:"serverId,omitempty"`
+	ServerID   *int64  `json:"serverId,omitempty"`
 	ServerName *string `json:"serverName,omitempty"`
 }
 
@@ -80,14 +80,14 @@ func (t *DNSServer) UnmarshalJSON(data []byte) error {
 }
 
 // AddAgent - Add dns server test
-func (t *DNSServer) AddAgent(id int) {
-	agent := Agent{AgentID: Int(id)}
+func (t *DNSServer) AddAgent(id int64) {
+	agent := Agent{AgentID: Int64(id)}
 	*t.Agents = append(*t.Agents, agent)
 }
 
 // AddAlertRule - Adds an alert to agent test
-func (t *DNSServer) AddAlertRule(id int) {
-	alertRule := AlertRule{RuleID: Int(id)}
+func (t *DNSServer) AddAlertRule(id int64) {
+	alertRule := AlertRule{RuleID: Int64(id)}
 	*t.AlertRules = append(*t.AlertRules, alertRule)
 }
 

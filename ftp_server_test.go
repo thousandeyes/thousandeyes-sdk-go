@@ -32,7 +32,7 @@ func TestClient_GetFTPServer(t *testing.T) {
 		ProbeMode:     String("AUTO"),
 		Agents: &[]Agent{
 			{
-				AgentID:     Int(48620),
+				AgentID:     Int64(48620),
 				AgentType:   String("Cloud"),
 				AgentName:   String("Seattle, WA (Trial) - IPv6"),
 				CountryID:   String("US"),
@@ -66,7 +66,7 @@ func TestClient_GetFTPServer(t *testing.T) {
 		},
 		SharedWithAccounts: &[]SharedWithAccount{
 			{
-				AID:              Int(176592),
+				AID:              Int64(176592),
 				AccountGroupName: String("Cloudreach"),
 			},
 		},
@@ -118,7 +118,7 @@ func TestClient_CreateFTPServer(t *testing.T) {
 		ProbeMode:     String("AUTO"),
 		Agents: &[]Agent{
 			{
-				AgentID:     Int(48620),
+				AgentID:     Int64(48620),
 				AgentType:   String("Cloud"),
 				AgentName:   String("Seattle, WA (Trial) - IPv6"),
 				CountryID:   String("US"),
@@ -130,7 +130,7 @@ func TestClient_CreateFTPServer(t *testing.T) {
 		},
 		SharedWithAccounts: &[]SharedWithAccount{
 			{
-				AID:              Int(176592),
+				AID:              Int64(176592),
 				AccountGroupName: String("Cloudreach"),
 			},
 		},
@@ -189,7 +189,7 @@ func TestClient_DeleteFTPServer(t *testing.T) {
 
 func TestClient_AddFTPServerAlertRule(t *testing.T) {
 	test := FTPServer{TestName: String("test"), AlertRules: &[]AlertRule{}}
-	expected := FTPServer{TestName: String("test"), AlertRules: &[]AlertRule{{RuleID: Int(1)}}}
+	expected := FTPServer{TestName: String("test"), AlertRules: &[]AlertRule{{RuleID: Int64(1)}}}
 	test.AddAlertRule(1)
 	assert.Equal(t, expected, test)
 }
@@ -216,7 +216,7 @@ func TestClient_UpdateFTPServer(t *testing.T) {
 
 func TestFTPServer_AddAgent(t *testing.T) {
 	test := FTPServer{TestName: String("test"), Agents: &[]Agent{}}
-	expected := FTPServer{TestName: String("test"), Agents: &[]Agent{{AgentID: Int(1)}}}
+	expected := FTPServer{TestName: String("test"), Agents: &[]Agent{{AgentID: Int64(1)}}}
 	test.AddAgent(1)
 	assert.Equal(t, expected, test)
 }

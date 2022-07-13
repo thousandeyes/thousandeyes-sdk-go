@@ -45,7 +45,7 @@ func TestClient_CreatePageLoad(t *testing.T) {
 		PageLoadTimeLimit:     Int(10),
 		PageLoadTargetTime:    Int(6),
 		IncludeHeaders:        Bool(true),
-		SSLVersionID:          Int(0),
+		SSLVersionID:          Int64(0),
 		VerifyCertificate:     Bool(true),
 		UseNTLM:               Bool(false),
 		AuthType:              String("NONE"),
@@ -53,7 +53,7 @@ func TestClient_CreatePageLoad(t *testing.T) {
 		ContentRegex:          String(""),
 		Agents: &[]Agent{
 			{
-				AgentID:     Int(48620),
+				AgentID:     Int64(48620),
 				AgentType:   String("Cloud"),
 				AgentName:   String("Seattle, WA (Trial) - IPv6"),
 				CountryID:   String("US"),
@@ -65,13 +65,13 @@ func TestClient_CreatePageLoad(t *testing.T) {
 		},
 		SharedWithAccounts: &[]SharedWithAccount{
 			{
-				AID:              Int(176592),
+				AID:              Int64(176592),
 				AccountGroupName: String("Cloudreach"),
 			},
 		},
 		BGPMonitors: &[]BGPMonitor{
 			{
-				MonitorID:   Int(62),
+				MonitorID:   Int64(62),
 				IPAddress:   String("2001:1890:111d:1::63"),
 				MonitorName: String("New York, NY-6"),
 				Network:     String("AT&T Services, Inc. (AS 7018)"),
@@ -152,7 +152,7 @@ func TestClient_GetPageLoad(t *testing.T) {
 		PageLoadTimeLimit:     Int(10),
 		PageLoadTargetTime:    Int(6),
 		IncludeHeaders:        Bool(true),
-		SSLVersionID:          Int(0),
+		SSLVersionID:          Int64(0),
 		VerifyCertificate:     Bool(true),
 		UseNTLM:               Bool(false),
 		AuthType:              String("NONE"),
@@ -160,7 +160,7 @@ func TestClient_GetPageLoad(t *testing.T) {
 		ContentRegex:          String(""),
 		Agents: &[]Agent{
 			{
-				AgentID:     Int(48620),
+				AgentID:     Int64(48620),
 				AgentType:   String("Cloud"),
 				AgentName:   String("Seattle, WA (Trial) - IPv6"),
 				CountryID:   String("US"),
@@ -172,13 +172,13 @@ func TestClient_GetPageLoad(t *testing.T) {
 		},
 		SharedWithAccounts: &[]SharedWithAccount{
 			{
-				AID:              Int(176592),
+				AID:              Int64(176592),
 				AccountGroupName: String("Cloudreach"),
 			},
 		},
 		BGPMonitors: &[]BGPMonitor{
 			{
-				MonitorID:   Int(62),
+				MonitorID:   Int64(62),
 				IPAddress:   String("2001:1890:111d:1::63"),
 				MonitorName: String("New York, NY-6"),
 				Network:     String("AT&T Services, Inc. (AS 7018)"),
@@ -258,7 +258,7 @@ func TestClient_UpdatePageLoad(t *testing.T) {
 
 func TestPageLoad_AddAgent(t *testing.T) {
 	test := PageLoad{TestName: String("test"), Agents: &[]Agent{}}
-	expected := PageLoad{TestName: String("test"), Agents: &[]Agent{{AgentID: Int(1)}}}
+	expected := PageLoad{TestName: String("test"), Agents: &[]Agent{{AgentID: Int64(1)}}}
 	test.AddAgent(1)
 	assert.Equal(t, expected, test)
 }

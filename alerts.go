@@ -11,7 +11,7 @@ type Alerts []Alert
 
 // Alert - An alert
 type Alert struct {
-	AlertID        *int       `json:"alertId,omitempty"`
+	AlertID        *int64     `json:"alertId,omitempty"`
 	TestID         *int64     `json:"testId,omitempty"`
 	TestName       *string    `json:"testName,omitempty"`
 	Active         *int       `json:"active,omitempty"`
@@ -43,7 +43,7 @@ type Notification struct {
 
 // AlertRule - An alert rule
 type AlertRule struct {
-	AlertRuleID             *int          `json:"alertRuleId,omitempty"`
+	AlertRuleID             *int64        `json:"alertRuleId,omitempty"`
 	AlertType               *string       `json:"alertType,omitempty"`
 	Default                 *bool         `json:"default,omitempty" te:"int-bool"`
 	Direction               *string       `json:"direction,omitempty"`
@@ -55,7 +55,7 @@ type AlertRule struct {
 	RoundsViolatingMode     *string       `json:"roundsViolatingMode,omitempty"`
 	RoundsViolatingOutOf    *int          `json:"roundsViolatingOutOf,omitempty"`
 	RoundsViolatingRequired *int          `json:"roundsViolatingRequired,omitempty"`
-	RuleID                  *int          `json:"ruleId,omitempty"`
+	RuleID                  *int64        `json:"ruleId,omitempty"`
 	RuleName                *string       `json:"ruleName,omitempty"`
 	TestIds                 *[]int        `json:"testIds,omitempty"`
 	Notifications           *Notification `json:"notifications,omitempty"`

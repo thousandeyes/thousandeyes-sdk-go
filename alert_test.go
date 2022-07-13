@@ -18,7 +18,7 @@ func TestClient_GetAlertRule(t *testing.T) {
 
 	// Define expected values from the API (based on the JSON we print out above)
 	expected := AlertRules{
-		AlertRule{RuleID: Int(1), RuleName: String("test")},
+		AlertRule{RuleID: Int64(1), RuleName: String("test")},
 	}
 
 	res, err := client.GetAlertRules()
@@ -72,7 +72,7 @@ func TestClient_UpdateAlertRule(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	expected := AlertRule{RuleID: Int(1), RuleName: String("test"), RoundsViolatingOutOf: Int(2), RoundsViolatingRequired: Int(1)}
+	expected := AlertRule{RuleID: Int64(1), RuleName: String("test"), RoundsViolatingOutOf: Int(2), RoundsViolatingRequired: Int(1)}
 	assert.Equal(t, &expected, res)
 }
 
@@ -91,7 +91,7 @@ func TestClient_CreateAlertRule(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	expected := AlertRule{RuleID: Int(1), RuleName: String("test"), RoundsViolatingOutOf: Int(2), RoundsViolatingRequired: Int(1)}
+	expected := AlertRule{RuleID: Int64(1), RuleName: String("test"), RoundsViolatingOutOf: Int(2), RoundsViolatingRequired: Int(1)}
 	assert.Equal(t, &expected, res)
 }
 

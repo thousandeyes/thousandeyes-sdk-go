@@ -24,13 +24,13 @@ func TestClient_GetRoles(t *testing.T) {
 	expected := []AccountGroupRole{
 		{
 			RoleName:                 String("admin"),
-			RoleID:                   Int(2),
+			RoleID:                   Int64(2),
 			HasManagementPermissions: Bool(false),
 			Builtin:                  Bool(false),
 		},
 		{
 			RoleName:                 String("user1"),
-			RoleID:                   Int(1),
+			RoleID:                   Int64(1),
 			HasManagementPermissions: Bool(true),
 			Builtin:                  Bool(true),
 		},
@@ -55,7 +55,7 @@ func TestClient_GetRole(t *testing.T) {
 	}
 	expected := AccountGroupRole{
 		RoleName:                 String("admin"),
-		RoleID:                   Int(1),
+		RoleID:                   Int64(1),
 		HasManagementPermissions: Bool(false),
 		Builtin:                  Bool(false),
 	}
@@ -85,7 +85,7 @@ func TestClient_CreateRole(t *testing.T) {
 		RoleName:                 String("ThousandEyes SRE"),
 		HasManagementPermissions: Bool(true),
 		Builtin:                  Bool(false),
-		RoleID:                   Int(1000),
+		RoleID:                   Int64(1000),
 	}
 	assert.Equal(t, &expected, res)
 }
@@ -123,7 +123,7 @@ func TestClient_UpdateRole(t *testing.T) {
 
 	expected := AccountGroupRole{
 		RoleName:                 String("ThousandEyes SRE"),
-		RoleID:                   Int(1000),
+		RoleID:                   Int64(1000),
 		HasManagementPermissions: Bool(true),
 		Builtin:                  Bool(false),
 	}

@@ -7,7 +7,7 @@ type BGPMonitors []BGPMonitor
 
 // BGPMonitor - BGPMonitor struct
 type BGPMonitor struct {
-	MonitorID   *int    `json:"monitorId,omitempty"`
+	MonitorID   *int64  `json:"monitorId,omitempty"`
 	IPAddress   *string `json:"ipAddress,omitempty"`
 	Network     *string `json:"network,omitempty"`
 	MonitorType *string `json:"monitorType,omitempty"`

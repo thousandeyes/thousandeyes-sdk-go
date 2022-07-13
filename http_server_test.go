@@ -39,7 +39,7 @@ func TestClient_GetHTTPServer(t *testing.T) {
 		HTTPVersion:           Int(2),
 		FollowRedirects:       Bool(true),
 		NumPathTraces:         Int(3),
-		SSLVersionID:          Int(0),
+		SSLVersionID:          Int64(0),
 		VerifyCertificate:     Bool(true),
 		UseNTLM:               Bool(false),
 		AuthType:              String("NONE"),
@@ -47,7 +47,7 @@ func TestClient_GetHTTPServer(t *testing.T) {
 		ProbeMode:             String("AUTO"),
 		Agents: &[]Agent{
 			{
-				AgentID:     Int(48620),
+				AgentID:     Int64(48620),
 				AgentType:   String("Cloud"),
 				AgentName:   String("Seattle, WA (Trial) - IPv6"),
 				CountryID:   String("US"),
@@ -59,13 +59,13 @@ func TestClient_GetHTTPServer(t *testing.T) {
 		},
 		SharedWithAccounts: &[]SharedWithAccount{
 			{
-				AID:              Int(176592),
+				AID:              Int64(176592),
 				AccountGroupName: String("Cloudreach"),
 			},
 		},
 		BGPMonitors: &[]Monitor{
 			{
-				MonitorID:   Int(64),
+				MonitorID:   Int64(64),
 				IPAddress:   String("2001:240:100:ff::2497:2"),
 				CountryID:   String("JP"),
 				MonitorName: String("Tokyo-3"),
@@ -150,7 +150,7 @@ func TestClient_CreateHTTPServer(t *testing.T) {
 		HTTPVersion:           Int(2),
 		FollowRedirects:       Bool(true),
 		NumPathTraces:         Int(3),
-		SSLVersionID:          Int(0),
+		SSLVersionID:          Int64(0),
 		VerifyCertificate:     Bool(true),
 		UseNTLM:               Bool(false),
 		AuthType:              String("NONE"),
@@ -158,7 +158,7 @@ func TestClient_CreateHTTPServer(t *testing.T) {
 		ProbeMode:             String("AUTO"),
 		Agents: &[]Agent{
 			{
-				AgentID:     Int(48620),
+				AgentID:     Int64(48620),
 				AgentType:   String("Cloud"),
 				AgentName:   String("Seattle, WA (Trial) - IPv6"),
 				CountryID:   String("US"),
@@ -170,13 +170,13 @@ func TestClient_CreateHTTPServer(t *testing.T) {
 		},
 		SharedWithAccounts: &[]SharedWithAccount{
 			{
-				AID:              Int(176592),
+				AID:              Int64(176592),
 				AccountGroupName: String("Cloudreach"),
 			},
 		},
 		BGPMonitors: &[]Monitor{
 			{
-				MonitorID:   Int(64),
+				MonitorID:   Int64(64),
 				IPAddress:   String("2001:240:100:ff::2497:2"),
 				CountryID:   String("JP"),
 				MonitorName: String("Tokyo-3"),
@@ -258,7 +258,7 @@ func TestClient_UpdateHTTPServer(t *testing.T) {
 
 func TestHTTPServer_AddAgent(t *testing.T) {
 	test := HTTPServer{TestName: String("test"), Agents: &[]Agent{}}
-	expected := HTTPServer{TestName: String("test"), Agents: &[]Agent{{AgentID: Int(1)}}}
+	expected := HTTPServer{TestName: String("test"), Agents: &[]Agent{{AgentID: Int64(1)}}}
 	test.AddAgent(1)
 	assert.Equal(t, expected, test)
 }

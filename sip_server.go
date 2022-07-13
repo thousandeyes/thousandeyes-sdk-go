@@ -86,14 +86,14 @@ func (t *SIPServer) UnmarshalJSON(data []byte) error {
 }
 
 // AddAgent - Add agemt to sip server  test
-func (t *SIPServer) AddAgent(id int) {
-	agent := Agent{AgentID: Int(id)}
+func (t *SIPServer) AddAgent(id int64) {
+	agent := Agent{AgentID: Int64(id)}
 	*t.Agents = append(*t.Agents, agent)
 }
 
 // AddAlertRule - Adds an alert to agent test
-func (t *SIPServer) AddAlertRule(id int) {
-	alertRule := AlertRule{RuleID: Int(id)}
+func (t *SIPServer) AddAlertRule(id int64) {
+	alertRule := AlertRule{RuleID: Int64(id)}
 	*t.AlertRules = append(*t.AlertRules, alertRule)
 }
 

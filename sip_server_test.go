@@ -30,7 +30,7 @@ func TestClient_GetSIPServer(t *testing.T) {
 		LiveShare:     Bool(false),
 		Agents: &[]Agent{
 			{
-				AgentID:     Int(48620),
+				AgentID:     Int64(48620),
 				AgentType:   String("Cloud"),
 				AgentName:   String("Seattle, WA (Trial) - IPv6"),
 				CountryID:   String("US"),
@@ -42,7 +42,7 @@ func TestClient_GetSIPServer(t *testing.T) {
 		},
 		SharedWithAccounts: &[]SharedWithAccount{
 			{
-				AID:              Int(176592),
+				AID:              Int64(176592),
 				AccountGroupName: String("Cloudreach"),
 			},
 		},
@@ -114,7 +114,7 @@ func TestClient_CreateSIPServer(t *testing.T) {
 		LiveShare:     Bool(false),
 		Agents: &[]Agent{
 			{
-				AgentID:     Int(48620),
+				AgentID:     Int64(48620),
 				AgentType:   String("Cloud"),
 				AgentName:   String("Seattle, WA (Trial) - IPv6"),
 				CountryID:   String("US"),
@@ -126,7 +126,7 @@ func TestClient_CreateSIPServer(t *testing.T) {
 		},
 		SharedWithAccounts: &[]SharedWithAccount{
 			{
-				AID:              Int(176592),
+				AID:              Int64(176592),
 				AccountGroupName: String("Cloudreach"),
 			},
 		},
@@ -205,13 +205,13 @@ func TestClient_UpdateSIPServer(t *testing.T) {
 
 func TestSIPServer_AddAgent(t *testing.T) {
 	test := SIPServer{TestName: String("test"), Agents: &[]Agent{}}
-	expected := SIPServer{TestName: String("test"), Agents: &[]Agent{{AgentID: Int(1)}}}
+	expected := SIPServer{TestName: String("test"), Agents: &[]Agent{{AgentID: Int64(1)}}}
 	test.AddAgent(1)
 	assert.Equal(t, expected, test)
 }
 func TestClient_AddSIPServerAlertRule(t *testing.T) {
 	test := SIPServer{TestName: String("test"), AlertRules: &[]AlertRule{}}
-	expected := SIPServer{TestName: String("test"), AlertRules: &[]AlertRule{{RuleID: Int(1)}}}
+	expected := SIPServer{TestName: String("test"), AlertRules: &[]AlertRule{{RuleID: Int64(1)}}}
 	test.AddAlertRule(1)
 	assert.Equal(t, expected, test)
 }

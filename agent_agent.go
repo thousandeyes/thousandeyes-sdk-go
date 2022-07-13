@@ -31,7 +31,7 @@ type AgentAgent struct {
 	BGPMonitors            *[]BGPMonitor `json:"bgpMonitors,omitempty"`
 	Direction              *string       `json:"direction,omitempty"`
 	DSCP                   *string       `json:"dscp,omitempty"`
-	DSCPID                 *int          `json:"dscpId"`
+	DSCPID                 *int64        `json:"dscpId"`
 	Interval               *int          `json:"interval,omitempty"`
 	MSS                    *int          `json:"mss,omitempty"`
 	NetworkMeasurements    *bool         `json:"networkMeasurements,omitempty" te:"int-bool"`
@@ -40,7 +40,7 @@ type AgentAgent struct {
 	PathTraceMode          *string       `json:"pathTraceMode,omitempty"`
 	Port                   *int          `json:"port,omitempty"`
 	Protocol               *string       `json:"protocol,omitempty"`
-	TargetAgentID          *int          `json:"targetAgentId,omitempty"`
+	TargetAgentID          *int64        `json:"targetAgentId,omitempty"`
 	ThroughputDuration     *int          `json:"throughputDuration,omitempty"`
 	ThroughputMeasurements *bool         `json:"throughputMeasurements,omitempty" te:"int-bool"`
 	ThroughputRate         *int          `json:"throughputRate,omitempty"`
@@ -77,14 +77,14 @@ func (t *AgentAgent) UnmarshalJSON(data []byte) error {
 }
 
 // AddAgent - Adds an agent to agent test
-func (t *AgentAgent) AddAgent(id int) {
-	agent := Agent{AgentID: Int(id)}
+func (t *AgentAgent) AddAgent(id int64) {
+	agent := Agent{AgentID: Int64(id)}
 	*t.Agents = append(*t.Agents, agent)
 }
 
 // AddAlertRule - Adds an alert to agent test
-func (t *AgentAgent) AddAlertRule(id int) {
-	alertRule := AlertRule{RuleID: Int(id)}
+func (t *AgentAgent) AddAlertRule(id int64) {
+	alertRule := AlertRule{RuleID: Int64(id)}
 	*t.AlertRules = append(*t.AlertRules, alertRule)
 }
 

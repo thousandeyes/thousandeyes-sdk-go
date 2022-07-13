@@ -43,7 +43,7 @@ func TestClient_GetDNSServer(t *testing.T) {
 		DNSTransportProtocol:  String("UDP"),
 		Agents: &[]Agent{
 			{
-				AgentID:     Int(48620),
+				AgentID:     Int64(48620),
 				AgentType:   String("Cloud"),
 				AgentName:   String("Seattle, WA (Trial) - IPv6"),
 				CountryID:   String("US"),
@@ -55,19 +55,19 @@ func TestClient_GetDNSServer(t *testing.T) {
 		},
 		SharedWithAccounts: &[]SharedWithAccount{
 			{
-				AID:              Int(176592),
+				AID:              Int64(176592),
 				AccountGroupName: String("Cloudreach"),
 			},
 		},
 		DNSServers: &[]Server{
 			{
-				ServerID:   Int(123),
+				ServerID:   Int64(123),
 				ServerName: String("1.1.1.1"),
 			},
 		},
 		BGPMonitors: &[]BGPMonitor{
 			{
-				MonitorID:   Int(64),
+				MonitorID:   Int64(64),
 				IPAddress:   String("2001:240:100:ff::2497:2"),
 				MonitorName: String("Tokyo-3"),
 				Network:     String("IIJ Internet Initiative Japan Inc. (AS 2497)"),
@@ -106,7 +106,7 @@ func TestClient_GetDNSServer(t *testing.T) {
 
 func TestClient_AddDnsserverAlertRule(t *testing.T) {
 	test := DNSServer{TestName: String("test"), AlertRules: &[]AlertRule{}}
-	expected := DNSServer{TestName: String("test"), AlertRules: &[]AlertRule{{RuleID: Int(1)}}}
+	expected := DNSServer{TestName: String("test"), AlertRules: &[]AlertRule{{RuleID: Int64(1)}}}
 	test.AddAlertRule(1)
 	assert.Equal(t, expected, test)
 }
@@ -161,7 +161,7 @@ func TestClient_CreateDNSServer(t *testing.T) {
 		DNSTransportProtocol:  String("UDP"),
 		Agents: &[]Agent{
 			{
-				AgentID:     Int(48620),
+				AgentID:     Int64(48620),
 				AgentType:   String("Cloud"),
 				AgentName:   String("Seattle, WA (Trial) - IPv6"),
 				CountryID:   String("US"),
@@ -173,19 +173,19 @@ func TestClient_CreateDNSServer(t *testing.T) {
 		},
 		SharedWithAccounts: &[]SharedWithAccount{
 			{
-				AID:              Int(176592),
+				AID:              Int64(176592),
 				AccountGroupName: String("Cloudreach"),
 			},
 		},
 		DNSServers: &[]Server{
 			{
-				ServerID:   Int(123),
+				ServerID:   Int64(123),
 				ServerName: String("1.1.1.1"),
 			},
 		},
 		BGPMonitors: &[]BGPMonitor{
 			{
-				MonitorID:   Int(64),
+				MonitorID:   Int64(64),
 				IPAddress:   String("2001:240:100:ff::2497:2"),
 				MonitorName: String("Tokyo-3"),
 				Network:     String("IIJ Internet Initiative Japan Inc. (AS 2497)"),
@@ -266,7 +266,7 @@ func TestClient_UpdateDNSServer(t *testing.T) {
 
 func TestDNSServer_AddAgent(t *testing.T) {
 	test := DNSServer{TestName: String("test"), Agents: &[]Agent{}}
-	expected := DNSServer{TestName: String("test"), Agents: &[]Agent{{AgentID: Int(1)}}}
+	expected := DNSServer{TestName: String("test"), Agents: &[]Agent{{AgentID: Int64(1)}}}
 	test.AddAgent(1)
 	assert.Equal(t, expected, test)
 }

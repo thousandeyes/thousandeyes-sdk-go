@@ -94,14 +94,14 @@ func extractPort(test AgentServer) (AgentServer, error) {
 }
 
 // AddAgent - Add agent to server test
-func (t *AgentServer) AddAgent(id int) {
-	agent := Agent{AgentID: Int(id)}
+func (t *AgentServer) AddAgent(id int64) {
+	agent := Agent{AgentID: Int64(id)}
 	*t.Agents = append(*t.Agents, agent)
 }
 
 // AddAlertRule - Adds an alert to agent test
-func (t *AgentServer) AddAlertRule(id int) {
-	alertRule := AlertRule{RuleID: Int(id)}
+func (t *AgentServer) AddAlertRule(id int64) {
+	alertRule := AlertRule{RuleID: Int64(id)}
 	*t.AlertRules = append(*t.AlertRules, alertRule)
 }
 
