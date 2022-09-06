@@ -55,6 +55,25 @@ func Test_ClientAccountGroupNone(t *testing.T) {
 	_, _ = client.GetAgents()
 }
 
+func Test_ClientUserAgentHeader(t *testing.T) {
+	setup()
+
+	// test default user-agent
+	mux.HandleFunc("/agents.json", func(w http.ResponseWriter, r *http.Request) {
+		assert.Equal(t, "ThousandEyes Go SDK", r.Header.Get("user-agent"))
+		_, _ = w.Write([]byte(`{"agents": []}`))
+	})
+	_, _ = client.GetAgents()
+
+	// test custom user-agent
+	client = &Client{APIEndpoint: server.URL, AuthToken: "foo", UserAgent: "porto"}
+	mux.HandleFunc("/alert-rules.json", func(w http.ResponseWriter, r *http.Request) {
+		assert.Equal(t, "porto", r.Header.Get("user-agent"))
+		_, _ = w.Write([]byte(`{"alert-rules": []}`))
+	})
+	_, _ = client.GetAlertRules()
+}
+
 func Test_setDelay(t *testing.T) {
 	setup()
 	now := time.Now()

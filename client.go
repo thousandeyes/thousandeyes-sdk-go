@@ -48,17 +48,20 @@ type Limiter interface {
 	Wait()
 }
 
-//HTTPClient - an http client
+// HTTPClient - an http client
 type HTTPClient interface {
 	Do(*http.Request) (*http.Response, error)
 }
 
 // ClientOptions - Thousandeyes client options for accountID, AuthToken & rate limiter
+// and HTTP client settings
 type ClientOptions struct {
 	Limiter   Limiter
 	AccountID string
 	AuthToken string
 	Timeout   time.Duration
+	// http client user-agent
+	UserAgent string
 }
 
 // Client wraps http client
@@ -68,6 +71,7 @@ type Client struct {
 	APIEndpoint    string
 	HTTPClient     http.Client
 	Limiter        Limiter
+	UserAgent      string
 }
 
 // DefaultLimiter -  thousandeyes rate limit is 240 per minute
@@ -92,6 +96,10 @@ func NewClient(opts *ClientOptions) *Client {
 		timeout = time.Second * 20
 	}
 
+	if opts.UserAgent == "" {
+		opts.UserAgent = "ThousandEyes Go SDK"
+	}
+
 	return &Client{
 		AuthToken:      opts.AuthToken,
 		AccountGroupID: opts.AccountID,
@@ -99,7 +107,8 @@ func NewClient(opts *ClientOptions) *Client {
 		HTTPClient: http.Client{
 			Timeout: timeout,
 		},
-		Limiter: opts.Limiter,
+		Limiter:   opts.Limiter,
+		UserAgent: opts.UserAgent,
 	}
 }
 
@@ -144,6 +153,7 @@ func (c *Client) do(method, path string, body io.Reader, headers *map[string]str
 	req.Header.Set("accept", "application/json")
 	req.Header.Set("authorization", fmt.Sprintf("Bearer %s", c.AuthToken))
 	req.Header.Set("content-type", "application/json")
+	req.Header.Set("user-agent", c.UserAgent)
 	if headers != nil {
 		for k, v := range *headers {
 			req.Header.Set(k, v)
