@@ -36,9 +36,22 @@ type NotificationEmail struct {
 	Recipient *[]string `json:"recipient,omitempty"`
 }
 
+// NotificationThirdParty - Alert Rule Notification ThirdParty structure
+type NotificationThirdParty struct {
+	IntegrationID   *string `json:"integrationId,omitempty"`
+	IntegrationName *string `json:"integrationName,omitempty"`
+	IntegrationType *string `json:"integrationType,omitempty"`
+	Target          *string `json:"target,omitempty"`
+	AuthMethod      *string `json:"authMethod,omitempty"`
+	AuthUser        *string `json:"authUser,omitempty"`
+	AuthToken       *string `json:"authToken,omitempty"`
+	Channel         *string `json:"channel,omitempty"`
+}
+
 // Notification - Alert Rule Notification structure
 type Notification struct {
-	Email *NotificationEmail `json:"email,omitempty"`
+	Email      *NotificationEmail        `json:"email,omitempty"`
+	ThirdParty *[]NotificationThirdParty `json:"thirdParty,omitempty"`
 }
 
 // AlertRule - An alert rule
@@ -113,7 +126,7 @@ func (c Client) CreateAlertRule(a AlertRule) (*AlertRule, error) {
 	return &target, nil
 }
 
-//GetAlertRules - Get alert rules
+// GetAlertRules - Get alert rules
 func (c Client) GetAlertRules() (*AlertRules, error) {
 	resp, err := c.get(fmt.Sprintf("/alert-rules"))
 	if err != nil {
@@ -150,7 +163,7 @@ func (c *Client) GetAlertRule(id int64) (*AlertRule, error) {
 	return &target["alertRules"][0], nil
 }
 
-//DeleteAlertRule - delete alert rule
+// DeleteAlertRule - delete alert rule
 func (c Client) DeleteAlertRule(id int64) error {
 	resp, err := c.post(fmt.Sprintf("/alert-rules/%d/delete", id), nil, nil)
 	if err != nil {
@@ -162,7 +175,7 @@ func (c Client) DeleteAlertRule(id int64) error {
 	return nil
 }
 
-//UpdateAlertRule - update alert rule
+// UpdateAlertRule - update alert rule
 func (c Client) UpdateAlertRule(id int64, a AlertRule) (*AlertRule, error) {
 	resp, err := c.post(fmt.Sprintf("/alert-rules/%d/update", id), a, nil)
 	if err != nil {
