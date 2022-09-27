@@ -91,7 +91,7 @@ func (t *DNSServer) AddAlertRule(id int64) {
 	*t.AlertRules = append(*t.AlertRules, alertRule)
 }
 
-//GetDNSServer - get dns server test
+// GetDNSServer - get dns server test
 func (c *Client) GetDNSServer(id int64) (*DNSServer, error) {
 	resp, err := c.get(fmt.Sprintf("/tests/%d", id))
 	if err != nil {
@@ -120,7 +120,7 @@ func (c Client) CreateDNSServer(t DNSServer) (*DNSServer, error) {
 	return &target["test"][0], nil
 }
 
-//DeleteDNSServer - delete dns server test
+// DeleteDNSServer - delete dns server test
 func (c *Client) DeleteDNSServer(id int64) error {
 	resp, err := c.post(fmt.Sprintf("/tests/dns-server/%d/delete", id), nil, nil)
 	if err != nil {
@@ -132,7 +132,7 @@ func (c *Client) DeleteDNSServer(id int64) error {
 	return nil
 }
 
-//UpdateDNSServer - - Update dns server test
+// UpdateDNSServer - - Update dns server test
 func (c *Client) UpdateDNSServer(id int64, t DNSServer) (*DNSServer, error) {
 	resp, err := c.post(fmt.Sprintf("/tests/dns-server/%d/update", id), t, nil)
 	if err != nil {

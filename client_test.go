@@ -59,6 +59,11 @@ func Test_ClientUserAgentHeader(t *testing.T) {
 	setup()
 
 	// test default user-agent
+	clientOpts := ClientOptions{
+		AuthToken:   "foo",
+		APIEndpoint: server.URL,
+	}
+	client = NewClient(&clientOpts)
 	mux.HandleFunc("/agents.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "ThousandEyes Go SDK", r.Header.Get("user-agent"))
 		_, _ = w.Write([]byte(`{"agents": []}`))
@@ -66,12 +71,40 @@ func Test_ClientUserAgentHeader(t *testing.T) {
 	_, _ = client.GetAgents()
 
 	// test custom user-agent
-	client = &Client{APIEndpoint: server.URL, AuthToken: "foo", UserAgent: "porto"}
+	clientOpts = ClientOptions{
+		AuthToken:   "foo",
+		APIEndpoint: server.URL,
+		UserAgent:   "porto",
+	}
+	client = NewClient(&clientOpts)
 	mux.HandleFunc("/alert-rules.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "porto", r.Header.Get("user-agent"))
 		_, _ = w.Write([]byte(`{"alert-rules": []}`))
 	})
 	_, _ = client.GetAlertRules()
+}
+
+func Test_ClientAPIEndpoint(t *testing.T) {
+	setup()
+
+	// by default if the APIEndpoint field in the client options is not set
+	// then the client defaults to "https://api.thousandeyes.com/v6"
+	clientOpts := ClientOptions{
+		AuthToken: "foo",
+		AccountID: "bar",
+	}
+	client = NewClient(&clientOpts)
+	assert.Equal(t, defaultAPIEndpoint, client.APIEndpoint)
+
+	// test overriding the APIEndpoint field of the client
+	overrideAPIEndpoint := "https://api.millioneyes.com/v9"
+	clientOpts = ClientOptions{
+		AuthToken:   "foo",
+		AccountID:   "bar",
+		APIEndpoint: overrideAPIEndpoint,
+	}
+	client = NewClient(&clientOpts)
+	assert.Equal(t, overrideAPIEndpoint, client.APIEndpoint)
 }
 
 func Test_setDelay(t *testing.T) {

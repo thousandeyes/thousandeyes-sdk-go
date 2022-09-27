@@ -117,7 +117,7 @@ func (c Client) CreateAgentAgent(t AgentAgent) (*AgentAgent, error) {
 	return &target["test"][0], nil
 }
 
-//DeleteAgentAgent - delete agent to agent test
+// DeleteAgentAgent - delete agent to agent test
 func (c *Client) DeleteAgentAgent(id int64) error {
 	resp, err := c.post(fmt.Sprintf("/tests/agent-to-agent/%d/delete", id), nil, nil)
 	if err != nil {

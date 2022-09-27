@@ -94,7 +94,7 @@ func (c *Client) GetRTPStream(id int64) (*RTPStream, error) {
 	return &target["test"][0], nil
 }
 
-//CreateRTPStream - Create voice call test
+// CreateRTPStream - Create voice call test
 func (c Client) CreateRTPStream(t RTPStream) (*RTPStream, error) {
 	resp, err := c.post("/tests/voice/new", t, nil)
 	if err != nil {
@@ -110,7 +110,7 @@ func (c Client) CreateRTPStream(t RTPStream) (*RTPStream, error) {
 	return &target["test"][0], nil
 }
 
-//DeleteRTPStream - delete voice call test
+// DeleteRTPStream - delete voice call test
 func (c *Client) DeleteRTPStream(id int64) error {
 	resp, err := c.post(fmt.Sprintf("/tests/voice/%d/delete", id), nil, nil)
 	if err != nil {
@@ -122,7 +122,7 @@ func (c *Client) DeleteRTPStream(id int64) error {
 	return nil
 }
 
-//UpdateRTPStream - update voice call test
+// UpdateRTPStream - update voice call test
 func (c *Client) UpdateRTPStream(id int64, t RTPStream) (*RTPStream, error) {
 	resp, err := c.post(fmt.Sprintf("/tests/voice/%d/update", id), t, nil)
 	if err != nil {

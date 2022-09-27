@@ -80,7 +80,7 @@ func (c *Client) GetBGP(id int64) (*BGP, error) {
 	return &target["test"][0], nil
 }
 
-//CreateBGP - Create bgp test
+// CreateBGP - Create bgp test
 func (c Client) CreateBGP(t BGP) (*BGP, error) {
 	resp, err := c.post("/tests/bgp/new", t, nil)
 	if err != nil {
@@ -96,7 +96,7 @@ func (c Client) CreateBGP(t BGP) (*BGP, error) {
 	return &target["test"][0], nil
 }
 
-//DeleteBGP - delete bgp test
+// DeleteBGP - delete bgp test
 func (c *Client) DeleteBGP(id int64) error {
 	resp, err := c.post(fmt.Sprintf("/tests/bgp/%d/delete", id), nil, nil)
 	if err != nil {
@@ -108,7 +108,7 @@ func (c *Client) DeleteBGP(id int64) error {
 	return nil
 }
 
-//UpdateBGP - - Update bgp trace test
+// UpdateBGP - - Update bgp trace test
 func (c *Client) UpdateBGP(id int64, t BGP) (*BGP, error) {
 	resp, err := c.post(fmt.Sprintf("/tests/bgp/%d/update", id), t, nil)
 	if err != nil {
