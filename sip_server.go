@@ -145,7 +145,7 @@ func (c *Client) GetSIPServer(id int64) (*SIPServer, error) {
 	return &target["test"][0], nil
 }
 
-//CreateSIPServer - Create sip server test
+// CreateSIPServer - Create sip server test
 func (c Client) CreateSIPServer(t SIPServer) (*SIPServer, error) {
 	resp, err := c.post("/tests/sip-server/new", t, nil)
 	if err != nil {
@@ -161,7 +161,7 @@ func (c Client) CreateSIPServer(t SIPServer) (*SIPServer, error) {
 	return &target["test"][0], nil
 }
 
-//DeleteSIPServer - delete sip server test
+// DeleteSIPServer - delete sip server test
 func (c *Client) DeleteSIPServer(id int64) error {
 	resp, err := c.post(fmt.Sprintf("/tests/sip-server/%d/delete", id), nil, nil)
 	if err != nil {
@@ -173,7 +173,7 @@ func (c *Client) DeleteSIPServer(id int64) error {
 	return nil
 }
 
-//UpdateSIPServer - - update sip server test
+// UpdateSIPServer - - update sip server test
 func (c *Client) UpdateSIPServer(id int64, t SIPServer) (*SIPServer, error) {
 	resp, err := c.post(fmt.Sprintf("/tests/sip-server/%d/update", id), t, nil)
 	if err != nil {

@@ -13,7 +13,7 @@ import (
 )
 
 const (
-	apiEndpoint = "https://api.thousandeyes.com/v6"
+	defaultAPIEndpoint = "https://api.thousandeyes.com/v6"
 )
 
 var orgRate RateLimit
@@ -53,13 +53,14 @@ type HTTPClient interface {
 	Do(*http.Request) (*http.Response, error)
 }
 
-// ClientOptions - Thousandeyes client options for accountID, AuthToken & rate limiter
-// and HTTP client settings
+// ClientOptions - Thousandeyes client options for apiEndpoint, accountID, AuthToken,
+// rate limiter, and HTTP client settings
 type ClientOptions struct {
-	Limiter   Limiter
-	AccountID string
-	AuthToken string
-	Timeout   time.Duration
+	APIEndpoint string
+	Limiter     Limiter
+	AccountID   string
+	AuthToken   string
+	Timeout     time.Duration
 	// http client user-agent
 	UserAgent string
 }
@@ -84,6 +85,10 @@ func (l DefaultLimiter) Wait() {
 
 // NewClient creates an API client
 func NewClient(opts *ClientOptions) *Client {
+	if opts.APIEndpoint == "" {
+		opts.APIEndpoint = defaultAPIEndpoint
+	}
+
 	// Set default timeout if a custom duration is 0 or unset (since we
 	// can't tell the difference without using an additional value).
 	// Overriding a default value of 0 has the side effect of preventing
@@ -103,7 +108,7 @@ func NewClient(opts *ClientOptions) *Client {
 	return &Client{
 		AuthToken:      opts.AuthToken,
 		AccountGroupID: opts.AccountID,
-		APIEndpoint:    apiEndpoint,
+		APIEndpoint:    opts.APIEndpoint,
 		HTTPClient: http.Client{
 			Timeout: timeout,
 		},

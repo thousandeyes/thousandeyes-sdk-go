@@ -33,7 +33,7 @@ type Agent struct {
 	TargetForTests        *string              `json:"targetForTests,omitempty"`
 }
 
-//ClusterMember - ClusterMember struct
+// ClusterMember - ClusterMember struct
 type ClusterMember struct {
 	MemberID          *int64    `json:"memberId,omitempty"`
 	Name              *string   `json:"name,omitempty"`

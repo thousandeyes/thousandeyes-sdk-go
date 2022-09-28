@@ -108,7 +108,7 @@ func (t *HTTPServer) AddAgent(id int64) {
 	*t.Agents = append(*t.Agents, agent)
 }
 
-//GetHTTPServer - Get an HTTP Server test
+// GetHTTPServer - Get an HTTP Server test
 func (c *Client) GetHTTPServer(id int64) (*HTTPServer, error) {
 	resp, err := c.get(fmt.Sprintf("/tests/%d", id))
 	if err != nil {
@@ -121,7 +121,7 @@ func (c *Client) GetHTTPServer(id int64) (*HTTPServer, error) {
 	return &target["test"][0], nil
 }
 
-//CreateHTTPServer - create a http server
+// CreateHTTPServer - create a http server
 func (c Client) CreateHTTPServer(t HTTPServer) (*HTTPServer, error) {
 	resp, err := c.post("/tests/http-server/new", t, nil)
 	if err != nil {
@@ -137,7 +137,7 @@ func (c Client) CreateHTTPServer(t HTTPServer) (*HTTPServer, error) {
 	return &target["test"][0], nil
 }
 
-//DeleteHTTPServer - delete an http server
+// DeleteHTTPServer - delete an http server
 func (c *Client) DeleteHTTPServer(id int64) error {
 	resp, err := c.post(fmt.Sprintf("/tests/http-server/%d/delete", id), nil, nil)
 	if err != nil {
@@ -149,7 +149,7 @@ func (c *Client) DeleteHTTPServer(id int64) error {
 	return nil
 }
 
-//UpdateHTTPServer - Update an http server test
+// UpdateHTTPServer - Update an http server test
 func (c *Client) UpdateHTTPServer(id int64, t HTTPServer) (*HTTPServer, error) {
 	resp, err := c.post(fmt.Sprintf("/tests/http-server/%d/update", id), t, nil)
 	if err != nil {

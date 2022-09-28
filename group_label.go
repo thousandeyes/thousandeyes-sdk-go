@@ -113,7 +113,7 @@ func (c Client) CreateGroupLabel(a GroupLabel) (*GroupLabel, error) {
 	return &target["groups"][0], nil
 }
 
-//DeleteGroupLabel - delete label
+// DeleteGroupLabel - delete label
 func (c Client) DeleteGroupLabel(id int64) error {
 	resp, err := c.post(fmt.Sprintf("/groups/%d/delete", id), nil, nil)
 	if err != nil {
@@ -125,7 +125,7 @@ func (c Client) DeleteGroupLabel(id int64) error {
 	return nil
 }
 
-//UpdateGroupLabel - update label
+// UpdateGroupLabel - update label
 func (c Client) UpdateGroupLabel(id int64, a GroupLabel) (*GroupLabels, error) {
 	resp, err := c.post(fmt.Sprintf("/groups/%d/update", id), a, nil)
 	if err != nil {

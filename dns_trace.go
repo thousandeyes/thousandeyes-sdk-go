@@ -102,7 +102,7 @@ func (c Client) CreateDNSTrace(t DNSTrace) (*DNSTrace, error) {
 	return &target["test"][0], nil
 }
 
-//DeleteDNSTrace - delete dns trace test
+// DeleteDNSTrace - delete dns trace test
 func (c *Client) DeleteDNSTrace(id int64) error {
 	resp, err := c.post(fmt.Sprintf("/tests/dns-trace/%d/delete", id), nil, nil)
 	if err != nil {
@@ -114,7 +114,7 @@ func (c *Client) DeleteDNSTrace(id int64) error {
 	return nil
 }
 
-//UpdateDNSTrace - update dns trace test
+// UpdateDNSTrace - update dns trace test
 func (c *Client) UpdateDNSTrace(id int64, t DNSTrace) (*DNSTrace, error) {
 	resp, err := c.post(fmt.Sprintf("/tests/dns-trace/%d/update", id), t, nil)
 	if err != nil {
