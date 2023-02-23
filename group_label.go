@@ -24,6 +24,16 @@ type GroupLabel struct {
 func (t GroupLabel) MarshalJSON() ([]byte, error) {
 	type alias GroupLabel
 
+	if t.Tests != nil && len(*t.Tests) == 0 {
+		ts := make([]GenericTest, 0)
+		t.Tests = &ts
+	}
+
+	if t.Agents != nil && len(*t.Agents) == 0 {
+		as := make([]Agent, 0)
+		t.Agents = &as
+	}
+
 	data, err := json.Marshal((alias)(t))
 	if err != nil {
 		return nil, err
