@@ -72,6 +72,7 @@ type AlertRule struct {
 	RuleName                *string       `json:"ruleName,omitempty"`
 	TestIds                 *[]int        `json:"testIds,omitempty"`
 	Notifications           *Notification `json:"notifications,omitempty"`
+	Severity                *string       `json:"severity,omitempty"`
 }
 
 // MarshalJSON implements the json.Marshaler interface. It ensures
