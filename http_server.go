@@ -48,7 +48,7 @@ type HTTPServer struct {
 	ContentRegex          *string        `json:"contentRegex,omitempty"`
 	CustomHeaders         *CustomHeaders `json:"customHeaders,omitempty"`
 	DesiredStatusCode     *string        `json:"desiredStatusCode,omitempty"`
-	DownloadLimit         *int           `json:"downloadLimit,omitempty"`
+	DownloadLimit         *int64         `json:"downloadLimit,omitempty"`
 	DNSOverride           *string        `json:"dnsOverride,omitempty"`
 	FollowRedirects       *bool          `json:"followRedirects,omitempty" te:"int-bool"`
 	Headers               *[]string      `json:"headers,omitempty"`
