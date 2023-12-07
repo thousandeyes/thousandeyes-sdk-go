@@ -48,10 +48,19 @@ type NotificationThirdParty struct {
 	Channel         *string `json:"channel,omitempty"`
 }
 
+// NotificationWebhook - Alert Rule Notification Webhook structure
+type NotificationWebhook struct {
+	IntegrationID   *string `json:"integrationId,omitempty"`
+	IntegrationName *string `json:"integrationName,omitempty"`
+	IntegrationType *string `json:"integrationType,omitempty"`
+	Target          *string `json:"target,omitempty"`
+}
+
 // Notification - Alert Rule Notification structure
 type Notification struct {
 	Email      *NotificationEmail        `json:"email,omitempty"`
 	ThirdParty *[]NotificationThirdParty `json:"thirdParty,omitempty"`
+	Webhook    *[]NotificationWebhook    `json:"webhook,omitempty"`
 }
 
 // AlertRule - An alert rule
