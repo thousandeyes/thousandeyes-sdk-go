@@ -149,7 +149,7 @@ func TestClient_CreateAlertRuleWithNotifications(t *testing.T) {
 
 func TestClient_CreateAlertRuleWithWebhookNotifications(t *testing.T) {
 	setup()
-	out := `{"alertRuleId": 1, "ruleName": "test", "notifications":{"webhook":[{"integrationId": "1", "integrationName": "foo", "integrationType":"bar"},{"integrationId": "2", "integrationName": "foo2", "integrationType":"bar2"}]}}`
+	out := `{"alertRuleId": 1, "ruleName": "test", "notifications":{"webhook":[{"integrationId": "1", "integrationName": "Teams Channel", "integrationType":"WEBHOOK"},{"integrationId": "2", "integrationName": "Teams Channel", "integrationType":"WEBHOOK"}]}}`
 	mux.HandleFunc("/alert-rules/new.json", func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "POST", r.Method)
 		w.WriteHeader(http.StatusCreated)
@@ -163,13 +163,13 @@ func TestClient_CreateAlertRuleWithWebhookNotifications(t *testing.T) {
 			Webhook: &[]NotificationWebhook{
 				{
 					IntegrationID:   String("1"),
-					IntegrationName: String("foo"),
-					IntegrationType: String("bar"),
+					IntegrationName: String("Teams Channel"),
+					IntegrationType: String("WEBHOOK"),
 				},
 				{
 					IntegrationID:   String("2"),
-					IntegrationName: String("foo2"),
-					IntegrationType: String("bar2"),
+					IntegrationName: String("Teams Channel"),
+					IntegrationType: String("WEBHOOK"),
 				},
 			},
 		},
@@ -185,13 +185,13 @@ func TestClient_CreateAlertRuleWithWebhookNotifications(t *testing.T) {
 			Webhook: &[]NotificationWebhook{
 				{
 					IntegrationID:   String("1"),
-					IntegrationName: String("foo"),
-					IntegrationType: String("bar"),
+					IntegrationName: String("Teams Channel"),
+					IntegrationType: String("WEBHOOK"),
 				},
 				{
 					IntegrationID:   String("2"),
-					IntegrationName: String("foo2"),
-					IntegrationType: String("bar2"),
+					IntegrationName: String("Teams Channel"),
+					IntegrationType: String("WEBHOOK"),
 				},
 			},
 		},
