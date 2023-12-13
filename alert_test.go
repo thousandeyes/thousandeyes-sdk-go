@@ -147,6 +147,58 @@ func TestClient_CreateAlertRuleWithNotifications(t *testing.T) {
 	assert.Equal(t, &expected, res)
 }
 
+func TestClient_CreateAlertRuleWithWebhookNotifications(t *testing.T) {
+	setup()
+	out := `{"alertRuleId": 1, "ruleName": "test", "notifications":{"webhook":[{"integrationId": "1", "integrationName": "Teams Channel", "integrationType":"WEBHOOK"},{"integrationId": "2", "integrationName": "Teams Channel", "integrationType":"WEBHOOK"}]}}`
+	mux.HandleFunc("/alert-rules/new.json", func(w http.ResponseWriter, r *http.Request) {
+		assert.Equal(t, "POST", r.Method)
+		w.WriteHeader(http.StatusCreated)
+		_, _ = w.Write([]byte(out))
+	})
+
+	var client = &Client{APIEndpoint: server.URL, AuthToken: "foo"}
+	u := AlertRule{
+		RuleName: String("test"),
+		Notifications: &Notification{
+			Webhook: &[]NotificationWebhook{
+				{
+					IntegrationID:   String("1"),
+					IntegrationName: String("Teams Channel"),
+					IntegrationType: String("WEBHOOK"),
+				},
+				{
+					IntegrationID:   String("2"),
+					IntegrationName: String("Teams Channel"),
+					IntegrationType: String("WEBHOOK"),
+				},
+			},
+		},
+	}
+	res, err := client.CreateAlertRule(u)
+	if err != nil {
+		t.Fatal(err)
+	}
+	expected := AlertRule{
+		RuleID:   Int64(1),
+		RuleName: String("test"),
+		Notifications: &Notification{
+			Webhook: &[]NotificationWebhook{
+				{
+					IntegrationID:   String("1"),
+					IntegrationName: String("Teams Channel"),
+					IntegrationType: String("WEBHOOK"),
+				},
+				{
+					IntegrationID:   String("2"),
+					IntegrationName: String("Teams Channel"),
+					IntegrationType: String("WEBHOOK"),
+				},
+			},
+		},
+	}
+	assert.Equal(t, &expected, res)
+}
+
 func TestClient_AlertJsonError(t *testing.T) {
 	out := `{"alertRules": [test]}`
 	setup()
