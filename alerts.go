@@ -65,23 +65,24 @@ type Notification struct {
 
 // AlertRule - An alert rule
 type AlertRule struct {
-	AlertRuleID             *int64        `json:"alertRuleId,omitempty"`
-	AlertType               *string       `json:"alertType,omitempty"`
-	Default                 *bool         `json:"default,omitempty" te:"int-bool"`
-	Direction               *string       `json:"direction,omitempty"`
-	Expression              *string       `json:"expression,omitempty"`
-	IncludeCoveredPrefixes  *int          `json:"includeCoveredPrefixes,omitempty"`
-	MinimumSources          *int          `json:"minimumSources,omitempty"`
-	MinimumSourcesPct       *int          `json:"minimumSourcesPct,omitempty"`
-	NotifyOnClear           *bool         `json:"notifyOnClear,omitempty" te:"int-bool"`
-	RoundsViolatingMode     *string       `json:"roundsViolatingMode,omitempty"`
-	RoundsViolatingOutOf    *int          `json:"roundsViolatingOutOf,omitempty"`
-	RoundsViolatingRequired *int          `json:"roundsViolatingRequired,omitempty"`
-	RuleID                  *int64        `json:"ruleId,omitempty"`
-	RuleName                *string       `json:"ruleName,omitempty"`
-	TestIds                 *[]int        `json:"testIds,omitempty"`
-	Notifications           *Notification `json:"notifications,omitempty"`
-	Severity                *string       `json:"severity,omitempty"`
+	AlertRuleID             *int64         `json:"alertRuleId,omitempty"`
+	AlertType               *string        `json:"alertType,omitempty"`
+	Default                 *bool          `json:"default,omitempty" te:"int-bool"`
+	Direction               *string        `json:"direction,omitempty"`
+	Expression              *string        `json:"expression,omitempty"`
+	IncludeCoveredPrefixes  *int           `json:"includeCoveredPrefixes,omitempty"`
+	MinimumSources          *int           `json:"minimumSources,omitempty"`
+	MinimumSourcesPct       *int           `json:"minimumSourcesPct,omitempty"`
+	NotifyOnClear           *bool          `json:"notifyOnClear,omitempty" te:"int-bool"`
+	RoundsViolatingMode     *string        `json:"roundsViolatingMode,omitempty"`
+	RoundsViolatingOutOf    *int           `json:"roundsViolatingOutOf,omitempty"`
+	RoundsViolatingRequired *int           `json:"roundsViolatingRequired,omitempty"`
+	RuleID                  *int64         `json:"ruleId,omitempty"`
+	RuleName                *string        `json:"ruleName,omitempty"`
+	Tests                   *[]GenericTest `json:"tests,omitempty"`
+	TestIds                 *[]int64       `json:"testIds,omitempty"`
+	Notifications           *Notification  `json:"notifications,omitempty"`
+	Severity                *string        `json:"severity,omitempty"`
 }
 
 // MarshalJSON implements the json.Marshaler interface. It ensures
@@ -165,10 +166,10 @@ func (c *Client) GetAlertRule(id int64) (*AlertRule, error) {
 	}
 	var target map[string][]AlertRule
 	if dErr := c.decodeJSON(resp, &target); dErr != nil {
-		return nil, fmt.Errorf("Could not decode JSON response: %v", dErr)
+		return nil, fmt.Errorf("could not decode JSON response: %v", dErr)
 	}
 	if len(target["alertRules"]) < 1 {
-		return nil, fmt.Errorf("Could not get alert rule %v", id)
+		return nil, fmt.Errorf("could not get alert rule %v", id)
 	}
 	return &target["alertRules"][0], nil
 }
