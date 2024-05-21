@@ -33,6 +33,7 @@ type WebTransaction struct {
 	Credentials           *[]int         `json:"credentials,omitempty"`
 	CustomHeaders         *CustomHeaders `json:"customHeaders,omitempty"`
 	DesiredStatusCode     *string        `json:"desiredStatusCode,omitempty"`
+	FollowRedirects       *bool          `json:"followRedirects,omitempty" te:"int-bool"`
 	HTTPTargetTime        *int           `json:"httpTargetTime,omitempty"`
 	HTTPTimeLimit         *int           `json:"httpTimeLimit,omitempty"`
 	HTTPVersion           *int           `json:"httpVersion,omitempty"`
