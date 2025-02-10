@@ -22,7 +22,7 @@ type Configuration struct {
 func NewConfiguration() *Configuration {
 	cfg := &Configuration{
 		DefaultHeader: make(map[string]string),
-		UserAgent:     "ThousandEyes Go SDK v7",
+		UserAgent:     "ThousandEyes Go SDK v3",
 		Debug:         false,
 		ServerURL:     "https://api.stg.thousandeyes.com/v7",
 	}
