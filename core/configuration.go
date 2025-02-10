@@ -24,7 +24,7 @@ func NewConfiguration() *Configuration {
 		DefaultHeader: make(map[string]string),
 		UserAgent:     "ThousandEyes Go SDK v3",
 		Debug:         false,
-		ServerURL:     "https://api.stg.thousandeyes.com/v7",
+		ServerURL:     "https://api.thousandeyes.com/v7",
 	}
 	return cfg
 }
