@@ -42,7 +42,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 		cfg.HTTPClient = http.DefaultClient
 	}
 
-	c := &APIClient{}
+	c := new(APIClient)
 	c.cfg = cfg
 	c.Common.Client = c
 
@@ -104,7 +104,6 @@ func (c *APIClient) PrepareRequest(
 		}
 	}
 
-	// TODO probably removable, ask team
 	if strings.HasPrefix(headerParams["Content-Type"], "application/x-www-form-urlencoded") && len(formParams) > 0 {
 		if body != nil {
 			return nil, errors.New("cannot specify postBody and x-www-form-urlencoded form at the same time")
@@ -119,16 +118,6 @@ func (c *APIClient) PrepareRequest(
 	uri, err := url.Parse(path)
 	if err != nil {
 		return nil, err
-	}
-
-	// Override request host, if applicable
-	if c.cfg.Host != "" {
-		uri.Host = c.cfg.Host
-	}
-
-	// Override request scheme, if applicable
-	if c.cfg.Scheme != "" {
-		uri.Scheme = c.cfg.Scheme
 	}
 
 	// Adding Query Param
@@ -178,9 +167,6 @@ func (c *APIClient) PrepareRequest(
 		localVarRequest = localVarRequest.WithContext(c.cfg.Context)
 	}
 
-	for header, value := range c.cfg.DefaultHeader {
-		localVarRequest.Header.Add(header, value)
-	}
 	return localVarRequest, nil
 }
 
@@ -223,7 +209,7 @@ func (c *APIClient) Decode(v interface{}, b []byte, contentType string) (err err
 					return err
 				}
 			} else {
-				return errors.New("Unknown type with GetActualInstance but no unmarshalObj.UnmarshalJSON defined")
+				return errors.New("unknown type with GetActualInstance but no unmarshalObj.UnmarshalJSON defined")
 			}
 		} else if err = json.Unmarshal(b, v); err != nil { // simple model
 			return err
@@ -252,10 +238,6 @@ func SelectHeaderContentType(contentTypes []string) string {
 func SelectHeaderAccept(accepts []string) string {
 	if len(accepts) == 0 {
 		return ""
-	}
-
-	if contains(accepts, "application/json") {
-		return "application/json"
 	}
 
 	return strings.Join(accepts, ",")
