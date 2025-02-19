@@ -1,0 +1,15 @@
+.openapi-generator-ignore
+README.md
+api_emulation.go
+docs/EmulationAPI.md
+model_emulated_device.go
+model_emulated_device_category.go
+model_emulated_device_response.go
+model_emulated_device_responses.go
+model_error.go
+model_expand_emulated_device_options.go
+model_link.go
+model_self_links.go
+model_unauthorized_error.go
+model_user_agent.go
+model_user_agents.go
