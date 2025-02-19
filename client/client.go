@@ -17,7 +17,7 @@ import (
 )
 
 var (
-	JsonCheck       = regexp.MustCompile(`(?i:(?:application|problem)/(?:hal\+)?json)`)
+	JsonCheck       = regexp.MustCompile(`(?i:(?:application)/(?:hal|problem\+)?json)`)
 	queryParamSplit = regexp.MustCompile(`(^|&)([^&]+)`)
 	queryDescape    = strings.NewReplacer("%5B", "[", "%5D", "]")
 )
