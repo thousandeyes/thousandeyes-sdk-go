@@ -133,7 +133,6 @@ Other parameters are passed through a pointer to a ApiDeleteHttpServerEndpointSc
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
  **aid** | **string** | A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. | 
 
 ### Return type
@@ -206,7 +205,6 @@ Other parameters are passed through a pointer to a ApiGetHttpServerEndpointSched
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
  **aid** | **string** | A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. | 
 
 ### Return type
@@ -348,7 +346,6 @@ Other parameters are passed through a pointer to a ApiUpdateHttpServerEndpointSc
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
  **endpointHttpTestUpdate** | [**EndpointHttpTestUpdate**](EndpointHttpTestUpdate.md) |  | 
  **aid** | **string** | A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. | 
 

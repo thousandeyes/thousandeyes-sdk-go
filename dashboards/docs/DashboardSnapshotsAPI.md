@@ -134,7 +134,6 @@ Other parameters are passed through a pointer to a ApiDeleteDashboardSnapshotReq
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
  **aid** | **string** | A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. | 
 
 ### Return type
@@ -207,7 +206,6 @@ Other parameters are passed through a pointer to a ApiGetDashboardSnapshotReques
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
  **aid** | **string** | A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. | 
 
 ### Return type
@@ -228,7 +226,7 @@ Name | Type | Description  | Notes
 
 ## GetDashboardSnapshotWidgetData
 
-> ApiWidgetDataSnapshotResponse GetDashboardSnapshotWidgetData(snapshotIdwidgetId).Aid(aid).Execute()
+> ApiWidgetDataSnapshotResponse GetDashboardSnapshotWidgetData(snapshotId, widgetId).Aid(aid).Execute()
 
 Retrieve dashboard snapshot data
 
@@ -256,7 +254,7 @@ func main() {
 
 	api := (*dashboards.DashboardSnapshotsAPIService)(&apiClient.Common)
 
-	resp, r, err := api.GetDashboardSnapshotWidgetData(snapshotIdwidgetId).Aid(aid).Execute()
+	resp, r, err := api.GetDashboardSnapshotWidgetData(snapshotId, widgetId).Aid(aid).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DashboardSnapshotsAPI.GetDashboardSnapshotWidgetData``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -281,8 +279,6 @@ Other parameters are passed through a pointer to a ApiGetDashboardSnapshotWidget
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
  **aid** | **string** | A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. | 
 
 ### Return type
@@ -425,7 +421,6 @@ Other parameters are passed through a pointer to a ApiUpdateDashboardSnapshotExp
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
  **updateSnapshotExpirationDateApiRequest** | [**UpdateSnapshotExpirationDateApiRequest**](UpdateSnapshotExpirationDateApiRequest.md) | Request body schema to update a snapshot expiration. | 
  **aid** | **string** | A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. | 
 

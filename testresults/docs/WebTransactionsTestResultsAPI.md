@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 ## GetTestWebTransactionAgentRoundPageResults
 
-> WebTransactionPageDetailTestResults GetTestWebTransactionAgentRoundPageResults(testIdagentIdroundIdpageId).Aid(aid).Execute()
+> WebTransactionPageDetailTestResults GetTestWebTransactionAgentRoundPageResults(testId, agentId, roundId, pageId).Aid(aid).Execute()
 
 Get detailed web transactions test result by agent, round, and page
 
@@ -42,7 +42,7 @@ func main() {
 
 	api := (*testresults.WebTransactionsTestResultsAPIService)(&apiClient.Common)
 
-	resp, r, err := api.GetTestWebTransactionAgentRoundPageResults(testIdagentIdroundIdpageId).Aid(aid).Execute()
+	resp, r, err := api.GetTestWebTransactionAgentRoundPageResults(testId, agentId, roundId, pageId).Aid(aid).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `WebTransactionsTestResultsAPI.GetTestWebTransactionAgentRoundPageResults``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -67,10 +67,6 @@ Other parameters are passed through a pointer to a ApiGetTestWebTransactionAgent
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
-
-
  **aid** | **string** | A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. | 
 
 ### Return type
@@ -91,7 +87,7 @@ Name | Type | Description  | Notes
 
 ## GetTestWebTransactionAgentRoundResults
 
-> WebTransactionDetailTestResults GetTestWebTransactionAgentRoundResults(testIdagentIdroundId).Aid(aid).Execute()
+> WebTransactionDetailTestResults GetTestWebTransactionAgentRoundResults(testId, agentId, roundId).Aid(aid).Execute()
 
 Get web transactions test results by agent and round
 
@@ -120,7 +116,7 @@ func main() {
 
 	api := (*testresults.WebTransactionsTestResultsAPIService)(&apiClient.Common)
 
-	resp, r, err := api.GetTestWebTransactionAgentRoundResults(testIdagentIdroundId).Aid(aid).Execute()
+	resp, r, err := api.GetTestWebTransactionAgentRoundResults(testId, agentId, roundId).Aid(aid).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `WebTransactionsTestResultsAPI.GetTestWebTransactionAgentRoundResults``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -145,9 +141,6 @@ Other parameters are passed through a pointer to a ApiGetTestWebTransactionAgent
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
-
  **aid** | **string** | A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. | 
 
 ### Return type
@@ -225,7 +218,6 @@ Other parameters are passed through a pointer to a ApiGetTestWebTransactionResul
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
  **aid** | **string** | A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. | 
  **window** | **string** | A dynamic time interval up to the current time of the request. Specify the interval as a number followed by an optional type: &#x60;s&#x60; for seconds (default if no type is specified), &#x60;m&#x60; for minutes, &#x60;h&#x60; for hours, &#x60;d&#x60; for days, and &#x60;w&#x60; for weeks. For a precise date range, use &#x60;startDate&#x60; and &#x60;endDate&#x60;. | 
  **startDate** | **time.Time** | Use with the &#x60;endDate&#x60; parameter. Include the complete time (hours, minutes, and seconds) in UTC time zone, following the ISO 8601 date-time format. See the example for reference. Please note that this parameter can&#39;t be used with &#x60;window&#x60;. | 
