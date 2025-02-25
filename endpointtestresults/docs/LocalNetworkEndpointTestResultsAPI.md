@@ -214,7 +214,6 @@ Other parameters are passed through a pointer to a ApiGetLocalNetworksTestResult
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
  **aid** | **string** | A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. | 
  **expand** | [**[]ExpandLocalNetworkTopologyOptions**](ExpandLocalNetworkTopologyOptions.md) | This parameter is optional and determines whether to expand resources related to local network topologies. By default, no expansion occurs when this query parameter is omitted. To expand a specific resource, such as &#x60;systemMetricDetails&#x60;, append  &#x60;?expand&#x3D;system-metric-detail&#x60; to the query. | 
 

@@ -133,7 +133,6 @@ Other parameters are passed through a pointer to a ApiDeleteAccountGroupRequest 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
-
 ### Return type
 
  (empty response body)
@@ -204,7 +203,6 @@ Other parameters are passed through a pointer to a ApiGetAccountGroupRequest str
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
  **expand** | [**[]ExpandAccountGroupOptions**](ExpandAccountGroupOptions.md) | Optional parameter that specifies whether or not account group related resources should be expanded. By default, no expansion takes place if the query parameter is not passed. For example, to expand the &#x60;users&#x60; resource, pass the &#x60;?expand&#x3D;user&#x60; query. | 
 
 ### Return type
@@ -341,7 +339,6 @@ Other parameters are passed through a pointer to a ApiUpdateAccountGroupRequest 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
  **accountGroupRequest** | [**AccountGroupRequest**](AccountGroupRequest.md) |  | 
  **expand** | [**[]ExpandAccountGroupOptions**](ExpandAccountGroupOptions.md) | Optional parameter that specifies whether or not account group related resources should be expanded. By default, no expansion takes place if the query parameter is not passed. For example, to expand the &#x60;users&#x60; resource, pass the &#x60;?expand&#x3D;user&#x60; query. | 
 

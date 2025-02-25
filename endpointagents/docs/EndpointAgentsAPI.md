@@ -67,7 +67,6 @@ Other parameters are passed through a pointer to a ApiDeleteEndpointAgentRequest
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
  **aid** | **string** | A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. | 
  **expand** | [**[]ExpandEndpointAgentOptions**](ExpandEndpointAgentOptions.md) | This optional parameter allows you to control the expansion of test resources associated with the agent. By default, no expansion occurs when this query parameter is omitted. To expand the \&quot;clients\&quot; resource, include the query parameter &#x60;?expand&#x3D;clients&#x60;.  For multiple expansions, you have two options:    * Separate the values with commas. For example, &#x60;?expandAgent&#x3D;clients,tasks&#x60;. * Specify the parameter multiple times. For example, &#x60;?expandAgent&#x3D;clients&amp;expandAgent&#x3D;tasks&#x60;.  This parameter offers flexibility for users to customize the expansion of specific resources related to the agent.  | 
 
@@ -141,7 +140,6 @@ Other parameters are passed through a pointer to a ApiDisableEndpointAgentReques
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
  **aid** | **string** | A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. | 
 
 ### Return type
@@ -214,7 +212,6 @@ Other parameters are passed through a pointer to a ApiEnableEndpointAgentRequest
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
  **aid** | **string** | A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. | 
 
 ### Return type
@@ -367,7 +364,6 @@ Other parameters are passed through a pointer to a ApiGetEndpointAgentRequest st
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
  **aid** | **string** | A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. | 
  **expand** | [**[]ExpandEndpointAgentOptions**](ExpandEndpointAgentOptions.md) | This optional parameter allows you to control the expansion of test resources associated with the agent. By default, no expansion occurs when this query parameter is omitted. To expand the \&quot;clients\&quot; resource, include the query parameter &#x60;?expand&#x3D;clients&#x60;.  For multiple expansions, you have two options:    * Separate the values with commas. For example, &#x60;?expandAgent&#x3D;clients,tasks&#x60;. * Specify the parameter multiple times. For example, &#x60;?expandAgent&#x3D;clients&amp;expandAgent&#x3D;tasks&#x60;.  This parameter offers flexibility for users to customize the expansion of specific resources related to the agent.  | 
  **includeDeleted** | **bool** | When requesting entities, set to &#x60;true&#x60; if you want to see deleted entities. | 
@@ -592,7 +588,6 @@ Other parameters are passed through a pointer to a ApiUpdateEndpointAgentRequest
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
  **aid** | **string** | A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. | 
  **expand** | [**[]ExpandEndpointAgentOptions**](ExpandEndpointAgentOptions.md) | This optional parameter allows you to control the expansion of test resources associated with the agent. By default, no expansion occurs when this query parameter is omitted. To expand the \&quot;clients\&quot; resource, include the query parameter &#x60;?expand&#x3D;clients&#x60;.  For multiple expansions, you have two options:    * Separate the values with commas. For example, &#x60;?expandAgent&#x3D;clients,tasks&#x60;. * Specify the parameter multiple times. For example, &#x60;?expandAgent&#x3D;clients&amp;expandAgent&#x3D;tasks&#x60;.  This parameter offers flexibility for users to customize the expansion of specific resources related to the agent.  | 
  **endpointAgentUpdate** | [**EndpointAgentUpdate**](EndpointAgentUpdate.md) | Fields to modify on the agent | 

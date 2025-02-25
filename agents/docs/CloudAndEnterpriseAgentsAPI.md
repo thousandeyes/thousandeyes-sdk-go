@@ -62,7 +62,6 @@ Other parameters are passed through a pointer to a ApiDeleteAgentRequest struct 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
  **aid** | **string** | A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. | 
 
 ### Return type
@@ -136,7 +135,6 @@ Other parameters are passed through a pointer to a ApiGetAgentRequest struct via
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
  **aid** | **string** | A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. | 
  **expand** | [**[]AgentDetailsExpand**](AgentDetailsExpand.md) | Optional parameter, off by default. Indicates which agent sub-resource to expand. For example, if you wish to expand the &#x60;clusterMembers&#x60; sub-resource, pass the &#x60;?expand&#x3D;cluster-member&#x60; query. | 
 
@@ -284,7 +282,6 @@ Other parameters are passed through a pointer to a ApiUpdateAgentRequest struct 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
  **agentRequest** | [**AgentRequest**](AgentRequest.md) |  | 
  **aid** | **string** | A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. | 
  **expand** | [**[]AgentDetailsExpand**](AgentDetailsExpand.md) | Optional parameter, off by default. Indicates which agent sub-resource to expand. For example, if you wish to expand the &#x60;clusterMembers&#x60; sub-resource, pass the &#x60;?expand&#x3D;cluster-member&#x60; query. | 

@@ -135,7 +135,6 @@ Other parameters are passed through a pointer to a ApiDeleteBgpTestRequest struc
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
  **aid** | **string** | A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. | 
 
 ### Return type
@@ -209,7 +208,6 @@ Other parameters are passed through a pointer to a ApiGetBgpTestRequest struct v
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
  **aid** | **string** | A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. | 
  **expand** | [**[]ExpandBgpTestOptions**](ExpandBgpTestOptions.md) | Optional parameter on whether or not to expand the test sub-resources. By default no expansion takes place if the query parameter is not present. To expand the &#x60;monitors&#x60; sub-resource, pass the &#x60;?expand&#x3D;monitor&#x60; query. | 
 
@@ -353,7 +351,6 @@ Other parameters are passed through a pointer to a ApiUpdateBgpTestRequest struc
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
  **updateBgpTestRequest** | [**UpdateBgpTestRequest**](UpdateBgpTestRequest.md) |  | 
  **aid** | **string** | A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. | 
  **expand** | [**[]ExpandBgpTestOptions**](ExpandBgpTestOptions.md) | Optional parameter on whether or not to expand the test sub-resources. By default no expansion takes place if the query parameter is not present. To expand the &#x60;monitors&#x60; sub-resource, pass the &#x60;?expand&#x3D;monitor&#x60; query. | 

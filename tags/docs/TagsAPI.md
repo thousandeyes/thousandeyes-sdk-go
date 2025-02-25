@@ -204,7 +204,6 @@ Other parameters are passed through a pointer to a ApiDeleteTagRequest struct vi
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
  **aid** | **string** | A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. | 
 
 ### Return type
@@ -278,7 +277,6 @@ Other parameters are passed through a pointer to a ApiGetTagRequest struct via t
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
  **aid** | **string** | A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. | 
  **expand** | [**[]ExpandTagsOptions**](ExpandTagsOptions.md) | Optional, to retrieve associated assignments | 
 
@@ -423,7 +421,6 @@ Other parameters are passed through a pointer to a ApiUpdateTagRequest struct vi
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
  **aid** | **string** | A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. | 
  **tagInfo** | [**TagInfo**](TagInfo.md) |  | 
 

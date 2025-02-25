@@ -133,7 +133,6 @@ Other parameters are passed through a pointer to a ApiDeleteStreamRequest struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
  **aid** | **string** | A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. | 
 
 ### Return type
@@ -207,7 +206,6 @@ Other parameters are passed through a pointer to a ApiGetStreamRequest struct vi
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
  **aid** | **string** | A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. | 
  **type_** | [**StreamType**](StreamType.md) | Optional filter on type of Stream; should match one of Stream &#x60;type&#x60; enum | 
 
@@ -352,7 +350,6 @@ Other parameters are passed through a pointer to a ApiUpdateStreamRequest struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
  **aid** | **string** | A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. | 
  **putStream** | [**PutStream**](PutStream.md) |  | 
 

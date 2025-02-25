@@ -133,7 +133,6 @@ Other parameters are passed through a pointer to a ApiDeleteEndpointLabelRequest
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
  **aid** | **string** | A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. | 
 
 ### Return type
@@ -207,7 +206,6 @@ Other parameters are passed through a pointer to a ApiGetEndpointLabelRequest st
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
  **expand** | [**[]ExpandLabelOptions**](ExpandLabelOptions.md) | This parameter is optional and determines whether to include additional details in the response. To specify multiple expansions, you can either separate the values with commas or specify the parameter multiple times. | 
  **aid** | **string** | A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. | 
 
@@ -356,7 +354,6 @@ Other parameters are passed through a pointer to a ApiUpdateEndpointLabelRequest
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
  **aid** | **string** | A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. | 
  **label** | [**Label**](Label.md) | Fields to change on the agent | 
 

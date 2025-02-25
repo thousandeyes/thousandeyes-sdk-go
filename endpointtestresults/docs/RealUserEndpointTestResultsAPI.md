@@ -251,7 +251,7 @@ Name | Type | Description  | Notes
 
 ## GetRealUserTestPageResults
 
-> RealUserEndpointTestPageDetailResult GetRealUserTestPageResults(idpageId).Aid(aid).Execute()
+> RealUserEndpointTestPageDetailResult GetRealUserTestPageResults(id, pageId).Aid(aid).Execute()
 
 Retrieve endpoint real user test page
 
@@ -279,7 +279,7 @@ func main() {
 
 	api := (*endpointtestresults.RealUserEndpointTestResultsAPIService)(&apiClient.Common)
 
-	resp, r, err := api.GetRealUserTestPageResults(idpageId).Aid(aid).Execute()
+	resp, r, err := api.GetRealUserTestPageResults(id, pageId).Aid(aid).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `RealUserEndpointTestResultsAPI.GetRealUserTestPageResults``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -304,8 +304,6 @@ Other parameters are passed through a pointer to a ApiGetRealUserTestPageResults
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
  **aid** | **string** | A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. | 
 
 ### Return type
@@ -378,7 +376,6 @@ Other parameters are passed through a pointer to a ApiGetRealUserTestResultsRequ
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
  **aid** | **string** | A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. | 
 
 ### Return type
