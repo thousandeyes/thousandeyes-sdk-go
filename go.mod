@@ -1,4 +1,4 @@
-module github.com/thousandeyes/thousandeyes-sdk-go/v3
+module github.com/thousandeyes/thousandeyes-sdk-go/v2.5.3
 
 go 1.18
 
