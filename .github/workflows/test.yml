@@ -5,15 +5,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+
       - name: Set up Go
         uses: actions/setup-go@v3
         with:
           go-version-file: 'go.mod'
           cache: true
+
       - name: Lint
         run: |
           go get golang.org/x/lint/golint
+          go install golang.org/x/lint/golint
           ~/go/bin/golint -set_exit_status
+
       - name: Test
         run: go test -race -coverprofile=coverage.txt -covermode=atomic
