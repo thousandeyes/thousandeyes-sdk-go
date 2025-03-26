@@ -5,6 +5,7 @@ api_usage.go
 docs/QuotasAPI.md
 docs/UsageAPI.md
 model_account_group_quota.go
+model_allocation_unit_usage_breakdown.go
 model_endpoint_agents_embedded.go
 model_endpoint_agents_essentials.go
 model_endpoint_agents_usage.go
@@ -30,6 +31,7 @@ model_self_links.go
 model_test_usage.go
 model_tests_usage.go
 model_unauthorized_error.go
+model_unit_allocation_summary.go
 model_units_by_tests.go
 model_usage.go
 model_usage_details.go
