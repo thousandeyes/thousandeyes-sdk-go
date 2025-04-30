@@ -45,6 +45,11 @@ model_role_request_body.go
 model_roles.go
 model_self_links.go
 model_simple_agent.go
+model_simple_test_.go
+model_test_interval.go
+model_test_links.go
+model_test_self_link.go
+model_test_type.go
 model_unauthorized_error.go
 model_user.go
 model_user_account_group.go
