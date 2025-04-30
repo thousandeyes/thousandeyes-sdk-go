@@ -4,10 +4,12 @@ api_agent_proxies.go
 api_cloud_and_enterprise_agent_notification_rules.go
 api_cloud_and_enterprise_agents.go
 api_enterprise_agent_cluster.go
+api_tests_assignment_on_agents.go
 docs/AgentProxiesAPI.md
 docs/CloudAndEnterpriseAgentNotificationRulesAPI.md
 docs/CloudAndEnterpriseAgentsAPI.md
 docs/EnterpriseAgentClusterAPI.md
+docs/TestsAssignmentOnAgentsAPI.md
 model_account_group.go
 model_agent_base.go
 model_agent_cluster_assign_request.go
@@ -22,6 +24,7 @@ model_agent_proxies.go
 model_agent_proxy.go
 model_agent_request.go
 model_agent_response.go
+model_agent_tests_assign_request.go
 model_alert_email.go
 model_alert_integration_base.go
 model_alert_integration_type.go

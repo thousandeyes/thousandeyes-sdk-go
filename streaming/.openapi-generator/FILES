@@ -21,6 +21,8 @@ model_stream.go
 model_stream_links.go
 model_stream_response.go
 model_stream_self_link.go
+model_stream_status.go
+model_stream_status_type.go
 model_stream_type.go
 model_tag_match.go
 model_tag_match_object_type.go
