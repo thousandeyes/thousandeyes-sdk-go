@@ -29,7 +29,7 @@ import (
 )
 
 func main() {
-	endpointAgentToServerInstantTest := *endpointinstanttests.NewEndpointAgentToServerInstantTest("Test name", "www.example.com") // EndpointAgentToServerInstantTest | 
+	endpointAgentToServerInstantTest := *endpointinstanttests.NewEndpointAgentToServerInstantTest("Test name") // EndpointAgentToServerInstantTest | 
 	aid := "1234" // string | A unique identifier associated with your account group. You can retrieve your `AccountGroupId` from the `/account-groups` endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. (optional)
 
 	configuration := client.NewConfiguration().WithAuthToken("<bearer-token>")
