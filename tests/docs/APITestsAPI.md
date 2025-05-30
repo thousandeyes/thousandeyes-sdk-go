@@ -155,7 +155,7 @@ Name | Type | Description  | Notes
 
 ## GetApiTest
 
-> ApiTestResponse GetApiTest(testId).Aid(aid).Expand(expand).Execute()
+> ApiTestResponse GetApiTest(testId).Aid(aid).VersionId(versionId).Expand(expand).Execute()
 
 Get API test
 
@@ -176,6 +176,7 @@ import (
 func main() {
 	testId := "202701" // string | Test ID
 	aid := "1234" // string | A unique identifier associated with your account group. You can retrieve your `AccountGroupId` from the `/account-groups` endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. (optional)
+	versionId := "1234" // string | The unique identifier for a specific version of the test settings. If provided, returns the test configuration as it existed at that version. To retrieve available version IDs, use the `/tests/{testId}/history` endpoint. If not specified, the current version of the test settings is returned. (optional)
 	expand := []tests.ExpandTestOptions{tests.ExpandTestOptions("agent")} // []ExpandTestOptions | Optional parameter on whether or not to expand the test sub-resources. By default no expansion is going to take place if the query parameter is not present. If the user wishes to expand the `agents` sub-resource, they need to pass the `?expand=agent` query. (optional)
 
 	configuration := client.NewConfiguration().WithAuthToken("<bearer-token>")
@@ -183,7 +184,7 @@ func main() {
 
 	api := (*tests.APITestsAPIService)(&apiClient.Common)
 
-	resp, r, err := api.GetApiTest(testId).Aid(aid).Expand(expand).Execute()
+	resp, r, err := api.GetApiTest(testId).Aid(aid).VersionId(versionId).Expand(expand).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `APITestsAPI.GetApiTest``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -209,6 +210,7 @@ Other parameters are passed through a pointer to a ApiGetApiTestRequest struct v
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **aid** | **string** | A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. | 
+ **versionId** | **string** | The unique identifier for a specific version of the test settings. If provided, returns the test configuration as it existed at that version. To retrieve available version IDs, use the &#x60;/tests/{testId}/history&#x60; endpoint. If not specified, the current version of the test settings is returned. | 
  **expand** | [**[]ExpandTestOptions**](ExpandTestOptions.md) | Optional parameter on whether or not to expand the test sub-resources. By default no expansion is going to take place if the query parameter is not present. If the user wishes to expand the &#x60;agents&#x60; sub-resource, they need to pass the &#x60;?expand&#x3D;agent&#x60; query. | 
 
 ### Return type
