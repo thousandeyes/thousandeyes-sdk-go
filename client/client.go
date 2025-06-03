@@ -63,9 +63,6 @@ func (c *APIClient) CallAPI(request *http.Request) (*http.Response, error) {
 	}
 
 	resp, err := c.cfg.HTTPClient.Do(request)
-	if err != nil {
-		return resp, err
-	}
 
 	if c.cfg.Debug {
 		dump, err := httputil.DumpResponse(resp, true)
@@ -74,6 +71,7 @@ func (c *APIClient) CallAPI(request *http.Request) (*http.Response, error) {
 		}
 		log.Printf("\n%s\n", string(dump))
 	}
+
 	return resp, err
 }
 
