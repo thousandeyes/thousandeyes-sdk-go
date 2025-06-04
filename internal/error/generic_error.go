@@ -18,8 +18,8 @@ func (g GenericAPIError) Error() string {
 }
 
 // FormatErrorMessage format error message using title and detail when model implements rfc7807
-func FormatErrorMessage(status string, v interface{}) string {
-	str := ""
+func FormatErrorMessage(status string, responseBody string, v interface{}) string {
+	str := responseBody
 	metaValue := reflect.ValueOf(v).Elem()
 
 	if metaValue.Kind() == reflect.Struct {
