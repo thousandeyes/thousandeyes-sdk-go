@@ -96,7 +96,7 @@ Name | Type | Description  | Notes
 
 ## FilterScheduledTestsNetworkResults
 
-> MultiTestIdNetworkEndpointTestResults FilterScheduledTestsNetworkResults().Aid(aid).Window(window).StartDate(startDate).EndDate(endDate).Max(max).Cursor(cursor).MultiTestIdEndpointTestsDataRoundsSearch(multiTestIdEndpointTestsDataRoundsSearch).Execute()
+> MultiTestIdNetworkEndpointTestResults FilterScheduledTestsNetworkResults().Aid(aid).Window(window).StartDate(startDate).EndDate(endDate).Max(max).Cursor(cursor).UseAllPermittedAids(useAllPermittedAids).MultiTestIdEndpointTestsDataRoundsSearch(multiTestIdEndpointTestsDataRoundsSearch).Execute()
 
 Retrieve network scheduled test results from multiple tests
 
@@ -122,6 +122,7 @@ func main() {
 	endDate := time.Now() // time.Time | Defaults to current time the request is made. Use with the `startDate` parameter. Include the complete time (hours, minutes, and seconds) in UTC time zone, following the ISO 8601 date-time format. See the example for reference. Please note that this parameter can't be used with `window`. (optional)
 	max := int32(5) // int32 | (Optional) Maximum number of objects to return. (optional)
 	cursor := "cursor_example" // string | (Optional) Opaque cursor used for pagination. Clients should use `next` value from `_links` instead of this parameter. (optional)
+	useAllPermittedAids := false // bool | Set to `true` to load data from all accounts the user has access to. (optional) (default to false)
 	multiTestIdEndpointTestsDataRoundsSearch := *endpointtestresults.NewMultiTestIdEndpointTestsDataRoundsSearch() // MultiTestIdEndpointTestsDataRoundsSearch | Test data search filters. (optional)
 
 	configuration := client.NewConfiguration().WithAuthToken("<bearer-token>")
@@ -129,7 +130,7 @@ func main() {
 
 	api := (*endpointtestresults.NetworkEndpointScheduledTestResultsAPIService)(&apiClient.Common)
 
-	resp, r, err := api.FilterScheduledTestsNetworkResults().Aid(aid).Window(window).StartDate(startDate).EndDate(endDate).Max(max).Cursor(cursor).MultiTestIdEndpointTestsDataRoundsSearch(multiTestIdEndpointTestsDataRoundsSearch).Execute()
+	resp, r, err := api.FilterScheduledTestsNetworkResults().Aid(aid).Window(window).StartDate(startDate).EndDate(endDate).Max(max).Cursor(cursor).UseAllPermittedAids(useAllPermittedAids).MultiTestIdEndpointTestsDataRoundsSearch(multiTestIdEndpointTestsDataRoundsSearch).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `NetworkEndpointScheduledTestResultsAPI.FilterScheduledTestsNetworkResults``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -157,6 +158,7 @@ Name | Type | Description  | Notes
  **endDate** | **time.Time** | Defaults to current time the request is made. Use with the &#x60;startDate&#x60; parameter. Include the complete time (hours, minutes, and seconds) in UTC time zone, following the ISO 8601 date-time format. See the example for reference. Please note that this parameter can&#39;t be used with &#x60;window&#x60;. | 
  **max** | **int32** | (Optional) Maximum number of objects to return. | 
  **cursor** | **string** | (Optional) Opaque cursor used for pagination. Clients should use &#x60;next&#x60; value from &#x60;_links&#x60; instead of this parameter. | 
+ **useAllPermittedAids** | **bool** | Set to &#x60;true&#x60; to load data from all accounts the user has access to. | [default to false]
  **multiTestIdEndpointTestsDataRoundsSearch** | [**MultiTestIdEndpointTestsDataRoundsSearch**](MultiTestIdEndpointTestsDataRoundsSearch.md) | Test data search filters. | 
 
 ### Return type

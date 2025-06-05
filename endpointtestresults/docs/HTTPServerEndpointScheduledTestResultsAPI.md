@@ -94,7 +94,7 @@ Name | Type | Description  | Notes
 
 ## GetMultiTestFilteredHttpServerScheduledTestResults
 
-> HttpMultiEndpointTestResults GetMultiTestFilteredHttpServerScheduledTestResults().Aid(aid).Window(window).StartDate(startDate).EndDate(endDate).Cursor(cursor).Expand(expand).HttpEndpointTestsDataRoundsSearch(httpEndpointTestsDataRoundsSearch).Execute()
+> HttpMultiEndpointTestResults GetMultiTestFilteredHttpServerScheduledTestResults().Aid(aid).Window(window).StartDate(startDate).EndDate(endDate).Cursor(cursor).UseAllPermittedAids(useAllPermittedAids).Expand(expand).HttpEndpointTestsDataRoundsSearch(httpEndpointTestsDataRoundsSearch).Execute()
 
 Filter HTTP server scheduled test results
 
@@ -119,6 +119,7 @@ func main() {
 	startDate := time.Now() // time.Time | Use with the `endDate` parameter. Include the complete time (hours, minutes, and seconds) in UTC time zone, following the ISO 8601 date-time format. See the example for reference. Please note that this parameter can't be used with `window`. (optional)
 	endDate := time.Now() // time.Time | Defaults to current time the request is made. Use with the `startDate` parameter. Include the complete time (hours, minutes, and seconds) in UTC time zone, following the ISO 8601 date-time format. See the example for reference. Please note that this parameter can't be used with `window`. (optional)
 	cursor := "cursor_example" // string | (Optional) Opaque cursor used for pagination. Clients should use `next` value from `_links` instead of this parameter. (optional)
+	useAllPermittedAids := false // bool | Set to `true` to load data from all accounts the user has access to. (optional) (default to false)
 	expand := []endpointtestresults.ExpandEndpointHttpServerOptions{endpointtestresults.ExpandEndpointHttpServerOptions("header")} // []ExpandEndpointHttpServerOptions | This parameter is optional and determines whether to expand resources related to test results. By default, no expansion occurs when this query parameter is omitted. To expand a specific resource, such as \"header,\" append `?expand=header` to the query. (optional)
 	httpEndpointTestsDataRoundsSearch := *endpointtestresults.NewHttpEndpointTestsDataRoundsSearch() // HttpEndpointTestsDataRoundsSearch | Test data search filters. (optional)
 
@@ -127,7 +128,7 @@ func main() {
 
 	api := (*endpointtestresults.HTTPServerEndpointScheduledTestResultsAPIService)(&apiClient.Common)
 
-	resp, r, err := api.GetMultiTestFilteredHttpServerScheduledTestResults().Aid(aid).Window(window).StartDate(startDate).EndDate(endDate).Cursor(cursor).Expand(expand).HttpEndpointTestsDataRoundsSearch(httpEndpointTestsDataRoundsSearch).Execute()
+	resp, r, err := api.GetMultiTestFilteredHttpServerScheduledTestResults().Aid(aid).Window(window).StartDate(startDate).EndDate(endDate).Cursor(cursor).UseAllPermittedAids(useAllPermittedAids).Expand(expand).HttpEndpointTestsDataRoundsSearch(httpEndpointTestsDataRoundsSearch).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `HTTPServerEndpointScheduledTestResultsAPI.GetMultiTestFilteredHttpServerScheduledTestResults``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -154,6 +155,7 @@ Name | Type | Description  | Notes
  **startDate** | **time.Time** | Use with the &#x60;endDate&#x60; parameter. Include the complete time (hours, minutes, and seconds) in UTC time zone, following the ISO 8601 date-time format. See the example for reference. Please note that this parameter can&#39;t be used with &#x60;window&#x60;. | 
  **endDate** | **time.Time** | Defaults to current time the request is made. Use with the &#x60;startDate&#x60; parameter. Include the complete time (hours, minutes, and seconds) in UTC time zone, following the ISO 8601 date-time format. See the example for reference. Please note that this parameter can&#39;t be used with &#x60;window&#x60;. | 
  **cursor** | **string** | (Optional) Opaque cursor used for pagination. Clients should use &#x60;next&#x60; value from &#x60;_links&#x60; instead of this parameter. | 
+ **useAllPermittedAids** | **bool** | Set to &#x60;true&#x60; to load data from all accounts the user has access to. | [default to false]
  **expand** | [**[]ExpandEndpointHttpServerOptions**](ExpandEndpointHttpServerOptions.md) | This parameter is optional and determines whether to expand resources related to test results. By default, no expansion occurs when this query parameter is omitted. To expand a specific resource, such as \&quot;header,\&quot; append &#x60;?expand&#x3D;header&#x60; to the query. | 
  **httpEndpointTestsDataRoundsSearch** | [**HttpEndpointTestsDataRoundsSearch**](HttpEndpointTestsDataRoundsSearch.md) | Test data search filters. | 
 
