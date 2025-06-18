@@ -109,7 +109,7 @@ func main() {
 	endDate := time.Now() // time.Time | Defaults to current time the request is made. Use with the `startDate` parameter. Include the complete time (hours, minutes, and seconds) in UTC time zone, following the ISO 8601 date-time format. See the example for reference. Please note that this parameter can't be used with `window`. (optional)
 	max := int32(5) // int32 | (Optional) Maximum number of objects to return. (optional)
 	cursor := "cursor_example" // string | (Optional) Opaque cursor used for pagination. Clients should use `next` value from `_links` instead of this parameter. (optional)
-	state := alerts.State("clear") // State | Optional parameter to match a specific alert state. If not specified, it defaults to `trigger`. (optional)
+	state := alerts.AlertState("clear") // AlertState | Optional parameter to match a specific alert state. If not specified, it defaults to `trigger`. (optional)
 
 	configuration := client.NewConfiguration().WithAuthToken("<bearer-token>")
 	apiClient := client.NewAPIClient(configuration)
@@ -144,7 +144,7 @@ Name | Type | Description  | Notes
  **endDate** | **time.Time** | Defaults to current time the request is made. Use with the &#x60;startDate&#x60; parameter. Include the complete time (hours, minutes, and seconds) in UTC time zone, following the ISO 8601 date-time format. See the example for reference. Please note that this parameter can&#39;t be used with &#x60;window&#x60;. | 
  **max** | **int32** | (Optional) Maximum number of objects to return. | 
  **cursor** | **string** | (Optional) Opaque cursor used for pagination. Clients should use &#x60;next&#x60; value from &#x60;_links&#x60; instead of this parameter. | 
- **state** | [**State**](State.md) | Optional parameter to match a specific alert state. If not specified, it defaults to &#x60;trigger&#x60;. | 
+ **state** | [**AlertState**](AlertState.md) | Optional parameter to match a specific alert state. If not specified, it defaults to &#x60;trigger&#x60;. | 
 
 ### Return type
 

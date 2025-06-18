@@ -37,6 +37,11 @@ model_endpoint_path_trace.go
 model_endpoint_path_vis_hop.go
 model_endpoint_path_vis_route.go
 model_endpoint_ping_data_point_score.go
+model_endpoint_probe_agent_score.go
+model_endpoint_probe_connection_score.go
+model_endpoint_probe_gateway_score.go
+model_endpoint_probe_proxy_score.go
+model_endpoint_probe_vpn_score.go
 model_endpoint_result_request_filter.go
 model_endpoint_scheduled_test_.go
 model_endpoint_scheduled_test_type.go
@@ -55,6 +60,8 @@ model_endpoint_tests_data_search_sort.go
 model_endpoint_tests_data_search_sort_key.go
 model_endpoint_tests_data_threshold_filter.go
 model_endpoint_tests_data_threshold_filters.go
+model_endpoint_zta_metrics.go
+model_endpoint_zta_segment_type.go
 model_error.go
 model_expand_endpoint_http_server_options.go
 model_expand_local_network_topology_options.go

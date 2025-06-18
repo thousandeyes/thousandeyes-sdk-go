@@ -15,7 +15,9 @@ model_alert_meta.go
 model_alert_metric_detail.go
 model_alert_notification.go
 model_alert_rounds_violation_mode.go
+model_alert_severity.go
 model_alert_simple_test_.go
+model_alert_state.go
 model_alert_suppression_window.go
 model_alert_suppression_window_detail.go
 model_alert_suppression_window_request.go

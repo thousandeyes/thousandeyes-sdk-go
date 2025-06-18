@@ -49,6 +49,7 @@ model_agent_to_server_tests.go
 model_alert_direction.go
 model_alert_rounds_violation_mode.go
 model_alert_rule.go
+model_alert_severity.go
 model_alert_type.go
 model_api_client_authentication.go
 model_api_instant_test_.go
@@ -128,7 +129,6 @@ model_page_load_tests.go
 model_request_method.go
 model_self_links.go
 model_sensitivity_level.go
-model_severity.go
 model_shared_with_account.go
 model_simple_agent.go
 model_simple_test_.go
