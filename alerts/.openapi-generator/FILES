@@ -36,6 +36,7 @@ model_error.go
 model_expand_alert_test_options.go
 model_interval_type.go
 model_legacy_alert.go
+model_legacy_alert_detail.go
 model_link.go
 model_notification_custom_webhook.go
 model_notification_email.go
