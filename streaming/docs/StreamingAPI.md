@@ -4,11 +4,11 @@ All URIs are relative to *https://api.thousandeyes.com/v7*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateStream**](StreamingAPI.md#CreateStream) | **Post** /stream | Create data stream
-[**DeleteStream**](StreamingAPI.md#DeleteStream) | **Delete** /stream/{id} | Delete a data stream
-[**GetStream**](StreamingAPI.md#GetStream) | **Get** /stream/{id} | Retrieve data stream
-[**GetStreams**](StreamingAPI.md#GetStreams) | **Get** /stream | List data streams
-[**UpdateStream**](StreamingAPI.md#UpdateStream) | **Put** /stream/{id} | Update data stream
+[**CreateStream**](StreamingAPI.md#CreateStream) | **Post** /streams | Create data stream
+[**DeleteStream**](StreamingAPI.md#DeleteStream) | **Delete** /streams/{id} | Delete a data stream
+[**GetStream**](StreamingAPI.md#GetStream) | **Get** /streams/{id} | Retrieve data stream
+[**GetStreams**](StreamingAPI.md#GetStreams) | **Get** /streams | List data streams
+[**UpdateStream**](StreamingAPI.md#UpdateStream) | **Put** /streams/{id} | Update data stream
 
 
 
