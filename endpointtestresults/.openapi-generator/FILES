@@ -64,7 +64,9 @@ model_endpoint_tests_data_threshold_filters.go
 model_endpoint_zta_metrics.go
 model_endpoint_zta_segment_type.go
 model_error.go
+model_expand_endpoint_dynamic_network_options.go
 model_expand_endpoint_http_server_options.go
+model_expand_endpoint_network_options.go
 model_expand_local_network_topology_options.go
 model_gateway_network_ping.go
 model_hop.go
@@ -157,6 +159,7 @@ model_trigger.go
 model_udp_path_trace_mode_response.go
 model_udp_probe_mode_response.go
 model_unauthorized_error.go
+model_user_profile.go
 model_validation_error.go
 model_validation_error_item.go
 model_vpn_network_ping.go

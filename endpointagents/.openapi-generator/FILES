@@ -33,6 +33,7 @@ model_endpoint_user_profile.go
 model_endpoint_vpn_profile.go
 model_error.go
 model_expand_endpoint_agent_options.go
+model_external_metadata_item.go
 model_filter_endpoint_agents_response.go
 model_interface_hardware_type.go
 model_interface_profile.go

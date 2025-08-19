@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## FilterScheduledTestNetworkResults
 
-> NetworkEndpointTestResults FilterScheduledTestNetworkResults(testId).Aid(aid).Window(window).StartDate(startDate).EndDate(endDate).Cursor(cursor).EndpointTestsDataRoundsSearch(endpointTestsDataRoundsSearch).Execute()
+> NetworkEndpointTestResults FilterScheduledTestNetworkResults(testId).Aid(aid).Window(window).StartDate(startDate).EndDate(endDate).Cursor(cursor).Expand(expand).EndpointTestsDataRoundsSearch(endpointTestsDataRoundsSearch).Execute()
 
 Retrieve network scheduled test results
 
@@ -39,6 +39,7 @@ func main() {
 	startDate := time.Now() // time.Time | Use with the `endDate` parameter. Include the complete time (hours, minutes, and seconds) in UTC time zone, following the ISO 8601 date-time format. See the example for reference. Please note that this parameter can't be used with `window`. (optional)
 	endDate := time.Now() // time.Time | Defaults to current time the request is made. Use with the `startDate` parameter. Include the complete time (hours, minutes, and seconds) in UTC time zone, following the ISO 8601 date-time format. See the example for reference. Please note that this parameter can't be used with `window`. (optional)
 	cursor := "cursor_example" // string | (Optional) Opaque cursor used for pagination. Clients should use `next` value from `_links` instead of this parameter. (optional)
+	expand := []endpointtestresults.ExpandEndpointNetworkOptions{endpointtestresults.ExpandEndpointNetworkOptions("user-profile")} // []ExpandEndpointNetworkOptions | This parameter is optional and determines whether to expand resources related to test results. By default, no expansion occurs when this query parameter is omitted. To expand a specific resource, such as \"user-profile,\" append `?expand=user-profile` to the query. (optional)
 	endpointTestsDataRoundsSearch := *endpointtestresults.NewEndpointTestsDataRoundsSearch() // EndpointTestsDataRoundsSearch | Tests data search filters. (optional)
 
 	configuration := client.NewConfiguration().WithAuthToken("<bearer-token>")
@@ -46,7 +47,7 @@ func main() {
 
 	api := (*endpointtestresults.NetworkEndpointScheduledTestResultsAPIService)(&apiClient.Common)
 
-	resp, r, err := api.FilterScheduledTestNetworkResults(testId).Aid(aid).Window(window).StartDate(startDate).EndDate(endDate).Cursor(cursor).EndpointTestsDataRoundsSearch(endpointTestsDataRoundsSearch).Execute()
+	resp, r, err := api.FilterScheduledTestNetworkResults(testId).Aid(aid).Window(window).StartDate(startDate).EndDate(endDate).Cursor(cursor).Expand(expand).EndpointTestsDataRoundsSearch(endpointTestsDataRoundsSearch).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `NetworkEndpointScheduledTestResultsAPI.FilterScheduledTestNetworkResults``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -76,6 +77,7 @@ Name | Type | Description  | Notes
  **startDate** | **time.Time** | Use with the &#x60;endDate&#x60; parameter. Include the complete time (hours, minutes, and seconds) in UTC time zone, following the ISO 8601 date-time format. See the example for reference. Please note that this parameter can&#39;t be used with &#x60;window&#x60;. | 
  **endDate** | **time.Time** | Defaults to current time the request is made. Use with the &#x60;startDate&#x60; parameter. Include the complete time (hours, minutes, and seconds) in UTC time zone, following the ISO 8601 date-time format. See the example for reference. Please note that this parameter can&#39;t be used with &#x60;window&#x60;. | 
  **cursor** | **string** | (Optional) Opaque cursor used for pagination. Clients should use &#x60;next&#x60; value from &#x60;_links&#x60; instead of this parameter. | 
+ **expand** | [**[]ExpandEndpointNetworkOptions**](ExpandEndpointNetworkOptions.md) | This parameter is optional and determines whether to expand resources related to test results. By default, no expansion occurs when this query parameter is omitted. To expand a specific resource, such as \&quot;user-profile,\&quot; append &#x60;?expand&#x3D;user-profile&#x60; to the query. | 
  **endpointTestsDataRoundsSearch** | [**EndpointTestsDataRoundsSearch**](EndpointTestsDataRoundsSearch.md) | Tests data search filters. | 
 
 ### Return type
@@ -96,7 +98,7 @@ Name | Type | Description  | Notes
 
 ## FilterScheduledTestsNetworkResults
 
-> MultiTestIdNetworkEndpointTestResults FilterScheduledTestsNetworkResults().Aid(aid).Window(window).StartDate(startDate).EndDate(endDate).Max(max).Cursor(cursor).UseAllPermittedAids(useAllPermittedAids).MultiTestIdEndpointTestsDataRoundsSearch(multiTestIdEndpointTestsDataRoundsSearch).Execute()
+> MultiTestIdNetworkEndpointTestResults FilterScheduledTestsNetworkResults().Aid(aid).Window(window).StartDate(startDate).EndDate(endDate).Max(max).Cursor(cursor).UseAllPermittedAids(useAllPermittedAids).Expand(expand).MultiTestIdEndpointTestsDataRoundsSearch(multiTestIdEndpointTestsDataRoundsSearch).Execute()
 
 Retrieve network scheduled test results from multiple tests
 
@@ -123,6 +125,7 @@ func main() {
 	max := int32(5) // int32 | (Optional) Maximum number of objects to return. (optional)
 	cursor := "cursor_example" // string | (Optional) Opaque cursor used for pagination. Clients should use `next` value from `_links` instead of this parameter. (optional)
 	useAllPermittedAids := false // bool | Set to `true` to load data from all accounts the user has access to. (optional) (default to false)
+	expand := []endpointtestresults.ExpandEndpointNetworkOptions{endpointtestresults.ExpandEndpointNetworkOptions("user-profile")} // []ExpandEndpointNetworkOptions | This parameter is optional and determines whether to expand resources related to test results. By default, no expansion occurs when this query parameter is omitted. To expand a specific resource, such as \"user-profile,\" append `?expand=user-profile` to the query. (optional)
 	multiTestIdEndpointTestsDataRoundsSearch := *endpointtestresults.NewMultiTestIdEndpointTestsDataRoundsSearch() // MultiTestIdEndpointTestsDataRoundsSearch | Test data search filters. (optional)
 
 	configuration := client.NewConfiguration().WithAuthToken("<bearer-token>")
@@ -130,7 +133,7 @@ func main() {
 
 	api := (*endpointtestresults.NetworkEndpointScheduledTestResultsAPIService)(&apiClient.Common)
 
-	resp, r, err := api.FilterScheduledTestsNetworkResults().Aid(aid).Window(window).StartDate(startDate).EndDate(endDate).Max(max).Cursor(cursor).UseAllPermittedAids(useAllPermittedAids).MultiTestIdEndpointTestsDataRoundsSearch(multiTestIdEndpointTestsDataRoundsSearch).Execute()
+	resp, r, err := api.FilterScheduledTestsNetworkResults().Aid(aid).Window(window).StartDate(startDate).EndDate(endDate).Max(max).Cursor(cursor).UseAllPermittedAids(useAllPermittedAids).Expand(expand).MultiTestIdEndpointTestsDataRoundsSearch(multiTestIdEndpointTestsDataRoundsSearch).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `NetworkEndpointScheduledTestResultsAPI.FilterScheduledTestsNetworkResults``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -159,6 +162,7 @@ Name | Type | Description  | Notes
  **max** | **int32** | (Optional) Maximum number of objects to return. | 
  **cursor** | **string** | (Optional) Opaque cursor used for pagination. Clients should use &#x60;next&#x60; value from &#x60;_links&#x60; instead of this parameter. | 
  **useAllPermittedAids** | **bool** | Set to &#x60;true&#x60; to load data from all accounts the user has access to. | [default to false]
+ **expand** | [**[]ExpandEndpointNetworkOptions**](ExpandEndpointNetworkOptions.md) | This parameter is optional and determines whether to expand resources related to test results. By default, no expansion occurs when this query parameter is omitted. To expand a specific resource, such as \&quot;user-profile,\&quot; append &#x60;?expand&#x3D;user-profile&#x60; to the query. | 
  **multiTestIdEndpointTestsDataRoundsSearch** | [**MultiTestIdEndpointTestsDataRoundsSearch**](MultiTestIdEndpointTestsDataRoundsSearch.md) | Test data search filters. | 
 
 ### Return type

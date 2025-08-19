@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 ## FilterDynamicTestNetworkResults
 
-> NetworkDynamicEndpointTestResults FilterDynamicTestNetworkResults(testId).Aid(aid).Window(window).StartDate(startDate).EndDate(endDate).Cursor(cursor).DynamicEndpointTestsDataRoundSearch(dynamicEndpointTestsDataRoundSearch).Execute()
+> NetworkDynamicEndpointTestResults FilterDynamicTestNetworkResults(testId).Aid(aid).Window(window).StartDate(startDate).EndDate(endDate).Cursor(cursor).Expand(expand).DynamicEndpointTestsDataRoundSearch(dynamicEndpointTestsDataRoundSearch).Execute()
 
 Retrieve network dynamic test results
 
@@ -38,6 +38,7 @@ func main() {
 	startDate := time.Now() // time.Time | Use with the `endDate` parameter. Include the complete time (hours, minutes, and seconds) in UTC time zone, following the ISO 8601 date-time format. See the example for reference. Please note that this parameter can't be used with `window`. (optional)
 	endDate := time.Now() // time.Time | Defaults to current time the request is made. Use with the `startDate` parameter. Include the complete time (hours, minutes, and seconds) in UTC time zone, following the ISO 8601 date-time format. See the example for reference. Please note that this parameter can't be used with `window`. (optional)
 	cursor := "cursor_example" // string | (Optional) Opaque cursor used for pagination. Clients should use `next` value from `_links` instead of this parameter. (optional)
+	expand := []endpointtestresults.ExpandEndpointDynamicNetworkOptions{endpointtestresults.ExpandEndpointDynamicNetworkOptions("user-profile")} // []ExpandEndpointDynamicNetworkOptions | This parameter is optional and determines whether to expand resources related to test results. By default, no expansion occurs when this query parameter is omitted. To expand a specific resource, such as \"user-profile,\" append `?expand=user-profile` to the query. (optional)
 	dynamicEndpointTestsDataRoundSearch := *endpointtestresults.NewDynamicEndpointTestsDataRoundSearch() // DynamicEndpointTestsDataRoundSearch | Tests data search filters. (optional)
 
 	configuration := client.NewConfiguration().WithAuthToken("<bearer-token>")
@@ -45,7 +46,7 @@ func main() {
 
 	api := (*endpointtestresults.NetworkDynamicEndpointTestResultsAPIService)(&apiClient.Common)
 
-	resp, r, err := api.FilterDynamicTestNetworkResults(testId).Aid(aid).Window(window).StartDate(startDate).EndDate(endDate).Cursor(cursor).DynamicEndpointTestsDataRoundSearch(dynamicEndpointTestsDataRoundSearch).Execute()
+	resp, r, err := api.FilterDynamicTestNetworkResults(testId).Aid(aid).Window(window).StartDate(startDate).EndDate(endDate).Cursor(cursor).Expand(expand).DynamicEndpointTestsDataRoundSearch(dynamicEndpointTestsDataRoundSearch).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `NetworkDynamicEndpointTestResultsAPI.FilterDynamicTestNetworkResults``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -75,6 +76,7 @@ Name | Type | Description  | Notes
  **startDate** | **time.Time** | Use with the &#x60;endDate&#x60; parameter. Include the complete time (hours, minutes, and seconds) in UTC time zone, following the ISO 8601 date-time format. See the example for reference. Please note that this parameter can&#39;t be used with &#x60;window&#x60;. | 
  **endDate** | **time.Time** | Defaults to current time the request is made. Use with the &#x60;startDate&#x60; parameter. Include the complete time (hours, minutes, and seconds) in UTC time zone, following the ISO 8601 date-time format. See the example for reference. Please note that this parameter can&#39;t be used with &#x60;window&#x60;. | 
  **cursor** | **string** | (Optional) Opaque cursor used for pagination. Clients should use &#x60;next&#x60; value from &#x60;_links&#x60; instead of this parameter. | 
+ **expand** | [**[]ExpandEndpointDynamicNetworkOptions**](ExpandEndpointDynamicNetworkOptions.md) | This parameter is optional and determines whether to expand resources related to test results. By default, no expansion occurs when this query parameter is omitted. To expand a specific resource, such as \&quot;user-profile,\&quot; append &#x60;?expand&#x3D;user-profile&#x60; to the query. | 
  **dynamicEndpointTestsDataRoundSearch** | [**DynamicEndpointTestsDataRoundSearch**](DynamicEndpointTestsDataRoundSearch.md) | Tests data search filters. | 
 
 ### Return type
