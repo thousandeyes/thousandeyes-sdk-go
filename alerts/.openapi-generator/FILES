@@ -9,6 +9,7 @@ docs/AlertsAPI.md
 model_alert.go
 model_alert_detail.go
 model_alert_direction.go
+model_alert_embedded.go
 model_alert_group_type.go
 model_alert_links.go
 model_alert_meta.go
@@ -24,6 +25,7 @@ model_alert_suppression_windows_.go
 model_alert_test_type.go
 model_alert_type.go
 model_alerts.go
+model_asn.go
 model_base_alert.go
 model_base_alert_suppression_window.go
 model_base_rule.go
