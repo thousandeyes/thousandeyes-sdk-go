@@ -4,7 +4,7 @@ All URIs are relative to *https://api.thousandeyes.com/v7*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FilterRealUserTestsNetworkResults**](RealUserEndpointTestResultsAPI.md#FilterRealUserTestsNetworkResults) | **Post** /endpoint/test-results/real-user-tests/networks/filter | List endpoint real user tests
+[**FilterRealUserTestsNetworkResults**](RealUserEndpointTestResultsAPI.md#FilterRealUserTestsNetworkResults) | **Post** /endpoint/test-results/real-user-tests/networks/filter | List endpoint real user tests networks
 [**FilterRealUserTestsResults**](RealUserEndpointTestResultsAPI.md#FilterRealUserTestsResults) | **Post** /endpoint/test-results/real-user-tests/filter | List endpoint real user tests
 [**FilterRealUserTestsVisitedPagesResults**](RealUserEndpointTestResultsAPI.md#FilterRealUserTestsVisitedPagesResults) | **Post** /endpoint/test-results/real-user-tests/pages/filter | List endpoint real user tests visited pages
 [**GetRealUserTestPageResults**](RealUserEndpointTestResultsAPI.md#GetRealUserTestPageResults) | **Get** /endpoint/test-results/real-user-tests/{id}/pages/{pageId} | Retrieve endpoint real user test page
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > RealUserEndpointTestNetworkResults FilterRealUserTestsNetworkResults().Aid(aid).Window(window).StartDate(startDate).EndDate(endDate).Cursor(cursor).RealUserEndpointTestResultsRequest(realUserEndpointTestResultsRequest).Execute()
 
-List endpoint real user tests
+List endpoint real user tests networks
 
 
 
