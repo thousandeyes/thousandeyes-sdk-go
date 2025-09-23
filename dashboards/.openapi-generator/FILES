@@ -37,6 +37,7 @@ model_api_duration.go
 model_api_geo_map_widget.go
 model_api_graphlet_point.go
 model_api_grouped_barchart_widget.go
+model_api_list_widget.go
 model_api_multi_metric_column.go
 model_api_multi_metric_column_data.go
 model_api_multi_metric_table_widget.go
@@ -95,6 +96,7 @@ model_legacy_duration_unit.go
 model_legacy_widget_sort_direction.go
 model_legacy_widget_sort_property.go
 model_link.go
+model_list_datasource.go
 model_metric_group.go
 model_multi_metrics_table_datasource.go
 model_numbers_card_datasource.go
