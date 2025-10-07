@@ -14,6 +14,8 @@ import (
 	"reflect"
 	"regexp"
 	"strings"
+
+	"github.com/hashicorp/go-retryablehttp"
 )
 
 var (
@@ -32,11 +34,17 @@ type Service struct {
 	Client *APIClient
 }
 
+func NewRetryAPIClient() *http.Client {
+	var retryClient = retryablehttp.NewClient()
+	retryClient.Backoff = customBackoff
+	return retryClient.StandardClient()
+}
+
 // NewAPIClient creates a new API client.
 // optionally a custom http.Client to allow for advanced features such as caching.
 func NewAPIClient(cfg *Configuration) *APIClient {
 	if cfg.HTTPClient == nil {
-		cfg.HTTPClient = http.DefaultClient
+		cfg.HTTPClient = NewRetryAPIClient()
 	}
 
 	c := new(APIClient)
