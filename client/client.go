@@ -36,7 +36,7 @@ type Service struct {
 
 func NewRetryAPIClient() *http.Client {
 	var retryClient = retryablehttp.NewClient()
-	retryClient.Backoff = customBackoff
+	retryClient.Backoff = thousandEyesBackoff
 	return retryClient.StandardClient()
 }
 

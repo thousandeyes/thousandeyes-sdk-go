@@ -19,7 +19,7 @@ var (
 )
 
 // Custom backoff function
-func customBackoff(min, max time.Duration, attemptNum int, resp *http.Response) time.Duration {
+func thousandEyesBackoff(min, max time.Duration, attemptNum int, resp *http.Response) time.Duration {
 	if resp == nil {
 		return 0
 	}
