@@ -34,18 +34,23 @@ type Service struct {
 	Client *APIClient
 }
 
-func NewRetryAPIClient() *http.Client {
-	var retryClient = retryablehttp.NewClient()
+func NewRetryAPIClient(httpClient *http.Client) *http.Client {
+	retryClient := retryablehttp.NewClient()
+	retryClient.CheckRetry = retryablehttp.DefaultRetryPolicy
 	retryClient.Backoff = thousandEyesBackoff
+
+	if httpClient != nil {
+		retryClient.HTTPClient = httpClient
+	}
+
+	// Return the retry-enabled client
 	return retryClient.StandardClient()
 }
 
 // NewAPIClient creates a new API client.
 // optionally a custom http.Client to allow for advanced features such as caching.
 func NewAPIClient(cfg *Configuration) *APIClient {
-	if cfg.HTTPClient == nil {
-		cfg.HTTPClient = NewRetryAPIClient()
-	}
+	cfg.HTTPClient = NewRetryAPIClient(cfg.HTTPClient)
 
 	c := new(APIClient)
 	c.cfg = cfg
