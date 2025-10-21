@@ -9,6 +9,8 @@ Method | HTTP request | Description
 [**GetDashboard**](DashboardsAPI.md#GetDashboard) | **Get** /dashboards/{dashboardId} | Retrieve dashboard
 [**GetDashboardWidgetData**](DashboardsAPI.md#GetDashboardWidgetData) | **Get** /dashboards/{dashboardId}/widgets/{widgetId} | Retrieve dashboard widget data
 [**GetDashboards**](DashboardsAPI.md#GetDashboards) | **Get** /dashboards | List dashboards
+[**GetIndividualCardData**](DashboardsAPI.md#GetIndividualCardData) | **Get** /dashboards/{dashboardId}/widgets/{widgetId}/cards/{cardId} | Retrieve individual card data from numbers widget
+[**GetIndividualColumnData**](DashboardsAPI.md#GetIndividualColumnData) | **Get** /dashboards/{dashboardId}/widgets/{widgetId}/columns/{columnId} | Retrieve individual column data from multi-metric table widget
 [**UpdateDashboard**](DashboardsAPI.md#UpdateDashboard) | **Put** /dashboards/{dashboardId} | Update dashboard
 
 
@@ -367,6 +369,168 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**[]ApiDashboard**](ApiDashboard.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/hal+json, application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)[[Back to README]](../README.md)
+
+
+## GetIndividualCardData
+
+> ApiNumbersCardData GetIndividualCardData(dashboardId, widgetId, cardId).Aid(aid).Window(window).StartDate(startDate).EndDate(endDate).Execute()
+
+Retrieve individual card data from numbers widget
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"fmt"
+	"os"
+    "time"
+	"github.com/thousandeyes/thousandeyes-sdk-go/v3/client"
+	"github.com/thousandeyes/thousandeyes-sdk-go/v3/dashboards"
+)
+
+func main() {
+	dashboardId := "646f4d2ce3c99b0536c3821e" // string | A Identifier for a dashboard which can be obtained from the `/dashboards` endpoint.
+	widgetId := "unpmg" // string | A Identifier for a widget.
+	cardId := "rvwgs" // string | An identifier for a card within the numbers widget.
+	aid := "1234" // string | A unique identifier associated with your account group. You can retrieve your `AccountGroupId` from the `/account-groups` endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. (optional)
+	window := "12h" // string | A dynamic time interval up to the current time of the request. Specify the interval as a number followed by an optional type: `s` for seconds (default if no type is specified), `m` for minutes, `h` for hours, `d` for days, and `w` for weeks. For a precise date range, use `startDate` and `endDate`. (optional)
+	startDate := time.Now() // time.Time | Use with the `endDate` parameter. Include the complete time (hours, minutes, and seconds) in UTC time zone, following the ISO 8601 date-time format. See the example for reference. Please note that this parameter can't be used with `window`. (optional)
+	endDate := time.Now() // time.Time | Defaults to current time the request is made. Use with the `startDate` parameter. Include the complete time (hours, minutes, and seconds) in UTC time zone, following the ISO 8601 date-time format. See the example for reference. Please note that this parameter can't be used with `window`. (optional)
+
+	configuration := client.NewConfiguration().WithAuthToken("<bearer-token>")
+	apiClient := client.NewAPIClient(configuration)
+
+	api := (*dashboards.DashboardsAPIService)(&apiClient.Common)
+
+	resp, r, err := api.GetIndividualCardData(dashboardId, widgetId, cardId).Aid(aid).Window(window).StartDate(startDate).EndDate(endDate).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DashboardsAPI.GetIndividualCardData``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetIndividualCardData`: ApiNumbersCardData
+	json, _ := resp.MarshalJSON()
+	fmt.Fprintf(os.Stdout, "Response from `DashboardsAPI.GetIndividualCardData`: %v\n", string(json))
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**dashboardId** | **string** | A Identifier for a dashboard which can be obtained from the &#x60;/dashboards&#x60; endpoint. | **widgetId** | **string** | A Identifier for a widget. | **cardId** | **string** | An identifier for a card within the numbers widget. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a ApiGetIndividualCardDataRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **aid** | **string** | A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. | 
+ **window** | **string** | A dynamic time interval up to the current time of the request. Specify the interval as a number followed by an optional type: &#x60;s&#x60; for seconds (default if no type is specified), &#x60;m&#x60; for minutes, &#x60;h&#x60; for hours, &#x60;d&#x60; for days, and &#x60;w&#x60; for weeks. For a precise date range, use &#x60;startDate&#x60; and &#x60;endDate&#x60;. | 
+ **startDate** | **time.Time** | Use with the &#x60;endDate&#x60; parameter. Include the complete time (hours, minutes, and seconds) in UTC time zone, following the ISO 8601 date-time format. See the example for reference. Please note that this parameter can&#39;t be used with &#x60;window&#x60;. | 
+ **endDate** | **time.Time** | Defaults to current time the request is made. Use with the &#x60;startDate&#x60; parameter. Include the complete time (hours, minutes, and seconds) in UTC time zone, following the ISO 8601 date-time format. See the example for reference. Please note that this parameter can&#39;t be used with &#x60;window&#x60;. | 
+
+### Return type
+
+[**ApiNumbersCardData**](ApiNumbersCardData.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/hal+json, application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)[[Back to README]](../README.md)
+
+
+## GetIndividualColumnData
+
+> ApiMultiMetricColumnData GetIndividualColumnData(dashboardId, widgetId, columnId).Aid(aid).Window(window).StartDate(startDate).EndDate(endDate).Execute()
+
+Retrieve individual column data from multi-metric table widget
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"fmt"
+	"os"
+    "time"
+	"github.com/thousandeyes/thousandeyes-sdk-go/v3/client"
+	"github.com/thousandeyes/thousandeyes-sdk-go/v3/dashboards"
+)
+
+func main() {
+	dashboardId := "646f4d2ce3c99b0536c3821e" // string | A Identifier for a dashboard which can be obtained from the `/dashboards` endpoint.
+	widgetId := "unpmg" // string | A Identifier for a widget.
+	columnId := "col123" // string | An identifier for a column within the multi-metric table widget.
+	aid := "1234" // string | A unique identifier associated with your account group. You can retrieve your `AccountGroupId` from the `/account-groups` endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. (optional)
+	window := "12h" // string | A dynamic time interval up to the current time of the request. Specify the interval as a number followed by an optional type: `s` for seconds (default if no type is specified), `m` for minutes, `h` for hours, `d` for days, and `w` for weeks. For a precise date range, use `startDate` and `endDate`. (optional)
+	startDate := time.Now() // time.Time | Use with the `endDate` parameter. Include the complete time (hours, minutes, and seconds) in UTC time zone, following the ISO 8601 date-time format. See the example for reference. Please note that this parameter can't be used with `window`. (optional)
+	endDate := time.Now() // time.Time | Defaults to current time the request is made. Use with the `startDate` parameter. Include the complete time (hours, minutes, and seconds) in UTC time zone, following the ISO 8601 date-time format. See the example for reference. Please note that this parameter can't be used with `window`. (optional)
+
+	configuration := client.NewConfiguration().WithAuthToken("<bearer-token>")
+	apiClient := client.NewAPIClient(configuration)
+
+	api := (*dashboards.DashboardsAPIService)(&apiClient.Common)
+
+	resp, r, err := api.GetIndividualColumnData(dashboardId, widgetId, columnId).Aid(aid).Window(window).StartDate(startDate).EndDate(endDate).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DashboardsAPI.GetIndividualColumnData``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetIndividualColumnData`: ApiMultiMetricColumnData
+	json, _ := resp.MarshalJSON()
+	fmt.Fprintf(os.Stdout, "Response from `DashboardsAPI.GetIndividualColumnData`: %v\n", string(json))
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**dashboardId** | **string** | A Identifier for a dashboard which can be obtained from the &#x60;/dashboards&#x60; endpoint. | **widgetId** | **string** | A Identifier for a widget. | **columnId** | **string** | An identifier for a column within the multi-metric table widget. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a ApiGetIndividualColumnDataRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **aid** | **string** | A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. | 
+ **window** | **string** | A dynamic time interval up to the current time of the request. Specify the interval as a number followed by an optional type: &#x60;s&#x60; for seconds (default if no type is specified), &#x60;m&#x60; for minutes, &#x60;h&#x60; for hours, &#x60;d&#x60; for days, and &#x60;w&#x60; for weeks. For a precise date range, use &#x60;startDate&#x60; and &#x60;endDate&#x60;. | 
+ **startDate** | **time.Time** | Use with the &#x60;endDate&#x60; parameter. Include the complete time (hours, minutes, and seconds) in UTC time zone, following the ISO 8601 date-time format. See the example for reference. Please note that this parameter can&#39;t be used with &#x60;window&#x60;. | 
+ **endDate** | **time.Time** | Defaults to current time the request is made. Use with the &#x60;startDate&#x60; parameter. Include the complete time (hours, minutes, and seconds) in UTC time zone, following the ISO 8601 date-time format. See the example for reference. Please note that this parameter can&#39;t be used with &#x60;window&#x60;. | 
+
+### Return type
+
+[**ApiMultiMetricColumnData**](ApiMultiMetricColumnData.md)
 
 ### Authorization
 

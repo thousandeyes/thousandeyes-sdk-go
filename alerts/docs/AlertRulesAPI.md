@@ -33,7 +33,7 @@ import (
 )
 
 func main() {
-	ruleDetailUpdate := *alerts.NewRuleDetailUpdate("The End of the Internet", "((hops((hopDelay >= 100 ms))))", alerts.AlertType("page-load"), int32(5), int32(2)) // RuleDetailUpdate | 
+	ruleDetailUpdate := *alerts.NewRuleDetailUpdate("The End of the Internet", "((hops((hopDelay >= 100 ms))))", alerts.AlertType("page-load"), int32(5)) // RuleDetailUpdate | 
 	aid := "1234" // string | A unique identifier associated with your account group. You can retrieve your `AccountGroupId` from the `/account-groups` endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. (optional)
 
 	configuration := client.NewConfiguration().WithAuthToken("<bearer-token>")
@@ -313,7 +313,7 @@ import (
 
 func main() {
 	ruleId := "127094" // string | Unique alert rule ID.
-	ruleDetailUpdate := *alerts.NewRuleDetailUpdate("The End of the Internet", "((hops((hopDelay >= 100 ms))))", alerts.AlertType("page-load"), int32(5), int32(2)) // RuleDetailUpdate | 
+	ruleDetailUpdate := *alerts.NewRuleDetailUpdate("The End of the Internet", "((hops((hopDelay >= 100 ms))))", alerts.AlertType("page-load"), int32(5)) // RuleDetailUpdate | 
 	aid := "1234" // string | A unique identifier associated with your account group. You can retrieve your `AccountGroupId` from the `/account-groups` endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. (optional)
 
 	configuration := client.NewConfiguration().WithAuthToken("<bearer-token>")
