@@ -53,6 +53,7 @@ model_api_request_header.go
 model_api_request_method.go
 model_api_request_variable.go
 model_cloud_enterprise_agent_type.go
+model_coordinates.go
 model_dns_query_class.go
 model_dns_sec_instant_test_.go
 model_dns_sec_instant_test_request.go
