@@ -22,6 +22,7 @@ model_audit_user_events.go
 model_base_role.go
 model_cloud_enterprise_agent_type.go
 model_cluster_member.go
+model_coordinates.go
 model_created_account_group.go
 model_created_user.go
 model_enterprise_agent.go
