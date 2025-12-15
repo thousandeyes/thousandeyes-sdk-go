@@ -33,6 +33,7 @@ model_cloud_enterprise_agent.go
 model_cloud_enterprise_agent_type.go
 model_cloud_enterprise_agents.go
 model_cluster_member.go
+model_coordinates.go
 model_enterprise_agent.go
 model_enterprise_agent_cluster_detail.go
 model_enterprise_agent_data.go

@@ -74,6 +74,7 @@ model_bgp_test_request.go
 model_bgp_test_response.go
 model_bgp_tests.go
 model_cloud_enterprise_agent_type.go
+model_coordinates.go
 model_dns_query_class.go
 model_dns_sec_instant_test_.go
 model_dns_sec_properties.go
