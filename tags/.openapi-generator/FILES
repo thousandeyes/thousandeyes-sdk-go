@@ -21,6 +21,7 @@ model_tag_assignment.go
 model_tag_bulk_create_error.go
 model_tag_info.go
 model_tags.go
+model_type.go
 model_unauthorized_error.go
 model_validation_error.go
 model_validation_error_item.go
