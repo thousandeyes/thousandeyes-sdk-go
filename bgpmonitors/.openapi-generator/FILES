@@ -1,0 +1,11 @@
+.openapi-generator-ignore
+README.md
+api_bgp_monitors.go
+docs/BGPMonitorsAPI.md
+model_error.go
+model_link.go
+model_monitor.go
+model_monitor_type.go
+model_monitors.go
+model_self_links.go
+model_unauthorized_error.go

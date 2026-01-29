@@ -1,6 +1,10 @@
 [![GoDoc](https://godoc.org/github.com/thousandeyes/thousandeyes-sdk-go?status.svg)](http://godoc.org/github.com/thousandeyes/thousandeyes-sdk-go) [![Go Report Card](https://goreportcard.com/badge/github.com/thousandeyes/thousandeyes-sdk-go)](https://goreportcard.com/report/github.com/thousandeyes/thousandeyes-sdk-go) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/gojp/goreportcard/blob/master/LICENSE)
 
 # thousandeyes-sdk-go
+
+DEPRECATED TO BE UPDATED LATER
+
+
 `thousandeyes-sdk-go` is a [go](https://golang.org/) client library for the [Thousandeyes v6 API](https://developer.thousandeyes.com/v6).
 
 ## Installation
