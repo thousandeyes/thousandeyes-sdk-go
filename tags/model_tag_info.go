@@ -13,6 +13,7 @@ package tags
 import (
 	"encoding/json"
     "github.com/thousandeyes/thousandeyes-sdk-go/v3/internal/utils"
+	"time"
 )
 
 // checks if the TagInfo type satisfies the MappedNullable interface at compile time
@@ -24,6 +25,8 @@ type TagInfo struct {
 	AccessType *AccessType `json:"accessType,omitempty"`
 	// The account group ID
 	Aid *int64 `json:"aid,omitempty"`
+	// Indicates whether it is a built-in tag or a user-created (custom) tag.
+	BuiltIn *bool `json:"builtIn,omitempty"`
 	// Tag color
 	Color *string `json:"color,omitempty"`
 	// Tag creation date
@@ -36,7 +39,10 @@ type TagInfo struct {
 	// The tags's key
 	Key *string `json:"key,omitempty"`
 	LegacyId utils.NullableFloat32 `json:"legacyId,omitempty"`
+	// The date and time the tag was last modified.
+	ModifiedDate utils.NullableTime `json:"modifiedDate,omitempty"`
 	ObjectType *ObjectType `json:"objectType,omitempty"`
+	Type *Type `json:"type,omitempty"`
 	// The tag's value
 	Value *string `json:"value,omitempty"`
 }
@@ -152,6 +158,38 @@ func (o *TagInfo) HasAid() bool {
 // SetAid gets a reference to the given int64 and assigns it to the Aid field.
 func (o *TagInfo) SetAid(v int64) {
 	o.Aid = &v
+}
+
+// GetBuiltIn returns the BuiltIn field value if set, zero value otherwise.
+func (o *TagInfo) GetBuiltIn() bool {
+	if o == nil || utils.IsNil(o.BuiltIn) {
+		var ret bool
+		return ret
+	}
+	return *o.BuiltIn
+}
+
+// GetBuiltInOk returns a tuple with the BuiltIn field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TagInfo) GetBuiltInOk() (*bool, bool) {
+	if o == nil || utils.IsNil(o.BuiltIn) {
+		return nil, false
+	}
+	return o.BuiltIn, true
+}
+
+// HasBuiltIn returns a boolean if a field has been set.
+func (o *TagInfo) HasBuiltIn() bool {
+	if o != nil && !utils.IsNil(o.BuiltIn) {
+		return true
+	}
+
+	return false
+}
+
+// SetBuiltIn gets a reference to the given bool and assigns it to the BuiltIn field.
+func (o *TagInfo) SetBuiltIn(v bool) {
+	o.BuiltIn = &v
 }
 
 // GetColor returns the Color field value if set, zero value otherwise.
@@ -408,6 +446,48 @@ func (o *TagInfo) UnsetLegacyId() {
 	o.LegacyId.Unset()
 }
 
+// GetModifiedDate returns the ModifiedDate field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *TagInfo) GetModifiedDate() time.Time {
+	if o == nil || utils.IsNil(o.ModifiedDate.Get()) {
+		var ret time.Time
+		return ret
+	}
+	return *o.ModifiedDate.Get()
+}
+
+// GetModifiedDateOk returns a tuple with the ModifiedDate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *TagInfo) GetModifiedDateOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.ModifiedDate.Get(), o.ModifiedDate.IsSet()
+}
+
+// HasModifiedDate returns a boolean if a field has been set.
+func (o *TagInfo) HasModifiedDate() bool {
+	if o != nil && o.ModifiedDate.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetModifiedDate gets a reference to the given NullableTime and assigns it to the ModifiedDate field.
+func (o *TagInfo) SetModifiedDate(v time.Time) {
+	o.ModifiedDate.Set(&v)
+}
+// SetModifiedDateNil sets the value for ModifiedDate to be an explicit nil
+func (o *TagInfo) SetModifiedDateNil() {
+	o.ModifiedDate.Set(nil)
+}
+
+// UnsetModifiedDate ensures that no value is present for ModifiedDate, not even an explicit nil
+func (o *TagInfo) UnsetModifiedDate() {
+	o.ModifiedDate.Unset()
+}
+
 // GetObjectType returns the ObjectType field value if set, zero value otherwise.
 func (o *TagInfo) GetObjectType() ObjectType {
 	if o == nil || utils.IsNil(o.ObjectType) {
@@ -438,6 +518,38 @@ func (o *TagInfo) HasObjectType() bool {
 // SetObjectType gets a reference to the given ObjectType and assigns it to the ObjectType field.
 func (o *TagInfo) SetObjectType(v ObjectType) {
 	o.ObjectType = &v
+}
+
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *TagInfo) GetType() Type {
+	if o == nil || utils.IsNil(o.Type) {
+		var ret Type
+		return ret
+	}
+	return *o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TagInfo) GetTypeOk() (*Type, bool) {
+	if o == nil || utils.IsNil(o.Type) {
+		return nil, false
+	}
+	return o.Type, true
+}
+
+// HasType returns a boolean if a field has been set.
+func (o *TagInfo) HasType() bool {
+	if o != nil && !utils.IsNil(o.Type) {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given Type and assigns it to the Type field.
+func (o *TagInfo) SetType(v Type) {
+	o.Type = &v
 }
 
 // GetValue returns the Value field value if set, zero value otherwise.
@@ -491,6 +603,9 @@ func (o TagInfo) ToMap() (map[string]interface{}, error) {
 	if !utils.IsNil(o.Aid) {
 		toSerialize["aid"] = o.Aid
 	}
+	if !utils.IsNil(o.BuiltIn) {
+		toSerialize["builtIn"] = o.BuiltIn
+	}
 	if !utils.IsNil(o.Color) {
 		toSerialize["color"] = o.Color
 	}
@@ -512,8 +627,14 @@ func (o TagInfo) ToMap() (map[string]interface{}, error) {
 	if o.LegacyId.IsSet() {
 		toSerialize["legacyId"] = o.LegacyId.Get()
 	}
+	if o.ModifiedDate.IsSet() {
+		toSerialize["modifiedDate"] = o.ModifiedDate.Get()
+	}
 	if !utils.IsNil(o.ObjectType) {
 		toSerialize["objectType"] = o.ObjectType
+	}
+	if !utils.IsNil(o.Type) {
+		toSerialize["type"] = o.Type
 	}
 	if !utils.IsNil(o.Value) {
 		toSerialize["value"] = o.Value

@@ -633,7 +633,7 @@ func (r ApiUpdateSipServerTestRequest) Execute() (*SipServerTestResponse, *http.
 /*
 UpdateSipServerTest Update SIP Server test
 
-Updates a SIP Server test. The target test cannot be a live share or saved event. This method requires Account Admin permissions.
+Updates a SIP Server test. Shared tests have limited updating capabilities. Only account-specific configurations may be updated, namely: Alert rules, Alert suppression windows, Labels. This method requires Account Admin permissions.
 **Note**: **Saved Events** are now called **Private Snapshots** in the user interface. This change does not affect API.
 
  @param testId Test ID
