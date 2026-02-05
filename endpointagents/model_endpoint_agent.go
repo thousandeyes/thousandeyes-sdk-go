@@ -32,6 +32,7 @@ type EndpointAgent struct {
 	KernelVersion *string `json:"kernelVersion,omitempty"`
 	Manufacturer *string `json:"manufacturer,omitempty"`
 	Model *string `json:"model,omitempty"`
+	SerialNumber *string `json:"serialNumber,omitempty"`
 	// The last time the agent checked-in.
 	LastSeen *time.Time `json:"lastSeen,omitempty"`
 	Status *Status `json:"status,omitempty"`
@@ -366,6 +367,38 @@ func (o *EndpointAgent) HasModel() bool {
 // SetModel gets a reference to the given string and assigns it to the Model field.
 func (o *EndpointAgent) SetModel(v string) {
 	o.Model = &v
+}
+
+// GetSerialNumber returns the SerialNumber field value if set, zero value otherwise.
+func (o *EndpointAgent) GetSerialNumber() string {
+	if o == nil || utils.IsNil(o.SerialNumber) {
+		var ret string
+		return ret
+	}
+	return *o.SerialNumber
+}
+
+// GetSerialNumberOk returns a tuple with the SerialNumber field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EndpointAgent) GetSerialNumberOk() (*string, bool) {
+	if o == nil || utils.IsNil(o.SerialNumber) {
+		return nil, false
+	}
+	return o.SerialNumber, true
+}
+
+// HasSerialNumber returns a boolean if a field has been set.
+func (o *EndpointAgent) HasSerialNumber() bool {
+	if o != nil && !utils.IsNil(o.SerialNumber) {
+		return true
+	}
+
+	return false
+}
+
+// SetSerialNumber gets a reference to the given string and assigns it to the SerialNumber field.
+func (o *EndpointAgent) SetSerialNumber(v string) {
+	o.SerialNumber = &v
 }
 
 // GetLastSeen returns the LastSeen field value if set, zero value otherwise.
@@ -1044,6 +1077,9 @@ func (o EndpointAgent) ToMap() (map[string]interface{}, error) {
 	}
 	if !utils.IsNil(o.Model) {
 		toSerialize["model"] = o.Model
+	}
+	if !utils.IsNil(o.SerialNumber) {
+		toSerialize["serialNumber"] = o.SerialNumber
 	}
 	if !utils.IsNil(o.LastSeen) {
 		toSerialize["lastSeen"] = o.LastSeen
