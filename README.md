@@ -49,6 +49,10 @@ func main() {
 }
 ```
 
+## Support
+
+For bug reports, feature requests, or questions about this SDK, please contact [ThousandEyes Support](https://docs.thousandeyes.com/product-documentation/getting-started/getting-support-from-thousandeyes#contacting-support).
+
 ## Contributing
 1. Fork it
 2. Create your feature branch (`git checkout -b my-new-feature`)
