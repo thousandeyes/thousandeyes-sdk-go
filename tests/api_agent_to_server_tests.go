@@ -638,7 +638,7 @@ func (r ApiUpdateAgentToServerTestRequest) Execute() (*AgentToServerTestResponse
 /*
 UpdateAgentToServerTest Update Agent to Server test
 
-Updates an Agent to Server test. This method requires Account Admin permissions.
+Updates an Agent to Server test. Shared tests have limited updating capabilities. Only account-specific configurations may be updated, namely: Alert rules, Alert suppression windows, Labels. This method requires Account Admin permissions.
 
  @param testId Test ID
  @return ApiUpdateAgentToServerTestRequest

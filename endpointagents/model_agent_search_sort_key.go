@@ -25,6 +25,7 @@ const (
 	AGENTSEARCHSORTKEY_NAME AgentSearchSortKey = "name"
 	AGENTSEARCHSORTKEY_USER_NAME AgentSearchSortKey = "userName"
 	AGENTSEARCHSORTKEY_CITY AgentSearchSortKey = "city"
+	AGENTSEARCHSORTKEY_SERIAL_NUMBER AgentSearchSortKey = "serialNumber"
 )
 
 // All allowed values of AgentSearchSortKey enum
@@ -34,6 +35,7 @@ var AllowedAgentSearchSortKeyEnumValues = []AgentSearchSortKey{
 	"name",
 	"userName",
 	"city",
+	"serialNumber",
 }
 
 func (v *AgentSearchSortKey) UnmarshalJSON(src []byte) error {

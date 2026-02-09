@@ -34,6 +34,8 @@ type AgentSearchFilters struct {
 	Platform []Platform `json:"platform,omitempty"`
 	// Case-insensitive prefix filter on the OS version.
 	OsVersion []string `json:"osVersion,omitempty"`
+	// Case-insensitive prefix filter on the serial number.
+	SerialNumber []string `json:"serialNumber,omitempty"`
 	// Filter using the ISO country code of the location. 
 	LocationCountryISO []string `json:"locationCountryISO,omitempty"`
 	// Filter using the code for the first level administrative division within  the country. In US/Canada this is the State, in UK it's the country e.g. `ENG` 
@@ -287,6 +289,38 @@ func (o *AgentSearchFilters) SetOsVersion(v []string) {
 	o.OsVersion = v
 }
 
+// GetSerialNumber returns the SerialNumber field value if set, zero value otherwise.
+func (o *AgentSearchFilters) GetSerialNumber() []string {
+	if o == nil || utils.IsNil(o.SerialNumber) {
+		var ret []string
+		return ret
+	}
+	return o.SerialNumber
+}
+
+// GetSerialNumberOk returns a tuple with the SerialNumber field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AgentSearchFilters) GetSerialNumberOk() ([]string, bool) {
+	if o == nil || utils.IsNil(o.SerialNumber) {
+		return nil, false
+	}
+	return o.SerialNumber, true
+}
+
+// HasSerialNumber returns a boolean if a field has been set.
+func (o *AgentSearchFilters) HasSerialNumber() bool {
+	if o != nil && !utils.IsNil(o.SerialNumber) {
+		return true
+	}
+
+	return false
+}
+
+// SetSerialNumber gets a reference to the given []string and assigns it to the SerialNumber field.
+func (o *AgentSearchFilters) SetSerialNumber(v []string) {
+	o.SerialNumber = v
+}
+
 // GetLocationCountryISO returns the LocationCountryISO field value if set, zero value otherwise.
 func (o *AgentSearchFilters) GetLocationCountryISO() []string {
 	if o == nil || utils.IsNil(o.LocationCountryISO) {
@@ -477,6 +511,9 @@ func (o AgentSearchFilters) ToMap() (map[string]interface{}, error) {
 	}
 	if !utils.IsNil(o.OsVersion) {
 		toSerialize["osVersion"] = o.OsVersion
+	}
+	if !utils.IsNil(o.SerialNumber) {
+		toSerialize["serialNumber"] = o.SerialNumber
 	}
 	if !utils.IsNil(o.LocationCountryISO) {
 		toSerialize["locationCountryISO"] = o.LocationCountryISO
