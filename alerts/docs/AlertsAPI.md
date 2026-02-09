@@ -5,7 +5,7 @@ All URIs are relative to *https://api.thousandeyes.com/v7*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**GetAlert**](AlertsAPI.md#GetAlert) | **Get** /alerts/{alertId} | Retrieve alert details
-[**GetAlerts**](AlertsAPI.md#GetAlerts) | **Get** /alerts | List active alerts
+[**GetAlerts**](AlertsAPI.md#GetAlerts) | **Get** /alerts | List alerts
 
 
 
@@ -85,7 +85,7 @@ Name | Type | Description  | Notes
 
 > Alerts GetAlerts().Aid(aid).Window(window).StartDate(startDate).EndDate(endDate).Max(max).Cursor(cursor).State(state).Execute()
 
-List active alerts
+List alerts
 
 
 

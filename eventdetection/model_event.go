@@ -29,7 +29,7 @@ type Event struct {
 	// The start date and time (in UTC, ISO 8601 format) when the event was first detected.
 	StartDate *time.Time `json:"startDate,omitempty"`
 	// The end date and time (in UTC, ISO 8601 format) when the event was resolved (due to timeout). This value is populated for \"ongoing\" events.
-	EndDate *time.Time `json:"endDate,omitempty"`
+	EndDate utils.NullableTime `json:"endDate,omitempty"`
 	Severity *EventAlertSeverity `json:"severity,omitempty"`
 	// Event title
 	Title *string `json:"title,omitempty"`
@@ -185,36 +185,46 @@ func (o *Event) SetStartDate(v time.Time) {
 	o.StartDate = &v
 }
 
-// GetEndDate returns the EndDate field value if set, zero value otherwise.
+// GetEndDate returns the EndDate field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *Event) GetEndDate() time.Time {
-	if o == nil || utils.IsNil(o.EndDate) {
+	if o == nil || utils.IsNil(o.EndDate.Get()) {
 		var ret time.Time
 		return ret
 	}
-	return *o.EndDate
+	return *o.EndDate.Get()
 }
 
 // GetEndDateOk returns a tuple with the EndDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Event) GetEndDateOk() (*time.Time, bool) {
-	if o == nil || utils.IsNil(o.EndDate) {
+	if o == nil {
 		return nil, false
 	}
-	return o.EndDate, true
+	return o.EndDate.Get(), o.EndDate.IsSet()
 }
 
 // HasEndDate returns a boolean if a field has been set.
 func (o *Event) HasEndDate() bool {
-	if o != nil && !utils.IsNil(o.EndDate) {
+	if o != nil && o.EndDate.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetEndDate gets a reference to the given time.Time and assigns it to the EndDate field.
+// SetEndDate gets a reference to the given NullableTime and assigns it to the EndDate field.
 func (o *Event) SetEndDate(v time.Time) {
-	o.EndDate = &v
+	o.EndDate.Set(&v)
+}
+// SetEndDateNil sets the value for EndDate to be an explicit nil
+func (o *Event) SetEndDateNil() {
+	o.EndDate.Set(nil)
+}
+
+// UnsetEndDate ensures that no value is present for EndDate, not even an explicit nil
+func (o *Event) UnsetEndDate() {
+	o.EndDate.Unset()
 }
 
 // GetSeverity returns the Severity field value if set, zero value otherwise.
@@ -463,8 +473,8 @@ func (o Event) ToMap() (map[string]interface{}, error) {
 	if !utils.IsNil(o.StartDate) {
 		toSerialize["startDate"] = o.StartDate
 	}
-	if !utils.IsNil(o.EndDate) {
-		toSerialize["endDate"] = o.EndDate
+	if o.EndDate.IsSet() {
+		toSerialize["endDate"] = o.EndDate.Get()
 	}
 	if !utils.IsNil(o.Severity) {
 		toSerialize["severity"] = o.Severity
