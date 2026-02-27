@@ -16,9 +16,12 @@ model_agent_threshold_filters.go
 model_agent_transfer.go
 model_agent_transfer_request.go
 model_agent_transfer_status.go
+model_battery_level.go
+model_battery_metrics.go
 model_browser_type.go
 model_bulk_agent_transfer_request.go
 model_bulk_agent_transfer_response.go
+model_cellular_profile.go
 model_conditional_operator.go
 model_connection_string.go
 model_endpoint_agent.go
