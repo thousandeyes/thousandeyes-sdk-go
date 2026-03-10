@@ -13,6 +13,9 @@ docs/RealUserEndpointTestResultsAPI.md
 model_application_metrics.go
 model_application_score_quality.go
 model_asn_details.go
+model_battery_level.go
+model_battery_metrics.go
+model_cellular_profile.go
 model_conditional_operator.go
 model_cpu_utilization.go
 model_dynamic_base_endpoint_test_result.go
