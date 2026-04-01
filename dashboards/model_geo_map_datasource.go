@@ -31,6 +31,7 @@ const (
 	GEOMAPDATASOURCE_ROUTING GeoMapDatasource = "ROUTING"
 	GEOMAPDATASOURCE_CLOUD_NATIVE_MONITORING GeoMapDatasource = "CLOUD_NATIVE_MONITORING"
 	GEOMAPDATASOURCE_TRAFFIC_INSIGHTS_MONITORING GeoMapDatasource = "TRAFFIC_INSIGHTS_MONITORING"
+	GEOMAPDATASOURCE_UNKNOWN GeoMapDatasource = "unknown"
 )
 
 // All allowed values of GeoMapDatasource enum
@@ -47,6 +48,7 @@ var AllowedGeoMapDatasourceEnumValues = []GeoMapDatasource{
 	"ROUTING",
 	"CLOUD_NATIVE_MONITORING",
 	"TRAFFIC_INSIGHTS_MONITORING",
+	"unknown",
 }
 
 func (v *GeoMapDatasource) UnmarshalJSON(src []byte) error {
@@ -62,12 +64,12 @@ func (v *GeoMapDatasource) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid GeoMapDatasource", value)
+	*v = GeoMapDatasource("unknown")
+	return nil
 }
 
 // NewGeoMapDatasourceFromValue returns a pointer to a valid GeoMapDatasource
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewGeoMapDatasourceFromValue(v string) (*GeoMapDatasource, error) {
 	ev := GeoMapDatasource(v)
 	if ev.IsValid() {

@@ -21,12 +21,14 @@ type EndpointScheduledTestType string
 const (
 	ENDPOINTSCHEDULEDTESTTYPE_AGENT_TO_SERVER EndpointScheduledTestType = "agent-to-server"
 	ENDPOINTSCHEDULEDTESTTYPE_HTTP_SERVER EndpointScheduledTestType = "http-server"
+	ENDPOINTSCHEDULEDTESTTYPE_UNKNOWN EndpointScheduledTestType = "unknown"
 )
 
 // All allowed values of EndpointScheduledTestType enum
 var AllowedEndpointScheduledTestTypeEnumValues = []EndpointScheduledTestType{
 	"agent-to-server",
 	"http-server",
+	"unknown",
 }
 
 func (v *EndpointScheduledTestType) UnmarshalJSON(src []byte) error {
@@ -42,12 +44,12 @@ func (v *EndpointScheduledTestType) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid EndpointScheduledTestType", value)
+	*v = EndpointScheduledTestType("unknown")
+	return nil
 }
 
 // NewEndpointScheduledTestTypeFromValue returns a pointer to a valid EndpointScheduledTestType
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewEndpointScheduledTestTypeFromValue(v string) (*EndpointScheduledTestType, error) {
 	ev := EndpointScheduledTestType(v)
 	if ev.IsValid() {

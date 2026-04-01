@@ -20,11 +20,13 @@ type ListDatasource string
 // List of ListDatasource
 const (
 	LISTDATASOURCE_EVENT_DETECTION ListDatasource = "EVENT_DETECTION"
+	LISTDATASOURCE_UNKNOWN ListDatasource = "unknown"
 )
 
 // All allowed values of ListDatasource enum
 var AllowedListDatasourceEnumValues = []ListDatasource{
 	"EVENT_DETECTION",
+	"unknown",
 }
 
 func (v *ListDatasource) UnmarshalJSON(src []byte) error {
@@ -40,12 +42,12 @@ func (v *ListDatasource) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid ListDatasource", value)
+	*v = ListDatasource("unknown")
+	return nil
 }
 
 // NewListDatasourceFromValue returns a pointer to a valid ListDatasource
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewListDatasourceFromValue(v string) (*ListDatasource, error) {
 	ev := ListDatasource(v)
 	if ev.IsValid() {

@@ -22,6 +22,7 @@ const (
 	ENTERPRISEAGENTSTATE_ONLINE EnterpriseAgentState = "online"
 	ENTERPRISEAGENTSTATE_OFFLINE EnterpriseAgentState = "offline"
 	ENTERPRISEAGENTSTATE_DISABLED EnterpriseAgentState = "disabled"
+	ENTERPRISEAGENTSTATE_UNKNOWN EnterpriseAgentState = "unknown"
 )
 
 // All allowed values of EnterpriseAgentState enum
@@ -29,6 +30,7 @@ var AllowedEnterpriseAgentStateEnumValues = []EnterpriseAgentState{
 	"online",
 	"offline",
 	"disabled",
+	"unknown",
 }
 
 func (v *EnterpriseAgentState) UnmarshalJSON(src []byte) error {
@@ -44,12 +46,12 @@ func (v *EnterpriseAgentState) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid EnterpriseAgentState", value)
+	*v = EnterpriseAgentState("unknown")
+	return nil
 }
 
 // NewEnterpriseAgentStateFromValue returns a pointer to a valid EnterpriseAgentState
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewEnterpriseAgentStateFromValue(v string) (*EnterpriseAgentState, error) {
 	ev := EnterpriseAgentState(v)
 	if ev.IsValid() {

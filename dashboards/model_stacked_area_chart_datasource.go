@@ -25,6 +25,7 @@ const (
 	STACKEDAREACHARTDATASOURCE_ENDPOINT_SCHEDULED_TEST StackedAreaChartDatasource = "ENDPOINT_SCHEDULED_TEST"
 	STACKEDAREACHARTDATASOURCE_CLOUD_NATIVE_MONITORING StackedAreaChartDatasource = "CLOUD_NATIVE_MONITORING"
 	STACKEDAREACHARTDATASOURCE_TRAFFIC_INSIGHTS_MONITORING StackedAreaChartDatasource = "TRAFFIC_INSIGHTS_MONITORING"
+	STACKEDAREACHARTDATASOURCE_UNKNOWN StackedAreaChartDatasource = "unknown"
 )
 
 // All allowed values of StackedAreaChartDatasource enum
@@ -35,6 +36,7 @@ var AllowedStackedAreaChartDatasourceEnumValues = []StackedAreaChartDatasource{
 	"ENDPOINT_SCHEDULED_TEST",
 	"CLOUD_NATIVE_MONITORING",
 	"TRAFFIC_INSIGHTS_MONITORING",
+	"unknown",
 }
 
 func (v *StackedAreaChartDatasource) UnmarshalJSON(src []byte) error {
@@ -50,12 +52,12 @@ func (v *StackedAreaChartDatasource) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid StackedAreaChartDatasource", value)
+	*v = StackedAreaChartDatasource("unknown")
+	return nil
 }
 
 // NewStackedAreaChartDatasourceFromValue returns a pointer to a valid StackedAreaChartDatasource
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewStackedAreaChartDatasourceFromValue(v string) (*StackedAreaChartDatasource, error) {
 	ev := StackedAreaChartDatasource(v)
 	if ev.IsValid() {

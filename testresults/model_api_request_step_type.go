@@ -21,12 +21,14 @@ type ApiRequestStepType string
 const (
 	APIREQUESTSTEPTYPE_DEFAULT ApiRequestStepType = "default"
 	APIREQUESTSTEPTYPE_OAUTH2 ApiRequestStepType = "oauth2"
+	APIREQUESTSTEPTYPE_UNKNOWN ApiRequestStepType = "unknown"
 )
 
 // All allowed values of ApiRequestStepType enum
 var AllowedApiRequestStepTypeEnumValues = []ApiRequestStepType{
 	"default",
 	"oauth2",
+	"unknown",
 }
 
 func (v *ApiRequestStepType) UnmarshalJSON(src []byte) error {
@@ -42,12 +44,12 @@ func (v *ApiRequestStepType) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid ApiRequestStepType", value)
+	*v = ApiRequestStepType("unknown")
+	return nil
 }
 
 // NewApiRequestStepTypeFromValue returns a pointer to a valid ApiRequestStepType
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewApiRequestStepTypeFromValue(v string) (*ApiRequestStepType, error) {
 	ev := ApiRequestStepType(v)
 	if ev.IsValid() {

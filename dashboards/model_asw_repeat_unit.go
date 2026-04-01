@@ -22,6 +22,7 @@ const (
 	ASWREPEATUNIT_DAY AswRepeatUnit = "day"
 	ASWREPEATUNIT_WEEK AswRepeatUnit = "week"
 	ASWREPEATUNIT_MONTH AswRepeatUnit = "month"
+	ASWREPEATUNIT_UNKNOWN AswRepeatUnit = "unknown"
 )
 
 // All allowed values of AswRepeatUnit enum
@@ -29,6 +30,7 @@ var AllowedAswRepeatUnitEnumValues = []AswRepeatUnit{
 	"day",
 	"week",
 	"month",
+	"unknown",
 }
 
 func (v *AswRepeatUnit) UnmarshalJSON(src []byte) error {
@@ -44,12 +46,12 @@ func (v *AswRepeatUnit) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid AswRepeatUnit", value)
+	*v = AswRepeatUnit("unknown")
+	return nil
 }
 
 // NewAswRepeatUnitFromValue returns a pointer to a valid AswRepeatUnit
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewAswRepeatUnitFromValue(v string) (*AswRepeatUnit, error) {
 	ev := AswRepeatUnit(v)
 	if ev.IsValid() {

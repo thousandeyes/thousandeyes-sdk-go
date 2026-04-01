@@ -53,9 +53,9 @@ func NewSipServerProperties() *SipServerProperties {
 	this.NetworkMeasurements = &networkMeasurements
 	var numPathTraces int32 = 3
 	this.NumPathTraces = &numPathTraces
-	var pathTraceMode TestPathTraceMode = TESTPATHTRACEMODE_CLASSIC
+	var pathTraceMode TestPathTraceMode = "classic"
 	this.PathTraceMode = &pathTraceMode
-	var probeMode TestProbeMode = TESTPROBEMODE_AUTO
+	var probeMode TestProbeMode = "auto"
 	this.ProbeMode = &probeMode
 	var randomizedStartTime bool = false
 	this.RandomizedStartTime = &randomizedStartTime
@@ -63,7 +63,7 @@ func NewSipServerProperties() *SipServerProperties {
 	this.RegisterEnabled = &registerEnabled
 	var sipTimeLimit int32 = 5
 	this.SipTimeLimit = &sipTimeLimit
-	var ipv6Policy TestIpv6Policy = TESTIPV6POLICY_USE_AGENT_POLICY
+	var ipv6Policy TestIpv6Policy = "use-agent-policy"
 	this.Ipv6Policy = &ipv6Policy
 	return &this
 }
@@ -77,9 +77,9 @@ func NewSipServerPropertiesWithDefaults() *SipServerProperties {
 	this.NetworkMeasurements = &networkMeasurements
 	var numPathTraces int32 = 3
 	this.NumPathTraces = &numPathTraces
-	var pathTraceMode TestPathTraceMode = TESTPATHTRACEMODE_CLASSIC
+	var pathTraceMode TestPathTraceMode = "classic"
 	this.PathTraceMode = &pathTraceMode
-	var probeMode TestProbeMode = TESTPROBEMODE_AUTO
+	var probeMode TestProbeMode = "auto"
 	this.ProbeMode = &probeMode
 	var randomizedStartTime bool = false
 	this.RandomizedStartTime = &randomizedStartTime
@@ -87,7 +87,7 @@ func NewSipServerPropertiesWithDefaults() *SipServerProperties {
 	this.RegisterEnabled = &registerEnabled
 	var sipTimeLimit int32 = 5
 	this.SipTimeLimit = &sipTimeLimit
-	var ipv6Policy TestIpv6Policy = TESTIPV6POLICY_USE_AGENT_POLICY
+	var ipv6Policy TestIpv6Policy = "use-agent-policy"
 	this.Ipv6Policy = &ipv6Policy
 	return &this
 }

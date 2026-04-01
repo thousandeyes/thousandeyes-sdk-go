@@ -22,6 +22,7 @@ const (
 	EXPANDINSTANTTESTOPTIONS_AGENT ExpandInstantTestOptions = "agent"
 	EXPANDINSTANTTESTOPTIONS_LABEL ExpandInstantTestOptions = "label"
 	EXPANDINSTANTTESTOPTIONS_SHARED_WITH_ACCOUNT ExpandInstantTestOptions = "shared-with-account"
+	EXPANDINSTANTTESTOPTIONS_UNKNOWN ExpandInstantTestOptions = "unknown"
 )
 
 // All allowed values of ExpandInstantTestOptions enum
@@ -29,6 +30,7 @@ var AllowedExpandInstantTestOptionsEnumValues = []ExpandInstantTestOptions{
 	"agent",
 	"label",
 	"shared-with-account",
+	"unknown",
 }
 
 func (v *ExpandInstantTestOptions) UnmarshalJSON(src []byte) error {
@@ -44,12 +46,12 @@ func (v *ExpandInstantTestOptions) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid ExpandInstantTestOptions", value)
+	*v = ExpandInstantTestOptions("unknown")
+	return nil
 }
 
 // NewExpandInstantTestOptionsFromValue returns a pointer to a valid ExpandInstantTestOptions
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewExpandInstantTestOptionsFromValue(v string) (*ExpandInstantTestOptions, error) {
 	ev := ExpandInstantTestOptions(v)
 	if ev.IsValid() {

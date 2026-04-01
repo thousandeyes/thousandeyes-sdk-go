@@ -36,6 +36,7 @@ const (
 	FILTERTYPE_HOSTNAME FilterType = "hostname"
 	FILTERTYPE_USERNAME FilterType = "username"
 	FILTERTYPE_ASN FilterType = "asn"
+	FILTERTYPE_UNKNOWN FilterType = "unknown"
 )
 
 // All allowed values of FilterType enum
@@ -57,6 +58,7 @@ var AllowedFilterTypeEnumValues = []FilterType{
 	"hostname",
 	"username",
 	"asn",
+	"unknown",
 }
 
 func (v *FilterType) UnmarshalJSON(src []byte) error {
@@ -72,12 +74,12 @@ func (v *FilterType) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid FilterType", value)
+	*v = FilterType("unknown")
+	return nil
 }
 
 // NewFilterTypeFromValue returns a pointer to a valid FilterType
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewFilterTypeFromValue(v string) (*FilterType, error) {
 	ev := FilterType(v)
 	if ev.IsValid() {

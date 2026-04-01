@@ -22,6 +22,7 @@ const (
 	TESTPROTOCOL_TCP TestProtocol = "tcp"
 	TESTPROTOCOL_ICMP TestProtocol = "icmp"
 	TESTPROTOCOL_UDP TestProtocol = "udp"
+	TESTPROTOCOL_UNKNOWN TestProtocol = "unknown"
 )
 
 // All allowed values of TestProtocol enum
@@ -29,6 +30,7 @@ var AllowedTestProtocolEnumValues = []TestProtocol{
 	"tcp",
 	"icmp",
 	"udp",
+	"unknown",
 }
 
 func (v *TestProtocol) UnmarshalJSON(src []byte) error {
@@ -44,12 +46,12 @@ func (v *TestProtocol) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid TestProtocol", value)
+	*v = TestProtocol("unknown")
+	return nil
 }
 
 // NewTestProtocolFromValue returns a pointer to a valid TestProtocol
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewTestProtocolFromValue(v string) (*TestProtocol, error) {
 	ev := TestProtocol(v)
 	if ev.IsValid() {

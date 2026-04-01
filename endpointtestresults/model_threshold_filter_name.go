@@ -32,6 +32,7 @@ const (
 	THRESHOLDFILTERNAME_ZTA_SERVICE_AVG_LATENCY ThresholdFilterName = "zta-service-avg-latency"
 	THRESHOLDFILTERNAME_ZTA_INGRESS_JITTER ThresholdFilterName = "zta-ingress-jitter"
 	THRESHOLDFILTERNAME_ZTA_SERVICE_JITTER ThresholdFilterName = "zta-service-jitter"
+	THRESHOLDFILTERNAME_UNKNOWN ThresholdFilterName = "unknown"
 )
 
 // All allowed values of ThresholdFilterName enum
@@ -49,6 +50,7 @@ var AllowedThresholdFilterNameEnumValues = []ThresholdFilterName{
 	"zta-service-avg-latency",
 	"zta-ingress-jitter",
 	"zta-service-jitter",
+	"unknown",
 }
 
 func (v *ThresholdFilterName) UnmarshalJSON(src []byte) error {
@@ -64,12 +66,12 @@ func (v *ThresholdFilterName) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid ThresholdFilterName", value)
+	*v = ThresholdFilterName("unknown")
+	return nil
 }
 
 // NewThresholdFilterNameFromValue returns a pointer to a valid ThresholdFilterName
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewThresholdFilterNameFromValue(v string) (*ThresholdFilterName, error) {
 	ev := ThresholdFilterName(v)
 	if ev.IsValid() {

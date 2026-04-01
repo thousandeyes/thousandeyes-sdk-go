@@ -23,6 +23,7 @@ const (
 	OPERATIONSTATUS_CONNECTED OperationStatus = "connected"
 	OPERATIONSTATUS_FAILING OperationStatus = "failing"
 	OPERATIONSTATUS_UNVERIFIED OperationStatus = "unverified"
+	OPERATIONSTATUS_UNKNOWN OperationStatus = "unknown"
 )
 
 // All allowed values of OperationStatus enum
@@ -31,6 +32,7 @@ var AllowedOperationStatusEnumValues = []OperationStatus{
 	"connected",
 	"failing",
 	"unverified",
+	"unknown",
 }
 
 func (v *OperationStatus) UnmarshalJSON(src []byte) error {
@@ -46,12 +48,12 @@ func (v *OperationStatus) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid OperationStatus", value)
+	*v = OperationStatus("unknown")
+	return nil
 }
 
 // NewOperationStatusFromValue returns a pointer to a valid OperationStatus
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewOperationStatusFromValue(v string) (*OperationStatus, error) {
 	ev := OperationStatus(v)
 	if ev.IsValid() {

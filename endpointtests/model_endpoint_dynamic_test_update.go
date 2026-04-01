@@ -38,11 +38,11 @@ func NewEndpointDynamicTestUpdate() *EndpointDynamicTestUpdate {
 	this := EndpointDynamicTestUpdate{}
 	var interval TestInterval = TESTINTERVAL__60
 	this.Interval = &interval
-	var protocol EndpointTestProtocol = ENDPOINTTESTPROTOCOL_ICMP
+	var protocol EndpointTestProtocol = "icmp"
 	this.Protocol = &protocol
 	var isEnabled bool = true
 	this.IsEnabled = &isEnabled
-	var tcpProbeMode TestProbeMode = TESTPROBEMODE_AUTO
+	var tcpProbeMode TestProbeMode = "auto"
 	this.TcpProbeMode = &tcpProbeMode
 	return &this
 }
@@ -54,11 +54,11 @@ func NewEndpointDynamicTestUpdateWithDefaults() *EndpointDynamicTestUpdate {
 	this := EndpointDynamicTestUpdate{}
 	var interval TestInterval = TESTINTERVAL__60
 	this.Interval = &interval
-	var protocol EndpointTestProtocol = ENDPOINTTESTPROTOCOL_ICMP
+	var protocol EndpointTestProtocol = "icmp"
 	this.Protocol = &protocol
 	var isEnabled bool = true
 	this.IsEnabled = &isEnabled
-	var tcpProbeMode TestProbeMode = TESTPROBEMODE_AUTO
+	var tcpProbeMode TestProbeMode = "auto"
 	this.TcpProbeMode = &tcpProbeMode
 	return &this
 }

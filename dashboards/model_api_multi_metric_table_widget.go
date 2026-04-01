@@ -64,7 +64,7 @@ type _ApiMultiMetricTableWidget ApiMultiMetricTableWidget
 // will change when the set of required properties is changed
 func NewApiMultiMetricTableWidget(type_ string) *ApiMultiMetricTableWidget {
 	this := ApiMultiMetricTableWidget{}
-	var visualMode VisualMode = VISUALMODE_FULL
+	var visualMode VisualMode = "Full"
 	this.VisualMode = &visualMode
 	this.Type = type_
 	return &this
@@ -75,7 +75,7 @@ func NewApiMultiMetricTableWidget(type_ string) *ApiMultiMetricTableWidget {
 // but it doesn't guarantee that properties required by API are set
 func NewApiMultiMetricTableWidgetWithDefaults() *ApiMultiMetricTableWidget {
 	this := ApiMultiMetricTableWidget{}
-	var visualMode VisualMode = VISUALMODE_FULL
+	var visualMode VisualMode = "Full"
 	this.VisualMode = &visualMode
 	return &this
 }

@@ -23,6 +23,7 @@ const (
 	EMULATEDDEVICECATEGORY_LAPTOP EmulatedDeviceCategory = "laptop"
 	EMULATEDDEVICECATEGORY_PHONE EmulatedDeviceCategory = "phone"
 	EMULATEDDEVICECATEGORY_TABLET EmulatedDeviceCategory = "tablet"
+	EMULATEDDEVICECATEGORY_UNKNOWN EmulatedDeviceCategory = "unknown"
 )
 
 // All allowed values of EmulatedDeviceCategory enum
@@ -31,6 +32,7 @@ var AllowedEmulatedDeviceCategoryEnumValues = []EmulatedDeviceCategory{
 	"laptop",
 	"phone",
 	"tablet",
+	"unknown",
 }
 
 func (v *EmulatedDeviceCategory) UnmarshalJSON(src []byte) error {
@@ -46,12 +48,12 @@ func (v *EmulatedDeviceCategory) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid EmulatedDeviceCategory", value)
+	*v = EmulatedDeviceCategory("unknown")
+	return nil
 }
 
 // NewEmulatedDeviceCategoryFromValue returns a pointer to a valid EmulatedDeviceCategory
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewEmulatedDeviceCategoryFromValue(v string) (*EmulatedDeviceCategory, error) {
 	ev := EmulatedDeviceCategory(v)
 	if ev.IsValid() {

@@ -21,12 +21,14 @@ type OutageScope string
 const (
 	OUTAGESCOPE_ALL OutageScope = "all"
 	OUTAGESCOPE_WITH_AFFECTED_TEST OutageScope = "with-affected-test"
+	OUTAGESCOPE_UNKNOWN OutageScope = "unknown"
 )
 
 // All allowed values of OutageScope enum
 var AllowedOutageScopeEnumValues = []OutageScope{
 	"all",
 	"with-affected-test",
+	"unknown",
 }
 
 func (v *OutageScope) UnmarshalJSON(src []byte) error {
@@ -42,12 +44,12 @@ func (v *OutageScope) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid OutageScope", value)
+	*v = OutageScope("unknown")
+	return nil
 }
 
 // NewOutageScopeFromValue returns a pointer to a valid OutageScope
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewOutageScopeFromValue(v string) (*OutageScope, error) {
 	ev := OutageScope(v)
 	if ev.IsValid() {

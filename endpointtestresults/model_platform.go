@@ -56,12 +56,12 @@ func (v *Platform) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid Platform", value)
+	*v = Platform("unknown")
+	return nil
 }
 
 // NewPlatformFromValue returns a pointer to a valid Platform
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewPlatformFromValue(v string) (*Platform, error) {
 	ev := Platform(v)
 	if ev.IsValid() {

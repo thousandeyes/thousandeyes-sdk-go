@@ -21,12 +21,14 @@ type ProxyType string
 const (
 	PROXYTYPE_STATIC ProxyType = "static"
 	PROXYTYPE_PAC ProxyType = "pac"
+	PROXYTYPE_UNKNOWN ProxyType = "unknown"
 )
 
 // All allowed values of ProxyType enum
 var AllowedProxyTypeEnumValues = []ProxyType{
 	"static",
 	"pac",
+	"unknown",
 }
 
 func (v *ProxyType) UnmarshalJSON(src []byte) error {
@@ -42,12 +44,12 @@ func (v *ProxyType) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid ProxyType", value)
+	*v = ProxyType("unknown")
+	return nil
 }
 
 // NewProxyTypeFromValue returns a pointer to a valid ProxyType
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewProxyTypeFromValue(v string) (*ProxyType, error) {
 	ev := ProxyType(v)
 	if ev.IsValid() {

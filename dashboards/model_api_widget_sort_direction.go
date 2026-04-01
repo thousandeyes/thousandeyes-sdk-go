@@ -21,12 +21,14 @@ type ApiWidgetSortDirection string
 const (
 	APIWIDGETSORTDIRECTION_ASCENDING ApiWidgetSortDirection = "ascending"
 	APIWIDGETSORTDIRECTION_DESCENDING ApiWidgetSortDirection = "descending"
+	APIWIDGETSORTDIRECTION_UNKNOWN ApiWidgetSortDirection = "unknown"
 )
 
 // All allowed values of ApiWidgetSortDirection enum
 var AllowedApiWidgetSortDirectionEnumValues = []ApiWidgetSortDirection{
 	"ascending",
 	"descending",
+	"unknown",
 }
 
 func (v *ApiWidgetSortDirection) UnmarshalJSON(src []byte) error {
@@ -42,12 +44,12 @@ func (v *ApiWidgetSortDirection) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid ApiWidgetSortDirection", value)
+	*v = ApiWidgetSortDirection("unknown")
+	return nil
 }
 
 // NewApiWidgetSortDirectionFromValue returns a pointer to a valid ApiWidgetSortDirection
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewApiWidgetSortDirectionFromValue(v string) (*ApiWidgetSortDirection, error) {
 	ev := ApiWidgetSortDirection(v)
 	if ev.IsValid() {

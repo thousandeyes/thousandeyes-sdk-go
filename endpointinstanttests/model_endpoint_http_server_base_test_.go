@@ -41,15 +41,15 @@ type EndpointHttpServerBaseTest struct {
 // will change when the set of required properties is changed
 func NewEndpointHttpServerBaseTest() *EndpointHttpServerBaseTest {
 	this := EndpointHttpServerBaseTest{}
-	var authType EndpointTestAuthType = ENDPOINTTESTAUTHTYPE_NONE
+	var authType EndpointTestAuthType = "none"
 	this.AuthType = &authType
 	var httpTimeLimit int32 = 5000
 	this.HttpTimeLimit = &httpTimeLimit
-	var protocol EndpointTestProtocol = ENDPOINTTESTPROTOCOL_ICMP
+	var protocol EndpointTestProtocol = "icmp"
 	this.Protocol = &protocol
-	var sslVersionId TestSslVersionId = TESTSSLVERSIONID__0
+	var sslVersionId TestSslVersionId = "0"
 	this.SslVersionId = &sslVersionId
-	var tcpProbeMode TestProbeModeResponse = TESTPROBEMODERESPONSE_AUTO
+	var tcpProbeMode TestProbeModeResponse = "auto"
 	this.TcpProbeMode = &tcpProbeMode
 	var verifyCertificate bool = true
 	this.VerifyCertificate = &verifyCertificate
@@ -61,15 +61,15 @@ func NewEndpointHttpServerBaseTest() *EndpointHttpServerBaseTest {
 // but it doesn't guarantee that properties required by API are set
 func NewEndpointHttpServerBaseTestWithDefaults() *EndpointHttpServerBaseTest {
 	this := EndpointHttpServerBaseTest{}
-	var authType EndpointTestAuthType = ENDPOINTTESTAUTHTYPE_NONE
+	var authType EndpointTestAuthType = "none"
 	this.AuthType = &authType
 	var httpTimeLimit int32 = 5000
 	this.HttpTimeLimit = &httpTimeLimit
-	var protocol EndpointTestProtocol = ENDPOINTTESTPROTOCOL_ICMP
+	var protocol EndpointTestProtocol = "icmp"
 	this.Protocol = &protocol
-	var sslVersionId TestSslVersionId = TESTSSLVERSIONID__0
+	var sslVersionId TestSslVersionId = "0"
 	this.SslVersionId = &sslVersionId
-	var tcpProbeMode TestProbeModeResponse = TESTPROBEMODERESPONSE_AUTO
+	var tcpProbeMode TestProbeModeResponse = "auto"
 	this.TcpProbeMode = &tcpProbeMode
 	var verifyCertificate bool = true
 	this.VerifyCertificate = &verifyCertificate

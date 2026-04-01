@@ -141,7 +141,7 @@ type _WebTransactionInstantTest WebTransactionInstantTest
 // will change when the set of required properties is changed
 func NewWebTransactionInstantTest(url string, transactionScript string) *WebTransactionInstantTest {
 	this := WebTransactionInstantTest{}
-	var authType TestAuthType = TESTAUTHTYPE_NONE
+	var authType TestAuthType = "none"
 	this.AuthType = &authType
 	var desiredStatusCode string = "default"
 	this.DesiredStatusCode = &desiredStatusCode
@@ -155,13 +155,13 @@ func NewWebTransactionInstantTest(url string, transactionScript string) *WebTran
 	this.NetworkMeasurements = &networkMeasurements
 	var numPathTraces int32 = 3
 	this.NumPathTraces = &numPathTraces
-	var pathTraceMode TestPathTraceMode = TESTPATHTRACEMODE_CLASSIC
+	var pathTraceMode TestPathTraceMode = "classic"
 	this.PathTraceMode = &pathTraceMode
-	var probeMode TestProbeMode = TESTPROBEMODE_AUTO
+	var probeMode TestProbeMode = "auto"
 	this.ProbeMode = &probeMode
-	var protocol TestProtocol = TESTPROTOCOL_TCP
+	var protocol TestProtocol = "tcp"
 	this.Protocol = &protocol
-	var sslVersionId TestSslVersionId = TESTSSLVERSIONID__0
+	var sslVersionId TestSslVersionId = "0"
 	this.SslVersionId = &sslVersionId
 	this.Url = url
 	var verifyCertificate bool = false
@@ -185,7 +185,7 @@ func NewWebTransactionInstantTest(url string, transactionScript string) *WebTran
 	this.AllowMicAndCamera = &allowMicAndCamera
 	var allowGeolocation bool = false
 	this.AllowGeolocation = &allowGeolocation
-	var pageLoadingStrategy TestPageLoadingStrategy = TESTPAGELOADINGSTRATEGY_NORMAL
+	var pageLoadingStrategy TestPageLoadingStrategy = "normal"
 	this.PageLoadingStrategy = &pageLoadingStrategy
 	var randomizedStartTime bool = false
 	this.RandomizedStartTime = &randomizedStartTime
@@ -199,7 +199,7 @@ func NewWebTransactionInstantTest(url string, transactionScript string) *WebTran
 // but it doesn't guarantee that properties required by API are set
 func NewWebTransactionInstantTestWithDefaults() *WebTransactionInstantTest {
 	this := WebTransactionInstantTest{}
-	var authType TestAuthType = TESTAUTHTYPE_NONE
+	var authType TestAuthType = "none"
 	this.AuthType = &authType
 	var desiredStatusCode string = "default"
 	this.DesiredStatusCode = &desiredStatusCode
@@ -213,13 +213,13 @@ func NewWebTransactionInstantTestWithDefaults() *WebTransactionInstantTest {
 	this.NetworkMeasurements = &networkMeasurements
 	var numPathTraces int32 = 3
 	this.NumPathTraces = &numPathTraces
-	var pathTraceMode TestPathTraceMode = TESTPATHTRACEMODE_CLASSIC
+	var pathTraceMode TestPathTraceMode = "classic"
 	this.PathTraceMode = &pathTraceMode
-	var probeMode TestProbeMode = TESTPROBEMODE_AUTO
+	var probeMode TestProbeMode = "auto"
 	this.ProbeMode = &probeMode
-	var protocol TestProtocol = TESTPROTOCOL_TCP
+	var protocol TestProtocol = "tcp"
 	this.Protocol = &protocol
-	var sslVersionId TestSslVersionId = TESTSSLVERSIONID__0
+	var sslVersionId TestSslVersionId = "0"
 	this.SslVersionId = &sslVersionId
 	var verifyCertificate bool = false
 	this.VerifyCertificate = &verifyCertificate
@@ -241,7 +241,7 @@ func NewWebTransactionInstantTestWithDefaults() *WebTransactionInstantTest {
 	this.AllowMicAndCamera = &allowMicAndCamera
 	var allowGeolocation bool = false
 	this.AllowGeolocation = &allowGeolocation
-	var pageLoadingStrategy TestPageLoadingStrategy = TESTPAGELOADINGSTRATEGY_NORMAL
+	var pageLoadingStrategy TestPageLoadingStrategy = "normal"
 	this.PageLoadingStrategy = &pageLoadingStrategy
 	var randomizedStartTime bool = false
 	this.RandomizedStartTime = &randomizedStartTime

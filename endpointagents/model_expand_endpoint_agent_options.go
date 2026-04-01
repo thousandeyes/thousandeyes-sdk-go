@@ -22,6 +22,7 @@ const (
 	EXPANDENDPOINTAGENTOPTIONS_CLIENTS ExpandEndpointAgentOptions = "clients"
 	EXPANDENDPOINTAGENTOPTIONS_VPN_PROFILES ExpandEndpointAgentOptions = "vpnProfiles"
 	EXPANDENDPOINTAGENTOPTIONS_NETWORK_INTERFACE_PROFILES ExpandEndpointAgentOptions = "networkInterfaceProfiles"
+	EXPANDENDPOINTAGENTOPTIONS_UNKNOWN ExpandEndpointAgentOptions = "unknown"
 )
 
 // All allowed values of ExpandEndpointAgentOptions enum
@@ -29,6 +30,7 @@ var AllowedExpandEndpointAgentOptionsEnumValues = []ExpandEndpointAgentOptions{
 	"clients",
 	"vpnProfiles",
 	"networkInterfaceProfiles",
+	"unknown",
 }
 
 func (v *ExpandEndpointAgentOptions) UnmarshalJSON(src []byte) error {
@@ -44,12 +46,12 @@ func (v *ExpandEndpointAgentOptions) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid ExpandEndpointAgentOptions", value)
+	*v = ExpandEndpointAgentOptions("unknown")
+	return nil
 }
 
 // NewExpandEndpointAgentOptionsFromValue returns a pointer to a valid ExpandEndpointAgentOptions
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewExpandEndpointAgentOptionsFromValue(v string) (*ExpandEndpointAgentOptions, error) {
 	ev := ExpandEndpointAgentOptions(v)
 	if ev.IsValid() {

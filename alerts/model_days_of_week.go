@@ -26,6 +26,7 @@ const (
 	DAYSOFWEEK_THU DaysOfWeek = "thu"
 	DAYSOFWEEK_FRI DaysOfWeek = "fri"
 	DAYSOFWEEK_SAT DaysOfWeek = "sat"
+	DAYSOFWEEK_UNKNOWN DaysOfWeek = "unknown"
 )
 
 // All allowed values of DaysOfWeek enum
@@ -37,6 +38,7 @@ var AllowedDaysOfWeekEnumValues = []DaysOfWeek{
 	"thu",
 	"fri",
 	"sat",
+	"unknown",
 }
 
 func (v *DaysOfWeek) UnmarshalJSON(src []byte) error {
@@ -52,12 +54,12 @@ func (v *DaysOfWeek) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid DaysOfWeek", value)
+	*v = DaysOfWeek("unknown")
+	return nil
 }
 
 // NewDaysOfWeekFromValue returns a pointer to a valid DaysOfWeek
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewDaysOfWeekFromValue(v string) (*DaysOfWeek, error) {
 	ev := DaysOfWeek(v)
 	if ev.IsValid() {

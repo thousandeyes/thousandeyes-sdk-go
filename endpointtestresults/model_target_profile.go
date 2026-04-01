@@ -32,7 +32,7 @@ type TargetProfile struct {
 // will change when the set of required properties is changed
 func NewTargetProfile() *TargetProfile {
 	this := TargetProfile{}
-	var protocol TestProtocol = TESTPROTOCOL_TCP
+	var protocol TestProtocol = "tcp"
 	this.Protocol = &protocol
 	return &this
 }
@@ -42,7 +42,7 @@ func NewTargetProfile() *TargetProfile {
 // but it doesn't guarantee that properties required by API are set
 func NewTargetProfileWithDefaults() *TargetProfile {
 	this := TargetProfile{}
-	var protocol TestProtocol = TESTPROTOCOL_TCP
+	var protocol TestProtocol = "tcp"
 	this.Protocol = &protocol
 	return &this
 }

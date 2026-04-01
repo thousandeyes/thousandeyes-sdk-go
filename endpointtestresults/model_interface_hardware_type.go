@@ -52,12 +52,12 @@ func (v *InterfaceHardwareType) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid InterfaceHardwareType", value)
+	*v = InterfaceHardwareType("unknown")
+	return nil
 }
 
 // NewInterfaceHardwareTypeFromValue returns a pointer to a valid InterfaceHardwareType
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewInterfaceHardwareTypeFromValue(v string) (*InterfaceHardwareType, error) {
 	ev := InterfaceHardwareType(v)
 	if ev.IsValid() {

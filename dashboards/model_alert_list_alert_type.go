@@ -43,6 +43,7 @@ const (
 	ALERTLISTALERTTYPE_BROWSER_SESSION_AGENT AlertListAlertType = "browser-session-agent"
 	ALERTLISTALERTTYPE_BROWSER_SESSION_APPLICATION AlertListAlertType = "browser-session-application"
 	ALERTLISTALERTTYPE_ROUTING_BGP AlertListAlertType = "routing-bgp"
+	ALERTLISTALERTTYPE_UNKNOWN AlertListAlertType = "unknown"
 )
 
 // All allowed values of AlertListAlertType enum
@@ -71,6 +72,7 @@ var AllowedAlertListAlertTypeEnumValues = []AlertListAlertType{
 	"browser-session-agent",
 	"browser-session-application",
 	"routing-bgp",
+	"unknown",
 }
 
 func (v *AlertListAlertType) UnmarshalJSON(src []byte) error {
@@ -86,12 +88,12 @@ func (v *AlertListAlertType) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid AlertListAlertType", value)
+	*v = AlertListAlertType("unknown")
+	return nil
 }
 
 // NewAlertListAlertTypeFromValue returns a pointer to a valid AlertListAlertType
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewAlertListAlertTypeFromValue(v string) (*AlertListAlertType, error) {
 	ev := AlertListAlertType(v)
 	if ev.IsValid() {

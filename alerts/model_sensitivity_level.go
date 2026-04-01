@@ -22,6 +22,7 @@ const (
 	SENSITIVITYLEVEL_HIGH SensitivityLevel = "high"
 	SENSITIVITYLEVEL_MEDIUM SensitivityLevel = "medium"
 	SENSITIVITYLEVEL_LOW SensitivityLevel = "low"
+	SENSITIVITYLEVEL_UNKNOWN SensitivityLevel = "unknown"
 )
 
 // All allowed values of SensitivityLevel enum
@@ -29,6 +30,7 @@ var AllowedSensitivityLevelEnumValues = []SensitivityLevel{
 	"high",
 	"medium",
 	"low",
+	"unknown",
 }
 
 func (v *SensitivityLevel) UnmarshalJSON(src []byte) error {
@@ -44,12 +46,12 @@ func (v *SensitivityLevel) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid SensitivityLevel", value)
+	*v = SensitivityLevel("unknown")
+	return nil
 }
 
 // NewSensitivityLevelFromValue returns a pointer to a valid SensitivityLevel
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewSensitivityLevelFromValue(v string) (*SensitivityLevel, error) {
 	ev := SensitivityLevel(v)
 	if ev.IsValid() {

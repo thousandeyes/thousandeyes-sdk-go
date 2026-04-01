@@ -20,11 +20,13 @@ type CustomWebhookIntegrationType string
 // List of CustomWebhookIntegrationType
 const (
 	CUSTOMWEBHOOKINTEGRATIONTYPE_CUSTOM_WEBHOOK CustomWebhookIntegrationType = "custom-webhook"
+	CUSTOMWEBHOOKINTEGRATIONTYPE_UNKNOWN CustomWebhookIntegrationType = "unknown"
 )
 
 // All allowed values of CustomWebhookIntegrationType enum
 var AllowedCustomWebhookIntegrationTypeEnumValues = []CustomWebhookIntegrationType{
 	"custom-webhook",
+	"unknown",
 }
 
 func (v *CustomWebhookIntegrationType) UnmarshalJSON(src []byte) error {
@@ -40,12 +42,12 @@ func (v *CustomWebhookIntegrationType) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid CustomWebhookIntegrationType", value)
+	*v = CustomWebhookIntegrationType("unknown")
+	return nil
 }
 
 // NewCustomWebhookIntegrationTypeFromValue returns a pointer to a valid CustomWebhookIntegrationType
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewCustomWebhookIntegrationTypeFromValue(v string) (*CustomWebhookIntegrationType, error) {
 	ev := CustomWebhookIntegrationType(v)
 	if ev.IsValid() {

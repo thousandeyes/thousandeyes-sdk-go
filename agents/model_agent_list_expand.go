@@ -22,6 +22,7 @@ const (
 	AGENTLISTEXPAND_CLUSTER_MEMBER AgentListExpand = "cluster-member"
 	AGENTLISTEXPAND_TEST AgentListExpand = "test"
 	AGENTLISTEXPAND_TEST_IDS AgentListExpand = "test-ids"
+	AGENTLISTEXPAND_UNKNOWN AgentListExpand = "unknown"
 )
 
 // All allowed values of AgentListExpand enum
@@ -29,6 +30,7 @@ var AllowedAgentListExpandEnumValues = []AgentListExpand{
 	"cluster-member",
 	"test",
 	"test-ids",
+	"unknown",
 }
 
 func (v *AgentListExpand) UnmarshalJSON(src []byte) error {
@@ -44,12 +46,12 @@ func (v *AgentListExpand) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid AgentListExpand", value)
+	*v = AgentListExpand("unknown")
+	return nil
 }
 
 // NewAgentListExpandFromValue returns a pointer to a valid AgentListExpand
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewAgentListExpandFromValue(v string) (*AgentListExpand, error) {
 	ev := AgentListExpand(v)
 	if ev.IsValid() {

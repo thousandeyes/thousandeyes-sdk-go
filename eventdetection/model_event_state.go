@@ -21,12 +21,14 @@ type EventState string
 const (
 	EVENTSTATE_ACTIVE EventState = "active"
 	EVENTSTATE_RESOLVED EventState = "resolved"
+	EVENTSTATE_UNKNOWN EventState = "unknown"
 )
 
 // All allowed values of EventState enum
 var AllowedEventStateEnumValues = []EventState{
 	"active",
 	"resolved",
+	"unknown",
 }
 
 func (v *EventState) UnmarshalJSON(src []byte) error {
@@ -42,12 +44,12 @@ func (v *EventState) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid EventState", value)
+	*v = EventState("unknown")
+	return nil
 }
 
 // NewEventStateFromValue returns a pointer to a valid EventState
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewEventStateFromValue(v string) (*EventState, error) {
 	ev := EventState(v)
 	if ev.IsValid() {

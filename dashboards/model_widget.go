@@ -48,7 +48,7 @@ type Widget struct {
 // will change when the set of required properties is changed
 func NewWidget() *Widget {
 	this := Widget{}
-	var visualMode VisualMode = VISUALMODE_FULL
+	var visualMode VisualMode = "Full"
 	this.VisualMode = &visualMode
 	return &this
 }
@@ -58,7 +58,7 @@ func NewWidget() *Widget {
 // but it doesn't guarantee that properties required by API are set
 func NewWidgetWithDefaults() *Widget {
 	this := Widget{}
-	var visualMode VisualMode = VISUALMODE_FULL
+	var visualMode VisualMode = "Full"
 	this.VisualMode = &visualMode
 	return &this
 }

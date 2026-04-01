@@ -28,6 +28,7 @@ const (
 	APIWIDGETFIXEDYSCALEPREFIX_KPPS ApiWidgetFixedYScalePrefix = "Kpps"
 	APIWIDGETFIXEDYSCALEPREFIX_MPPS ApiWidgetFixedYScalePrefix = "Mpps"
 	APIWIDGETFIXEDYSCALEPREFIX_GPPS ApiWidgetFixedYScalePrefix = "Gpps"
+	APIWIDGETFIXEDYSCALEPREFIX_UNKNOWN ApiWidgetFixedYScalePrefix = "unknown"
 )
 
 // All allowed values of ApiWidgetFixedYScalePrefix enum
@@ -41,6 +42,7 @@ var AllowedApiWidgetFixedYScalePrefixEnumValues = []ApiWidgetFixedYScalePrefix{
 	"Kpps",
 	"Mpps",
 	"Gpps",
+	"unknown",
 }
 
 func (v *ApiWidgetFixedYScalePrefix) UnmarshalJSON(src []byte) error {
@@ -56,12 +58,12 @@ func (v *ApiWidgetFixedYScalePrefix) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid ApiWidgetFixedYScalePrefix", value)
+	*v = ApiWidgetFixedYScalePrefix("unknown")
+	return nil
 }
 
 // NewApiWidgetFixedYScalePrefixFromValue returns a pointer to a valid ApiWidgetFixedYScalePrefix
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewApiWidgetFixedYScalePrefixFromValue(v string) (*ApiWidgetFixedYScalePrefix, error) {
 	ev := ApiWidgetFixedYScalePrefix(v)
 	if ev.IsValid() {

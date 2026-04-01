@@ -21,12 +21,14 @@ type MatchType string
 const (
 	MATCHTYPE_AND MatchType = "and"
 	MATCHTYPE_OR MatchType = "or"
+	MATCHTYPE_UNKNOWN MatchType = "unknown"
 )
 
 // All allowed values of MatchType enum
 var AllowedMatchTypeEnumValues = []MatchType{
 	"and",
 	"or",
+	"unknown",
 }
 
 func (v *MatchType) UnmarshalJSON(src []byte) error {
@@ -42,12 +44,12 @@ func (v *MatchType) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid MatchType", value)
+	*v = MatchType("unknown")
+	return nil
 }
 
 // NewMatchTypeFromValue returns a pointer to a valid MatchType
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewMatchTypeFromValue(v string) (*MatchType, error) {
 	ev := MatchType(v)
 	if ev.IsValid() {

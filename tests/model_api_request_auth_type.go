@@ -23,6 +23,7 @@ const (
 	APIREQUESTAUTHTYPE_BASIC ApiRequestAuthType = "basic"
 	APIREQUESTAUTHTYPE_BEARER_TOKEN ApiRequestAuthType = "bearer-token"
 	APIREQUESTAUTHTYPE_OAUTH2 ApiRequestAuthType = "oauth2"
+	APIREQUESTAUTHTYPE_UNKNOWN ApiRequestAuthType = "unknown"
 )
 
 // All allowed values of ApiRequestAuthType enum
@@ -31,6 +32,7 @@ var AllowedApiRequestAuthTypeEnumValues = []ApiRequestAuthType{
 	"basic",
 	"bearer-token",
 	"oauth2",
+	"unknown",
 }
 
 func (v *ApiRequestAuthType) UnmarshalJSON(src []byte) error {
@@ -46,12 +48,12 @@ func (v *ApiRequestAuthType) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid ApiRequestAuthType", value)
+	*v = ApiRequestAuthType("unknown")
+	return nil
 }
 
 // NewApiRequestAuthTypeFromValue returns a pointer to a valid ApiRequestAuthType
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewApiRequestAuthTypeFromValue(v string) (*ApiRequestAuthType, error) {
 	ev := ApiRequestAuthType(v)
 	if ev.IsValid() {

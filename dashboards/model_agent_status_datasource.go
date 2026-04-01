@@ -34,6 +34,7 @@ const (
 	AGENTSTATUSDATASOURCE_APPDYNAMICS_SERVICE_HEALTH AgentStatusDatasource = "APPDYNAMICS_SERVICE_HEALTH"
 	AGENTSTATUSDATASOURCE_CLOUD_NATIVE_MONITORING AgentStatusDatasource = "CLOUD_NATIVE_MONITORING"
 	AGENTSTATUSDATASOURCE_TRAFFIC_INSIGHTS_MONITORING AgentStatusDatasource = "TRAFFIC_INSIGHTS_MONITORING"
+	AGENTSTATUSDATASOURCE_UNKNOWN AgentStatusDatasource = "unknown"
 )
 
 // All allowed values of AgentStatusDatasource enum
@@ -53,6 +54,7 @@ var AllowedAgentStatusDatasourceEnumValues = []AgentStatusDatasource{
 	"APPDYNAMICS_SERVICE_HEALTH",
 	"CLOUD_NATIVE_MONITORING",
 	"TRAFFIC_INSIGHTS_MONITORING",
+	"unknown",
 }
 
 func (v *AgentStatusDatasource) UnmarshalJSON(src []byte) error {
@@ -68,12 +70,12 @@ func (v *AgentStatusDatasource) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid AgentStatusDatasource", value)
+	*v = AgentStatusDatasource("unknown")
+	return nil
 }
 
 // NewAgentStatusDatasourceFromValue returns a pointer to a valid AgentStatusDatasource
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewAgentStatusDatasourceFromValue(v string) (*AgentStatusDatasource, error) {
 	ev := AgentStatusDatasource(v)
 	if ev.IsValid() {

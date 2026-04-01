@@ -26,6 +26,7 @@ const (
 	HTTPTHRESHOLDFILTERNAME_SSL_TIME HttpThresholdFilterName = "ssl-time"
 	HTTPTHRESHOLDFILTERNAME_WAIT_TIME HttpThresholdFilterName = "wait-time"
 	HTTPTHRESHOLDFILTERNAME_APPLICATION_SCORE HttpThresholdFilterName = "application-score"
+	HTTPTHRESHOLDFILTERNAME_UNKNOWN HttpThresholdFilterName = "unknown"
 )
 
 // All allowed values of HttpThresholdFilterName enum
@@ -37,6 +38,7 @@ var AllowedHttpThresholdFilterNameEnumValues = []HttpThresholdFilterName{
 	"ssl-time",
 	"wait-time",
 	"application-score",
+	"unknown",
 }
 
 func (v *HttpThresholdFilterName) UnmarshalJSON(src []byte) error {
@@ -52,12 +54,12 @@ func (v *HttpThresholdFilterName) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid HttpThresholdFilterName", value)
+	*v = HttpThresholdFilterName("unknown")
+	return nil
 }
 
 // NewHttpThresholdFilterNameFromValue returns a pointer to a valid HttpThresholdFilterName
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewHttpThresholdFilterNameFromValue(v string) (*HttpThresholdFilterName, error) {
 	ev := HttpThresholdFilterName(v)
 	if ev.IsValid() {

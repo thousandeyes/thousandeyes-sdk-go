@@ -25,6 +25,7 @@ const (
 	PIECHARTDATASOURCE_ENDPOINT_SCHEDULED_TEST PieChartDatasource = "ENDPOINT_SCHEDULED_TEST"
 	PIECHARTDATASOURCE_CLOUD_NATIVE_MONITORING PieChartDatasource = "CLOUD_NATIVE_MONITORING"
 	PIECHARTDATASOURCE_TRAFFIC_INSIGHTS_MONITORING PieChartDatasource = "TRAFFIC_INSIGHTS_MONITORING"
+	PIECHARTDATASOURCE_UNKNOWN PieChartDatasource = "unknown"
 )
 
 // All allowed values of PieChartDatasource enum
@@ -35,6 +36,7 @@ var AllowedPieChartDatasourceEnumValues = []PieChartDatasource{
 	"ENDPOINT_SCHEDULED_TEST",
 	"CLOUD_NATIVE_MONITORING",
 	"TRAFFIC_INSIGHTS_MONITORING",
+	"unknown",
 }
 
 func (v *PieChartDatasource) UnmarshalJSON(src []byte) error {
@@ -50,12 +52,12 @@ func (v *PieChartDatasource) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid PieChartDatasource", value)
+	*v = PieChartDatasource("unknown")
+	return nil
 }
 
 // NewPieChartDatasourceFromValue returns a pointer to a valid PieChartDatasource
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewPieChartDatasourceFromValue(v string) (*PieChartDatasource, error) {
 	ev := PieChartDatasource(v)
 	if ev.IsValid() {

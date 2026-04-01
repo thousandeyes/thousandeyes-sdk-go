@@ -126,7 +126,7 @@ type _HttpServerInstantTestRequest HttpServerInstantTestRequest
 // will change when the set of required properties is changed
 func NewHttpServerInstantTestRequest(url string, agents []TestAgent) *HttpServerInstantTestRequest {
 	this := HttpServerInstantTestRequest{}
-	var authType TestAuthType = TESTAUTHTYPE_NONE
+	var authType TestAuthType = "none"
 	this.AuthType = &authType
 	var desiredStatusCode string = "default"
 	this.DesiredStatusCode = &desiredStatusCode
@@ -140,13 +140,13 @@ func NewHttpServerInstantTestRequest(url string, agents []TestAgent) *HttpServer
 	this.NetworkMeasurements = &networkMeasurements
 	var numPathTraces int32 = 3
 	this.NumPathTraces = &numPathTraces
-	var pathTraceMode TestPathTraceMode = TESTPATHTRACEMODE_CLASSIC
+	var pathTraceMode TestPathTraceMode = "classic"
 	this.PathTraceMode = &pathTraceMode
-	var probeMode TestProbeMode = TESTPROBEMODE_AUTO
+	var probeMode TestProbeMode = "auto"
 	this.ProbeMode = &probeMode
-	var protocol TestProtocol = TESTPROTOCOL_TCP
+	var protocol TestProtocol = "tcp"
 	this.Protocol = &protocol
-	var sslVersionId TestSslVersionId = TESTSSLVERSIONID__0
+	var sslVersionId TestSslVersionId = "0"
 	this.SslVersionId = &sslVersionId
 	this.Url = url
 	var verifyCertificate bool = false
@@ -161,7 +161,7 @@ func NewHttpServerInstantTestRequest(url string, agents []TestAgent) *HttpServer
 	this.CollectProxyNetworkData = &collectProxyNetworkData
 	var randomizedStartTime bool = false
 	this.RandomizedStartTime = &randomizedStartTime
-	var ipv6Policy TestIpv6Policy = TESTIPV6POLICY_USE_AGENT_POLICY
+	var ipv6Policy TestIpv6Policy = "use-agent-policy"
 	this.Ipv6Policy = &ipv6Policy
 	this.Agents = agents
 	return &this
@@ -172,7 +172,7 @@ func NewHttpServerInstantTestRequest(url string, agents []TestAgent) *HttpServer
 // but it doesn't guarantee that properties required by API are set
 func NewHttpServerInstantTestRequestWithDefaults() *HttpServerInstantTestRequest {
 	this := HttpServerInstantTestRequest{}
-	var authType TestAuthType = TESTAUTHTYPE_NONE
+	var authType TestAuthType = "none"
 	this.AuthType = &authType
 	var desiredStatusCode string = "default"
 	this.DesiredStatusCode = &desiredStatusCode
@@ -186,13 +186,13 @@ func NewHttpServerInstantTestRequestWithDefaults() *HttpServerInstantTestRequest
 	this.NetworkMeasurements = &networkMeasurements
 	var numPathTraces int32 = 3
 	this.NumPathTraces = &numPathTraces
-	var pathTraceMode TestPathTraceMode = TESTPATHTRACEMODE_CLASSIC
+	var pathTraceMode TestPathTraceMode = "classic"
 	this.PathTraceMode = &pathTraceMode
-	var probeMode TestProbeMode = TESTPROBEMODE_AUTO
+	var probeMode TestProbeMode = "auto"
 	this.ProbeMode = &probeMode
-	var protocol TestProtocol = TESTPROTOCOL_TCP
+	var protocol TestProtocol = "tcp"
 	this.Protocol = &protocol
-	var sslVersionId TestSslVersionId = TESTSSLVERSIONID__0
+	var sslVersionId TestSslVersionId = "0"
 	this.SslVersionId = &sslVersionId
 	var verifyCertificate bool = false
 	this.VerifyCertificate = &verifyCertificate
@@ -206,7 +206,7 @@ func NewHttpServerInstantTestRequestWithDefaults() *HttpServerInstantTestRequest
 	this.CollectProxyNetworkData = &collectProxyNetworkData
 	var randomizedStartTime bool = false
 	this.RandomizedStartTime = &randomizedStartTime
-	var ipv6Policy TestIpv6Policy = TESTIPV6POLICY_USE_AGENT_POLICY
+	var ipv6Policy TestIpv6Policy = "use-agent-policy"
 	this.Ipv6Policy = &ipv6Policy
 	return &this
 }

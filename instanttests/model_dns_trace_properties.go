@@ -37,7 +37,7 @@ type _DnsTraceProperties DnsTraceProperties
 // will change when the set of required properties is changed
 func NewDnsTraceProperties(domain string) *DnsTraceProperties {
 	this := DnsTraceProperties{}
-	var dnsTransportProtocol TestDnsTransportProtocol = TESTDNSTRANSPORTPROTOCOL_UDP
+	var dnsTransportProtocol TestDnsTransportProtocol = "udp"
 	this.DnsTransportProtocol = &dnsTransportProtocol
 	this.Domain = domain
 	var randomizedStartTime bool = false
@@ -50,7 +50,7 @@ func NewDnsTraceProperties(domain string) *DnsTraceProperties {
 // but it doesn't guarantee that properties required by API are set
 func NewDnsTracePropertiesWithDefaults() *DnsTraceProperties {
 	this := DnsTraceProperties{}
-	var dnsTransportProtocol TestDnsTransportProtocol = TESTDNSTRANSPORTPROTOCOL_UDP
+	var dnsTransportProtocol TestDnsTransportProtocol = "udp"
 	this.DnsTransportProtocol = &dnsTransportProtocol
 	var randomizedStartTime bool = false
 	this.RandomizedStartTime = &randomizedStartTime

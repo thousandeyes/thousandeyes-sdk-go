@@ -60,7 +60,7 @@ type _ApiStackedAreaChartWidget ApiStackedAreaChartWidget
 // will change when the set of required properties is changed
 func NewApiStackedAreaChartWidget(type_ string) *ApiStackedAreaChartWidget {
 	this := ApiStackedAreaChartWidget{}
-	var visualMode VisualMode = VISUALMODE_FULL
+	var visualMode VisualMode = "Full"
 	this.VisualMode = &visualMode
 	this.Type = type_
 	return &this
@@ -71,7 +71,7 @@ func NewApiStackedAreaChartWidget(type_ string) *ApiStackedAreaChartWidget {
 // but it doesn't guarantee that properties required by API are set
 func NewApiStackedAreaChartWidgetWithDefaults() *ApiStackedAreaChartWidget {
 	this := ApiStackedAreaChartWidget{}
-	var visualMode VisualMode = VISUALMODE_FULL
+	var visualMode VisualMode = "Full"
 	this.VisualMode = &visualMode
 	return &this
 }

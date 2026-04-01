@@ -22,6 +22,7 @@ const (
 	CLOUDENTERPRISEAGENTTYPE_CLOUD CloudEnterpriseAgentType = "cloud"
 	CLOUDENTERPRISEAGENTTYPE_ENTERPRISE_CLUSTER CloudEnterpriseAgentType = "enterprise-cluster"
 	CLOUDENTERPRISEAGENTTYPE_ENTERPRISE CloudEnterpriseAgentType = "enterprise"
+	CLOUDENTERPRISEAGENTTYPE_UNKNOWN CloudEnterpriseAgentType = "unknown"
 )
 
 // All allowed values of CloudEnterpriseAgentType enum
@@ -29,6 +30,7 @@ var AllowedCloudEnterpriseAgentTypeEnumValues = []CloudEnterpriseAgentType{
 	"cloud",
 	"enterprise-cluster",
 	"enterprise",
+	"unknown",
 }
 
 func (v *CloudEnterpriseAgentType) UnmarshalJSON(src []byte) error {
@@ -44,12 +46,12 @@ func (v *CloudEnterpriseAgentType) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid CloudEnterpriseAgentType", value)
+	*v = CloudEnterpriseAgentType("unknown")
+	return nil
 }
 
 // NewCloudEnterpriseAgentTypeFromValue returns a pointer to a valid CloudEnterpriseAgentType
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewCloudEnterpriseAgentTypeFromValue(v string) (*CloudEnterpriseAgentType, error) {
 	ev := CloudEnterpriseAgentType(v)
 	if ev.IsValid() {

@@ -23,6 +23,7 @@ const (
 	THIRDPARTYINTEGRATIONTYPE_SLACK ThirdPartyIntegrationType = "slack"
 	THIRDPARTYINTEGRATIONTYPE_APP_DYNAMICS ThirdPartyIntegrationType = "app-dynamics"
 	THIRDPARTYINTEGRATIONTYPE_SERVICE_NOW ThirdPartyIntegrationType = "service-now"
+	THIRDPARTYINTEGRATIONTYPE_UNKNOWN ThirdPartyIntegrationType = "unknown"
 )
 
 // All allowed values of ThirdPartyIntegrationType enum
@@ -31,6 +32,7 @@ var AllowedThirdPartyIntegrationTypeEnumValues = []ThirdPartyIntegrationType{
 	"slack",
 	"app-dynamics",
 	"service-now",
+	"unknown",
 }
 
 func (v *ThirdPartyIntegrationType) UnmarshalJSON(src []byte) error {
@@ -46,12 +48,12 @@ func (v *ThirdPartyIntegrationType) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid ThirdPartyIntegrationType", value)
+	*v = ThirdPartyIntegrationType("unknown")
+	return nil
 }
 
 // NewThirdPartyIntegrationTypeFromValue returns a pointer to a valid ThirdPartyIntegrationType
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewThirdPartyIntegrationTypeFromValue(v string) (*ThirdPartyIntegrationType, error) {
 	ev := ThirdPartyIntegrationType(v)
 	if ev.IsValid() {

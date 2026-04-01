@@ -62,7 +62,7 @@ type NetworkTestResult struct {
 // will change when the set of required properties is changed
 func NewNetworkTestResult() *NetworkTestResult {
 	this := NetworkTestResult{}
-	var direction TestDirection = TESTDIRECTION_TO_TARGET
+	var direction TestDirection = "to-target"
 	this.Direction = &direction
 	return &this
 }
@@ -72,7 +72,7 @@ func NewNetworkTestResult() *NetworkTestResult {
 // but it doesn't guarantee that properties required by API are set
 func NewNetworkTestResultWithDefaults() *NetworkTestResult {
 	this := NetworkTestResult{}
-	var direction TestDirection = TESTDIRECTION_TO_TARGET
+	var direction TestDirection = "to-target"
 	this.Direction = &direction
 	return &this
 }

@@ -52,12 +52,12 @@ func (v *EndpointTestResultProtocol) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid EndpointTestResultProtocol", value)
+	*v = EndpointTestResultProtocol("unknown")
+	return nil
 }
 
 // NewEndpointTestResultProtocolFromValue returns a pointer to a valid EndpointTestResultProtocol
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewEndpointTestResultProtocolFromValue(v string) (*EndpointTestResultProtocol, error) {
 	ev := EndpointTestResultProtocol(v)
 	if ev.IsValid() {

@@ -21,12 +21,14 @@ type ApiRequestAssertionName string
 const (
 	APIREQUESTASSERTIONNAME_STATUS_CODE ApiRequestAssertionName = "status-code"
 	APIREQUESTASSERTIONNAME_RESPONSE_BODY ApiRequestAssertionName = "response-body"
+	APIREQUESTASSERTIONNAME_UNKNOWN ApiRequestAssertionName = "unknown"
 )
 
 // All allowed values of ApiRequestAssertionName enum
 var AllowedApiRequestAssertionNameEnumValues = []ApiRequestAssertionName{
 	"status-code",
 	"response-body",
+	"unknown",
 }
 
 func (v *ApiRequestAssertionName) UnmarshalJSON(src []byte) error {
@@ -42,12 +44,12 @@ func (v *ApiRequestAssertionName) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid ApiRequestAssertionName", value)
+	*v = ApiRequestAssertionName("unknown")
+	return nil
 }
 
 // NewApiRequestAssertionNameFromValue returns a pointer to a valid ApiRequestAssertionName
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewApiRequestAssertionNameFromValue(v string) (*ApiRequestAssertionName, error) {
 	ev := ApiRequestAssertionName(v)
 	if ev.IsValid() {

@@ -24,6 +24,7 @@ const (
 	EXPANDTESTOPTIONS_MONITOR ExpandTestOptions = "monitor"
 	EXPANDTESTOPTIONS_LABEL ExpandTestOptions = "label"
 	EXPANDTESTOPTIONS_SHARED_WITH_ACCOUNT ExpandTestOptions = "shared-with-account"
+	EXPANDTESTOPTIONS_UNKNOWN ExpandTestOptions = "unknown"
 )
 
 // All allowed values of ExpandTestOptions enum
@@ -33,6 +34,7 @@ var AllowedExpandTestOptionsEnumValues = []ExpandTestOptions{
 	"monitor",
 	"label",
 	"shared-with-account",
+	"unknown",
 }
 
 func (v *ExpandTestOptions) UnmarshalJSON(src []byte) error {
@@ -48,12 +50,12 @@ func (v *ExpandTestOptions) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid ExpandTestOptions", value)
+	*v = ExpandTestOptions("unknown")
+	return nil
 }
 
 // NewExpandTestOptionsFromValue returns a pointer to a valid ExpandTestOptions
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewExpandTestOptionsFromValue(v string) (*ExpandTestOptions, error) {
 	ev := ExpandTestOptions(v)
 	if ev.IsValid() {

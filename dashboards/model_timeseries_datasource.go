@@ -32,6 +32,7 @@ const (
 	TIMESERIESDATASOURCE_ROUTING TimeseriesDatasource = "ROUTING"
 	TIMESERIESDATASOURCE_CLOUD_NATIVE_MONITORING TimeseriesDatasource = "CLOUD_NATIVE_MONITORING"
 	TIMESERIESDATASOURCE_TRAFFIC_INSIGHTS_MONITORING TimeseriesDatasource = "TRAFFIC_INSIGHTS_MONITORING"
+	TIMESERIESDATASOURCE_UNKNOWN TimeseriesDatasource = "unknown"
 )
 
 // All allowed values of TimeseriesDatasource enum
@@ -49,6 +50,7 @@ var AllowedTimeseriesDatasourceEnumValues = []TimeseriesDatasource{
 	"ROUTING",
 	"CLOUD_NATIVE_MONITORING",
 	"TRAFFIC_INSIGHTS_MONITORING",
+	"unknown",
 }
 
 func (v *TimeseriesDatasource) UnmarshalJSON(src []byte) error {
@@ -64,12 +66,12 @@ func (v *TimeseriesDatasource) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid TimeseriesDatasource", value)
+	*v = TimeseriesDatasource("unknown")
+	return nil
 }
 
 // NewTimeseriesDatasourceFromValue returns a pointer to a valid TimeseriesDatasource
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewTimeseriesDatasourceFromValue(v string) (*TimeseriesDatasource, error) {
 	ev := TimeseriesDatasource(v)
 	if ev.IsValid() {

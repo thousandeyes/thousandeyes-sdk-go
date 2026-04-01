@@ -55,7 +55,7 @@ type _ApiNumbersCardWidget ApiNumbersCardWidget
 // will change when the set of required properties is changed
 func NewApiNumbersCardWidget(type_ string) *ApiNumbersCardWidget {
 	this := ApiNumbersCardWidget{}
-	var visualMode VisualMode = VISUALMODE_FULL
+	var visualMode VisualMode = "Full"
 	this.VisualMode = &visualMode
 	this.Type = type_
 	return &this
@@ -66,7 +66,7 @@ func NewApiNumbersCardWidget(type_ string) *ApiNumbersCardWidget {
 // but it doesn't guarantee that properties required by API are set
 func NewApiNumbersCardWidgetWithDefaults() *ApiNumbersCardWidget {
 	this := ApiNumbersCardWidget{}
-	var visualMode VisualMode = VISUALMODE_FULL
+	var visualMode VisualMode = "Full"
 	this.VisualMode = &visualMode
 	return &this
 }

@@ -22,6 +22,7 @@ const (
 	ENDREPEATTYPE_COUNT EndRepeatType = "count"
 	ENDREPEATTYPE_NEVER EndRepeatType = "never"
 	ENDREPEATTYPE_DATE EndRepeatType = "date"
+	ENDREPEATTYPE_UNKNOWN EndRepeatType = "unknown"
 )
 
 // All allowed values of EndRepeatType enum
@@ -29,6 +30,7 @@ var AllowedEndRepeatTypeEnumValues = []EndRepeatType{
 	"count",
 	"never",
 	"date",
+	"unknown",
 }
 
 func (v *EndRepeatType) UnmarshalJSON(src []byte) error {
@@ -44,12 +46,12 @@ func (v *EndRepeatType) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid EndRepeatType", value)
+	*v = EndRepeatType("unknown")
+	return nil
 }
 
 // NewEndRepeatTypeFromValue returns a pointer to a valid EndRepeatType
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewEndRepeatTypeFromValue(v string) (*EndRepeatType, error) {
 	ev := EndRepeatType(v)
 	if ev.IsValid() {

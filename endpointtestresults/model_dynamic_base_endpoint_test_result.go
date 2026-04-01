@@ -33,11 +33,11 @@ type DynamicBaseEndpointTestResult struct {
 // will change when the set of required properties is changed
 func NewDynamicBaseEndpointTestResult() *DynamicBaseEndpointTestResult {
 	this := DynamicBaseEndpointTestResult{}
-	var protocol EndpointTestResultProtocol = ENDPOINTTESTRESULTPROTOCOL_UNKNOWN
+	var protocol EndpointTestResultProtocol = "unknown"
 	this.Protocol = &protocol
-	var tcpProbeMode TestProbeModeResponse = TESTPROBEMODERESPONSE_AUTO
+	var tcpProbeMode TestProbeModeResponse = "auto"
 	this.TcpProbeMode = &tcpProbeMode
-	var udpProbeMode UdpProbeModeResponse = UDPPROBEMODERESPONSE_UNKNOWN
+	var udpProbeMode UdpProbeModeResponse = "unknown"
 	this.UdpProbeMode = &udpProbeMode
 	return &this
 }
@@ -47,11 +47,11 @@ func NewDynamicBaseEndpointTestResult() *DynamicBaseEndpointTestResult {
 // but it doesn't guarantee that properties required by API are set
 func NewDynamicBaseEndpointTestResultWithDefaults() *DynamicBaseEndpointTestResult {
 	this := DynamicBaseEndpointTestResult{}
-	var protocol EndpointTestResultProtocol = ENDPOINTTESTRESULTPROTOCOL_UNKNOWN
+	var protocol EndpointTestResultProtocol = "unknown"
 	this.Protocol = &protocol
-	var tcpProbeMode TestProbeModeResponse = TESTPROBEMODERESPONSE_AUTO
+	var tcpProbeMode TestProbeModeResponse = "auto"
 	this.TcpProbeMode = &tcpProbeMode
-	var udpProbeMode UdpProbeModeResponse = UDPPROBEMODERESPONSE_UNKNOWN
+	var udpProbeMode UdpProbeModeResponse = "unknown"
 	this.UdpProbeMode = &udpProbeMode
 	return &this
 }

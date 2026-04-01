@@ -33,6 +33,7 @@ const (
 	COLORGRIDDATASOURCE_ROUTING ColorGridDatasource = "ROUTING"
 	COLORGRIDDATASOURCE_CLOUD_NATIVE_MONITORING ColorGridDatasource = "CLOUD_NATIVE_MONITORING"
 	COLORGRIDDATASOURCE_TRAFFIC_INSIGHTS_MONITORING ColorGridDatasource = "TRAFFIC_INSIGHTS_MONITORING"
+	COLORGRIDDATASOURCE_UNKNOWN ColorGridDatasource = "unknown"
 )
 
 // All allowed values of ColorGridDatasource enum
@@ -51,6 +52,7 @@ var AllowedColorGridDatasourceEnumValues = []ColorGridDatasource{
 	"ROUTING",
 	"CLOUD_NATIVE_MONITORING",
 	"TRAFFIC_INSIGHTS_MONITORING",
+	"unknown",
 }
 
 func (v *ColorGridDatasource) UnmarshalJSON(src []byte) error {
@@ -66,12 +68,12 @@ func (v *ColorGridDatasource) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid ColorGridDatasource", value)
+	*v = ColorGridDatasource("unknown")
+	return nil
 }
 
 // NewColorGridDatasourceFromValue returns a pointer to a valid ColorGridDatasource
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewColorGridDatasourceFromValue(v string) (*ColorGridDatasource, error) {
 	ev := ColorGridDatasource(v)
 	if ev.IsValid() {

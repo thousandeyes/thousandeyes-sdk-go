@@ -21,12 +21,14 @@ type Expand string
 const (
 	EXPAND_HEADER Expand = "header"
 	EXPAND_CERTIFICATE Expand = "certificate"
+	EXPAND_UNKNOWN Expand = "unknown"
 )
 
 // All allowed values of Expand enum
 var AllowedExpandEnumValues = []Expand{
 	"header",
 	"certificate",
+	"unknown",
 }
 
 func (v *Expand) UnmarshalJSON(src []byte) error {
@@ -42,12 +44,12 @@ func (v *Expand) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid Expand", value)
+	*v = Expand("unknown")
+	return nil
 }
 
 // NewExpandFromValue returns a pointer to a valid Expand
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewExpandFromValue(v string) (*Expand, error) {
 	ev := Expand(v)
 	if ev.IsValid() {

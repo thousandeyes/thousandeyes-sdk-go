@@ -23,6 +23,7 @@ const (
 	LOCALNETWORKSTHRESHOLDFILTERNAME_AVG_RTT LocalNetworksThresholdFilterName = "avg-rtt"
 	LOCALNETWORKSTHRESHOLDFILTERNAME_MEAN_DEV_RTT LocalNetworksThresholdFilterName = "mean-dev-rtt"
 	LOCALNETWORKSTHRESHOLDFILTERNAME_LOSS LocalNetworksThresholdFilterName = "loss"
+	LOCALNETWORKSTHRESHOLDFILTERNAME_UNKNOWN LocalNetworksThresholdFilterName = "unknown"
 )
 
 // All allowed values of LocalNetworksThresholdFilterName enum
@@ -31,6 +32,7 @@ var AllowedLocalNetworksThresholdFilterNameEnumValues = []LocalNetworksThreshold
 	"avg-rtt",
 	"mean-dev-rtt",
 	"loss",
+	"unknown",
 }
 
 func (v *LocalNetworksThresholdFilterName) UnmarshalJSON(src []byte) error {
@@ -46,12 +48,12 @@ func (v *LocalNetworksThresholdFilterName) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid LocalNetworksThresholdFilterName", value)
+	*v = LocalNetworksThresholdFilterName("unknown")
+	return nil
 }
 
 // NewLocalNetworksThresholdFilterNameFromValue returns a pointer to a valid LocalNetworksThresholdFilterName
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewLocalNetworksThresholdFilterNameFromValue(v string) (*LocalNetworksThresholdFilterName, error) {
 	ev := LocalNetworksThresholdFilterName(v)
 	if ev.IsValid() {

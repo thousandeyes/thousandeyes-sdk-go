@@ -50,11 +50,11 @@ type GetStreamResponse struct {
 // will change when the set of required properties is changed
 func NewGetStreamResponse() *GetStreamResponse {
 	this := GetStreamResponse{}
-	var signal Signal = SIGNAL_METRIC
+	var signal Signal = "metric"
 	this.Signal = &signal
-	var endpointType EndpointType = ENDPOINTTYPE_GRPC
+	var endpointType EndpointType = "grpc"
 	this.EndpointType = &endpointType
-	var dataModelVersion DataModelVersion = DATAMODELVERSION_V2
+	var dataModelVersion DataModelVersion = "v2"
 	this.DataModelVersion = &dataModelVersion
 	return &this
 }
@@ -64,11 +64,11 @@ func NewGetStreamResponse() *GetStreamResponse {
 // but it doesn't guarantee that properties required by API are set
 func NewGetStreamResponseWithDefaults() *GetStreamResponse {
 	this := GetStreamResponse{}
-	var signal Signal = SIGNAL_METRIC
+	var signal Signal = "metric"
 	this.Signal = &signal
-	var endpointType EndpointType = ENDPOINTTYPE_GRPC
+	var endpointType EndpointType = "grpc"
 	this.EndpointType = &endpointType
-	var dataModelVersion DataModelVersion = DATAMODELVERSION_V2
+	var dataModelVersion DataModelVersion = "v2"
 	this.DataModelVersion = &dataModelVersion
 	return &this
 }

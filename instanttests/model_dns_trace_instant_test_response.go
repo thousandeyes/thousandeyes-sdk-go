@@ -62,7 +62,7 @@ type _DnsTraceInstantTestResponse DnsTraceInstantTestResponse
 // will change when the set of required properties is changed
 func NewDnsTraceInstantTestResponse(domain string) *DnsTraceInstantTestResponse {
 	this := DnsTraceInstantTestResponse{}
-	var dnsTransportProtocol TestDnsTransportProtocol = TESTDNSTRANSPORTPROTOCOL_UDP
+	var dnsTransportProtocol TestDnsTransportProtocol = "udp"
 	this.DnsTransportProtocol = &dnsTransportProtocol
 	this.Domain = domain
 	var randomizedStartTime bool = false
@@ -75,7 +75,7 @@ func NewDnsTraceInstantTestResponse(domain string) *DnsTraceInstantTestResponse 
 // but it doesn't guarantee that properties required by API are set
 func NewDnsTraceInstantTestResponseWithDefaults() *DnsTraceInstantTestResponse {
 	this := DnsTraceInstantTestResponse{}
-	var dnsTransportProtocol TestDnsTransportProtocol = TESTDNSTRANSPORTPROTOCOL_UDP
+	var dnsTransportProtocol TestDnsTransportProtocol = "udp"
 	this.DnsTransportProtocol = &dnsTransportProtocol
 	var randomizedStartTime bool = false
 	this.RandomizedStartTime = &randomizedStartTime

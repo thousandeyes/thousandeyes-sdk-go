@@ -34,6 +34,7 @@ const (
 	WIDGETMEASURETYPE_CLOUD_NATIVE_MONITORING_SUM WidgetMeasureType = "CLOUD_NATIVE_MONITORING-SUM"
 	WIDGETMEASURETYPE_TRAFFIC_INSIGHTS_MONITORING_SUM WidgetMeasureType = "TRAFFIC_INSIGHTS_MONITORING-SUM"
 	WIDGETMEASURETYPE_TRAFFIC_INSIGHTS_MONITORING_MEAN WidgetMeasureType = "TRAFFIC_INSIGHTS_MONITORING-MEAN"
+	WIDGETMEASURETYPE_UNKNOWN WidgetMeasureType = "unknown"
 )
 
 // All allowed values of WidgetMeasureType enum
@@ -53,6 +54,7 @@ var AllowedWidgetMeasureTypeEnumValues = []WidgetMeasureType{
 	"CLOUD_NATIVE_MONITORING-SUM",
 	"TRAFFIC_INSIGHTS_MONITORING-SUM",
 	"TRAFFIC_INSIGHTS_MONITORING-MEAN",
+	"unknown",
 }
 
 func (v *WidgetMeasureType) UnmarshalJSON(src []byte) error {
@@ -68,12 +70,12 @@ func (v *WidgetMeasureType) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid WidgetMeasureType", value)
+	*v = WidgetMeasureType("unknown")
+	return nil
 }
 
 // NewWidgetMeasureTypeFromValue returns a pointer to a valid WidgetMeasureType
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewWidgetMeasureTypeFromValue(v string) (*WidgetMeasureType, error) {
 	ev := WidgetMeasureType(v)
 	if ev.IsValid() {

@@ -22,6 +22,7 @@ const (
 	FTPSERVERREQUESTTYPE_DOWNLOAD FtpServerRequestType = "download"
 	FTPSERVERREQUESTTYPE_UPLOAD FtpServerRequestType = "upload"
 	FTPSERVERREQUESTTYPE_LIST FtpServerRequestType = "list"
+	FTPSERVERREQUESTTYPE_UNKNOWN FtpServerRequestType = "unknown"
 )
 
 // All allowed values of FtpServerRequestType enum
@@ -29,6 +30,7 @@ var AllowedFtpServerRequestTypeEnumValues = []FtpServerRequestType{
 	"download",
 	"upload",
 	"list",
+	"unknown",
 }
 
 func (v *FtpServerRequestType) UnmarshalJSON(src []byte) error {
@@ -44,12 +46,12 @@ func (v *FtpServerRequestType) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid FtpServerRequestType", value)
+	*v = FtpServerRequestType("unknown")
+	return nil
 }
 
 // NewFtpServerRequestTypeFromValue returns a pointer to a valid FtpServerRequestType
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewFtpServerRequestTypeFromValue(v string) (*FtpServerRequestType, error) {
 	ev := FtpServerRequestType(v)
 	if ev.IsValid() {

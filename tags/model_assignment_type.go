@@ -23,6 +23,7 @@ const (
 	ASSIGNMENTTYPE_V_AGENT AssignmentType = "v-agent"
 	ASSIGNMENTTYPE_ENDPOINT_TEST AssignmentType = "endpoint-test"
 	ASSIGNMENTTYPE_DASHBOARD AssignmentType = "dashboard"
+	ASSIGNMENTTYPE_UNKNOWN AssignmentType = "unknown"
 )
 
 // All allowed values of AssignmentType enum
@@ -31,6 +32,7 @@ var AllowedAssignmentTypeEnumValues = []AssignmentType{
 	"v-agent",
 	"endpoint-test",
 	"dashboard",
+	"unknown",
 }
 
 func (v *AssignmentType) UnmarshalJSON(src []byte) error {
@@ -46,12 +48,12 @@ func (v *AssignmentType) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid AssignmentType", value)
+	*v = AssignmentType("unknown")
+	return nil
 }
 
 // NewAssignmentTypeFromValue returns a pointer to a valid AssignmentType
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewAssignmentTypeFromValue(v string) (*AssignmentType, error) {
 	ev := AssignmentType(v)
 	if ev.IsValid() {

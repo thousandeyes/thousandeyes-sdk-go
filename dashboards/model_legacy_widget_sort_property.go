@@ -21,12 +21,14 @@ type LegacyWidgetSortProperty string
 const (
 	LEGACYWIDGETSORTPROPERTY_ALPHABETICAL LegacyWidgetSortProperty = "Alphabetical"
 	LEGACYWIDGETSORTPROPERTY_VALUE LegacyWidgetSortProperty = "Value"
+	LEGACYWIDGETSORTPROPERTY_UNKNOWN LegacyWidgetSortProperty = "unknown"
 )
 
 // All allowed values of LegacyWidgetSortProperty enum
 var AllowedLegacyWidgetSortPropertyEnumValues = []LegacyWidgetSortProperty{
 	"Alphabetical",
 	"Value",
+	"unknown",
 }
 
 func (v *LegacyWidgetSortProperty) UnmarshalJSON(src []byte) error {
@@ -42,12 +44,12 @@ func (v *LegacyWidgetSortProperty) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid LegacyWidgetSortProperty", value)
+	*v = LegacyWidgetSortProperty("unknown")
+	return nil
 }
 
 // NewLegacyWidgetSortPropertyFromValue returns a pointer to a valid LegacyWidgetSortProperty
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewLegacyWidgetSortPropertyFromValue(v string) (*LegacyWidgetSortProperty, error) {
 	ev := LegacyWidgetSortProperty(v)
 	if ev.IsValid() {

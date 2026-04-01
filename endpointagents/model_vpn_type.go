@@ -24,6 +24,7 @@ const (
 	VPNTYPE_IVANTI_CONNECT_SECURE VpnType = "ivanti-connect-secure"
 	VPNTYPE_ZSCALER_INTERNET_ACCESS VpnType = "zscaler-internet-access"
 	VPNTYPE_F5_BIG_IP VpnType = "f5-big-ip"
+	VPNTYPE_UNKNOWN VpnType = "unknown"
 )
 
 // All allowed values of VpnType enum
@@ -33,6 +34,7 @@ var AllowedVpnTypeEnumValues = []VpnType{
 	"ivanti-connect-secure",
 	"zscaler-internet-access",
 	"f5-big-ip",
+	"unknown",
 }
 
 func (v *VpnType) UnmarshalJSON(src []byte) error {
@@ -48,12 +50,12 @@ func (v *VpnType) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid VpnType", value)
+	*v = VpnType("unknown")
+	return nil
 }
 
 // NewVpnTypeFromValue returns a pointer to a valid VpnType
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewVpnTypeFromValue(v string) (*VpnType, error) {
 	ev := VpnType(v)
 	if ev.IsValid() {

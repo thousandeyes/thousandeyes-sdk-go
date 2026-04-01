@@ -21,12 +21,14 @@ type PathVisDirection string
 const (
 	PATHVISDIRECTION_TO_TARGET PathVisDirection = "to-target"
 	PATHVISDIRECTION_FROM_TARGET PathVisDirection = "from-target"
+	PATHVISDIRECTION_UNKNOWN PathVisDirection = "unknown"
 )
 
 // All allowed values of PathVisDirection enum
 var AllowedPathVisDirectionEnumValues = []PathVisDirection{
 	"to-target",
 	"from-target",
+	"unknown",
 }
 
 func (v *PathVisDirection) UnmarshalJSON(src []byte) error {
@@ -42,12 +44,12 @@ func (v *PathVisDirection) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid PathVisDirection", value)
+	*v = PathVisDirection("unknown")
+	return nil
 }
 
 // NewPathVisDirectionFromValue returns a pointer to a valid PathVisDirection
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewPathVisDirectionFromValue(v string) (*PathVisDirection, error) {
 	ev := PathVisDirection(v)
 	if ev.IsValid() {

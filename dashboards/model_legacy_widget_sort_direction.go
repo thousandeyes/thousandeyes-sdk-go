@@ -21,12 +21,14 @@ type LegacyWidgetSortDirection string
 const (
 	LEGACYWIDGETSORTDIRECTION_ASCENDING LegacyWidgetSortDirection = "Ascending"
 	LEGACYWIDGETSORTDIRECTION_DESCENDING LegacyWidgetSortDirection = "Descending"
+	LEGACYWIDGETSORTDIRECTION_UNKNOWN LegacyWidgetSortDirection = "unknown"
 )
 
 // All allowed values of LegacyWidgetSortDirection enum
 var AllowedLegacyWidgetSortDirectionEnumValues = []LegacyWidgetSortDirection{
 	"Ascending",
 	"Descending",
+	"unknown",
 }
 
 func (v *LegacyWidgetSortDirection) UnmarshalJSON(src []byte) error {
@@ -42,12 +44,12 @@ func (v *LegacyWidgetSortDirection) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid LegacyWidgetSortDirection", value)
+	*v = LegacyWidgetSortDirection("unknown")
+	return nil
 }
 
 // NewLegacyWidgetSortDirectionFromValue returns a pointer to a valid LegacyWidgetSortDirection
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewLegacyWidgetSortDirectionFromValue(v string) (*LegacyWidgetSortDirection, error) {
 	ev := LegacyWidgetSortDirection(v)
 	if ev.IsValid() {

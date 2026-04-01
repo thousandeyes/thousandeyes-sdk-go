@@ -46,12 +46,12 @@ func (v *TestProbeModeResponse) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid TestProbeModeResponse", value)
+	*v = TestProbeModeResponse("unknown")
+	return nil
 }
 
 // NewTestProbeModeResponseFromValue returns a pointer to a valid TestProbeModeResponse
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewTestProbeModeResponseFromValue(v string) (*TestProbeModeResponse, error) {
 	ev := TestProbeModeResponse(v)
 	if ev.IsValid() {

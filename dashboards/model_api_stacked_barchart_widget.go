@@ -64,7 +64,7 @@ type _ApiStackedBarchartWidget ApiStackedBarchartWidget
 // will change when the set of required properties is changed
 func NewApiStackedBarchartWidget(type_ string) *ApiStackedBarchartWidget {
 	this := ApiStackedBarchartWidget{}
-	var visualMode VisualMode = VISUALMODE_FULL
+	var visualMode VisualMode = "Full"
 	this.VisualMode = &visualMode
 	this.Type = type_
 	return &this
@@ -75,7 +75,7 @@ func NewApiStackedBarchartWidget(type_ string) *ApiStackedBarchartWidget {
 // but it doesn't guarantee that properties required by API are set
 func NewApiStackedBarchartWidgetWithDefaults() *ApiStackedBarchartWidget {
 	this := ApiStackedBarchartWidget{}
-	var visualMode VisualMode = VISUALMODE_FULL
+	var visualMode VisualMode = "Full"
 	this.VisualMode = &visualMode
 	return &this
 }

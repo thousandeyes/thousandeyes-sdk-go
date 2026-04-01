@@ -63,7 +63,7 @@ type _ApiTableWidget ApiTableWidget
 // will change when the set of required properties is changed
 func NewApiTableWidget(type_ string) *ApiTableWidget {
 	this := ApiTableWidget{}
-	var visualMode VisualMode = VISUALMODE_FULL
+	var visualMode VisualMode = "Full"
 	this.VisualMode = &visualMode
 	this.Type = type_
 	return &this
@@ -74,7 +74,7 @@ func NewApiTableWidget(type_ string) *ApiTableWidget {
 // but it doesn't guarantee that properties required by API are set
 func NewApiTableWidgetWithDefaults() *ApiTableWidget {
 	this := ApiTableWidget{}
-	var visualMode VisualMode = VISUALMODE_FULL
+	var visualMode VisualMode = "Full"
 	this.VisualMode = &visualMode
 	return &this
 }

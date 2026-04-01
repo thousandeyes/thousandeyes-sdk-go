@@ -21,12 +21,14 @@ type TestPathTraceMode string
 const (
 	TESTPATHTRACEMODE_CLASSIC TestPathTraceMode = "classic"
 	TESTPATHTRACEMODE_IN_SESSION TestPathTraceMode = "in-session"
+	TESTPATHTRACEMODE_UNKNOWN TestPathTraceMode = "unknown"
 )
 
 // All allowed values of TestPathTraceMode enum
 var AllowedTestPathTraceModeEnumValues = []TestPathTraceMode{
 	"classic",
 	"in-session",
+	"unknown",
 }
 
 func (v *TestPathTraceMode) UnmarshalJSON(src []byte) error {
@@ -42,12 +44,12 @@ func (v *TestPathTraceMode) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid TestPathTraceMode", value)
+	*v = TestPathTraceMode("unknown")
+	return nil
 }
 
 // NewTestPathTraceModeFromValue returns a pointer to a valid TestPathTraceMode
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewTestPathTraceModeFromValue(v string) (*TestPathTraceMode, error) {
 	ev := TestPathTraceMode(v)
 	if ev.IsValid() {

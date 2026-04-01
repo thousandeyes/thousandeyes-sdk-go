@@ -21,12 +21,14 @@ type ExpandLocalNetworkTopologyOptions string
 const (
 	EXPANDLOCALNETWORKTOPOLOGYOPTIONS_SYSTEM_METRIC_DETAIL ExpandLocalNetworkTopologyOptions = "system-metric-detail"
 	EXPANDLOCALNETWORKTOPOLOGYOPTIONS_USER_PROFILE ExpandLocalNetworkTopologyOptions = "user-profile"
+	EXPANDLOCALNETWORKTOPOLOGYOPTIONS_UNKNOWN ExpandLocalNetworkTopologyOptions = "unknown"
 )
 
 // All allowed values of ExpandLocalNetworkTopologyOptions enum
 var AllowedExpandLocalNetworkTopologyOptionsEnumValues = []ExpandLocalNetworkTopologyOptions{
 	"system-metric-detail",
 	"user-profile",
+	"unknown",
 }
 
 func (v *ExpandLocalNetworkTopologyOptions) UnmarshalJSON(src []byte) error {
@@ -42,12 +44,12 @@ func (v *ExpandLocalNetworkTopologyOptions) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid ExpandLocalNetworkTopologyOptions", value)
+	*v = ExpandLocalNetworkTopologyOptions("unknown")
+	return nil
 }
 
 // NewExpandLocalNetworkTopologyOptionsFromValue returns a pointer to a valid ExpandLocalNetworkTopologyOptions
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewExpandLocalNetworkTopologyOptionsFromValue(v string) (*ExpandLocalNetworkTopologyOptions, error) {
 	ev := ExpandLocalNetworkTopologyOptions(v)
 	if ev.IsValid() {

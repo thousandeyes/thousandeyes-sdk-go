@@ -21,12 +21,14 @@ type ThresholdFilterOperator string
 const (
 	THRESHOLDFILTEROPERATOR_GTE ThresholdFilterOperator = "gte"
 	THRESHOLDFILTEROPERATOR_LTE ThresholdFilterOperator = "lte"
+	THRESHOLDFILTEROPERATOR_UNKNOWN ThresholdFilterOperator = "unknown"
 )
 
 // All allowed values of ThresholdFilterOperator enum
 var AllowedThresholdFilterOperatorEnumValues = []ThresholdFilterOperator{
 	"gte",
 	"lte",
+	"unknown",
 }
 
 func (v *ThresholdFilterOperator) UnmarshalJSON(src []byte) error {
@@ -42,12 +44,12 @@ func (v *ThresholdFilterOperator) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid ThresholdFilterOperator", value)
+	*v = ThresholdFilterOperator("unknown")
+	return nil
 }
 
 // NewThresholdFilterOperatorFromValue returns a pointer to a valid ThresholdFilterOperator
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewThresholdFilterOperatorFromValue(v string) (*ThresholdFilterOperator, error) {
 	ev := ThresholdFilterOperator(v)
 	if ev.IsValid() {

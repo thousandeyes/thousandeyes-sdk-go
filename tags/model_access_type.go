@@ -22,6 +22,7 @@ const (
 	ACCESSTYPE_ALL AccessType = "all"
 	ACCESSTYPE_PARTNER AccessType = "partner"
 	ACCESSTYPE_SYSTEM AccessType = "system"
+	ACCESSTYPE_UNKNOWN AccessType = "unknown"
 )
 
 // All allowed values of AccessType enum
@@ -29,6 +30,7 @@ var AllowedAccessTypeEnumValues = []AccessType{
 	"all",
 	"partner",
 	"system",
+	"unknown",
 }
 
 func (v *AccessType) UnmarshalJSON(src []byte) error {
@@ -44,12 +46,12 @@ func (v *AccessType) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid AccessType", value)
+	*v = AccessType("unknown")
+	return nil
 }
 
 // NewAccessTypeFromValue returns a pointer to a valid AccessType
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewAccessTypeFromValue(v string) (*AccessType, error) {
 	ev := AccessType(v)
 	if ev.IsValid() {

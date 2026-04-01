@@ -73,9 +73,9 @@ func NewDynamicTest() *DynamicTest {
 	this.HasTraceroute = &hasTraceroute
 	var networkMeasurements bool = true
 	this.NetworkMeasurements = &networkMeasurements
-	var protocol EndpointTestProtocol = ENDPOINTTESTPROTOCOL_ICMP
+	var protocol EndpointTestProtocol = "icmp"
 	this.Protocol = &protocol
-	var tcpProbeMode TestProbeModeResponse = TESTPROBEMODERESPONSE_AUTO
+	var tcpProbeMode TestProbeModeResponse = "auto"
 	this.TcpProbeMode = &tcpProbeMode
 	return &this
 }
@@ -97,9 +97,9 @@ func NewDynamicTestWithDefaults() *DynamicTest {
 	this.HasTraceroute = &hasTraceroute
 	var networkMeasurements bool = true
 	this.NetworkMeasurements = &networkMeasurements
-	var protocol EndpointTestProtocol = ENDPOINTTESTPROTOCOL_ICMP
+	var protocol EndpointTestProtocol = "icmp"
 	this.Protocol = &protocol
-	var tcpProbeMode TestProbeModeResponse = TESTPROBEMODERESPONSE_AUTO
+	var tcpProbeMode TestProbeModeResponse = "auto"
 	this.TcpProbeMode = &tcpProbeMode
 	return &this
 }

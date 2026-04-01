@@ -40,7 +40,7 @@ type _EndpointInstantTest EndpointInstantTest
 // will change when the set of required properties is changed
 func NewEndpointInstantTest(testName string) *EndpointInstantTest {
 	this := EndpointInstantTest{}
-	var agentSelectorType EndpointTestAgentSelectorType = ENDPOINTTESTAGENTSELECTORTYPE_ALL_AGENTS
+	var agentSelectorType EndpointTestAgentSelectorType = "all-agents"
 	this.AgentSelectorType = &agentSelectorType
 	var maxMachines int32 = 25
 	this.MaxMachines = &maxMachines
@@ -53,7 +53,7 @@ func NewEndpointInstantTest(testName string) *EndpointInstantTest {
 // but it doesn't guarantee that properties required by API are set
 func NewEndpointInstantTestWithDefaults() *EndpointInstantTest {
 	this := EndpointInstantTest{}
-	var agentSelectorType EndpointTestAgentSelectorType = ENDPOINTTESTAGENTSELECTORTYPE_ALL_AGENTS
+	var agentSelectorType EndpointTestAgentSelectorType = "all-agents"
 	this.AgentSelectorType = &agentSelectorType
 	var maxMachines int32 = 25
 	this.MaxMachines = &maxMachines

@@ -22,6 +22,7 @@ const (
 	SIGNAL_METRIC Signal = "metric"
 	SIGNAL_TRACE Signal = "trace"
 	SIGNAL_LOG Signal = "log"
+	SIGNAL_UNKNOWN Signal = "unknown"
 )
 
 // All allowed values of Signal enum
@@ -29,6 +30,7 @@ var AllowedSignalEnumValues = []Signal{
 	"metric",
 	"trace",
 	"log",
+	"unknown",
 }
 
 func (v *Signal) UnmarshalJSON(src []byte) error {
@@ -44,12 +46,12 @@ func (v *Signal) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid Signal", value)
+	*v = Signal("unknown")
+	return nil
 }
 
 // NewSignalFromValue returns a pointer to a valid Signal
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewSignalFromValue(v string) (*Signal, error) {
 	ev := Signal(v)
 	if ev.IsValid() {

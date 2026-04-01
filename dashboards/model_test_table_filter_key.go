@@ -25,6 +25,7 @@ const (
 	TESTTABLEFILTERKEY_TEST_ID TestTableFilterKey = "Test ID"
 	TESTTABLEFILTERKEY_TEST_TYPE TestTableFilterKey = "Test type"
 	TESTTABLEFILTERKEY_LABEL_ID TestTableFilterKey = "Label ID"
+	TESTTABLEFILTERKEY_UNKNOWN TestTableFilterKey = "unknown"
 )
 
 // All allowed values of TestTableFilterKey enum
@@ -35,6 +36,7 @@ var AllowedTestTableFilterKeyEnumValues = []TestTableFilterKey{
 	"Test ID",
 	"Test type",
 	"Label ID",
+	"unknown",
 }
 
 func (v *TestTableFilterKey) UnmarshalJSON(src []byte) error {
@@ -50,12 +52,12 @@ func (v *TestTableFilterKey) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid TestTableFilterKey", value)
+	*v = TestTableFilterKey("unknown")
+	return nil
 }
 
 // NewTestTableFilterKeyFromValue returns a pointer to a valid TestTableFilterKey
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewTestTableFilterKeyFromValue(v string) (*TestTableFilterKey, error) {
 	ev := TestTableFilterKey(v)
 	if ev.IsValid() {

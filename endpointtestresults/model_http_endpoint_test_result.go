@@ -74,7 +74,7 @@ type HttpEndpointTestResult struct {
 // will change when the set of required properties is changed
 func NewHttpEndpointTestResult() *HttpEndpointTestResult {
 	this := HttpEndpointTestResult{}
-	var errorType HttpErrorType = HTTPERRORTYPE_CONNECT
+	var errorType HttpErrorType = "connect"
 	this.ErrorType = &errorType
 	return &this
 }
@@ -84,7 +84,7 @@ func NewHttpEndpointTestResult() *HttpEndpointTestResult {
 // but it doesn't guarantee that properties required by API are set
 func NewHttpEndpointTestResultWithDefaults() *HttpEndpointTestResult {
 	this := HttpEndpointTestResult{}
-	var errorType HttpErrorType = HTTPERRORTYPE_CONNECT
+	var errorType HttpErrorType = "connect"
 	this.ErrorType = &errorType
 	return &this
 }

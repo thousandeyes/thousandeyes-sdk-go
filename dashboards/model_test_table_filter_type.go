@@ -21,12 +21,14 @@ type TestTableFilterType string
 const (
 	TESTTABLEFILTERTYPE_ALL TestTableFilterType = "all"
 	TESTTABLEFILTERTYPE_ANY TestTableFilterType = "any"
+	TESTTABLEFILTERTYPE_UNKNOWN TestTableFilterType = "unknown"
 )
 
 // All allowed values of TestTableFilterType enum
 var AllowedTestTableFilterTypeEnumValues = []TestTableFilterType{
 	"all",
 	"any",
+	"unknown",
 }
 
 func (v *TestTableFilterType) UnmarshalJSON(src []byte) error {
@@ -42,12 +44,12 @@ func (v *TestTableFilterType) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid TestTableFilterType", value)
+	*v = TestTableFilterType("unknown")
+	return nil
 }
 
 // NewTestTableFilterTypeFromValue returns a pointer to a valid TestTableFilterType
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewTestTableFilterTypeFromValue(v string) (*TestTableFilterType, error) {
 	ev := TestTableFilterType(v)
 	if ev.IsValid() {

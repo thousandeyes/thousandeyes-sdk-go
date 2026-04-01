@@ -21,12 +21,14 @@ type ApiClientAuthentication string
 const (
 	APICLIENTAUTHENTICATION_BASIC_AUTH_HEADER ApiClientAuthentication = "basic-auth-header"
 	APICLIENTAUTHENTICATION_IN_BODY ApiClientAuthentication = "in-body"
+	APICLIENTAUTHENTICATION_UNKNOWN ApiClientAuthentication = "unknown"
 )
 
 // All allowed values of ApiClientAuthentication enum
 var AllowedApiClientAuthenticationEnumValues = []ApiClientAuthentication{
 	"basic-auth-header",
 	"in-body",
+	"unknown",
 }
 
 func (v *ApiClientAuthentication) UnmarshalJSON(src []byte) error {
@@ -42,12 +44,12 @@ func (v *ApiClientAuthentication) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid ApiClientAuthentication", value)
+	*v = ApiClientAuthentication("unknown")
+	return nil
 }
 
 // NewApiClientAuthenticationFromValue returns a pointer to a valid ApiClientAuthentication
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewApiClientAuthenticationFromValue(v string) (*ApiClientAuthentication, error) {
 	ev := ApiClientAuthentication(v)
 	if ev.IsValid() {

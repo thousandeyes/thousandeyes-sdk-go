@@ -20,11 +20,13 @@ type TagMatchObjectType string
 // List of TagMatchObjectType
 const (
 	TAGMATCHOBJECTTYPE_TEST TagMatchObjectType = "test"
+	TAGMATCHOBJECTTYPE_UNKNOWN TagMatchObjectType = "unknown"
 )
 
 // All allowed values of TagMatchObjectType enum
 var AllowedTagMatchObjectTypeEnumValues = []TagMatchObjectType{
 	"test",
+	"unknown",
 }
 
 func (v *TagMatchObjectType) UnmarshalJSON(src []byte) error {
@@ -40,12 +42,12 @@ func (v *TagMatchObjectType) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid TagMatchObjectType", value)
+	*v = TagMatchObjectType("unknown")
+	return nil
 }
 
 // NewTagMatchObjectTypeFromValue returns a pointer to a valid TagMatchObjectType
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewTagMatchObjectTypeFromValue(v string) (*TagMatchObjectType, error) {
 	ev := TagMatchObjectType(v)
 	if ev.IsValid() {

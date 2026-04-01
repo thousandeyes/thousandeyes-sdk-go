@@ -21,12 +21,14 @@ type EndpointType string
 const (
 	ENDPOINTTYPE_GRPC EndpointType = "grpc"
 	ENDPOINTTYPE_HTTP EndpointType = "http"
+	ENDPOINTTYPE_UNKNOWN EndpointType = "unknown"
 )
 
 // All allowed values of EndpointType enum
 var AllowedEndpointTypeEnumValues = []EndpointType{
 	"grpc",
 	"http",
+	"unknown",
 }
 
 func (v *EndpointType) UnmarshalJSON(src []byte) error {
@@ -42,12 +44,12 @@ func (v *EndpointType) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid EndpointType", value)
+	*v = EndpointType("unknown")
+	return nil
 }
 
 // NewEndpointTypeFromValue returns a pointer to a valid EndpointType
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewEndpointTypeFromValue(v string) (*EndpointType, error) {
 	ev := EndpointType(v)
 	if ev.IsValid() {

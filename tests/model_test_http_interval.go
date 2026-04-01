@@ -26,6 +26,7 @@ const (
 	TESTHTTPINTERVAL__900 TestHttpInterval = 900
 	TESTHTTPINTERVAL__1800 TestHttpInterval = 1800
 	TESTHTTPINTERVAL__3600 TestHttpInterval = 3600
+	TESTHTTPINTERVAL__unknown TestHttpInterval = 11184809
 )
 
 // All allowed values of TestHttpInterval enum
@@ -37,6 +38,7 @@ var AllowedTestHttpIntervalEnumValues = []TestHttpInterval{
 	900,
 	1800,
 	3600,
+	11184809,
 }
 
 func (v *TestHttpInterval) UnmarshalJSON(src []byte) error {
@@ -52,12 +54,12 @@ func (v *TestHttpInterval) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid TestHttpInterval", value)
+	*v = TestHttpInterval(11184809)
+	return nil
 }
 
 // NewTestHttpIntervalFromValue returns a pointer to a valid TestHttpInterval
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewTestHttpIntervalFromValue(v int32) (*TestHttpInterval, error) {
 	ev := TestHttpInterval(v)
 	if ev.IsValid() {

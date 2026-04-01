@@ -22,6 +22,7 @@ const (
 	ENDPOINTTESTAGENTSELECTORTYPE_ALL_AGENTS EndpointTestAgentSelectorType = "all-agents"
 	ENDPOINTTESTAGENTSELECTORTYPE_SPECIFIC_AGENTS EndpointTestAgentSelectorType = "specific-agents"
 	ENDPOINTTESTAGENTSELECTORTYPE_AGENT_LABELS EndpointTestAgentSelectorType = "agent-labels"
+	ENDPOINTTESTAGENTSELECTORTYPE_UNKNOWN EndpointTestAgentSelectorType = "unknown"
 )
 
 // All allowed values of EndpointTestAgentSelectorType enum
@@ -29,6 +30,7 @@ var AllowedEndpointTestAgentSelectorTypeEnumValues = []EndpointTestAgentSelector
 	"all-agents",
 	"specific-agents",
 	"agent-labels",
+	"unknown",
 }
 
 func (v *EndpointTestAgentSelectorType) UnmarshalJSON(src []byte) error {
@@ -44,12 +46,12 @@ func (v *EndpointTestAgentSelectorType) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid EndpointTestAgentSelectorType", value)
+	*v = EndpointTestAgentSelectorType("unknown")
+	return nil
 }
 
 // NewEndpointTestAgentSelectorTypeFromValue returns a pointer to a valid EndpointTestAgentSelectorType
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewEndpointTestAgentSelectorTypeFromValue(v string) (*EndpointTestAgentSelectorType, error) {
 	ev := EndpointTestAgentSelectorType(v)
 	if ev.IsValid() {

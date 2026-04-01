@@ -23,6 +23,7 @@ const (
 	ALERTGROUPTYPE_BROWSER_SESSION AlertGroupType = "browser-session"
 	ALERTGROUPTYPE_CLOUD_ENTERPRISE AlertGroupType = "cloud-enterprise"
 	ALERTGROUPTYPE_ENDPOINT AlertGroupType = "endpoint"
+	ALERTGROUPTYPE_UNKNOWN AlertGroupType = "unknown"
 )
 
 // All allowed values of AlertGroupType enum
@@ -31,6 +32,7 @@ var AllowedAlertGroupTypeEnumValues = []AlertGroupType{
 	"browser-session",
 	"cloud-enterprise",
 	"endpoint",
+	"unknown",
 }
 
 func (v *AlertGroupType) UnmarshalJSON(src []byte) error {
@@ -46,12 +48,12 @@ func (v *AlertGroupType) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid AlertGroupType", value)
+	*v = AlertGroupType("unknown")
+	return nil
 }
 
 // NewAlertGroupTypeFromValue returns a pointer to a valid AlertGroupType
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewAlertGroupTypeFromValue(v string) (*AlertGroupType, error) {
 	ev := AlertGroupType(v)
 	if ev.IsValid() {

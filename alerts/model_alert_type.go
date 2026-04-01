@@ -92,12 +92,12 @@ func (v *AlertType) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid AlertType", value)
+	*v = AlertType("unknown")
+	return nil
 }
 
 // NewAlertTypeFromValue returns a pointer to a valid AlertType
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewAlertTypeFromValue(v string) (*AlertType, error) {
 	ev := AlertType(v)
 	if ev.IsValid() {

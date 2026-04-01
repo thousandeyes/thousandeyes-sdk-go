@@ -20,11 +20,13 @@ type OperationType string
 // List of OperationType
 const (
 	OPERATIONTYPE_WEBHOOK OperationType = "webhook"
+	OPERATIONTYPE_UNKNOWN OperationType = "unknown"
 )
 
 // All allowed values of OperationType enum
 var AllowedOperationTypeEnumValues = []OperationType{
 	"webhook",
+	"unknown",
 }
 
 func (v *OperationType) UnmarshalJSON(src []byte) error {
@@ -40,12 +42,12 @@ func (v *OperationType) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid OperationType", value)
+	*v = OperationType("unknown")
+	return nil
 }
 
 // NewOperationTypeFromValue returns a pointer to a valid OperationType
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewOperationTypeFromValue(v string) (*OperationType, error) {
 	ev := OperationType(v)
 	if ev.IsValid() {

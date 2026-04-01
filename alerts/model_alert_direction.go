@@ -22,6 +22,7 @@ const (
 	ALERTDIRECTION_TO_TARGET AlertDirection = "to-target"
 	ALERTDIRECTION_FROM_TARGET AlertDirection = "from-target"
 	ALERTDIRECTION_BIDIRECTIONAL AlertDirection = "bidirectional"
+	ALERTDIRECTION_UNKNOWN AlertDirection = "unknown"
 )
 
 // All allowed values of AlertDirection enum
@@ -29,6 +30,7 @@ var AllowedAlertDirectionEnumValues = []AlertDirection{
 	"to-target",
 	"from-target",
 	"bidirectional",
+	"unknown",
 }
 
 func (v *AlertDirection) UnmarshalJSON(src []byte) error {
@@ -44,12 +46,12 @@ func (v *AlertDirection) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid AlertDirection", value)
+	*v = AlertDirection("unknown")
+	return nil
 }
 
 // NewAlertDirectionFromValue returns a pointer to a valid AlertDirection
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewAlertDirectionFromValue(v string) (*AlertDirection, error) {
 	ev := AlertDirection(v)
 	if ev.IsValid() {

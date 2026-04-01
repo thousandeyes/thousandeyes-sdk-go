@@ -34,6 +34,7 @@ const (
 	TESTTABLEDATASOURCE_APPDYNAMICS_SERVICE_HEALTH TestTableDatasource = "APPDYNAMICS_SERVICE_HEALTH"
 	TESTTABLEDATASOURCE_CLOUD_NATIVE_MONITORING TestTableDatasource = "CLOUD_NATIVE_MONITORING"
 	TESTTABLEDATASOURCE_TRAFFIC_INSIGHTS_MONITORING TestTableDatasource = "TRAFFIC_INSIGHTS_MONITORING"
+	TESTTABLEDATASOURCE_UNKNOWN TestTableDatasource = "unknown"
 )
 
 // All allowed values of TestTableDatasource enum
@@ -53,6 +54,7 @@ var AllowedTestTableDatasourceEnumValues = []TestTableDatasource{
 	"APPDYNAMICS_SERVICE_HEALTH",
 	"CLOUD_NATIVE_MONITORING",
 	"TRAFFIC_INSIGHTS_MONITORING",
+	"unknown",
 }
 
 func (v *TestTableDatasource) UnmarshalJSON(src []byte) error {
@@ -68,12 +70,12 @@ func (v *TestTableDatasource) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid TestTableDatasource", value)
+	*v = TestTableDatasource("unknown")
+	return nil
 }
 
 // NewTestTableDatasourceFromValue returns a pointer to a valid TestTableDatasource
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewTestTableDatasourceFromValue(v string) (*TestTableDatasource, error) {
 	ev := TestTableDatasource(v)
 	if ev.IsValid() {

@@ -20,11 +20,13 @@ type ExpandTagsOptions string
 // List of ExpandTagsOptions
 const (
 	EXPANDTAGSOPTIONS_ASSIGNMENTS ExpandTagsOptions = "assignments"
+	EXPANDTAGSOPTIONS_UNKNOWN ExpandTagsOptions = "unknown"
 )
 
 // All allowed values of ExpandTagsOptions enum
 var AllowedExpandTagsOptionsEnumValues = []ExpandTagsOptions{
 	"assignments",
+	"unknown",
 }
 
 func (v *ExpandTagsOptions) UnmarshalJSON(src []byte) error {
@@ -40,12 +42,12 @@ func (v *ExpandTagsOptions) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid ExpandTagsOptions", value)
+	*v = ExpandTagsOptions("unknown")
+	return nil
 }
 
 // NewExpandTagsOptionsFromValue returns a pointer to a valid ExpandTagsOptions
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewExpandTagsOptionsFromValue(v string) (*ExpandTagsOptions, error) {
 	ev := ExpandTagsOptions(v)
 	if ev.IsValid() {

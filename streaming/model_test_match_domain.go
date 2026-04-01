@@ -21,12 +21,14 @@ type TestMatchDomain string
 const (
 	TESTMATCHDOMAIN_CEA TestMatchDomain = "cea"
 	TESTMATCHDOMAIN_ENDPOINT TestMatchDomain = "endpoint"
+	TESTMATCHDOMAIN_UNKNOWN TestMatchDomain = "unknown"
 )
 
 // All allowed values of TestMatchDomain enum
 var AllowedTestMatchDomainEnumValues = []TestMatchDomain{
 	"cea",
 	"endpoint",
+	"unknown",
 }
 
 func (v *TestMatchDomain) UnmarshalJSON(src []byte) error {
@@ -42,12 +44,12 @@ func (v *TestMatchDomain) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid TestMatchDomain", value)
+	*v = TestMatchDomain("unknown")
+	return nil
 }
 
 // NewTestMatchDomainFromValue returns a pointer to a valid TestMatchDomain
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewTestMatchDomainFromValue(v string) (*TestMatchDomain, error) {
 	ev := TestMatchDomain(v)
 	if ev.IsValid() {

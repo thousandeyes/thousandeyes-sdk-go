@@ -46,12 +46,12 @@ func (v *ProxyAuthType) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid ProxyAuthType", value)
+	*v = ProxyAuthType("unknown")
+	return nil
 }
 
 // NewProxyAuthTypeFromValue returns a pointer to a valid ProxyAuthType
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewProxyAuthTypeFromValue(v string) (*ProxyAuthType, error) {
 	ev := ProxyAuthType(v)
 	if ev.IsValid() {

@@ -21,12 +21,14 @@ type ExpandAccountGroupOptions string
 const (
 	EXPANDACCOUNTGROUPOPTIONS_USER ExpandAccountGroupOptions = "user"
 	EXPANDACCOUNTGROUPOPTIONS_AGENT ExpandAccountGroupOptions = "agent"
+	EXPANDACCOUNTGROUPOPTIONS_UNKNOWN ExpandAccountGroupOptions = "unknown"
 )
 
 // All allowed values of ExpandAccountGroupOptions enum
 var AllowedExpandAccountGroupOptionsEnumValues = []ExpandAccountGroupOptions{
 	"user",
 	"agent",
+	"unknown",
 }
 
 func (v *ExpandAccountGroupOptions) UnmarshalJSON(src []byte) error {
@@ -42,12 +44,12 @@ func (v *ExpandAccountGroupOptions) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid ExpandAccountGroupOptions", value)
+	*v = ExpandAccountGroupOptions("unknown")
+	return nil
 }
 
 // NewExpandAccountGroupOptionsFromValue returns a pointer to a valid ExpandAccountGroupOptions
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewExpandAccountGroupOptionsFromValue(v string) (*ExpandAccountGroupOptions, error) {
 	ev := ExpandAccountGroupOptions(v)
 	if ev.IsValid() {

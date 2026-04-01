@@ -50,11 +50,11 @@ type CreateStreamResponse struct {
 // will change when the set of required properties is changed
 func NewCreateStreamResponse() *CreateStreamResponse {
 	this := CreateStreamResponse{}
-	var signal Signal = SIGNAL_METRIC
+	var signal Signal = "metric"
 	this.Signal = &signal
-	var endpointType EndpointType = ENDPOINTTYPE_GRPC
+	var endpointType EndpointType = "grpc"
 	this.EndpointType = &endpointType
-	var dataModelVersion DataModelVersion = DATAMODELVERSION_V2
+	var dataModelVersion DataModelVersion = "v2"
 	this.DataModelVersion = &dataModelVersion
 	return &this
 }
@@ -64,11 +64,11 @@ func NewCreateStreamResponse() *CreateStreamResponse {
 // but it doesn't guarantee that properties required by API are set
 func NewCreateStreamResponseWithDefaults() *CreateStreamResponse {
 	this := CreateStreamResponse{}
-	var signal Signal = SIGNAL_METRIC
+	var signal Signal = "metric"
 	this.Signal = &signal
-	var endpointType EndpointType = ENDPOINTTYPE_GRPC
+	var endpointType EndpointType = "grpc"
 	this.EndpointType = &endpointType
-	var dataModelVersion DataModelVersion = DATAMODELVERSION_V2
+	var dataModelVersion DataModelVersion = "v2"
 	this.DataModelVersion = &dataModelVersion
 	return &this
 }

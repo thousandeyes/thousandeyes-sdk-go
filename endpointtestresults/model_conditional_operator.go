@@ -21,12 +21,14 @@ type ConditionalOperator string
 const (
 	CONDITIONALOPERATOR_AND ConditionalOperator = "and"
 	CONDITIONALOPERATOR_OR ConditionalOperator = "or"
+	CONDITIONALOPERATOR_UNKNOWN ConditionalOperator = "unknown"
 )
 
 // All allowed values of ConditionalOperator enum
 var AllowedConditionalOperatorEnumValues = []ConditionalOperator{
 	"and",
 	"or",
+	"unknown",
 }
 
 func (v *ConditionalOperator) UnmarshalJSON(src []byte) error {
@@ -42,12 +44,12 @@ func (v *ConditionalOperator) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid ConditionalOperator", value)
+	*v = ConditionalOperator("unknown")
+	return nil
 }
 
 // NewConditionalOperatorFromValue returns a pointer to a valid ConditionalOperator
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewConditionalOperatorFromValue(v string) (*ConditionalOperator, error) {
 	ev := ConditionalOperator(v)
 	if ev.IsValid() {

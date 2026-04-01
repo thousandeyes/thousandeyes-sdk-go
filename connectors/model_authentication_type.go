@@ -25,6 +25,7 @@ const (
 	AUTHENTICATIONTYPE_OAUTH_CLIENT_CREDENTIALS AuthenticationType = "oauth-client-credentials"
 	AUTHENTICATIONTYPE_OTHER_TOKEN AuthenticationType = "other-token"
 	AUTHENTICATIONTYPE_CONJUR_HOST AuthenticationType = "conjur-host"
+	AUTHENTICATIONTYPE_UNKNOWN AuthenticationType = "unknown"
 )
 
 // All allowed values of AuthenticationType enum
@@ -35,6 +36,7 @@ var AllowedAuthenticationTypeEnumValues = []AuthenticationType{
 	"oauth-client-credentials",
 	"other-token",
 	"conjur-host",
+	"unknown",
 }
 
 func (v *AuthenticationType) UnmarshalJSON(src []byte) error {
@@ -50,12 +52,12 @@ func (v *AuthenticationType) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid AuthenticationType", value)
+	*v = AuthenticationType("unknown")
+	return nil
 }
 
 // NewAuthenticationTypeFromValue returns a pointer to a valid AuthenticationType
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewAuthenticationTypeFromValue(v string) (*AuthenticationType, error) {
 	ev := AuthenticationType(v)
 	if ev.IsValid() {

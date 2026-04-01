@@ -25,6 +25,7 @@ const (
 	APIREQUESTASSERTIONOPERATOR_NOT_INCLUDES ApiRequestAssertionOperator = "not-includes"
 	APIREQUESTASSERTIONOPERATOR_MATCHES ApiRequestAssertionOperator = "matches"
 	APIREQUESTASSERTIONOPERATOR_NOT_MATCHES ApiRequestAssertionOperator = "not-matches"
+	APIREQUESTASSERTIONOPERATOR_UNKNOWN ApiRequestAssertionOperator = "unknown"
 )
 
 // All allowed values of ApiRequestAssertionOperator enum
@@ -35,6 +36,7 @@ var AllowedApiRequestAssertionOperatorEnumValues = []ApiRequestAssertionOperator
 	"not-includes",
 	"matches",
 	"not-matches",
+	"unknown",
 }
 
 func (v *ApiRequestAssertionOperator) UnmarshalJSON(src []byte) error {
@@ -50,12 +52,12 @@ func (v *ApiRequestAssertionOperator) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid ApiRequestAssertionOperator", value)
+	*v = ApiRequestAssertionOperator("unknown")
+	return nil
 }
 
 // NewApiRequestAssertionOperatorFromValue returns a pointer to a valid ApiRequestAssertionOperator
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewApiRequestAssertionOperatorFromValue(v string) (*ApiRequestAssertionOperator, error) {
 	ev := ApiRequestAssertionOperator(v)
 	if ev.IsValid() {

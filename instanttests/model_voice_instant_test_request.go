@@ -76,7 +76,7 @@ type _VoiceInstantTestRequest VoiceInstantTestRequest
 // will change when the set of required properties is changed
 func NewVoiceInstantTestRequest(targetAgentId string, agents []TestAgent) *VoiceInstantTestRequest {
 	this := VoiceInstantTestRequest{}
-	var dscpId TestDscpId = TESTDSCPID__0
+	var dscpId TestDscpId = "0"
 	this.DscpId = &dscpId
 	var duration int32 = 5
 	this.Duration = &duration
@@ -96,7 +96,7 @@ func NewVoiceInstantTestRequest(targetAgentId string, agents []TestAgent) *Voice
 // but it doesn't guarantee that properties required by API are set
 func NewVoiceInstantTestRequestWithDefaults() *VoiceInstantTestRequest {
 	this := VoiceInstantTestRequest{}
-	var dscpId TestDscpId = TESTDSCPID__0
+	var dscpId TestDscpId = "0"
 	this.DscpId = &dscpId
 	var duration int32 = 5
 	this.Duration = &duration

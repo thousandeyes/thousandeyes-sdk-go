@@ -56,7 +56,7 @@ type _ApiAgentStatusWidget ApiAgentStatusWidget
 // will change when the set of required properties is changed
 func NewApiAgentStatusWidget(type_ string) *ApiAgentStatusWidget {
 	this := ApiAgentStatusWidget{}
-	var visualMode VisualMode = VISUALMODE_FULL
+	var visualMode VisualMode = "Full"
 	this.VisualMode = &visualMode
 	this.Type = type_
 	return &this
@@ -67,7 +67,7 @@ func NewApiAgentStatusWidget(type_ string) *ApiAgentStatusWidget {
 // but it doesn't guarantee that properties required by API are set
 func NewApiAgentStatusWidgetWithDefaults() *ApiAgentStatusWidget {
 	this := ApiAgentStatusWidget{}
-	var visualMode VisualMode = VISUALMODE_FULL
+	var visualMode VisualMode = "Full"
 	this.VisualMode = &visualMode
 	return &this
 }

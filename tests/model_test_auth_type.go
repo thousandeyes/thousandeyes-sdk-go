@@ -24,6 +24,7 @@ const (
 	TESTAUTHTYPE_NTLM TestAuthType = "ntlm"
 	TESTAUTHTYPE_KERBEROS TestAuthType = "kerberos"
 	TESTAUTHTYPE_OAUTH TestAuthType = "oauth"
+	TESTAUTHTYPE_UNKNOWN TestAuthType = "unknown"
 )
 
 // All allowed values of TestAuthType enum
@@ -33,6 +34,7 @@ var AllowedTestAuthTypeEnumValues = []TestAuthType{
 	"ntlm",
 	"kerberos",
 	"oauth",
+	"unknown",
 }
 
 func (v *TestAuthType) UnmarshalJSON(src []byte) error {
@@ -48,12 +50,12 @@ func (v *TestAuthType) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid TestAuthType", value)
+	*v = TestAuthType("unknown")
+	return nil
 }
 
 // NewTestAuthTypeFromValue returns a pointer to a valid TestAuthType
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewTestAuthTypeFromValue(v string) (*TestAuthType, error) {
 	ev := TestAuthType(v)
 	if ev.IsValid() {

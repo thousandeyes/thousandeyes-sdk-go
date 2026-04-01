@@ -20,11 +20,13 @@ type WebhookIntegrationType string
 // List of WebhookIntegrationType
 const (
 	WEBHOOKINTEGRATIONTYPE_WEBHOOK WebhookIntegrationType = "webhook"
+	WEBHOOKINTEGRATIONTYPE_UNKNOWN WebhookIntegrationType = "unknown"
 )
 
 // All allowed values of WebhookIntegrationType enum
 var AllowedWebhookIntegrationTypeEnumValues = []WebhookIntegrationType{
 	"webhook",
+	"unknown",
 }
 
 func (v *WebhookIntegrationType) UnmarshalJSON(src []byte) error {
@@ -40,12 +42,12 @@ func (v *WebhookIntegrationType) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid WebhookIntegrationType", value)
+	*v = WebhookIntegrationType("unknown")
+	return nil
 }
 
 // NewWebhookIntegrationTypeFromValue returns a pointer to a valid WebhookIntegrationType
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewWebhookIntegrationTypeFromValue(v string) (*WebhookIntegrationType, error) {
 	ev := WebhookIntegrationType(v)
 	if ev.IsValid() {

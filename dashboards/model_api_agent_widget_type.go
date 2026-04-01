@@ -21,12 +21,14 @@ type ApiAgentWidgetType string
 const (
 	APIAGENTWIDGETTYPE_ENTERPRISE ApiAgentWidgetType = "enterprise"
 	APIAGENTWIDGETTYPE_ENDPOINT ApiAgentWidgetType = "endpoint"
+	APIAGENTWIDGETTYPE_UNKNOWN ApiAgentWidgetType = "unknown"
 )
 
 // All allowed values of ApiAgentWidgetType enum
 var AllowedApiAgentWidgetTypeEnumValues = []ApiAgentWidgetType{
 	"enterprise",
 	"endpoint",
+	"unknown",
 }
 
 func (v *ApiAgentWidgetType) UnmarshalJSON(src []byte) error {
@@ -42,12 +44,12 @@ func (v *ApiAgentWidgetType) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid ApiAgentWidgetType", value)
+	*v = ApiAgentWidgetType("unknown")
+	return nil
 }
 
 // NewApiAgentWidgetTypeFromValue returns a pointer to a valid ApiAgentWidgetType
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewApiAgentWidgetTypeFromValue(v string) (*ApiAgentWidgetType, error) {
 	ev := ApiAgentWidgetType(v)
 	if ev.IsValid() {

@@ -22,6 +22,7 @@ const (
 	INTERVALTYPE_DAY IntervalType = "day"
 	INTERVALTYPE_WEEK IntervalType = "week"
 	INTERVALTYPE_MONTH IntervalType = "month"
+	INTERVALTYPE_UNKNOWN IntervalType = "unknown"
 )
 
 // All allowed values of IntervalType enum
@@ -29,6 +30,7 @@ var AllowedIntervalTypeEnumValues = []IntervalType{
 	"day",
 	"week",
 	"month",
+	"unknown",
 }
 
 func (v *IntervalType) UnmarshalJSON(src []byte) error {
@@ -44,12 +46,12 @@ func (v *IntervalType) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid IntervalType", value)
+	*v = IntervalType("unknown")
+	return nil
 }
 
 // NewIntervalTypeFromValue returns a pointer to a valid IntervalType
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewIntervalTypeFromValue(v string) (*IntervalType, error) {
 	ev := IntervalType(v)
 	if ev.IsValid() {

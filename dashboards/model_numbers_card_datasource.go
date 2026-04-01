@@ -32,6 +32,7 @@ const (
 	NUMBERSCARDDATASOURCE_ROUTING NumbersCardDatasource = "ROUTING"
 	NUMBERSCARDDATASOURCE_CLOUD_NATIVE_MONITORING NumbersCardDatasource = "CLOUD_NATIVE_MONITORING"
 	NUMBERSCARDDATASOURCE_TRAFFIC_INSIGHTS_MONITORING NumbersCardDatasource = "TRAFFIC_INSIGHTS_MONITORING"
+	NUMBERSCARDDATASOURCE_UNKNOWN NumbersCardDatasource = "unknown"
 )
 
 // All allowed values of NumbersCardDatasource enum
@@ -49,6 +50,7 @@ var AllowedNumbersCardDatasourceEnumValues = []NumbersCardDatasource{
 	"ROUTING",
 	"CLOUD_NATIVE_MONITORING",
 	"TRAFFIC_INSIGHTS_MONITORING",
+	"unknown",
 }
 
 func (v *NumbersCardDatasource) UnmarshalJSON(src []byte) error {
@@ -64,12 +66,12 @@ func (v *NumbersCardDatasource) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid NumbersCardDatasource", value)
+	*v = NumbersCardDatasource("unknown")
+	return nil
 }
 
 // NewNumbersCardDatasourceFromValue returns a pointer to a valid NumbersCardDatasource
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewNumbersCardDatasourceFromValue(v string) (*NumbersCardDatasource, error) {
 	ev := NumbersCardDatasource(v)
 	if ev.IsValid() {

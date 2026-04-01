@@ -22,6 +22,7 @@ const (
 	AGENTLICENSETYPE_ESSENTIALS AgentLicenseType = "essentials"
 	AGENTLICENSETYPE_ADVANTAGE AgentLicenseType = "advantage"
 	AGENTLICENSETYPE_EMBEDDED AgentLicenseType = "embedded"
+	AGENTLICENSETYPE_UNKNOWN AgentLicenseType = "unknown"
 )
 
 // All allowed values of AgentLicenseType enum
@@ -29,6 +30,7 @@ var AllowedAgentLicenseTypeEnumValues = []AgentLicenseType{
 	"essentials",
 	"advantage",
 	"embedded",
+	"unknown",
 }
 
 func (v *AgentLicenseType) UnmarshalJSON(src []byte) error {
@@ -44,12 +46,12 @@ func (v *AgentLicenseType) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid AgentLicenseType", value)
+	*v = AgentLicenseType("unknown")
+	return nil
 }
 
 // NewAgentLicenseTypeFromValue returns a pointer to a valid AgentLicenseType
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewAgentLicenseTypeFromValue(v string) (*AgentLicenseType, error) {
 	ev := AgentLicenseType(v)
 	if ev.IsValid() {
