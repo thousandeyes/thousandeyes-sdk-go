@@ -74,10 +74,10 @@ func NewEndpointAgentToServerTest(type_ string) *EndpointAgentToServerTest {
 	this.IsEnabled = &isEnabled
 	var networkMeasurements bool = true
 	this.NetworkMeasurements = &networkMeasurements
-	var protocol EndpointTestProtocol = ENDPOINTTESTPROTOCOL_ICMP
+	var protocol EndpointTestProtocol = "icmp"
 	this.Protocol = &protocol
 	this.Type = type_
-	var tcpProbeMode TestProbeModeResponse = TESTPROBEMODERESPONSE_AUTO
+	var tcpProbeMode TestProbeModeResponse = "auto"
 	this.TcpProbeMode = &tcpProbeMode
 	var port int32 = 443
 	this.Port = &port
@@ -97,9 +97,9 @@ func NewEndpointAgentToServerTestWithDefaults() *EndpointAgentToServerTest {
 	this.IsEnabled = &isEnabled
 	var networkMeasurements bool = true
 	this.NetworkMeasurements = &networkMeasurements
-	var protocol EndpointTestProtocol = ENDPOINTTESTPROTOCOL_ICMP
+	var protocol EndpointTestProtocol = "icmp"
 	this.Protocol = &protocol
-	var tcpProbeMode TestProbeModeResponse = TESTPROBEMODERESPONSE_AUTO
+	var tcpProbeMode TestProbeModeResponse = "auto"
 	this.TcpProbeMode = &tcpProbeMode
 	var port int32 = 443
 	this.Port = &port

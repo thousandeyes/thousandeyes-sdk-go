@@ -22,6 +22,7 @@ const (
 	TESTPROBEMODE_AUTO TestProbeMode = "auto"
 	TESTPROBEMODE_SACK TestProbeMode = "sack"
 	TESTPROBEMODE_SYN TestProbeMode = "syn"
+	TESTPROBEMODE_UNKNOWN TestProbeMode = "unknown"
 )
 
 // All allowed values of TestProbeMode enum
@@ -29,6 +30,7 @@ var AllowedTestProbeModeEnumValues = []TestProbeMode{
 	"auto",
 	"sack",
 	"syn",
+	"unknown",
 }
 
 func (v *TestProbeMode) UnmarshalJSON(src []byte) error {
@@ -44,12 +46,12 @@ func (v *TestProbeMode) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid TestProbeMode", value)
+	*v = TestProbeMode("unknown")
+	return nil
 }
 
 // NewTestProbeModeFromValue returns a pointer to a valid TestProbeMode
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewTestProbeModeFromValue(v string) (*TestProbeMode, error) {
 	ev := TestProbeMode(v)
 	if ev.IsValid() {

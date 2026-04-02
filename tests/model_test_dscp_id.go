@@ -41,6 +41,7 @@ const (
 	TESTDSCPID__38 TestDscpId = "38"
 	TESTDSCPID__46 TestDscpId = "46"
 	TESTDSCPID__44 TestDscpId = "44"
+	TESTDSCPID_UNKNOWN TestDscpId = "unknown"
 )
 
 // All allowed values of TestDscpId enum
@@ -67,6 +68,7 @@ var AllowedTestDscpIdEnumValues = []TestDscpId{
 	"38",
 	"46",
 	"44",
+	"unknown",
 }
 
 func (v *TestDscpId) UnmarshalJSON(src []byte) error {
@@ -82,12 +84,12 @@ func (v *TestDscpId) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid TestDscpId", value)
+	*v = TestDscpId("unknown")
+	return nil
 }
 
 // NewTestDscpIdFromValue returns a pointer to a valid TestDscpId
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewTestDscpIdFromValue(v string) (*TestDscpId, error) {
 	ev := TestDscpId(v)
 	if ev.IsValid() {

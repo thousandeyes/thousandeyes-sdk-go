@@ -27,6 +27,7 @@ const (
 	SIPSERVERERRORTYPE_OPTION SipServerErrorType = "option"
 	SIPSERVERERRORTYPE_SERVER SipServerErrorType = "server"
 	SIPSERVERERRORTYPE_SSL SipServerErrorType = "ssl"
+	SIPSERVERERRORTYPE_UNKNOWN SipServerErrorType = "unknown"
 )
 
 // All allowed values of SipServerErrorType enum
@@ -39,6 +40,7 @@ var AllowedSipServerErrorTypeEnumValues = []SipServerErrorType{
 	"option",
 	"server",
 	"ssl",
+	"unknown",
 }
 
 func (v *SipServerErrorType) UnmarshalJSON(src []byte) error {
@@ -54,12 +56,12 @@ func (v *SipServerErrorType) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid SipServerErrorType", value)
+	*v = SipServerErrorType("unknown")
+	return nil
 }
 
 // NewSipServerErrorTypeFromValue returns a pointer to a valid SipServerErrorType
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewSipServerErrorTypeFromValue(v string) (*SipServerErrorType, error) {
 	ev := SipServerErrorType(v)
 	if ev.IsValid() {

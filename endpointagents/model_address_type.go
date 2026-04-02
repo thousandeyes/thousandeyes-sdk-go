@@ -24,6 +24,7 @@ const (
 	ADDRESSTYPE_UNIQUE_LOCAL AddressType = "unique-local"
 	ADDRESSTYPE_LINK_LOCAL AddressType = "link-local"
 	ADDRESSTYPE_UNIQUE_GLOBAL AddressType = "unique-global"
+	ADDRESSTYPE_UNKNOWN AddressType = "unknown"
 )
 
 // All allowed values of AddressType enum
@@ -33,6 +34,7 @@ var AllowedAddressTypeEnumValues = []AddressType{
 	"unique-local",
 	"link-local",
 	"unique-global",
+	"unknown",
 }
 
 func (v *AddressType) UnmarshalJSON(src []byte) error {
@@ -48,12 +50,12 @@ func (v *AddressType) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid AddressType", value)
+	*v = AddressType("unknown")
+	return nil
 }
 
 // NewAddressTypeFromValue returns a pointer to a valid AddressType
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewAddressTypeFromValue(v string) (*AddressType, error) {
 	ev := AddressType(v)
 	if ev.IsValid() {

@@ -48,12 +48,12 @@ func (v *NetworkTopologyType) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid NetworkTopologyType", value)
+	*v = NetworkTopologyType("unknown")
+	return nil
 }
 
 // NewNetworkTopologyTypeFromValue returns a pointer to a valid NetworkTopologyType
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewNetworkTopologyTypeFromValue(v string) (*NetworkTopologyType, error) {
 	ev := NetworkTopologyType(v)
 	if ev.IsValid() {

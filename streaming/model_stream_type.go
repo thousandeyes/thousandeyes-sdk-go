@@ -21,12 +21,14 @@ type StreamType string
 const (
 	STREAMTYPE_OPENTELEMETRY StreamType = "opentelemetry"
 	STREAMTYPE_SPLUNK_HEC StreamType = "splunk-hec"
+	STREAMTYPE_UNKNOWN StreamType = "unknown"
 )
 
 // All allowed values of StreamType enum
 var AllowedStreamTypeEnumValues = []StreamType{
 	"opentelemetry",
 	"splunk-hec",
+	"unknown",
 }
 
 func (v *StreamType) UnmarshalJSON(src []byte) error {
@@ -42,12 +44,12 @@ func (v *StreamType) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid StreamType", value)
+	*v = StreamType("unknown")
+	return nil
 }
 
 // NewStreamTypeFromValue returns a pointer to a valid StreamType
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewStreamTypeFromValue(v string) (*StreamType, error) {
 	ev := StreamType(v)
 	if ev.IsValid() {

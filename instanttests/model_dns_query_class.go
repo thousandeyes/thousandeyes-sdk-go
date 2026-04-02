@@ -21,12 +21,14 @@ type DnsQueryClass string
 const (
 	DNSQUERYCLASS_IN DnsQueryClass = "in"
 	DNSQUERYCLASS_CH DnsQueryClass = "ch"
+	DNSQUERYCLASS_UNKNOWN DnsQueryClass = "unknown"
 )
 
 // All allowed values of DnsQueryClass enum
 var AllowedDnsQueryClassEnumValues = []DnsQueryClass{
 	"in",
 	"ch",
+	"unknown",
 }
 
 func (v *DnsQueryClass) UnmarshalJSON(src []byte) error {
@@ -42,12 +44,12 @@ func (v *DnsQueryClass) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid DnsQueryClass", value)
+	*v = DnsQueryClass("unknown")
+	return nil
 }
 
 // NewDnsQueryClassFromValue returns a pointer to a valid DnsQueryClass
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewDnsQueryClassFromValue(v string) (*DnsQueryClass, error) {
 	ev := DnsQueryClass(v)
 	if ev.IsValid() {

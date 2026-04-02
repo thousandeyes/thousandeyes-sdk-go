@@ -21,12 +21,14 @@ type ApiWidgetSortProperty string
 const (
 	APIWIDGETSORTPROPERTY_ALPHABETICAL ApiWidgetSortProperty = "alphabetical"
 	APIWIDGETSORTPROPERTY_VALUE ApiWidgetSortProperty = "value"
+	APIWIDGETSORTPROPERTY_UNKNOWN ApiWidgetSortProperty = "unknown"
 )
 
 // All allowed values of ApiWidgetSortProperty enum
 var AllowedApiWidgetSortPropertyEnumValues = []ApiWidgetSortProperty{
 	"alphabetical",
 	"value",
+	"unknown",
 }
 
 func (v *ApiWidgetSortProperty) UnmarshalJSON(src []byte) error {
@@ -42,12 +44,12 @@ func (v *ApiWidgetSortProperty) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid ApiWidgetSortProperty", value)
+	*v = ApiWidgetSortProperty("unknown")
+	return nil
 }
 
 // NewApiWidgetSortPropertyFromValue returns a pointer to a valid ApiWidgetSortProperty
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewApiWidgetSortPropertyFromValue(v string) (*ApiWidgetSortProperty, error) {
 	ev := ApiWidgetSortProperty(v)
 	if ev.IsValid() {

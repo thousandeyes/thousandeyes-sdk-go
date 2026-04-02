@@ -65,7 +65,7 @@ type _ApiRequest ApiRequest
 // will change when the set of required properties is changed
 func NewApiRequest(name string, url string) *ApiRequest {
 	this := ApiRequest{}
-	var authType ApiRequestAuthType = APIREQUESTAUTHTYPE_NONE
+	var authType ApiRequestAuthType = "none"
 	this.AuthType = &authType
 	var collectApiResponse bool = true
 	this.CollectApiResponse = &collectApiResponse
@@ -81,7 +81,7 @@ func NewApiRequest(name string, url string) *ApiRequest {
 // but it doesn't guarantee that properties required by API are set
 func NewApiRequestWithDefaults() *ApiRequest {
 	this := ApiRequest{}
-	var authType ApiRequestAuthType = APIREQUESTAUTHTYPE_NONE
+	var authType ApiRequestAuthType = "none"
 	this.AuthType = &authType
 	var collectApiResponse bool = true
 	this.CollectApiResponse = &collectApiResponse

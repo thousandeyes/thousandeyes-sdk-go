@@ -21,12 +21,14 @@ type AgentToAgentTestProtocol string
 const (
 	AGENTTOAGENTTESTPROTOCOL_TCP AgentToAgentTestProtocol = "tcp"
 	AGENTTOAGENTTESTPROTOCOL_UDP AgentToAgentTestProtocol = "udp"
+	AGENTTOAGENTTESTPROTOCOL_UNKNOWN AgentToAgentTestProtocol = "unknown"
 )
 
 // All allowed values of AgentToAgentTestProtocol enum
 var AllowedAgentToAgentTestProtocolEnumValues = []AgentToAgentTestProtocol{
 	"tcp",
 	"udp",
+	"unknown",
 }
 
 func (v *AgentToAgentTestProtocol) UnmarshalJSON(src []byte) error {
@@ -42,12 +44,12 @@ func (v *AgentToAgentTestProtocol) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid AgentToAgentTestProtocol", value)
+	*v = AgentToAgentTestProtocol("unknown")
+	return nil
 }
 
 // NewAgentToAgentTestProtocolFromValue returns a pointer to a valid AgentToAgentTestProtocol
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewAgentToAgentTestProtocolFromValue(v string) (*AgentToAgentTestProtocol, error) {
 	ev := AgentToAgentTestProtocol(v)
 	if ev.IsValid() {

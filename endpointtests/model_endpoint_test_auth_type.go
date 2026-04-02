@@ -22,6 +22,7 @@ const (
 	ENDPOINTTESTAUTHTYPE_NONE EndpointTestAuthType = "none"
 	ENDPOINTTESTAUTHTYPE_BASIC EndpointTestAuthType = "basic"
 	ENDPOINTTESTAUTHTYPE_NTLM EndpointTestAuthType = "ntlm"
+	ENDPOINTTESTAUTHTYPE_UNKNOWN EndpointTestAuthType = "unknown"
 )
 
 // All allowed values of EndpointTestAuthType enum
@@ -29,6 +30,7 @@ var AllowedEndpointTestAuthTypeEnumValues = []EndpointTestAuthType{
 	"none",
 	"basic",
 	"ntlm",
+	"unknown",
 }
 
 func (v *EndpointTestAuthType) UnmarshalJSON(src []byte) error {
@@ -44,12 +46,12 @@ func (v *EndpointTestAuthType) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid EndpointTestAuthType", value)
+	*v = EndpointTestAuthType("unknown")
+	return nil
 }
 
 // NewEndpointTestAuthTypeFromValue returns a pointer to a valid EndpointTestAuthType
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewEndpointTestAuthTypeFromValue(v string) (*EndpointTestAuthType, error) {
 	ev := EndpointTestAuthType(v)
 	if ev.IsValid() {

@@ -89,7 +89,7 @@ type HttpServerBaseProperties struct {
 // will change when the set of required properties is changed
 func NewHttpServerBaseProperties() *HttpServerBaseProperties {
 	this := HttpServerBaseProperties{}
-	var authType TestAuthType = TESTAUTHTYPE_NONE
+	var authType TestAuthType = "none"
 	this.AuthType = &authType
 	var desiredStatusCode string = "default"
 	this.DesiredStatusCode = &desiredStatusCode
@@ -103,13 +103,13 @@ func NewHttpServerBaseProperties() *HttpServerBaseProperties {
 	this.NetworkMeasurements = &networkMeasurements
 	var numPathTraces int32 = 3
 	this.NumPathTraces = &numPathTraces
-	var pathTraceMode TestPathTraceMode = TESTPATHTRACEMODE_CLASSIC
+	var pathTraceMode TestPathTraceMode = "classic"
 	this.PathTraceMode = &pathTraceMode
-	var probeMode TestProbeMode = TESTPROBEMODE_AUTO
+	var probeMode TestProbeMode = "auto"
 	this.ProbeMode = &probeMode
-	var protocol TestProtocol = TESTPROTOCOL_TCP
+	var protocol TestProtocol = "tcp"
 	this.Protocol = &protocol
-	var sslVersionId TestSslVersionId = TESTSSLVERSIONID__0
+	var sslVersionId TestSslVersionId = "0"
 	this.SslVersionId = &sslVersionId
 	var verifyCertificate bool = false
 	this.VerifyCertificate = &verifyCertificate
@@ -129,7 +129,7 @@ func NewHttpServerBaseProperties() *HttpServerBaseProperties {
 // but it doesn't guarantee that properties required by API are set
 func NewHttpServerBasePropertiesWithDefaults() *HttpServerBaseProperties {
 	this := HttpServerBaseProperties{}
-	var authType TestAuthType = TESTAUTHTYPE_NONE
+	var authType TestAuthType = "none"
 	this.AuthType = &authType
 	var desiredStatusCode string = "default"
 	this.DesiredStatusCode = &desiredStatusCode
@@ -143,13 +143,13 @@ func NewHttpServerBasePropertiesWithDefaults() *HttpServerBaseProperties {
 	this.NetworkMeasurements = &networkMeasurements
 	var numPathTraces int32 = 3
 	this.NumPathTraces = &numPathTraces
-	var pathTraceMode TestPathTraceMode = TESTPATHTRACEMODE_CLASSIC
+	var pathTraceMode TestPathTraceMode = "classic"
 	this.PathTraceMode = &pathTraceMode
-	var probeMode TestProbeMode = TESTPROBEMODE_AUTO
+	var probeMode TestProbeMode = "auto"
 	this.ProbeMode = &probeMode
-	var protocol TestProtocol = TESTPROTOCOL_TCP
+	var protocol TestProtocol = "tcp"
 	this.Protocol = &protocol
-	var sslVersionId TestSslVersionId = TESTSSLVERSIONID__0
+	var sslVersionId TestSslVersionId = "0"
 	this.SslVersionId = &sslVersionId
 	var verifyCertificate bool = false
 	this.VerifyCertificate = &verifyCertificate

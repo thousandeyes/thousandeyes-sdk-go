@@ -22,6 +22,7 @@ const (
 	SIPTESTPROTOCOL_TCP SipTestProtocol = "tcp"
 	SIPTESTPROTOCOL_TLS SipTestProtocol = "tls"
 	SIPTESTPROTOCOL_UDP SipTestProtocol = "udp"
+	SIPTESTPROTOCOL_UNKNOWN SipTestProtocol = "unknown"
 )
 
 // All allowed values of SipTestProtocol enum
@@ -29,6 +30,7 @@ var AllowedSipTestProtocolEnumValues = []SipTestProtocol{
 	"tcp",
 	"tls",
 	"udp",
+	"unknown",
 }
 
 func (v *SipTestProtocol) UnmarshalJSON(src []byte) error {
@@ -44,12 +46,12 @@ func (v *SipTestProtocol) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid SipTestProtocol", value)
+	*v = SipTestProtocol("unknown")
+	return nil
 }
 
 // NewSipTestProtocolFromValue returns a pointer to a valid SipTestProtocol
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewSipTestProtocolFromValue(v string) (*SipTestProtocol, error) {
 	ev := SipTestProtocol(v)
 	if ev.IsValid() {

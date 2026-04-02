@@ -23,6 +23,7 @@ const (
 	ENDPOINTIPVERSIONIN_V6_ONLY EndpointIpVersionIn = "V6_ONLY"
 	ENDPOINTIPVERSIONIN_V6_PREFER EndpointIpVersionIn = "V6_PREFER"
 	ENDPOINTIPVERSIONIN_OS_DEFAULT EndpointIpVersionIn = "OS_DEFAULT"
+	ENDPOINTIPVERSIONIN_UNKNOWN EndpointIpVersionIn = "unknown"
 )
 
 // All allowed values of EndpointIpVersionIn enum
@@ -31,6 +32,7 @@ var AllowedEndpointIpVersionInEnumValues = []EndpointIpVersionIn{
 	"V6_ONLY",
 	"V6_PREFER",
 	"OS_DEFAULT",
+	"unknown",
 }
 
 func (v *EndpointIpVersionIn) UnmarshalJSON(src []byte) error {
@@ -46,12 +48,12 @@ func (v *EndpointIpVersionIn) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid EndpointIpVersionIn", value)
+	*v = EndpointIpVersionIn("unknown")
+	return nil
 }
 
 // NewEndpointIpVersionInFromValue returns a pointer to a valid EndpointIpVersionIn
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewEndpointIpVersionInFromValue(v string) (*EndpointIpVersionIn, error) {
 	ev := EndpointIpVersionIn(v)
 	if ev.IsValid() {

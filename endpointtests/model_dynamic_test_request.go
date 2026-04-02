@@ -49,7 +49,7 @@ type _DynamicTestRequest DynamicTestRequest
 // will change when the set of required properties is changed
 func NewDynamicTestRequest(application string, testName string) *DynamicTestRequest {
 	this := DynamicTestRequest{}
-	var agentSelectorType EndpointTestAgentSelectorType = ENDPOINTTESTAGENTSELECTORTYPE_ALL_AGENTS
+	var agentSelectorType EndpointTestAgentSelectorType = "all-agents"
 	this.AgentSelectorType = &agentSelectorType
 	var isPrioritized bool = false
 	this.IsPrioritized = &isPrioritized
@@ -58,9 +58,9 @@ func NewDynamicTestRequest(application string, testName string) *DynamicTestRequ
 	var maxMachines int32 = 25
 	this.MaxMachines = &maxMachines
 	this.Application = application
-	var protocol EndpointTestProtocol = ENDPOINTTESTPROTOCOL_ICMP
+	var protocol EndpointTestProtocol = "icmp"
 	this.Protocol = &protocol
-	var tcpProbeMode TestProbeMode = TESTPROBEMODE_AUTO
+	var tcpProbeMode TestProbeMode = "auto"
 	this.TcpProbeMode = &tcpProbeMode
 	this.TestName = testName
 	return &this
@@ -71,7 +71,7 @@ func NewDynamicTestRequest(application string, testName string) *DynamicTestRequ
 // but it doesn't guarantee that properties required by API are set
 func NewDynamicTestRequestWithDefaults() *DynamicTestRequest {
 	this := DynamicTestRequest{}
-	var agentSelectorType EndpointTestAgentSelectorType = ENDPOINTTESTAGENTSELECTORTYPE_ALL_AGENTS
+	var agentSelectorType EndpointTestAgentSelectorType = "all-agents"
 	this.AgentSelectorType = &agentSelectorType
 	var isPrioritized bool = false
 	this.IsPrioritized = &isPrioritized
@@ -79,9 +79,9 @@ func NewDynamicTestRequestWithDefaults() *DynamicTestRequest {
 	this.Interval = &interval
 	var maxMachines int32 = 25
 	this.MaxMachines = &maxMachines
-	var protocol EndpointTestProtocol = ENDPOINTTESTPROTOCOL_ICMP
+	var protocol EndpointTestProtocol = "icmp"
 	this.Protocol = &protocol
-	var tcpProbeMode TestProbeMode = TESTPROBEMODE_AUTO
+	var tcpProbeMode TestProbeMode = "auto"
 	this.TcpProbeMode = &tcpProbeMode
 	return &this
 }

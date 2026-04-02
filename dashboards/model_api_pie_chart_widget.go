@@ -55,7 +55,7 @@ type _ApiPieChartWidget ApiPieChartWidget
 // will change when the set of required properties is changed
 func NewApiPieChartWidget(type_ string) *ApiPieChartWidget {
 	this := ApiPieChartWidget{}
-	var visualMode VisualMode = VISUALMODE_FULL
+	var visualMode VisualMode = "Full"
 	this.VisualMode = &visualMode
 	this.Type = type_
 	return &this
@@ -66,7 +66,7 @@ func NewApiPieChartWidget(type_ string) *ApiPieChartWidget {
 // but it doesn't guarantee that properties required by API are set
 func NewApiPieChartWidgetWithDefaults() *ApiPieChartWidget {
 	this := ApiPieChartWidget{}
-	var visualMode VisualMode = VISUALMODE_FULL
+	var visualMode VisualMode = "Full"
 	this.VisualMode = &visualMode
 	return &this
 }

@@ -20,11 +20,13 @@ type ExpandEndpointDynamicNetworkOptions string
 // List of ExpandEndpointDynamicNetworkOptions
 const (
 	EXPANDENDPOINTDYNAMICNETWORKOPTIONS_USER_PROFILE ExpandEndpointDynamicNetworkOptions = "user-profile"
+	EXPANDENDPOINTDYNAMICNETWORKOPTIONS_UNKNOWN ExpandEndpointDynamicNetworkOptions = "unknown"
 )
 
 // All allowed values of ExpandEndpointDynamicNetworkOptions enum
 var AllowedExpandEndpointDynamicNetworkOptionsEnumValues = []ExpandEndpointDynamicNetworkOptions{
 	"user-profile",
+	"unknown",
 }
 
 func (v *ExpandEndpointDynamicNetworkOptions) UnmarshalJSON(src []byte) error {
@@ -40,12 +42,12 @@ func (v *ExpandEndpointDynamicNetworkOptions) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid ExpandEndpointDynamicNetworkOptions", value)
+	*v = ExpandEndpointDynamicNetworkOptions("unknown")
+	return nil
 }
 
 // NewExpandEndpointDynamicNetworkOptionsFromValue returns a pointer to a valid ExpandEndpointDynamicNetworkOptions
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewExpandEndpointDynamicNetworkOptionsFromValue(v string) (*ExpandEndpointDynamicNetworkOptions, error) {
 	ev := ExpandEndpointDynamicNetworkOptions(v)
 	if ev.IsValid() {

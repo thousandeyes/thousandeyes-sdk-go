@@ -24,6 +24,7 @@ const (
 	APIREQUESTMETHOD_PUT ApiRequestMethod = "put"
 	APIREQUESTMETHOD_DELETE ApiRequestMethod = "delete"
 	APIREQUESTMETHOD_PATCH ApiRequestMethod = "patch"
+	APIREQUESTMETHOD_UNKNOWN ApiRequestMethod = "unknown"
 )
 
 // All allowed values of ApiRequestMethod enum
@@ -33,6 +34,7 @@ var AllowedApiRequestMethodEnumValues = []ApiRequestMethod{
 	"put",
 	"delete",
 	"patch",
+	"unknown",
 }
 
 func (v *ApiRequestMethod) UnmarshalJSON(src []byte) error {
@@ -48,12 +50,12 @@ func (v *ApiRequestMethod) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid ApiRequestMethod", value)
+	*v = ApiRequestMethod("unknown")
+	return nil
 }
 
 // NewApiRequestMethodFromValue returns a pointer to a valid ApiRequestMethod
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewApiRequestMethodFromValue(v string) (*ApiRequestMethod, error) {
 	ev := ApiRequestMethod(v)
 	if ev.IsValid() {

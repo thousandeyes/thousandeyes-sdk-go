@@ -22,6 +22,7 @@ const (
 	APPLICATIONSCOREQUALITY_GREAT ApplicationScoreQuality = "great"
 	APPLICATIONSCOREQUALITY_GOOD ApplicationScoreQuality = "good"
 	APPLICATIONSCOREQUALITY_POOR ApplicationScoreQuality = "poor"
+	APPLICATIONSCOREQUALITY_UNKNOWN ApplicationScoreQuality = "unknown"
 )
 
 // All allowed values of ApplicationScoreQuality enum
@@ -29,6 +30,7 @@ var AllowedApplicationScoreQualityEnumValues = []ApplicationScoreQuality{
 	"great",
 	"good",
 	"poor",
+	"unknown",
 }
 
 func (v *ApplicationScoreQuality) UnmarshalJSON(src []byte) error {
@@ -44,12 +46,12 @@ func (v *ApplicationScoreQuality) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid ApplicationScoreQuality", value)
+	*v = ApplicationScoreQuality("unknown")
+	return nil
 }
 
 // NewApplicationScoreQualityFromValue returns a pointer to a valid ApplicationScoreQuality
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewApplicationScoreQualityFromValue(v string) (*ApplicationScoreQuality, error) {
 	ev := ApplicationScoreQuality(v)
 	if ev.IsValid() {

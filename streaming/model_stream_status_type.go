@@ -22,6 +22,7 @@ const (
 	STREAMSTATUSTYPE_CONNECTED StreamStatusType = "connected"
 	STREAMSTATUSTYPE_PENDING StreamStatusType = "pending"
 	STREAMSTATUSTYPE_FAILING StreamStatusType = "failing"
+	STREAMSTATUSTYPE_UNKNOWN StreamStatusType = "unknown"
 )
 
 // All allowed values of StreamStatusType enum
@@ -29,6 +30,7 @@ var AllowedStreamStatusTypeEnumValues = []StreamStatusType{
 	"connected",
 	"pending",
 	"failing",
+	"unknown",
 }
 
 func (v *StreamStatusType) UnmarshalJSON(src []byte) error {
@@ -44,12 +46,12 @@ func (v *StreamStatusType) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid StreamStatusType", value)
+	*v = StreamStatusType("unknown")
+	return nil
 }
 
 // NewStreamStatusTypeFromValue returns a pointer to a valid StreamStatusType
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewStreamStatusTypeFromValue(v string) (*StreamStatusType, error) {
 	ev := StreamStatusType(v)
 	if ev.IsValid() {

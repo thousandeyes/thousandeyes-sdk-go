@@ -23,6 +23,7 @@ const (
 	REPEATTYPE_WEEK RepeatType = "week"
 	REPEATTYPE_MONTH RepeatType = "month"
 	REPEATTYPE_CUSTOM RepeatType = "custom"
+	REPEATTYPE_UNKNOWN RepeatType = "unknown"
 )
 
 // All allowed values of RepeatType enum
@@ -31,6 +32,7 @@ var AllowedRepeatTypeEnumValues = []RepeatType{
 	"week",
 	"month",
 	"custom",
+	"unknown",
 }
 
 func (v *RepeatType) UnmarshalJSON(src []byte) error {
@@ -46,12 +48,12 @@ func (v *RepeatType) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid RepeatType", value)
+	*v = RepeatType("unknown")
+	return nil
 }
 
 // NewRepeatTypeFromValue returns a pointer to a valid RepeatType
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewRepeatTypeFromValue(v string) (*RepeatType, error) {
 	ev := RepeatType(v)
 	if ev.IsValid() {

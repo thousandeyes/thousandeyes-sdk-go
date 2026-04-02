@@ -48,12 +48,12 @@ func (v *Severity) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid Severity", value)
+	*v = Severity("unknown")
+	return nil
 }
 
 // NewSeverityFromValue returns a pointer to a valid Severity
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewSeverityFromValue(v string) (*Severity, error) {
 	ev := Severity(v)
 	if ev.IsValid() {

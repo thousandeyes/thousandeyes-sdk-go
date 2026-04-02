@@ -73,7 +73,7 @@ type _ApiColorGridWidget ApiColorGridWidget
 // will change when the set of required properties is changed
 func NewApiColorGridWidget(type_ string) *ApiColorGridWidget {
 	this := ApiColorGridWidget{}
-	var visualMode VisualMode = VISUALMODE_FULL
+	var visualMode VisualMode = "Full"
 	this.VisualMode = &visualMode
 	this.Type = type_
 	return &this
@@ -84,7 +84,7 @@ func NewApiColorGridWidget(type_ string) *ApiColorGridWidget {
 // but it doesn't guarantee that properties required by API are set
 func NewApiColorGridWidgetWithDefaults() *ApiColorGridWidget {
 	this := ApiColorGridWidget{}
-	var visualMode VisualMode = VISUALMODE_FULL
+	var visualMode VisualMode = "Full"
 	this.VisualMode = &visualMode
 	return &this
 }

@@ -34,6 +34,7 @@ const (
 	WIDGETTYPE_TEST_TABLE WidgetType = "Test Table"
 	WIDGETTYPE_MAP WidgetType = "Map"
 	WIDGETTYPE_BOX_AND_WHISKERS WidgetType = "Box and Whiskers"
+	WIDGETTYPE_UNKNOWN WidgetType = "unknown"
 )
 
 // All allowed values of WidgetType enum
@@ -53,6 +54,7 @@ var AllowedWidgetTypeEnumValues = []WidgetType{
 	"Test Table",
 	"Map",
 	"Box and Whiskers",
+	"unknown",
 }
 
 func (v *WidgetType) UnmarshalJSON(src []byte) error {
@@ -68,12 +70,12 @@ func (v *WidgetType) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid WidgetType", value)
+	*v = WidgetType("unknown")
+	return nil
 }
 
 // NewWidgetTypeFromValue returns a pointer to a valid WidgetType
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewWidgetTypeFromValue(v string) (*WidgetType, error) {
 	ev := WidgetType(v)
 	if ev.IsValid() {

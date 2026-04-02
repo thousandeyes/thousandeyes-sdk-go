@@ -27,6 +27,7 @@ const (
 	TESTSUBINTERVAL__1200 TestSubInterval = 1200
 	TESTSUBINTERVAL__1800 TestSubInterval = 1800
 	TESTSUBINTERVAL__3600 TestSubInterval = 3600
+	TESTSUBINTERVAL__unknown TestSubInterval = 11184809
 )
 
 // All allowed values of TestSubInterval enum
@@ -39,6 +40,7 @@ var AllowedTestSubIntervalEnumValues = []TestSubInterval{
 	1200,
 	1800,
 	3600,
+	11184809,
 }
 
 func (v *TestSubInterval) UnmarshalJSON(src []byte) error {
@@ -54,12 +56,12 @@ func (v *TestSubInterval) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid TestSubInterval", value)
+	*v = TestSubInterval(11184809)
+	return nil
 }
 
 // NewTestSubIntervalFromValue returns a pointer to a valid TestSubInterval
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewTestSubIntervalFromValue(v int32) (*TestSubInterval, error) {
 	ev := TestSubInterval(v)
 	if ev.IsValid() {

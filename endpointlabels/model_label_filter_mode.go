@@ -21,12 +21,14 @@ type LabelFilterMode string
 const (
 	LABELFILTERMODE_IN LabelFilterMode = "in"
 	LABELFILTERMODE_NOT_IN LabelFilterMode = "not-in"
+	LABELFILTERMODE_UNKNOWN LabelFilterMode = "unknown"
 )
 
 // All allowed values of LabelFilterMode enum
 var AllowedLabelFilterModeEnumValues = []LabelFilterMode{
 	"in",
 	"not-in",
+	"unknown",
 }
 
 func (v *LabelFilterMode) UnmarshalJSON(src []byte) error {
@@ -42,12 +44,12 @@ func (v *LabelFilterMode) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid LabelFilterMode", value)
+	*v = LabelFilterMode("unknown")
+	return nil
 }
 
 // NewLabelFilterModeFromValue returns a pointer to a valid LabelFilterMode
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewLabelFilterModeFromValue(v string) (*LabelFilterMode, error) {
 	ev := LabelFilterMode(v)
 	if ev.IsValid() {

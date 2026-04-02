@@ -22,6 +22,7 @@ const (
 	OPERATIONCATEGORY_ALERTS OperationCategory = "alerts"
 	OPERATIONCATEGORY_RECOMMENDATIONS OperationCategory = "recommendations"
 	OPERATIONCATEGORY_TRAFFIC_MONITORING OperationCategory = "traffic-monitoring"
+	OPERATIONCATEGORY_UNKNOWN OperationCategory = "unknown"
 )
 
 // All allowed values of OperationCategory enum
@@ -29,6 +30,7 @@ var AllowedOperationCategoryEnumValues = []OperationCategory{
 	"alerts",
 	"recommendations",
 	"traffic-monitoring",
+	"unknown",
 }
 
 func (v *OperationCategory) UnmarshalJSON(src []byte) error {
@@ -44,12 +46,12 @@ func (v *OperationCategory) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid OperationCategory", value)
+	*v = OperationCategory("unknown")
+	return nil
 }
 
 // NewOperationCategoryFromValue returns a pointer to a valid OperationCategory
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewOperationCategoryFromValue(v string) (*OperationCategory, error) {
 	ev := OperationCategory(v)
 	if ev.IsValid() {

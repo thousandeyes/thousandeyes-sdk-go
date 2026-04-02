@@ -27,6 +27,7 @@ const (
 	HTTPENDPOINTTESTSDATASEARCHSORTKEY_WAIT_TIME HttpEndpointTestsDataSearchSortKey = "wait-time"
 	HTTPENDPOINTTESTSDATASEARCHSORTKEY_RESPONSE_CODE HttpEndpointTestsDataSearchSortKey = "response-code"
 	HTTPENDPOINTTESTSDATASEARCHSORTKEY_WIRE_SIZE HttpEndpointTestsDataSearchSortKey = "wire-size"
+	HTTPENDPOINTTESTSDATASEARCHSORTKEY_UNKNOWN HttpEndpointTestsDataSearchSortKey = "unknown"
 )
 
 // All allowed values of HttpEndpointTestsDataSearchSortKey enum
@@ -39,6 +40,7 @@ var AllowedHttpEndpointTestsDataSearchSortKeyEnumValues = []HttpEndpointTestsDat
 	"wait-time",
 	"response-code",
 	"wire-size",
+	"unknown",
 }
 
 func (v *HttpEndpointTestsDataSearchSortKey) UnmarshalJSON(src []byte) error {
@@ -54,12 +56,12 @@ func (v *HttpEndpointTestsDataSearchSortKey) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid HttpEndpointTestsDataSearchSortKey", value)
+	*v = HttpEndpointTestsDataSearchSortKey("unknown")
+	return nil
 }
 
 // NewHttpEndpointTestsDataSearchSortKeyFromValue returns a pointer to a valid HttpEndpointTestsDataSearchSortKey
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewHttpEndpointTestsDataSearchSortKeyFromValue(v string) (*HttpEndpointTestsDataSearchSortKey, error) {
 	ev := HttpEndpointTestsDataSearchSortKey(v)
 	if ev.IsValid() {

@@ -23,6 +23,7 @@ const (
 	EXPANDBGPTESTOPTIONS_MONITOR ExpandBgpTestOptions = "monitor"
 	EXPANDBGPTESTOPTIONS_LABEL ExpandBgpTestOptions = "label"
 	EXPANDBGPTESTOPTIONS_SHARED_WITH_ACCOUNT ExpandBgpTestOptions = "shared-with-account"
+	EXPANDBGPTESTOPTIONS_UNKNOWN ExpandBgpTestOptions = "unknown"
 )
 
 // All allowed values of ExpandBgpTestOptions enum
@@ -31,6 +32,7 @@ var AllowedExpandBgpTestOptionsEnumValues = []ExpandBgpTestOptions{
 	"monitor",
 	"label",
 	"shared-with-account",
+	"unknown",
 }
 
 func (v *ExpandBgpTestOptions) UnmarshalJSON(src []byte) error {
@@ -46,12 +48,12 @@ func (v *ExpandBgpTestOptions) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid ExpandBgpTestOptions", value)
+	*v = ExpandBgpTestOptions("unknown")
+	return nil
 }
 
 // NewExpandBgpTestOptionsFromValue returns a pointer to a valid ExpandBgpTestOptions
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewExpandBgpTestOptionsFromValue(v string) (*ExpandBgpTestOptions, error) {
 	ev := ExpandBgpTestOptions(v)
 	if ev.IsValid() {

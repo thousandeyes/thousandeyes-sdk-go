@@ -22,6 +22,7 @@ const (
 	TESTDIRECTION_TO_TARGET TestDirection = "to-target"
 	TESTDIRECTION_FROM_TARGET TestDirection = "from-target"
 	TESTDIRECTION_BIDIRECTIONAL TestDirection = "bidirectional"
+	TESTDIRECTION_UNKNOWN TestDirection = "unknown"
 )
 
 // All allowed values of TestDirection enum
@@ -29,6 +30,7 @@ var AllowedTestDirectionEnumValues = []TestDirection{
 	"to-target",
 	"from-target",
 	"bidirectional",
+	"unknown",
 }
 
 func (v *TestDirection) UnmarshalJSON(src []byte) error {
@@ -44,12 +46,12 @@ func (v *TestDirection) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid TestDirection", value)
+	*v = TestDirection("unknown")
+	return nil
 }
 
 // NewTestDirectionFromValue returns a pointer to a valid TestDirection
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewTestDirectionFromValue(v string) (*TestDirection, error) {
 	ev := TestDirection(v)
 	if ev.IsValid() {

@@ -21,12 +21,14 @@ type DashboardOrder string
 const (
 	DASHBOARDORDER_ASC DashboardOrder = "asc"
 	DASHBOARDORDER_DESC DashboardOrder = "desc"
+	DASHBOARDORDER_UNKNOWN DashboardOrder = "unknown"
 )
 
 // All allowed values of DashboardOrder enum
 var AllowedDashboardOrderEnumValues = []DashboardOrder{
 	"asc",
 	"desc",
+	"unknown",
 }
 
 func (v *DashboardOrder) UnmarshalJSON(src []byte) error {
@@ -42,12 +44,12 @@ func (v *DashboardOrder) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid DashboardOrder", value)
+	*v = DashboardOrder("unknown")
+	return nil
 }
 
 // NewDashboardOrderFromValue returns a pointer to a valid DashboardOrder
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewDashboardOrderFromValue(v string) (*DashboardOrder, error) {
 	ev := DashboardOrder(v)
 	if ev.IsValid() {

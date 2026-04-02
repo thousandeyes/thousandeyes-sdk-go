@@ -32,6 +32,7 @@ const (
 	MULTIMETRICSTABLEDATASOURCE_ROUTING MultiMetricsTableDatasource = "ROUTING"
 	MULTIMETRICSTABLEDATASOURCE_CLOUD_NATIVE_MONITORING MultiMetricsTableDatasource = "CLOUD_NATIVE_MONITORING"
 	MULTIMETRICSTABLEDATASOURCE_TRAFFIC_INSIGHTS_MONITORING MultiMetricsTableDatasource = "TRAFFIC_INSIGHTS_MONITORING"
+	MULTIMETRICSTABLEDATASOURCE_UNKNOWN MultiMetricsTableDatasource = "unknown"
 )
 
 // All allowed values of MultiMetricsTableDatasource enum
@@ -49,6 +50,7 @@ var AllowedMultiMetricsTableDatasourceEnumValues = []MultiMetricsTableDatasource
 	"ROUTING",
 	"CLOUD_NATIVE_MONITORING",
 	"TRAFFIC_INSIGHTS_MONITORING",
+	"unknown",
 }
 
 func (v *MultiMetricsTableDatasource) UnmarshalJSON(src []byte) error {
@@ -64,12 +66,12 @@ func (v *MultiMetricsTableDatasource) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid MultiMetricsTableDatasource", value)
+	*v = MultiMetricsTableDatasource("unknown")
+	return nil
 }
 
 // NewMultiMetricsTableDatasourceFromValue returns a pointer to a valid MultiMetricsTableDatasource
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewMultiMetricsTableDatasourceFromValue(v string) (*MultiMetricsTableDatasource, error) {
 	ev := MultiMetricsTableDatasource(v)
 	if ev.IsValid() {

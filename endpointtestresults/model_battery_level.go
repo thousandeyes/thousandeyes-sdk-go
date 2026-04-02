@@ -22,6 +22,7 @@ const (
 	BATTERYLEVEL_HIGH BatteryLevel = "high"
 	BATTERYLEVEL_MEDIUM BatteryLevel = "medium"
 	BATTERYLEVEL_LOW BatteryLevel = "low"
+	BATTERYLEVEL_UNKNOWN BatteryLevel = "unknown"
 )
 
 // All allowed values of BatteryLevel enum
@@ -29,6 +30,7 @@ var AllowedBatteryLevelEnumValues = []BatteryLevel{
 	"high",
 	"medium",
 	"low",
+	"unknown",
 }
 
 func (v *BatteryLevel) UnmarshalJSON(src []byte) error {
@@ -44,12 +46,12 @@ func (v *BatteryLevel) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid BatteryLevel", value)
+	*v = BatteryLevel("unknown")
+	return nil
 }
 
 // NewBatteryLevelFromValue returns a pointer to a valid BatteryLevel
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewBatteryLevelFromValue(v string) (*BatteryLevel, error) {
 	ev := BatteryLevel(v)
 	if ev.IsValid() {

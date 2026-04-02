@@ -78,17 +78,17 @@ type _AgentToAgentInstantTest AgentToAgentInstantTest
 // will change when the set of required properties is changed
 func NewAgentToAgentInstantTest(targetAgentId string) *AgentToAgentInstantTest {
 	this := AgentToAgentInstantTest{}
-	var direction TestDirection = TESTDIRECTION_TO_TARGET
+	var direction TestDirection = "to-target"
 	this.Direction = &direction
-	var dscpId TestDscpId = TESTDSCPID__0
+	var dscpId TestDscpId = "0"
 	this.DscpId = &dscpId
 	var numPathTraces int32 = 3
 	this.NumPathTraces = &numPathTraces
-	var pathTraceMode TestPathTraceMode = TESTPATHTRACEMODE_CLASSIC
+	var pathTraceMode TestPathTraceMode = "classic"
 	this.PathTraceMode = &pathTraceMode
 	var port int32 = 49153
 	this.Port = &port
-	var protocol AgentToAgentTestProtocol = AGENTTOAGENTTESTPROTOCOL_TCP
+	var protocol AgentToAgentTestProtocol = "tcp"
 	this.Protocol = &protocol
 	var randomizedStartTime bool = false
 	this.RandomizedStartTime = &randomizedStartTime
@@ -105,17 +105,17 @@ func NewAgentToAgentInstantTest(targetAgentId string) *AgentToAgentInstantTest {
 // but it doesn't guarantee that properties required by API are set
 func NewAgentToAgentInstantTestWithDefaults() *AgentToAgentInstantTest {
 	this := AgentToAgentInstantTest{}
-	var direction TestDirection = TESTDIRECTION_TO_TARGET
+	var direction TestDirection = "to-target"
 	this.Direction = &direction
-	var dscpId TestDscpId = TESTDSCPID__0
+	var dscpId TestDscpId = "0"
 	this.DscpId = &dscpId
 	var numPathTraces int32 = 3
 	this.NumPathTraces = &numPathTraces
-	var pathTraceMode TestPathTraceMode = TESTPATHTRACEMODE_CLASSIC
+	var pathTraceMode TestPathTraceMode = "classic"
 	this.PathTraceMode = &pathTraceMode
 	var port int32 = 49153
 	this.Port = &port
-	var protocol AgentToAgentTestProtocol = AGENTTOAGENTTESTPROTOCOL_TCP
+	var protocol AgentToAgentTestProtocol = "tcp"
 	this.Protocol = &protocol
 	var randomizedStartTime bool = false
 	this.RandomizedStartTime = &randomizedStartTime

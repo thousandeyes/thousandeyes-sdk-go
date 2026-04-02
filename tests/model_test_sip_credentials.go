@@ -42,7 +42,7 @@ type _TestSipCredentials TestSipCredentials
 func NewTestSipCredentials(port int32) *TestSipCredentials {
 	this := TestSipCredentials{}
 	this.Port = port
-	var protocol SipTestProtocol = SIPTESTPROTOCOL_TCP
+	var protocol SipTestProtocol = "tcp"
 	this.Protocol = &protocol
 	return &this
 }
@@ -54,7 +54,7 @@ func NewTestSipCredentialsWithDefaults() *TestSipCredentials {
 	this := TestSipCredentials{}
 	var port int32 = 49153
 	this.Port = port
-	var protocol SipTestProtocol = SIPTESTPROTOCOL_TCP
+	var protocol SipTestProtocol = "tcp"
 	this.Protocol = &protocol
 	return &this
 }

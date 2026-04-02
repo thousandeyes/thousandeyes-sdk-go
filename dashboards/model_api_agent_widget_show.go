@@ -21,12 +21,14 @@ type ApiAgentWidgetShow string
 const (
 	APIAGENTWIDGETSHOW_OWNED ApiAgentWidgetShow = "owned"
 	APIAGENTWIDGETSHOW_ALL ApiAgentWidgetShow = "all"
+	APIAGENTWIDGETSHOW_UNKNOWN ApiAgentWidgetShow = "unknown"
 )
 
 // All allowed values of ApiAgentWidgetShow enum
 var AllowedApiAgentWidgetShowEnumValues = []ApiAgentWidgetShow{
 	"owned",
 	"all",
+	"unknown",
 }
 
 func (v *ApiAgentWidgetShow) UnmarshalJSON(src []byte) error {
@@ -42,12 +44,12 @@ func (v *ApiAgentWidgetShow) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid ApiAgentWidgetShow", value)
+	*v = ApiAgentWidgetShow("unknown")
+	return nil
 }
 
 // NewApiAgentWidgetShowFromValue returns a pointer to a valid ApiAgentWidgetShow
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewApiAgentWidgetShowFromValue(v string) (*ApiAgentWidgetShow, error) {
 	ev := ApiAgentWidgetShow(v)
 	if ev.IsValid() {

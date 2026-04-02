@@ -34,6 +34,7 @@ const (
 	ALERTLISTDATASOURCE_APPDYNAMICS_SERVICE_HEALTH AlertListDatasource = "APPDYNAMICS_SERVICE_HEALTH"
 	ALERTLISTDATASOURCE_CLOUD_NATIVE_MONITORING AlertListDatasource = "CLOUD_NATIVE_MONITORING"
 	ALERTLISTDATASOURCE_TRAFFIC_INSIGHTS_MONITORING AlertListDatasource = "TRAFFIC_INSIGHTS_MONITORING"
+	ALERTLISTDATASOURCE_UNKNOWN AlertListDatasource = "unknown"
 )
 
 // All allowed values of AlertListDatasource enum
@@ -53,6 +54,7 @@ var AllowedAlertListDatasourceEnumValues = []AlertListDatasource{
 	"APPDYNAMICS_SERVICE_HEALTH",
 	"CLOUD_NATIVE_MONITORING",
 	"TRAFFIC_INSIGHTS_MONITORING",
+	"unknown",
 }
 
 func (v *AlertListDatasource) UnmarshalJSON(src []byte) error {
@@ -68,12 +70,12 @@ func (v *AlertListDatasource) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid AlertListDatasource", value)
+	*v = AlertListDatasource("unknown")
+	return nil
 }
 
 // NewAlertListDatasourceFromValue returns a pointer to a valid AlertListDatasource
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewAlertListDatasourceFromValue(v string) (*AlertListDatasource, error) {
 	ev := AlertListDatasource(v)
 	if ev.IsValid() {

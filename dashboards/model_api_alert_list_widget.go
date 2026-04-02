@@ -59,7 +59,7 @@ type _ApiAlertListWidget ApiAlertListWidget
 // will change when the set of required properties is changed
 func NewApiAlertListWidget(type_ string) *ApiAlertListWidget {
 	this := ApiAlertListWidget{}
-	var visualMode VisualMode = VISUALMODE_FULL
+	var visualMode VisualMode = "Full"
 	this.VisualMode = &visualMode
 	this.Type = type_
 	return &this
@@ -70,7 +70,7 @@ func NewApiAlertListWidget(type_ string) *ApiAlertListWidget {
 // but it doesn't guarantee that properties required by API are set
 func NewApiAlertListWidgetWithDefaults() *ApiAlertListWidget {
 	this := ApiAlertListWidget{}
-	var visualMode VisualMode = VISUALMODE_FULL
+	var visualMode VisualMode = "Full"
 	this.VisualMode = &visualMode
 	return &this
 }

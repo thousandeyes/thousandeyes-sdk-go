@@ -20,11 +20,13 @@ type Type string
 // List of Type
 const (
 	TYPE_STATIC Type = "static"
+	TYPE_UNKNOWN Type = "unknown"
 )
 
 // All allowed values of Type enum
 var AllowedTypeEnumValues = []Type{
 	"static",
+	"unknown",
 }
 
 func (v *Type) UnmarshalJSON(src []byte) error {
@@ -40,12 +42,12 @@ func (v *Type) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid Type", value)
+	*v = Type("unknown")
+	return nil
 }
 
 // NewTypeFromValue returns a pointer to a valid Type
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewTypeFromValue(v string) (*Type, error) {
 	ev := Type(v)
 	if ev.IsValid() {

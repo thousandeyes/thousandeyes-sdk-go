@@ -23,6 +23,7 @@ const (
 	AGENTDETAILSEXPAND_TEST AgentDetailsExpand = "test"
 	AGENTDETAILSEXPAND_TEST_IDS AgentDetailsExpand = "test-ids"
 	AGENTDETAILSEXPAND_NOTIFICATION_RULE AgentDetailsExpand = "notification-rule"
+	AGENTDETAILSEXPAND_UNKNOWN AgentDetailsExpand = "unknown"
 )
 
 // All allowed values of AgentDetailsExpand enum
@@ -31,6 +32,7 @@ var AllowedAgentDetailsExpandEnumValues = []AgentDetailsExpand{
 	"test",
 	"test-ids",
 	"notification-rule",
+	"unknown",
 }
 
 func (v *AgentDetailsExpand) UnmarshalJSON(src []byte) error {
@@ -46,12 +48,12 @@ func (v *AgentDetailsExpand) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid AgentDetailsExpand", value)
+	*v = AgentDetailsExpand("unknown")
+	return nil
 }
 
 // NewAgentDetailsExpandFromValue returns a pointer to a valid AgentDetailsExpand
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewAgentDetailsExpandFromValue(v string) (*AgentDetailsExpand, error) {
 	ev := AgentDetailsExpand(v)
 	if ev.IsValid() {

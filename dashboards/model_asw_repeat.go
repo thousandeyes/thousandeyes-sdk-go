@@ -27,6 +27,7 @@ const (
 	ASWREPEAT_EVERY_MONTH AswRepeat = "every-month"
 	ASWREPEAT_EVERY_THREE_MONTH AswRepeat = "every-three-month"
 	ASWREPEAT_CUSTOM AswRepeat = "custom"
+	ASWREPEAT_UNKNOWN AswRepeat = "unknown"
 )
 
 // All allowed values of AswRepeat enum
@@ -39,6 +40,7 @@ var AllowedAswRepeatEnumValues = []AswRepeat{
 	"every-month",
 	"every-three-month",
 	"custom",
+	"unknown",
 }
 
 func (v *AswRepeat) UnmarshalJSON(src []byte) error {
@@ -54,12 +56,12 @@ func (v *AswRepeat) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid AswRepeat", value)
+	*v = AswRepeat("unknown")
+	return nil
 }
 
 // NewAswRepeatFromValue returns a pointer to a valid AswRepeat
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewAswRepeatFromValue(v string) (*AswRepeat, error) {
 	ev := AswRepeat(v)
 	if ev.IsValid() {

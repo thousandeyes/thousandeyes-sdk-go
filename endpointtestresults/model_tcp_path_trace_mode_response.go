@@ -48,12 +48,12 @@ func (v *TcpPathTraceModeResponse) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid TcpPathTraceModeResponse", value)
+	*v = TcpPathTraceModeResponse("unknown")
+	return nil
 }
 
 // NewTcpPathTraceModeResponseFromValue returns a pointer to a valid TcpPathTraceModeResponse
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewTcpPathTraceModeResponseFromValue(v string) (*TcpPathTraceModeResponse, error) {
 	ev := TcpPathTraceModeResponse(v)
 	if ev.IsValid() {

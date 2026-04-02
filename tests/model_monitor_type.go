@@ -21,12 +21,14 @@ type MonitorType string
 const (
 	MONITORTYPE_PUBLIC MonitorType = "public"
 	MONITORTYPE_PRIVATE MonitorType = "private"
+	MONITORTYPE_UNKNOWN MonitorType = "unknown"
 )
 
 // All allowed values of MonitorType enum
 var AllowedMonitorTypeEnumValues = []MonitorType{
 	"public",
 	"private",
+	"unknown",
 }
 
 func (v *MonitorType) UnmarshalJSON(src []byte) error {
@@ -42,12 +44,12 @@ func (v *MonitorType) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid MonitorType", value)
+	*v = MonitorType("unknown")
+	return nil
 }
 
 // NewMonitorTypeFromValue returns a pointer to a valid MonitorType
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewMonitorTypeFromValue(v string) (*MonitorType, error) {
 	ev := MonitorType(v)
 	if ev.IsValid() {

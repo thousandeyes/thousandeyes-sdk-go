@@ -25,6 +25,7 @@ const (
 	ENDPOINTTESTPROTOCOL_PREFER_TCP EndpointTestProtocol = "prefer-tcp"
 	ENDPOINTTESTPROTOCOL_AST_AUTODETECT EndpointTestProtocol = "ast-autodetect"
 	ENDPOINTTESTPROTOCOL_AUTODETECT EndpointTestProtocol = "autodetect"
+	ENDPOINTTESTPROTOCOL_UNKNOWN EndpointTestProtocol = "unknown"
 )
 
 // All allowed values of EndpointTestProtocol enum
@@ -35,6 +36,7 @@ var AllowedEndpointTestProtocolEnumValues = []EndpointTestProtocol{
 	"prefer-tcp",
 	"ast-autodetect",
 	"autodetect",
+	"unknown",
 }
 
 func (v *EndpointTestProtocol) UnmarshalJSON(src []byte) error {
@@ -50,12 +52,12 @@ func (v *EndpointTestProtocol) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid EndpointTestProtocol", value)
+	*v = EndpointTestProtocol("unknown")
+	return nil
 }
 
 // NewEndpointTestProtocolFromValue returns a pointer to a valid EndpointTestProtocol
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewEndpointTestProtocolFromValue(v string) (*EndpointTestProtocol, error) {
 	ev := EndpointTestProtocol(v)
 	if ev.IsValid() {

@@ -55,22 +55,22 @@ type _DnsServerProperties DnsServerProperties
 func NewDnsServerProperties(dnsServers []TestDnsServer, domain string) *DnsServerProperties {
 	this := DnsServerProperties{}
 	this.DnsServers = dnsServers
-	var dnsTransportProtocol TestDnsTransportProtocol = TESTDNSTRANSPORTPROTOCOL_UDP
+	var dnsTransportProtocol TestDnsTransportProtocol = "udp"
 	this.DnsTransportProtocol = &dnsTransportProtocol
 	this.Domain = domain
 	var networkMeasurements bool = true
 	this.NetworkMeasurements = &networkMeasurements
 	var numPathTraces int32 = 3
 	this.NumPathTraces = &numPathTraces
-	var pathTraceMode TestPathTraceMode = TESTPATHTRACEMODE_CLASSIC
+	var pathTraceMode TestPathTraceMode = "classic"
 	this.PathTraceMode = &pathTraceMode
-	var probeMode TestProbeMode = TESTPROBEMODE_AUTO
+	var probeMode TestProbeMode = "auto"
 	this.ProbeMode = &probeMode
-	var protocol TestProtocol = TESTPROTOCOL_TCP
+	var protocol TestProtocol = "tcp"
 	this.Protocol = &protocol
 	var randomizedStartTime bool = false
 	this.RandomizedStartTime = &randomizedStartTime
-	var ipv6Policy TestIpv6Policy = TESTIPV6POLICY_USE_AGENT_POLICY
+	var ipv6Policy TestIpv6Policy = "use-agent-policy"
 	this.Ipv6Policy = &ipv6Policy
 	return &this
 }
@@ -80,21 +80,21 @@ func NewDnsServerProperties(dnsServers []TestDnsServer, domain string) *DnsServe
 // but it doesn't guarantee that properties required by API are set
 func NewDnsServerPropertiesWithDefaults() *DnsServerProperties {
 	this := DnsServerProperties{}
-	var dnsTransportProtocol TestDnsTransportProtocol = TESTDNSTRANSPORTPROTOCOL_UDP
+	var dnsTransportProtocol TestDnsTransportProtocol = "udp"
 	this.DnsTransportProtocol = &dnsTransportProtocol
 	var networkMeasurements bool = true
 	this.NetworkMeasurements = &networkMeasurements
 	var numPathTraces int32 = 3
 	this.NumPathTraces = &numPathTraces
-	var pathTraceMode TestPathTraceMode = TESTPATHTRACEMODE_CLASSIC
+	var pathTraceMode TestPathTraceMode = "classic"
 	this.PathTraceMode = &pathTraceMode
-	var probeMode TestProbeMode = TESTPROBEMODE_AUTO
+	var probeMode TestProbeMode = "auto"
 	this.ProbeMode = &probeMode
-	var protocol TestProtocol = TESTPROTOCOL_TCP
+	var protocol TestProtocol = "tcp"
 	this.Protocol = &protocol
 	var randomizedStartTime bool = false
 	this.RandomizedStartTime = &randomizedStartTime
-	var ipv6Policy TestIpv6Policy = TESTIPV6POLICY_USE_AGENT_POLICY
+	var ipv6Policy TestIpv6Policy = "use-agent-policy"
 	this.Ipv6Policy = &ipv6Policy
 	return &this
 }

@@ -21,12 +21,14 @@ type Trigger string
 const (
 	TRIGGER_AUTO Trigger = "auto"
 	TRIGGER_USER Trigger = "user"
+	TRIGGER_UNKNOWN Trigger = "unknown"
 )
 
 // All allowed values of Trigger enum
 var AllowedTriggerEnumValues = []Trigger{
 	"auto",
 	"user",
+	"unknown",
 }
 
 func (v *Trigger) UnmarshalJSON(src []byte) error {
@@ -42,12 +44,12 @@ func (v *Trigger) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid Trigger", value)
+	*v = Trigger("unknown")
+	return nil
 }
 
 // NewTriggerFromValue returns a pointer to a valid Trigger
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewTriggerFromValue(v string) (*Trigger, error) {
 	ev := Trigger(v)
 	if ev.IsValid() {

@@ -26,6 +26,7 @@ const (
 	HTTPERRORTYPE_SEND HttpErrorType = "send"
 	HTTPERRORTYPE_SSL HttpErrorType = "ssl"
 	HTTPERRORTYPE_RECEIVE HttpErrorType = "receive"
+	HTTPERRORTYPE_UNKNOWN HttpErrorType = "unknown"
 )
 
 // All allowed values of HttpErrorType enum
@@ -37,6 +38,7 @@ var AllowedHttpErrorTypeEnumValues = []HttpErrorType{
 	"send",
 	"ssl",
 	"receive",
+	"unknown",
 }
 
 func (v *HttpErrorType) UnmarshalJSON(src []byte) error {
@@ -52,12 +54,12 @@ func (v *HttpErrorType) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid HttpErrorType", value)
+	*v = HttpErrorType("unknown")
+	return nil
 }
 
 // NewHttpErrorTypeFromValue returns a pointer to a valid HttpErrorType
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewHttpErrorTypeFromValue(v string) (*HttpErrorType, error) {
 	ev := HttpErrorType(v)
 	if ev.IsValid() {

@@ -41,7 +41,7 @@ type OAuth struct {
 // will change when the set of required properties is changed
 func NewOAuth() *OAuth {
 	this := OAuth{}
-	var authType TestAuthType = TESTAUTHTYPE_NONE
+	var authType TestAuthType = "none"
 	this.AuthType = &authType
 	return &this
 }
@@ -51,7 +51,7 @@ func NewOAuth() *OAuth {
 // but it doesn't guarantee that properties required by API are set
 func NewOAuthWithDefaults() *OAuth {
 	this := OAuth{}
-	var authType TestAuthType = TESTAUTHTYPE_NONE
+	var authType TestAuthType = "none"
 	this.AuthType = &authType
 	return &this
 }

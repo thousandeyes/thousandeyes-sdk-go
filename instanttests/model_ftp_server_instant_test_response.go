@@ -95,11 +95,11 @@ func NewFtpServerInstantTestResponse(requestType FtpServerRequestType, url strin
 	this.NetworkMeasurements = &networkMeasurements
 	var numPathTraces int32 = 3
 	this.NumPathTraces = &numPathTraces
-	var pathTraceMode TestPathTraceMode = TESTPATHTRACEMODE_CLASSIC
+	var pathTraceMode TestPathTraceMode = "classic"
 	this.PathTraceMode = &pathTraceMode
-	var probeMode TestProbeMode = TESTPROBEMODE_AUTO
+	var probeMode TestProbeMode = "auto"
 	this.ProbeMode = &probeMode
-	var protocol TestProtocol = TESTPROTOCOL_TCP
+	var protocol TestProtocol = "tcp"
 	this.Protocol = &protocol
 	var randomizedStartTime bool = false
 	this.RandomizedStartTime = &randomizedStartTime
@@ -108,7 +108,7 @@ func NewFtpServerInstantTestResponse(requestType FtpServerRequestType, url strin
 	var useActiveFtp bool = false
 	this.UseActiveFtp = &useActiveFtp
 	this.Username = username
-	var ipv6Policy TestIpv6Policy = TESTIPV6POLICY_USE_AGENT_POLICY
+	var ipv6Policy TestIpv6Policy = "use-agent-policy"
 	this.Ipv6Policy = &ipv6Policy
 	return &this
 }
@@ -124,17 +124,17 @@ func NewFtpServerInstantTestResponseWithDefaults() *FtpServerInstantTestResponse
 	this.NetworkMeasurements = &networkMeasurements
 	var numPathTraces int32 = 3
 	this.NumPathTraces = &numPathTraces
-	var pathTraceMode TestPathTraceMode = TESTPATHTRACEMODE_CLASSIC
+	var pathTraceMode TestPathTraceMode = "classic"
 	this.PathTraceMode = &pathTraceMode
-	var probeMode TestProbeMode = TESTPROBEMODE_AUTO
+	var probeMode TestProbeMode = "auto"
 	this.ProbeMode = &probeMode
-	var protocol TestProtocol = TESTPROTOCOL_TCP
+	var protocol TestProtocol = "tcp"
 	this.Protocol = &protocol
 	var randomizedStartTime bool = false
 	this.RandomizedStartTime = &randomizedStartTime
 	var useActiveFtp bool = false
 	this.UseActiveFtp = &useActiveFtp
-	var ipv6Policy TestIpv6Policy = TESTIPV6POLICY_USE_AGENT_POLICY
+	var ipv6Policy TestIpv6Policy = "use-agent-policy"
 	this.Ipv6Policy = &ipv6Policy
 	return &this
 }

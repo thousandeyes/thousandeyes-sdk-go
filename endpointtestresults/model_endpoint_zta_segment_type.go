@@ -21,12 +21,14 @@ type EndpointZtaSegmentType string
 const (
 	ENDPOINTZTASEGMENTTYPE_INGRESS EndpointZtaSegmentType = "zta_ingress"
 	ENDPOINTZTASEGMENTTYPE_SERVICE EndpointZtaSegmentType = "zta_service"
+	ENDPOINTZTASEGMENTTYPE_UNKNOWN EndpointZtaSegmentType = "unknown"
 )
 
 // All allowed values of EndpointZtaSegmentType enum
 var AllowedEndpointZtaSegmentTypeEnumValues = []EndpointZtaSegmentType{
 	"zta_ingress",
 	"zta_service",
+	"unknown",
 }
 
 func (v *EndpointZtaSegmentType) UnmarshalJSON(src []byte) error {
@@ -42,12 +44,12 @@ func (v *EndpointZtaSegmentType) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid EndpointZtaSegmentType", value)
+	*v = EndpointZtaSegmentType("unknown")
+	return nil
 }
 
 // NewEndpointZtaSegmentTypeFromValue returns a pointer to a valid EndpointZtaSegmentType
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewEndpointZtaSegmentTypeFromValue(v string) (*EndpointZtaSegmentType, error) {
 	ev := EndpointZtaSegmentType(v)
 	if ev.IsValid() {

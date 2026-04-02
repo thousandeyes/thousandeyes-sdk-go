@@ -21,12 +21,14 @@ type State string
 const (
 	STATE_CLEAR State = "clear"
 	STATE_TRIGGER State = "trigger"
+	STATE_UNKNOWN State = "unknown"
 )
 
 // All allowed values of State enum
 var AllowedStateEnumValues = []State{
 	"clear",
 	"trigger",
+	"unknown",
 }
 
 func (v *State) UnmarshalJSON(src []byte) error {
@@ -42,12 +44,12 @@ func (v *State) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid State", value)
+	*v = State("unknown")
+	return nil
 }
 
 // NewStateFromValue returns a pointer to a valid State
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewStateFromValue(v string) (*State, error) {
 	ev := State(v)
 	if ev.IsValid() {

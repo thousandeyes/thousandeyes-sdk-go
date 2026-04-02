@@ -26,6 +26,7 @@ const (
 	REQUESTMETHOD_PATCH RequestMethod = "patch"
 	REQUESTMETHOD_OPTIONS RequestMethod = "options"
 	REQUESTMETHOD_TRACE RequestMethod = "trace"
+	REQUESTMETHOD_UNKNOWN RequestMethod = "unknown"
 )
 
 // All allowed values of RequestMethod enum
@@ -37,6 +38,7 @@ var AllowedRequestMethodEnumValues = []RequestMethod{
 	"patch",
 	"options",
 	"trace",
+	"unknown",
 }
 
 func (v *RequestMethod) UnmarshalJSON(src []byte) error {
@@ -52,12 +54,12 @@ func (v *RequestMethod) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid RequestMethod", value)
+	*v = RequestMethod("unknown")
+	return nil
 }
 
 // NewRequestMethodFromValue returns a pointer to a valid RequestMethod
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewRequestMethodFromValue(v string) (*RequestMethod, error) {
 	ev := RequestMethod(v)
 	if ev.IsValid() {

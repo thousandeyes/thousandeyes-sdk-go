@@ -21,12 +21,14 @@ type DataModelVersion string
 const (
 	DATAMODELVERSION_V1 DataModelVersion = "v1"
 	DATAMODELVERSION_V2 DataModelVersion = "v2"
+	DATAMODELVERSION_UNKNOWN DataModelVersion = "unknown"
 )
 
 // All allowed values of DataModelVersion enum
 var AllowedDataModelVersionEnumValues = []DataModelVersion{
 	"v1",
 	"v2",
+	"unknown",
 }
 
 func (v *DataModelVersion) UnmarshalJSON(src []byte) error {
@@ -42,12 +44,12 @@ func (v *DataModelVersion) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid DataModelVersion", value)
+	*v = DataModelVersion("unknown")
+	return nil
 }
 
 // NewDataModelVersionFromValue returns a pointer to a valid DataModelVersion
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewDataModelVersionFromValue(v string) (*DataModelVersion, error) {
 	ev := DataModelVersion(v)
 	if ev.IsValid() {

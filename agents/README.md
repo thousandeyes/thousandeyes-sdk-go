@@ -21,6 +21,10 @@ go get github.com/stretchr/testify/assert
 go get golang.org/x/net/context
 ```
 
+## Enum Compatibility
+
+The API may return enum values added after this SDK version was generated. In those cases, JSON deserialization maps those values to the generated `UNKNOWN` enum member instead of failing. Use the generated `IsValid()` and `New...FromValue()` helpers when you need to check whether a value is part of the SDK's known enum set.
+
 Put the package under your project folder and add the following in import:
 
 ```go

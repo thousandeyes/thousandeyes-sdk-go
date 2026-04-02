@@ -32,6 +32,7 @@ const (
 	GROUPEDBARCHARTDATASOURCE_ROUTING GroupedBarChartDatasource = "ROUTING"
 	GROUPEDBARCHARTDATASOURCE_CLOUD_NATIVE_MONITORING GroupedBarChartDatasource = "CLOUD_NATIVE_MONITORING"
 	GROUPEDBARCHARTDATASOURCE_TRAFFIC_INSIGHTS_MONITORING GroupedBarChartDatasource = "TRAFFIC_INSIGHTS_MONITORING"
+	GROUPEDBARCHARTDATASOURCE_UNKNOWN GroupedBarChartDatasource = "unknown"
 )
 
 // All allowed values of GroupedBarChartDatasource enum
@@ -49,6 +50,7 @@ var AllowedGroupedBarChartDatasourceEnumValues = []GroupedBarChartDatasource{
 	"ROUTING",
 	"CLOUD_NATIVE_MONITORING",
 	"TRAFFIC_INSIGHTS_MONITORING",
+	"unknown",
 }
 
 func (v *GroupedBarChartDatasource) UnmarshalJSON(src []byte) error {
@@ -64,12 +66,12 @@ func (v *GroupedBarChartDatasource) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid GroupedBarChartDatasource", value)
+	*v = GroupedBarChartDatasource("unknown")
+	return nil
 }
 
 // NewGroupedBarChartDatasourceFromValue returns a pointer to a valid GroupedBarChartDatasource
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewGroupedBarChartDatasourceFromValue(v string) (*GroupedBarChartDatasource, error) {
 	ev := GroupedBarChartDatasource(v)
 	if ev.IsValid() {

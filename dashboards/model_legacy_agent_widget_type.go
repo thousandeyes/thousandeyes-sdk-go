@@ -21,12 +21,14 @@ type LegacyAgentWidgetType string
 const (
 	LEGACYAGENTWIDGETTYPE_ENTERPRISE_AGENTS LegacyAgentWidgetType = "Enterprise Agents"
 	LEGACYAGENTWIDGETTYPE_ENDPOINT_AGENTS LegacyAgentWidgetType = "Endpoint Agents"
+	LEGACYAGENTWIDGETTYPE_UNKNOWN LegacyAgentWidgetType = "unknown"
 )
 
 // All allowed values of LegacyAgentWidgetType enum
 var AllowedLegacyAgentWidgetTypeEnumValues = []LegacyAgentWidgetType{
 	"Enterprise Agents",
 	"Endpoint Agents",
+	"unknown",
 }
 
 func (v *LegacyAgentWidgetType) UnmarshalJSON(src []byte) error {
@@ -42,12 +44,12 @@ func (v *LegacyAgentWidgetType) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid LegacyAgentWidgetType", value)
+	*v = LegacyAgentWidgetType("unknown")
+	return nil
 }
 
 // NewLegacyAgentWidgetTypeFromValue returns a pointer to a valid LegacyAgentWidgetType
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewLegacyAgentWidgetTypeFromValue(v string) (*LegacyAgentWidgetType, error) {
 	ev := LegacyAgentWidgetType(v)
 	if ev.IsValid() {

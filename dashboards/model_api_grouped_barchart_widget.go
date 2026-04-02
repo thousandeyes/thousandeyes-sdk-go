@@ -65,7 +65,7 @@ type _ApiGroupedBarchartWidget ApiGroupedBarchartWidget
 // will change when the set of required properties is changed
 func NewApiGroupedBarchartWidget(type_ string) *ApiGroupedBarchartWidget {
 	this := ApiGroupedBarchartWidget{}
-	var visualMode VisualMode = VISUALMODE_FULL
+	var visualMode VisualMode = "Full"
 	this.VisualMode = &visualMode
 	this.Type = type_
 	return &this
@@ -76,7 +76,7 @@ func NewApiGroupedBarchartWidget(type_ string) *ApiGroupedBarchartWidget {
 // but it doesn't guarantee that properties required by API are set
 func NewApiGroupedBarchartWidgetWithDefaults() *ApiGroupedBarchartWidget {
 	this := ApiGroupedBarchartWidget{}
-	var visualMode VisualMode = VISUALMODE_FULL
+	var visualMode VisualMode = "Full"
 	this.VisualMode = &visualMode
 	return &this
 }

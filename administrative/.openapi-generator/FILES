@@ -1,4 +1,3 @@
-.openapi-generator-ignore
 README.md
 api_account_groups.go
 api_permissions.go

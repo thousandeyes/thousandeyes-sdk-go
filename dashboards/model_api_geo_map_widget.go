@@ -66,7 +66,7 @@ type _ApiGeoMapWidget ApiGeoMapWidget
 // will change when the set of required properties is changed
 func NewApiGeoMapWidget(type_ string) *ApiGeoMapWidget {
 	this := ApiGeoMapWidget{}
-	var visualMode VisualMode = VISUALMODE_FULL
+	var visualMode VisualMode = "Full"
 	this.VisualMode = &visualMode
 	this.Type = type_
 	return &this
@@ -77,7 +77,7 @@ func NewApiGeoMapWidget(type_ string) *ApiGeoMapWidget {
 // but it doesn't guarantee that properties required by API are set
 func NewApiGeoMapWidgetWithDefaults() *ApiGeoMapWidget {
 	this := ApiGeoMapWidget{}
-	var visualMode VisualMode = VISUALMODE_FULL
+	var visualMode VisualMode = "Full"
 	this.VisualMode = &visualMode
 	return &this
 }

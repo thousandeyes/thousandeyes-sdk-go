@@ -21,12 +21,14 @@ type VisualMode string
 const (
 	VISUALMODE_FULL VisualMode = "Full"
 	VISUALMODE_HALF_SCREEN VisualMode = "Half screen"
+	VISUALMODE_UNKNOWN VisualMode = "unknown"
 )
 
 // All allowed values of VisualMode enum
 var AllowedVisualModeEnumValues = []VisualMode{
 	"Full",
 	"Half screen",
+	"unknown",
 }
 
 func (v *VisualMode) UnmarshalJSON(src []byte) error {
@@ -42,12 +44,12 @@ func (v *VisualMode) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid VisualMode", value)
+	*v = VisualMode("unknown")
+	return nil
 }
 
 // NewVisualModeFromValue returns a pointer to a valid VisualMode
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewVisualModeFromValue(v string) (*VisualMode, error) {
 	ev := VisualMode(v)
 	if ev.IsValid() {

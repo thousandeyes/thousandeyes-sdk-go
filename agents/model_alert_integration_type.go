@@ -21,12 +21,14 @@ type AlertIntegrationType string
 const (
 	ALERTINTEGRATIONTYPE_PAGER_DUTY AlertIntegrationType = "pager-duty"
 	ALERTINTEGRATIONTYPE_SLACK AlertIntegrationType = "slack"
+	ALERTINTEGRATIONTYPE_UNKNOWN AlertIntegrationType = "unknown"
 )
 
 // All allowed values of AlertIntegrationType enum
 var AllowedAlertIntegrationTypeEnumValues = []AlertIntegrationType{
 	"pager-duty",
 	"slack",
+	"unknown",
 }
 
 func (v *AlertIntegrationType) UnmarshalJSON(src []byte) error {
@@ -42,12 +44,12 @@ func (v *AlertIntegrationType) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid AlertIntegrationType", value)
+	*v = AlertIntegrationType("unknown")
+	return nil
 }
 
 // NewAlertIntegrationTypeFromValue returns a pointer to a valid AlertIntegrationType
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewAlertIntegrationTypeFromValue(v string) (*AlertIntegrationType, error) {
 	ev := AlertIntegrationType(v)
 	if ev.IsValid() {

@@ -51,7 +51,7 @@ type _EndpointAgentToServerTestRequest EndpointAgentToServerTestRequest
 // will change when the set of required properties is changed
 func NewEndpointAgentToServerTestRequest(testName string, server string) *EndpointAgentToServerTestRequest {
 	this := EndpointAgentToServerTestRequest{}
-	var agentSelectorType EndpointTestAgentSelectorType = ENDPOINTTESTAGENTSELECTORTYPE_ALL_AGENTS
+	var agentSelectorType EndpointTestAgentSelectorType = "all-agents"
 	this.AgentSelectorType = &agentSelectorType
 	var maxMachines int32 = 25
 	this.MaxMachines = &maxMachines
@@ -63,7 +63,7 @@ func NewEndpointAgentToServerTestRequest(testName string, server string) *Endpoi
 	this.IsPrioritized = &isPrioritized
 	var interval TestInterval = TESTINTERVAL__60
 	this.Interval = &interval
-	var protocol EndpointTestProtocol = ENDPOINTTESTPROTOCOL_ICMP
+	var protocol EndpointTestProtocol = "icmp"
 	this.Protocol = &protocol
 	return &this
 }
@@ -73,7 +73,7 @@ func NewEndpointAgentToServerTestRequest(testName string, server string) *Endpoi
 // but it doesn't guarantee that properties required by API are set
 func NewEndpointAgentToServerTestRequestWithDefaults() *EndpointAgentToServerTestRequest {
 	this := EndpointAgentToServerTestRequest{}
-	var agentSelectorType EndpointTestAgentSelectorType = ENDPOINTTESTAGENTSELECTORTYPE_ALL_AGENTS
+	var agentSelectorType EndpointTestAgentSelectorType = "all-agents"
 	this.AgentSelectorType = &agentSelectorType
 	var maxMachines int32 = 25
 	this.MaxMachines = &maxMachines
@@ -83,7 +83,7 @@ func NewEndpointAgentToServerTestRequestWithDefaults() *EndpointAgentToServerTes
 	this.IsPrioritized = &isPrioritized
 	var interval TestInterval = TESTINTERVAL__60
 	this.Interval = &interval
-	var protocol EndpointTestProtocol = ENDPOINTTESTPROTOCOL_ICMP
+	var protocol EndpointTestProtocol = "icmp"
 	this.Protocol = &protocol
 	return &this
 }

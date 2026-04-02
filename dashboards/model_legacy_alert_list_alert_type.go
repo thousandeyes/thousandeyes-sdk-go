@@ -43,6 +43,7 @@ const (
 	LEGACYALERTLISTALERTTYPE_BROWSER_SESSIONS___AGENT LegacyAlertListAlertType = "Browser Sessions - Agent"
 	LEGACYALERTLISTALERTTYPE_BROWSER_SESSIONS___APPLICATION LegacyAlertListAlertType = "Browser Sessions - Application"
 	LEGACYALERTLISTALERTTYPE_ROUTING___BGP LegacyAlertListAlertType = "Routing - BGP"
+	LEGACYALERTLISTALERTTYPE_UNKNOWN LegacyAlertListAlertType = "unknown"
 )
 
 // All allowed values of LegacyAlertListAlertType enum
@@ -71,6 +72,7 @@ var AllowedLegacyAlertListAlertTypeEnumValues = []LegacyAlertListAlertType{
 	"Browser Sessions - Agent",
 	"Browser Sessions - Application",
 	"Routing - BGP",
+	"unknown",
 }
 
 func (v *LegacyAlertListAlertType) UnmarshalJSON(src []byte) error {
@@ -86,12 +88,12 @@ func (v *LegacyAlertListAlertType) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid LegacyAlertListAlertType", value)
+	*v = LegacyAlertListAlertType("unknown")
+	return nil
 }
 
 // NewLegacyAlertListAlertTypeFromValue returns a pointer to a valid LegacyAlertListAlertType
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewLegacyAlertListAlertTypeFromValue(v string) (*LegacyAlertListAlertType, error) {
 	ev := LegacyAlertListAlertType(v)
 	if ev.IsValid() {

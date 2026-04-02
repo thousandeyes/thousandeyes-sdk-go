@@ -21,12 +21,14 @@ type Status string
 const (
 	STATUS_ENABLED Status = "enabled"
 	STATUS_DISABLED Status = "disabled"
+	STATUS_UNKNOWN Status = "unknown"
 )
 
 // All allowed values of Status enum
 var AllowedStatusEnumValues = []Status{
 	"enabled",
 	"disabled",
+	"unknown",
 }
 
 func (v *Status) UnmarshalJSON(src []byte) error {
@@ -42,12 +44,12 @@ func (v *Status) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid Status", value)
+	*v = Status("unknown")
+	return nil
 }
 
 // NewStatusFromValue returns a pointer to a valid Status
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewStatusFromValue(v string) (*Status, error) {
 	ev := Status(v)
 	if ev.IsValid() {

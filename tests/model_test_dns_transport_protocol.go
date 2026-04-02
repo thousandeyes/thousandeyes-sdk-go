@@ -21,12 +21,14 @@ type TestDnsTransportProtocol string
 const (
 	TESTDNSTRANSPORTPROTOCOL_UDP TestDnsTransportProtocol = "udp"
 	TESTDNSTRANSPORTPROTOCOL_TCP TestDnsTransportProtocol = "tcp"
+	TESTDNSTRANSPORTPROTOCOL_UNKNOWN TestDnsTransportProtocol = "unknown"
 )
 
 // All allowed values of TestDnsTransportProtocol enum
 var AllowedTestDnsTransportProtocolEnumValues = []TestDnsTransportProtocol{
 	"udp",
 	"tcp",
+	"unknown",
 }
 
 func (v *TestDnsTransportProtocol) UnmarshalJSON(src []byte) error {
@@ -42,12 +44,12 @@ func (v *TestDnsTransportProtocol) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid TestDnsTransportProtocol", value)
+	*v = TestDnsTransportProtocol("unknown")
+	return nil
 }
 
 // NewTestDnsTransportProtocolFromValue returns a pointer to a valid TestDnsTransportProtocol
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewTestDnsTransportProtocolFromValue(v string) (*TestDnsTransportProtocol, error) {
 	ev := TestDnsTransportProtocol(v)
 	if ev.IsValid() {

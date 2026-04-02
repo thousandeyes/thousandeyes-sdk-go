@@ -32,6 +32,7 @@ const (
 	TESTTYPE_DNSSEC TestType = "dnssec"
 	TESTTYPE_SIP_SERVER TestType = "sip-server"
 	TESTTYPE_VOICE TestType = "voice"
+	TESTTYPE_UNKNOWN TestType = "unknown"
 )
 
 // All allowed values of TestType enum
@@ -49,6 +50,7 @@ var AllowedTestTypeEnumValues = []TestType{
 	"dnssec",
 	"sip-server",
 	"voice",
+	"unknown",
 }
 
 func (v *TestType) UnmarshalJSON(src []byte) error {
@@ -64,12 +66,12 @@ func (v *TestType) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid TestType", value)
+	*v = TestType("unknown")
+	return nil
 }
 
 // NewTestTypeFromValue returns a pointer to a valid TestType
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewTestTypeFromValue(v string) (*TestType, error) {
 	ev := TestType(v)
 	if ev.IsValid() {

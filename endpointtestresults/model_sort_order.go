@@ -21,12 +21,14 @@ type SortOrder string
 const (
 	SORTORDER_ASC SortOrder = "asc"
 	SORTORDER_DESC SortOrder = "desc"
+	SORTORDER_UNKNOWN SortOrder = "unknown"
 )
 
 // All allowed values of SortOrder enum
 var AllowedSortOrderEnumValues = []SortOrder{
 	"asc",
 	"desc",
+	"unknown",
 }
 
 func (v *SortOrder) UnmarshalJSON(src []byte) error {
@@ -42,12 +44,12 @@ func (v *SortOrder) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid SortOrder", value)
+	*v = SortOrder("unknown")
+	return nil
 }
 
 // NewSortOrderFromValue returns a pointer to a valid SortOrder
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewSortOrderFromValue(v string) (*SortOrder, error) {
 	ev := SortOrder(v)
 	if ev.IsValid() {

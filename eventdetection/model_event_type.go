@@ -26,6 +26,7 @@ const (
 	EVENTTYPE_TARGET EventType = "target"
 	EVENTTYPE_TARGET_NETWORK EventType = "target-network"
 	EVENTTYPE_PROXY EventType = "proxy"
+	EVENTTYPE_UNKNOWN EventType = "unknown"
 )
 
 // All allowed values of EventType enum
@@ -37,6 +38,7 @@ var AllowedEventTypeEnumValues = []EventType{
 	"target",
 	"target-network",
 	"proxy",
+	"unknown",
 }
 
 func (v *EventType) UnmarshalJSON(src []byte) error {
@@ -52,12 +54,12 @@ func (v *EventType) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid EventType", value)
+	*v = EventType("unknown")
+	return nil
 }
 
 // NewEventTypeFromValue returns a pointer to a valid EventType
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewEventTypeFromValue(v string) (*EventType, error) {
 	ev := EventType(v)
 	if ev.IsValid() {

@@ -23,6 +23,7 @@ const (
 	OBJECTTYPE_DASHBOARD ObjectType = "dashboard"
 	OBJECTTYPE_ENDPOINT_TEST ObjectType = "endpoint-test"
 	OBJECTTYPE_V_AGENT ObjectType = "v-agent"
+	OBJECTTYPE_UNKNOWN ObjectType = "unknown"
 )
 
 // All allowed values of ObjectType enum
@@ -31,6 +32,7 @@ var AllowedObjectTypeEnumValues = []ObjectType{
 	"dashboard",
 	"endpoint-test",
 	"v-agent",
+	"unknown",
 }
 
 func (v *ObjectType) UnmarshalJSON(src []byte) error {
@@ -46,12 +48,12 @@ func (v *ObjectType) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid ObjectType", value)
+	*v = ObjectType("unknown")
+	return nil
 }
 
 // NewObjectTypeFromValue returns a pointer to a valid ObjectType
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewObjectTypeFromValue(v string) (*ObjectType, error) {
 	ev := ObjectType(v)
 	if ev.IsValid() {

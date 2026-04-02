@@ -50,12 +50,12 @@ func (v *BrowserType) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid BrowserType", value)
+	*v = BrowserType("unknown")
+	return nil
 }
 
 // NewBrowserTypeFromValue returns a pointer to a valid BrowserType
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewBrowserTypeFromValue(v string) (*BrowserType, error) {
 	ev := BrowserType(v)
 	if ev.IsValid() {

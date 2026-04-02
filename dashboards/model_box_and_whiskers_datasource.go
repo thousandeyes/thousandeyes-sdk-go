@@ -32,6 +32,7 @@ const (
 	BOXANDWHISKERSDATASOURCE_ROUTING BoxAndWhiskersDatasource = "ROUTING"
 	BOXANDWHISKERSDATASOURCE_CLOUD_NATIVE_MONITORING BoxAndWhiskersDatasource = "CLOUD_NATIVE_MONITORING"
 	BOXANDWHISKERSDATASOURCE_TRAFFIC_INSIGHTS_MONITORING BoxAndWhiskersDatasource = "TRAFFIC_INSIGHTS_MONITORING"
+	BOXANDWHISKERSDATASOURCE_UNKNOWN BoxAndWhiskersDatasource = "unknown"
 )
 
 // All allowed values of BoxAndWhiskersDatasource enum
@@ -49,6 +50,7 @@ var AllowedBoxAndWhiskersDatasourceEnumValues = []BoxAndWhiskersDatasource{
 	"ROUTING",
 	"CLOUD_NATIVE_MONITORING",
 	"TRAFFIC_INSIGHTS_MONITORING",
+	"unknown",
 }
 
 func (v *BoxAndWhiskersDatasource) UnmarshalJSON(src []byte) error {
@@ -64,12 +66,12 @@ func (v *BoxAndWhiskersDatasource) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid BoxAndWhiskersDatasource", value)
+	*v = BoxAndWhiskersDatasource("unknown")
+	return nil
 }
 
 // NewBoxAndWhiskersDatasourceFromValue returns a pointer to a valid BoxAndWhiskersDatasource
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewBoxAndWhiskersDatasourceFromValue(v string) (*BoxAndWhiskersDatasource, error) {
 	ev := BoxAndWhiskersDatasource(v)
 	if ev.IsValid() {

@@ -32,6 +32,7 @@ const (
 	TABLEDATASOURCE_ROUTING TableDatasource = "ROUTING"
 	TABLEDATASOURCE_CLOUD_NATIVE_MONITORING TableDatasource = "CLOUD_NATIVE_MONITORING"
 	TABLEDATASOURCE_TRAFFIC_INSIGHTS_MONITORING TableDatasource = "TRAFFIC_INSIGHTS_MONITORING"
+	TABLEDATASOURCE_UNKNOWN TableDatasource = "unknown"
 )
 
 // All allowed values of TableDatasource enum
@@ -49,6 +50,7 @@ var AllowedTableDatasourceEnumValues = []TableDatasource{
 	"ROUTING",
 	"CLOUD_NATIVE_MONITORING",
 	"TRAFFIC_INSIGHTS_MONITORING",
+	"unknown",
 }
 
 func (v *TableDatasource) UnmarshalJSON(src []byte) error {
@@ -64,12 +66,12 @@ func (v *TableDatasource) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid TableDatasource", value)
+	*v = TableDatasource("unknown")
+	return nil
 }
 
 // NewTableDatasourceFromValue returns a pointer to a valid TableDatasource
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewTableDatasourceFromValue(v string) (*TableDatasource, error) {
 	ev := TableDatasource(v)
 	if ev.IsValid() {

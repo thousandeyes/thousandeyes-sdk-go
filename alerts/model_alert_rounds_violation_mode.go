@@ -22,6 +22,7 @@ const (
 	ALERTROUNDSVIOLATIONMODE_EXACT AlertRoundsViolationMode = "exact"
 	ALERTROUNDSVIOLATIONMODE_ANY AlertRoundsViolationMode = "any"
 	ALERTROUNDSVIOLATIONMODE_AUTO AlertRoundsViolationMode = "auto"
+	ALERTROUNDSVIOLATIONMODE_UNKNOWN AlertRoundsViolationMode = "unknown"
 )
 
 // All allowed values of AlertRoundsViolationMode enum
@@ -29,6 +30,7 @@ var AllowedAlertRoundsViolationModeEnumValues = []AlertRoundsViolationMode{
 	"exact",
 	"any",
 	"auto",
+	"unknown",
 }
 
 func (v *AlertRoundsViolationMode) UnmarshalJSON(src []byte) error {
@@ -44,12 +46,12 @@ func (v *AlertRoundsViolationMode) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid AlertRoundsViolationMode", value)
+	*v = AlertRoundsViolationMode("unknown")
+	return nil
 }
 
 // NewAlertRoundsViolationModeFromValue returns a pointer to a valid AlertRoundsViolationMode
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewAlertRoundsViolationModeFromValue(v string) (*AlertRoundsViolationMode, error) {
 	ev := AlertRoundsViolationMode(v)
 	if ev.IsValid() {

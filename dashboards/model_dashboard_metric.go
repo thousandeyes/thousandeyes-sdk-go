@@ -265,6 +265,7 @@ const (
 	DASHBOARDMETRIC_TRAFFIC_INSIGHTS_MONITORING_DOWNSTREAM_THROUGHPUT DashboardMetric = "TRAFFIC_INSIGHTS_MONITORING-DOWNSTREAM_THROUGHPUT"
 	DASHBOARDMETRIC_TRAFFIC_INSIGHTS_MONITORING_UPSTREAM_THROUGHPUT DashboardMetric = "TRAFFIC_INSIGHTS_MONITORING-UPSTREAM_THROUGHPUT"
 	DASHBOARDMETRIC_TRAFFIC_INSIGHTS_MONITORING_CONNECTION_RATE DashboardMetric = "TRAFFIC_INSIGHTS_MONITORING-CONNECTION_RATE"
+	DASHBOARDMETRIC_UNKNOWN DashboardMetric = "unknown"
 )
 
 // All allowed values of DashboardMetric enum
@@ -515,6 +516,7 @@ var AllowedDashboardMetricEnumValues = []DashboardMetric{
 	"TRAFFIC_INSIGHTS_MONITORING-DOWNSTREAM_THROUGHPUT",
 	"TRAFFIC_INSIGHTS_MONITORING-UPSTREAM_THROUGHPUT",
 	"TRAFFIC_INSIGHTS_MONITORING-CONNECTION_RATE",
+	"unknown",
 }
 
 func (v *DashboardMetric) UnmarshalJSON(src []byte) error {
@@ -530,12 +532,12 @@ func (v *DashboardMetric) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid DashboardMetric", value)
+	*v = DashboardMetric("unknown")
+	return nil
 }
 
 // NewDashboardMetricFromValue returns a pointer to a valid DashboardMetric
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewDashboardMetricFromValue(v string) (*DashboardMetric, error) {
 	ev := DashboardMetric(v)
 	if ev.IsValid() {

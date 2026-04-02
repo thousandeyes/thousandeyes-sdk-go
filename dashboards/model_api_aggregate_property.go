@@ -115,6 +115,7 @@ const (
 	APIAGGREGATEPROPERTY_TRAFFIC_INSIGHTS_MONITORING_DEVICE ApiAggregateProperty = "TRAFFIC_INSIGHTS_MONITORING-DEVICE"
 	APIAGGREGATEPROPERTY_TRAFFIC_INSIGHTS_MONITORING_DEVICE_IFNAME ApiAggregateProperty = "TRAFFIC_INSIGHTS_MONITORING-DEVICE_IFNAME"
 	APIAGGREGATEPROPERTY_TRAFFIC_INSIGHTS_MONITORING_APPLICATION ApiAggregateProperty = "TRAFFIC_INSIGHTS_MONITORING-APPLICATION"
+	APIAGGREGATEPROPERTY_UNKNOWN ApiAggregateProperty = "unknown"
 )
 
 // All allowed values of ApiAggregateProperty enum
@@ -215,6 +216,7 @@ var AllowedApiAggregatePropertyEnumValues = []ApiAggregateProperty{
 	"TRAFFIC_INSIGHTS_MONITORING-DEVICE",
 	"TRAFFIC_INSIGHTS_MONITORING-DEVICE_IFNAME",
 	"TRAFFIC_INSIGHTS_MONITORING-APPLICATION",
+	"unknown",
 }
 
 func (v *ApiAggregateProperty) UnmarshalJSON(src []byte) error {
@@ -230,12 +232,12 @@ func (v *ApiAggregateProperty) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid ApiAggregateProperty", value)
+	*v = ApiAggregateProperty("unknown")
+	return nil
 }
 
 // NewApiAggregatePropertyFromValue returns a pointer to a valid ApiAggregateProperty
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewApiAggregatePropertyFromValue(v string) (*ApiAggregateProperty, error) {
 	ev := ApiAggregateProperty(v)
 	if ev.IsValid() {

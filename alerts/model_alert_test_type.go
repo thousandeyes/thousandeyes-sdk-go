@@ -35,6 +35,7 @@ const (
 	ALERTTESTTYPE_ENDPOINT_HTTP_SERVER AlertTestType = "endpoint-http-server"
 	ALERTTESTTYPE_ENDPOINT_NETWORK_SERVER AlertTestType = "endpoint-network-server"
 	ALERTTESTTYPE_ENDPOINT_PATH_TRACE AlertTestType = "endpoint-path-trace"
+	ALERTTESTTYPE_UNKNOWN AlertTestType = "unknown"
 )
 
 // All allowed values of AlertTestType enum
@@ -55,6 +56,7 @@ var AllowedAlertTestTypeEnumValues = []AlertTestType{
 	"endpoint-http-server",
 	"endpoint-network-server",
 	"endpoint-path-trace",
+	"unknown",
 }
 
 func (v *AlertTestType) UnmarshalJSON(src []byte) error {
@@ -70,12 +72,12 @@ func (v *AlertTestType) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid AlertTestType", value)
+	*v = AlertTestType("unknown")
+	return nil
 }
 
 // NewAlertTestTypeFromValue returns a pointer to a valid AlertTestType
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewAlertTestTypeFromValue(v string) (*AlertTestType, error) {
 	ev := AlertTestType(v)
 	if ev.IsValid() {

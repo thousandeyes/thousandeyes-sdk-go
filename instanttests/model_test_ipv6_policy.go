@@ -23,6 +23,7 @@ const (
 	TESTIPV6POLICY_PREFER_IPV6 TestIpv6Policy = "prefer-ipv6"
 	TESTIPV6POLICY_FORCE_IPV6 TestIpv6Policy = "force-ipv6"
 	TESTIPV6POLICY_USE_AGENT_POLICY TestIpv6Policy = "use-agent-policy"
+	TESTIPV6POLICY_UNKNOWN TestIpv6Policy = "unknown"
 )
 
 // All allowed values of TestIpv6Policy enum
@@ -31,6 +32,7 @@ var AllowedTestIpv6PolicyEnumValues = []TestIpv6Policy{
 	"prefer-ipv6",
 	"force-ipv6",
 	"use-agent-policy",
+	"unknown",
 }
 
 func (v *TestIpv6Policy) UnmarshalJSON(src []byte) error {
@@ -46,12 +48,12 @@ func (v *TestIpv6Policy) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid TestIpv6Policy", value)
+	*v = TestIpv6Policy("unknown")
+	return nil
 }
 
 // NewTestIpv6PolicyFromValue returns a pointer to a valid TestIpv6Policy
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewTestIpv6PolicyFromValue(v string) (*TestIpv6Policy, error) {
 	ev := TestIpv6Policy(v)
 	if ev.IsValid() {

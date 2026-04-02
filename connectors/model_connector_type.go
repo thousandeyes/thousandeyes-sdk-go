@@ -20,11 +20,13 @@ type ConnectorType string
 // List of ConnectorType
 const (
 	CONNECTORTYPE_GENERIC ConnectorType = "generic"
+	CONNECTORTYPE_UNKNOWN ConnectorType = "unknown"
 )
 
 // All allowed values of ConnectorType enum
 var AllowedConnectorTypeEnumValues = []ConnectorType{
 	"generic",
+	"unknown",
 }
 
 func (v *ConnectorType) UnmarshalJSON(src []byte) error {
@@ -40,12 +42,12 @@ func (v *ConnectorType) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid ConnectorType", value)
+	*v = ConnectorType("unknown")
+	return nil
 }
 
 // NewConnectorTypeFromValue returns a pointer to a valid ConnectorType
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewConnectorTypeFromValue(v string) (*ConnectorType, error) {
 	ev := ConnectorType(v)
 	if ev.IsValid() {

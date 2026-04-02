@@ -110,9 +110,9 @@ func NewSipServerTest(interval TestInterval, port int32) *SipServerTest {
 	this.NetworkMeasurements = &networkMeasurements
 	var numPathTraces int32 = 3
 	this.NumPathTraces = &numPathTraces
-	var pathTraceMode TestPathTraceMode = TESTPATHTRACEMODE_CLASSIC
+	var pathTraceMode TestPathTraceMode = "classic"
 	this.PathTraceMode = &pathTraceMode
-	var probeMode TestProbeMode = TESTPROBEMODE_AUTO
+	var probeMode TestProbeMode = "auto"
 	this.ProbeMode = &probeMode
 	var randomizedStartTime bool = false
 	this.RandomizedStartTime = &randomizedStartTime
@@ -120,10 +120,10 @@ func NewSipServerTest(interval TestInterval, port int32) *SipServerTest {
 	this.RegisterEnabled = &registerEnabled
 	var sipTimeLimit int32 = 5
 	this.SipTimeLimit = &sipTimeLimit
-	var ipv6Policy TestIpv6Policy = TESTIPV6POLICY_USE_AGENT_POLICY
+	var ipv6Policy TestIpv6Policy = "use-agent-policy"
 	this.Ipv6Policy = &ipv6Policy
 	this.Port = port
-	var protocol SipTestProtocol = SIPTESTPROTOCOL_TCP
+	var protocol SipTestProtocol = "tcp"
 	this.Protocol = &protocol
 	return &this
 }
@@ -145,9 +145,9 @@ func NewSipServerTestWithDefaults() *SipServerTest {
 	this.NetworkMeasurements = &networkMeasurements
 	var numPathTraces int32 = 3
 	this.NumPathTraces = &numPathTraces
-	var pathTraceMode TestPathTraceMode = TESTPATHTRACEMODE_CLASSIC
+	var pathTraceMode TestPathTraceMode = "classic"
 	this.PathTraceMode = &pathTraceMode
-	var probeMode TestProbeMode = TESTPROBEMODE_AUTO
+	var probeMode TestProbeMode = "auto"
 	this.ProbeMode = &probeMode
 	var randomizedStartTime bool = false
 	this.RandomizedStartTime = &randomizedStartTime
@@ -155,11 +155,11 @@ func NewSipServerTestWithDefaults() *SipServerTest {
 	this.RegisterEnabled = &registerEnabled
 	var sipTimeLimit int32 = 5
 	this.SipTimeLimit = &sipTimeLimit
-	var ipv6Policy TestIpv6Policy = TESTIPV6POLICY_USE_AGENT_POLICY
+	var ipv6Policy TestIpv6Policy = "use-agent-policy"
 	this.Ipv6Policy = &ipv6Policy
 	var port int32 = 49153
 	this.Port = port
-	var protocol SipTestProtocol = SIPTESTPROTOCOL_TCP
+	var protocol SipTestProtocol = "tcp"
 	this.Protocol = &protocol
 	return &this
 }

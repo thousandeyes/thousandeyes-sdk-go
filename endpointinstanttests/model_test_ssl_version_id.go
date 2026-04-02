@@ -25,6 +25,7 @@ const (
 	TESTSSLVERSIONID__5 TestSslVersionId = "5"
 	TESTSSLVERSIONID__6 TestSslVersionId = "6"
 	TESTSSLVERSIONID__7 TestSslVersionId = "7"
+	TESTSSLVERSIONID_UNKNOWN TestSslVersionId = "unknown"
 )
 
 // All allowed values of TestSslVersionId enum
@@ -35,6 +36,7 @@ var AllowedTestSslVersionIdEnumValues = []TestSslVersionId{
 	"5",
 	"6",
 	"7",
+	"unknown",
 }
 
 func (v *TestSslVersionId) UnmarshalJSON(src []byte) error {
@@ -50,12 +52,12 @@ func (v *TestSslVersionId) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid TestSslVersionId", value)
+	*v = TestSslVersionId("unknown")
+	return nil
 }
 
 // NewTestSslVersionIdFromValue returns a pointer to a valid TestSslVersionId
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewTestSslVersionIdFromValue(v string) (*TestSslVersionId, error) {
 	ev := TestSslVersionId(v)
 	if ev.IsValid() {

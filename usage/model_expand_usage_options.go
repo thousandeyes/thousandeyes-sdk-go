@@ -25,6 +25,7 @@ const (
 	EXPANDUSAGEOPTIONS_ENDPOINT_AGENT ExpandUsageOptions = "endpoint-agent"
 	EXPANDUSAGEOPTIONS_ENDPOINT_AGENT_ESSENTIAL ExpandUsageOptions = "endpoint-agent-essential"
 	EXPANDUSAGEOPTIONS_ENDPOINT_AGENT_EMBEDDED ExpandUsageOptions = "endpoint-agent-embedded"
+	EXPANDUSAGEOPTIONS_UNKNOWN ExpandUsageOptions = "unknown"
 )
 
 // All allowed values of ExpandUsageOptions enum
@@ -35,6 +36,7 @@ var AllowedExpandUsageOptionsEnumValues = []ExpandUsageOptions{
 	"endpoint-agent",
 	"endpoint-agent-essential",
 	"endpoint-agent-embedded",
+	"unknown",
 }
 
 func (v *ExpandUsageOptions) UnmarshalJSON(src []byte) error {
@@ -50,12 +52,12 @@ func (v *ExpandUsageOptions) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid ExpandUsageOptions", value)
+	*v = ExpandUsageOptions("unknown")
+	return nil
 }
 
 // NewExpandUsageOptionsFromValue returns a pointer to a valid ExpandUsageOptions
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewExpandUsageOptionsFromValue(v string) (*ExpandUsageOptions, error) {
 	ev := ExpandUsageOptions(v)
 	if ev.IsValid() {

@@ -22,6 +22,7 @@ const (
 	LEGACYDURATIONUNIT_MINUTES LegacyDurationUnit = "Minutes"
 	LEGACYDURATIONUNIT_HOURS LegacyDurationUnit = "Hours"
 	LEGACYDURATIONUNIT_DAYS LegacyDurationUnit = "Days"
+	LEGACYDURATIONUNIT_UNKNOWN LegacyDurationUnit = "unknown"
 )
 
 // All allowed values of LegacyDurationUnit enum
@@ -29,6 +30,7 @@ var AllowedLegacyDurationUnitEnumValues = []LegacyDurationUnit{
 	"Minutes",
 	"Hours",
 	"Days",
+	"unknown",
 }
 
 func (v *LegacyDurationUnit) UnmarshalJSON(src []byte) error {
@@ -44,12 +46,12 @@ func (v *LegacyDurationUnit) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid LegacyDurationUnit", value)
+	*v = LegacyDurationUnit("unknown")
+	return nil
 }
 
 // NewLegacyDurationUnitFromValue returns a pointer to a valid LegacyDurationUnit
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewLegacyDurationUnitFromValue(v string) (*LegacyDurationUnit, error) {
 	ev := LegacyDurationUnit(v)
 	if ev.IsValid() {

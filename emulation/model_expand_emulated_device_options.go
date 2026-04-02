@@ -20,11 +20,13 @@ type ExpandEmulatedDeviceOptions string
 // List of ExpandEmulatedDeviceOptions
 const (
 	EXPANDEMULATEDDEVICEOPTIONS_USER_AGENT ExpandEmulatedDeviceOptions = "user-agent"
+	EXPANDEMULATEDDEVICEOPTIONS_UNKNOWN ExpandEmulatedDeviceOptions = "unknown"
 )
 
 // All allowed values of ExpandEmulatedDeviceOptions enum
 var AllowedExpandEmulatedDeviceOptionsEnumValues = []ExpandEmulatedDeviceOptions{
 	"user-agent",
+	"unknown",
 }
 
 func (v *ExpandEmulatedDeviceOptions) UnmarshalJSON(src []byte) error {
@@ -40,12 +42,12 @@ func (v *ExpandEmulatedDeviceOptions) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid ExpandEmulatedDeviceOptions", value)
+	*v = ExpandEmulatedDeviceOptions("unknown")
+	return nil
 }
 
 // NewExpandEmulatedDeviceOptionsFromValue returns a pointer to a valid ExpandEmulatedDeviceOptions
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewExpandEmulatedDeviceOptionsFromValue(v string) (*ExpandEmulatedDeviceOptions, error) {
 	ev := ExpandEmulatedDeviceOptions(v)
 	if ev.IsValid() {

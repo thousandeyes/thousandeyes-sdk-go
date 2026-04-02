@@ -22,6 +22,7 @@ const (
 	ALERTSUPPRESSIONWINDOWSTATE_ACTIVE AlertSuppressionWindowState = "active"
 	ALERTSUPPRESSIONWINDOWSTATE_INACTIVE AlertSuppressionWindowState = "inactive"
 	ALERTSUPPRESSIONWINDOWSTATE_ENDED AlertSuppressionWindowState = "ended"
+	ALERTSUPPRESSIONWINDOWSTATE_UNKNOWN AlertSuppressionWindowState = "unknown"
 )
 
 // All allowed values of AlertSuppressionWindowState enum
@@ -29,6 +30,7 @@ var AllowedAlertSuppressionWindowStateEnumValues = []AlertSuppressionWindowState
 	"active",
 	"inactive",
 	"ended",
+	"unknown",
 }
 
 func (v *AlertSuppressionWindowState) UnmarshalJSON(src []byte) error {
@@ -44,12 +46,12 @@ func (v *AlertSuppressionWindowState) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid AlertSuppressionWindowState", value)
+	*v = AlertSuppressionWindowState("unknown")
+	return nil
 }
 
 // NewAlertSuppressionWindowStateFromValue returns a pointer to a valid AlertSuppressionWindowState
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewAlertSuppressionWindowStateFromValue(v string) (*AlertSuppressionWindowState, error) {
 	ev := AlertSuppressionWindowState(v)
 	if ev.IsValid() {

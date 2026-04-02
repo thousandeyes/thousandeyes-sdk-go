@@ -22,6 +22,7 @@ const (
 	TESTPAGELOADINGSTRATEGY_NORMAL TestPageLoadingStrategy = "normal"
 	TESTPAGELOADINGSTRATEGY_EAGER TestPageLoadingStrategy = "eager"
 	TESTPAGELOADINGSTRATEGY_NONE TestPageLoadingStrategy = "none"
+	TESTPAGELOADINGSTRATEGY_UNKNOWN TestPageLoadingStrategy = "unknown"
 )
 
 // All allowed values of TestPageLoadingStrategy enum
@@ -29,6 +30,7 @@ var AllowedTestPageLoadingStrategyEnumValues = []TestPageLoadingStrategy{
 	"normal",
 	"eager",
 	"none",
+	"unknown",
 }
 
 func (v *TestPageLoadingStrategy) UnmarshalJSON(src []byte) error {
@@ -44,12 +46,12 @@ func (v *TestPageLoadingStrategy) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid TestPageLoadingStrategy", value)
+	*v = TestPageLoadingStrategy("unknown")
+	return nil
 }
 
 // NewTestPageLoadingStrategyFromValue returns a pointer to a valid TestPageLoadingStrategy
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewTestPageLoadingStrategyFromValue(v string) (*TestPageLoadingStrategy, error) {
 	ev := TestPageLoadingStrategy(v)
 	if ev.IsValid() {

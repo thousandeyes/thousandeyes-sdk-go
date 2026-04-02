@@ -73,7 +73,7 @@ func NewDnsTraceTestRequest(interval TestInterval, domain string, agents []TestA
 	this.Interval = interval
 	var enabled bool = true
 	this.Enabled = &enabled
-	var dnsTransportProtocol TestDnsTransportProtocol = TESTDNSTRANSPORTPROTOCOL_UDP
+	var dnsTransportProtocol TestDnsTransportProtocol = "udp"
 	this.DnsTransportProtocol = &dnsTransportProtocol
 	this.Domain = domain
 	var randomizedStartTime bool = false
@@ -91,7 +91,7 @@ func NewDnsTraceTestRequestWithDefaults() *DnsTraceTestRequest {
 	this.Interval = interval
 	var enabled bool = true
 	this.Enabled = &enabled
-	var dnsTransportProtocol TestDnsTransportProtocol = TESTDNSTRANSPORTPROTOCOL_UDP
+	var dnsTransportProtocol TestDnsTransportProtocol = "udp"
 	this.DnsTransportProtocol = &dnsTransportProtocol
 	var randomizedStartTime bool = false
 	this.RandomizedStartTime = &randomizedStartTime

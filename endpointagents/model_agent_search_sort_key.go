@@ -25,6 +25,7 @@ const (
 	AGENTSEARCHSORTKEY_USER_NAME AgentSearchSortKey = "userName"
 	AGENTSEARCHSORTKEY_CITY AgentSearchSortKey = "city"
 	AGENTSEARCHSORTKEY_SERIAL_NUMBER AgentSearchSortKey = "serialNumber"
+	AGENTSEARCHSORTKEY_UNKNOWN AgentSearchSortKey = "unknown"
 )
 
 // All allowed values of AgentSearchSortKey enum
@@ -35,6 +36,7 @@ var AllowedAgentSearchSortKeyEnumValues = []AgentSearchSortKey{
 	"userName",
 	"city",
 	"serialNumber",
+	"unknown",
 }
 
 func (v *AgentSearchSortKey) UnmarshalJSON(src []byte) error {
@@ -50,12 +52,12 @@ func (v *AgentSearchSortKey) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid AgentSearchSortKey", value)
+	*v = AgentSearchSortKey("unknown")
+	return nil
 }
 
 // NewAgentSearchSortKeyFromValue returns a pointer to a valid AgentSearchSortKey
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewAgentSearchSortKeyFromValue(v string) (*AgentSearchSortKey, error) {
 	ev := AgentSearchSortKey(v)
 	if ev.IsValid() {

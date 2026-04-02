@@ -27,6 +27,7 @@ const (
 	ERRORDETAILCODE_OS_END_OF_SUPPORT ErrorDetailCode = "os-end-of-support"
 	ERRORDETAILCODE_OS_END_OF_LIFE ErrorDetailCode = "os-end-of-life"
 	ERRORDETAILCODE_NAT_TRAVERSAL_ERROR ErrorDetailCode = "nat-traversal-error"
+	ERRORDETAILCODE_UNKNOWN ErrorDetailCode = "unknown"
 )
 
 // All allowed values of ErrorDetailCode enum
@@ -39,6 +40,7 @@ var AllowedErrorDetailCodeEnumValues = []ErrorDetailCode{
 	"os-end-of-support",
 	"os-end-of-life",
 	"nat-traversal-error",
+	"unknown",
 }
 
 func (v *ErrorDetailCode) UnmarshalJSON(src []byte) error {
@@ -54,12 +56,12 @@ func (v *ErrorDetailCode) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid ErrorDetailCode", value)
+	*v = ErrorDetailCode("unknown")
+	return nil
 }
 
 // NewErrorDetailCodeFromValue returns a pointer to a valid ErrorDetailCode
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewErrorDetailCodeFromValue(v string) (*ErrorDetailCode, error) {
 	ev := ErrorDetailCode(v)
 	if ev.IsValid() {

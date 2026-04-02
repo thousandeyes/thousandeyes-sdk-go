@@ -46,12 +46,12 @@ func (v *EventAlertSeverity) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid EventAlertSeverity", value)
+	*v = EventAlertSeverity("unknown")
+	return nil
 }
 
 // NewEventAlertSeverityFromValue returns a pointer to a valid EventAlertSeverity
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewEventAlertSeverityFromValue(v string) (*EventAlertSeverity, error) {
 	ev := EventAlertSeverity(v)
 	if ev.IsValid() {

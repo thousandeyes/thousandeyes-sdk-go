@@ -22,6 +22,7 @@ const (
 	DASHBOARDMETRICDIRECTION_TO_TARGET DashboardMetricDirection = "TO_TARGET"
 	DASHBOARDMETRICDIRECTION_FROM_TARGET DashboardMetricDirection = "FROM_TARGET"
 	DASHBOARDMETRICDIRECTION_BIDIRECTIONAL DashboardMetricDirection = "BIDIRECTIONAL"
+	DASHBOARDMETRICDIRECTION_UNKNOWN DashboardMetricDirection = "unknown"
 )
 
 // All allowed values of DashboardMetricDirection enum
@@ -29,6 +30,7 @@ var AllowedDashboardMetricDirectionEnumValues = []DashboardMetricDirection{
 	"TO_TARGET",
 	"FROM_TARGET",
 	"BIDIRECTIONAL",
+	"unknown",
 }
 
 func (v *DashboardMetricDirection) UnmarshalJSON(src []byte) error {
@@ -44,12 +46,12 @@ func (v *DashboardMetricDirection) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid DashboardMetricDirection", value)
+	*v = DashboardMetricDirection("unknown")
+	return nil
 }
 
 // NewDashboardMetricDirectionFromValue returns a pointer to a valid DashboardMetricDirection
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewDashboardMetricDirectionFromValue(v string) (*DashboardMetricDirection, error) {
 	ev := DashboardMetricDirection(v)
 	if ev.IsValid() {

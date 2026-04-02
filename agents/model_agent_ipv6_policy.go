@@ -22,6 +22,7 @@ const (
 	AGENTIPV6POLICY_FORCE_IPV4 AgentIpv6Policy = "force-ipv4"
 	AGENTIPV6POLICY_PREFER_IPV6 AgentIpv6Policy = "prefer-ipv6"
 	AGENTIPV6POLICY_FORCE_IPV6 AgentIpv6Policy = "force-ipv6"
+	AGENTIPV6POLICY_UNKNOWN AgentIpv6Policy = "unknown"
 )
 
 // All allowed values of AgentIpv6Policy enum
@@ -29,6 +30,7 @@ var AllowedAgentIpv6PolicyEnumValues = []AgentIpv6Policy{
 	"force-ipv4",
 	"prefer-ipv6",
 	"force-ipv6",
+	"unknown",
 }
 
 func (v *AgentIpv6Policy) UnmarshalJSON(src []byte) error {
@@ -44,12 +46,12 @@ func (v *AgentIpv6Policy) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid AgentIpv6Policy", value)
+	*v = AgentIpv6Policy("unknown")
+	return nil
 }
 
 // NewAgentIpv6PolicyFromValue returns a pointer to a valid AgentIpv6Policy
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewAgentIpv6PolicyFromValue(v string) (*AgentIpv6Policy, error) {
 	ev := AgentIpv6Policy(v)
 	if ev.IsValid() {

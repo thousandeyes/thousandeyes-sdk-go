@@ -38,11 +38,11 @@ type EndpointPathTrace struct {
 // will change when the set of required properties is changed
 func NewEndpointPathTrace() *EndpointPathTrace {
 	this := EndpointPathTrace{}
-	var protocol EndpointTestResultProtocol = ENDPOINTTESTRESULTPROTOCOL_UNKNOWN
+	var protocol EndpointTestResultProtocol = "unknown"
 	this.Protocol = &protocol
-	var tcpPathTraceMode TcpPathTraceModeResponse = TCPPATHTRACEMODERESPONSE_AUTO
+	var tcpPathTraceMode TcpPathTraceModeResponse = "auto"
 	this.TcpPathTraceMode = &tcpPathTraceMode
-	var udpPathTraceMode UdpPathTraceModeResponse = UDPPATHTRACEMODERESPONSE_UNKNOWN
+	var udpPathTraceMode UdpPathTraceModeResponse = "unknown"
 	this.UdpPathTraceMode = &udpPathTraceMode
 	return &this
 }
@@ -52,11 +52,11 @@ func NewEndpointPathTrace() *EndpointPathTrace {
 // but it doesn't guarantee that properties required by API are set
 func NewEndpointPathTraceWithDefaults() *EndpointPathTrace {
 	this := EndpointPathTrace{}
-	var protocol EndpointTestResultProtocol = ENDPOINTTESTRESULTPROTOCOL_UNKNOWN
+	var protocol EndpointTestResultProtocol = "unknown"
 	this.Protocol = &protocol
-	var tcpPathTraceMode TcpPathTraceModeResponse = TCPPATHTRACEMODERESPONSE_AUTO
+	var tcpPathTraceMode TcpPathTraceModeResponse = "auto"
 	this.TcpPathTraceMode = &tcpPathTraceMode
-	var udpPathTraceMode UdpPathTraceModeResponse = UDPPATHTRACEMODERESPONSE_UNKNOWN
+	var udpPathTraceMode UdpPathTraceModeResponse = "unknown"
 	this.UdpPathTraceMode = &udpPathTraceMode
 	return &this
 }

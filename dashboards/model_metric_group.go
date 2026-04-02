@@ -59,6 +59,7 @@ const (
 	METRICGROUP_CLOUD_NATIVE_MONITORING_TRAFFIC_FLOW MetricGroup = "CLOUD_NATIVE_MONITORING-TRAFFIC_FLOW"
 	METRICGROUP_CLOUD_NATIVE_MONITORING_EVENTS MetricGroup = "CLOUD_NATIVE_MONITORING-EVENTS"
 	METRICGROUP_TRAFFIC_INSIGHTS_MONITORING_TRAFFIC_FLOW MetricGroup = "TRAFFIC_INSIGHTS_MONITORING-TRAFFIC_FLOW"
+	METRICGROUP_UNKNOWN MetricGroup = "unknown"
 )
 
 // All allowed values of MetricGroup enum
@@ -103,6 +104,7 @@ var AllowedMetricGroupEnumValues = []MetricGroup{
 	"CLOUD_NATIVE_MONITORING-TRAFFIC_FLOW",
 	"CLOUD_NATIVE_MONITORING-EVENTS",
 	"TRAFFIC_INSIGHTS_MONITORING-TRAFFIC_FLOW",
+	"unknown",
 }
 
 func (v *MetricGroup) UnmarshalJSON(src []byte) error {
@@ -118,12 +120,12 @@ func (v *MetricGroup) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid MetricGroup", value)
+	*v = MetricGroup("unknown")
+	return nil
 }
 
 // NewMetricGroupFromValue returns a pointer to a valid MetricGroup
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewMetricGroupFromValue(v string) (*MetricGroup, error) {
 	ev := MetricGroup(v)
 	if ev.IsValid() {

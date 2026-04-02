@@ -20,11 +20,13 @@ type ExpandAlertTestOptions string
 // List of ExpandAlertTestOptions
 const (
 	EXPANDALERTTESTOPTIONS_TEST ExpandAlertTestOptions = "test"
+	EXPANDALERTTESTOPTIONS_UNKNOWN ExpandAlertTestOptions = "unknown"
 )
 
 // All allowed values of ExpandAlertTestOptions enum
 var AllowedExpandAlertTestOptionsEnumValues = []ExpandAlertTestOptions{
 	"test",
+	"unknown",
 }
 
 func (v *ExpandAlertTestOptions) UnmarshalJSON(src []byte) error {
@@ -40,12 +42,12 @@ func (v *ExpandAlertTestOptions) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid ExpandAlertTestOptions", value)
+	*v = ExpandAlertTestOptions("unknown")
+	return nil
 }
 
 // NewExpandAlertTestOptionsFromValue returns a pointer to a valid ExpandAlertTestOptions
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
+// for the value passed as argument, or an error if the value passed is not part of the known enum set
 func NewExpandAlertTestOptionsFromValue(v string) (*ExpandAlertTestOptions, error) {
 	ev := ExpandAlertTestOptions(v)
 	if ev.IsValid() {

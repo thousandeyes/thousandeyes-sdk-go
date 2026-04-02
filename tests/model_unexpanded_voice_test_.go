@@ -82,7 +82,7 @@ func NewUnexpandedVoiceTest(interval TestInterval, targetAgentId string) *Unexpa
 	this.Interval = interval
 	var enabled bool = true
 	this.Enabled = &enabled
-	var dscpId TestDscpId = TESTDSCPID__0
+	var dscpId TestDscpId = "0"
 	this.DscpId = &dscpId
 	var duration int32 = 5
 	this.Duration = &duration
@@ -109,7 +109,7 @@ func NewUnexpandedVoiceTestWithDefaults() *UnexpandedVoiceTest {
 	this.Interval = interval
 	var enabled bool = true
 	this.Enabled = &enabled
-	var dscpId TestDscpId = TESTDSCPID__0
+	var dscpId TestDscpId = "0"
 	this.DscpId = &dscpId
 	var duration int32 = 5
 	this.Duration = &duration
