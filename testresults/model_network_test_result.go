@@ -44,6 +44,16 @@ type NetworkTestResult struct {
 	MaxLatency *float64 `json:"maxLatency,omitempty"`
 	// Minimum RTT for packets sent to destination
 	MinLatency *float64 `json:"minLatency,omitempty"`
+	// Percentage of packets not reaching proxy.
+	ProxyLoss *float32 `json:"proxyLoss,omitempty"`
+	// Average RTT for packets sent to proxy, in milliseconds.
+	ProxyAverageLatency *float32 `json:"proxyAverageLatency,omitempty"`
+	// Minimum RTT for packets sent to proxy, in milliseconds.
+	ProxyMinLatency *float32 `json:"proxyMinLatency,omitempty"`
+	// Maximum RTT for packets sent to proxy, in milliseconds.
+	ProxyMaxLatency *float32 `json:"proxyMaxLatency,omitempty"`
+	// Standard deviation of proxy latency, in milliseconds.
+	ProxyJitter *float32 `json:"proxyJitter,omitempty"`
 	// Number of packets sent and received in a second.
 	PacketsBySecond [][]int32 `json:"packetsBySecond,omitempty"`
 	Agent *TestResultAgent `json:"agent,omitempty"`
@@ -493,6 +503,166 @@ func (o *NetworkTestResult) SetMinLatency(v float64) {
 	o.MinLatency = &v
 }
 
+// GetProxyLoss returns the ProxyLoss field value if set, zero value otherwise.
+func (o *NetworkTestResult) GetProxyLoss() float32 {
+	if o == nil || utils.IsNil(o.ProxyLoss) {
+		var ret float32
+		return ret
+	}
+	return *o.ProxyLoss
+}
+
+// GetProxyLossOk returns a tuple with the ProxyLoss field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *NetworkTestResult) GetProxyLossOk() (*float32, bool) {
+	if o == nil || utils.IsNil(o.ProxyLoss) {
+		return nil, false
+	}
+	return o.ProxyLoss, true
+}
+
+// HasProxyLoss returns a boolean if a field has been set.
+func (o *NetworkTestResult) HasProxyLoss() bool {
+	if o != nil && !utils.IsNil(o.ProxyLoss) {
+		return true
+	}
+
+	return false
+}
+
+// SetProxyLoss gets a reference to the given float32 and assigns it to the ProxyLoss field.
+func (o *NetworkTestResult) SetProxyLoss(v float32) {
+	o.ProxyLoss = &v
+}
+
+// GetProxyAverageLatency returns the ProxyAverageLatency field value if set, zero value otherwise.
+func (o *NetworkTestResult) GetProxyAverageLatency() float32 {
+	if o == nil || utils.IsNil(o.ProxyAverageLatency) {
+		var ret float32
+		return ret
+	}
+	return *o.ProxyAverageLatency
+}
+
+// GetProxyAverageLatencyOk returns a tuple with the ProxyAverageLatency field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *NetworkTestResult) GetProxyAverageLatencyOk() (*float32, bool) {
+	if o == nil || utils.IsNil(o.ProxyAverageLatency) {
+		return nil, false
+	}
+	return o.ProxyAverageLatency, true
+}
+
+// HasProxyAverageLatency returns a boolean if a field has been set.
+func (o *NetworkTestResult) HasProxyAverageLatency() bool {
+	if o != nil && !utils.IsNil(o.ProxyAverageLatency) {
+		return true
+	}
+
+	return false
+}
+
+// SetProxyAverageLatency gets a reference to the given float32 and assigns it to the ProxyAverageLatency field.
+func (o *NetworkTestResult) SetProxyAverageLatency(v float32) {
+	o.ProxyAverageLatency = &v
+}
+
+// GetProxyMinLatency returns the ProxyMinLatency field value if set, zero value otherwise.
+func (o *NetworkTestResult) GetProxyMinLatency() float32 {
+	if o == nil || utils.IsNil(o.ProxyMinLatency) {
+		var ret float32
+		return ret
+	}
+	return *o.ProxyMinLatency
+}
+
+// GetProxyMinLatencyOk returns a tuple with the ProxyMinLatency field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *NetworkTestResult) GetProxyMinLatencyOk() (*float32, bool) {
+	if o == nil || utils.IsNil(o.ProxyMinLatency) {
+		return nil, false
+	}
+	return o.ProxyMinLatency, true
+}
+
+// HasProxyMinLatency returns a boolean if a field has been set.
+func (o *NetworkTestResult) HasProxyMinLatency() bool {
+	if o != nil && !utils.IsNil(o.ProxyMinLatency) {
+		return true
+	}
+
+	return false
+}
+
+// SetProxyMinLatency gets a reference to the given float32 and assigns it to the ProxyMinLatency field.
+func (o *NetworkTestResult) SetProxyMinLatency(v float32) {
+	o.ProxyMinLatency = &v
+}
+
+// GetProxyMaxLatency returns the ProxyMaxLatency field value if set, zero value otherwise.
+func (o *NetworkTestResult) GetProxyMaxLatency() float32 {
+	if o == nil || utils.IsNil(o.ProxyMaxLatency) {
+		var ret float32
+		return ret
+	}
+	return *o.ProxyMaxLatency
+}
+
+// GetProxyMaxLatencyOk returns a tuple with the ProxyMaxLatency field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *NetworkTestResult) GetProxyMaxLatencyOk() (*float32, bool) {
+	if o == nil || utils.IsNil(o.ProxyMaxLatency) {
+		return nil, false
+	}
+	return o.ProxyMaxLatency, true
+}
+
+// HasProxyMaxLatency returns a boolean if a field has been set.
+func (o *NetworkTestResult) HasProxyMaxLatency() bool {
+	if o != nil && !utils.IsNil(o.ProxyMaxLatency) {
+		return true
+	}
+
+	return false
+}
+
+// SetProxyMaxLatency gets a reference to the given float32 and assigns it to the ProxyMaxLatency field.
+func (o *NetworkTestResult) SetProxyMaxLatency(v float32) {
+	o.ProxyMaxLatency = &v
+}
+
+// GetProxyJitter returns the ProxyJitter field value if set, zero value otherwise.
+func (o *NetworkTestResult) GetProxyJitter() float32 {
+	if o == nil || utils.IsNil(o.ProxyJitter) {
+		var ret float32
+		return ret
+	}
+	return *o.ProxyJitter
+}
+
+// GetProxyJitterOk returns a tuple with the ProxyJitter field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *NetworkTestResult) GetProxyJitterOk() (*float32, bool) {
+	if o == nil || utils.IsNil(o.ProxyJitter) {
+		return nil, false
+	}
+	return o.ProxyJitter, true
+}
+
+// HasProxyJitter returns a boolean if a field has been set.
+func (o *NetworkTestResult) HasProxyJitter() bool {
+	if o != nil && !utils.IsNil(o.ProxyJitter) {
+		return true
+	}
+
+	return false
+}
+
+// SetProxyJitter gets a reference to the given float32 and assigns it to the ProxyJitter field.
+func (o *NetworkTestResult) SetProxyJitter(v float32) {
+	o.ProxyJitter = &v
+}
+
 // GetPacketsBySecond returns the PacketsBySecond field value if set, zero value otherwise.
 func (o *NetworkTestResult) GetPacketsBySecond() [][]int32 {
 	if o == nil || utils.IsNil(o.PacketsBySecond) {
@@ -733,6 +903,21 @@ func (o NetworkTestResult) ToMap() (map[string]interface{}, error) {
 	}
 	if !utils.IsNil(o.MinLatency) {
 		toSerialize["minLatency"] = o.MinLatency
+	}
+	if !utils.IsNil(o.ProxyLoss) {
+		toSerialize["proxyLoss"] = o.ProxyLoss
+	}
+	if !utils.IsNil(o.ProxyAverageLatency) {
+		toSerialize["proxyAverageLatency"] = o.ProxyAverageLatency
+	}
+	if !utils.IsNil(o.ProxyMinLatency) {
+		toSerialize["proxyMinLatency"] = o.ProxyMinLatency
+	}
+	if !utils.IsNil(o.ProxyMaxLatency) {
+		toSerialize["proxyMaxLatency"] = o.ProxyMaxLatency
+	}
+	if !utils.IsNil(o.ProxyJitter) {
+		toSerialize["proxyJitter"] = o.ProxyJitter
 	}
 	if !utils.IsNil(o.PacketsBySecond) {
 		toSerialize["packetsBySecond"] = o.PacketsBySecond

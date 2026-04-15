@@ -1,7 +1,7 @@
 /*
 Tests API
 
-This API allows you to list, create, edit, and delete Network and Application Synthetics tests. 
+**Note:** The Page Load Tests, API Tests, and Web Transaction Tests APIs are not available for ThousandEyes for Government instance.  This API allows you to list, create, edit, and delete Network and Application Synthetics tests. 
 
 */
 
@@ -83,6 +83,8 @@ type AgentToServerTestRequest struct {
 	UsePublicBgp *bool `json:"usePublicBgp,omitempty"`
 	// Contains list of BGP monitor IDs (get `monitorId` from `/monitors` endpoint)
 	Monitors []string `json:"monitors,omitempty"`
+	// Contains list of test tag IDs (get `id` from `/tags` endpoint).
+	Tags []string `json:"tags,omitempty"`
 	// Contains list of Agent IDs (get `agentId` from `/agents` endpoint).
 	Agents []TestAgentRequest `json:"agents"`
 	// Port number to use for the test. The default port is 80.
@@ -1261,6 +1263,38 @@ func (o *AgentToServerTestRequest) SetMonitors(v []string) {
 	o.Monitors = v
 }
 
+// GetTags returns the Tags field value if set, zero value otherwise.
+func (o *AgentToServerTestRequest) GetTags() []string {
+	if o == nil || utils.IsNil(o.Tags) {
+		var ret []string
+		return ret
+	}
+	return o.Tags
+}
+
+// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AgentToServerTestRequest) GetTagsOk() ([]string, bool) {
+	if o == nil || utils.IsNil(o.Tags) {
+		return nil, false
+	}
+	return o.Tags, true
+}
+
+// HasTags returns a boolean if a field has been set.
+func (o *AgentToServerTestRequest) HasTags() bool {
+	if o != nil && !utils.IsNil(o.Tags) {
+		return true
+	}
+
+	return false
+}
+
+// SetTags gets a reference to the given []string and assigns it to the Tags field.
+func (o *AgentToServerTestRequest) SetTags(v []string) {
+	o.Tags = v
+}
+
 // GetAgents returns the Agents field value
 func (o *AgentToServerTestRequest) GetAgents() []TestAgentRequest {
 	if o == nil {
@@ -1427,6 +1461,9 @@ func (o AgentToServerTestRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if !utils.IsNil(o.Monitors) {
 		toSerialize["monitors"] = o.Monitors
+	}
+	if !utils.IsNil(o.Tags) {
+		toSerialize["tags"] = o.Tags
 	}
 	toSerialize["agents"] = o.Agents
 	if !utils.IsNil(o.Port) {

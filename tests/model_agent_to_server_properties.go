@@ -1,7 +1,7 @@
 /*
 Tests API
 
-This API allows you to list, create, edit, and delete Network and Application Synthetics tests. 
+**Note:** The Page Load Tests, API Tests, and Web Transaction Tests APIs are not available for ThousandEyes for Government instance.  This API allows you to list, create, edit, and delete Network and Application Synthetics tests. 
 
 */
 
@@ -20,6 +20,7 @@ var _ utils.MappedNullable = &AgentToServerProperties{}
 
 // AgentToServerProperties struct for AgentToServerProperties
 type AgentToServerProperties struct {
+	Type *string `json:"type,omitempty"`
 	// Set to `true` to enable bandwidth measurements, only applies to Enterprise agents assigned to the test.
 	BandwidthMeasurements *bool `json:"bandwidthMeasurements,omitempty"`
 	// To enable continuous monitoring, set this parameter to `true` to.  When continuous monitoring is enabled, the following actions occur: * `fixedPacketRate` is enforced * `bandwidthMeasurements` are disabled * If the `protocol` is set to `tcp`, `probeMode` is set to `syn`. 
@@ -45,7 +46,6 @@ type AgentToServerProperties struct {
 	PingPayloadSize *int32 `json:"pingPayloadSize,omitempty"`
 	// View packet loss in 1-second intervals. This is only available for 1-minute interval tests. Set to `true` to enable network measurements.
 	NetworkMeasurements *bool `json:"networkMeasurements,omitempty"`
-	Type *string `json:"type,omitempty"`
 }
 
 type _AgentToServerProperties AgentToServerProperties
@@ -98,6 +98,38 @@ func NewAgentToServerPropertiesWithDefaults() *AgentToServerProperties {
 	var networkMeasurements bool = false
 	this.NetworkMeasurements = &networkMeasurements
 	return &this
+}
+
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *AgentToServerProperties) GetType() string {
+	if o == nil || utils.IsNil(o.Type) {
+		var ret string
+		return ret
+	}
+	return *o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AgentToServerProperties) GetTypeOk() (*string, bool) {
+	if o == nil || utils.IsNil(o.Type) {
+		return nil, false
+	}
+	return o.Type, true
+}
+
+// HasType returns a boolean if a field has been set.
+func (o *AgentToServerProperties) HasType() bool {
+	if o != nil && !utils.IsNil(o.Type) {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given string and assigns it to the Type field.
+func (o *AgentToServerProperties) SetType(v string) {
+	o.Type = &v
 }
 
 // GetBandwidthMeasurements returns the BandwidthMeasurements field value if set, zero value otherwise.
@@ -572,38 +604,6 @@ func (o *AgentToServerProperties) SetNetworkMeasurements(v bool) {
 	o.NetworkMeasurements = &v
 }
 
-// GetType returns the Type field value if set, zero value otherwise.
-func (o *AgentToServerProperties) GetType() string {
-	if o == nil || utils.IsNil(o.Type) {
-		var ret string
-		return ret
-	}
-	return *o.Type
-}
-
-// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *AgentToServerProperties) GetTypeOk() (*string, bool) {
-	if o == nil || utils.IsNil(o.Type) {
-		return nil, false
-	}
-	return o.Type, true
-}
-
-// HasType returns a boolean if a field has been set.
-func (o *AgentToServerProperties) HasType() bool {
-	if o != nil && !utils.IsNil(o.Type) {
-		return true
-	}
-
-	return false
-}
-
-// SetType gets a reference to the given string and assigns it to the Type field.
-func (o *AgentToServerProperties) SetType(v string) {
-	o.Type = &v
-}
-
 func (o AgentToServerProperties) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -614,6 +614,9 @@ func (o AgentToServerProperties) MarshalJSON() ([]byte, error) {
 
 func (o AgentToServerProperties) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !utils.IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
 	if !utils.IsNil(o.BandwidthMeasurements) {
 		toSerialize["bandwidthMeasurements"] = o.BandwidthMeasurements
 	}
@@ -656,9 +659,6 @@ func (o AgentToServerProperties) ToMap() (map[string]interface{}, error) {
 	}
 	if !utils.IsNil(o.NetworkMeasurements) {
 		toSerialize["networkMeasurements"] = o.NetworkMeasurements
-	}
-	if !utils.IsNil(o.Type) {
-		toSerialize["type"] = o.Type
 	}
 	return toSerialize, nil
 }

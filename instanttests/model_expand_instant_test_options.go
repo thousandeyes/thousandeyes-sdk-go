@@ -21,6 +21,7 @@ type ExpandInstantTestOptions string
 const (
 	EXPANDINSTANTTESTOPTIONS_AGENT ExpandInstantTestOptions = "agent"
 	EXPANDINSTANTTESTOPTIONS_LABEL ExpandInstantTestOptions = "label"
+	EXPANDINSTANTTESTOPTIONS_TAG ExpandInstantTestOptions = "tag"
 	EXPANDINSTANTTESTOPTIONS_SHARED_WITH_ACCOUNT ExpandInstantTestOptions = "shared-with-account"
 	EXPANDINSTANTTESTOPTIONS_UNKNOWN ExpandInstantTestOptions = "unknown"
 )
@@ -29,6 +30,7 @@ const (
 var AllowedExpandInstantTestOptionsEnumValues = []ExpandInstantTestOptions{
 	"agent",
 	"label",
+	"tag",
 	"shared-with-account",
 	"unknown",
 }

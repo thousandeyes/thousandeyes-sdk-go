@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 ## CreateTag
 
-> TagInfo CreateTag().Aid(aid).TagInfo(tagInfo).Execute()
+> Tag CreateTag().Aid(aid).TagInfo(tagInfo).Execute()
 
 Create tag
 
@@ -47,7 +47,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `TagsAPI.CreateTag``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CreateTag`: TagInfo
+	// response from `CreateTag`: Tag
 	json, _ := resp.MarshalJSON()
 	fmt.Fprintf(os.Stdout, "Response from `TagsAPI.CreateTag`: %v\n", string(json))
 }
@@ -69,7 +69,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TagInfo**](TagInfo.md)
+[**Tag**](Tag.md)
 
 ### Authorization
 
@@ -245,7 +245,7 @@ import (
 func main() {
 	id := "c6b78e57-81a2-4c5f-a11a-d96c3c664d55" // string | Tag ID
 	aid := "1234" // string | A unique identifier associated with your account group. You can retrieve your `AccountGroupId` from the `/account-groups` endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. (optional)
-	expand := []tags.ExpandTagsOptions{tags.ExpandTagsOptions("assignments")} // []ExpandTagsOptions | Optional, to retrieve associated assignments (optional)
+	expand := []tags.ExpandTagsOptions{tags.ExpandTagsOptions("assignments")} // []ExpandTagsOptions | Optional, to retrieve associated assignments. Only static tags will return object assignments. (optional)
 
 	configuration := client.NewConfiguration().WithAuthToken("<bearer-token>")
 	apiClient := client.NewAPIClient(configuration)
@@ -278,7 +278,7 @@ Other parameters are passed through a pointer to a ApiGetTagRequest struct via t
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **aid** | **string** | A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. | 
- **expand** | [**[]ExpandTagsOptions**](ExpandTagsOptions.md) | Optional, to retrieve associated assignments | 
+ **expand** | [**[]ExpandTagsOptions**](ExpandTagsOptions.md) | Optional, to retrieve associated assignments. Only static tags will return object assignments. | 
 
 ### Return type
 
@@ -318,7 +318,7 @@ import (
 
 func main() {
 	aid := "1234" // string | A unique identifier associated with your account group. You can retrieve your `AccountGroupId` from the `/account-groups` endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. (optional)
-	expand := []tags.ExpandTagsOptions{tags.ExpandTagsOptions("assignments")} // []ExpandTagsOptions | Optional, to retrieve associated assignments (optional)
+	expand := []tags.ExpandTagsOptions{tags.ExpandTagsOptions("assignments")} // []ExpandTagsOptions | Optional, to retrieve associated assignments. Only static tags will return object assignments. (optional)
 
 	configuration := client.NewConfiguration().WithAuthToken("<bearer-token>")
 	apiClient := client.NewAPIClient(configuration)
@@ -348,7 +348,7 @@ Other parameters are passed through a pointer to a ApiGetTagsRequest struct via 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **aid** | **string** | A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. | 
- **expand** | [**[]ExpandTagsOptions**](ExpandTagsOptions.md) | Optional, to retrieve associated assignments | 
+ **expand** | [**[]ExpandTagsOptions**](ExpandTagsOptions.md) | Optional, to retrieve associated assignments. Only static tags will return object assignments. | 
 
 ### Return type
 
@@ -368,7 +368,7 @@ Name | Type | Description  | Notes
 
 ## UpdateTag
 
-> TagInfo UpdateTag(id).Aid(aid).TagInfo(tagInfo).Execute()
+> Tag UpdateTag(id).Aid(aid).TagInfo(tagInfo).Execute()
 
 Update tag
 
@@ -401,7 +401,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `TagsAPI.UpdateTag``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `UpdateTag`: TagInfo
+	// response from `UpdateTag`: Tag
 	json, _ := resp.MarshalJSON()
 	fmt.Fprintf(os.Stdout, "Response from `TagsAPI.UpdateTag`: %v\n", string(json))
 }
@@ -426,7 +426,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TagInfo**](TagInfo.md)
+[**Tag**](Tag.md)
 
 ### Authorization
 

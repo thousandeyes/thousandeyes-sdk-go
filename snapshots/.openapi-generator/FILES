@@ -1,3 +1,4 @@
+.openapi-generator-ignore
 README.md
 api_test_snapshots.go
 docs/TestSnapshotsAPI.md

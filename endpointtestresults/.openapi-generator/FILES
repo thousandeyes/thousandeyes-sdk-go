@@ -1,3 +1,4 @@
+.openapi-generator-ignore
 README.md
 api_http_server_endpoint_scheduled_test_results.go
 api_local_network_endpoint_test_results.go

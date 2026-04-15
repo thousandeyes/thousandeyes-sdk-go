@@ -123,11 +123,17 @@ type PageLoadInstantTestRequest struct {
 	AllowGeolocation *bool `json:"allowGeolocation,omitempty"`
 	// Set one of the available browser language that you want to use to configure the browser.
 	BrowserLanguage *string `json:"browserLanguage,omitempty"`
+	// Command-line options passed to Chrome when running the test.
+	ChromeOptions *string `json:"chromeOptions,omitempty"`
+	// JSON string of Chrome policy settings to apply.
+	ChromePolicies *string `json:"chromePolicies,omitempty"`
 	PageLoadingStrategy *TestPageLoadingStrategy `json:"pageLoadingStrategy,omitempty"`
 	// Indicates whether agents should randomize the start time in each test round.
 	RandomizedStartTime *bool `json:"randomizedStartTime,omitempty"`
 	// Determines how agent traffic is identified:  * `false`: Adds the `x-thousandeyes-agent: yes` header. * `true`: Appends `(ThousandEyes Agent)` to the `user-agent` header.  For more information, see [Notes on Agent ID Strategy](https://docs.thousandeyes.com/product-documentation/browser-synthetics/test-settings-page-load-transaction#notes-on-agent-id-strategy). 
 	IdentifyAgentTrafficWithUserAgent *bool `json:"identifyAgentTrafficWithUserAgent,omitempty"`
+	// A list of test tag identifiers (get `id` from `/tags` endpoint).
+	Tags []string `json:"tags,omitempty"`
 	// A list of objects with `agentId` (required) and `sourceIpAddress` (optional).
 	Agents []TestAgent `json:"agents"`
 }
@@ -181,6 +187,10 @@ func NewPageLoadInstantTestRequest(url string, agents []TestAgent) *PageLoadInst
 	this.AllowMicAndCamera = &allowMicAndCamera
 	var allowGeolocation bool = false
 	this.AllowGeolocation = &allowGeolocation
+	var chromeOptions string = ""
+	this.ChromeOptions = &chromeOptions
+	var chromePolicies string = "{}"
+	this.ChromePolicies = &chromePolicies
 	var pageLoadingStrategy TestPageLoadingStrategy = "normal"
 	this.PageLoadingStrategy = &pageLoadingStrategy
 	var randomizedStartTime bool = false
@@ -236,6 +246,10 @@ func NewPageLoadInstantTestRequestWithDefaults() *PageLoadInstantTestRequest {
 	this.AllowMicAndCamera = &allowMicAndCamera
 	var allowGeolocation bool = false
 	this.AllowGeolocation = &allowGeolocation
+	var chromeOptions string = ""
+	this.ChromeOptions = &chromeOptions
+	var chromePolicies string = "{}"
+	this.ChromePolicies = &chromePolicies
 	var pageLoadingStrategy TestPageLoadingStrategy = "normal"
 	this.PageLoadingStrategy = &pageLoadingStrategy
 	var randomizedStartTime bool = false
@@ -2029,6 +2043,70 @@ func (o *PageLoadInstantTestRequest) SetBrowserLanguage(v string) {
 	o.BrowserLanguage = &v
 }
 
+// GetChromeOptions returns the ChromeOptions field value if set, zero value otherwise.
+func (o *PageLoadInstantTestRequest) GetChromeOptions() string {
+	if o == nil || utils.IsNil(o.ChromeOptions) {
+		var ret string
+		return ret
+	}
+	return *o.ChromeOptions
+}
+
+// GetChromeOptionsOk returns a tuple with the ChromeOptions field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PageLoadInstantTestRequest) GetChromeOptionsOk() (*string, bool) {
+	if o == nil || utils.IsNil(o.ChromeOptions) {
+		return nil, false
+	}
+	return o.ChromeOptions, true
+}
+
+// HasChromeOptions returns a boolean if a field has been set.
+func (o *PageLoadInstantTestRequest) HasChromeOptions() bool {
+	if o != nil && !utils.IsNil(o.ChromeOptions) {
+		return true
+	}
+
+	return false
+}
+
+// SetChromeOptions gets a reference to the given string and assigns it to the ChromeOptions field.
+func (o *PageLoadInstantTestRequest) SetChromeOptions(v string) {
+	o.ChromeOptions = &v
+}
+
+// GetChromePolicies returns the ChromePolicies field value if set, zero value otherwise.
+func (o *PageLoadInstantTestRequest) GetChromePolicies() string {
+	if o == nil || utils.IsNil(o.ChromePolicies) {
+		var ret string
+		return ret
+	}
+	return *o.ChromePolicies
+}
+
+// GetChromePoliciesOk returns a tuple with the ChromePolicies field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PageLoadInstantTestRequest) GetChromePoliciesOk() (*string, bool) {
+	if o == nil || utils.IsNil(o.ChromePolicies) {
+		return nil, false
+	}
+	return o.ChromePolicies, true
+}
+
+// HasChromePolicies returns a boolean if a field has been set.
+func (o *PageLoadInstantTestRequest) HasChromePolicies() bool {
+	if o != nil && !utils.IsNil(o.ChromePolicies) {
+		return true
+	}
+
+	return false
+}
+
+// SetChromePolicies gets a reference to the given string and assigns it to the ChromePolicies field.
+func (o *PageLoadInstantTestRequest) SetChromePolicies(v string) {
+	o.ChromePolicies = &v
+}
+
 // GetPageLoadingStrategy returns the PageLoadingStrategy field value if set, zero value otherwise.
 func (o *PageLoadInstantTestRequest) GetPageLoadingStrategy() TestPageLoadingStrategy {
 	if o == nil || utils.IsNil(o.PageLoadingStrategy) {
@@ -2123,6 +2201,38 @@ func (o *PageLoadInstantTestRequest) HasIdentifyAgentTrafficWithUserAgent() bool
 // SetIdentifyAgentTrafficWithUserAgent gets a reference to the given bool and assigns it to the IdentifyAgentTrafficWithUserAgent field.
 func (o *PageLoadInstantTestRequest) SetIdentifyAgentTrafficWithUserAgent(v bool) {
 	o.IdentifyAgentTrafficWithUserAgent = &v
+}
+
+// GetTags returns the Tags field value if set, zero value otherwise.
+func (o *PageLoadInstantTestRequest) GetTags() []string {
+	if o == nil || utils.IsNil(o.Tags) {
+		var ret []string
+		return ret
+	}
+	return o.Tags
+}
+
+// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PageLoadInstantTestRequest) GetTagsOk() ([]string, bool) {
+	if o == nil || utils.IsNil(o.Tags) {
+		return nil, false
+	}
+	return o.Tags, true
+}
+
+// HasTags returns a boolean if a field has been set.
+func (o *PageLoadInstantTestRequest) HasTags() bool {
+	if o != nil && !utils.IsNil(o.Tags) {
+		return true
+	}
+
+	return false
+}
+
+// SetTags gets a reference to the given []string and assigns it to the Tags field.
+func (o *PageLoadInstantTestRequest) SetTags(v []string) {
+	o.Tags = v
 }
 
 // GetAgents returns the Agents field value
@@ -2325,6 +2435,12 @@ func (o PageLoadInstantTestRequest) ToMap() (map[string]interface{}, error) {
 	if !utils.IsNil(o.BrowserLanguage) {
 		toSerialize["browserLanguage"] = o.BrowserLanguage
 	}
+	if !utils.IsNil(o.ChromeOptions) {
+		toSerialize["chromeOptions"] = o.ChromeOptions
+	}
+	if !utils.IsNil(o.ChromePolicies) {
+		toSerialize["chromePolicies"] = o.ChromePolicies
+	}
 	if !utils.IsNil(o.PageLoadingStrategy) {
 		toSerialize["pageLoadingStrategy"] = o.PageLoadingStrategy
 	}
@@ -2333,6 +2449,9 @@ func (o PageLoadInstantTestRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if !utils.IsNil(o.IdentifyAgentTrafficWithUserAgent) {
 		toSerialize["identifyAgentTrafficWithUserAgent"] = o.IdentifyAgentTrafficWithUserAgent
+	}
+	if !utils.IsNil(o.Tags) {
+		toSerialize["tags"] = o.Tags
 	}
 	toSerialize["agents"] = o.Agents
 	return toSerialize, nil

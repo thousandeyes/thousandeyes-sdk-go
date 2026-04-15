@@ -22,6 +22,8 @@ var _ utils.MappedNullable = &InstantTestRequest{}
 type InstantTestRequest struct {
 	// A list of test label identifiers (get `labelId` from `/labels` endpoint).
 	Labels []string `json:"labels,omitempty"`
+	// A list of test tag identifiers (get `id` from `/tags` endpoint).
+	Tags []string `json:"tags,omitempty"`
 	// A list of account group identifiers that the test is shared with (get `aid` from `/account-groups` endpoint).
 	SharedWithAccounts []string `json:"sharedWithAccounts,omitempty"`
 	// A list of objects with `agentId` (required) and `sourceIpAddress` (optional).
@@ -78,6 +80,38 @@ func (o *InstantTestRequest) HasLabels() bool {
 // SetLabels gets a reference to the given []string and assigns it to the Labels field.
 func (o *InstantTestRequest) SetLabels(v []string) {
 	o.Labels = v
+}
+
+// GetTags returns the Tags field value if set, zero value otherwise.
+func (o *InstantTestRequest) GetTags() []string {
+	if o == nil || utils.IsNil(o.Tags) {
+		var ret []string
+		return ret
+	}
+	return o.Tags
+}
+
+// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *InstantTestRequest) GetTagsOk() ([]string, bool) {
+	if o == nil || utils.IsNil(o.Tags) {
+		return nil, false
+	}
+	return o.Tags, true
+}
+
+// HasTags returns a boolean if a field has been set.
+func (o *InstantTestRequest) HasTags() bool {
+	if o != nil && !utils.IsNil(o.Tags) {
+		return true
+	}
+
+	return false
+}
+
+// SetTags gets a reference to the given []string and assigns it to the Tags field.
+func (o *InstantTestRequest) SetTags(v []string) {
+	o.Tags = v
 }
 
 // GetSharedWithAccounts returns the SharedWithAccounts field value if set, zero value otherwise.
@@ -148,6 +182,9 @@ func (o InstantTestRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !utils.IsNil(o.Labels) {
 		toSerialize["labels"] = o.Labels
+	}
+	if !utils.IsNil(o.Tags) {
+		toSerialize["tags"] = o.Tags
 	}
 	if !utils.IsNil(o.SharedWithAccounts) {
 		toSerialize["sharedWithAccounts"] = o.SharedWithAccounts

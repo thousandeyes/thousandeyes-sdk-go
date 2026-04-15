@@ -1,3 +1,4 @@
+.openapi-generator-ignore
 README.md
 api_dashboard_snapshots.go
 api_dashboards.go
@@ -73,6 +74,9 @@ model_box_and_whiskers_datasource.go
 model_color_grid_datasource.go
 model_dashboard.go
 model_dashboard_global_filter_id.go
+model_dashboard_layout.go
+model_dashboard_layout_details.go
+model_dashboard_layout_type.go
 model_dashboard_links.go
 model_dashboard_metric.go
 model_dashboard_metric_direction.go
@@ -117,4 +121,5 @@ model_validation_error_item.go
 model_visual_mode.go
 model_widget.go
 model_widget_measure_type.go
+model_widget_position.go
 model_widget_type.go

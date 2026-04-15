@@ -1,3 +1,4 @@
+.openapi-generator-ignore
 README.md
 api_agent_to_agent_tests.go
 api_agent_to_server_tests.go
@@ -45,6 +46,7 @@ model_agent_to_server_test_.go
 model_agent_to_server_test_request.go
 model_agent_to_server_test_response.go
 model_agent_to_server_tests.go
+model_agent_to_server_writable_property_fields.go
 model_alert_direction.go
 model_alert_rounds_violation_mode.go
 model_alert_rule.go
@@ -181,6 +183,7 @@ model_unexpanded_sip_server_test_.go
 model_unexpanded_test_.go
 model_unexpanded_voice_test_.go
 model_unexpanded_web_transaction_test_.go
+model_update_agent_to_server_test_request.go
 model_update_bgp_test_request.go
 model_update_sip_server_test_.go
 model_validation_error.go

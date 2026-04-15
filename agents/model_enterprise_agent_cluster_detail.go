@@ -73,6 +73,8 @@ type EnterpriseAgentClusterDetail struct {
 	NotificationRules []NotificationRules `json:"notificationRules,omitempty"`
 	// List of labels. See `/labels` for more information.
 	Labels []AgentLabel `json:"labels,omitempty"`
+	// List of tags. See `/tags` for more information.
+	Tags []AgentTag `json:"tags,omitempty"`
 	// Enterprise Cluster agent type.
 	AgentType string `json:"agentType"`
 	Links *SelfLinks `json:"_links,omitempty"`
@@ -994,6 +996,38 @@ func (o *EnterpriseAgentClusterDetail) SetLabels(v []AgentLabel) {
 	o.Labels = v
 }
 
+// GetTags returns the Tags field value if set, zero value otherwise.
+func (o *EnterpriseAgentClusterDetail) GetTags() []AgentTag {
+	if o == nil || utils.IsNil(o.Tags) {
+		var ret []AgentTag
+		return ret
+	}
+	return o.Tags
+}
+
+// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EnterpriseAgentClusterDetail) GetTagsOk() ([]AgentTag, bool) {
+	if o == nil || utils.IsNil(o.Tags) {
+		return nil, false
+	}
+	return o.Tags, true
+}
+
+// HasTags returns a boolean if a field has been set.
+func (o *EnterpriseAgentClusterDetail) HasTags() bool {
+	if o != nil && !utils.IsNil(o.Tags) {
+		return true
+	}
+
+	return false
+}
+
+// SetTags gets a reference to the given []AgentTag and assigns it to the Tags field.
+func (o *EnterpriseAgentClusterDetail) SetTags(v []AgentTag) {
+	o.Tags = v
+}
+
 // GetAgentType returns the AgentType field value
 func (o *EnterpriseAgentClusterDetail) GetAgentType() string {
 	if o == nil {
@@ -1143,6 +1177,9 @@ func (o EnterpriseAgentClusterDetail) ToMap() (map[string]interface{}, error) {
 	}
 	if !utils.IsNil(o.Labels) {
 		toSerialize["labels"] = o.Labels
+	}
+	if !utils.IsNil(o.Tags) {
+		toSerialize["tags"] = o.Tags
 	}
 	toSerialize["agentType"] = o.AgentType
 	if !utils.IsNil(o.Links) {

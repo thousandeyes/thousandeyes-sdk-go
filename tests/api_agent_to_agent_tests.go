@@ -1,7 +1,7 @@
 /*
 Tests API
 
-This API allows you to list, create, edit, and delete Network and Application Synthetics tests. 
+**Note:** The Page Load Tests, API Tests, and Web Transaction Tests APIs are not available for ThousandEyes for Government instance.  This API allows you to list, create, edit, and delete Network and Application Synthetics tests. 
 
 */
 
@@ -637,7 +637,7 @@ func (r ApiUpdateAgentToAgentTestRequest) Execute() (*AgentToAgentTestResponse, 
 /*
 UpdateAgentToAgentTest Update Agent to Agent test
 
-Updates a Agent to Agent test. Shared tests have limited updating capabilities. Only account-specific configurations may be updated, namely: Alert rules, Alert suppression windows, Labels. This method requires Account Admin permissions.
+Updates a Agent to Agent test. Shared tests have limited updating capabilities. Only account-specific configurations may be updated, namely: alert rules, alert suppression windows, labels, tags. This method requires Account Admin permissions.
 
  @param testId Test ID
  @return ApiUpdateAgentToAgentTestRequest
