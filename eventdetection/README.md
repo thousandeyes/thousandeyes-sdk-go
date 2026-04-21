@@ -1,6 +1,5 @@
 # Go API client for eventdetection
 
-
 Event detection occurs when ThousandEyes identifies that error signals related to a component (proxy, network node, AS, server etc) have deviated from the baselines established by events.
 * To determine this, ThousandEyes takes the test results from all accounts groups within an organization, and analyzes that data.
 * Noisy test results (those that have too many errors in a short window) are removed until they stabilize, and the rest of the results are tagged with the components associated with that test result (for example, proxy, network, or server).

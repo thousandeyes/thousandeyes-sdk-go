@@ -90,7 +90,7 @@ func (a *OperationConnectorsAPIService) GetOperationConnectorsExecute(r ApiGetOp
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/problem+json", "application/hal+json", "application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/hal+json", "application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := request.SelectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -119,11 +119,6 @@ func (a *OperationConnectorsAPIService) GetOperationConnectorsExecute(r ApiGetOp
 			Body:  localVarBody,
 			ErrorMessage: localVarHTTPResponse.Status,
 		}
-		if localVarHTTPResponse.StatusCode == 404 {
-			var v Error
-            a.decodeError(&v, localVarBody, localVarHTTPResponse, newErr)
-            return localVarReturnValue, localVarHTTPResponse, newErr
-		}
 		if localVarHTTPResponse.StatusCode == 400 {
 			var v ValidationError
             a.decodeError(&v, localVarBody, localVarHTTPResponse, newErr)
@@ -135,6 +130,11 @@ func (a *OperationConnectorsAPIService) GetOperationConnectorsExecute(r ApiGetOp
             return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
+			var v Error
+            a.decodeError(&v, localVarBody, localVarHTTPResponse, newErr)
+            return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
 			var v Error
             a.decodeError(&v, localVarBody, localVarHTTPResponse, newErr)
             return localVarReturnValue, localVarHTTPResponse, newErr
@@ -241,7 +241,7 @@ func (a *OperationConnectorsAPIService) SetOperationConnectorsExecute(r ApiSetOp
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/problem+json", "application/hal+json", "application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/hal+json", "application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := request.SelectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -272,11 +272,6 @@ func (a *OperationConnectorsAPIService) SetOperationConnectorsExecute(r ApiSetOp
 			Body:  localVarBody,
 			ErrorMessage: localVarHTTPResponse.Status,
 		}
-		if localVarHTTPResponse.StatusCode == 404 {
-			var v Error
-            a.decodeError(&v, localVarBody, localVarHTTPResponse, newErr)
-            return localVarReturnValue, localVarHTTPResponse, newErr
-		}
 		if localVarHTTPResponse.StatusCode == 400 {
 			var v ValidationError
             a.decodeError(&v, localVarBody, localVarHTTPResponse, newErr)
@@ -288,6 +283,11 @@ func (a *OperationConnectorsAPIService) SetOperationConnectorsExecute(r ApiSetOp
             return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
+			var v Error
+            a.decodeError(&v, localVarBody, localVarHTTPResponse, newErr)
+            return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
 			var v Error
             a.decodeError(&v, localVarBody, localVarHTTPResponse, newErr)
             return localVarReturnValue, localVarHTTPResponse, newErr

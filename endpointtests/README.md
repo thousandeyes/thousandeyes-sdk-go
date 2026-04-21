@@ -1,6 +1,5 @@
 # Go API client for endpointtests
 
-
 Manage endpoint agent dynamic and scheduled tests using the Endpoint Tests API.
 
 

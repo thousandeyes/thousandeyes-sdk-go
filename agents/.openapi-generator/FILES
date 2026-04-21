@@ -1,4 +1,3 @@
-.openapi-generator-ignore
 README.md
 api_agent_proxies.go
 api_cloud_and_enterprise_agent_notification_rules.go

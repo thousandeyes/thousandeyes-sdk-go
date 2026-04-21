@@ -1,4 +1,3 @@
-.openapi-generator-ignore
 README.md
 api_emulation.go
 docs/EmulationAPI.md
