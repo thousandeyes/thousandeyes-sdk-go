@@ -1,3 +1,4 @@
+.openapi-generator-ignore
 README.md
 api_endpoint_agents.go
 api_endpoint_agents_transfer.go

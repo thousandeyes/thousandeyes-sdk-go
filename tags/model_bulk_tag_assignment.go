@@ -22,6 +22,7 @@ type BulkTagAssignment struct {
 	Assignments []Assignment `json:"assignments,omitempty"`
 	// The ID of the tag to assign
 	TagId *string `json:"tagId,omitempty"`
+	Links *SelfLinks `json:"_links,omitempty"`
 }
 
 // NewBulkTagAssignment instantiates a new BulkTagAssignment object
@@ -105,6 +106,38 @@ func (o *BulkTagAssignment) SetTagId(v string) {
 	o.TagId = &v
 }
 
+// GetLinks returns the Links field value if set, zero value otherwise.
+func (o *BulkTagAssignment) GetLinks() SelfLinks {
+	if o == nil || utils.IsNil(o.Links) {
+		var ret SelfLinks
+		return ret
+	}
+	return *o.Links
+}
+
+// GetLinksOk returns a tuple with the Links field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BulkTagAssignment) GetLinksOk() (*SelfLinks, bool) {
+	if o == nil || utils.IsNil(o.Links) {
+		return nil, false
+	}
+	return o.Links, true
+}
+
+// HasLinks returns a boolean if a field has been set.
+func (o *BulkTagAssignment) HasLinks() bool {
+	if o != nil && !utils.IsNil(o.Links) {
+		return true
+	}
+
+	return false
+}
+
+// SetLinks gets a reference to the given SelfLinks and assigns it to the Links field.
+func (o *BulkTagAssignment) SetLinks(v SelfLinks) {
+	o.Links = &v
+}
+
 func (o BulkTagAssignment) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -120,6 +153,9 @@ func (o BulkTagAssignment) ToMap() (map[string]interface{}, error) {
 	}
 	if !utils.IsNil(o.TagId) {
 		toSerialize["tagId"] = o.TagId
+	}
+	if !utils.IsNil(o.Links) {
+		toSerialize["_links"] = o.Links
 	}
 	return toSerialize, nil
 }

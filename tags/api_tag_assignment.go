@@ -50,7 +50,7 @@ func (r ApiAssignTagRequest) Execute() (*BulkTagAssignment, *http.Response, erro
 /*
 AssignTag Assign tag to multiple objects
 
-Assigns a tag to one or more objects. This operation has cumulative behavior: The tag is assigned to the specified objects, and the previous assignments persist. No unassignment takes place.
+Assigns a static tag to one or more objects. This operation has cumulative behavior: The tag is statically assigned to the specified objects, and the previous assignments persist. No unassignment takes place. Note: This endpoint does not support dynamic tag assignment (for example, for `endpoint-agent` objects). See `Type` for more information about static vs. dynamic tags.
 
  @param id Tag ID
  @return ApiAssignTagRequest
@@ -192,7 +192,7 @@ func (r ApiAssignTagsRequest) Execute() (*BulkTagAssignments, *http.Response, er
 /*
 AssignTags Assign multiple tags to multiple objects
 
-Assigns the specified tags to the specified objects. This operation has cumulative behavior: The tags are assigned to the specified objects, and the previous assignments persist. No unassignment takes place.
+Assigns the specified static tags to the specified objects. This operation has cumulative behavior: The tags are statically assigned to the specified objects, and the previous assignments persist. No unassignment takes place. Note: This endpoint does not support dynamic tag assignment (for example, for `endpoint-agent` objects). See `Type` for more information about static vs. dynamic tags.
 
 
  @return ApiAssignTagsRequest
@@ -333,7 +333,7 @@ func (r ApiUnassignTagRequest) Execute() (*http.Response, error) {
 /*
 UnassignTag Remove tag from multiple objects
 
-Removes a tag from one or more objects.
+Removes a static tag from one or more objects. Note: This endpoint does not support dynamic tag assignment (for example, for `endpoint-agent` objects). See `Type` for more information about static vs. dynamic tags.
 
  @param id Tag ID
  @return ApiUnassignTagRequest
@@ -464,7 +464,7 @@ func (r ApiUnassignTagsRequest) Execute() (*BulkTagAssignments, *http.Response, 
 /*
 UnassignTags Remove multiple tags from multiple objects
 
-Removes the specified tags from one or more objects.
+Removes the specified static tags from one or more objects. Note: This endpoint does not support dynamic tag assignment (for example, for `endpoint-agent` objects). See `Type` for more information about static vs. dynamic tags.
 
 
  @return ApiUnassignTagsRequest

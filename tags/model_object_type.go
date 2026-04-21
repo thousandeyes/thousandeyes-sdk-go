@@ -23,6 +23,8 @@ const (
 	OBJECTTYPE_DASHBOARD ObjectType = "dashboard"
 	OBJECTTYPE_ENDPOINT_TEST ObjectType = "endpoint-test"
 	OBJECTTYPE_V_AGENT ObjectType = "v-agent"
+	OBJECTTYPE_CONNECTED_DEVICES_TEST ObjectType = "connected-devices-test"
+	OBJECTTYPE_ENDPOINT_AGENT ObjectType = "endpoint-agent"
 	OBJECTTYPE_UNKNOWN ObjectType = "unknown"
 )
 
@@ -32,6 +34,8 @@ var AllowedObjectTypeEnumValues = []ObjectType{
 	"dashboard",
 	"endpoint-test",
 	"v-agent",
+	"connected-devices-test",
+	"endpoint-agent",
 	"unknown",
 }
 

@@ -1,7 +1,7 @@
 /*
 Endpoint Agents API
 
-Manage ThousandEyes Endpoint Agents using this API.   For more information about Endpoint Agents, see [Endpoint Agents](https://docs.thousandeyes.com/product-documentation/global-vantage-points/endpoint-agents).
+**Note:** The Endpoint Agents Transfer APIs are not available for ThousandEyes for Government instance.  Manage ThousandEyes Endpoint Agents using this API.   For more information about Endpoint Agents, see [Endpoint Agents](https://docs.thousandeyes.com/product-documentation/global-vantage-points/endpoint-agents).
 
 */
 

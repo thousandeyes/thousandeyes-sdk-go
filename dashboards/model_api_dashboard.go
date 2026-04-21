@@ -71,6 +71,7 @@ type ApiDashboard struct {
 	IsGlobalOverride *bool `json:"isGlobalOverride,omitempty"`
 	// True if this dashboard was previously a report.
 	IsMigratedReport *bool `json:"isMigratedReport,omitempty"`
+	Layout *DashboardLayout `json:"layout,omitempty"`
 	Links *DashboardLinks `json:"_links,omitempty"`
 }
 
@@ -848,6 +849,38 @@ func (o *ApiDashboard) SetIsMigratedReport(v bool) {
 	o.IsMigratedReport = &v
 }
 
+// GetLayout returns the Layout field value if set, zero value otherwise.
+func (o *ApiDashboard) GetLayout() DashboardLayout {
+	if o == nil || utils.IsNil(o.Layout) {
+		var ret DashboardLayout
+		return ret
+	}
+	return *o.Layout
+}
+
+// GetLayoutOk returns a tuple with the Layout field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiDashboard) GetLayoutOk() (*DashboardLayout, bool) {
+	if o == nil || utils.IsNil(o.Layout) {
+		return nil, false
+	}
+	return o.Layout, true
+}
+
+// HasLayout returns a boolean if a field has been set.
+func (o *ApiDashboard) HasLayout() bool {
+	if o != nil && !utils.IsNil(o.Layout) {
+		return true
+	}
+
+	return false
+}
+
+// SetLayout gets a reference to the given DashboardLayout and assigns it to the Layout field.
+func (o *ApiDashboard) SetLayout(v DashboardLayout) {
+	o.Layout = &v
+}
+
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *ApiDashboard) GetLinks() DashboardLinks {
 	if o == nil || utils.IsNil(o.Links) {
@@ -958,6 +991,9 @@ func (o ApiDashboard) ToMap() (map[string]interface{}, error) {
 	}
 	if !utils.IsNil(o.IsMigratedReport) {
 		toSerialize["isMigratedReport"] = o.IsMigratedReport
+	}
+	if !utils.IsNil(o.Layout) {
+		toSerialize["layout"] = o.Layout
 	}
 	if !utils.IsNil(o.Links) {
 		toSerialize["_links"] = o.Links

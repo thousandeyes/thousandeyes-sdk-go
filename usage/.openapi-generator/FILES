@@ -1,3 +1,4 @@
+.openapi-generator-ignore
 README.md
 api_quotas.go
 api_usage.go

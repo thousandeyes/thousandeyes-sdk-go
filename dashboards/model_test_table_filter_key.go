@@ -25,6 +25,7 @@ const (
 	TESTTABLEFILTERKEY_TEST_ID TestTableFilterKey = "Test ID"
 	TESTTABLEFILTERKEY_TEST_TYPE TestTableFilterKey = "Test type"
 	TESTTABLEFILTERKEY_LABEL_ID TestTableFilterKey = "Label ID"
+	TESTTABLEFILTERKEY_TAG_ID TestTableFilterKey = "Tag ID"
 	TESTTABLEFILTERKEY_UNKNOWN TestTableFilterKey = "unknown"
 )
 
@@ -36,6 +37,7 @@ var AllowedTestTableFilterKeyEnumValues = []TestTableFilterKey{
 	"Test ID",
 	"Test type",
 	"Label ID",
+	"Tag ID",
 	"unknown",
 }
 

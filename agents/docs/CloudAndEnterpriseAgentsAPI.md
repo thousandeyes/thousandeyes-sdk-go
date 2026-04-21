@@ -156,7 +156,7 @@ Name | Type | Description  | Notes
 
 ## GetAgents
 
-> CloudEnterpriseAgents GetAgents().Aid(aid).Expand(expand).AgentTypes(agentTypes).Labels(labels).Execute()
+> CloudEnterpriseAgents GetAgents().Aid(aid).Expand(expand).AgentTypes(agentTypes).Labels(labels).TagKeys(tagKeys).Execute()
 
 List Cloud and Enterprise Agents
 
@@ -179,13 +179,14 @@ func main() {
 	expand := []agents.AgentListExpand{agents.AgentListExpand("cluster-member")} // []AgentListExpand | Optional parameter, off by default. Indicates which agent sub-resource to expand. For example, if you wish to expand the `clusterMembers` sub-resource, pass the `?expand=cluster-member` query. (optional)
 	agentTypes := []agents.CloudEnterpriseAgentType{agents.CloudEnterpriseAgentType("cloud")} // []CloudEnterpriseAgentType | Specifies the type of agent to request. (optional)
 	labels := []string{"Inner_example"} // []string | Specifies the labels of the agents to request. (optional)
+	tagKeys := []string{"myCustomTagKeyForAgent"} // []string | Specifies which tag keys to request from the agents. (optional)
 
 	configuration := client.NewConfiguration().WithAuthToken("<bearer-token>")
 	apiClient := client.NewAPIClient(configuration)
 
 	api := (*agents.CloudAndEnterpriseAgentsAPIService)(&apiClient.Common)
 
-	resp, r, err := api.GetAgents().Aid(aid).Expand(expand).AgentTypes(agentTypes).Labels(labels).Execute()
+	resp, r, err := api.GetAgents().Aid(aid).Expand(expand).AgentTypes(agentTypes).Labels(labels).TagKeys(tagKeys).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CloudAndEnterpriseAgentsAPI.GetAgents``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -211,6 +212,7 @@ Name | Type | Description  | Notes
  **expand** | [**[]AgentListExpand**](AgentListExpand.md) | Optional parameter, off by default. Indicates which agent sub-resource to expand. For example, if you wish to expand the &#x60;clusterMembers&#x60; sub-resource, pass the &#x60;?expand&#x3D;cluster-member&#x60; query. | 
  **agentTypes** | [**[]CloudEnterpriseAgentType**](CloudEnterpriseAgentType.md) | Specifies the type of agent to request. | 
  **labels** | **[]string** | Specifies the labels of the agents to request. | 
+ **tagKeys** | **[]string** | Specifies which tag keys to request from the agents. | 
 
 ### Return type
 

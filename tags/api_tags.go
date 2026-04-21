@@ -44,7 +44,7 @@ func (r ApiCreateTagRequest) TagInfo(tagInfo TagInfo) ApiCreateTagRequest {
 	return r
 }
 
-func (r ApiCreateTagRequest) Execute() (*TagInfo, *http.Response, error) {
+func (r ApiCreateTagRequest) Execute() (*Tag, *http.Response, error) {
 	return r.ApiService.CreateTagExecute(r)
 }
 
@@ -63,12 +63,12 @@ func (a *TagsAPIService) CreateTag() ApiCreateTagRequest {
 }
 
 // Execute executes the request
-//  @return TagInfo
-func (a *TagsAPIService) CreateTagExecute(r ApiCreateTagRequest) (*TagInfo, *http.Response, error) {
+//  @return Tag
+func (a *TagsAPIService) CreateTagExecute(r ApiCreateTagRequest) (*Tag, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
-		localVarReturnValue  *TagInfo
+		localVarReturnValue  *Tag
 	)
 
 	localBasePath := a.Client.GetConfig().ServerURL
@@ -416,7 +416,7 @@ func (r ApiGetTagRequest) Aid(aid string) ApiGetTagRequest {
 	return r
 }
 
-// Optional, to retrieve associated assignments
+// Optional, to retrieve associated assignments. Only static tags will return object assignments.
 func (r ApiGetTagRequest) Expand(expand []ExpandTagsOptions) ApiGetTagRequest {
 	r.expand = &expand
 	return r
@@ -565,7 +565,7 @@ func (r ApiGetTagsRequest) Aid(aid string) ApiGetTagsRequest {
 	return r
 }
 
-// Optional, to retrieve associated assignments
+// Optional, to retrieve associated assignments. Only static tags will return object assignments.
 func (r ApiGetTagsRequest) Expand(expand []ExpandTagsOptions) ApiGetTagsRequest {
 	r.expand = &expand
 	return r
@@ -718,7 +718,7 @@ func (r ApiUpdateTagRequest) TagInfo(tagInfo TagInfo) ApiUpdateTagRequest {
 	return r
 }
 
-func (r ApiUpdateTagRequest) Execute() (*TagInfo, *http.Response, error) {
+func (r ApiUpdateTagRequest) Execute() (*Tag, *http.Response, error) {
 	return r.ApiService.UpdateTagExecute(r)
 }
 
@@ -738,12 +738,12 @@ func (a *TagsAPIService) UpdateTag(id string ) ApiUpdateTagRequest {
 }
 
 // Execute executes the request
-//  @return TagInfo
-func (a *TagsAPIService) UpdateTagExecute(r ApiUpdateTagRequest) (*TagInfo, *http.Response, error) {
+//  @return Tag
+func (a *TagsAPIService) UpdateTagExecute(r ApiUpdateTagRequest) (*Tag, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
-		localVarReturnValue  *TagInfo
+		localVarReturnValue  *Tag
 	)
 
 	localBasePath := a.Client.GetConfig().ServerURL

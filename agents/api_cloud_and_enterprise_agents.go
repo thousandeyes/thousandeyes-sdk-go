@@ -312,6 +312,7 @@ type ApiGetAgentsRequest struct {
 	expand *[]AgentListExpand
 	agentTypes *[]CloudEnterpriseAgentType
 	labels *[]string
+	tagKeys *[]string
 }
 
 // A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response.
@@ -335,6 +336,12 @@ func (r ApiGetAgentsRequest) AgentTypes(agentTypes []CloudEnterpriseAgentType) A
 // Specifies the labels of the agents to request.
 func (r ApiGetAgentsRequest) Labels(labels []string) ApiGetAgentsRequest {
 	r.labels = &labels
+	return r
+}
+
+// Specifies which tag keys to request from the agents.
+func (r ApiGetAgentsRequest) TagKeys(tagKeys []string) ApiGetAgentsRequest {
+	r.tagKeys = &tagKeys
 	return r
 }
 
@@ -387,6 +394,9 @@ func (a *CloudAndEnterpriseAgentsAPIService) GetAgentsExecute(r ApiGetAgentsRequ
 	}
 	if r.labels != nil {
 		request.ParameterAddToHeaderOrQuery(localVarQueryParams, "labels", r.labels, "csv")
+	}
+	if r.tagKeys != nil {
+		request.ParameterAddToHeaderOrQuery(localVarQueryParams, "tagKeys", r.tagKeys, "csv")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

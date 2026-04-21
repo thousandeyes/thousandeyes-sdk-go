@@ -26,6 +26,7 @@ type LocalNetworkTopologyResultBase struct {
 	Date *time.Time `json:"date,omitempty"`
 	// Network topology ID. Each network topology occurrence has a unique ID.
 	NetworkTopologyId *string `json:"networkTopologyId,omitempty"`
+	DnsServerTest *LocalNetworkTopologyDnsServerTest `json:"dnsServerTest,omitempty"`
 	// Epoch time (seconds) indicating the start time of the round.
 	RoundId *int32 `json:"roundId,omitempty"`
 	// IP of the target the network topology was performed against. This is typically a default gateway, proxy or VPN endpoint.
@@ -160,6 +161,38 @@ func (o *LocalNetworkTopologyResultBase) HasNetworkTopologyId() bool {
 // SetNetworkTopologyId gets a reference to the given string and assigns it to the NetworkTopologyId field.
 func (o *LocalNetworkTopologyResultBase) SetNetworkTopologyId(v string) {
 	o.NetworkTopologyId = &v
+}
+
+// GetDnsServerTest returns the DnsServerTest field value if set, zero value otherwise.
+func (o *LocalNetworkTopologyResultBase) GetDnsServerTest() LocalNetworkTopologyDnsServerTest {
+	if o == nil || utils.IsNil(o.DnsServerTest) {
+		var ret LocalNetworkTopologyDnsServerTest
+		return ret
+	}
+	return *o.DnsServerTest
+}
+
+// GetDnsServerTestOk returns a tuple with the DnsServerTest field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LocalNetworkTopologyResultBase) GetDnsServerTestOk() (*LocalNetworkTopologyDnsServerTest, bool) {
+	if o == nil || utils.IsNil(o.DnsServerTest) {
+		return nil, false
+	}
+	return o.DnsServerTest, true
+}
+
+// HasDnsServerTest returns a boolean if a field has been set.
+func (o *LocalNetworkTopologyResultBase) HasDnsServerTest() bool {
+	if o != nil && !utils.IsNil(o.DnsServerTest) {
+		return true
+	}
+
+	return false
+}
+
+// SetDnsServerTest gets a reference to the given LocalNetworkTopologyDnsServerTest and assigns it to the DnsServerTest field.
+func (o *LocalNetworkTopologyResultBase) SetDnsServerTest(v LocalNetworkTopologyDnsServerTest) {
+	o.DnsServerTest = &v
 }
 
 // GetRoundId returns the RoundId field value if set, zero value otherwise.
@@ -724,6 +757,9 @@ func (o LocalNetworkTopologyResultBase) ToMap() (map[string]interface{}, error) 
 	}
 	if !utils.IsNil(o.NetworkTopologyId) {
 		toSerialize["networkTopologyId"] = o.NetworkTopologyId
+	}
+	if !utils.IsNil(o.DnsServerTest) {
+		toSerialize["dnsServerTest"] = o.DnsServerTest
 	}
 	if !utils.IsNil(o.RoundId) {
 		toSerialize["roundId"] = o.RoundId

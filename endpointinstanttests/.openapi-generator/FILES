@@ -1,3 +1,4 @@
+.openapi-generator-ignore
 README.md
 api_agent_to_server_endpoint_instant_scheduled_tests.go
 api_http_server_endpoint_instant_scheduled_tests.go
@@ -28,6 +29,7 @@ model_error.go
 model_link.go
 model_test_interval.go
 model_test_label.go
+model_test_probe_mode.go
 model_test_probe_mode_response.go
 model_test_ssl_version_id.go
 model_unauthorized_error.go

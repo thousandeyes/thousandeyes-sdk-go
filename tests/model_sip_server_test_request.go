@@ -1,7 +1,7 @@
 /*
 Tests API
 
-This API allows you to list, create, edit, and delete Network and Application Synthetics tests. 
+**Note:** The Page Load Tests, API Tests, and Web Transaction Tests APIs are not available for ThousandEyes for Government instance.  This API allows you to list, create, edit, and delete Network and Application Synthetics tests. 
 
 */
 
@@ -80,6 +80,8 @@ type SipServerTestRequest struct {
 	// Contains list of enabled BGP monitors.
 	Monitors []Monitor `json:"monitors,omitempty"`
 	TargetSipCredentials TestSipCredentials `json:"targetSipCredentials"`
+	// Contains list of test tag IDs (get `id` from `/tags` endpoint).
+	Tags []string `json:"tags,omitempty"`
 	// Contains list of Agent IDs (get `agentId` from `/agents` endpoint).
 	Agents []TestAgentRequest `json:"agents"`
 }
@@ -1192,6 +1194,38 @@ func (o *SipServerTestRequest) SetTargetSipCredentials(v TestSipCredentials) {
 	o.TargetSipCredentials = v
 }
 
+// GetTags returns the Tags field value if set, zero value otherwise.
+func (o *SipServerTestRequest) GetTags() []string {
+	if o == nil || utils.IsNil(o.Tags) {
+		var ret []string
+		return ret
+	}
+	return o.Tags
+}
+
+// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SipServerTestRequest) GetTagsOk() ([]string, bool) {
+	if o == nil || utils.IsNil(o.Tags) {
+		return nil, false
+	}
+	return o.Tags, true
+}
+
+// HasTags returns a boolean if a field has been set.
+func (o *SipServerTestRequest) HasTags() bool {
+	if o != nil && !utils.IsNil(o.Tags) {
+		return true
+	}
+
+	return false
+}
+
+// SetTags gets a reference to the given []string and assigns it to the Tags field.
+func (o *SipServerTestRequest) SetTags(v []string) {
+	o.Tags = v
+}
+
 // GetAgents returns the Agents field value
 func (o *SipServerTestRequest) GetAgents() []TestAgentRequest {
 	if o == nil {
@@ -1321,6 +1355,9 @@ func (o SipServerTestRequest) ToMap() (map[string]interface{}, error) {
 		toSerialize["monitors"] = o.Monitors
 	}
 	toSerialize["targetSipCredentials"] = o.TargetSipCredentials
+	if !utils.IsNil(o.Tags) {
+		toSerialize["tags"] = o.Tags
+	}
 	toSerialize["agents"] = o.Agents
 	return toSerialize, nil
 }

@@ -66,6 +66,8 @@ type SipServerInstantTestRequest struct {
 	// Sets packets rate sent to measure the network in packets per second.
 	FixedPacketRate *int32 `json:"fixedPacketRate,omitempty"`
 	Ipv6Policy *TestIpv6Policy `json:"ipv6Policy,omitempty"`
+	// A list of test tag identifiers (get `id` from `/tags` endpoint).
+	Tags []string `json:"tags,omitempty"`
 	// A list of objects with `agentId` (required) and `sourceIpAddress` (optional).
 	Agents []TestAgent `json:"agents"`
 	TargetSipCredentials TestSipCredentials `json:"targetSipCredentials"`
@@ -924,6 +926,38 @@ func (o *SipServerInstantTestRequest) SetIpv6Policy(v TestIpv6Policy) {
 	o.Ipv6Policy = &v
 }
 
+// GetTags returns the Tags field value if set, zero value otherwise.
+func (o *SipServerInstantTestRequest) GetTags() []string {
+	if o == nil || utils.IsNil(o.Tags) {
+		var ret []string
+		return ret
+	}
+	return o.Tags
+}
+
+// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SipServerInstantTestRequest) GetTagsOk() ([]string, bool) {
+	if o == nil || utils.IsNil(o.Tags) {
+		return nil, false
+	}
+	return o.Tags, true
+}
+
+// HasTags returns a boolean if a field has been set.
+func (o *SipServerInstantTestRequest) HasTags() bool {
+	if o != nil && !utils.IsNil(o.Tags) {
+		return true
+	}
+
+	return false
+}
+
+// SetTags gets a reference to the given []string and assigns it to the Tags field.
+func (o *SipServerInstantTestRequest) SetTags(v []string) {
+	o.Tags = v
+}
+
 // GetAgents returns the Agents field value
 func (o *SipServerInstantTestRequest) GetAgents() []TestAgent {
 	if o == nil {
@@ -1056,6 +1090,9 @@ func (o SipServerInstantTestRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if !utils.IsNil(o.Ipv6Policy) {
 		toSerialize["ipv6Policy"] = o.Ipv6Policy
+	}
+	if !utils.IsNil(o.Tags) {
+		toSerialize["tags"] = o.Tags
 	}
 	toSerialize["agents"] = o.Agents
 	toSerialize["targetSipCredentials"] = o.TargetSipCredentials

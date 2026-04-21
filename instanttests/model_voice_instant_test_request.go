@@ -64,6 +64,8 @@ type VoiceInstantTestRequest struct {
 	RandomizedStartTime *bool `json:"randomizedStartTime,omitempty"`
 	// Agent ID of the target agent for the test.
 	TargetAgentId string `json:"targetAgentId"`
+	// A list of test tag identifiers (get `id` from `/tags` endpoint).
+	Tags []string `json:"tags,omitempty"`
 	// A list of objects with `agentId` (required) and `sourceIpAddress` (optional).
 	Agents []TestAgent `json:"agents"`
 }
@@ -837,6 +839,38 @@ func (o *VoiceInstantTestRequest) SetTargetAgentId(v string) {
 	o.TargetAgentId = v
 }
 
+// GetTags returns the Tags field value if set, zero value otherwise.
+func (o *VoiceInstantTestRequest) GetTags() []string {
+	if o == nil || utils.IsNil(o.Tags) {
+		var ret []string
+		return ret
+	}
+	return o.Tags
+}
+
+// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *VoiceInstantTestRequest) GetTagsOk() ([]string, bool) {
+	if o == nil || utils.IsNil(o.Tags) {
+		return nil, false
+	}
+	return o.Tags, true
+}
+
+// HasTags returns a boolean if a field has been set.
+func (o *VoiceInstantTestRequest) HasTags() bool {
+	if o != nil && !utils.IsNil(o.Tags) {
+		return true
+	}
+
+	return false
+}
+
+// SetTags gets a reference to the given []string and assigns it to the Tags field.
+func (o *VoiceInstantTestRequest) SetTags(v []string) {
+	o.Tags = v
+}
+
 // GetAgents returns the Agents field value
 func (o *VoiceInstantTestRequest) GetAgents() []TestAgent {
 	if o == nil {
@@ -938,6 +972,9 @@ func (o VoiceInstantTestRequest) ToMap() (map[string]interface{}, error) {
 		toSerialize["randomizedStartTime"] = o.RandomizedStartTime
 	}
 	toSerialize["targetAgentId"] = o.TargetAgentId
+	if !utils.IsNil(o.Tags) {
+		toSerialize["tags"] = o.Tags
+	}
 	toSerialize["agents"] = o.Agents
 	return toSerialize, nil
 }

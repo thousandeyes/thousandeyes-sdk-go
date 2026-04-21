@@ -27,6 +27,8 @@ type EnterpriseAgentResponseExpands struct {
 	NotificationRules []NotificationRules `json:"notificationRules,omitempty"`
 	// List of labels. See `/labels` for more information.
 	Labels []AgentLabel `json:"labels,omitempty"`
+	// List of tags. See `/tags` for more information.
+	Tags []AgentTag `json:"tags,omitempty"`
 }
 
 // NewEnterpriseAgentResponseExpands instantiates a new EnterpriseAgentResponseExpands object
@@ -174,6 +176,38 @@ func (o *EnterpriseAgentResponseExpands) SetLabels(v []AgentLabel) {
 	o.Labels = v
 }
 
+// GetTags returns the Tags field value if set, zero value otherwise.
+func (o *EnterpriseAgentResponseExpands) GetTags() []AgentTag {
+	if o == nil || utils.IsNil(o.Tags) {
+		var ret []AgentTag
+		return ret
+	}
+	return o.Tags
+}
+
+// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EnterpriseAgentResponseExpands) GetTagsOk() ([]AgentTag, bool) {
+	if o == nil || utils.IsNil(o.Tags) {
+		return nil, false
+	}
+	return o.Tags, true
+}
+
+// HasTags returns a boolean if a field has been set.
+func (o *EnterpriseAgentResponseExpands) HasTags() bool {
+	if o != nil && !utils.IsNil(o.Tags) {
+		return true
+	}
+
+	return false
+}
+
+// SetTags gets a reference to the given []AgentTag and assigns it to the Tags field.
+func (o *EnterpriseAgentResponseExpands) SetTags(v []AgentTag) {
+	o.Tags = v
+}
+
 func (o EnterpriseAgentResponseExpands) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -195,6 +229,9 @@ func (o EnterpriseAgentResponseExpands) ToMap() (map[string]interface{}, error) 
 	}
 	if !utils.IsNil(o.Labels) {
 		toSerialize["labels"] = o.Labels
+	}
+	if !utils.IsNil(o.Tags) {
+		toSerialize["tags"] = o.Tags
 	}
 	return toSerialize, nil
 }
