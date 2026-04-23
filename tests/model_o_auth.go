@@ -1,7 +1,7 @@
 /*
 Tests API
 
-This API allows you to list, create, edit, and delete Network and Application Synthetics tests. 
+**Note:** The Page Load Tests, API Tests, and Web Transaction Tests APIs are not available for ThousandEyes for Government instance.  This API allows you to list, create, edit, and delete Network and Application Synthetics tests. 
 
 */
 
@@ -19,16 +19,14 @@ var _ utils.MappedNullable = &OAuth{}
 
 // OAuth Use this only if you want to use OAuth as the authentication mechanism.
 type OAuth struct {
-	// The ID of the OAuth configuration.
-	ConfigId *string `json:"configId,omitempty"`
 	// Target for the test.
 	TestUrl *string `json:"testUrl,omitempty"`
-	RequestMethod *RequestMethod `json:"requestMethod,omitempty"`
-	// Enter the OAuth body for the HTTP POST request in this field when using OAuth as the authentication mechanism. No special escaping is required. If content is provided in the post body, the `requestMethod` is automatically set to POST.
+	RequestMethod *OAuthRequestMethod `json:"requestMethod,omitempty"`
+	// Enter the OAuth body for the HTTP POST request in this field when using OAuth as the authentication mechanism. No special escaping is required. The value is saved only when `requestMethod` is set to `post`.
 	PostBody *string `json:"postBody,omitempty"`
 	// Request headers used for OAuth.
 	Headers *string `json:"headers,omitempty"`
-	AuthType *TestAuthType `json:"authType,omitempty"`
+	AuthType *OAuthAuthType `json:"authType,omitempty"`
 	// OAuth username
 	Username *string `json:"username,omitempty"`
 	// OAuth password
@@ -41,7 +39,7 @@ type OAuth struct {
 // will change when the set of required properties is changed
 func NewOAuth() *OAuth {
 	this := OAuth{}
-	var authType TestAuthType = "none"
+	var authType OAuthAuthType = "none"
 	this.AuthType = &authType
 	return &this
 }
@@ -51,41 +49,9 @@ func NewOAuth() *OAuth {
 // but it doesn't guarantee that properties required by API are set
 func NewOAuthWithDefaults() *OAuth {
 	this := OAuth{}
-	var authType TestAuthType = "none"
+	var authType OAuthAuthType = "none"
 	this.AuthType = &authType
 	return &this
-}
-
-// GetConfigId returns the ConfigId field value if set, zero value otherwise.
-func (o *OAuth) GetConfigId() string {
-	if o == nil || utils.IsNil(o.ConfigId) {
-		var ret string
-		return ret
-	}
-	return *o.ConfigId
-}
-
-// GetConfigIdOk returns a tuple with the ConfigId field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *OAuth) GetConfigIdOk() (*string, bool) {
-	if o == nil || utils.IsNil(o.ConfigId) {
-		return nil, false
-	}
-	return o.ConfigId, true
-}
-
-// HasConfigId returns a boolean if a field has been set.
-func (o *OAuth) HasConfigId() bool {
-	if o != nil && !utils.IsNil(o.ConfigId) {
-		return true
-	}
-
-	return false
-}
-
-// SetConfigId gets a reference to the given string and assigns it to the ConfigId field.
-func (o *OAuth) SetConfigId(v string) {
-	o.ConfigId = &v
 }
 
 // GetTestUrl returns the TestUrl field value if set, zero value otherwise.
@@ -121,9 +87,9 @@ func (o *OAuth) SetTestUrl(v string) {
 }
 
 // GetRequestMethod returns the RequestMethod field value if set, zero value otherwise.
-func (o *OAuth) GetRequestMethod() RequestMethod {
+func (o *OAuth) GetRequestMethod() OAuthRequestMethod {
 	if o == nil || utils.IsNil(o.RequestMethod) {
-		var ret RequestMethod
+		var ret OAuthRequestMethod
 		return ret
 	}
 	return *o.RequestMethod
@@ -131,7 +97,7 @@ func (o *OAuth) GetRequestMethod() RequestMethod {
 
 // GetRequestMethodOk returns a tuple with the RequestMethod field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *OAuth) GetRequestMethodOk() (*RequestMethod, bool) {
+func (o *OAuth) GetRequestMethodOk() (*OAuthRequestMethod, bool) {
 	if o == nil || utils.IsNil(o.RequestMethod) {
 		return nil, false
 	}
@@ -147,8 +113,8 @@ func (o *OAuth) HasRequestMethod() bool {
 	return false
 }
 
-// SetRequestMethod gets a reference to the given RequestMethod and assigns it to the RequestMethod field.
-func (o *OAuth) SetRequestMethod(v RequestMethod) {
+// SetRequestMethod gets a reference to the given OAuthRequestMethod and assigns it to the RequestMethod field.
+func (o *OAuth) SetRequestMethod(v OAuthRequestMethod) {
 	o.RequestMethod = &v
 }
 
@@ -217,9 +183,9 @@ func (o *OAuth) SetHeaders(v string) {
 }
 
 // GetAuthType returns the AuthType field value if set, zero value otherwise.
-func (o *OAuth) GetAuthType() TestAuthType {
+func (o *OAuth) GetAuthType() OAuthAuthType {
 	if o == nil || utils.IsNil(o.AuthType) {
-		var ret TestAuthType
+		var ret OAuthAuthType
 		return ret
 	}
 	return *o.AuthType
@@ -227,7 +193,7 @@ func (o *OAuth) GetAuthType() TestAuthType {
 
 // GetAuthTypeOk returns a tuple with the AuthType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *OAuth) GetAuthTypeOk() (*TestAuthType, bool) {
+func (o *OAuth) GetAuthTypeOk() (*OAuthAuthType, bool) {
 	if o == nil || utils.IsNil(o.AuthType) {
 		return nil, false
 	}
@@ -243,8 +209,8 @@ func (o *OAuth) HasAuthType() bool {
 	return false
 }
 
-// SetAuthType gets a reference to the given TestAuthType and assigns it to the AuthType field.
-func (o *OAuth) SetAuthType(v TestAuthType) {
+// SetAuthType gets a reference to the given OAuthAuthType and assigns it to the AuthType field.
+func (o *OAuth) SetAuthType(v OAuthAuthType) {
 	o.AuthType = &v
 }
 
@@ -322,9 +288,6 @@ func (o OAuth) MarshalJSON() ([]byte, error) {
 
 func (o OAuth) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !utils.IsNil(o.ConfigId) {
-		toSerialize["configId"] = o.ConfigId
-	}
 	if !utils.IsNil(o.TestUrl) {
 		toSerialize["testUrl"] = o.TestUrl
 	}

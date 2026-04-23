@@ -1,7 +1,7 @@
 /*
 Tests API
 
-This API allows you to list, create, edit, and delete Network and Application Synthetics tests. 
+**Note:** The Page Load Tests, API Tests, and Web Transaction Tests APIs are not available for ThousandEyes for Government instance.  This API allows you to list, create, edit, and delete Network and Application Synthetics tests. 
 
 */
 
@@ -632,7 +632,7 @@ func (r ApiUpdateFtpServerTestRequest) Execute() (*FtpServerTestResponse, *http.
 /*
 UpdateFtpServerTest Update FTP Server test
 
-Updates a FTP Server test. Shared tests have limited updating capabilities. Only account-specific configurations may be updated, namely: Alert rules, Alert suppression windows, Labels. This method requires Account Admin permissions.
+Updates a FTP Server test. Shared tests have limited updating capabilities. Only account-specific configurations may be updated, namely: alert rules, alert suppression windows, labels, tags. This method requires Account Admin permissions.
 **Note**: **Saved Events** are now called **Private Snapshots** in the user interface. This change does not affect API.
 
  @param testId Test ID

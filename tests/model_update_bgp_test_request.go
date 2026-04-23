@@ -1,7 +1,7 @@
 /*
 Tests API
 
-This API allows you to list, create, edit, and delete Network and Application Synthetics tests. 
+**Note:** The Page Load Tests, API Tests, and Web Transaction Tests APIs are not available for ThousandEyes for Government instance.  This API allows you to list, create, edit, and delete Network and Application Synthetics tests. 
 
 */
 
@@ -56,6 +56,8 @@ type UpdateBgpTestRequest struct {
 	AlertsEnabled *bool `json:"alertsEnabled,omitempty"`
 	// List of alert rules IDs to apply to the test (get `ruleId` from `/alerts/rules` endpoint. If `alertsEnabled` is set to `true` and `alertRules` is not included on test creation or update, applicable user default alert rules will be used)
 	AlertRules []string `json:"alertRules,omitempty"`
+	// Contains list of test tag IDs (get `id` from `/tags` endpoint).
+	Tags []string `json:"tags,omitempty"`
 }
 
 // NewUpdateBgpTestRequest instantiates a new UpdateBgpTestRequest object
@@ -691,6 +693,38 @@ func (o *UpdateBgpTestRequest) SetAlertRules(v []string) {
 	o.AlertRules = v
 }
 
+// GetTags returns the Tags field value if set, zero value otherwise.
+func (o *UpdateBgpTestRequest) GetTags() []string {
+	if o == nil || utils.IsNil(o.Tags) {
+		var ret []string
+		return ret
+	}
+	return o.Tags
+}
+
+// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UpdateBgpTestRequest) GetTagsOk() ([]string, bool) {
+	if o == nil || utils.IsNil(o.Tags) {
+		return nil, false
+	}
+	return o.Tags, true
+}
+
+// HasTags returns a boolean if a field has been set.
+func (o *UpdateBgpTestRequest) HasTags() bool {
+	if o != nil && !utils.IsNil(o.Tags) {
+		return true
+	}
+
+	return false
+}
+
+// SetTags gets a reference to the given []string and assigns it to the Tags field.
+func (o *UpdateBgpTestRequest) SetTags(v []string) {
+	o.Tags = v
+}
+
 func (o UpdateBgpTestRequest) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -757,6 +791,9 @@ func (o UpdateBgpTestRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if !utils.IsNil(o.AlertRules) {
 		toSerialize["alertRules"] = o.AlertRules
+	}
+	if !utils.IsNil(o.Tags) {
+		toSerialize["tags"] = o.Tags
 	}
 	return toSerialize, nil
 }

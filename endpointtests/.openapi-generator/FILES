@@ -1,3 +1,4 @@
+.openapi-generator-ignore
 README.md
 api_agent_to_server_endpoint_dynamic_tests.go
 api_agent_to_server_endpoint_scheduled_tests.go

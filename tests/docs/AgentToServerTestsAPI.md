@@ -299,7 +299,7 @@ Name | Type | Description  | Notes
 
 ## UpdateAgentToServerTest
 
-> AgentToServerTestResponse UpdateAgentToServerTest(testId).AgentToServerTestRequest(agentToServerTestRequest).Aid(aid).Expand(expand).Execute()
+> AgentToServerTestResponse UpdateAgentToServerTest(testId).UpdateAgentToServerTestRequest(updateAgentToServerTestRequest).Aid(aid).Expand(expand).Execute()
 
 Update Agent to Server test
 
@@ -319,7 +319,7 @@ import (
 
 func main() {
 	testId := "202701" // string | Test ID
-	agentToServerTestRequest := *tests.NewAgentToServerTestRequest(tests.TestInterval(60), "www.thousandeyes.com:80", []tests.TestAgentRequest{*tests.NewTestAgentRequest("AgentId_example")}) // AgentToServerTestRequest | 
+	updateAgentToServerTestRequest := *tests.NewUpdateAgentToServerTestRequest() // UpdateAgentToServerTestRequest | 
 	aid := "1234" // string | A unique identifier associated with your account group. You can retrieve your `AccountGroupId` from the `/account-groups` endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. (optional)
 	expand := []tests.ExpandTestOptions{tests.ExpandTestOptions("agent")} // []ExpandTestOptions | Optional parameter on whether or not to expand the test sub-resources. By default no expansion is going to take place if the query parameter is not present. If the user wishes to expand the `agents` sub-resource, they need to pass the `?expand=agent` query. (optional)
 
@@ -328,7 +328,7 @@ func main() {
 
 	api := (*tests.AgentToServerTestsAPIService)(&apiClient.Common)
 
-	resp, r, err := api.UpdateAgentToServerTest(testId).AgentToServerTestRequest(agentToServerTestRequest).Aid(aid).Expand(expand).Execute()
+	resp, r, err := api.UpdateAgentToServerTest(testId).UpdateAgentToServerTestRequest(updateAgentToServerTestRequest).Aid(aid).Expand(expand).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AgentToServerTestsAPI.UpdateAgentToServerTest``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -353,7 +353,7 @@ Other parameters are passed through a pointer to a ApiUpdateAgentToServerTestReq
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **agentToServerTestRequest** | [**AgentToServerTestRequest**](AgentToServerTestRequest.md) |  | 
+ **updateAgentToServerTestRequest** | [**UpdateAgentToServerTestRequest**](UpdateAgentToServerTestRequest.md) |  | 
  **aid** | **string** | A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. | 
  **expand** | [**[]ExpandTestOptions**](ExpandTestOptions.md) | Optional parameter on whether or not to expand the test sub-resources. By default no expansion is going to take place if the query parameter is not present. If the user wishes to expand the &#x60;agents&#x60; sub-resource, they need to pass the &#x60;?expand&#x3D;agent&#x60; query. | 
 

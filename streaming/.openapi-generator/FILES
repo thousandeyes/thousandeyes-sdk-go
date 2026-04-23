@@ -1,3 +1,4 @@
+.openapi-generator-ignore
 README.md
 api_streaming.go
 docs/StreamingAPI.md

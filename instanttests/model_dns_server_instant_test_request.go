@@ -69,6 +69,8 @@ type DnsServerInstantTestRequest struct {
 	// Sets packets rate sent to measure the network in packets per second.
 	FixedPacketRate *int32 `json:"fixedPacketRate,omitempty"`
 	DnsQueryClass *DnsQueryClass `json:"dnsQueryClass,omitempty"`
+	// A list of test tag identifiers (get `id` from `/tags` endpoint).
+	Tags []string `json:"tags,omitempty"`
 	// A list of objects with `agentId` (required) and `sourceIpAddress` (optional).
 	Agents []TestAgent `json:"agents"`
 }
@@ -1007,6 +1009,38 @@ func (o *DnsServerInstantTestRequest) SetDnsQueryClass(v DnsQueryClass) {
 	o.DnsQueryClass = &v
 }
 
+// GetTags returns the Tags field value if set, zero value otherwise.
+func (o *DnsServerInstantTestRequest) GetTags() []string {
+	if o == nil || utils.IsNil(o.Tags) {
+		var ret []string
+		return ret
+	}
+	return o.Tags
+}
+
+// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DnsServerInstantTestRequest) GetTagsOk() ([]string, bool) {
+	if o == nil || utils.IsNil(o.Tags) {
+		return nil, false
+	}
+	return o.Tags, true
+}
+
+// HasTags returns a boolean if a field has been set.
+func (o *DnsServerInstantTestRequest) HasTags() bool {
+	if o != nil && !utils.IsNil(o.Tags) {
+		return true
+	}
+
+	return false
+}
+
+// SetTags gets a reference to the given []string and assigns it to the Tags field.
+func (o *DnsServerInstantTestRequest) SetTags(v []string) {
+	o.Tags = v
+}
+
 // GetAgents returns the Agents field value
 func (o *DnsServerInstantTestRequest) GetAgents() []TestAgent {
 	if o == nil {
@@ -1120,6 +1154,9 @@ func (o DnsServerInstantTestRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if !utils.IsNil(o.DnsQueryClass) {
 		toSerialize["dnsQueryClass"] = o.DnsQueryClass
+	}
+	if !utils.IsNil(o.Tags) {
+		toSerialize["tags"] = o.Tags
 	}
 	toSerialize["agents"] = o.Agents
 	return toSerialize, nil

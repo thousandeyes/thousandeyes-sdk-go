@@ -39,7 +39,7 @@ type EndpointHttpServerTestRequest struct {
 	// Username for Basic/NTLM authentication.
 	Username *string `json:"username,omitempty"`
 	SslVersionId *TestSslVersionId `json:"sslVersionId,omitempty"`
-	TcpProbeMode *TestProbeModeResponse `json:"tcpProbeMode,omitempty"`
+	TcpProbeMode *TestProbeMode `json:"tcpProbeMode,omitempty"`
 	// Flag indicating if a certificate should be verified.
 	VerifyCertificate *bool `json:"verifyCertificate,omitempty"`
 	// The test target URL. You can optionally specify the protocol (`http` or `https`).   - **Default Protocol:** If no protocol is specified, `https` is used by default.  - **Port Number:** To specify a port, append it to the URL with a colon after the hostname or IP address (e.g., `https://example.com:443`).      - If no port is specified in the URL, the `port` is determined by the default for protocol (HTTP: 80, HTTPS: 443). 
@@ -82,7 +82,7 @@ func NewEndpointHttpServerTestRequest(testName string, url string) *EndpointHttp
 	this.Protocol = &protocol
 	var sslVersionId TestSslVersionId = "0"
 	this.SslVersionId = &sslVersionId
-	var tcpProbeMode TestProbeModeResponse = "auto"
+	var tcpProbeMode TestProbeMode = "auto"
 	this.TcpProbeMode = &tcpProbeMode
 	var verifyCertificate bool = true
 	this.VerifyCertificate = &verifyCertificate
@@ -119,7 +119,7 @@ func NewEndpointHttpServerTestRequestWithDefaults() *EndpointHttpServerTestReque
 	this.Protocol = &protocol
 	var sslVersionId TestSslVersionId = "0"
 	this.SslVersionId = &sslVersionId
-	var tcpProbeMode TestProbeModeResponse = "auto"
+	var tcpProbeMode TestProbeMode = "auto"
 	this.TcpProbeMode = &tcpProbeMode
 	var verifyCertificate bool = true
 	this.VerifyCertificate = &verifyCertificate
@@ -515,9 +515,9 @@ func (o *EndpointHttpServerTestRequest) SetSslVersionId(v TestSslVersionId) {
 }
 
 // GetTcpProbeMode returns the TcpProbeMode field value if set, zero value otherwise.
-func (o *EndpointHttpServerTestRequest) GetTcpProbeMode() TestProbeModeResponse {
+func (o *EndpointHttpServerTestRequest) GetTcpProbeMode() TestProbeMode {
 	if o == nil || utils.IsNil(o.TcpProbeMode) {
-		var ret TestProbeModeResponse
+		var ret TestProbeMode
 		return ret
 	}
 	return *o.TcpProbeMode
@@ -525,7 +525,7 @@ func (o *EndpointHttpServerTestRequest) GetTcpProbeMode() TestProbeModeResponse 
 
 // GetTcpProbeModeOk returns a tuple with the TcpProbeMode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EndpointHttpServerTestRequest) GetTcpProbeModeOk() (*TestProbeModeResponse, bool) {
+func (o *EndpointHttpServerTestRequest) GetTcpProbeModeOk() (*TestProbeMode, bool) {
 	if o == nil || utils.IsNil(o.TcpProbeMode) {
 		return nil, false
 	}
@@ -541,8 +541,8 @@ func (o *EndpointHttpServerTestRequest) HasTcpProbeMode() bool {
 	return false
 }
 
-// SetTcpProbeMode gets a reference to the given TestProbeModeResponse and assigns it to the TcpProbeMode field.
-func (o *EndpointHttpServerTestRequest) SetTcpProbeMode(v TestProbeModeResponse) {
+// SetTcpProbeMode gets a reference to the given TestProbeMode and assigns it to the TcpProbeMode field.
+func (o *EndpointHttpServerTestRequest) SetTcpProbeMode(v TestProbeMode) {
 	o.TcpProbeMode = &v
 }
 

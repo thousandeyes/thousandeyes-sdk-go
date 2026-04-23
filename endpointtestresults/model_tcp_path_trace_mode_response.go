@@ -21,6 +21,7 @@ type TcpPathTraceModeResponse string
 const (
 	TCPPATHTRACEMODERESPONSE_AUTO TcpPathTraceModeResponse = "auto"
 	TCPPATHTRACEMODERESPONSE_SYN TcpPathTraceModeResponse = "syn"
+	TCPPATHTRACEMODERESPONSE_SYN_PCAP TcpPathTraceModeResponse = "syn-pcap"
 	TCPPATHTRACEMODERESPONSE_UNKNOWN TcpPathTraceModeResponse = "unknown"
 	TCPPATHTRACEMODERESPONSE_DATA_IN_SESSION_WITH_DECREMENTING_TTL TcpPathTraceModeResponse = "data-in-session-with-decrementing-ttl"
 	TCPPATHTRACEMODERESPONSE_DATA_IN_SESSION TcpPathTraceModeResponse = "data-in-session"
@@ -30,6 +31,7 @@ const (
 var AllowedTcpPathTraceModeResponseEnumValues = []TcpPathTraceModeResponse{
 	"auto",
 	"syn",
+	"syn-pcap",
 	"unknown",
 	"data-in-session-with-decrementing-ttl",
 	"data-in-session",

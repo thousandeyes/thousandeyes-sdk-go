@@ -1,3 +1,4 @@
+.openapi-generator-ignore
 README.md
 api_http_server_endpoint_scheduled_test_results.go
 api_local_network_endpoint_test_results.go
@@ -88,6 +89,7 @@ model_link.go
 model_local_network_result.go
 model_local_network_results.go
 model_local_network_topology_detail_results.go
+model_local_network_topology_dns_server_test_.go
 model_local_network_topology_result.go
 model_local_network_topology_result_base.go
 model_local_network_topology_results.go
