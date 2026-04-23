@@ -21,6 +21,7 @@ var _ utils.MappedNullable = &BulkTagResponse{}
 type BulkTagResponse struct {
 	Tags []Tag `json:"tags,omitempty"`
 	Errors []TagBulkCreateError `json:"errors,omitempty"`
+	Links *SelfLinks `json:"_links,omitempty"`
 }
 
 // NewBulkTagResponse instantiates a new BulkTagResponse object
@@ -104,6 +105,38 @@ func (o *BulkTagResponse) SetErrors(v []TagBulkCreateError) {
 	o.Errors = v
 }
 
+// GetLinks returns the Links field value if set, zero value otherwise.
+func (o *BulkTagResponse) GetLinks() SelfLinks {
+	if o == nil || utils.IsNil(o.Links) {
+		var ret SelfLinks
+		return ret
+	}
+	return *o.Links
+}
+
+// GetLinksOk returns a tuple with the Links field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BulkTagResponse) GetLinksOk() (*SelfLinks, bool) {
+	if o == nil || utils.IsNil(o.Links) {
+		return nil, false
+	}
+	return o.Links, true
+}
+
+// HasLinks returns a boolean if a field has been set.
+func (o *BulkTagResponse) HasLinks() bool {
+	if o != nil && !utils.IsNil(o.Links) {
+		return true
+	}
+
+	return false
+}
+
+// SetLinks gets a reference to the given SelfLinks and assigns it to the Links field.
+func (o *BulkTagResponse) SetLinks(v SelfLinks) {
+	o.Links = &v
+}
+
 func (o BulkTagResponse) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -119,6 +152,9 @@ func (o BulkTagResponse) ToMap() (map[string]interface{}, error) {
 	}
 	if !utils.IsNil(o.Errors) {
 		toSerialize["errors"] = o.Errors
+	}
+	if !utils.IsNil(o.Links) {
+		toSerialize["_links"] = o.Links
 	}
 	return toSerialize, nil
 }

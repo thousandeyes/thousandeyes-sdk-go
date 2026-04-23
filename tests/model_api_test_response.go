@@ -1,7 +1,7 @@
 /*
 Tests API
 
-This API allows you to list, create, edit, and delete Network and Application Synthetics tests. 
+**Note:** The Page Load Tests, API Tests, and Web Transaction Tests APIs are not available for ThousandEyes for Government instance.  This API allows you to list, create, edit, and delete Network and Application Synthetics tests. 
 
 */
 

@@ -1,3 +1,4 @@
+.openapi-generator-ignore
 README.md
 api_api_test_results.go
 api_dns_server_test_results.go

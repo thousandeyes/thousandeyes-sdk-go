@@ -14,18 +14,20 @@ import (
 	"fmt"
 )
 
-// Type The nature of the tag - whether the tag is dynamically assigned to products based on a filter rule or statically assigned to specified products.
+// Type The nature of the tag - whether the tag is dynamically assigned to objects based on a filter rule or statically assigned to specified objects. Currently only `endpoint-agent` object types support dynamic assignment; all other object types (for example, `test`, `agent`) support only static assignment.
 type Type string
 
 // List of Type
 const (
 	TYPE_STATIC Type = "static"
+	TYPE_DYNAMIC Type = "dynamic"
 	TYPE_UNKNOWN Type = "unknown"
 )
 
 // All allowed values of Type enum
 var AllowedTypeEnumValues = []Type{
 	"static",
+	"dynamic",
 	"unknown",
 }
 

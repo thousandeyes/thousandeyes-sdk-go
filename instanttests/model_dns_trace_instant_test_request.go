@@ -51,6 +51,8 @@ type DnsTraceInstantTestRequest struct {
 	DnsQueryClass *DnsQueryClass `json:"dnsQueryClass,omitempty"`
 	// Indicates whether agents should randomize the start time in each test round.
 	RandomizedStartTime *bool `json:"randomizedStartTime,omitempty"`
+	// A list of test tag identifiers (get `id` from `/tags` endpoint).
+	Tags []string `json:"tags,omitempty"`
 	// A list of objects with `agentId` (required) and `sourceIpAddress` (optional).
 	Agents []TestAgent `json:"agents"`
 }
@@ -620,6 +622,38 @@ func (o *DnsTraceInstantTestRequest) SetRandomizedStartTime(v bool) {
 	o.RandomizedStartTime = &v
 }
 
+// GetTags returns the Tags field value if set, zero value otherwise.
+func (o *DnsTraceInstantTestRequest) GetTags() []string {
+	if o == nil || utils.IsNil(o.Tags) {
+		var ret []string
+		return ret
+	}
+	return o.Tags
+}
+
+// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DnsTraceInstantTestRequest) GetTagsOk() ([]string, bool) {
+	if o == nil || utils.IsNil(o.Tags) {
+		return nil, false
+	}
+	return o.Tags, true
+}
+
+// HasTags returns a boolean if a field has been set.
+func (o *DnsTraceInstantTestRequest) HasTags() bool {
+	if o != nil && !utils.IsNil(o.Tags) {
+		return true
+	}
+
+	return false
+}
+
+// SetTags gets a reference to the given []string and assigns it to the Tags field.
+func (o *DnsTraceInstantTestRequest) SetTags(v []string) {
+	o.Tags = v
+}
+
 // GetAgents returns the Agents field value
 func (o *DnsTraceInstantTestRequest) GetAgents() []TestAgent {
 	if o == nil {
@@ -702,6 +736,9 @@ func (o DnsTraceInstantTestRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if !utils.IsNil(o.RandomizedStartTime) {
 		toSerialize["randomizedStartTime"] = o.RandomizedStartTime
+	}
+	if !utils.IsNil(o.Tags) {
+		toSerialize["tags"] = o.Tags
 	}
 	toSerialize["agents"] = o.Agents
 	return toSerialize, nil

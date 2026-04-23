@@ -1,7 +1,7 @@
 /*
 Tests API
 
-This API allows you to list, create, edit, and delete Network and Application Synthetics tests. 
+**Note:** The Page Load Tests, API Tests, and Web Transaction Tests APIs are not available for ThousandEyes for Government instance.  This API allows you to list, create, edit, and delete Network and Application Synthetics tests. 
 
 */
 
@@ -608,13 +608,13 @@ type ApiUpdateAgentToServerTestRequest struct {
 
 	ApiService *AgentToServerTestsAPIService
 	testId string
-	agentToServerTestRequest *AgentToServerTestRequest
+	updateAgentToServerTestRequest *UpdateAgentToServerTestRequest
 	aid *string
 	expand *[]ExpandTestOptions
 }
 
-func (r ApiUpdateAgentToServerTestRequest) AgentToServerTestRequest(agentToServerTestRequest AgentToServerTestRequest) ApiUpdateAgentToServerTestRequest {
-	r.agentToServerTestRequest = &agentToServerTestRequest
+func (r ApiUpdateAgentToServerTestRequest) UpdateAgentToServerTestRequest(updateAgentToServerTestRequest UpdateAgentToServerTestRequest) ApiUpdateAgentToServerTestRequest {
+	r.updateAgentToServerTestRequest = &updateAgentToServerTestRequest
 	return r
 }
 
@@ -637,7 +637,7 @@ func (r ApiUpdateAgentToServerTestRequest) Execute() (*AgentToServerTestResponse
 /*
 UpdateAgentToServerTest Update Agent to Server test
 
-Updates an Agent to Server test. Shared tests have limited updating capabilities. Only account-specific configurations may be updated, namely: Alert rules, Alert suppression windows, Labels. This method requires Account Admin permissions.
+Updates an Agent to Server test. Shared tests have limited updating capabilities. Only account-specific configurations may be updated, namely: alert rules, alert suppression windows, labels, tags. This method requires Account Admin permissions.
 
  @param testId Test ID
  @return ApiUpdateAgentToServerTestRequest
@@ -666,8 +666,8 @@ func (a *AgentToServerTestsAPIService) UpdateAgentToServerTestExecute(r ApiUpdat
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.agentToServerTestRequest == nil {
-		return localVarReturnValue, nil, internalerror.ReportError("agentToServerTestRequest is required and must be specified")
+	if r.updateAgentToServerTestRequest == nil {
+		return localVarReturnValue, nil, internalerror.ReportError("updateAgentToServerTestRequest is required and must be specified")
 	}
 
 	if r.aid != nil {
@@ -694,7 +694,7 @@ func (a *AgentToServerTestsAPIService) UpdateAgentToServerTestExecute(r ApiUpdat
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.agentToServerTestRequest
+	localVarPostBody = r.updateAgentToServerTestRequest
 	req, err := a.Client.PrepareRequest(localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams)
 	if err != nil {
 		return localVarReturnValue, nil, err

@@ -47,6 +47,8 @@ type CloudAgentDetail struct {
 	Tests []SimpleTest `json:"tests,omitempty"`
 	// List of labels - see `/labels` for more information.
 	Labels []AgentLabel `json:"labels,omitempty"`
+	// List of tags. See `/tags` for more information.
+	Tags []AgentTag `json:"tags,omitempty"`
 	Links *SelfLinks `json:"_links,omitempty"`
 }
 
@@ -510,6 +512,38 @@ func (o *CloudAgentDetail) SetLabels(v []AgentLabel) {
 	o.Labels = v
 }
 
+// GetTags returns the Tags field value if set, zero value otherwise.
+func (o *CloudAgentDetail) GetTags() []AgentTag {
+	if o == nil || utils.IsNil(o.Tags) {
+		var ret []AgentTag
+		return ret
+	}
+	return o.Tags
+}
+
+// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CloudAgentDetail) GetTagsOk() ([]AgentTag, bool) {
+	if o == nil || utils.IsNil(o.Tags) {
+		return nil, false
+	}
+	return o.Tags, true
+}
+
+// HasTags returns a boolean if a field has been set.
+func (o *CloudAgentDetail) HasTags() bool {
+	if o != nil && !utils.IsNil(o.Tags) {
+		return true
+	}
+
+	return false
+}
+
+// SetTags gets a reference to the given []AgentTag and assigns it to the Tags field.
+func (o *CloudAgentDetail) SetTags(v []AgentTag) {
+	o.Tags = v
+}
+
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *CloudAgentDetail) GetLinks() SelfLinks {
 	if o == nil || utils.IsNil(o.Links) {
@@ -591,6 +625,9 @@ func (o CloudAgentDetail) ToMap() (map[string]interface{}, error) {
 	}
 	if !utils.IsNil(o.Labels) {
 		toSerialize["labels"] = o.Labels
+	}
+	if !utils.IsNil(o.Tags) {
+		toSerialize["tags"] = o.Tags
 	}
 	if !utils.IsNil(o.Links) {
 		toSerialize["_links"] = o.Links

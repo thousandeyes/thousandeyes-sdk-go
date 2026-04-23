@@ -1,3 +1,4 @@
+.openapi-generator-ignore
 README.md
 api_agent_to_agent_instant_tests.go
 api_agent_to_server_instant_tests.go
@@ -37,6 +38,7 @@ model_agent_to_server_instant_test_.go
 model_agent_to_server_instant_test_request.go
 model_agent_to_server_instant_test_response.go
 model_agent_to_server_properties.go
+model_agent_to_server_writable_property_fields.go
 model_api_client_authentication.go
 model_api_instant_test_.go
 model_api_instant_test_request.go
@@ -83,11 +85,12 @@ model_instant_test_.go
 model_instant_test_request.go
 model_link.go
 model_o_auth.go
+model_o_auth_auth_type.go
+model_o_auth_request_method.go
 model_page_load_instant_test_.go
 model_page_load_instant_test_request.go
 model_page_load_instant_test_response.go
 model_page_load_properties.go
-model_request_method.go
 model_shared_with_account.go
 model_simple_agent.go
 model_sip_server_instant_test_.go

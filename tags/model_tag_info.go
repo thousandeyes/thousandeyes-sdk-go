@@ -44,6 +44,9 @@ type TagInfo struct {
 	Type *Type `json:"type,omitempty"`
 	// The tag's value
 	Value *string `json:"value,omitempty"`
+	MatchType *TagMatchType `json:"matchType,omitempty"`
+	// The combination of filters (filter keys) dynamically assigned to an `endpoint-agent` as determined by the matching logic (`and` or `or`). For example, if you filter on `bssid` and `ssid` with a matching logic of `and`, both filters are assigned as tags to the `endpoint-agent`; `or` means either filter can be assigned. **Note:** filters currently only apply to `endpoint-agent` object types.
+	Filters []TagFilter `json:"filters,omitempty"`
 }
 
 // NewTagInfo instantiates a new TagInfo object
@@ -583,6 +586,70 @@ func (o *TagInfo) SetValue(v string) {
 	o.Value = &v
 }
 
+// GetMatchType returns the MatchType field value if set, zero value otherwise.
+func (o *TagInfo) GetMatchType() TagMatchType {
+	if o == nil || utils.IsNil(o.MatchType) {
+		var ret TagMatchType
+		return ret
+	}
+	return *o.MatchType
+}
+
+// GetMatchTypeOk returns a tuple with the MatchType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TagInfo) GetMatchTypeOk() (*TagMatchType, bool) {
+	if o == nil || utils.IsNil(o.MatchType) {
+		return nil, false
+	}
+	return o.MatchType, true
+}
+
+// HasMatchType returns a boolean if a field has been set.
+func (o *TagInfo) HasMatchType() bool {
+	if o != nil && !utils.IsNil(o.MatchType) {
+		return true
+	}
+
+	return false
+}
+
+// SetMatchType gets a reference to the given TagMatchType and assigns it to the MatchType field.
+func (o *TagInfo) SetMatchType(v TagMatchType) {
+	o.MatchType = &v
+}
+
+// GetFilters returns the Filters field value if set, zero value otherwise.
+func (o *TagInfo) GetFilters() []TagFilter {
+	if o == nil || utils.IsNil(o.Filters) {
+		var ret []TagFilter
+		return ret
+	}
+	return o.Filters
+}
+
+// GetFiltersOk returns a tuple with the Filters field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TagInfo) GetFiltersOk() ([]TagFilter, bool) {
+	if o == nil || utils.IsNil(o.Filters) {
+		return nil, false
+	}
+	return o.Filters, true
+}
+
+// HasFilters returns a boolean if a field has been set.
+func (o *TagInfo) HasFilters() bool {
+	if o != nil && !utils.IsNil(o.Filters) {
+		return true
+	}
+
+	return false
+}
+
+// SetFilters gets a reference to the given []TagFilter and assigns it to the Filters field.
+func (o *TagInfo) SetFilters(v []TagFilter) {
+	o.Filters = v
+}
+
 func (o TagInfo) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -637,6 +704,12 @@ func (o TagInfo) ToMap() (map[string]interface{}, error) {
 	}
 	if !utils.IsNil(o.Value) {
 		toSerialize["value"] = o.Value
+	}
+	if !utils.IsNil(o.MatchType) {
+		toSerialize["matchType"] = o.MatchType
+	}
+	if !utils.IsNil(o.Filters) {
+		toSerialize["filters"] = o.Filters
 	}
 	return toSerialize, nil
 }

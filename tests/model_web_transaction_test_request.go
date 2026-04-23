@@ -1,7 +1,7 @@
 /*
 Tests API
 
-This API allows you to list, create, edit, and delete Network and Application Synthetics tests. 
+**Note:** The Page Load Tests, API Tests, and Web Transaction Tests APIs are not available for ThousandEyes for Government instance.  This API allows you to list, create, edit, and delete Network and Application Synthetics tests. 
 
 */
 
@@ -132,6 +132,10 @@ type WebTransactionTestRequest struct {
 	AllowGeolocation *bool `json:"allowGeolocation,omitempty"`
 	// Set one of the available browser language that you want to use to configure the browser.
 	BrowserLanguage *string `json:"browserLanguage,omitempty"`
+	// Command-line options passed to Chrome when running the test.
+	ChromeOptions *string `json:"chromeOptions,omitempty"`
+	// JSON string of Chrome policy settings to apply.
+	ChromePolicies *string `json:"chromePolicies,omitempty"`
 	PageLoadingStrategy *TestPageLoadingStrategy `json:"pageLoadingStrategy,omitempty"`
 	// Indicates whether agents should randomize the start time in each test round.
 	RandomizedStartTime *bool `json:"randomizedStartTime,omitempty"`
@@ -146,6 +150,8 @@ type WebTransactionTestRequest struct {
 	// Contains list of BGP monitor IDs (get `monitorId` from `/monitors` endpoint)
 	Monitors []string `json:"monitors,omitempty"`
 	Subinterval *TestSubInterval `json:"subinterval,omitempty"`
+	// Contains list of test tag IDs (get `id` from `/tags` endpoint).
+	Tags []string `json:"tags,omitempty"`
 	// Contains list of Agent IDs (get `agentId` from `/agents` endpoint).
 	Agents []TestAgentRequest `json:"agents"`
 }
@@ -205,6 +211,10 @@ func NewWebTransactionTestRequest(interval TestInterval, url string, transaction
 	this.AllowMicAndCamera = &allowMicAndCamera
 	var allowGeolocation bool = false
 	this.AllowGeolocation = &allowGeolocation
+	var chromeOptions string = ""
+	this.ChromeOptions = &chromeOptions
+	var chromePolicies string = "{}"
+	this.ChromePolicies = &chromePolicies
 	var pageLoadingStrategy TestPageLoadingStrategy = "normal"
 	this.PageLoadingStrategy = &pageLoadingStrategy
 	var randomizedStartTime bool = false
@@ -270,6 +280,10 @@ func NewWebTransactionTestRequestWithDefaults() *WebTransactionTestRequest {
 	this.AllowMicAndCamera = &allowMicAndCamera
 	var allowGeolocation bool = false
 	this.AllowGeolocation = &allowGeolocation
+	var chromeOptions string = ""
+	this.ChromeOptions = &chromeOptions
+	var chromePolicies string = "{}"
+	this.ChromePolicies = &chromePolicies
 	var pageLoadingStrategy TestPageLoadingStrategy = "normal"
 	this.PageLoadingStrategy = &pageLoadingStrategy
 	var randomizedStartTime bool = false
@@ -2211,6 +2225,70 @@ func (o *WebTransactionTestRequest) SetBrowserLanguage(v string) {
 	o.BrowserLanguage = &v
 }
 
+// GetChromeOptions returns the ChromeOptions field value if set, zero value otherwise.
+func (o *WebTransactionTestRequest) GetChromeOptions() string {
+	if o == nil || utils.IsNil(o.ChromeOptions) {
+		var ret string
+		return ret
+	}
+	return *o.ChromeOptions
+}
+
+// GetChromeOptionsOk returns a tuple with the ChromeOptions field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *WebTransactionTestRequest) GetChromeOptionsOk() (*string, bool) {
+	if o == nil || utils.IsNil(o.ChromeOptions) {
+		return nil, false
+	}
+	return o.ChromeOptions, true
+}
+
+// HasChromeOptions returns a boolean if a field has been set.
+func (o *WebTransactionTestRequest) HasChromeOptions() bool {
+	if o != nil && !utils.IsNil(o.ChromeOptions) {
+		return true
+	}
+
+	return false
+}
+
+// SetChromeOptions gets a reference to the given string and assigns it to the ChromeOptions field.
+func (o *WebTransactionTestRequest) SetChromeOptions(v string) {
+	o.ChromeOptions = &v
+}
+
+// GetChromePolicies returns the ChromePolicies field value if set, zero value otherwise.
+func (o *WebTransactionTestRequest) GetChromePolicies() string {
+	if o == nil || utils.IsNil(o.ChromePolicies) {
+		var ret string
+		return ret
+	}
+	return *o.ChromePolicies
+}
+
+// GetChromePoliciesOk returns a tuple with the ChromePolicies field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *WebTransactionTestRequest) GetChromePoliciesOk() (*string, bool) {
+	if o == nil || utils.IsNil(o.ChromePolicies) {
+		return nil, false
+	}
+	return o.ChromePolicies, true
+}
+
+// HasChromePolicies returns a boolean if a field has been set.
+func (o *WebTransactionTestRequest) HasChromePolicies() bool {
+	if o != nil && !utils.IsNil(o.ChromePolicies) {
+		return true
+	}
+
+	return false
+}
+
+// SetChromePolicies gets a reference to the given string and assigns it to the ChromePolicies field.
+func (o *WebTransactionTestRequest) SetChromePolicies(v string) {
+	o.ChromePolicies = &v
+}
+
 // GetPageLoadingStrategy returns the PageLoadingStrategy field value if set, zero value otherwise.
 func (o *WebTransactionTestRequest) GetPageLoadingStrategy() TestPageLoadingStrategy {
 	if o == nil || utils.IsNil(o.PageLoadingStrategy) {
@@ -2467,6 +2545,38 @@ func (o *WebTransactionTestRequest) SetSubinterval(v TestSubInterval) {
 	o.Subinterval = &v
 }
 
+// GetTags returns the Tags field value if set, zero value otherwise.
+func (o *WebTransactionTestRequest) GetTags() []string {
+	if o == nil || utils.IsNil(o.Tags) {
+		var ret []string
+		return ret
+	}
+	return o.Tags
+}
+
+// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *WebTransactionTestRequest) GetTagsOk() ([]string, bool) {
+	if o == nil || utils.IsNil(o.Tags) {
+		return nil, false
+	}
+	return o.Tags, true
+}
+
+// HasTags returns a boolean if a field has been set.
+func (o *WebTransactionTestRequest) HasTags() bool {
+	if o != nil && !utils.IsNil(o.Tags) {
+		return true
+	}
+
+	return false
+}
+
+// SetTags gets a reference to the given []string and assigns it to the Tags field.
+func (o *WebTransactionTestRequest) SetTags(v []string) {
+	o.Tags = v
+}
+
 // GetAgents returns the Agents field value
 func (o *WebTransactionTestRequest) GetAgents() []TestAgentRequest {
 	if o == nil {
@@ -2678,6 +2788,12 @@ func (o WebTransactionTestRequest) ToMap() (map[string]interface{}, error) {
 	if !utils.IsNil(o.BrowserLanguage) {
 		toSerialize["browserLanguage"] = o.BrowserLanguage
 	}
+	if !utils.IsNil(o.ChromeOptions) {
+		toSerialize["chromeOptions"] = o.ChromeOptions
+	}
+	if !utils.IsNil(o.ChromePolicies) {
+		toSerialize["chromePolicies"] = o.ChromePolicies
+	}
 	if !utils.IsNil(o.PageLoadingStrategy) {
 		toSerialize["pageLoadingStrategy"] = o.PageLoadingStrategy
 	}
@@ -2701,6 +2817,9 @@ func (o WebTransactionTestRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if !utils.IsNil(o.Subinterval) {
 		toSerialize["subinterval"] = o.Subinterval
+	}
+	if !utils.IsNil(o.Tags) {
+		toSerialize["tags"] = o.Tags
 	}
 	toSerialize["agents"] = o.Agents
 	return toSerialize, nil

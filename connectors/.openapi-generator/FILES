@@ -1,3 +1,4 @@
+.openapi-generator-ignore
 README.md
 api_generic_connectors.go
 api_operation_connectors.go

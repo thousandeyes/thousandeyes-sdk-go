@@ -14,7 +14,7 @@ import (
 	"fmt"
 )
 
-// TestProbeModeResponse Probe mode used by network test, only valid when the protocol is set to TCP.
+// TestProbeModeResponse Probe mode returned by network test APIs, only valid when the protocol is set to TCP. Configuration responses return user-selectable values, while result responses may also return resolved driver values.
 type TestProbeModeResponse string
 
 // List of TestProbeModeResponse
@@ -22,6 +22,8 @@ const (
 	TESTPROBEMODERESPONSE_AUTO TestProbeModeResponse = "auto"
 	TESTPROBEMODERESPONSE_SACK TestProbeModeResponse = "sack"
 	TESTPROBEMODERESPONSE_SYN TestProbeModeResponse = "syn"
+	TESTPROBEMODERESPONSE_SYN_PCAP TestProbeModeResponse = "syn-pcap"
+	TESTPROBEMODERESPONSE_SYN_SOCKET TestProbeModeResponse = "syn-socket"
 	TESTPROBEMODERESPONSE_UNKNOWN TestProbeModeResponse = "unknown"
 )
 
@@ -30,6 +32,8 @@ var AllowedTestProbeModeResponseEnumValues = []TestProbeModeResponse{
 	"auto",
 	"sack",
 	"syn",
+	"syn-pcap",
+	"syn-socket",
 	"unknown",
 }
 

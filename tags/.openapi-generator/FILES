@@ -1,3 +1,4 @@
+.openapi-generator-ignore
 README.md
 api_tag_assignment.go
 api_tags.go
@@ -18,7 +19,11 @@ model_self_links.go
 model_tag.go
 model_tag_assignment.go
 model_tag_bulk_create_error.go
+model_tag_filter.go
+model_tag_filter_mode.go
+model_tag_filter_type.go
 model_tag_info.go
+model_tag_match_type.go
 model_tags.go
 model_type.go
 model_unauthorized_error.go

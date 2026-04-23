@@ -1,7 +1,7 @@
 /*
 Tests API
 
-This API allows you to list, create, edit, and delete Network and Application Synthetics tests. 
+**Note:** The Page Load Tests, API Tests, and Web Transaction Tests APIs are not available for ThousandEyes for Government instance.  This API allows you to list, create, edit, and delete Network and Application Synthetics tests. 
 
 */
 
@@ -82,6 +82,8 @@ type DnsServerTestRequest struct {
 	UsePublicBgp *bool `json:"usePublicBgp,omitempty"`
 	// Contains list of BGP monitor IDs (get `monitorId` from `/monitors` endpoint)
 	Monitors []string `json:"monitors,omitempty"`
+	// Contains list of test tag IDs (get `id` from `/tags` endpoint).
+	Tags []string `json:"tags,omitempty"`
 	// Contains list of Agent IDs (get `agentId` from `/agents` endpoint).
 	Agents []TestAgentRequest `json:"agents"`
 }
@@ -1251,6 +1253,38 @@ func (o *DnsServerTestRequest) SetMonitors(v []string) {
 	o.Monitors = v
 }
 
+// GetTags returns the Tags field value if set, zero value otherwise.
+func (o *DnsServerTestRequest) GetTags() []string {
+	if o == nil || utils.IsNil(o.Tags) {
+		var ret []string
+		return ret
+	}
+	return o.Tags
+}
+
+// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DnsServerTestRequest) GetTagsOk() ([]string, bool) {
+	if o == nil || utils.IsNil(o.Tags) {
+		return nil, false
+	}
+	return o.Tags, true
+}
+
+// HasTags returns a boolean if a field has been set.
+func (o *DnsServerTestRequest) HasTags() bool {
+	if o != nil && !utils.IsNil(o.Tags) {
+		return true
+	}
+
+	return false
+}
+
+// SetTags gets a reference to the given []string and assigns it to the Tags field.
+func (o *DnsServerTestRequest) SetTags(v []string) {
+	o.Tags = v
+}
+
 // GetAgents returns the Agents field value
 func (o *DnsServerTestRequest) GetAgents() []TestAgentRequest {
 	if o == nil {
@@ -1383,6 +1417,9 @@ func (o DnsServerTestRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if !utils.IsNil(o.Monitors) {
 		toSerialize["monitors"] = o.Monitors
+	}
+	if !utils.IsNil(o.Tags) {
+		toSerialize["tags"] = o.Tags
 	}
 	toSerialize["agents"] = o.Agents
 	return toSerialize, nil

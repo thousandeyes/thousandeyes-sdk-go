@@ -1,7 +1,7 @@
 /*
 Tests API
 
-This API allows you to list, create, edit, and delete Network and Application Synthetics tests. 
+**Note:** The Page Load Tests, API Tests, and Web Transaction Tests APIs are not available for ThousandEyes for Government instance.  This API allows you to list, create, edit, and delete Network and Application Synthetics tests. 
 
 */
 
@@ -23,6 +23,7 @@ const (
 	EXPANDTESTOPTIONS_ALERT_RULE ExpandTestOptions = "alert-rule"
 	EXPANDTESTOPTIONS_MONITOR ExpandTestOptions = "monitor"
 	EXPANDTESTOPTIONS_LABEL ExpandTestOptions = "label"
+	EXPANDTESTOPTIONS_TAG ExpandTestOptions = "tag"
 	EXPANDTESTOPTIONS_SHARED_WITH_ACCOUNT ExpandTestOptions = "shared-with-account"
 	EXPANDTESTOPTIONS_UNKNOWN ExpandTestOptions = "unknown"
 )
@@ -33,6 +34,7 @@ var AllowedExpandTestOptionsEnumValues = []ExpandTestOptions{
 	"alert-rule",
 	"monitor",
 	"label",
+	"tag",
 	"shared-with-account",
 	"unknown",
 }
