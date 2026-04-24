@@ -23,7 +23,7 @@ type DashboardLayout struct {
 	// Unique identifier for the layout.
 	LayoutId *string `json:"layoutId,omitempty"`
 	Type DashboardLayoutType `json:"type"`
-	Details utils.NullableDashboardLayoutDetails `json:"details,omitempty"`
+	Details NullableDashboardLayoutDetails `json:"details,omitempty"`
 }
 
 type _DashboardLayout DashboardLayout
