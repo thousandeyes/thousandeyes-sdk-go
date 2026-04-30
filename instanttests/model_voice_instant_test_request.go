@@ -41,10 +41,6 @@ type VoiceInstantTestRequest struct {
 	TestName *string `json:"testName,omitempty"`
 	Type *string `json:"type,omitempty"`
 	Links *TestLinks `json:"_links,omitempty"`
-	// A list of test label identifiers (get `labelId` from `/labels` endpoint).
-	Labels []string `json:"labels,omitempty"`
-	// A list of account group identifiers that the test is shared with (get `aid` from `/account-groups` endpoint).
-	SharedWithAccounts []string `json:"sharedWithAccounts,omitempty"`
 	// Codec label
 	Codec *string `json:"codec,omitempty"`
 	// Coded ID, [see the list of acceptable values](https://docs.thousandeyes.com/product-documentation/internet-and-wan-monitoring/tests/working-with-test-settings#rtp-stream-advanced-settings-tab)
@@ -64,8 +60,12 @@ type VoiceInstantTestRequest struct {
 	RandomizedStartTime *bool `json:"randomizedStartTime,omitempty"`
 	// Agent ID of the target agent for the test.
 	TargetAgentId string `json:"targetAgentId"`
+	// A list of test label identifiers (get `labelId` from `/labels` endpoint).
+	Labels []string `json:"labels,omitempty"`
 	// A list of test tag identifiers (get `id` from `/tags` endpoint).
 	Tags []string `json:"tags,omitempty"`
+	// A list of account group identifiers that the test is shared with (get `aid` from `/account-groups` endpoint).
+	SharedWithAccounts []string `json:"sharedWithAccounts,omitempty"`
 	// A list of objects with `agentId` (required) and `sourceIpAddress` (optional).
 	Agents []TestAgent `json:"agents"`
 }
@@ -463,70 +463,6 @@ func (o *VoiceInstantTestRequest) SetLinks(v TestLinks) {
 	o.Links = &v
 }
 
-// GetLabels returns the Labels field value if set, zero value otherwise.
-func (o *VoiceInstantTestRequest) GetLabels() []string {
-	if o == nil || utils.IsNil(o.Labels) {
-		var ret []string
-		return ret
-	}
-	return o.Labels
-}
-
-// GetLabelsOk returns a tuple with the Labels field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *VoiceInstantTestRequest) GetLabelsOk() ([]string, bool) {
-	if o == nil || utils.IsNil(o.Labels) {
-		return nil, false
-	}
-	return o.Labels, true
-}
-
-// HasLabels returns a boolean if a field has been set.
-func (o *VoiceInstantTestRequest) HasLabels() bool {
-	if o != nil && !utils.IsNil(o.Labels) {
-		return true
-	}
-
-	return false
-}
-
-// SetLabels gets a reference to the given []string and assigns it to the Labels field.
-func (o *VoiceInstantTestRequest) SetLabels(v []string) {
-	o.Labels = v
-}
-
-// GetSharedWithAccounts returns the SharedWithAccounts field value if set, zero value otherwise.
-func (o *VoiceInstantTestRequest) GetSharedWithAccounts() []string {
-	if o == nil || utils.IsNil(o.SharedWithAccounts) {
-		var ret []string
-		return ret
-	}
-	return o.SharedWithAccounts
-}
-
-// GetSharedWithAccountsOk returns a tuple with the SharedWithAccounts field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *VoiceInstantTestRequest) GetSharedWithAccountsOk() ([]string, bool) {
-	if o == nil || utils.IsNil(o.SharedWithAccounts) {
-		return nil, false
-	}
-	return o.SharedWithAccounts, true
-}
-
-// HasSharedWithAccounts returns a boolean if a field has been set.
-func (o *VoiceInstantTestRequest) HasSharedWithAccounts() bool {
-	if o != nil && !utils.IsNil(o.SharedWithAccounts) {
-		return true
-	}
-
-	return false
-}
-
-// SetSharedWithAccounts gets a reference to the given []string and assigns it to the SharedWithAccounts field.
-func (o *VoiceInstantTestRequest) SetSharedWithAccounts(v []string) {
-	o.SharedWithAccounts = v
-}
-
 // GetCodec returns the Codec field value if set, zero value otherwise.
 func (o *VoiceInstantTestRequest) GetCodec() string {
 	if o == nil || utils.IsNil(o.Codec) {
@@ -839,6 +775,38 @@ func (o *VoiceInstantTestRequest) SetTargetAgentId(v string) {
 	o.TargetAgentId = v
 }
 
+// GetLabels returns the Labels field value if set, zero value otherwise.
+func (o *VoiceInstantTestRequest) GetLabels() []string {
+	if o == nil || utils.IsNil(o.Labels) {
+		var ret []string
+		return ret
+	}
+	return o.Labels
+}
+
+// GetLabelsOk returns a tuple with the Labels field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *VoiceInstantTestRequest) GetLabelsOk() ([]string, bool) {
+	if o == nil || utils.IsNil(o.Labels) {
+		return nil, false
+	}
+	return o.Labels, true
+}
+
+// HasLabels returns a boolean if a field has been set.
+func (o *VoiceInstantTestRequest) HasLabels() bool {
+	if o != nil && !utils.IsNil(o.Labels) {
+		return true
+	}
+
+	return false
+}
+
+// SetLabels gets a reference to the given []string and assigns it to the Labels field.
+func (o *VoiceInstantTestRequest) SetLabels(v []string) {
+	o.Labels = v
+}
+
 // GetTags returns the Tags field value if set, zero value otherwise.
 func (o *VoiceInstantTestRequest) GetTags() []string {
 	if o == nil || utils.IsNil(o.Tags) {
@@ -869,6 +837,38 @@ func (o *VoiceInstantTestRequest) HasTags() bool {
 // SetTags gets a reference to the given []string and assigns it to the Tags field.
 func (o *VoiceInstantTestRequest) SetTags(v []string) {
 	o.Tags = v
+}
+
+// GetSharedWithAccounts returns the SharedWithAccounts field value if set, zero value otherwise.
+func (o *VoiceInstantTestRequest) GetSharedWithAccounts() []string {
+	if o == nil || utils.IsNil(o.SharedWithAccounts) {
+		var ret []string
+		return ret
+	}
+	return o.SharedWithAccounts
+}
+
+// GetSharedWithAccountsOk returns a tuple with the SharedWithAccounts field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *VoiceInstantTestRequest) GetSharedWithAccountsOk() ([]string, bool) {
+	if o == nil || utils.IsNil(o.SharedWithAccounts) {
+		return nil, false
+	}
+	return o.SharedWithAccounts, true
+}
+
+// HasSharedWithAccounts returns a boolean if a field has been set.
+func (o *VoiceInstantTestRequest) HasSharedWithAccounts() bool {
+	if o != nil && !utils.IsNil(o.SharedWithAccounts) {
+		return true
+	}
+
+	return false
+}
+
+// SetSharedWithAccounts gets a reference to the given []string and assigns it to the SharedWithAccounts field.
+func (o *VoiceInstantTestRequest) SetSharedWithAccounts(v []string) {
+	o.SharedWithAccounts = v
 }
 
 // GetAgents returns the Agents field value
@@ -938,12 +938,6 @@ func (o VoiceInstantTestRequest) ToMap() (map[string]interface{}, error) {
 	if !utils.IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
-	if !utils.IsNil(o.Labels) {
-		toSerialize["labels"] = o.Labels
-	}
-	if !utils.IsNil(o.SharedWithAccounts) {
-		toSerialize["sharedWithAccounts"] = o.SharedWithAccounts
-	}
 	if !utils.IsNil(o.Codec) {
 		toSerialize["codec"] = o.Codec
 	}
@@ -972,8 +966,14 @@ func (o VoiceInstantTestRequest) ToMap() (map[string]interface{}, error) {
 		toSerialize["randomizedStartTime"] = o.RandomizedStartTime
 	}
 	toSerialize["targetAgentId"] = o.TargetAgentId
+	if !utils.IsNil(o.Labels) {
+		toSerialize["labels"] = o.Labels
+	}
 	if !utils.IsNil(o.Tags) {
 		toSerialize["tags"] = o.Tags
+	}
+	if !utils.IsNil(o.SharedWithAccounts) {
+		toSerialize["sharedWithAccounts"] = o.SharedWithAccounts
 	}
 	toSerialize["agents"] = o.Agents
 	return toSerialize, nil

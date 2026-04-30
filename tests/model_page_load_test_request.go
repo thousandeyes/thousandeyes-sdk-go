@@ -26,8 +26,6 @@ type PageLoadTestRequest struct {
 	AlertsEnabled *bool `json:"alertsEnabled,omitempty"`
 	// Test is enabled.
 	Enabled *bool `json:"enabled,omitempty"`
-	// List of alert rules IDs to apply to the test (get `ruleId` from `/alerts/rules` endpoint. If `alertsEnabled` is set to `true` and `alertRules` is not included on test creation or update, applicable user default alert rules will be used)
-	AlertRules []string `json:"alertRules,omitempty"`
 	// User that created the test.
 	CreatedBy *string `json:"createdBy,omitempty"`
 	// UTC created date (ISO date-time format).
@@ -48,10 +46,6 @@ type PageLoadTestRequest struct {
 	TestName *string `json:"testName,omitempty"`
 	Type *string `json:"type,omitempty"`
 	Links *TestLinks `json:"_links,omitempty"`
-	// Contains list of test label IDs (get `labelId` from `/labels` endpoint)
-	Labels []string `json:"labels,omitempty"`
-	// Contains list of account group IDs. Test is shared with the listed account groups (get `aid` from `/account-groups` endpoint)
-	SharedWithAccounts []string `json:"sharedWithAccounts,omitempty"`
 	AuthType *TestAuthType `json:"authType,omitempty"`
 	AgentInterfaces *AgentInterfaces `json:"agentInterfaces,omitempty"`
 	// Set to `true` to enable bandwidth measurements, only applies to Enterprise agents assigned to the test.
@@ -139,18 +133,24 @@ type PageLoadTestRequest struct {
 	RandomizedStartTime *bool `json:"randomizedStartTime,omitempty"`
 	// Determines how agent traffic is identified:  * `false`: Adds the `x-thousandeyes-agent: yes` header. * `true`: Appends `(ThousandEyes Agent)` to the `user-agent` header.  For more information, see [Notes on Agent ID Strategy](https://docs.thousandeyes.com/product-documentation/browser-synthetics/test-settings-page-load-transaction#notes-on-agent-id-strategy). 
 	IdentifyAgentTrafficWithUserAgent *bool `json:"identifyAgentTrafficWithUserAgent,omitempty"`
+	HttpInterval *TestHttpInterval `json:"httpInterval,omitempty"`
+	Subinterval *TestSubInterval `json:"subinterval,omitempty"`
 	// Set to `true` to enable bgp measurements.
 	BgpMeasurements *bool `json:"bgpMeasurements,omitempty"`
 	// Indicate if all available public BGP monitors should be used, when ommited defaults to `bgpMeasurements` value.
 	UsePublicBgp *bool `json:"usePublicBgp,omitempty"`
-	// Contains list of BGP monitor IDs (get `monitorId` from `/monitors` endpoint)
-	Monitors []string `json:"monitors,omitempty"`
-	HttpInterval *TestHttpInterval `json:"httpInterval,omitempty"`
-	Subinterval *TestSubInterval `json:"subinterval,omitempty"`
+	// Contains list of test label IDs (get `labelId` from `/labels` endpoint)
+	Labels []string `json:"labels,omitempty"`
 	// Contains list of test tag IDs (get `id` from `/tags` endpoint).
 	Tags []string `json:"tags,omitempty"`
+	// Contains list of account group IDs. Test is shared with the listed account groups (get `aid` from `/account-groups` endpoint)
+	SharedWithAccounts []string `json:"sharedWithAccounts,omitempty"`
+	// List of alert rules IDs to apply to the test (get `ruleId` from `/alerts/rules` endpoint. If `alertsEnabled` is set to `true` and `alertRules` is not included on test creation or update, applicable user default alert rules will be used)
+	AlertRules []string `json:"alertRules,omitempty"`
 	// Contains list of Agent IDs (get `agentId` from `/agents` endpoint).
 	Agents []TestAgentRequest `json:"agents"`
+	// Contains list of BGP monitor IDs (get `monitorId` from `/monitors` endpoint)
+	Monitors []string `json:"monitors,omitempty"`
 }
 
 type _PageLoadTestRequest PageLoadTestRequest
@@ -375,38 +375,6 @@ func (o *PageLoadTestRequest) HasEnabled() bool {
 // SetEnabled gets a reference to the given bool and assigns it to the Enabled field.
 func (o *PageLoadTestRequest) SetEnabled(v bool) {
 	o.Enabled = &v
-}
-
-// GetAlertRules returns the AlertRules field value if set, zero value otherwise.
-func (o *PageLoadTestRequest) GetAlertRules() []string {
-	if o == nil || utils.IsNil(o.AlertRules) {
-		var ret []string
-		return ret
-	}
-	return o.AlertRules
-}
-
-// GetAlertRulesOk returns a tuple with the AlertRules field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *PageLoadTestRequest) GetAlertRulesOk() ([]string, bool) {
-	if o == nil || utils.IsNil(o.AlertRules) {
-		return nil, false
-	}
-	return o.AlertRules, true
-}
-
-// HasAlertRules returns a boolean if a field has been set.
-func (o *PageLoadTestRequest) HasAlertRules() bool {
-	if o != nil && !utils.IsNil(o.AlertRules) {
-		return true
-	}
-
-	return false
-}
-
-// SetAlertRules gets a reference to the given []string and assigns it to the AlertRules field.
-func (o *PageLoadTestRequest) SetAlertRules(v []string) {
-	o.AlertRules = v
 }
 
 // GetCreatedBy returns the CreatedBy field value if set, zero value otherwise.
@@ -759,70 +727,6 @@ func (o *PageLoadTestRequest) HasLinks() bool {
 // SetLinks gets a reference to the given TestLinks and assigns it to the Links field.
 func (o *PageLoadTestRequest) SetLinks(v TestLinks) {
 	o.Links = &v
-}
-
-// GetLabels returns the Labels field value if set, zero value otherwise.
-func (o *PageLoadTestRequest) GetLabels() []string {
-	if o == nil || utils.IsNil(o.Labels) {
-		var ret []string
-		return ret
-	}
-	return o.Labels
-}
-
-// GetLabelsOk returns a tuple with the Labels field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *PageLoadTestRequest) GetLabelsOk() ([]string, bool) {
-	if o == nil || utils.IsNil(o.Labels) {
-		return nil, false
-	}
-	return o.Labels, true
-}
-
-// HasLabels returns a boolean if a field has been set.
-func (o *PageLoadTestRequest) HasLabels() bool {
-	if o != nil && !utils.IsNil(o.Labels) {
-		return true
-	}
-
-	return false
-}
-
-// SetLabels gets a reference to the given []string and assigns it to the Labels field.
-func (o *PageLoadTestRequest) SetLabels(v []string) {
-	o.Labels = v
-}
-
-// GetSharedWithAccounts returns the SharedWithAccounts field value if set, zero value otherwise.
-func (o *PageLoadTestRequest) GetSharedWithAccounts() []string {
-	if o == nil || utils.IsNil(o.SharedWithAccounts) {
-		var ret []string
-		return ret
-	}
-	return o.SharedWithAccounts
-}
-
-// GetSharedWithAccountsOk returns a tuple with the SharedWithAccounts field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *PageLoadTestRequest) GetSharedWithAccountsOk() ([]string, bool) {
-	if o == nil || utils.IsNil(o.SharedWithAccounts) {
-		return nil, false
-	}
-	return o.SharedWithAccounts, true
-}
-
-// HasSharedWithAccounts returns a boolean if a field has been set.
-func (o *PageLoadTestRequest) HasSharedWithAccounts() bool {
-	if o != nil && !utils.IsNil(o.SharedWithAccounts) {
-		return true
-	}
-
-	return false
-}
-
-// SetSharedWithAccounts gets a reference to the given []string and assigns it to the SharedWithAccounts field.
-func (o *PageLoadTestRequest) SetSharedWithAccounts(v []string) {
-	o.SharedWithAccounts = v
 }
 
 // GetAuthType returns the AuthType field value if set, zero value otherwise.
@@ -2353,102 +2257,6 @@ func (o *PageLoadTestRequest) SetIdentifyAgentTrafficWithUserAgent(v bool) {
 	o.IdentifyAgentTrafficWithUserAgent = &v
 }
 
-// GetBgpMeasurements returns the BgpMeasurements field value if set, zero value otherwise.
-func (o *PageLoadTestRequest) GetBgpMeasurements() bool {
-	if o == nil || utils.IsNil(o.BgpMeasurements) {
-		var ret bool
-		return ret
-	}
-	return *o.BgpMeasurements
-}
-
-// GetBgpMeasurementsOk returns a tuple with the BgpMeasurements field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *PageLoadTestRequest) GetBgpMeasurementsOk() (*bool, bool) {
-	if o == nil || utils.IsNil(o.BgpMeasurements) {
-		return nil, false
-	}
-	return o.BgpMeasurements, true
-}
-
-// HasBgpMeasurements returns a boolean if a field has been set.
-func (o *PageLoadTestRequest) HasBgpMeasurements() bool {
-	if o != nil && !utils.IsNil(o.BgpMeasurements) {
-		return true
-	}
-
-	return false
-}
-
-// SetBgpMeasurements gets a reference to the given bool and assigns it to the BgpMeasurements field.
-func (o *PageLoadTestRequest) SetBgpMeasurements(v bool) {
-	o.BgpMeasurements = &v
-}
-
-// GetUsePublicBgp returns the UsePublicBgp field value if set, zero value otherwise.
-func (o *PageLoadTestRequest) GetUsePublicBgp() bool {
-	if o == nil || utils.IsNil(o.UsePublicBgp) {
-		var ret bool
-		return ret
-	}
-	return *o.UsePublicBgp
-}
-
-// GetUsePublicBgpOk returns a tuple with the UsePublicBgp field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *PageLoadTestRequest) GetUsePublicBgpOk() (*bool, bool) {
-	if o == nil || utils.IsNil(o.UsePublicBgp) {
-		return nil, false
-	}
-	return o.UsePublicBgp, true
-}
-
-// HasUsePublicBgp returns a boolean if a field has been set.
-func (o *PageLoadTestRequest) HasUsePublicBgp() bool {
-	if o != nil && !utils.IsNil(o.UsePublicBgp) {
-		return true
-	}
-
-	return false
-}
-
-// SetUsePublicBgp gets a reference to the given bool and assigns it to the UsePublicBgp field.
-func (o *PageLoadTestRequest) SetUsePublicBgp(v bool) {
-	o.UsePublicBgp = &v
-}
-
-// GetMonitors returns the Monitors field value if set, zero value otherwise.
-func (o *PageLoadTestRequest) GetMonitors() []string {
-	if o == nil || utils.IsNil(o.Monitors) {
-		var ret []string
-		return ret
-	}
-	return o.Monitors
-}
-
-// GetMonitorsOk returns a tuple with the Monitors field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *PageLoadTestRequest) GetMonitorsOk() ([]string, bool) {
-	if o == nil || utils.IsNil(o.Monitors) {
-		return nil, false
-	}
-	return o.Monitors, true
-}
-
-// HasMonitors returns a boolean if a field has been set.
-func (o *PageLoadTestRequest) HasMonitors() bool {
-	if o != nil && !utils.IsNil(o.Monitors) {
-		return true
-	}
-
-	return false
-}
-
-// SetMonitors gets a reference to the given []string and assigns it to the Monitors field.
-func (o *PageLoadTestRequest) SetMonitors(v []string) {
-	o.Monitors = v
-}
-
 // GetHttpInterval returns the HttpInterval field value if set, zero value otherwise.
 func (o *PageLoadTestRequest) GetHttpInterval() TestHttpInterval {
 	if o == nil || utils.IsNil(o.HttpInterval) {
@@ -2513,6 +2321,102 @@ func (o *PageLoadTestRequest) SetSubinterval(v TestSubInterval) {
 	o.Subinterval = &v
 }
 
+// GetBgpMeasurements returns the BgpMeasurements field value if set, zero value otherwise.
+func (o *PageLoadTestRequest) GetBgpMeasurements() bool {
+	if o == nil || utils.IsNil(o.BgpMeasurements) {
+		var ret bool
+		return ret
+	}
+	return *o.BgpMeasurements
+}
+
+// GetBgpMeasurementsOk returns a tuple with the BgpMeasurements field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PageLoadTestRequest) GetBgpMeasurementsOk() (*bool, bool) {
+	if o == nil || utils.IsNil(o.BgpMeasurements) {
+		return nil, false
+	}
+	return o.BgpMeasurements, true
+}
+
+// HasBgpMeasurements returns a boolean if a field has been set.
+func (o *PageLoadTestRequest) HasBgpMeasurements() bool {
+	if o != nil && !utils.IsNil(o.BgpMeasurements) {
+		return true
+	}
+
+	return false
+}
+
+// SetBgpMeasurements gets a reference to the given bool and assigns it to the BgpMeasurements field.
+func (o *PageLoadTestRequest) SetBgpMeasurements(v bool) {
+	o.BgpMeasurements = &v
+}
+
+// GetUsePublicBgp returns the UsePublicBgp field value if set, zero value otherwise.
+func (o *PageLoadTestRequest) GetUsePublicBgp() bool {
+	if o == nil || utils.IsNil(o.UsePublicBgp) {
+		var ret bool
+		return ret
+	}
+	return *o.UsePublicBgp
+}
+
+// GetUsePublicBgpOk returns a tuple with the UsePublicBgp field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PageLoadTestRequest) GetUsePublicBgpOk() (*bool, bool) {
+	if o == nil || utils.IsNil(o.UsePublicBgp) {
+		return nil, false
+	}
+	return o.UsePublicBgp, true
+}
+
+// HasUsePublicBgp returns a boolean if a field has been set.
+func (o *PageLoadTestRequest) HasUsePublicBgp() bool {
+	if o != nil && !utils.IsNil(o.UsePublicBgp) {
+		return true
+	}
+
+	return false
+}
+
+// SetUsePublicBgp gets a reference to the given bool and assigns it to the UsePublicBgp field.
+func (o *PageLoadTestRequest) SetUsePublicBgp(v bool) {
+	o.UsePublicBgp = &v
+}
+
+// GetLabels returns the Labels field value if set, zero value otherwise.
+func (o *PageLoadTestRequest) GetLabels() []string {
+	if o == nil || utils.IsNil(o.Labels) {
+		var ret []string
+		return ret
+	}
+	return o.Labels
+}
+
+// GetLabelsOk returns a tuple with the Labels field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PageLoadTestRequest) GetLabelsOk() ([]string, bool) {
+	if o == nil || utils.IsNil(o.Labels) {
+		return nil, false
+	}
+	return o.Labels, true
+}
+
+// HasLabels returns a boolean if a field has been set.
+func (o *PageLoadTestRequest) HasLabels() bool {
+	if o != nil && !utils.IsNil(o.Labels) {
+		return true
+	}
+
+	return false
+}
+
+// SetLabels gets a reference to the given []string and assigns it to the Labels field.
+func (o *PageLoadTestRequest) SetLabels(v []string) {
+	o.Labels = v
+}
+
 // GetTags returns the Tags field value if set, zero value otherwise.
 func (o *PageLoadTestRequest) GetTags() []string {
 	if o == nil || utils.IsNil(o.Tags) {
@@ -2545,6 +2449,70 @@ func (o *PageLoadTestRequest) SetTags(v []string) {
 	o.Tags = v
 }
 
+// GetSharedWithAccounts returns the SharedWithAccounts field value if set, zero value otherwise.
+func (o *PageLoadTestRequest) GetSharedWithAccounts() []string {
+	if o == nil || utils.IsNil(o.SharedWithAccounts) {
+		var ret []string
+		return ret
+	}
+	return o.SharedWithAccounts
+}
+
+// GetSharedWithAccountsOk returns a tuple with the SharedWithAccounts field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PageLoadTestRequest) GetSharedWithAccountsOk() ([]string, bool) {
+	if o == nil || utils.IsNil(o.SharedWithAccounts) {
+		return nil, false
+	}
+	return o.SharedWithAccounts, true
+}
+
+// HasSharedWithAccounts returns a boolean if a field has been set.
+func (o *PageLoadTestRequest) HasSharedWithAccounts() bool {
+	if o != nil && !utils.IsNil(o.SharedWithAccounts) {
+		return true
+	}
+
+	return false
+}
+
+// SetSharedWithAccounts gets a reference to the given []string and assigns it to the SharedWithAccounts field.
+func (o *PageLoadTestRequest) SetSharedWithAccounts(v []string) {
+	o.SharedWithAccounts = v
+}
+
+// GetAlertRules returns the AlertRules field value if set, zero value otherwise.
+func (o *PageLoadTestRequest) GetAlertRules() []string {
+	if o == nil || utils.IsNil(o.AlertRules) {
+		var ret []string
+		return ret
+	}
+	return o.AlertRules
+}
+
+// GetAlertRulesOk returns a tuple with the AlertRules field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PageLoadTestRequest) GetAlertRulesOk() ([]string, bool) {
+	if o == nil || utils.IsNil(o.AlertRules) {
+		return nil, false
+	}
+	return o.AlertRules, true
+}
+
+// HasAlertRules returns a boolean if a field has been set.
+func (o *PageLoadTestRequest) HasAlertRules() bool {
+	if o != nil && !utils.IsNil(o.AlertRules) {
+		return true
+	}
+
+	return false
+}
+
+// SetAlertRules gets a reference to the given []string and assigns it to the AlertRules field.
+func (o *PageLoadTestRequest) SetAlertRules(v []string) {
+	o.AlertRules = v
+}
+
 // GetAgents returns the Agents field value
 func (o *PageLoadTestRequest) GetAgents() []TestAgentRequest {
 	if o == nil {
@@ -2569,6 +2537,38 @@ func (o *PageLoadTestRequest) SetAgents(v []TestAgentRequest) {
 	o.Agents = v
 }
 
+// GetMonitors returns the Monitors field value if set, zero value otherwise.
+func (o *PageLoadTestRequest) GetMonitors() []string {
+	if o == nil || utils.IsNil(o.Monitors) {
+		var ret []string
+		return ret
+	}
+	return o.Monitors
+}
+
+// GetMonitorsOk returns a tuple with the Monitors field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PageLoadTestRequest) GetMonitorsOk() ([]string, bool) {
+	if o == nil || utils.IsNil(o.Monitors) {
+		return nil, false
+	}
+	return o.Monitors, true
+}
+
+// HasMonitors returns a boolean if a field has been set.
+func (o *PageLoadTestRequest) HasMonitors() bool {
+	if o != nil && !utils.IsNil(o.Monitors) {
+		return true
+	}
+
+	return false
+}
+
+// SetMonitors gets a reference to the given []string and assigns it to the Monitors field.
+func (o *PageLoadTestRequest) SetMonitors(v []string) {
+	o.Monitors = v
+}
+
 func (o PageLoadTestRequest) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -2585,9 +2585,6 @@ func (o PageLoadTestRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if !utils.IsNil(o.Enabled) {
 		toSerialize["enabled"] = o.Enabled
-	}
-	if !utils.IsNil(o.AlertRules) {
-		toSerialize["alertRules"] = o.AlertRules
 	}
 	if !utils.IsNil(o.CreatedBy) {
 		toSerialize["createdBy"] = o.CreatedBy
@@ -2621,12 +2618,6 @@ func (o PageLoadTestRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if !utils.IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
-	}
-	if !utils.IsNil(o.Labels) {
-		toSerialize["labels"] = o.Labels
-	}
-	if !utils.IsNil(o.SharedWithAccounts) {
-		toSerialize["sharedWithAccounts"] = o.SharedWithAccounts
 	}
 	if !utils.IsNil(o.AuthType) {
 		toSerialize["authType"] = o.AuthType
@@ -2770,25 +2761,34 @@ func (o PageLoadTestRequest) ToMap() (map[string]interface{}, error) {
 	if !utils.IsNil(o.IdentifyAgentTrafficWithUserAgent) {
 		toSerialize["identifyAgentTrafficWithUserAgent"] = o.IdentifyAgentTrafficWithUserAgent
 	}
-	if !utils.IsNil(o.BgpMeasurements) {
-		toSerialize["bgpMeasurements"] = o.BgpMeasurements
-	}
-	if !utils.IsNil(o.UsePublicBgp) {
-		toSerialize["usePublicBgp"] = o.UsePublicBgp
-	}
-	if !utils.IsNil(o.Monitors) {
-		toSerialize["monitors"] = o.Monitors
-	}
 	if !utils.IsNil(o.HttpInterval) {
 		toSerialize["httpInterval"] = o.HttpInterval
 	}
 	if !utils.IsNil(o.Subinterval) {
 		toSerialize["subinterval"] = o.Subinterval
 	}
+	if !utils.IsNil(o.BgpMeasurements) {
+		toSerialize["bgpMeasurements"] = o.BgpMeasurements
+	}
+	if !utils.IsNil(o.UsePublicBgp) {
+		toSerialize["usePublicBgp"] = o.UsePublicBgp
+	}
+	if !utils.IsNil(o.Labels) {
+		toSerialize["labels"] = o.Labels
+	}
 	if !utils.IsNil(o.Tags) {
 		toSerialize["tags"] = o.Tags
 	}
+	if !utils.IsNil(o.SharedWithAccounts) {
+		toSerialize["sharedWithAccounts"] = o.SharedWithAccounts
+	}
+	if !utils.IsNil(o.AlertRules) {
+		toSerialize["alertRules"] = o.AlertRules
+	}
 	toSerialize["agents"] = o.Agents
+	if !utils.IsNil(o.Monitors) {
+		toSerialize["monitors"] = o.Monitors
+	}
 	return toSerialize, nil
 }
 

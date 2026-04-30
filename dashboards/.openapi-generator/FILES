@@ -15,8 +15,6 @@ model_api_agent_status_agent.go
 model_api_agent_status_ip_info.go
 model_api_agent_status_summary.go
 model_api_agent_status_widget.go
-model_api_agent_widget_show.go
-model_api_agent_widget_type.go
 model_api_aggregate_property.go
 model_api_alert_list_alert.go
 model_api_alert_list_widget.go
@@ -64,8 +62,6 @@ model_api_widget_data_snapshot_response.go
 model_api_widget_filter_api_test_table_filter_key.go
 model_api_widget_fixed_y_scale_prefix.go
 model_api_widget_measure.go
-model_api_widget_sort_direction.go
-model_api_widget_sort_property.go
 model_api_widgets_data_v2.go
 model_app_and_self_links.go
 model_asw_repeat.go
@@ -122,4 +118,3 @@ model_visual_mode.go
 model_widget.go
 model_widget_measure_type.go
 model_widget_position.go
-model_widget_type.go

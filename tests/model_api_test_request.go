@@ -26,8 +26,6 @@ type ApiTestRequest struct {
 	AlertsEnabled *bool `json:"alertsEnabled,omitempty"`
 	// Test is enabled.
 	Enabled *bool `json:"enabled,omitempty"`
-	// List of alert rules IDs to apply to the test (get `ruleId` from `/alerts/rules` endpoint. If `alertsEnabled` is set to `true` and `alertRules` is not included on test creation or update, applicable user default alert rules will be used)
-	AlertRules []string `json:"alertRules,omitempty"`
 	// User that created the test.
 	CreatedBy *string `json:"createdBy,omitempty"`
 	// UTC created date (ISO date-time format).
@@ -48,10 +46,6 @@ type ApiTestRequest struct {
 	TestName *string `json:"testName,omitempty"`
 	Type *string `json:"type,omitempty"`
 	Links *TestLinks `json:"_links,omitempty"`
-	// Contains list of test label IDs (get `labelId` from `/labels` endpoint)
-	Labels []string `json:"labels,omitempty"`
-	// Contains list of account group IDs. Test is shared with the listed account groups (get `aid` from `/account-groups` endpoint)
-	SharedWithAccounts []string `json:"sharedWithAccounts,omitempty"`
 	// String representation (containing newline characters) of client certificate, the private key must be placed first, then the certificate.
 	ClientCertificate *string `json:"clientCertificate,omitempty"`
 	// Comma separated list of domains to send the client certificate.
@@ -86,18 +80,22 @@ type ApiTestRequest struct {
 	TimeLimit *int32 `json:"timeLimit,omitempty"`
 	// Target for the test.
 	Url string `json:"url"`
-	// Contains a list of credential IDs (get `credentialId` from `/credentials` endpoint).
-	Credentials []string `json:"credentials,omitempty"`
 	// Set to `true` to enable bgp measurements.
 	BgpMeasurements *bool `json:"bgpMeasurements,omitempty"`
 	// Indicate if all available public BGP monitors should be used, when ommited defaults to `bgpMeasurements` value.
 	UsePublicBgp *bool `json:"usePublicBgp,omitempty"`
-	// Contains list of enabled BGP monitors.
-	Monitors []Monitor `json:"monitors,omitempty"`
+	// Contains list of test label IDs (get `labelId` from `/labels` endpoint)
+	Labels []string `json:"labels,omitempty"`
 	// Contains list of test tag IDs (get `id` from `/tags` endpoint).
 	Tags []string `json:"tags,omitempty"`
+	// Contains list of account group IDs. Test is shared with the listed account groups (get `aid` from `/account-groups` endpoint)
+	SharedWithAccounts []string `json:"sharedWithAccounts,omitempty"`
+	// List of alert rules IDs to apply to the test (get `ruleId` from `/alerts/rules` endpoint. If `alertsEnabled` is set to `true` and `alertRules` is not included on test creation or update, applicable user default alert rules will be used)
+	AlertRules []string `json:"alertRules,omitempty"`
 	// Contains list of Agent IDs (get `agentId` from `/agents` endpoint).
 	Agents []TestAgentRequest `json:"agents"`
+	// Contains a list of credential IDs (get `credentialId` from `/credentials` endpoint).
+	Credentials []string `json:"credentials,omitempty"`
 }
 
 type _ApiTestRequest ApiTestRequest
@@ -267,38 +265,6 @@ func (o *ApiTestRequest) HasEnabled() bool {
 // SetEnabled gets a reference to the given bool and assigns it to the Enabled field.
 func (o *ApiTestRequest) SetEnabled(v bool) {
 	o.Enabled = &v
-}
-
-// GetAlertRules returns the AlertRules field value if set, zero value otherwise.
-func (o *ApiTestRequest) GetAlertRules() []string {
-	if o == nil || utils.IsNil(o.AlertRules) {
-		var ret []string
-		return ret
-	}
-	return o.AlertRules
-}
-
-// GetAlertRulesOk returns a tuple with the AlertRules field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ApiTestRequest) GetAlertRulesOk() ([]string, bool) {
-	if o == nil || utils.IsNil(o.AlertRules) {
-		return nil, false
-	}
-	return o.AlertRules, true
-}
-
-// HasAlertRules returns a boolean if a field has been set.
-func (o *ApiTestRequest) HasAlertRules() bool {
-	if o != nil && !utils.IsNil(o.AlertRules) {
-		return true
-	}
-
-	return false
-}
-
-// SetAlertRules gets a reference to the given []string and assigns it to the AlertRules field.
-func (o *ApiTestRequest) SetAlertRules(v []string) {
-	o.AlertRules = v
 }
 
 // GetCreatedBy returns the CreatedBy field value if set, zero value otherwise.
@@ -651,70 +617,6 @@ func (o *ApiTestRequest) HasLinks() bool {
 // SetLinks gets a reference to the given TestLinks and assigns it to the Links field.
 func (o *ApiTestRequest) SetLinks(v TestLinks) {
 	o.Links = &v
-}
-
-// GetLabels returns the Labels field value if set, zero value otherwise.
-func (o *ApiTestRequest) GetLabels() []string {
-	if o == nil || utils.IsNil(o.Labels) {
-		var ret []string
-		return ret
-	}
-	return o.Labels
-}
-
-// GetLabelsOk returns a tuple with the Labels field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ApiTestRequest) GetLabelsOk() ([]string, bool) {
-	if o == nil || utils.IsNil(o.Labels) {
-		return nil, false
-	}
-	return o.Labels, true
-}
-
-// HasLabels returns a boolean if a field has been set.
-func (o *ApiTestRequest) HasLabels() bool {
-	if o != nil && !utils.IsNil(o.Labels) {
-		return true
-	}
-
-	return false
-}
-
-// SetLabels gets a reference to the given []string and assigns it to the Labels field.
-func (o *ApiTestRequest) SetLabels(v []string) {
-	o.Labels = v
-}
-
-// GetSharedWithAccounts returns the SharedWithAccounts field value if set, zero value otherwise.
-func (o *ApiTestRequest) GetSharedWithAccounts() []string {
-	if o == nil || utils.IsNil(o.SharedWithAccounts) {
-		var ret []string
-		return ret
-	}
-	return o.SharedWithAccounts
-}
-
-// GetSharedWithAccountsOk returns a tuple with the SharedWithAccounts field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ApiTestRequest) GetSharedWithAccountsOk() ([]string, bool) {
-	if o == nil || utils.IsNil(o.SharedWithAccounts) {
-		return nil, false
-	}
-	return o.SharedWithAccounts, true
-}
-
-// HasSharedWithAccounts returns a boolean if a field has been set.
-func (o *ApiTestRequest) HasSharedWithAccounts() bool {
-	if o != nil && !utils.IsNil(o.SharedWithAccounts) {
-		return true
-	}
-
-	return false
-}
-
-// SetSharedWithAccounts gets a reference to the given []string and assigns it to the SharedWithAccounts field.
-func (o *ApiTestRequest) SetSharedWithAccounts(v []string) {
-	o.SharedWithAccounts = v
 }
 
 // GetClientCertificate returns the ClientCertificate field value if set, zero value otherwise.
@@ -1341,38 +1243,6 @@ func (o *ApiTestRequest) SetUrl(v string) {
 	o.Url = v
 }
 
-// GetCredentials returns the Credentials field value if set, zero value otherwise.
-func (o *ApiTestRequest) GetCredentials() []string {
-	if o == nil || utils.IsNil(o.Credentials) {
-		var ret []string
-		return ret
-	}
-	return o.Credentials
-}
-
-// GetCredentialsOk returns a tuple with the Credentials field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ApiTestRequest) GetCredentialsOk() ([]string, bool) {
-	if o == nil || utils.IsNil(o.Credentials) {
-		return nil, false
-	}
-	return o.Credentials, true
-}
-
-// HasCredentials returns a boolean if a field has been set.
-func (o *ApiTestRequest) HasCredentials() bool {
-	if o != nil && !utils.IsNil(o.Credentials) {
-		return true
-	}
-
-	return false
-}
-
-// SetCredentials gets a reference to the given []string and assigns it to the Credentials field.
-func (o *ApiTestRequest) SetCredentials(v []string) {
-	o.Credentials = v
-}
-
 // GetBgpMeasurements returns the BgpMeasurements field value if set, zero value otherwise.
 func (o *ApiTestRequest) GetBgpMeasurements() bool {
 	if o == nil || utils.IsNil(o.BgpMeasurements) {
@@ -1437,36 +1307,36 @@ func (o *ApiTestRequest) SetUsePublicBgp(v bool) {
 	o.UsePublicBgp = &v
 }
 
-// GetMonitors returns the Monitors field value if set, zero value otherwise.
-func (o *ApiTestRequest) GetMonitors() []Monitor {
-	if o == nil || utils.IsNil(o.Monitors) {
-		var ret []Monitor
+// GetLabels returns the Labels field value if set, zero value otherwise.
+func (o *ApiTestRequest) GetLabels() []string {
+	if o == nil || utils.IsNil(o.Labels) {
+		var ret []string
 		return ret
 	}
-	return o.Monitors
+	return o.Labels
 }
 
-// GetMonitorsOk returns a tuple with the Monitors field value if set, nil otherwise
+// GetLabelsOk returns a tuple with the Labels field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ApiTestRequest) GetMonitorsOk() ([]Monitor, bool) {
-	if o == nil || utils.IsNil(o.Monitors) {
+func (o *ApiTestRequest) GetLabelsOk() ([]string, bool) {
+	if o == nil || utils.IsNil(o.Labels) {
 		return nil, false
 	}
-	return o.Monitors, true
+	return o.Labels, true
 }
 
-// HasMonitors returns a boolean if a field has been set.
-func (o *ApiTestRequest) HasMonitors() bool {
-	if o != nil && !utils.IsNil(o.Monitors) {
+// HasLabels returns a boolean if a field has been set.
+func (o *ApiTestRequest) HasLabels() bool {
+	if o != nil && !utils.IsNil(o.Labels) {
 		return true
 	}
 
 	return false
 }
 
-// SetMonitors gets a reference to the given []Monitor and assigns it to the Monitors field.
-func (o *ApiTestRequest) SetMonitors(v []Monitor) {
-	o.Monitors = v
+// SetLabels gets a reference to the given []string and assigns it to the Labels field.
+func (o *ApiTestRequest) SetLabels(v []string) {
+	o.Labels = v
 }
 
 // GetTags returns the Tags field value if set, zero value otherwise.
@@ -1501,6 +1371,70 @@ func (o *ApiTestRequest) SetTags(v []string) {
 	o.Tags = v
 }
 
+// GetSharedWithAccounts returns the SharedWithAccounts field value if set, zero value otherwise.
+func (o *ApiTestRequest) GetSharedWithAccounts() []string {
+	if o == nil || utils.IsNil(o.SharedWithAccounts) {
+		var ret []string
+		return ret
+	}
+	return o.SharedWithAccounts
+}
+
+// GetSharedWithAccountsOk returns a tuple with the SharedWithAccounts field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiTestRequest) GetSharedWithAccountsOk() ([]string, bool) {
+	if o == nil || utils.IsNil(o.SharedWithAccounts) {
+		return nil, false
+	}
+	return o.SharedWithAccounts, true
+}
+
+// HasSharedWithAccounts returns a boolean if a field has been set.
+func (o *ApiTestRequest) HasSharedWithAccounts() bool {
+	if o != nil && !utils.IsNil(o.SharedWithAccounts) {
+		return true
+	}
+
+	return false
+}
+
+// SetSharedWithAccounts gets a reference to the given []string and assigns it to the SharedWithAccounts field.
+func (o *ApiTestRequest) SetSharedWithAccounts(v []string) {
+	o.SharedWithAccounts = v
+}
+
+// GetAlertRules returns the AlertRules field value if set, zero value otherwise.
+func (o *ApiTestRequest) GetAlertRules() []string {
+	if o == nil || utils.IsNil(o.AlertRules) {
+		var ret []string
+		return ret
+	}
+	return o.AlertRules
+}
+
+// GetAlertRulesOk returns a tuple with the AlertRules field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiTestRequest) GetAlertRulesOk() ([]string, bool) {
+	if o == nil || utils.IsNil(o.AlertRules) {
+		return nil, false
+	}
+	return o.AlertRules, true
+}
+
+// HasAlertRules returns a boolean if a field has been set.
+func (o *ApiTestRequest) HasAlertRules() bool {
+	if o != nil && !utils.IsNil(o.AlertRules) {
+		return true
+	}
+
+	return false
+}
+
+// SetAlertRules gets a reference to the given []string and assigns it to the AlertRules field.
+func (o *ApiTestRequest) SetAlertRules(v []string) {
+	o.AlertRules = v
+}
+
 // GetAgents returns the Agents field value
 func (o *ApiTestRequest) GetAgents() []TestAgentRequest {
 	if o == nil {
@@ -1525,6 +1459,38 @@ func (o *ApiTestRequest) SetAgents(v []TestAgentRequest) {
 	o.Agents = v
 }
 
+// GetCredentials returns the Credentials field value if set, zero value otherwise.
+func (o *ApiTestRequest) GetCredentials() []string {
+	if o == nil || utils.IsNil(o.Credentials) {
+		var ret []string
+		return ret
+	}
+	return o.Credentials
+}
+
+// GetCredentialsOk returns a tuple with the Credentials field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiTestRequest) GetCredentialsOk() ([]string, bool) {
+	if o == nil || utils.IsNil(o.Credentials) {
+		return nil, false
+	}
+	return o.Credentials, true
+}
+
+// HasCredentials returns a boolean if a field has been set.
+func (o *ApiTestRequest) HasCredentials() bool {
+	if o != nil && !utils.IsNil(o.Credentials) {
+		return true
+	}
+
+	return false
+}
+
+// SetCredentials gets a reference to the given []string and assigns it to the Credentials field.
+func (o *ApiTestRequest) SetCredentials(v []string) {
+	o.Credentials = v
+}
+
 func (o ApiTestRequest) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -1541,9 +1507,6 @@ func (o ApiTestRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if !utils.IsNil(o.Enabled) {
 		toSerialize["enabled"] = o.Enabled
-	}
-	if !utils.IsNil(o.AlertRules) {
-		toSerialize["alertRules"] = o.AlertRules
 	}
 	if !utils.IsNil(o.CreatedBy) {
 		toSerialize["createdBy"] = o.CreatedBy
@@ -1577,12 +1540,6 @@ func (o ApiTestRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if !utils.IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
-	}
-	if !utils.IsNil(o.Labels) {
-		toSerialize["labels"] = o.Labels
-	}
-	if !utils.IsNil(o.SharedWithAccounts) {
-		toSerialize["sharedWithAccounts"] = o.SharedWithAccounts
 	}
 	if !utils.IsNil(o.ClientCertificate) {
 		toSerialize["clientCertificate"] = o.ClientCertificate
@@ -1640,22 +1597,28 @@ func (o ApiTestRequest) ToMap() (map[string]interface{}, error) {
 		toSerialize["timeLimit"] = o.TimeLimit
 	}
 	toSerialize["url"] = o.Url
-	if !utils.IsNil(o.Credentials) {
-		toSerialize["credentials"] = o.Credentials
-	}
 	if !utils.IsNil(o.BgpMeasurements) {
 		toSerialize["bgpMeasurements"] = o.BgpMeasurements
 	}
 	if !utils.IsNil(o.UsePublicBgp) {
 		toSerialize["usePublicBgp"] = o.UsePublicBgp
 	}
-	if !utils.IsNil(o.Monitors) {
-		toSerialize["monitors"] = o.Monitors
+	if !utils.IsNil(o.Labels) {
+		toSerialize["labels"] = o.Labels
 	}
 	if !utils.IsNil(o.Tags) {
 		toSerialize["tags"] = o.Tags
 	}
+	if !utils.IsNil(o.SharedWithAccounts) {
+		toSerialize["sharedWithAccounts"] = o.SharedWithAccounts
+	}
+	if !utils.IsNil(o.AlertRules) {
+		toSerialize["alertRules"] = o.AlertRules
+	}
 	toSerialize["agents"] = o.Agents
+	if !utils.IsNil(o.Credentials) {
+		toSerialize["credentials"] = o.Credentials
+	}
 	return toSerialize, nil
 }
 

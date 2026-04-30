@@ -41,10 +41,6 @@ type SipServerInstantTestRequest struct {
 	TestName *string `json:"testName,omitempty"`
 	Type *string `json:"type,omitempty"`
 	Links *TestLinks `json:"_links,omitempty"`
-	// A list of test label identifiers (get `labelId` from `/labels` endpoint).
-	Labels []string `json:"labels,omitempty"`
-	// A list of account group identifiers that the test is shared with (get `aid` from `/account-groups` endpoint).
-	SharedWithAccounts []string `json:"sharedWithAccounts,omitempty"`
 	// Set `true` to measure MTU sizes on network from agents to the target.
 	MtuMeasurements *bool `json:"mtuMeasurements,omitempty"`
 	// Enable or disable network measurements. Set to true to enable or false to disable network measurements.
@@ -66,8 +62,12 @@ type SipServerInstantTestRequest struct {
 	// Sets packets rate sent to measure the network in packets per second.
 	FixedPacketRate *int32 `json:"fixedPacketRate,omitempty"`
 	Ipv6Policy *TestIpv6Policy `json:"ipv6Policy,omitempty"`
+	// A list of test label identifiers (get `labelId` from `/labels` endpoint).
+	Labels []string `json:"labels,omitempty"`
 	// A list of test tag identifiers (get `id` from `/tags` endpoint).
 	Tags []string `json:"tags,omitempty"`
+	// A list of account group identifiers that the test is shared with (get `aid` from `/account-groups` endpoint).
+	SharedWithAccounts []string `json:"sharedWithAccounts,omitempty"`
 	// A list of objects with `agentId` (required) and `sourceIpAddress` (optional).
 	Agents []TestAgent `json:"agents"`
 	TargetSipCredentials TestSipCredentials `json:"targetSipCredentials"`
@@ -478,70 +478,6 @@ func (o *SipServerInstantTestRequest) SetLinks(v TestLinks) {
 	o.Links = &v
 }
 
-// GetLabels returns the Labels field value if set, zero value otherwise.
-func (o *SipServerInstantTestRequest) GetLabels() []string {
-	if o == nil || utils.IsNil(o.Labels) {
-		var ret []string
-		return ret
-	}
-	return o.Labels
-}
-
-// GetLabelsOk returns a tuple with the Labels field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SipServerInstantTestRequest) GetLabelsOk() ([]string, bool) {
-	if o == nil || utils.IsNil(o.Labels) {
-		return nil, false
-	}
-	return o.Labels, true
-}
-
-// HasLabels returns a boolean if a field has been set.
-func (o *SipServerInstantTestRequest) HasLabels() bool {
-	if o != nil && !utils.IsNil(o.Labels) {
-		return true
-	}
-
-	return false
-}
-
-// SetLabels gets a reference to the given []string and assigns it to the Labels field.
-func (o *SipServerInstantTestRequest) SetLabels(v []string) {
-	o.Labels = v
-}
-
-// GetSharedWithAccounts returns the SharedWithAccounts field value if set, zero value otherwise.
-func (o *SipServerInstantTestRequest) GetSharedWithAccounts() []string {
-	if o == nil || utils.IsNil(o.SharedWithAccounts) {
-		var ret []string
-		return ret
-	}
-	return o.SharedWithAccounts
-}
-
-// GetSharedWithAccountsOk returns a tuple with the SharedWithAccounts field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SipServerInstantTestRequest) GetSharedWithAccountsOk() ([]string, bool) {
-	if o == nil || utils.IsNil(o.SharedWithAccounts) {
-		return nil, false
-	}
-	return o.SharedWithAccounts, true
-}
-
-// HasSharedWithAccounts returns a boolean if a field has been set.
-func (o *SipServerInstantTestRequest) HasSharedWithAccounts() bool {
-	if o != nil && !utils.IsNil(o.SharedWithAccounts) {
-		return true
-	}
-
-	return false
-}
-
-// SetSharedWithAccounts gets a reference to the given []string and assigns it to the SharedWithAccounts field.
-func (o *SipServerInstantTestRequest) SetSharedWithAccounts(v []string) {
-	o.SharedWithAccounts = v
-}
-
 // GetMtuMeasurements returns the MtuMeasurements field value if set, zero value otherwise.
 func (o *SipServerInstantTestRequest) GetMtuMeasurements() bool {
 	if o == nil || utils.IsNil(o.MtuMeasurements) {
@@ -926,6 +862,38 @@ func (o *SipServerInstantTestRequest) SetIpv6Policy(v TestIpv6Policy) {
 	o.Ipv6Policy = &v
 }
 
+// GetLabels returns the Labels field value if set, zero value otherwise.
+func (o *SipServerInstantTestRequest) GetLabels() []string {
+	if o == nil || utils.IsNil(o.Labels) {
+		var ret []string
+		return ret
+	}
+	return o.Labels
+}
+
+// GetLabelsOk returns a tuple with the Labels field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SipServerInstantTestRequest) GetLabelsOk() ([]string, bool) {
+	if o == nil || utils.IsNil(o.Labels) {
+		return nil, false
+	}
+	return o.Labels, true
+}
+
+// HasLabels returns a boolean if a field has been set.
+func (o *SipServerInstantTestRequest) HasLabels() bool {
+	if o != nil && !utils.IsNil(o.Labels) {
+		return true
+	}
+
+	return false
+}
+
+// SetLabels gets a reference to the given []string and assigns it to the Labels field.
+func (o *SipServerInstantTestRequest) SetLabels(v []string) {
+	o.Labels = v
+}
+
 // GetTags returns the Tags field value if set, zero value otherwise.
 func (o *SipServerInstantTestRequest) GetTags() []string {
 	if o == nil || utils.IsNil(o.Tags) {
@@ -956,6 +924,38 @@ func (o *SipServerInstantTestRequest) HasTags() bool {
 // SetTags gets a reference to the given []string and assigns it to the Tags field.
 func (o *SipServerInstantTestRequest) SetTags(v []string) {
 	o.Tags = v
+}
+
+// GetSharedWithAccounts returns the SharedWithAccounts field value if set, zero value otherwise.
+func (o *SipServerInstantTestRequest) GetSharedWithAccounts() []string {
+	if o == nil || utils.IsNil(o.SharedWithAccounts) {
+		var ret []string
+		return ret
+	}
+	return o.SharedWithAccounts
+}
+
+// GetSharedWithAccountsOk returns a tuple with the SharedWithAccounts field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SipServerInstantTestRequest) GetSharedWithAccountsOk() ([]string, bool) {
+	if o == nil || utils.IsNil(o.SharedWithAccounts) {
+		return nil, false
+	}
+	return o.SharedWithAccounts, true
+}
+
+// HasSharedWithAccounts returns a boolean if a field has been set.
+func (o *SipServerInstantTestRequest) HasSharedWithAccounts() bool {
+	if o != nil && !utils.IsNil(o.SharedWithAccounts) {
+		return true
+	}
+
+	return false
+}
+
+// SetSharedWithAccounts gets a reference to the given []string and assigns it to the SharedWithAccounts field.
+func (o *SipServerInstantTestRequest) SetSharedWithAccounts(v []string) {
+	o.SharedWithAccounts = v
 }
 
 // GetAgents returns the Agents field value
@@ -1049,12 +1049,6 @@ func (o SipServerInstantTestRequest) ToMap() (map[string]interface{}, error) {
 	if !utils.IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
-	if !utils.IsNil(o.Labels) {
-		toSerialize["labels"] = o.Labels
-	}
-	if !utils.IsNil(o.SharedWithAccounts) {
-		toSerialize["sharedWithAccounts"] = o.SharedWithAccounts
-	}
 	if !utils.IsNil(o.MtuMeasurements) {
 		toSerialize["mtuMeasurements"] = o.MtuMeasurements
 	}
@@ -1091,8 +1085,14 @@ func (o SipServerInstantTestRequest) ToMap() (map[string]interface{}, error) {
 	if !utils.IsNil(o.Ipv6Policy) {
 		toSerialize["ipv6Policy"] = o.Ipv6Policy
 	}
+	if !utils.IsNil(o.Labels) {
+		toSerialize["labels"] = o.Labels
+	}
 	if !utils.IsNil(o.Tags) {
 		toSerialize["tags"] = o.Tags
+	}
+	if !utils.IsNil(o.SharedWithAccounts) {
+		toSerialize["sharedWithAccounts"] = o.SharedWithAccounts
 	}
 	toSerialize["agents"] = o.Agents
 	toSerialize["targetSipCredentials"] = o.TargetSipCredentials

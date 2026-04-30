@@ -67,6 +67,7 @@ model_api_test_.go
 model_api_test_request.go
 model_api_test_response.go
 model_api_tests.go
+model_base_bgp_request.go
 model_base_bgp_test_.go
 model_base_request.go
 model_base_test_.go
@@ -85,11 +86,11 @@ model_dns_sec_test_response.go
 model_dns_sec_tests.go
 model_dns_server_instant_test_.go
 model_dns_server_properties.go
+model_dns_server_request_properties.go
 model_dns_server_test_.go
 model_dns_server_test_request.go
 model_dns_server_test_response.go
 model_dns_server_tests.go
-model_dns_servers_request.go
 model_dns_trace_instant_test_.go
 model_dns_trace_properties.go
 model_dns_trace_test_.go
@@ -174,6 +175,7 @@ model_unexpanded_agent_to_server_test_.go
 model_unexpanded_api_test_.go
 model_unexpanded_bgp_test_.go
 model_unexpanded_dns_sec_test_.go
+model_unexpanded_dns_server_request_test_.go
 model_unexpanded_dns_server_test_.go
 model_unexpanded_dns_trace_test_.go
 model_unexpanded_ftp_server_test_.go
@@ -186,7 +188,6 @@ model_unexpanded_voice_test_.go
 model_unexpanded_web_transaction_test_.go
 model_update_agent_to_server_test_request.go
 model_update_bgp_test_request.go
-model_update_sip_server_test_.go
 model_validation_error.go
 model_validation_error_item.go
 model_voice_instant_test_.go

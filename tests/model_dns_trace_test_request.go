@@ -26,8 +26,6 @@ type DnsTraceTestRequest struct {
 	AlertsEnabled *bool `json:"alertsEnabled,omitempty"`
 	// Test is enabled.
 	Enabled *bool `json:"enabled,omitempty"`
-	// List of alert rules IDs to apply to the test (get `ruleId` from `/alerts/rules` endpoint. If `alertsEnabled` is set to `true` and `alertRules` is not included on test creation or update, applicable user default alert rules will be used)
-	AlertRules []string `json:"alertRules,omitempty"`
 	// User that created the test.
 	CreatedBy *string `json:"createdBy,omitempty"`
 	// UTC created date (ISO date-time format).
@@ -48,18 +46,20 @@ type DnsTraceTestRequest struct {
 	TestName *string `json:"testName,omitempty"`
 	Type *string `json:"type,omitempty"`
 	Links *TestLinks `json:"_links,omitempty"`
-	// Contains list of test label IDs (get `labelId` from `/labels` endpoint)
-	Labels []string `json:"labels,omitempty"`
-	// Contains list of account group IDs. Test is shared with the listed account groups (get `aid` from `/account-groups` endpoint)
-	SharedWithAccounts []string `json:"sharedWithAccounts,omitempty"`
 	DnsTransportProtocol *TestDnsTransportProtocol `json:"dnsTransportProtocol,omitempty"`
 	// The target record for the test, with the record type suffixed. If no record type is specified, the test defaults to an ANY record.
 	Domain string `json:"domain"`
 	DnsQueryClass *DnsQueryClass `json:"dnsQueryClass,omitempty"`
 	// Indicates whether agents should randomize the start time in each test round.
 	RandomizedStartTime *bool `json:"randomizedStartTime,omitempty"`
+	// Contains list of test label IDs (get `labelId` from `/labels` endpoint)
+	Labels []string `json:"labels,omitempty"`
 	// Contains list of test tag IDs (get `id` from `/tags` endpoint).
 	Tags []string `json:"tags,omitempty"`
+	// Contains list of account group IDs. Test is shared with the listed account groups (get `aid` from `/account-groups` endpoint)
+	SharedWithAccounts []string `json:"sharedWithAccounts,omitempty"`
+	// List of alert rules IDs to apply to the test (get `ruleId` from `/alerts/rules` endpoint. If `alertsEnabled` is set to `true` and `alertRules` is not included on test creation or update, applicable user default alert rules will be used)
+	AlertRules []string `json:"alertRules,omitempty"`
 	// Contains list of Agent IDs (get `agentId` from `/agents` endpoint).
 	Agents []TestAgentRequest `json:"agents"`
 }
@@ -186,38 +186,6 @@ func (o *DnsTraceTestRequest) HasEnabled() bool {
 // SetEnabled gets a reference to the given bool and assigns it to the Enabled field.
 func (o *DnsTraceTestRequest) SetEnabled(v bool) {
 	o.Enabled = &v
-}
-
-// GetAlertRules returns the AlertRules field value if set, zero value otherwise.
-func (o *DnsTraceTestRequest) GetAlertRules() []string {
-	if o == nil || utils.IsNil(o.AlertRules) {
-		var ret []string
-		return ret
-	}
-	return o.AlertRules
-}
-
-// GetAlertRulesOk returns a tuple with the AlertRules field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *DnsTraceTestRequest) GetAlertRulesOk() ([]string, bool) {
-	if o == nil || utils.IsNil(o.AlertRules) {
-		return nil, false
-	}
-	return o.AlertRules, true
-}
-
-// HasAlertRules returns a boolean if a field has been set.
-func (o *DnsTraceTestRequest) HasAlertRules() bool {
-	if o != nil && !utils.IsNil(o.AlertRules) {
-		return true
-	}
-
-	return false
-}
-
-// SetAlertRules gets a reference to the given []string and assigns it to the AlertRules field.
-func (o *DnsTraceTestRequest) SetAlertRules(v []string) {
-	o.AlertRules = v
 }
 
 // GetCreatedBy returns the CreatedBy field value if set, zero value otherwise.
@@ -572,70 +540,6 @@ func (o *DnsTraceTestRequest) SetLinks(v TestLinks) {
 	o.Links = &v
 }
 
-// GetLabels returns the Labels field value if set, zero value otherwise.
-func (o *DnsTraceTestRequest) GetLabels() []string {
-	if o == nil || utils.IsNil(o.Labels) {
-		var ret []string
-		return ret
-	}
-	return o.Labels
-}
-
-// GetLabelsOk returns a tuple with the Labels field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *DnsTraceTestRequest) GetLabelsOk() ([]string, bool) {
-	if o == nil || utils.IsNil(o.Labels) {
-		return nil, false
-	}
-	return o.Labels, true
-}
-
-// HasLabels returns a boolean if a field has been set.
-func (o *DnsTraceTestRequest) HasLabels() bool {
-	if o != nil && !utils.IsNil(o.Labels) {
-		return true
-	}
-
-	return false
-}
-
-// SetLabels gets a reference to the given []string and assigns it to the Labels field.
-func (o *DnsTraceTestRequest) SetLabels(v []string) {
-	o.Labels = v
-}
-
-// GetSharedWithAccounts returns the SharedWithAccounts field value if set, zero value otherwise.
-func (o *DnsTraceTestRequest) GetSharedWithAccounts() []string {
-	if o == nil || utils.IsNil(o.SharedWithAccounts) {
-		var ret []string
-		return ret
-	}
-	return o.SharedWithAccounts
-}
-
-// GetSharedWithAccountsOk returns a tuple with the SharedWithAccounts field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *DnsTraceTestRequest) GetSharedWithAccountsOk() ([]string, bool) {
-	if o == nil || utils.IsNil(o.SharedWithAccounts) {
-		return nil, false
-	}
-	return o.SharedWithAccounts, true
-}
-
-// HasSharedWithAccounts returns a boolean if a field has been set.
-func (o *DnsTraceTestRequest) HasSharedWithAccounts() bool {
-	if o != nil && !utils.IsNil(o.SharedWithAccounts) {
-		return true
-	}
-
-	return false
-}
-
-// SetSharedWithAccounts gets a reference to the given []string and assigns it to the SharedWithAccounts field.
-func (o *DnsTraceTestRequest) SetSharedWithAccounts(v []string) {
-	o.SharedWithAccounts = v
-}
-
 // GetDnsTransportProtocol returns the DnsTransportProtocol field value if set, zero value otherwise.
 func (o *DnsTraceTestRequest) GetDnsTransportProtocol() TestDnsTransportProtocol {
 	if o == nil || utils.IsNil(o.DnsTransportProtocol) {
@@ -756,6 +660,38 @@ func (o *DnsTraceTestRequest) SetRandomizedStartTime(v bool) {
 	o.RandomizedStartTime = &v
 }
 
+// GetLabels returns the Labels field value if set, zero value otherwise.
+func (o *DnsTraceTestRequest) GetLabels() []string {
+	if o == nil || utils.IsNil(o.Labels) {
+		var ret []string
+		return ret
+	}
+	return o.Labels
+}
+
+// GetLabelsOk returns a tuple with the Labels field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DnsTraceTestRequest) GetLabelsOk() ([]string, bool) {
+	if o == nil || utils.IsNil(o.Labels) {
+		return nil, false
+	}
+	return o.Labels, true
+}
+
+// HasLabels returns a boolean if a field has been set.
+func (o *DnsTraceTestRequest) HasLabels() bool {
+	if o != nil && !utils.IsNil(o.Labels) {
+		return true
+	}
+
+	return false
+}
+
+// SetLabels gets a reference to the given []string and assigns it to the Labels field.
+func (o *DnsTraceTestRequest) SetLabels(v []string) {
+	o.Labels = v
+}
+
 // GetTags returns the Tags field value if set, zero value otherwise.
 func (o *DnsTraceTestRequest) GetTags() []string {
 	if o == nil || utils.IsNil(o.Tags) {
@@ -786,6 +722,70 @@ func (o *DnsTraceTestRequest) HasTags() bool {
 // SetTags gets a reference to the given []string and assigns it to the Tags field.
 func (o *DnsTraceTestRequest) SetTags(v []string) {
 	o.Tags = v
+}
+
+// GetSharedWithAccounts returns the SharedWithAccounts field value if set, zero value otherwise.
+func (o *DnsTraceTestRequest) GetSharedWithAccounts() []string {
+	if o == nil || utils.IsNil(o.SharedWithAccounts) {
+		var ret []string
+		return ret
+	}
+	return o.SharedWithAccounts
+}
+
+// GetSharedWithAccountsOk returns a tuple with the SharedWithAccounts field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DnsTraceTestRequest) GetSharedWithAccountsOk() ([]string, bool) {
+	if o == nil || utils.IsNil(o.SharedWithAccounts) {
+		return nil, false
+	}
+	return o.SharedWithAccounts, true
+}
+
+// HasSharedWithAccounts returns a boolean if a field has been set.
+func (o *DnsTraceTestRequest) HasSharedWithAccounts() bool {
+	if o != nil && !utils.IsNil(o.SharedWithAccounts) {
+		return true
+	}
+
+	return false
+}
+
+// SetSharedWithAccounts gets a reference to the given []string and assigns it to the SharedWithAccounts field.
+func (o *DnsTraceTestRequest) SetSharedWithAccounts(v []string) {
+	o.SharedWithAccounts = v
+}
+
+// GetAlertRules returns the AlertRules field value if set, zero value otherwise.
+func (o *DnsTraceTestRequest) GetAlertRules() []string {
+	if o == nil || utils.IsNil(o.AlertRules) {
+		var ret []string
+		return ret
+	}
+	return o.AlertRules
+}
+
+// GetAlertRulesOk returns a tuple with the AlertRules field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DnsTraceTestRequest) GetAlertRulesOk() ([]string, bool) {
+	if o == nil || utils.IsNil(o.AlertRules) {
+		return nil, false
+	}
+	return o.AlertRules, true
+}
+
+// HasAlertRules returns a boolean if a field has been set.
+func (o *DnsTraceTestRequest) HasAlertRules() bool {
+	if o != nil && !utils.IsNil(o.AlertRules) {
+		return true
+	}
+
+	return false
+}
+
+// SetAlertRules gets a reference to the given []string and assigns it to the AlertRules field.
+func (o *DnsTraceTestRequest) SetAlertRules(v []string) {
+	o.AlertRules = v
 }
 
 // GetAgents returns the Agents field value
@@ -829,9 +829,6 @@ func (o DnsTraceTestRequest) ToMap() (map[string]interface{}, error) {
 	if !utils.IsNil(o.Enabled) {
 		toSerialize["enabled"] = o.Enabled
 	}
-	if !utils.IsNil(o.AlertRules) {
-		toSerialize["alertRules"] = o.AlertRules
-	}
 	if !utils.IsNil(o.CreatedBy) {
 		toSerialize["createdBy"] = o.CreatedBy
 	}
@@ -865,12 +862,6 @@ func (o DnsTraceTestRequest) ToMap() (map[string]interface{}, error) {
 	if !utils.IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
-	if !utils.IsNil(o.Labels) {
-		toSerialize["labels"] = o.Labels
-	}
-	if !utils.IsNil(o.SharedWithAccounts) {
-		toSerialize["sharedWithAccounts"] = o.SharedWithAccounts
-	}
 	if !utils.IsNil(o.DnsTransportProtocol) {
 		toSerialize["dnsTransportProtocol"] = o.DnsTransportProtocol
 	}
@@ -881,8 +872,17 @@ func (o DnsTraceTestRequest) ToMap() (map[string]interface{}, error) {
 	if !utils.IsNil(o.RandomizedStartTime) {
 		toSerialize["randomizedStartTime"] = o.RandomizedStartTime
 	}
+	if !utils.IsNil(o.Labels) {
+		toSerialize["labels"] = o.Labels
+	}
 	if !utils.IsNil(o.Tags) {
 		toSerialize["tags"] = o.Tags
+	}
+	if !utils.IsNil(o.SharedWithAccounts) {
+		toSerialize["sharedWithAccounts"] = o.SharedWithAccounts
+	}
+	if !utils.IsNil(o.AlertRules) {
+		toSerialize["alertRules"] = o.AlertRules
 	}
 	toSerialize["agents"] = o.Agents
 	return toSerialize, nil

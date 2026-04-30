@@ -24,9 +24,9 @@ type GenericConnector struct {
 	Type ConnectorType `json:"type"`
 	Name string `json:"name"`
 	Target string `json:"target"`
-	Authentication *GenericConnectorAuth `json:"authentication,omitempty"`
 	// The date when the connector was last modified (Unix timestamp in milliseconds).
 	LastModifiedDate *int64 `json:"lastModifiedDate,omitempty"`
+	Authentication *GenericConnectorAuth `json:"authentication,omitempty"`
 	Headers []Header `json:"headers,omitempty"`
 }
 
@@ -156,38 +156,6 @@ func (o *GenericConnector) SetTarget(v string) {
 	o.Target = v
 }
 
-// GetAuthentication returns the Authentication field value if set, zero value otherwise.
-func (o *GenericConnector) GetAuthentication() GenericConnectorAuth {
-	if o == nil || utils.IsNil(o.Authentication) {
-		var ret GenericConnectorAuth
-		return ret
-	}
-	return *o.Authentication
-}
-
-// GetAuthenticationOk returns a tuple with the Authentication field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *GenericConnector) GetAuthenticationOk() (*GenericConnectorAuth, bool) {
-	if o == nil || utils.IsNil(o.Authentication) {
-		return nil, false
-	}
-	return o.Authentication, true
-}
-
-// HasAuthentication returns a boolean if a field has been set.
-func (o *GenericConnector) HasAuthentication() bool {
-	if o != nil && !utils.IsNil(o.Authentication) {
-		return true
-	}
-
-	return false
-}
-
-// SetAuthentication gets a reference to the given GenericConnectorAuth and assigns it to the Authentication field.
-func (o *GenericConnector) SetAuthentication(v GenericConnectorAuth) {
-	o.Authentication = &v
-}
-
 // GetLastModifiedDate returns the LastModifiedDate field value if set, zero value otherwise.
 func (o *GenericConnector) GetLastModifiedDate() int64 {
 	if o == nil || utils.IsNil(o.LastModifiedDate) {
@@ -218,6 +186,38 @@ func (o *GenericConnector) HasLastModifiedDate() bool {
 // SetLastModifiedDate gets a reference to the given int64 and assigns it to the LastModifiedDate field.
 func (o *GenericConnector) SetLastModifiedDate(v int64) {
 	o.LastModifiedDate = &v
+}
+
+// GetAuthentication returns the Authentication field value if set, zero value otherwise.
+func (o *GenericConnector) GetAuthentication() GenericConnectorAuth {
+	if o == nil || utils.IsNil(o.Authentication) {
+		var ret GenericConnectorAuth
+		return ret
+	}
+	return *o.Authentication
+}
+
+// GetAuthenticationOk returns a tuple with the Authentication field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GenericConnector) GetAuthenticationOk() (*GenericConnectorAuth, bool) {
+	if o == nil || utils.IsNil(o.Authentication) {
+		return nil, false
+	}
+	return o.Authentication, true
+}
+
+// HasAuthentication returns a boolean if a field has been set.
+func (o *GenericConnector) HasAuthentication() bool {
+	if o != nil && !utils.IsNil(o.Authentication) {
+		return true
+	}
+
+	return false
+}
+
+// SetAuthentication gets a reference to the given GenericConnectorAuth and assigns it to the Authentication field.
+func (o *GenericConnector) SetAuthentication(v GenericConnectorAuth) {
+	o.Authentication = &v
 }
 
 // GetHeaders returns the Headers field value if set, zero value otherwise.
@@ -268,11 +268,11 @@ func (o GenericConnector) ToMap() (map[string]interface{}, error) {
 	toSerialize["type"] = o.Type
 	toSerialize["name"] = o.Name
 	toSerialize["target"] = o.Target
-	if !utils.IsNil(o.Authentication) {
-		toSerialize["authentication"] = o.Authentication
-	}
 	if !utils.IsNil(o.LastModifiedDate) {
 		toSerialize["lastModifiedDate"] = o.LastModifiedDate
+	}
+	if !utils.IsNil(o.Authentication) {
+		toSerialize["authentication"] = o.Authentication
 	}
 	if !utils.IsNil(o.Headers) {
 		toSerialize["headers"] = o.Headers

@@ -16,18 +16,16 @@ import (
 	"fmt"
 )
 
-// checks if the UpdateSipServerTest type satisfies the MappedNullable interface at compile time
-var _ utils.MappedNullable = &UpdateSipServerTest{}
+// checks if the UnexpandedDnsServerRequestTest type satisfies the MappedNullable interface at compile time
+var _ utils.MappedNullable = &UnexpandedDnsServerRequestTest{}
 
-// UpdateSipServerTest struct for UpdateSipServerTest
-type UpdateSipServerTest struct {
+// UnexpandedDnsServerRequestTest struct for UnexpandedDnsServerRequestTest
+type UnexpandedDnsServerRequestTest struct {
 	Interval TestInterval `json:"interval"`
 	// Indicates if alerts are enabled.
 	AlertsEnabled *bool `json:"alertsEnabled,omitempty"`
 	// Test is enabled.
 	Enabled *bool `json:"enabled,omitempty"`
-	// Contains list of enabled alert rule objects.
-	AlertRules []AlertRule `json:"alertRules,omitempty"`
 	// User that created the test.
 	CreatedBy *string `json:"createdBy,omitempty"`
 	// UTC created date (ISO date-time format).
@@ -48,50 +46,51 @@ type UpdateSipServerTest struct {
 	TestName *string `json:"testName,omitempty"`
 	Type *string `json:"type,omitempty"`
 	Links *TestLinks `json:"_links,omitempty"`
-	// Labels to which the test is assigned. This field is not returned for Instant Tests.
-	Labels []TestLabel `json:"labels,omitempty"`
-	SharedWithAccounts []SharedWithAccount `json:"sharedWithAccounts,omitempty"`
+	// Set to `true` to enable bandwidth measurements, only applies to Enterprise agents assigned to the test.
+	BandwidthMeasurements *bool `json:"bandwidthMeasurements,omitempty"`
+	// A list of DNS server FQDN.
+	DnsServers []string `json:"dnsServers"`
+	DnsTransportProtocol *TestDnsTransportProtocol `json:"dnsTransportProtocol,omitempty"`
+	// The target record for the test, with the record type suffixed. If no record type is specified, the test defaults to an ANY record.
+	Domain string `json:"domain"`
 	// Set `true` to measure MTU sizes on network from agents to the target.
 	MtuMeasurements *bool `json:"mtuMeasurements,omitempty"`
 	// Enable or disable network measurements. Set to true to enable or false to disable network measurements.
 	NetworkMeasurements *bool `json:"networkMeasurements,omitempty"`
 	// Number of path traces executed by the agent.
 	NumPathTraces *int32 `json:"numPathTraces,omitempty"`
-	// Options regex, this field does not require escaping.
-	OptionsRegex *string `json:"optionsRegex,omitempty"`
 	PathTraceMode *TestPathTraceMode `json:"pathTraceMode,omitempty"`
 	ProbeMode *TestProbeMode `json:"probeMode,omitempty"`
+	Protocol *TestProtocol `json:"protocol,omitempty"`
 	// Indicates whether agents should randomize the start time in each test round.
 	RandomizedStartTime *bool `json:"randomizedStartTime,omitempty"`
-	// Set to true to perform SIP registration on the test target with the SIP REGISTER command.
-	RegisterEnabled *bool `json:"registerEnabled,omitempty"`
-	// Target time for test completion in milliseconds.
-	SipTargetTime *int32 `json:"sipTargetTime,omitempty"`
-	// Time limit in milliseconds.
-	SipTimeLimit *int32 `json:"sipTimeLimit,omitempty"`
+	// Set true to run query with RD (recursion desired) flag enabled.
+	RecursiveQueries *bool `json:"recursiveQueries,omitempty"`
+	Ipv6Policy *TestIpv6Policy `json:"ipv6Policy,omitempty"`
 	// Sets packets rate sent to measure the network in packets per second.
 	FixedPacketRate *int32 `json:"fixedPacketRate,omitempty"`
-	Ipv6Policy *TestIpv6Policy `json:"ipv6Policy,omitempty"`
+	DnsQueryClass *DnsQueryClass `json:"dnsQueryClass,omitempty"`
 	// Set to `true` to enable bgp measurements.
 	BgpMeasurements *bool `json:"bgpMeasurements,omitempty"`
 	// Indicate if all available public BGP monitors should be used, when ommited defaults to `bgpMeasurements` value.
 	UsePublicBgp *bool `json:"usePublicBgp,omitempty"`
-	// Contains list of enabled BGP monitors.
-	Monitors []Monitor `json:"monitors,omitempty"`
-	TargetSipCredentials TestSipCredentials `json:"targetSipCredentials"`
 }
 
-type _UpdateSipServerTest UpdateSipServerTest
+type _UnexpandedDnsServerRequestTest UnexpandedDnsServerRequestTest
 
-// NewUpdateSipServerTest instantiates a new UpdateSipServerTest object
+// NewUnexpandedDnsServerRequestTest instantiates a new UnexpandedDnsServerRequestTest object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUpdateSipServerTest(interval TestInterval, targetSipCredentials TestSipCredentials) *UpdateSipServerTest {
-	this := UpdateSipServerTest{}
+func NewUnexpandedDnsServerRequestTest(interval TestInterval, dnsServers []string, domain string) *UnexpandedDnsServerRequestTest {
+	this := UnexpandedDnsServerRequestTest{}
 	this.Interval = interval
 	var enabled bool = true
 	this.Enabled = &enabled
+	this.DnsServers = dnsServers
+	var dnsTransportProtocol TestDnsTransportProtocol = "udp"
+	this.DnsTransportProtocol = &dnsTransportProtocol
+	this.Domain = domain
 	var networkMeasurements bool = true
 	this.NetworkMeasurements = &networkMeasurements
 	var numPathTraces int32 = 3
@@ -100,31 +99,30 @@ func NewUpdateSipServerTest(interval TestInterval, targetSipCredentials TestSipC
 	this.PathTraceMode = &pathTraceMode
 	var probeMode TestProbeMode = "auto"
 	this.ProbeMode = &probeMode
+	var protocol TestProtocol = "tcp"
+	this.Protocol = &protocol
 	var randomizedStartTime bool = false
 	this.RandomizedStartTime = &randomizedStartTime
-	var registerEnabled bool = false
-	this.RegisterEnabled = &registerEnabled
-	var sipTimeLimit int32 = 5
-	this.SipTimeLimit = &sipTimeLimit
 	var ipv6Policy TestIpv6Policy = "use-agent-policy"
 	this.Ipv6Policy = &ipv6Policy
 	var bgpMeasurements bool = true
 	this.BgpMeasurements = &bgpMeasurements
 	var usePublicBgp bool = true
 	this.UsePublicBgp = &usePublicBgp
-	this.TargetSipCredentials = targetSipCredentials
 	return &this
 }
 
-// NewUpdateSipServerTestWithDefaults instantiates a new UpdateSipServerTest object
+// NewUnexpandedDnsServerRequestTestWithDefaults instantiates a new UnexpandedDnsServerRequestTest object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewUpdateSipServerTestWithDefaults() *UpdateSipServerTest {
-	this := UpdateSipServerTest{}
+func NewUnexpandedDnsServerRequestTestWithDefaults() *UnexpandedDnsServerRequestTest {
+	this := UnexpandedDnsServerRequestTest{}
 	var interval TestInterval = TESTINTERVAL__60
 	this.Interval = interval
 	var enabled bool = true
 	this.Enabled = &enabled
+	var dnsTransportProtocol TestDnsTransportProtocol = "udp"
+	this.DnsTransportProtocol = &dnsTransportProtocol
 	var networkMeasurements bool = true
 	this.NetworkMeasurements = &networkMeasurements
 	var numPathTraces int32 = 3
@@ -133,12 +131,10 @@ func NewUpdateSipServerTestWithDefaults() *UpdateSipServerTest {
 	this.PathTraceMode = &pathTraceMode
 	var probeMode TestProbeMode = "auto"
 	this.ProbeMode = &probeMode
+	var protocol TestProtocol = "tcp"
+	this.Protocol = &protocol
 	var randomizedStartTime bool = false
 	this.RandomizedStartTime = &randomizedStartTime
-	var registerEnabled bool = false
-	this.RegisterEnabled = &registerEnabled
-	var sipTimeLimit int32 = 5
-	this.SipTimeLimit = &sipTimeLimit
 	var ipv6Policy TestIpv6Policy = "use-agent-policy"
 	this.Ipv6Policy = &ipv6Policy
 	var bgpMeasurements bool = true
@@ -149,7 +145,7 @@ func NewUpdateSipServerTestWithDefaults() *UpdateSipServerTest {
 }
 
 // GetInterval returns the Interval field value
-func (o *UpdateSipServerTest) GetInterval() TestInterval {
+func (o *UnexpandedDnsServerRequestTest) GetInterval() TestInterval {
 	if o == nil {
 		var ret TestInterval
 		return ret
@@ -160,7 +156,7 @@ func (o *UpdateSipServerTest) GetInterval() TestInterval {
 
 // GetIntervalOk returns a tuple with the Interval field value
 // and a boolean to check if the value has been set.
-func (o *UpdateSipServerTest) GetIntervalOk() (*TestInterval, bool) {
+func (o *UnexpandedDnsServerRequestTest) GetIntervalOk() (*TestInterval, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -168,12 +164,12 @@ func (o *UpdateSipServerTest) GetIntervalOk() (*TestInterval, bool) {
 }
 
 // SetInterval sets field value
-func (o *UpdateSipServerTest) SetInterval(v TestInterval) {
+func (o *UnexpandedDnsServerRequestTest) SetInterval(v TestInterval) {
 	o.Interval = v
 }
 
 // GetAlertsEnabled returns the AlertsEnabled field value if set, zero value otherwise.
-func (o *UpdateSipServerTest) GetAlertsEnabled() bool {
+func (o *UnexpandedDnsServerRequestTest) GetAlertsEnabled() bool {
 	if o == nil || utils.IsNil(o.AlertsEnabled) {
 		var ret bool
 		return ret
@@ -183,7 +179,7 @@ func (o *UpdateSipServerTest) GetAlertsEnabled() bool {
 
 // GetAlertsEnabledOk returns a tuple with the AlertsEnabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdateSipServerTest) GetAlertsEnabledOk() (*bool, bool) {
+func (o *UnexpandedDnsServerRequestTest) GetAlertsEnabledOk() (*bool, bool) {
 	if o == nil || utils.IsNil(o.AlertsEnabled) {
 		return nil, false
 	}
@@ -191,7 +187,7 @@ func (o *UpdateSipServerTest) GetAlertsEnabledOk() (*bool, bool) {
 }
 
 // HasAlertsEnabled returns a boolean if a field has been set.
-func (o *UpdateSipServerTest) HasAlertsEnabled() bool {
+func (o *UnexpandedDnsServerRequestTest) HasAlertsEnabled() bool {
 	if o != nil && !utils.IsNil(o.AlertsEnabled) {
 		return true
 	}
@@ -200,12 +196,12 @@ func (o *UpdateSipServerTest) HasAlertsEnabled() bool {
 }
 
 // SetAlertsEnabled gets a reference to the given bool and assigns it to the AlertsEnabled field.
-func (o *UpdateSipServerTest) SetAlertsEnabled(v bool) {
+func (o *UnexpandedDnsServerRequestTest) SetAlertsEnabled(v bool) {
 	o.AlertsEnabled = &v
 }
 
 // GetEnabled returns the Enabled field value if set, zero value otherwise.
-func (o *UpdateSipServerTest) GetEnabled() bool {
+func (o *UnexpandedDnsServerRequestTest) GetEnabled() bool {
 	if o == nil || utils.IsNil(o.Enabled) {
 		var ret bool
 		return ret
@@ -215,7 +211,7 @@ func (o *UpdateSipServerTest) GetEnabled() bool {
 
 // GetEnabledOk returns a tuple with the Enabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdateSipServerTest) GetEnabledOk() (*bool, bool) {
+func (o *UnexpandedDnsServerRequestTest) GetEnabledOk() (*bool, bool) {
 	if o == nil || utils.IsNil(o.Enabled) {
 		return nil, false
 	}
@@ -223,7 +219,7 @@ func (o *UpdateSipServerTest) GetEnabledOk() (*bool, bool) {
 }
 
 // HasEnabled returns a boolean if a field has been set.
-func (o *UpdateSipServerTest) HasEnabled() bool {
+func (o *UnexpandedDnsServerRequestTest) HasEnabled() bool {
 	if o != nil && !utils.IsNil(o.Enabled) {
 		return true
 	}
@@ -232,44 +228,12 @@ func (o *UpdateSipServerTest) HasEnabled() bool {
 }
 
 // SetEnabled gets a reference to the given bool and assigns it to the Enabled field.
-func (o *UpdateSipServerTest) SetEnabled(v bool) {
+func (o *UnexpandedDnsServerRequestTest) SetEnabled(v bool) {
 	o.Enabled = &v
 }
 
-// GetAlertRules returns the AlertRules field value if set, zero value otherwise.
-func (o *UpdateSipServerTest) GetAlertRules() []AlertRule {
-	if o == nil || utils.IsNil(o.AlertRules) {
-		var ret []AlertRule
-		return ret
-	}
-	return o.AlertRules
-}
-
-// GetAlertRulesOk returns a tuple with the AlertRules field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *UpdateSipServerTest) GetAlertRulesOk() ([]AlertRule, bool) {
-	if o == nil || utils.IsNil(o.AlertRules) {
-		return nil, false
-	}
-	return o.AlertRules, true
-}
-
-// HasAlertRules returns a boolean if a field has been set.
-func (o *UpdateSipServerTest) HasAlertRules() bool {
-	if o != nil && !utils.IsNil(o.AlertRules) {
-		return true
-	}
-
-	return false
-}
-
-// SetAlertRules gets a reference to the given []AlertRule and assigns it to the AlertRules field.
-func (o *UpdateSipServerTest) SetAlertRules(v []AlertRule) {
-	o.AlertRules = v
-}
-
 // GetCreatedBy returns the CreatedBy field value if set, zero value otherwise.
-func (o *UpdateSipServerTest) GetCreatedBy() string {
+func (o *UnexpandedDnsServerRequestTest) GetCreatedBy() string {
 	if o == nil || utils.IsNil(o.CreatedBy) {
 		var ret string
 		return ret
@@ -279,7 +243,7 @@ func (o *UpdateSipServerTest) GetCreatedBy() string {
 
 // GetCreatedByOk returns a tuple with the CreatedBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdateSipServerTest) GetCreatedByOk() (*string, bool) {
+func (o *UnexpandedDnsServerRequestTest) GetCreatedByOk() (*string, bool) {
 	if o == nil || utils.IsNil(o.CreatedBy) {
 		return nil, false
 	}
@@ -287,7 +251,7 @@ func (o *UpdateSipServerTest) GetCreatedByOk() (*string, bool) {
 }
 
 // HasCreatedBy returns a boolean if a field has been set.
-func (o *UpdateSipServerTest) HasCreatedBy() bool {
+func (o *UnexpandedDnsServerRequestTest) HasCreatedBy() bool {
 	if o != nil && !utils.IsNil(o.CreatedBy) {
 		return true
 	}
@@ -296,12 +260,12 @@ func (o *UpdateSipServerTest) HasCreatedBy() bool {
 }
 
 // SetCreatedBy gets a reference to the given string and assigns it to the CreatedBy field.
-func (o *UpdateSipServerTest) SetCreatedBy(v string) {
+func (o *UnexpandedDnsServerRequestTest) SetCreatedBy(v string) {
 	o.CreatedBy = &v
 }
 
 // GetCreatedDate returns the CreatedDate field value if set, zero value otherwise.
-func (o *UpdateSipServerTest) GetCreatedDate() time.Time {
+func (o *UnexpandedDnsServerRequestTest) GetCreatedDate() time.Time {
 	if o == nil || utils.IsNil(o.CreatedDate) {
 		var ret time.Time
 		return ret
@@ -311,7 +275,7 @@ func (o *UpdateSipServerTest) GetCreatedDate() time.Time {
 
 // GetCreatedDateOk returns a tuple with the CreatedDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdateSipServerTest) GetCreatedDateOk() (*time.Time, bool) {
+func (o *UnexpandedDnsServerRequestTest) GetCreatedDateOk() (*time.Time, bool) {
 	if o == nil || utils.IsNil(o.CreatedDate) {
 		return nil, false
 	}
@@ -319,7 +283,7 @@ func (o *UpdateSipServerTest) GetCreatedDateOk() (*time.Time, bool) {
 }
 
 // HasCreatedDate returns a boolean if a field has been set.
-func (o *UpdateSipServerTest) HasCreatedDate() bool {
+func (o *UnexpandedDnsServerRequestTest) HasCreatedDate() bool {
 	if o != nil && !utils.IsNil(o.CreatedDate) {
 		return true
 	}
@@ -328,12 +292,12 @@ func (o *UpdateSipServerTest) HasCreatedDate() bool {
 }
 
 // SetCreatedDate gets a reference to the given time.Time and assigns it to the CreatedDate field.
-func (o *UpdateSipServerTest) SetCreatedDate(v time.Time) {
+func (o *UnexpandedDnsServerRequestTest) SetCreatedDate(v time.Time) {
 	o.CreatedDate = &v
 }
 
 // GetDescription returns the Description field value if set, zero value otherwise.
-func (o *UpdateSipServerTest) GetDescription() string {
+func (o *UnexpandedDnsServerRequestTest) GetDescription() string {
 	if o == nil || utils.IsNil(o.Description) {
 		var ret string
 		return ret
@@ -343,7 +307,7 @@ func (o *UpdateSipServerTest) GetDescription() string {
 
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdateSipServerTest) GetDescriptionOk() (*string, bool) {
+func (o *UnexpandedDnsServerRequestTest) GetDescriptionOk() (*string, bool) {
 	if o == nil || utils.IsNil(o.Description) {
 		return nil, false
 	}
@@ -351,7 +315,7 @@ func (o *UpdateSipServerTest) GetDescriptionOk() (*string, bool) {
 }
 
 // HasDescription returns a boolean if a field has been set.
-func (o *UpdateSipServerTest) HasDescription() bool {
+func (o *UnexpandedDnsServerRequestTest) HasDescription() bool {
 	if o != nil && !utils.IsNil(o.Description) {
 		return true
 	}
@@ -360,12 +324,12 @@ func (o *UpdateSipServerTest) HasDescription() bool {
 }
 
 // SetDescription gets a reference to the given string and assigns it to the Description field.
-func (o *UpdateSipServerTest) SetDescription(v string) {
+func (o *UnexpandedDnsServerRequestTest) SetDescription(v string) {
 	o.Description = &v
 }
 
 // GetLiveShare returns the LiveShare field value if set, zero value otherwise.
-func (o *UpdateSipServerTest) GetLiveShare() bool {
+func (o *UnexpandedDnsServerRequestTest) GetLiveShare() bool {
 	if o == nil || utils.IsNil(o.LiveShare) {
 		var ret bool
 		return ret
@@ -375,7 +339,7 @@ func (o *UpdateSipServerTest) GetLiveShare() bool {
 
 // GetLiveShareOk returns a tuple with the LiveShare field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdateSipServerTest) GetLiveShareOk() (*bool, bool) {
+func (o *UnexpandedDnsServerRequestTest) GetLiveShareOk() (*bool, bool) {
 	if o == nil || utils.IsNil(o.LiveShare) {
 		return nil, false
 	}
@@ -383,7 +347,7 @@ func (o *UpdateSipServerTest) GetLiveShareOk() (*bool, bool) {
 }
 
 // HasLiveShare returns a boolean if a field has been set.
-func (o *UpdateSipServerTest) HasLiveShare() bool {
+func (o *UnexpandedDnsServerRequestTest) HasLiveShare() bool {
 	if o != nil && !utils.IsNil(o.LiveShare) {
 		return true
 	}
@@ -392,12 +356,12 @@ func (o *UpdateSipServerTest) HasLiveShare() bool {
 }
 
 // SetLiveShare gets a reference to the given bool and assigns it to the LiveShare field.
-func (o *UpdateSipServerTest) SetLiveShare(v bool) {
+func (o *UnexpandedDnsServerRequestTest) SetLiveShare(v bool) {
 	o.LiveShare = &v
 }
 
 // GetModifiedBy returns the ModifiedBy field value if set, zero value otherwise.
-func (o *UpdateSipServerTest) GetModifiedBy() string {
+func (o *UnexpandedDnsServerRequestTest) GetModifiedBy() string {
 	if o == nil || utils.IsNil(o.ModifiedBy) {
 		var ret string
 		return ret
@@ -407,7 +371,7 @@ func (o *UpdateSipServerTest) GetModifiedBy() string {
 
 // GetModifiedByOk returns a tuple with the ModifiedBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdateSipServerTest) GetModifiedByOk() (*string, bool) {
+func (o *UnexpandedDnsServerRequestTest) GetModifiedByOk() (*string, bool) {
 	if o == nil || utils.IsNil(o.ModifiedBy) {
 		return nil, false
 	}
@@ -415,7 +379,7 @@ func (o *UpdateSipServerTest) GetModifiedByOk() (*string, bool) {
 }
 
 // HasModifiedBy returns a boolean if a field has been set.
-func (o *UpdateSipServerTest) HasModifiedBy() bool {
+func (o *UnexpandedDnsServerRequestTest) HasModifiedBy() bool {
 	if o != nil && !utils.IsNil(o.ModifiedBy) {
 		return true
 	}
@@ -424,12 +388,12 @@ func (o *UpdateSipServerTest) HasModifiedBy() bool {
 }
 
 // SetModifiedBy gets a reference to the given string and assigns it to the ModifiedBy field.
-func (o *UpdateSipServerTest) SetModifiedBy(v string) {
+func (o *UnexpandedDnsServerRequestTest) SetModifiedBy(v string) {
 	o.ModifiedBy = &v
 }
 
 // GetModifiedDate returns the ModifiedDate field value if set, zero value otherwise.
-func (o *UpdateSipServerTest) GetModifiedDate() time.Time {
+func (o *UnexpandedDnsServerRequestTest) GetModifiedDate() time.Time {
 	if o == nil || utils.IsNil(o.ModifiedDate) {
 		var ret time.Time
 		return ret
@@ -439,7 +403,7 @@ func (o *UpdateSipServerTest) GetModifiedDate() time.Time {
 
 // GetModifiedDateOk returns a tuple with the ModifiedDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdateSipServerTest) GetModifiedDateOk() (*time.Time, bool) {
+func (o *UnexpandedDnsServerRequestTest) GetModifiedDateOk() (*time.Time, bool) {
 	if o == nil || utils.IsNil(o.ModifiedDate) {
 		return nil, false
 	}
@@ -447,7 +411,7 @@ func (o *UpdateSipServerTest) GetModifiedDateOk() (*time.Time, bool) {
 }
 
 // HasModifiedDate returns a boolean if a field has been set.
-func (o *UpdateSipServerTest) HasModifiedDate() bool {
+func (o *UnexpandedDnsServerRequestTest) HasModifiedDate() bool {
 	if o != nil && !utils.IsNil(o.ModifiedDate) {
 		return true
 	}
@@ -456,12 +420,12 @@ func (o *UpdateSipServerTest) HasModifiedDate() bool {
 }
 
 // SetModifiedDate gets a reference to the given time.Time and assigns it to the ModifiedDate field.
-func (o *UpdateSipServerTest) SetModifiedDate(v time.Time) {
+func (o *UnexpandedDnsServerRequestTest) SetModifiedDate(v time.Time) {
 	o.ModifiedDate = &v
 }
 
 // GetSavedEvent returns the SavedEvent field value if set, zero value otherwise.
-func (o *UpdateSipServerTest) GetSavedEvent() bool {
+func (o *UnexpandedDnsServerRequestTest) GetSavedEvent() bool {
 	if o == nil || utils.IsNil(o.SavedEvent) {
 		var ret bool
 		return ret
@@ -471,7 +435,7 @@ func (o *UpdateSipServerTest) GetSavedEvent() bool {
 
 // GetSavedEventOk returns a tuple with the SavedEvent field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdateSipServerTest) GetSavedEventOk() (*bool, bool) {
+func (o *UnexpandedDnsServerRequestTest) GetSavedEventOk() (*bool, bool) {
 	if o == nil || utils.IsNil(o.SavedEvent) {
 		return nil, false
 	}
@@ -479,7 +443,7 @@ func (o *UpdateSipServerTest) GetSavedEventOk() (*bool, bool) {
 }
 
 // HasSavedEvent returns a boolean if a field has been set.
-func (o *UpdateSipServerTest) HasSavedEvent() bool {
+func (o *UnexpandedDnsServerRequestTest) HasSavedEvent() bool {
 	if o != nil && !utils.IsNil(o.SavedEvent) {
 		return true
 	}
@@ -488,12 +452,12 @@ func (o *UpdateSipServerTest) HasSavedEvent() bool {
 }
 
 // SetSavedEvent gets a reference to the given bool and assigns it to the SavedEvent field.
-func (o *UpdateSipServerTest) SetSavedEvent(v bool) {
+func (o *UnexpandedDnsServerRequestTest) SetSavedEvent(v bool) {
 	o.SavedEvent = &v
 }
 
 // GetTestId returns the TestId field value if set, zero value otherwise.
-func (o *UpdateSipServerTest) GetTestId() string {
+func (o *UnexpandedDnsServerRequestTest) GetTestId() string {
 	if o == nil || utils.IsNil(o.TestId) {
 		var ret string
 		return ret
@@ -503,7 +467,7 @@ func (o *UpdateSipServerTest) GetTestId() string {
 
 // GetTestIdOk returns a tuple with the TestId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdateSipServerTest) GetTestIdOk() (*string, bool) {
+func (o *UnexpandedDnsServerRequestTest) GetTestIdOk() (*string, bool) {
 	if o == nil || utils.IsNil(o.TestId) {
 		return nil, false
 	}
@@ -511,7 +475,7 @@ func (o *UpdateSipServerTest) GetTestIdOk() (*string, bool) {
 }
 
 // HasTestId returns a boolean if a field has been set.
-func (o *UpdateSipServerTest) HasTestId() bool {
+func (o *UnexpandedDnsServerRequestTest) HasTestId() bool {
 	if o != nil && !utils.IsNil(o.TestId) {
 		return true
 	}
@@ -520,12 +484,12 @@ func (o *UpdateSipServerTest) HasTestId() bool {
 }
 
 // SetTestId gets a reference to the given string and assigns it to the TestId field.
-func (o *UpdateSipServerTest) SetTestId(v string) {
+func (o *UnexpandedDnsServerRequestTest) SetTestId(v string) {
 	o.TestId = &v
 }
 
 // GetTestName returns the TestName field value if set, zero value otherwise.
-func (o *UpdateSipServerTest) GetTestName() string {
+func (o *UnexpandedDnsServerRequestTest) GetTestName() string {
 	if o == nil || utils.IsNil(o.TestName) {
 		var ret string
 		return ret
@@ -535,7 +499,7 @@ func (o *UpdateSipServerTest) GetTestName() string {
 
 // GetTestNameOk returns a tuple with the TestName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdateSipServerTest) GetTestNameOk() (*string, bool) {
+func (o *UnexpandedDnsServerRequestTest) GetTestNameOk() (*string, bool) {
 	if o == nil || utils.IsNil(o.TestName) {
 		return nil, false
 	}
@@ -543,7 +507,7 @@ func (o *UpdateSipServerTest) GetTestNameOk() (*string, bool) {
 }
 
 // HasTestName returns a boolean if a field has been set.
-func (o *UpdateSipServerTest) HasTestName() bool {
+func (o *UnexpandedDnsServerRequestTest) HasTestName() bool {
 	if o != nil && !utils.IsNil(o.TestName) {
 		return true
 	}
@@ -552,12 +516,12 @@ func (o *UpdateSipServerTest) HasTestName() bool {
 }
 
 // SetTestName gets a reference to the given string and assigns it to the TestName field.
-func (o *UpdateSipServerTest) SetTestName(v string) {
+func (o *UnexpandedDnsServerRequestTest) SetTestName(v string) {
 	o.TestName = &v
 }
 
 // GetType returns the Type field value if set, zero value otherwise.
-func (o *UpdateSipServerTest) GetType() string {
+func (o *UnexpandedDnsServerRequestTest) GetType() string {
 	if o == nil || utils.IsNil(o.Type) {
 		var ret string
 		return ret
@@ -567,7 +531,7 @@ func (o *UpdateSipServerTest) GetType() string {
 
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdateSipServerTest) GetTypeOk() (*string, bool) {
+func (o *UnexpandedDnsServerRequestTest) GetTypeOk() (*string, bool) {
 	if o == nil || utils.IsNil(o.Type) {
 		return nil, false
 	}
@@ -575,7 +539,7 @@ func (o *UpdateSipServerTest) GetTypeOk() (*string, bool) {
 }
 
 // HasType returns a boolean if a field has been set.
-func (o *UpdateSipServerTest) HasType() bool {
+func (o *UnexpandedDnsServerRequestTest) HasType() bool {
 	if o != nil && !utils.IsNil(o.Type) {
 		return true
 	}
@@ -584,12 +548,12 @@ func (o *UpdateSipServerTest) HasType() bool {
 }
 
 // SetType gets a reference to the given string and assigns it to the Type field.
-func (o *UpdateSipServerTest) SetType(v string) {
+func (o *UnexpandedDnsServerRequestTest) SetType(v string) {
 	o.Type = &v
 }
 
 // GetLinks returns the Links field value if set, zero value otherwise.
-func (o *UpdateSipServerTest) GetLinks() TestLinks {
+func (o *UnexpandedDnsServerRequestTest) GetLinks() TestLinks {
 	if o == nil || utils.IsNil(o.Links) {
 		var ret TestLinks
 		return ret
@@ -599,7 +563,7 @@ func (o *UpdateSipServerTest) GetLinks() TestLinks {
 
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdateSipServerTest) GetLinksOk() (*TestLinks, bool) {
+func (o *UnexpandedDnsServerRequestTest) GetLinksOk() (*TestLinks, bool) {
 	if o == nil || utils.IsNil(o.Links) {
 		return nil, false
 	}
@@ -607,7 +571,7 @@ func (o *UpdateSipServerTest) GetLinksOk() (*TestLinks, bool) {
 }
 
 // HasLinks returns a boolean if a field has been set.
-func (o *UpdateSipServerTest) HasLinks() bool {
+func (o *UnexpandedDnsServerRequestTest) HasLinks() bool {
 	if o != nil && !utils.IsNil(o.Links) {
 		return true
 	}
@@ -616,76 +580,124 @@ func (o *UpdateSipServerTest) HasLinks() bool {
 }
 
 // SetLinks gets a reference to the given TestLinks and assigns it to the Links field.
-func (o *UpdateSipServerTest) SetLinks(v TestLinks) {
+func (o *UnexpandedDnsServerRequestTest) SetLinks(v TestLinks) {
 	o.Links = &v
 }
 
-// GetLabels returns the Labels field value if set, zero value otherwise.
-func (o *UpdateSipServerTest) GetLabels() []TestLabel {
-	if o == nil || utils.IsNil(o.Labels) {
-		var ret []TestLabel
+// GetBandwidthMeasurements returns the BandwidthMeasurements field value if set, zero value otherwise.
+func (o *UnexpandedDnsServerRequestTest) GetBandwidthMeasurements() bool {
+	if o == nil || utils.IsNil(o.BandwidthMeasurements) {
+		var ret bool
 		return ret
 	}
-	return o.Labels
+	return *o.BandwidthMeasurements
 }
 
-// GetLabelsOk returns a tuple with the Labels field value if set, nil otherwise
+// GetBandwidthMeasurementsOk returns a tuple with the BandwidthMeasurements field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdateSipServerTest) GetLabelsOk() ([]TestLabel, bool) {
-	if o == nil || utils.IsNil(o.Labels) {
+func (o *UnexpandedDnsServerRequestTest) GetBandwidthMeasurementsOk() (*bool, bool) {
+	if o == nil || utils.IsNil(o.BandwidthMeasurements) {
 		return nil, false
 	}
-	return o.Labels, true
+	return o.BandwidthMeasurements, true
 }
 
-// HasLabels returns a boolean if a field has been set.
-func (o *UpdateSipServerTest) HasLabels() bool {
-	if o != nil && !utils.IsNil(o.Labels) {
+// HasBandwidthMeasurements returns a boolean if a field has been set.
+func (o *UnexpandedDnsServerRequestTest) HasBandwidthMeasurements() bool {
+	if o != nil && !utils.IsNil(o.BandwidthMeasurements) {
 		return true
 	}
 
 	return false
 }
 
-// SetLabels gets a reference to the given []TestLabel and assigns it to the Labels field.
-func (o *UpdateSipServerTest) SetLabels(v []TestLabel) {
-	o.Labels = v
+// SetBandwidthMeasurements gets a reference to the given bool and assigns it to the BandwidthMeasurements field.
+func (o *UnexpandedDnsServerRequestTest) SetBandwidthMeasurements(v bool) {
+	o.BandwidthMeasurements = &v
 }
 
-// GetSharedWithAccounts returns the SharedWithAccounts field value if set, zero value otherwise.
-func (o *UpdateSipServerTest) GetSharedWithAccounts() []SharedWithAccount {
-	if o == nil || utils.IsNil(o.SharedWithAccounts) {
-		var ret []SharedWithAccount
+// GetDnsServers returns the DnsServers field value
+func (o *UnexpandedDnsServerRequestTest) GetDnsServers() []string {
+	if o == nil {
+		var ret []string
 		return ret
 	}
-	return o.SharedWithAccounts
+
+	return o.DnsServers
 }
 
-// GetSharedWithAccountsOk returns a tuple with the SharedWithAccounts field value if set, nil otherwise
+// GetDnsServersOk returns a tuple with the DnsServers field value
 // and a boolean to check if the value has been set.
-func (o *UpdateSipServerTest) GetSharedWithAccountsOk() ([]SharedWithAccount, bool) {
-	if o == nil || utils.IsNil(o.SharedWithAccounts) {
+func (o *UnexpandedDnsServerRequestTest) GetDnsServersOk() ([]string, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.SharedWithAccounts, true
+	return o.DnsServers, true
 }
 
-// HasSharedWithAccounts returns a boolean if a field has been set.
-func (o *UpdateSipServerTest) HasSharedWithAccounts() bool {
-	if o != nil && !utils.IsNil(o.SharedWithAccounts) {
+// SetDnsServers sets field value
+func (o *UnexpandedDnsServerRequestTest) SetDnsServers(v []string) {
+	o.DnsServers = v
+}
+
+// GetDnsTransportProtocol returns the DnsTransportProtocol field value if set, zero value otherwise.
+func (o *UnexpandedDnsServerRequestTest) GetDnsTransportProtocol() TestDnsTransportProtocol {
+	if o == nil || utils.IsNil(o.DnsTransportProtocol) {
+		var ret TestDnsTransportProtocol
+		return ret
+	}
+	return *o.DnsTransportProtocol
+}
+
+// GetDnsTransportProtocolOk returns a tuple with the DnsTransportProtocol field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UnexpandedDnsServerRequestTest) GetDnsTransportProtocolOk() (*TestDnsTransportProtocol, bool) {
+	if o == nil || utils.IsNil(o.DnsTransportProtocol) {
+		return nil, false
+	}
+	return o.DnsTransportProtocol, true
+}
+
+// HasDnsTransportProtocol returns a boolean if a field has been set.
+func (o *UnexpandedDnsServerRequestTest) HasDnsTransportProtocol() bool {
+	if o != nil && !utils.IsNil(o.DnsTransportProtocol) {
 		return true
 	}
 
 	return false
 }
 
-// SetSharedWithAccounts gets a reference to the given []SharedWithAccount and assigns it to the SharedWithAccounts field.
-func (o *UpdateSipServerTest) SetSharedWithAccounts(v []SharedWithAccount) {
-	o.SharedWithAccounts = v
+// SetDnsTransportProtocol gets a reference to the given TestDnsTransportProtocol and assigns it to the DnsTransportProtocol field.
+func (o *UnexpandedDnsServerRequestTest) SetDnsTransportProtocol(v TestDnsTransportProtocol) {
+	o.DnsTransportProtocol = &v
+}
+
+// GetDomain returns the Domain field value
+func (o *UnexpandedDnsServerRequestTest) GetDomain() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Domain
+}
+
+// GetDomainOk returns a tuple with the Domain field value
+// and a boolean to check if the value has been set.
+func (o *UnexpandedDnsServerRequestTest) GetDomainOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Domain, true
+}
+
+// SetDomain sets field value
+func (o *UnexpandedDnsServerRequestTest) SetDomain(v string) {
+	o.Domain = v
 }
 
 // GetMtuMeasurements returns the MtuMeasurements field value if set, zero value otherwise.
-func (o *UpdateSipServerTest) GetMtuMeasurements() bool {
+func (o *UnexpandedDnsServerRequestTest) GetMtuMeasurements() bool {
 	if o == nil || utils.IsNil(o.MtuMeasurements) {
 		var ret bool
 		return ret
@@ -695,7 +707,7 @@ func (o *UpdateSipServerTest) GetMtuMeasurements() bool {
 
 // GetMtuMeasurementsOk returns a tuple with the MtuMeasurements field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdateSipServerTest) GetMtuMeasurementsOk() (*bool, bool) {
+func (o *UnexpandedDnsServerRequestTest) GetMtuMeasurementsOk() (*bool, bool) {
 	if o == nil || utils.IsNil(o.MtuMeasurements) {
 		return nil, false
 	}
@@ -703,7 +715,7 @@ func (o *UpdateSipServerTest) GetMtuMeasurementsOk() (*bool, bool) {
 }
 
 // HasMtuMeasurements returns a boolean if a field has been set.
-func (o *UpdateSipServerTest) HasMtuMeasurements() bool {
+func (o *UnexpandedDnsServerRequestTest) HasMtuMeasurements() bool {
 	if o != nil && !utils.IsNil(o.MtuMeasurements) {
 		return true
 	}
@@ -712,12 +724,12 @@ func (o *UpdateSipServerTest) HasMtuMeasurements() bool {
 }
 
 // SetMtuMeasurements gets a reference to the given bool and assigns it to the MtuMeasurements field.
-func (o *UpdateSipServerTest) SetMtuMeasurements(v bool) {
+func (o *UnexpandedDnsServerRequestTest) SetMtuMeasurements(v bool) {
 	o.MtuMeasurements = &v
 }
 
 // GetNetworkMeasurements returns the NetworkMeasurements field value if set, zero value otherwise.
-func (o *UpdateSipServerTest) GetNetworkMeasurements() bool {
+func (o *UnexpandedDnsServerRequestTest) GetNetworkMeasurements() bool {
 	if o == nil || utils.IsNil(o.NetworkMeasurements) {
 		var ret bool
 		return ret
@@ -727,7 +739,7 @@ func (o *UpdateSipServerTest) GetNetworkMeasurements() bool {
 
 // GetNetworkMeasurementsOk returns a tuple with the NetworkMeasurements field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdateSipServerTest) GetNetworkMeasurementsOk() (*bool, bool) {
+func (o *UnexpandedDnsServerRequestTest) GetNetworkMeasurementsOk() (*bool, bool) {
 	if o == nil || utils.IsNil(o.NetworkMeasurements) {
 		return nil, false
 	}
@@ -735,7 +747,7 @@ func (o *UpdateSipServerTest) GetNetworkMeasurementsOk() (*bool, bool) {
 }
 
 // HasNetworkMeasurements returns a boolean if a field has been set.
-func (o *UpdateSipServerTest) HasNetworkMeasurements() bool {
+func (o *UnexpandedDnsServerRequestTest) HasNetworkMeasurements() bool {
 	if o != nil && !utils.IsNil(o.NetworkMeasurements) {
 		return true
 	}
@@ -744,12 +756,12 @@ func (o *UpdateSipServerTest) HasNetworkMeasurements() bool {
 }
 
 // SetNetworkMeasurements gets a reference to the given bool and assigns it to the NetworkMeasurements field.
-func (o *UpdateSipServerTest) SetNetworkMeasurements(v bool) {
+func (o *UnexpandedDnsServerRequestTest) SetNetworkMeasurements(v bool) {
 	o.NetworkMeasurements = &v
 }
 
 // GetNumPathTraces returns the NumPathTraces field value if set, zero value otherwise.
-func (o *UpdateSipServerTest) GetNumPathTraces() int32 {
+func (o *UnexpandedDnsServerRequestTest) GetNumPathTraces() int32 {
 	if o == nil || utils.IsNil(o.NumPathTraces) {
 		var ret int32
 		return ret
@@ -759,7 +771,7 @@ func (o *UpdateSipServerTest) GetNumPathTraces() int32 {
 
 // GetNumPathTracesOk returns a tuple with the NumPathTraces field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdateSipServerTest) GetNumPathTracesOk() (*int32, bool) {
+func (o *UnexpandedDnsServerRequestTest) GetNumPathTracesOk() (*int32, bool) {
 	if o == nil || utils.IsNil(o.NumPathTraces) {
 		return nil, false
 	}
@@ -767,7 +779,7 @@ func (o *UpdateSipServerTest) GetNumPathTracesOk() (*int32, bool) {
 }
 
 // HasNumPathTraces returns a boolean if a field has been set.
-func (o *UpdateSipServerTest) HasNumPathTraces() bool {
+func (o *UnexpandedDnsServerRequestTest) HasNumPathTraces() bool {
 	if o != nil && !utils.IsNil(o.NumPathTraces) {
 		return true
 	}
@@ -776,44 +788,12 @@ func (o *UpdateSipServerTest) HasNumPathTraces() bool {
 }
 
 // SetNumPathTraces gets a reference to the given int32 and assigns it to the NumPathTraces field.
-func (o *UpdateSipServerTest) SetNumPathTraces(v int32) {
+func (o *UnexpandedDnsServerRequestTest) SetNumPathTraces(v int32) {
 	o.NumPathTraces = &v
 }
 
-// GetOptionsRegex returns the OptionsRegex field value if set, zero value otherwise.
-func (o *UpdateSipServerTest) GetOptionsRegex() string {
-	if o == nil || utils.IsNil(o.OptionsRegex) {
-		var ret string
-		return ret
-	}
-	return *o.OptionsRegex
-}
-
-// GetOptionsRegexOk returns a tuple with the OptionsRegex field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *UpdateSipServerTest) GetOptionsRegexOk() (*string, bool) {
-	if o == nil || utils.IsNil(o.OptionsRegex) {
-		return nil, false
-	}
-	return o.OptionsRegex, true
-}
-
-// HasOptionsRegex returns a boolean if a field has been set.
-func (o *UpdateSipServerTest) HasOptionsRegex() bool {
-	if o != nil && !utils.IsNil(o.OptionsRegex) {
-		return true
-	}
-
-	return false
-}
-
-// SetOptionsRegex gets a reference to the given string and assigns it to the OptionsRegex field.
-func (o *UpdateSipServerTest) SetOptionsRegex(v string) {
-	o.OptionsRegex = &v
-}
-
 // GetPathTraceMode returns the PathTraceMode field value if set, zero value otherwise.
-func (o *UpdateSipServerTest) GetPathTraceMode() TestPathTraceMode {
+func (o *UnexpandedDnsServerRequestTest) GetPathTraceMode() TestPathTraceMode {
 	if o == nil || utils.IsNil(o.PathTraceMode) {
 		var ret TestPathTraceMode
 		return ret
@@ -823,7 +803,7 @@ func (o *UpdateSipServerTest) GetPathTraceMode() TestPathTraceMode {
 
 // GetPathTraceModeOk returns a tuple with the PathTraceMode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdateSipServerTest) GetPathTraceModeOk() (*TestPathTraceMode, bool) {
+func (o *UnexpandedDnsServerRequestTest) GetPathTraceModeOk() (*TestPathTraceMode, bool) {
 	if o == nil || utils.IsNil(o.PathTraceMode) {
 		return nil, false
 	}
@@ -831,7 +811,7 @@ func (o *UpdateSipServerTest) GetPathTraceModeOk() (*TestPathTraceMode, bool) {
 }
 
 // HasPathTraceMode returns a boolean if a field has been set.
-func (o *UpdateSipServerTest) HasPathTraceMode() bool {
+func (o *UnexpandedDnsServerRequestTest) HasPathTraceMode() bool {
 	if o != nil && !utils.IsNil(o.PathTraceMode) {
 		return true
 	}
@@ -840,12 +820,12 @@ func (o *UpdateSipServerTest) HasPathTraceMode() bool {
 }
 
 // SetPathTraceMode gets a reference to the given TestPathTraceMode and assigns it to the PathTraceMode field.
-func (o *UpdateSipServerTest) SetPathTraceMode(v TestPathTraceMode) {
+func (o *UnexpandedDnsServerRequestTest) SetPathTraceMode(v TestPathTraceMode) {
 	o.PathTraceMode = &v
 }
 
 // GetProbeMode returns the ProbeMode field value if set, zero value otherwise.
-func (o *UpdateSipServerTest) GetProbeMode() TestProbeMode {
+func (o *UnexpandedDnsServerRequestTest) GetProbeMode() TestProbeMode {
 	if o == nil || utils.IsNil(o.ProbeMode) {
 		var ret TestProbeMode
 		return ret
@@ -855,7 +835,7 @@ func (o *UpdateSipServerTest) GetProbeMode() TestProbeMode {
 
 // GetProbeModeOk returns a tuple with the ProbeMode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdateSipServerTest) GetProbeModeOk() (*TestProbeMode, bool) {
+func (o *UnexpandedDnsServerRequestTest) GetProbeModeOk() (*TestProbeMode, bool) {
 	if o == nil || utils.IsNil(o.ProbeMode) {
 		return nil, false
 	}
@@ -863,7 +843,7 @@ func (o *UpdateSipServerTest) GetProbeModeOk() (*TestProbeMode, bool) {
 }
 
 // HasProbeMode returns a boolean if a field has been set.
-func (o *UpdateSipServerTest) HasProbeMode() bool {
+func (o *UnexpandedDnsServerRequestTest) HasProbeMode() bool {
 	if o != nil && !utils.IsNil(o.ProbeMode) {
 		return true
 	}
@@ -872,12 +852,44 @@ func (o *UpdateSipServerTest) HasProbeMode() bool {
 }
 
 // SetProbeMode gets a reference to the given TestProbeMode and assigns it to the ProbeMode field.
-func (o *UpdateSipServerTest) SetProbeMode(v TestProbeMode) {
+func (o *UnexpandedDnsServerRequestTest) SetProbeMode(v TestProbeMode) {
 	o.ProbeMode = &v
 }
 
+// GetProtocol returns the Protocol field value if set, zero value otherwise.
+func (o *UnexpandedDnsServerRequestTest) GetProtocol() TestProtocol {
+	if o == nil || utils.IsNil(o.Protocol) {
+		var ret TestProtocol
+		return ret
+	}
+	return *o.Protocol
+}
+
+// GetProtocolOk returns a tuple with the Protocol field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UnexpandedDnsServerRequestTest) GetProtocolOk() (*TestProtocol, bool) {
+	if o == nil || utils.IsNil(o.Protocol) {
+		return nil, false
+	}
+	return o.Protocol, true
+}
+
+// HasProtocol returns a boolean if a field has been set.
+func (o *UnexpandedDnsServerRequestTest) HasProtocol() bool {
+	if o != nil && !utils.IsNil(o.Protocol) {
+		return true
+	}
+
+	return false
+}
+
+// SetProtocol gets a reference to the given TestProtocol and assigns it to the Protocol field.
+func (o *UnexpandedDnsServerRequestTest) SetProtocol(v TestProtocol) {
+	o.Protocol = &v
+}
+
 // GetRandomizedStartTime returns the RandomizedStartTime field value if set, zero value otherwise.
-func (o *UpdateSipServerTest) GetRandomizedStartTime() bool {
+func (o *UnexpandedDnsServerRequestTest) GetRandomizedStartTime() bool {
 	if o == nil || utils.IsNil(o.RandomizedStartTime) {
 		var ret bool
 		return ret
@@ -887,7 +899,7 @@ func (o *UpdateSipServerTest) GetRandomizedStartTime() bool {
 
 // GetRandomizedStartTimeOk returns a tuple with the RandomizedStartTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdateSipServerTest) GetRandomizedStartTimeOk() (*bool, bool) {
+func (o *UnexpandedDnsServerRequestTest) GetRandomizedStartTimeOk() (*bool, bool) {
 	if o == nil || utils.IsNil(o.RandomizedStartTime) {
 		return nil, false
 	}
@@ -895,7 +907,7 @@ func (o *UpdateSipServerTest) GetRandomizedStartTimeOk() (*bool, bool) {
 }
 
 // HasRandomizedStartTime returns a boolean if a field has been set.
-func (o *UpdateSipServerTest) HasRandomizedStartTime() bool {
+func (o *UnexpandedDnsServerRequestTest) HasRandomizedStartTime() bool {
 	if o != nil && !utils.IsNil(o.RandomizedStartTime) {
 		return true
 	}
@@ -904,140 +916,44 @@ func (o *UpdateSipServerTest) HasRandomizedStartTime() bool {
 }
 
 // SetRandomizedStartTime gets a reference to the given bool and assigns it to the RandomizedStartTime field.
-func (o *UpdateSipServerTest) SetRandomizedStartTime(v bool) {
+func (o *UnexpandedDnsServerRequestTest) SetRandomizedStartTime(v bool) {
 	o.RandomizedStartTime = &v
 }
 
-// GetRegisterEnabled returns the RegisterEnabled field value if set, zero value otherwise.
-func (o *UpdateSipServerTest) GetRegisterEnabled() bool {
-	if o == nil || utils.IsNil(o.RegisterEnabled) {
+// GetRecursiveQueries returns the RecursiveQueries field value if set, zero value otherwise.
+func (o *UnexpandedDnsServerRequestTest) GetRecursiveQueries() bool {
+	if o == nil || utils.IsNil(o.RecursiveQueries) {
 		var ret bool
 		return ret
 	}
-	return *o.RegisterEnabled
+	return *o.RecursiveQueries
 }
 
-// GetRegisterEnabledOk returns a tuple with the RegisterEnabled field value if set, nil otherwise
+// GetRecursiveQueriesOk returns a tuple with the RecursiveQueries field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdateSipServerTest) GetRegisterEnabledOk() (*bool, bool) {
-	if o == nil || utils.IsNil(o.RegisterEnabled) {
+func (o *UnexpandedDnsServerRequestTest) GetRecursiveQueriesOk() (*bool, bool) {
+	if o == nil || utils.IsNil(o.RecursiveQueries) {
 		return nil, false
 	}
-	return o.RegisterEnabled, true
+	return o.RecursiveQueries, true
 }
 
-// HasRegisterEnabled returns a boolean if a field has been set.
-func (o *UpdateSipServerTest) HasRegisterEnabled() bool {
-	if o != nil && !utils.IsNil(o.RegisterEnabled) {
+// HasRecursiveQueries returns a boolean if a field has been set.
+func (o *UnexpandedDnsServerRequestTest) HasRecursiveQueries() bool {
+	if o != nil && !utils.IsNil(o.RecursiveQueries) {
 		return true
 	}
 
 	return false
 }
 
-// SetRegisterEnabled gets a reference to the given bool and assigns it to the RegisterEnabled field.
-func (o *UpdateSipServerTest) SetRegisterEnabled(v bool) {
-	o.RegisterEnabled = &v
-}
-
-// GetSipTargetTime returns the SipTargetTime field value if set, zero value otherwise.
-func (o *UpdateSipServerTest) GetSipTargetTime() int32 {
-	if o == nil || utils.IsNil(o.SipTargetTime) {
-		var ret int32
-		return ret
-	}
-	return *o.SipTargetTime
-}
-
-// GetSipTargetTimeOk returns a tuple with the SipTargetTime field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *UpdateSipServerTest) GetSipTargetTimeOk() (*int32, bool) {
-	if o == nil || utils.IsNil(o.SipTargetTime) {
-		return nil, false
-	}
-	return o.SipTargetTime, true
-}
-
-// HasSipTargetTime returns a boolean if a field has been set.
-func (o *UpdateSipServerTest) HasSipTargetTime() bool {
-	if o != nil && !utils.IsNil(o.SipTargetTime) {
-		return true
-	}
-
-	return false
-}
-
-// SetSipTargetTime gets a reference to the given int32 and assigns it to the SipTargetTime field.
-func (o *UpdateSipServerTest) SetSipTargetTime(v int32) {
-	o.SipTargetTime = &v
-}
-
-// GetSipTimeLimit returns the SipTimeLimit field value if set, zero value otherwise.
-func (o *UpdateSipServerTest) GetSipTimeLimit() int32 {
-	if o == nil || utils.IsNil(o.SipTimeLimit) {
-		var ret int32
-		return ret
-	}
-	return *o.SipTimeLimit
-}
-
-// GetSipTimeLimitOk returns a tuple with the SipTimeLimit field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *UpdateSipServerTest) GetSipTimeLimitOk() (*int32, bool) {
-	if o == nil || utils.IsNil(o.SipTimeLimit) {
-		return nil, false
-	}
-	return o.SipTimeLimit, true
-}
-
-// HasSipTimeLimit returns a boolean if a field has been set.
-func (o *UpdateSipServerTest) HasSipTimeLimit() bool {
-	if o != nil && !utils.IsNil(o.SipTimeLimit) {
-		return true
-	}
-
-	return false
-}
-
-// SetSipTimeLimit gets a reference to the given int32 and assigns it to the SipTimeLimit field.
-func (o *UpdateSipServerTest) SetSipTimeLimit(v int32) {
-	o.SipTimeLimit = &v
-}
-
-// GetFixedPacketRate returns the FixedPacketRate field value if set, zero value otherwise.
-func (o *UpdateSipServerTest) GetFixedPacketRate() int32 {
-	if o == nil || utils.IsNil(o.FixedPacketRate) {
-		var ret int32
-		return ret
-	}
-	return *o.FixedPacketRate
-}
-
-// GetFixedPacketRateOk returns a tuple with the FixedPacketRate field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *UpdateSipServerTest) GetFixedPacketRateOk() (*int32, bool) {
-	if o == nil || utils.IsNil(o.FixedPacketRate) {
-		return nil, false
-	}
-	return o.FixedPacketRate, true
-}
-
-// HasFixedPacketRate returns a boolean if a field has been set.
-func (o *UpdateSipServerTest) HasFixedPacketRate() bool {
-	if o != nil && !utils.IsNil(o.FixedPacketRate) {
-		return true
-	}
-
-	return false
-}
-
-// SetFixedPacketRate gets a reference to the given int32 and assigns it to the FixedPacketRate field.
-func (o *UpdateSipServerTest) SetFixedPacketRate(v int32) {
-	o.FixedPacketRate = &v
+// SetRecursiveQueries gets a reference to the given bool and assigns it to the RecursiveQueries field.
+func (o *UnexpandedDnsServerRequestTest) SetRecursiveQueries(v bool) {
+	o.RecursiveQueries = &v
 }
 
 // GetIpv6Policy returns the Ipv6Policy field value if set, zero value otherwise.
-func (o *UpdateSipServerTest) GetIpv6Policy() TestIpv6Policy {
+func (o *UnexpandedDnsServerRequestTest) GetIpv6Policy() TestIpv6Policy {
 	if o == nil || utils.IsNil(o.Ipv6Policy) {
 		var ret TestIpv6Policy
 		return ret
@@ -1047,7 +963,7 @@ func (o *UpdateSipServerTest) GetIpv6Policy() TestIpv6Policy {
 
 // GetIpv6PolicyOk returns a tuple with the Ipv6Policy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdateSipServerTest) GetIpv6PolicyOk() (*TestIpv6Policy, bool) {
+func (o *UnexpandedDnsServerRequestTest) GetIpv6PolicyOk() (*TestIpv6Policy, bool) {
 	if o == nil || utils.IsNil(o.Ipv6Policy) {
 		return nil, false
 	}
@@ -1055,7 +971,7 @@ func (o *UpdateSipServerTest) GetIpv6PolicyOk() (*TestIpv6Policy, bool) {
 }
 
 // HasIpv6Policy returns a boolean if a field has been set.
-func (o *UpdateSipServerTest) HasIpv6Policy() bool {
+func (o *UnexpandedDnsServerRequestTest) HasIpv6Policy() bool {
 	if o != nil && !utils.IsNil(o.Ipv6Policy) {
 		return true
 	}
@@ -1064,12 +980,76 @@ func (o *UpdateSipServerTest) HasIpv6Policy() bool {
 }
 
 // SetIpv6Policy gets a reference to the given TestIpv6Policy and assigns it to the Ipv6Policy field.
-func (o *UpdateSipServerTest) SetIpv6Policy(v TestIpv6Policy) {
+func (o *UnexpandedDnsServerRequestTest) SetIpv6Policy(v TestIpv6Policy) {
 	o.Ipv6Policy = &v
 }
 
+// GetFixedPacketRate returns the FixedPacketRate field value if set, zero value otherwise.
+func (o *UnexpandedDnsServerRequestTest) GetFixedPacketRate() int32 {
+	if o == nil || utils.IsNil(o.FixedPacketRate) {
+		var ret int32
+		return ret
+	}
+	return *o.FixedPacketRate
+}
+
+// GetFixedPacketRateOk returns a tuple with the FixedPacketRate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UnexpandedDnsServerRequestTest) GetFixedPacketRateOk() (*int32, bool) {
+	if o == nil || utils.IsNil(o.FixedPacketRate) {
+		return nil, false
+	}
+	return o.FixedPacketRate, true
+}
+
+// HasFixedPacketRate returns a boolean if a field has been set.
+func (o *UnexpandedDnsServerRequestTest) HasFixedPacketRate() bool {
+	if o != nil && !utils.IsNil(o.FixedPacketRate) {
+		return true
+	}
+
+	return false
+}
+
+// SetFixedPacketRate gets a reference to the given int32 and assigns it to the FixedPacketRate field.
+func (o *UnexpandedDnsServerRequestTest) SetFixedPacketRate(v int32) {
+	o.FixedPacketRate = &v
+}
+
+// GetDnsQueryClass returns the DnsQueryClass field value if set, zero value otherwise.
+func (o *UnexpandedDnsServerRequestTest) GetDnsQueryClass() DnsQueryClass {
+	if o == nil || utils.IsNil(o.DnsQueryClass) {
+		var ret DnsQueryClass
+		return ret
+	}
+	return *o.DnsQueryClass
+}
+
+// GetDnsQueryClassOk returns a tuple with the DnsQueryClass field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UnexpandedDnsServerRequestTest) GetDnsQueryClassOk() (*DnsQueryClass, bool) {
+	if o == nil || utils.IsNil(o.DnsQueryClass) {
+		return nil, false
+	}
+	return o.DnsQueryClass, true
+}
+
+// HasDnsQueryClass returns a boolean if a field has been set.
+func (o *UnexpandedDnsServerRequestTest) HasDnsQueryClass() bool {
+	if o != nil && !utils.IsNil(o.DnsQueryClass) {
+		return true
+	}
+
+	return false
+}
+
+// SetDnsQueryClass gets a reference to the given DnsQueryClass and assigns it to the DnsQueryClass field.
+func (o *UnexpandedDnsServerRequestTest) SetDnsQueryClass(v DnsQueryClass) {
+	o.DnsQueryClass = &v
+}
+
 // GetBgpMeasurements returns the BgpMeasurements field value if set, zero value otherwise.
-func (o *UpdateSipServerTest) GetBgpMeasurements() bool {
+func (o *UnexpandedDnsServerRequestTest) GetBgpMeasurements() bool {
 	if o == nil || utils.IsNil(o.BgpMeasurements) {
 		var ret bool
 		return ret
@@ -1079,7 +1059,7 @@ func (o *UpdateSipServerTest) GetBgpMeasurements() bool {
 
 // GetBgpMeasurementsOk returns a tuple with the BgpMeasurements field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdateSipServerTest) GetBgpMeasurementsOk() (*bool, bool) {
+func (o *UnexpandedDnsServerRequestTest) GetBgpMeasurementsOk() (*bool, bool) {
 	if o == nil || utils.IsNil(o.BgpMeasurements) {
 		return nil, false
 	}
@@ -1087,7 +1067,7 @@ func (o *UpdateSipServerTest) GetBgpMeasurementsOk() (*bool, bool) {
 }
 
 // HasBgpMeasurements returns a boolean if a field has been set.
-func (o *UpdateSipServerTest) HasBgpMeasurements() bool {
+func (o *UnexpandedDnsServerRequestTest) HasBgpMeasurements() bool {
 	if o != nil && !utils.IsNil(o.BgpMeasurements) {
 		return true
 	}
@@ -1096,12 +1076,12 @@ func (o *UpdateSipServerTest) HasBgpMeasurements() bool {
 }
 
 // SetBgpMeasurements gets a reference to the given bool and assigns it to the BgpMeasurements field.
-func (o *UpdateSipServerTest) SetBgpMeasurements(v bool) {
+func (o *UnexpandedDnsServerRequestTest) SetBgpMeasurements(v bool) {
 	o.BgpMeasurements = &v
 }
 
 // GetUsePublicBgp returns the UsePublicBgp field value if set, zero value otherwise.
-func (o *UpdateSipServerTest) GetUsePublicBgp() bool {
+func (o *UnexpandedDnsServerRequestTest) GetUsePublicBgp() bool {
 	if o == nil || utils.IsNil(o.UsePublicBgp) {
 		var ret bool
 		return ret
@@ -1111,7 +1091,7 @@ func (o *UpdateSipServerTest) GetUsePublicBgp() bool {
 
 // GetUsePublicBgpOk returns a tuple with the UsePublicBgp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdateSipServerTest) GetUsePublicBgpOk() (*bool, bool) {
+func (o *UnexpandedDnsServerRequestTest) GetUsePublicBgpOk() (*bool, bool) {
 	if o == nil || utils.IsNil(o.UsePublicBgp) {
 		return nil, false
 	}
@@ -1119,7 +1099,7 @@ func (o *UpdateSipServerTest) GetUsePublicBgpOk() (*bool, bool) {
 }
 
 // HasUsePublicBgp returns a boolean if a field has been set.
-func (o *UpdateSipServerTest) HasUsePublicBgp() bool {
+func (o *UnexpandedDnsServerRequestTest) HasUsePublicBgp() bool {
 	if o != nil && !utils.IsNil(o.UsePublicBgp) {
 		return true
 	}
@@ -1128,67 +1108,11 @@ func (o *UpdateSipServerTest) HasUsePublicBgp() bool {
 }
 
 // SetUsePublicBgp gets a reference to the given bool and assigns it to the UsePublicBgp field.
-func (o *UpdateSipServerTest) SetUsePublicBgp(v bool) {
+func (o *UnexpandedDnsServerRequestTest) SetUsePublicBgp(v bool) {
 	o.UsePublicBgp = &v
 }
 
-// GetMonitors returns the Monitors field value if set, zero value otherwise.
-func (o *UpdateSipServerTest) GetMonitors() []Monitor {
-	if o == nil || utils.IsNil(o.Monitors) {
-		var ret []Monitor
-		return ret
-	}
-	return o.Monitors
-}
-
-// GetMonitorsOk returns a tuple with the Monitors field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *UpdateSipServerTest) GetMonitorsOk() ([]Monitor, bool) {
-	if o == nil || utils.IsNil(o.Monitors) {
-		return nil, false
-	}
-	return o.Monitors, true
-}
-
-// HasMonitors returns a boolean if a field has been set.
-func (o *UpdateSipServerTest) HasMonitors() bool {
-	if o != nil && !utils.IsNil(o.Monitors) {
-		return true
-	}
-
-	return false
-}
-
-// SetMonitors gets a reference to the given []Monitor and assigns it to the Monitors field.
-func (o *UpdateSipServerTest) SetMonitors(v []Monitor) {
-	o.Monitors = v
-}
-
-// GetTargetSipCredentials returns the TargetSipCredentials field value
-func (o *UpdateSipServerTest) GetTargetSipCredentials() TestSipCredentials {
-	if o == nil {
-		var ret TestSipCredentials
-		return ret
-	}
-
-	return o.TargetSipCredentials
-}
-
-// GetTargetSipCredentialsOk returns a tuple with the TargetSipCredentials field value
-// and a boolean to check if the value has been set.
-func (o *UpdateSipServerTest) GetTargetSipCredentialsOk() (*TestSipCredentials, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.TargetSipCredentials, true
-}
-
-// SetTargetSipCredentials sets field value
-func (o *UpdateSipServerTest) SetTargetSipCredentials(v TestSipCredentials) {
-	o.TargetSipCredentials = v
-}
-
-func (o UpdateSipServerTest) MarshalJSON() ([]byte, error) {
+func (o UnexpandedDnsServerRequestTest) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -1196,7 +1120,7 @@ func (o UpdateSipServerTest) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o UpdateSipServerTest) ToMap() (map[string]interface{}, error) {
+func (o UnexpandedDnsServerRequestTest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["interval"] = o.Interval
 	if !utils.IsNil(o.AlertsEnabled) {
@@ -1204,9 +1128,6 @@ func (o UpdateSipServerTest) ToMap() (map[string]interface{}, error) {
 	}
 	if !utils.IsNil(o.Enabled) {
 		toSerialize["enabled"] = o.Enabled
-	}
-	if !utils.IsNil(o.AlertRules) {
-		toSerialize["alertRules"] = o.AlertRules
 	}
 	if !utils.IsNil(o.CreatedBy) {
 		toSerialize["createdBy"] = o.CreatedBy
@@ -1241,12 +1162,14 @@ func (o UpdateSipServerTest) ToMap() (map[string]interface{}, error) {
 	if !utils.IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
-	if !utils.IsNil(o.Labels) {
-		toSerialize["labels"] = o.Labels
+	if !utils.IsNil(o.BandwidthMeasurements) {
+		toSerialize["bandwidthMeasurements"] = o.BandwidthMeasurements
 	}
-	if !utils.IsNil(o.SharedWithAccounts) {
-		toSerialize["sharedWithAccounts"] = o.SharedWithAccounts
+	toSerialize["dnsServers"] = o.DnsServers
+	if !utils.IsNil(o.DnsTransportProtocol) {
+		toSerialize["dnsTransportProtocol"] = o.DnsTransportProtocol
 	}
+	toSerialize["domain"] = o.Domain
 	if !utils.IsNil(o.MtuMeasurements) {
 		toSerialize["mtuMeasurements"] = o.MtuMeasurements
 	}
@@ -1256,32 +1179,29 @@ func (o UpdateSipServerTest) ToMap() (map[string]interface{}, error) {
 	if !utils.IsNil(o.NumPathTraces) {
 		toSerialize["numPathTraces"] = o.NumPathTraces
 	}
-	if !utils.IsNil(o.OptionsRegex) {
-		toSerialize["optionsRegex"] = o.OptionsRegex
-	}
 	if !utils.IsNil(o.PathTraceMode) {
 		toSerialize["pathTraceMode"] = o.PathTraceMode
 	}
 	if !utils.IsNil(o.ProbeMode) {
 		toSerialize["probeMode"] = o.ProbeMode
 	}
+	if !utils.IsNil(o.Protocol) {
+		toSerialize["protocol"] = o.Protocol
+	}
 	if !utils.IsNil(o.RandomizedStartTime) {
 		toSerialize["randomizedStartTime"] = o.RandomizedStartTime
 	}
-	if !utils.IsNil(o.RegisterEnabled) {
-		toSerialize["registerEnabled"] = o.RegisterEnabled
+	if !utils.IsNil(o.RecursiveQueries) {
+		toSerialize["recursiveQueries"] = o.RecursiveQueries
 	}
-	if !utils.IsNil(o.SipTargetTime) {
-		toSerialize["sipTargetTime"] = o.SipTargetTime
-	}
-	if !utils.IsNil(o.SipTimeLimit) {
-		toSerialize["sipTimeLimit"] = o.SipTimeLimit
+	if !utils.IsNil(o.Ipv6Policy) {
+		toSerialize["ipv6Policy"] = o.Ipv6Policy
 	}
 	if !utils.IsNil(o.FixedPacketRate) {
 		toSerialize["fixedPacketRate"] = o.FixedPacketRate
 	}
-	if !utils.IsNil(o.Ipv6Policy) {
-		toSerialize["ipv6Policy"] = o.Ipv6Policy
+	if !utils.IsNil(o.DnsQueryClass) {
+		toSerialize["dnsQueryClass"] = o.DnsQueryClass
 	}
 	if !utils.IsNil(o.BgpMeasurements) {
 		toSerialize["bgpMeasurements"] = o.BgpMeasurements
@@ -1289,20 +1209,17 @@ func (o UpdateSipServerTest) ToMap() (map[string]interface{}, error) {
 	if !utils.IsNil(o.UsePublicBgp) {
 		toSerialize["usePublicBgp"] = o.UsePublicBgp
 	}
-	if !utils.IsNil(o.Monitors) {
-		toSerialize["monitors"] = o.Monitors
-	}
-	toSerialize["targetSipCredentials"] = o.TargetSipCredentials
 	return toSerialize, nil
 }
 
-func (o *UpdateSipServerTest) UnmarshalJSON(data []byte) (err error) {
+func (o *UnexpandedDnsServerRequestTest) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"interval",
-		"targetSipCredentials",
+		"dnsServers",
+		"domain",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -1319,51 +1236,51 @@ func (o *UpdateSipServerTest) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varUpdateSipServerTest := _UpdateSipServerTest{}
+	varUnexpandedDnsServerRequestTest := _UnexpandedDnsServerRequestTest{}
 
-    err = json.Unmarshal(data, &varUpdateSipServerTest)
+    err = json.Unmarshal(data, &varUnexpandedDnsServerRequestTest)
 
 	if err != nil {
 		return err
 	}
 
-	*o = UpdateSipServerTest(varUpdateSipServerTest)
+	*o = UnexpandedDnsServerRequestTest(varUnexpandedDnsServerRequestTest)
 
 	return err
 }
 
-type NullableUpdateSipServerTest struct {
-	value *UpdateSipServerTest
+type NullableUnexpandedDnsServerRequestTest struct {
+	value *UnexpandedDnsServerRequestTest
 	isSet bool
 }
 
-func (v NullableUpdateSipServerTest) Get() *UpdateSipServerTest {
+func (v NullableUnexpandedDnsServerRequestTest) Get() *UnexpandedDnsServerRequestTest {
 	return v.value
 }
 
-func (v *NullableUpdateSipServerTest) Set(val *UpdateSipServerTest) {
+func (v *NullableUnexpandedDnsServerRequestTest) Set(val *UnexpandedDnsServerRequestTest) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableUpdateSipServerTest) IsSet() bool {
+func (v NullableUnexpandedDnsServerRequestTest) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableUpdateSipServerTest) Unset() {
+func (v *NullableUnexpandedDnsServerRequestTest) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableUpdateSipServerTest(val *UpdateSipServerTest) *NullableUpdateSipServerTest {
-	return &NullableUpdateSipServerTest{value: val, isSet: true}
+func NewNullableUnexpandedDnsServerRequestTest(val *UnexpandedDnsServerRequestTest) *NullableUnexpandedDnsServerRequestTest {
+	return &NullableUnexpandedDnsServerRequestTest{value: val, isSet: true}
 }
 
-func (v NullableUpdateSipServerTest) MarshalJSON() ([]byte, error) {
+func (v NullableUnexpandedDnsServerRequestTest) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableUpdateSipServerTest) UnmarshalJSON(src []byte) error {
+func (v *NullableUnexpandedDnsServerRequestTest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

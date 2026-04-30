@@ -15,11 +15,11 @@ import (
 	"time"
 )
 
-// checks if the UpdateBgpTestRequest type satisfies the MappedNullable interface at compile time
-var _ utils.MappedNullable = &UpdateBgpTestRequest{}
+// checks if the BaseBgpRequest type satisfies the MappedNullable interface at compile time
+var _ utils.MappedNullable = &BaseBgpRequest{}
 
-// UpdateBgpTestRequest struct for UpdateBgpTestRequest
-type UpdateBgpTestRequest struct {
+// BaseBgpRequest struct for BaseBgpRequest
+type BaseBgpRequest struct {
 	// User that created the test.
 	CreatedBy *string `json:"createdBy,omitempty"`
 	// UTC created date (ISO date-time format).
@@ -48,24 +48,14 @@ type UpdateBgpTestRequest struct {
 	UsePublicBgp *bool `json:"usePublicBgp,omitempty"`
 	// Indicates if alerts are enabled.
 	AlertsEnabled *bool `json:"alertsEnabled,omitempty"`
-	// Contains list of test label IDs (get `labelId` from `/labels` endpoint)
-	Labels []string `json:"labels,omitempty"`
-	// Contains list of test tag IDs (get `id` from `/tags` endpoint).
-	Tags []string `json:"tags,omitempty"`
-	// Contains list of account group IDs. Test is shared with the listed account groups (get `aid` from `/account-groups` endpoint)
-	SharedWithAccounts []string `json:"sharedWithAccounts,omitempty"`
-	// List of alert rules IDs to apply to the test (get `ruleId` from `/alerts/rules` endpoint. If `alertsEnabled` is set to `true` and `alertRules` is not included on test creation or update, applicable user default alert rules will be used)
-	AlertRules []string `json:"alertRules,omitempty"`
-	// Contains list of BGP monitor IDs (get `monitorId` from `/monitors` endpoint)
-	Monitors []string `json:"monitors,omitempty"`
 }
 
-// NewUpdateBgpTestRequest instantiates a new UpdateBgpTestRequest object
+// NewBaseBgpRequest instantiates a new BaseBgpRequest object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUpdateBgpTestRequest() *UpdateBgpTestRequest {
-	this := UpdateBgpTestRequest{}
+func NewBaseBgpRequest() *BaseBgpRequest {
+	this := BaseBgpRequest{}
 	var enabled bool = true
 	this.Enabled = &enabled
 	var usePublicBgp bool = true
@@ -73,11 +63,11 @@ func NewUpdateBgpTestRequest() *UpdateBgpTestRequest {
 	return &this
 }
 
-// NewUpdateBgpTestRequestWithDefaults instantiates a new UpdateBgpTestRequest object
+// NewBaseBgpRequestWithDefaults instantiates a new BaseBgpRequest object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewUpdateBgpTestRequestWithDefaults() *UpdateBgpTestRequest {
-	this := UpdateBgpTestRequest{}
+func NewBaseBgpRequestWithDefaults() *BaseBgpRequest {
+	this := BaseBgpRequest{}
 	var enabled bool = true
 	this.Enabled = &enabled
 	var usePublicBgp bool = true
@@ -86,7 +76,7 @@ func NewUpdateBgpTestRequestWithDefaults() *UpdateBgpTestRequest {
 }
 
 // GetCreatedBy returns the CreatedBy field value if set, zero value otherwise.
-func (o *UpdateBgpTestRequest) GetCreatedBy() string {
+func (o *BaseBgpRequest) GetCreatedBy() string {
 	if o == nil || utils.IsNil(o.CreatedBy) {
 		var ret string
 		return ret
@@ -96,7 +86,7 @@ func (o *UpdateBgpTestRequest) GetCreatedBy() string {
 
 // GetCreatedByOk returns a tuple with the CreatedBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdateBgpTestRequest) GetCreatedByOk() (*string, bool) {
+func (o *BaseBgpRequest) GetCreatedByOk() (*string, bool) {
 	if o == nil || utils.IsNil(o.CreatedBy) {
 		return nil, false
 	}
@@ -104,7 +94,7 @@ func (o *UpdateBgpTestRequest) GetCreatedByOk() (*string, bool) {
 }
 
 // HasCreatedBy returns a boolean if a field has been set.
-func (o *UpdateBgpTestRequest) HasCreatedBy() bool {
+func (o *BaseBgpRequest) HasCreatedBy() bool {
 	if o != nil && !utils.IsNil(o.CreatedBy) {
 		return true
 	}
@@ -113,12 +103,12 @@ func (o *UpdateBgpTestRequest) HasCreatedBy() bool {
 }
 
 // SetCreatedBy gets a reference to the given string and assigns it to the CreatedBy field.
-func (o *UpdateBgpTestRequest) SetCreatedBy(v string) {
+func (o *BaseBgpRequest) SetCreatedBy(v string) {
 	o.CreatedBy = &v
 }
 
 // GetCreatedDate returns the CreatedDate field value if set, zero value otherwise.
-func (o *UpdateBgpTestRequest) GetCreatedDate() time.Time {
+func (o *BaseBgpRequest) GetCreatedDate() time.Time {
 	if o == nil || utils.IsNil(o.CreatedDate) {
 		var ret time.Time
 		return ret
@@ -128,7 +118,7 @@ func (o *UpdateBgpTestRequest) GetCreatedDate() time.Time {
 
 // GetCreatedDateOk returns a tuple with the CreatedDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdateBgpTestRequest) GetCreatedDateOk() (*time.Time, bool) {
+func (o *BaseBgpRequest) GetCreatedDateOk() (*time.Time, bool) {
 	if o == nil || utils.IsNil(o.CreatedDate) {
 		return nil, false
 	}
@@ -136,7 +126,7 @@ func (o *UpdateBgpTestRequest) GetCreatedDateOk() (*time.Time, bool) {
 }
 
 // HasCreatedDate returns a boolean if a field has been set.
-func (o *UpdateBgpTestRequest) HasCreatedDate() bool {
+func (o *BaseBgpRequest) HasCreatedDate() bool {
 	if o != nil && !utils.IsNil(o.CreatedDate) {
 		return true
 	}
@@ -145,12 +135,12 @@ func (o *UpdateBgpTestRequest) HasCreatedDate() bool {
 }
 
 // SetCreatedDate gets a reference to the given time.Time and assigns it to the CreatedDate field.
-func (o *UpdateBgpTestRequest) SetCreatedDate(v time.Time) {
+func (o *BaseBgpRequest) SetCreatedDate(v time.Time) {
 	o.CreatedDate = &v
 }
 
 // GetDescription returns the Description field value if set, zero value otherwise.
-func (o *UpdateBgpTestRequest) GetDescription() string {
+func (o *BaseBgpRequest) GetDescription() string {
 	if o == nil || utils.IsNil(o.Description) {
 		var ret string
 		return ret
@@ -160,7 +150,7 @@ func (o *UpdateBgpTestRequest) GetDescription() string {
 
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdateBgpTestRequest) GetDescriptionOk() (*string, bool) {
+func (o *BaseBgpRequest) GetDescriptionOk() (*string, bool) {
 	if o == nil || utils.IsNil(o.Description) {
 		return nil, false
 	}
@@ -168,7 +158,7 @@ func (o *UpdateBgpTestRequest) GetDescriptionOk() (*string, bool) {
 }
 
 // HasDescription returns a boolean if a field has been set.
-func (o *UpdateBgpTestRequest) HasDescription() bool {
+func (o *BaseBgpRequest) HasDescription() bool {
 	if o != nil && !utils.IsNil(o.Description) {
 		return true
 	}
@@ -177,12 +167,12 @@ func (o *UpdateBgpTestRequest) HasDescription() bool {
 }
 
 // SetDescription gets a reference to the given string and assigns it to the Description field.
-func (o *UpdateBgpTestRequest) SetDescription(v string) {
+func (o *BaseBgpRequest) SetDescription(v string) {
 	o.Description = &v
 }
 
 // GetLiveShare returns the LiveShare field value if set, zero value otherwise.
-func (o *UpdateBgpTestRequest) GetLiveShare() bool {
+func (o *BaseBgpRequest) GetLiveShare() bool {
 	if o == nil || utils.IsNil(o.LiveShare) {
 		var ret bool
 		return ret
@@ -192,7 +182,7 @@ func (o *UpdateBgpTestRequest) GetLiveShare() bool {
 
 // GetLiveShareOk returns a tuple with the LiveShare field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdateBgpTestRequest) GetLiveShareOk() (*bool, bool) {
+func (o *BaseBgpRequest) GetLiveShareOk() (*bool, bool) {
 	if o == nil || utils.IsNil(o.LiveShare) {
 		return nil, false
 	}
@@ -200,7 +190,7 @@ func (o *UpdateBgpTestRequest) GetLiveShareOk() (*bool, bool) {
 }
 
 // HasLiveShare returns a boolean if a field has been set.
-func (o *UpdateBgpTestRequest) HasLiveShare() bool {
+func (o *BaseBgpRequest) HasLiveShare() bool {
 	if o != nil && !utils.IsNil(o.LiveShare) {
 		return true
 	}
@@ -209,12 +199,12 @@ func (o *UpdateBgpTestRequest) HasLiveShare() bool {
 }
 
 // SetLiveShare gets a reference to the given bool and assigns it to the LiveShare field.
-func (o *UpdateBgpTestRequest) SetLiveShare(v bool) {
+func (o *BaseBgpRequest) SetLiveShare(v bool) {
 	o.LiveShare = &v
 }
 
 // GetModifiedBy returns the ModifiedBy field value if set, zero value otherwise.
-func (o *UpdateBgpTestRequest) GetModifiedBy() string {
+func (o *BaseBgpRequest) GetModifiedBy() string {
 	if o == nil || utils.IsNil(o.ModifiedBy) {
 		var ret string
 		return ret
@@ -224,7 +214,7 @@ func (o *UpdateBgpTestRequest) GetModifiedBy() string {
 
 // GetModifiedByOk returns a tuple with the ModifiedBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdateBgpTestRequest) GetModifiedByOk() (*string, bool) {
+func (o *BaseBgpRequest) GetModifiedByOk() (*string, bool) {
 	if o == nil || utils.IsNil(o.ModifiedBy) {
 		return nil, false
 	}
@@ -232,7 +222,7 @@ func (o *UpdateBgpTestRequest) GetModifiedByOk() (*string, bool) {
 }
 
 // HasModifiedBy returns a boolean if a field has been set.
-func (o *UpdateBgpTestRequest) HasModifiedBy() bool {
+func (o *BaseBgpRequest) HasModifiedBy() bool {
 	if o != nil && !utils.IsNil(o.ModifiedBy) {
 		return true
 	}
@@ -241,12 +231,12 @@ func (o *UpdateBgpTestRequest) HasModifiedBy() bool {
 }
 
 // SetModifiedBy gets a reference to the given string and assigns it to the ModifiedBy field.
-func (o *UpdateBgpTestRequest) SetModifiedBy(v string) {
+func (o *BaseBgpRequest) SetModifiedBy(v string) {
 	o.ModifiedBy = &v
 }
 
 // GetModifiedDate returns the ModifiedDate field value if set, zero value otherwise.
-func (o *UpdateBgpTestRequest) GetModifiedDate() time.Time {
+func (o *BaseBgpRequest) GetModifiedDate() time.Time {
 	if o == nil || utils.IsNil(o.ModifiedDate) {
 		var ret time.Time
 		return ret
@@ -256,7 +246,7 @@ func (o *UpdateBgpTestRequest) GetModifiedDate() time.Time {
 
 // GetModifiedDateOk returns a tuple with the ModifiedDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdateBgpTestRequest) GetModifiedDateOk() (*time.Time, bool) {
+func (o *BaseBgpRequest) GetModifiedDateOk() (*time.Time, bool) {
 	if o == nil || utils.IsNil(o.ModifiedDate) {
 		return nil, false
 	}
@@ -264,7 +254,7 @@ func (o *UpdateBgpTestRequest) GetModifiedDateOk() (*time.Time, bool) {
 }
 
 // HasModifiedDate returns a boolean if a field has been set.
-func (o *UpdateBgpTestRequest) HasModifiedDate() bool {
+func (o *BaseBgpRequest) HasModifiedDate() bool {
 	if o != nil && !utils.IsNil(o.ModifiedDate) {
 		return true
 	}
@@ -273,12 +263,12 @@ func (o *UpdateBgpTestRequest) HasModifiedDate() bool {
 }
 
 // SetModifiedDate gets a reference to the given time.Time and assigns it to the ModifiedDate field.
-func (o *UpdateBgpTestRequest) SetModifiedDate(v time.Time) {
+func (o *BaseBgpRequest) SetModifiedDate(v time.Time) {
 	o.ModifiedDate = &v
 }
 
 // GetSavedEvent returns the SavedEvent field value if set, zero value otherwise.
-func (o *UpdateBgpTestRequest) GetSavedEvent() bool {
+func (o *BaseBgpRequest) GetSavedEvent() bool {
 	if o == nil || utils.IsNil(o.SavedEvent) {
 		var ret bool
 		return ret
@@ -288,7 +278,7 @@ func (o *UpdateBgpTestRequest) GetSavedEvent() bool {
 
 // GetSavedEventOk returns a tuple with the SavedEvent field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdateBgpTestRequest) GetSavedEventOk() (*bool, bool) {
+func (o *BaseBgpRequest) GetSavedEventOk() (*bool, bool) {
 	if o == nil || utils.IsNil(o.SavedEvent) {
 		return nil, false
 	}
@@ -296,7 +286,7 @@ func (o *UpdateBgpTestRequest) GetSavedEventOk() (*bool, bool) {
 }
 
 // HasSavedEvent returns a boolean if a field has been set.
-func (o *UpdateBgpTestRequest) HasSavedEvent() bool {
+func (o *BaseBgpRequest) HasSavedEvent() bool {
 	if o != nil && !utils.IsNil(o.SavedEvent) {
 		return true
 	}
@@ -305,12 +295,12 @@ func (o *UpdateBgpTestRequest) HasSavedEvent() bool {
 }
 
 // SetSavedEvent gets a reference to the given bool and assigns it to the SavedEvent field.
-func (o *UpdateBgpTestRequest) SetSavedEvent(v bool) {
+func (o *BaseBgpRequest) SetSavedEvent(v bool) {
 	o.SavedEvent = &v
 }
 
 // GetTestId returns the TestId field value if set, zero value otherwise.
-func (o *UpdateBgpTestRequest) GetTestId() string {
+func (o *BaseBgpRequest) GetTestId() string {
 	if o == nil || utils.IsNil(o.TestId) {
 		var ret string
 		return ret
@@ -320,7 +310,7 @@ func (o *UpdateBgpTestRequest) GetTestId() string {
 
 // GetTestIdOk returns a tuple with the TestId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdateBgpTestRequest) GetTestIdOk() (*string, bool) {
+func (o *BaseBgpRequest) GetTestIdOk() (*string, bool) {
 	if o == nil || utils.IsNil(o.TestId) {
 		return nil, false
 	}
@@ -328,7 +318,7 @@ func (o *UpdateBgpTestRequest) GetTestIdOk() (*string, bool) {
 }
 
 // HasTestId returns a boolean if a field has been set.
-func (o *UpdateBgpTestRequest) HasTestId() bool {
+func (o *BaseBgpRequest) HasTestId() bool {
 	if o != nil && !utils.IsNil(o.TestId) {
 		return true
 	}
@@ -337,12 +327,12 @@ func (o *UpdateBgpTestRequest) HasTestId() bool {
 }
 
 // SetTestId gets a reference to the given string and assigns it to the TestId field.
-func (o *UpdateBgpTestRequest) SetTestId(v string) {
+func (o *BaseBgpRequest) SetTestId(v string) {
 	o.TestId = &v
 }
 
 // GetTestName returns the TestName field value if set, zero value otherwise.
-func (o *UpdateBgpTestRequest) GetTestName() string {
+func (o *BaseBgpRequest) GetTestName() string {
 	if o == nil || utils.IsNil(o.TestName) {
 		var ret string
 		return ret
@@ -352,7 +342,7 @@ func (o *UpdateBgpTestRequest) GetTestName() string {
 
 // GetTestNameOk returns a tuple with the TestName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdateBgpTestRequest) GetTestNameOk() (*string, bool) {
+func (o *BaseBgpRequest) GetTestNameOk() (*string, bool) {
 	if o == nil || utils.IsNil(o.TestName) {
 		return nil, false
 	}
@@ -360,7 +350,7 @@ func (o *UpdateBgpTestRequest) GetTestNameOk() (*string, bool) {
 }
 
 // HasTestName returns a boolean if a field has been set.
-func (o *UpdateBgpTestRequest) HasTestName() bool {
+func (o *BaseBgpRequest) HasTestName() bool {
 	if o != nil && !utils.IsNil(o.TestName) {
 		return true
 	}
@@ -369,12 +359,12 @@ func (o *UpdateBgpTestRequest) HasTestName() bool {
 }
 
 // SetTestName gets a reference to the given string and assigns it to the TestName field.
-func (o *UpdateBgpTestRequest) SetTestName(v string) {
+func (o *BaseBgpRequest) SetTestName(v string) {
 	o.TestName = &v
 }
 
 // GetType returns the Type field value if set, zero value otherwise.
-func (o *UpdateBgpTestRequest) GetType() string {
+func (o *BaseBgpRequest) GetType() string {
 	if o == nil || utils.IsNil(o.Type) {
 		var ret string
 		return ret
@@ -384,7 +374,7 @@ func (o *UpdateBgpTestRequest) GetType() string {
 
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdateBgpTestRequest) GetTypeOk() (*string, bool) {
+func (o *BaseBgpRequest) GetTypeOk() (*string, bool) {
 	if o == nil || utils.IsNil(o.Type) {
 		return nil, false
 	}
@@ -392,7 +382,7 @@ func (o *UpdateBgpTestRequest) GetTypeOk() (*string, bool) {
 }
 
 // HasType returns a boolean if a field has been set.
-func (o *UpdateBgpTestRequest) HasType() bool {
+func (o *BaseBgpRequest) HasType() bool {
 	if o != nil && !utils.IsNil(o.Type) {
 		return true
 	}
@@ -401,12 +391,12 @@ func (o *UpdateBgpTestRequest) HasType() bool {
 }
 
 // SetType gets a reference to the given string and assigns it to the Type field.
-func (o *UpdateBgpTestRequest) SetType(v string) {
+func (o *BaseBgpRequest) SetType(v string) {
 	o.Type = &v
 }
 
 // GetLinks returns the Links field value if set, zero value otherwise.
-func (o *UpdateBgpTestRequest) GetLinks() TestLinks {
+func (o *BaseBgpRequest) GetLinks() TestLinks {
 	if o == nil || utils.IsNil(o.Links) {
 		var ret TestLinks
 		return ret
@@ -416,7 +406,7 @@ func (o *UpdateBgpTestRequest) GetLinks() TestLinks {
 
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdateBgpTestRequest) GetLinksOk() (*TestLinks, bool) {
+func (o *BaseBgpRequest) GetLinksOk() (*TestLinks, bool) {
 	if o == nil || utils.IsNil(o.Links) {
 		return nil, false
 	}
@@ -424,7 +414,7 @@ func (o *UpdateBgpTestRequest) GetLinksOk() (*TestLinks, bool) {
 }
 
 // HasLinks returns a boolean if a field has been set.
-func (o *UpdateBgpTestRequest) HasLinks() bool {
+func (o *BaseBgpRequest) HasLinks() bool {
 	if o != nil && !utils.IsNil(o.Links) {
 		return true
 	}
@@ -433,12 +423,12 @@ func (o *UpdateBgpTestRequest) HasLinks() bool {
 }
 
 // SetLinks gets a reference to the given TestLinks and assigns it to the Links field.
-func (o *UpdateBgpTestRequest) SetLinks(v TestLinks) {
+func (o *BaseBgpRequest) SetLinks(v TestLinks) {
 	o.Links = &v
 }
 
 // GetEnabled returns the Enabled field value if set, zero value otherwise.
-func (o *UpdateBgpTestRequest) GetEnabled() bool {
+func (o *BaseBgpRequest) GetEnabled() bool {
 	if o == nil || utils.IsNil(o.Enabled) {
 		var ret bool
 		return ret
@@ -448,7 +438,7 @@ func (o *UpdateBgpTestRequest) GetEnabled() bool {
 
 // GetEnabledOk returns a tuple with the Enabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdateBgpTestRequest) GetEnabledOk() (*bool, bool) {
+func (o *BaseBgpRequest) GetEnabledOk() (*bool, bool) {
 	if o == nil || utils.IsNil(o.Enabled) {
 		return nil, false
 	}
@@ -456,7 +446,7 @@ func (o *UpdateBgpTestRequest) GetEnabledOk() (*bool, bool) {
 }
 
 // HasEnabled returns a boolean if a field has been set.
-func (o *UpdateBgpTestRequest) HasEnabled() bool {
+func (o *BaseBgpRequest) HasEnabled() bool {
 	if o != nil && !utils.IsNil(o.Enabled) {
 		return true
 	}
@@ -465,12 +455,12 @@ func (o *UpdateBgpTestRequest) HasEnabled() bool {
 }
 
 // SetEnabled gets a reference to the given bool and assigns it to the Enabled field.
-func (o *UpdateBgpTestRequest) SetEnabled(v bool) {
+func (o *BaseBgpRequest) SetEnabled(v bool) {
 	o.Enabled = &v
 }
 
 // GetIncludeCoveredPrefixes returns the IncludeCoveredPrefixes field value if set, zero value otherwise.
-func (o *UpdateBgpTestRequest) GetIncludeCoveredPrefixes() bool {
+func (o *BaseBgpRequest) GetIncludeCoveredPrefixes() bool {
 	if o == nil || utils.IsNil(o.IncludeCoveredPrefixes) {
 		var ret bool
 		return ret
@@ -480,7 +470,7 @@ func (o *UpdateBgpTestRequest) GetIncludeCoveredPrefixes() bool {
 
 // GetIncludeCoveredPrefixesOk returns a tuple with the IncludeCoveredPrefixes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdateBgpTestRequest) GetIncludeCoveredPrefixesOk() (*bool, bool) {
+func (o *BaseBgpRequest) GetIncludeCoveredPrefixesOk() (*bool, bool) {
 	if o == nil || utils.IsNil(o.IncludeCoveredPrefixes) {
 		return nil, false
 	}
@@ -488,7 +478,7 @@ func (o *UpdateBgpTestRequest) GetIncludeCoveredPrefixesOk() (*bool, bool) {
 }
 
 // HasIncludeCoveredPrefixes returns a boolean if a field has been set.
-func (o *UpdateBgpTestRequest) HasIncludeCoveredPrefixes() bool {
+func (o *BaseBgpRequest) HasIncludeCoveredPrefixes() bool {
 	if o != nil && !utils.IsNil(o.IncludeCoveredPrefixes) {
 		return true
 	}
@@ -497,12 +487,12 @@ func (o *UpdateBgpTestRequest) HasIncludeCoveredPrefixes() bool {
 }
 
 // SetIncludeCoveredPrefixes gets a reference to the given bool and assigns it to the IncludeCoveredPrefixes field.
-func (o *UpdateBgpTestRequest) SetIncludeCoveredPrefixes(v bool) {
+func (o *BaseBgpRequest) SetIncludeCoveredPrefixes(v bool) {
 	o.IncludeCoveredPrefixes = &v
 }
 
 // GetUsePublicBgp returns the UsePublicBgp field value if set, zero value otherwise.
-func (o *UpdateBgpTestRequest) GetUsePublicBgp() bool {
+func (o *BaseBgpRequest) GetUsePublicBgp() bool {
 	if o == nil || utils.IsNil(o.UsePublicBgp) {
 		var ret bool
 		return ret
@@ -512,7 +502,7 @@ func (o *UpdateBgpTestRequest) GetUsePublicBgp() bool {
 
 // GetUsePublicBgpOk returns a tuple with the UsePublicBgp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdateBgpTestRequest) GetUsePublicBgpOk() (*bool, bool) {
+func (o *BaseBgpRequest) GetUsePublicBgpOk() (*bool, bool) {
 	if o == nil || utils.IsNil(o.UsePublicBgp) {
 		return nil, false
 	}
@@ -520,7 +510,7 @@ func (o *UpdateBgpTestRequest) GetUsePublicBgpOk() (*bool, bool) {
 }
 
 // HasUsePublicBgp returns a boolean if a field has been set.
-func (o *UpdateBgpTestRequest) HasUsePublicBgp() bool {
+func (o *BaseBgpRequest) HasUsePublicBgp() bool {
 	if o != nil && !utils.IsNil(o.UsePublicBgp) {
 		return true
 	}
@@ -529,12 +519,12 @@ func (o *UpdateBgpTestRequest) HasUsePublicBgp() bool {
 }
 
 // SetUsePublicBgp gets a reference to the given bool and assigns it to the UsePublicBgp field.
-func (o *UpdateBgpTestRequest) SetUsePublicBgp(v bool) {
+func (o *BaseBgpRequest) SetUsePublicBgp(v bool) {
 	o.UsePublicBgp = &v
 }
 
 // GetAlertsEnabled returns the AlertsEnabled field value if set, zero value otherwise.
-func (o *UpdateBgpTestRequest) GetAlertsEnabled() bool {
+func (o *BaseBgpRequest) GetAlertsEnabled() bool {
 	if o == nil || utils.IsNil(o.AlertsEnabled) {
 		var ret bool
 		return ret
@@ -544,7 +534,7 @@ func (o *UpdateBgpTestRequest) GetAlertsEnabled() bool {
 
 // GetAlertsEnabledOk returns a tuple with the AlertsEnabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdateBgpTestRequest) GetAlertsEnabledOk() (*bool, bool) {
+func (o *BaseBgpRequest) GetAlertsEnabledOk() (*bool, bool) {
 	if o == nil || utils.IsNil(o.AlertsEnabled) {
 		return nil, false
 	}
@@ -552,7 +542,7 @@ func (o *UpdateBgpTestRequest) GetAlertsEnabledOk() (*bool, bool) {
 }
 
 // HasAlertsEnabled returns a boolean if a field has been set.
-func (o *UpdateBgpTestRequest) HasAlertsEnabled() bool {
+func (o *BaseBgpRequest) HasAlertsEnabled() bool {
 	if o != nil && !utils.IsNil(o.AlertsEnabled) {
 		return true
 	}
@@ -561,171 +551,11 @@ func (o *UpdateBgpTestRequest) HasAlertsEnabled() bool {
 }
 
 // SetAlertsEnabled gets a reference to the given bool and assigns it to the AlertsEnabled field.
-func (o *UpdateBgpTestRequest) SetAlertsEnabled(v bool) {
+func (o *BaseBgpRequest) SetAlertsEnabled(v bool) {
 	o.AlertsEnabled = &v
 }
 
-// GetLabels returns the Labels field value if set, zero value otherwise.
-func (o *UpdateBgpTestRequest) GetLabels() []string {
-	if o == nil || utils.IsNil(o.Labels) {
-		var ret []string
-		return ret
-	}
-	return o.Labels
-}
-
-// GetLabelsOk returns a tuple with the Labels field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *UpdateBgpTestRequest) GetLabelsOk() ([]string, bool) {
-	if o == nil || utils.IsNil(o.Labels) {
-		return nil, false
-	}
-	return o.Labels, true
-}
-
-// HasLabels returns a boolean if a field has been set.
-func (o *UpdateBgpTestRequest) HasLabels() bool {
-	if o != nil && !utils.IsNil(o.Labels) {
-		return true
-	}
-
-	return false
-}
-
-// SetLabels gets a reference to the given []string and assigns it to the Labels field.
-func (o *UpdateBgpTestRequest) SetLabels(v []string) {
-	o.Labels = v
-}
-
-// GetTags returns the Tags field value if set, zero value otherwise.
-func (o *UpdateBgpTestRequest) GetTags() []string {
-	if o == nil || utils.IsNil(o.Tags) {
-		var ret []string
-		return ret
-	}
-	return o.Tags
-}
-
-// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *UpdateBgpTestRequest) GetTagsOk() ([]string, bool) {
-	if o == nil || utils.IsNil(o.Tags) {
-		return nil, false
-	}
-	return o.Tags, true
-}
-
-// HasTags returns a boolean if a field has been set.
-func (o *UpdateBgpTestRequest) HasTags() bool {
-	if o != nil && !utils.IsNil(o.Tags) {
-		return true
-	}
-
-	return false
-}
-
-// SetTags gets a reference to the given []string and assigns it to the Tags field.
-func (o *UpdateBgpTestRequest) SetTags(v []string) {
-	o.Tags = v
-}
-
-// GetSharedWithAccounts returns the SharedWithAccounts field value if set, zero value otherwise.
-func (o *UpdateBgpTestRequest) GetSharedWithAccounts() []string {
-	if o == nil || utils.IsNil(o.SharedWithAccounts) {
-		var ret []string
-		return ret
-	}
-	return o.SharedWithAccounts
-}
-
-// GetSharedWithAccountsOk returns a tuple with the SharedWithAccounts field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *UpdateBgpTestRequest) GetSharedWithAccountsOk() ([]string, bool) {
-	if o == nil || utils.IsNil(o.SharedWithAccounts) {
-		return nil, false
-	}
-	return o.SharedWithAccounts, true
-}
-
-// HasSharedWithAccounts returns a boolean if a field has been set.
-func (o *UpdateBgpTestRequest) HasSharedWithAccounts() bool {
-	if o != nil && !utils.IsNil(o.SharedWithAccounts) {
-		return true
-	}
-
-	return false
-}
-
-// SetSharedWithAccounts gets a reference to the given []string and assigns it to the SharedWithAccounts field.
-func (o *UpdateBgpTestRequest) SetSharedWithAccounts(v []string) {
-	o.SharedWithAccounts = v
-}
-
-// GetAlertRules returns the AlertRules field value if set, zero value otherwise.
-func (o *UpdateBgpTestRequest) GetAlertRules() []string {
-	if o == nil || utils.IsNil(o.AlertRules) {
-		var ret []string
-		return ret
-	}
-	return o.AlertRules
-}
-
-// GetAlertRulesOk returns a tuple with the AlertRules field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *UpdateBgpTestRequest) GetAlertRulesOk() ([]string, bool) {
-	if o == nil || utils.IsNil(o.AlertRules) {
-		return nil, false
-	}
-	return o.AlertRules, true
-}
-
-// HasAlertRules returns a boolean if a field has been set.
-func (o *UpdateBgpTestRequest) HasAlertRules() bool {
-	if o != nil && !utils.IsNil(o.AlertRules) {
-		return true
-	}
-
-	return false
-}
-
-// SetAlertRules gets a reference to the given []string and assigns it to the AlertRules field.
-func (o *UpdateBgpTestRequest) SetAlertRules(v []string) {
-	o.AlertRules = v
-}
-
-// GetMonitors returns the Monitors field value if set, zero value otherwise.
-func (o *UpdateBgpTestRequest) GetMonitors() []string {
-	if o == nil || utils.IsNil(o.Monitors) {
-		var ret []string
-		return ret
-	}
-	return o.Monitors
-}
-
-// GetMonitorsOk returns a tuple with the Monitors field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *UpdateBgpTestRequest) GetMonitorsOk() ([]string, bool) {
-	if o == nil || utils.IsNil(o.Monitors) {
-		return nil, false
-	}
-	return o.Monitors, true
-}
-
-// HasMonitors returns a boolean if a field has been set.
-func (o *UpdateBgpTestRequest) HasMonitors() bool {
-	if o != nil && !utils.IsNil(o.Monitors) {
-		return true
-	}
-
-	return false
-}
-
-// SetMonitors gets a reference to the given []string and assigns it to the Monitors field.
-func (o *UpdateBgpTestRequest) SetMonitors(v []string) {
-	o.Monitors = v
-}
-
-func (o UpdateBgpTestRequest) MarshalJSON() ([]byte, error) {
+func (o BaseBgpRequest) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -733,7 +563,7 @@ func (o UpdateBgpTestRequest) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o UpdateBgpTestRequest) ToMap() (map[string]interface{}, error) {
+func (o BaseBgpRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !utils.IsNil(o.CreatedBy) {
 		toSerialize["createdBy"] = o.CreatedBy
@@ -780,56 +610,41 @@ func (o UpdateBgpTestRequest) ToMap() (map[string]interface{}, error) {
 	if !utils.IsNil(o.AlertsEnabled) {
 		toSerialize["alertsEnabled"] = o.AlertsEnabled
 	}
-	if !utils.IsNil(o.Labels) {
-		toSerialize["labels"] = o.Labels
-	}
-	if !utils.IsNil(o.Tags) {
-		toSerialize["tags"] = o.Tags
-	}
-	if !utils.IsNil(o.SharedWithAccounts) {
-		toSerialize["sharedWithAccounts"] = o.SharedWithAccounts
-	}
-	if !utils.IsNil(o.AlertRules) {
-		toSerialize["alertRules"] = o.AlertRules
-	}
-	if !utils.IsNil(o.Monitors) {
-		toSerialize["monitors"] = o.Monitors
-	}
 	return toSerialize, nil
 }
 
-type NullableUpdateBgpTestRequest struct {
-	value *UpdateBgpTestRequest
+type NullableBaseBgpRequest struct {
+	value *BaseBgpRequest
 	isSet bool
 }
 
-func (v NullableUpdateBgpTestRequest) Get() *UpdateBgpTestRequest {
+func (v NullableBaseBgpRequest) Get() *BaseBgpRequest {
 	return v.value
 }
 
-func (v *NullableUpdateBgpTestRequest) Set(val *UpdateBgpTestRequest) {
+func (v *NullableBaseBgpRequest) Set(val *BaseBgpRequest) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableUpdateBgpTestRequest) IsSet() bool {
+func (v NullableBaseBgpRequest) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableUpdateBgpTestRequest) Unset() {
+func (v *NullableBaseBgpRequest) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableUpdateBgpTestRequest(val *UpdateBgpTestRequest) *NullableUpdateBgpTestRequest {
-	return &NullableUpdateBgpTestRequest{value: val, isSet: true}
+func NewNullableBaseBgpRequest(val *BaseBgpRequest) *NullableBaseBgpRequest {
+	return &NullableBaseBgpRequest{value: val, isSet: true}
 }
 
-func (v NullableUpdateBgpTestRequest) MarshalJSON() ([]byte, error) {
+func (v NullableBaseBgpRequest) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableUpdateBgpTestRequest) UnmarshalJSON(src []byte) error {
+func (v *NullableBaseBgpRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
