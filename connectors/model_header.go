@@ -21,7 +21,6 @@ var _ utils.MappedNullable = &Header{}
 // Header struct for Header
 type Header struct {
 	Name string `json:"name"`
-	// The value of the header. Note that this value is obfuscated in the response, even when overwritten.
 	Value string `json:"value"`
 }
 

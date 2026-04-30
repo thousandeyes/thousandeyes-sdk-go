@@ -33,7 +33,7 @@ import (
 )
 
 func main() {
-	sipServerTestRequest := *tests.NewSipServerTestRequest(tests.TestInterval(60), *tests.NewTestSipCredentials(int32(49153)), []tests.TestAgentRequest{*tests.NewTestAgentRequest("AgentId_example")}) // SipServerTestRequest | 
+	sipServerTestRequest := *tests.NewSipServerTestRequest(tests.TestInterval(60), []tests.TestAgentRequest{*tests.NewTestAgentRequest("AgentId_example")}, *tests.NewTestSipCredentials(int32(49153))) // SipServerTestRequest | 
 	aid := "1234" // string | A unique identifier associated with your account group. You can retrieve your `AccountGroupId` from the `/account-groups` endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. (optional)
 	expand := []tests.ExpandTestOptions{tests.ExpandTestOptions("agent")} // []ExpandTestOptions | Optional parameter on whether or not to expand the test sub-resources. By default no expansion is going to take place if the query parameter is not present. If the user wishes to expand the `agents` sub-resource, they need to pass the `?expand=agent` query. (optional)
 
@@ -319,7 +319,7 @@ import (
 
 func main() {
 	testId := "202701" // string | Test ID
-	sipServerTestRequest := *tests.NewSipServerTestRequest(tests.TestInterval(60), *tests.NewTestSipCredentials(int32(49153)), []tests.TestAgentRequest{*tests.NewTestAgentRequest("AgentId_example")}) // SipServerTestRequest | 
+	sipServerTestRequest := *tests.NewSipServerTestRequest(tests.TestInterval(60), []tests.TestAgentRequest{*tests.NewTestAgentRequest("AgentId_example")}, *tests.NewTestSipCredentials(int32(49153))) // SipServerTestRequest | 
 	aid := "1234" // string | A unique identifier associated with your account group. You can retrieve your `AccountGroupId` from the `/account-groups` endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. (optional)
 	expand := []tests.ExpandTestOptions{tests.ExpandTestOptions("agent")} // []ExpandTestOptions | Optional parameter on whether or not to expand the test sub-resources. By default no expansion is going to take place if the query parameter is not present. If the user wishes to expand the `agents` sub-resource, they need to pass the `?expand=agent` query. (optional)
 

@@ -26,8 +26,6 @@ type SipServerTestRequest struct {
 	AlertsEnabled *bool `json:"alertsEnabled,omitempty"`
 	// Test is enabled.
 	Enabled *bool `json:"enabled,omitempty"`
-	// List of alert rules IDs to apply to the test (get `ruleId` from `/alerts/rules` endpoint. If `alertsEnabled` is set to `true` and `alertRules` is not included on test creation or update, applicable user default alert rules will be used)
-	AlertRules []string `json:"alertRules,omitempty"`
 	// User that created the test.
 	CreatedBy *string `json:"createdBy,omitempty"`
 	// UTC created date (ISO date-time format).
@@ -48,10 +46,6 @@ type SipServerTestRequest struct {
 	TestName *string `json:"testName,omitempty"`
 	Type *string `json:"type,omitempty"`
 	Links *TestLinks `json:"_links,omitempty"`
-	// Contains list of test label IDs (get `labelId` from `/labels` endpoint)
-	Labels []string `json:"labels,omitempty"`
-	// Contains list of account group IDs. Test is shared with the listed account groups (get `aid` from `/account-groups` endpoint)
-	SharedWithAccounts []string `json:"sharedWithAccounts,omitempty"`
 	// Set `true` to measure MTU sizes on network from agents to the target.
 	MtuMeasurements *bool `json:"mtuMeasurements,omitempty"`
 	// Enable or disable network measurements. Set to true to enable or false to disable network measurements.
@@ -73,17 +67,23 @@ type SipServerTestRequest struct {
 	// Sets packets rate sent to measure the network in packets per second.
 	FixedPacketRate *int32 `json:"fixedPacketRate,omitempty"`
 	Ipv6Policy *TestIpv6Policy `json:"ipv6Policy,omitempty"`
+	// Contains list of test label IDs (get `labelId` from `/labels` endpoint)
+	Labels []string `json:"labels,omitempty"`
+	// Contains list of test tag IDs (get `id` from `/tags` endpoint).
+	Tags []string `json:"tags,omitempty"`
+	// Contains list of account group IDs. Test is shared with the listed account groups (get `aid` from `/account-groups` endpoint)
+	SharedWithAccounts []string `json:"sharedWithAccounts,omitempty"`
+	// List of alert rules IDs to apply to the test (get `ruleId` from `/alerts/rules` endpoint. If `alertsEnabled` is set to `true` and `alertRules` is not included on test creation or update, applicable user default alert rules will be used)
+	AlertRules []string `json:"alertRules,omitempty"`
+	// Contains list of Agent IDs (get `agentId` from `/agents` endpoint).
+	Agents []TestAgentRequest `json:"agents"`
+	// Contains list of BGP monitor IDs (get `monitorId` from `/monitors` endpoint)
+	Monitors []string `json:"monitors,omitempty"`
+	TargetSipCredentials TestSipCredentials `json:"targetSipCredentials"`
 	// Set to `true` to enable bgp measurements.
 	BgpMeasurements *bool `json:"bgpMeasurements,omitempty"`
 	// Indicate if all available public BGP monitors should be used, when ommited defaults to `bgpMeasurements` value.
 	UsePublicBgp *bool `json:"usePublicBgp,omitempty"`
-	// Contains list of enabled BGP monitors.
-	Monitors []Monitor `json:"monitors,omitempty"`
-	TargetSipCredentials TestSipCredentials `json:"targetSipCredentials"`
-	// Contains list of test tag IDs (get `id` from `/tags` endpoint).
-	Tags []string `json:"tags,omitempty"`
-	// Contains list of Agent IDs (get `agentId` from `/agents` endpoint).
-	Agents []TestAgentRequest `json:"agents"`
 }
 
 type _SipServerTestRequest SipServerTestRequest
@@ -92,7 +92,7 @@ type _SipServerTestRequest SipServerTestRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSipServerTestRequest(interval TestInterval, targetSipCredentials TestSipCredentials, agents []TestAgentRequest) *SipServerTestRequest {
+func NewSipServerTestRequest(interval TestInterval, agents []TestAgentRequest, targetSipCredentials TestSipCredentials) *SipServerTestRequest {
 	this := SipServerTestRequest{}
 	this.Interval = interval
 	var enabled bool = true
@@ -113,12 +113,12 @@ func NewSipServerTestRequest(interval TestInterval, targetSipCredentials TestSip
 	this.SipTimeLimit = &sipTimeLimit
 	var ipv6Policy TestIpv6Policy = "use-agent-policy"
 	this.Ipv6Policy = &ipv6Policy
+	this.Agents = agents
+	this.TargetSipCredentials = targetSipCredentials
 	var bgpMeasurements bool = true
 	this.BgpMeasurements = &bgpMeasurements
 	var usePublicBgp bool = true
 	this.UsePublicBgp = &usePublicBgp
-	this.TargetSipCredentials = targetSipCredentials
-	this.Agents = agents
 	return &this
 }
 
@@ -240,38 +240,6 @@ func (o *SipServerTestRequest) HasEnabled() bool {
 // SetEnabled gets a reference to the given bool and assigns it to the Enabled field.
 func (o *SipServerTestRequest) SetEnabled(v bool) {
 	o.Enabled = &v
-}
-
-// GetAlertRules returns the AlertRules field value if set, zero value otherwise.
-func (o *SipServerTestRequest) GetAlertRules() []string {
-	if o == nil || utils.IsNil(o.AlertRules) {
-		var ret []string
-		return ret
-	}
-	return o.AlertRules
-}
-
-// GetAlertRulesOk returns a tuple with the AlertRules field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SipServerTestRequest) GetAlertRulesOk() ([]string, bool) {
-	if o == nil || utils.IsNil(o.AlertRules) {
-		return nil, false
-	}
-	return o.AlertRules, true
-}
-
-// HasAlertRules returns a boolean if a field has been set.
-func (o *SipServerTestRequest) HasAlertRules() bool {
-	if o != nil && !utils.IsNil(o.AlertRules) {
-		return true
-	}
-
-	return false
-}
-
-// SetAlertRules gets a reference to the given []string and assigns it to the AlertRules field.
-func (o *SipServerTestRequest) SetAlertRules(v []string) {
-	o.AlertRules = v
 }
 
 // GetCreatedBy returns the CreatedBy field value if set, zero value otherwise.
@@ -624,70 +592,6 @@ func (o *SipServerTestRequest) HasLinks() bool {
 // SetLinks gets a reference to the given TestLinks and assigns it to the Links field.
 func (o *SipServerTestRequest) SetLinks(v TestLinks) {
 	o.Links = &v
-}
-
-// GetLabels returns the Labels field value if set, zero value otherwise.
-func (o *SipServerTestRequest) GetLabels() []string {
-	if o == nil || utils.IsNil(o.Labels) {
-		var ret []string
-		return ret
-	}
-	return o.Labels
-}
-
-// GetLabelsOk returns a tuple with the Labels field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SipServerTestRequest) GetLabelsOk() ([]string, bool) {
-	if o == nil || utils.IsNil(o.Labels) {
-		return nil, false
-	}
-	return o.Labels, true
-}
-
-// HasLabels returns a boolean if a field has been set.
-func (o *SipServerTestRequest) HasLabels() bool {
-	if o != nil && !utils.IsNil(o.Labels) {
-		return true
-	}
-
-	return false
-}
-
-// SetLabels gets a reference to the given []string and assigns it to the Labels field.
-func (o *SipServerTestRequest) SetLabels(v []string) {
-	o.Labels = v
-}
-
-// GetSharedWithAccounts returns the SharedWithAccounts field value if set, zero value otherwise.
-func (o *SipServerTestRequest) GetSharedWithAccounts() []string {
-	if o == nil || utils.IsNil(o.SharedWithAccounts) {
-		var ret []string
-		return ret
-	}
-	return o.SharedWithAccounts
-}
-
-// GetSharedWithAccountsOk returns a tuple with the SharedWithAccounts field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SipServerTestRequest) GetSharedWithAccountsOk() ([]string, bool) {
-	if o == nil || utils.IsNil(o.SharedWithAccounts) {
-		return nil, false
-	}
-	return o.SharedWithAccounts, true
-}
-
-// HasSharedWithAccounts returns a boolean if a field has been set.
-func (o *SipServerTestRequest) HasSharedWithAccounts() bool {
-	if o != nil && !utils.IsNil(o.SharedWithAccounts) {
-		return true
-	}
-
-	return false
-}
-
-// SetSharedWithAccounts gets a reference to the given []string and assigns it to the SharedWithAccounts field.
-func (o *SipServerTestRequest) SetSharedWithAccounts(v []string) {
-	o.SharedWithAccounts = v
 }
 
 // GetMtuMeasurements returns the MtuMeasurements field value if set, zero value otherwise.
@@ -1074,6 +978,214 @@ func (o *SipServerTestRequest) SetIpv6Policy(v TestIpv6Policy) {
 	o.Ipv6Policy = &v
 }
 
+// GetLabels returns the Labels field value if set, zero value otherwise.
+func (o *SipServerTestRequest) GetLabels() []string {
+	if o == nil || utils.IsNil(o.Labels) {
+		var ret []string
+		return ret
+	}
+	return o.Labels
+}
+
+// GetLabelsOk returns a tuple with the Labels field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SipServerTestRequest) GetLabelsOk() ([]string, bool) {
+	if o == nil || utils.IsNil(o.Labels) {
+		return nil, false
+	}
+	return o.Labels, true
+}
+
+// HasLabels returns a boolean if a field has been set.
+func (o *SipServerTestRequest) HasLabels() bool {
+	if o != nil && !utils.IsNil(o.Labels) {
+		return true
+	}
+
+	return false
+}
+
+// SetLabels gets a reference to the given []string and assigns it to the Labels field.
+func (o *SipServerTestRequest) SetLabels(v []string) {
+	o.Labels = v
+}
+
+// GetTags returns the Tags field value if set, zero value otherwise.
+func (o *SipServerTestRequest) GetTags() []string {
+	if o == nil || utils.IsNil(o.Tags) {
+		var ret []string
+		return ret
+	}
+	return o.Tags
+}
+
+// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SipServerTestRequest) GetTagsOk() ([]string, bool) {
+	if o == nil || utils.IsNil(o.Tags) {
+		return nil, false
+	}
+	return o.Tags, true
+}
+
+// HasTags returns a boolean if a field has been set.
+func (o *SipServerTestRequest) HasTags() bool {
+	if o != nil && !utils.IsNil(o.Tags) {
+		return true
+	}
+
+	return false
+}
+
+// SetTags gets a reference to the given []string and assigns it to the Tags field.
+func (o *SipServerTestRequest) SetTags(v []string) {
+	o.Tags = v
+}
+
+// GetSharedWithAccounts returns the SharedWithAccounts field value if set, zero value otherwise.
+func (o *SipServerTestRequest) GetSharedWithAccounts() []string {
+	if o == nil || utils.IsNil(o.SharedWithAccounts) {
+		var ret []string
+		return ret
+	}
+	return o.SharedWithAccounts
+}
+
+// GetSharedWithAccountsOk returns a tuple with the SharedWithAccounts field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SipServerTestRequest) GetSharedWithAccountsOk() ([]string, bool) {
+	if o == nil || utils.IsNil(o.SharedWithAccounts) {
+		return nil, false
+	}
+	return o.SharedWithAccounts, true
+}
+
+// HasSharedWithAccounts returns a boolean if a field has been set.
+func (o *SipServerTestRequest) HasSharedWithAccounts() bool {
+	if o != nil && !utils.IsNil(o.SharedWithAccounts) {
+		return true
+	}
+
+	return false
+}
+
+// SetSharedWithAccounts gets a reference to the given []string and assigns it to the SharedWithAccounts field.
+func (o *SipServerTestRequest) SetSharedWithAccounts(v []string) {
+	o.SharedWithAccounts = v
+}
+
+// GetAlertRules returns the AlertRules field value if set, zero value otherwise.
+func (o *SipServerTestRequest) GetAlertRules() []string {
+	if o == nil || utils.IsNil(o.AlertRules) {
+		var ret []string
+		return ret
+	}
+	return o.AlertRules
+}
+
+// GetAlertRulesOk returns a tuple with the AlertRules field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SipServerTestRequest) GetAlertRulesOk() ([]string, bool) {
+	if o == nil || utils.IsNil(o.AlertRules) {
+		return nil, false
+	}
+	return o.AlertRules, true
+}
+
+// HasAlertRules returns a boolean if a field has been set.
+func (o *SipServerTestRequest) HasAlertRules() bool {
+	if o != nil && !utils.IsNil(o.AlertRules) {
+		return true
+	}
+
+	return false
+}
+
+// SetAlertRules gets a reference to the given []string and assigns it to the AlertRules field.
+func (o *SipServerTestRequest) SetAlertRules(v []string) {
+	o.AlertRules = v
+}
+
+// GetAgents returns the Agents field value
+func (o *SipServerTestRequest) GetAgents() []TestAgentRequest {
+	if o == nil {
+		var ret []TestAgentRequest
+		return ret
+	}
+
+	return o.Agents
+}
+
+// GetAgentsOk returns a tuple with the Agents field value
+// and a boolean to check if the value has been set.
+func (o *SipServerTestRequest) GetAgentsOk() ([]TestAgentRequest, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Agents, true
+}
+
+// SetAgents sets field value
+func (o *SipServerTestRequest) SetAgents(v []TestAgentRequest) {
+	o.Agents = v
+}
+
+// GetMonitors returns the Monitors field value if set, zero value otherwise.
+func (o *SipServerTestRequest) GetMonitors() []string {
+	if o == nil || utils.IsNil(o.Monitors) {
+		var ret []string
+		return ret
+	}
+	return o.Monitors
+}
+
+// GetMonitorsOk returns a tuple with the Monitors field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SipServerTestRequest) GetMonitorsOk() ([]string, bool) {
+	if o == nil || utils.IsNil(o.Monitors) {
+		return nil, false
+	}
+	return o.Monitors, true
+}
+
+// HasMonitors returns a boolean if a field has been set.
+func (o *SipServerTestRequest) HasMonitors() bool {
+	if o != nil && !utils.IsNil(o.Monitors) {
+		return true
+	}
+
+	return false
+}
+
+// SetMonitors gets a reference to the given []string and assigns it to the Monitors field.
+func (o *SipServerTestRequest) SetMonitors(v []string) {
+	o.Monitors = v
+}
+
+// GetTargetSipCredentials returns the TargetSipCredentials field value
+func (o *SipServerTestRequest) GetTargetSipCredentials() TestSipCredentials {
+	if o == nil {
+		var ret TestSipCredentials
+		return ret
+	}
+
+	return o.TargetSipCredentials
+}
+
+// GetTargetSipCredentialsOk returns a tuple with the TargetSipCredentials field value
+// and a boolean to check if the value has been set.
+func (o *SipServerTestRequest) GetTargetSipCredentialsOk() (*TestSipCredentials, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.TargetSipCredentials, true
+}
+
+// SetTargetSipCredentials sets field value
+func (o *SipServerTestRequest) SetTargetSipCredentials(v TestSipCredentials) {
+	o.TargetSipCredentials = v
+}
+
 // GetBgpMeasurements returns the BgpMeasurements field value if set, zero value otherwise.
 func (o *SipServerTestRequest) GetBgpMeasurements() bool {
 	if o == nil || utils.IsNil(o.BgpMeasurements) {
@@ -1138,118 +1250,6 @@ func (o *SipServerTestRequest) SetUsePublicBgp(v bool) {
 	o.UsePublicBgp = &v
 }
 
-// GetMonitors returns the Monitors field value if set, zero value otherwise.
-func (o *SipServerTestRequest) GetMonitors() []Monitor {
-	if o == nil || utils.IsNil(o.Monitors) {
-		var ret []Monitor
-		return ret
-	}
-	return o.Monitors
-}
-
-// GetMonitorsOk returns a tuple with the Monitors field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SipServerTestRequest) GetMonitorsOk() ([]Monitor, bool) {
-	if o == nil || utils.IsNil(o.Monitors) {
-		return nil, false
-	}
-	return o.Monitors, true
-}
-
-// HasMonitors returns a boolean if a field has been set.
-func (o *SipServerTestRequest) HasMonitors() bool {
-	if o != nil && !utils.IsNil(o.Monitors) {
-		return true
-	}
-
-	return false
-}
-
-// SetMonitors gets a reference to the given []Monitor and assigns it to the Monitors field.
-func (o *SipServerTestRequest) SetMonitors(v []Monitor) {
-	o.Monitors = v
-}
-
-// GetTargetSipCredentials returns the TargetSipCredentials field value
-func (o *SipServerTestRequest) GetTargetSipCredentials() TestSipCredentials {
-	if o == nil {
-		var ret TestSipCredentials
-		return ret
-	}
-
-	return o.TargetSipCredentials
-}
-
-// GetTargetSipCredentialsOk returns a tuple with the TargetSipCredentials field value
-// and a boolean to check if the value has been set.
-func (o *SipServerTestRequest) GetTargetSipCredentialsOk() (*TestSipCredentials, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.TargetSipCredentials, true
-}
-
-// SetTargetSipCredentials sets field value
-func (o *SipServerTestRequest) SetTargetSipCredentials(v TestSipCredentials) {
-	o.TargetSipCredentials = v
-}
-
-// GetTags returns the Tags field value if set, zero value otherwise.
-func (o *SipServerTestRequest) GetTags() []string {
-	if o == nil || utils.IsNil(o.Tags) {
-		var ret []string
-		return ret
-	}
-	return o.Tags
-}
-
-// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SipServerTestRequest) GetTagsOk() ([]string, bool) {
-	if o == nil || utils.IsNil(o.Tags) {
-		return nil, false
-	}
-	return o.Tags, true
-}
-
-// HasTags returns a boolean if a field has been set.
-func (o *SipServerTestRequest) HasTags() bool {
-	if o != nil && !utils.IsNil(o.Tags) {
-		return true
-	}
-
-	return false
-}
-
-// SetTags gets a reference to the given []string and assigns it to the Tags field.
-func (o *SipServerTestRequest) SetTags(v []string) {
-	o.Tags = v
-}
-
-// GetAgents returns the Agents field value
-func (o *SipServerTestRequest) GetAgents() []TestAgentRequest {
-	if o == nil {
-		var ret []TestAgentRequest
-		return ret
-	}
-
-	return o.Agents
-}
-
-// GetAgentsOk returns a tuple with the Agents field value
-// and a boolean to check if the value has been set.
-func (o *SipServerTestRequest) GetAgentsOk() ([]TestAgentRequest, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Agents, true
-}
-
-// SetAgents sets field value
-func (o *SipServerTestRequest) SetAgents(v []TestAgentRequest) {
-	o.Agents = v
-}
-
 func (o SipServerTestRequest) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -1266,9 +1266,6 @@ func (o SipServerTestRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if !utils.IsNil(o.Enabled) {
 		toSerialize["enabled"] = o.Enabled
-	}
-	if !utils.IsNil(o.AlertRules) {
-		toSerialize["alertRules"] = o.AlertRules
 	}
 	if !utils.IsNil(o.CreatedBy) {
 		toSerialize["createdBy"] = o.CreatedBy
@@ -1302,12 +1299,6 @@ func (o SipServerTestRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if !utils.IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
-	}
-	if !utils.IsNil(o.Labels) {
-		toSerialize["labels"] = o.Labels
-	}
-	if !utils.IsNil(o.SharedWithAccounts) {
-		toSerialize["sharedWithAccounts"] = o.SharedWithAccounts
 	}
 	if !utils.IsNil(o.MtuMeasurements) {
 		toSerialize["mtuMeasurements"] = o.MtuMeasurements
@@ -1345,20 +1336,29 @@ func (o SipServerTestRequest) ToMap() (map[string]interface{}, error) {
 	if !utils.IsNil(o.Ipv6Policy) {
 		toSerialize["ipv6Policy"] = o.Ipv6Policy
 	}
+	if !utils.IsNil(o.Labels) {
+		toSerialize["labels"] = o.Labels
+	}
+	if !utils.IsNil(o.Tags) {
+		toSerialize["tags"] = o.Tags
+	}
+	if !utils.IsNil(o.SharedWithAccounts) {
+		toSerialize["sharedWithAccounts"] = o.SharedWithAccounts
+	}
+	if !utils.IsNil(o.AlertRules) {
+		toSerialize["alertRules"] = o.AlertRules
+	}
+	toSerialize["agents"] = o.Agents
+	if !utils.IsNil(o.Monitors) {
+		toSerialize["monitors"] = o.Monitors
+	}
+	toSerialize["targetSipCredentials"] = o.TargetSipCredentials
 	if !utils.IsNil(o.BgpMeasurements) {
 		toSerialize["bgpMeasurements"] = o.BgpMeasurements
 	}
 	if !utils.IsNil(o.UsePublicBgp) {
 		toSerialize["usePublicBgp"] = o.UsePublicBgp
 	}
-	if !utils.IsNil(o.Monitors) {
-		toSerialize["monitors"] = o.Monitors
-	}
-	toSerialize["targetSipCredentials"] = o.TargetSipCredentials
-	if !utils.IsNil(o.Tags) {
-		toSerialize["tags"] = o.Tags
-	}
-	toSerialize["agents"] = o.Agents
 	return toSerialize, nil
 }
 
@@ -1368,8 +1368,8 @@ func (o *SipServerTestRequest) UnmarshalJSON(data []byte) (err error) {
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"interval",
-		"targetSipCredentials",
 		"agents",
+		"targetSipCredentials",
 	}
 
 	allProperties := make(map[string]interface{})

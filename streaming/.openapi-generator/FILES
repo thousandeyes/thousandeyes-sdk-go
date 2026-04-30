@@ -28,7 +28,6 @@ model_stream_status.go
 model_stream_status_type.go
 model_stream_type.go
 model_tag_match.go
-model_tag_match_object_type.go
 model_test_match.go
 model_test_match_domain.go
 model_test_type.go

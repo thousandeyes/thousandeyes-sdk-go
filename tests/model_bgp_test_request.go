@@ -41,26 +41,26 @@ type BgpTestRequest struct {
 	TestName *string `json:"testName,omitempty"`
 	Type *string `json:"type,omitempty"`
 	Links *TestLinks `json:"_links,omitempty"`
-	// Contains list of test label IDs (get `labelId` from `/labels` endpoint)
-	Labels []string `json:"labels,omitempty"`
-	// Contains list of account group IDs. Test is shared with the listed account groups (get `aid` from `/account-groups` endpoint)
-	SharedWithAccounts []string `json:"sharedWithAccounts,omitempty"`
 	// Test is enabled.
 	Enabled *bool `json:"enabled,omitempty"`
-	// Contains list of BGP monitor IDs (get `monitorId` from `/monitors` endpoint)
-	Monitors []string `json:"monitors,omitempty"`
 	// Indicate if queries for subprefixes detected under this prefix should included.
 	IncludeCoveredPrefixes *bool `json:"includeCoveredPrefixes,omitempty"`
 	// Indicate if all available public BGP monitors should be used, when ommited defaults to `bgpMeasurements` value.
 	UsePublicBgp *bool `json:"usePublicBgp,omitempty"`
 	// Indicates if alerts are enabled.
 	AlertsEnabled *bool `json:"alertsEnabled,omitempty"`
-	// List of alert rules IDs to apply to the test (get `ruleId` from `/alerts/rules` endpoint. If `alertsEnabled` is set to `true` and `alertRules` is not included on test creation or update, applicable user default alert rules will be used)
-	AlertRules []string `json:"alertRules,omitempty"`
 	// a.b.c.d is a network address, with the prefix length defined as e. Prefixes can be any length from 8 to 24.
 	Prefix string `json:"prefix"`
+	// Contains list of test label IDs (get `labelId` from `/labels` endpoint)
+	Labels []string `json:"labels,omitempty"`
 	// Contains list of test tag IDs (get `id` from `/tags` endpoint).
 	Tags []string `json:"tags,omitempty"`
+	// Contains list of account group IDs. Test is shared with the listed account groups (get `aid` from `/account-groups` endpoint)
+	SharedWithAccounts []string `json:"sharedWithAccounts,omitempty"`
+	// List of alert rules IDs to apply to the test (get `ruleId` from `/alerts/rules` endpoint. If `alertsEnabled` is set to `true` and `alertRules` is not included on test creation or update, applicable user default alert rules will be used)
+	AlertRules []string `json:"alertRules,omitempty"`
+	// Contains list of BGP monitor IDs (get `monitorId` from `/monitors` endpoint)
+	Monitors []string `json:"monitors,omitempty"`
 }
 
 type _BgpTestRequest BgpTestRequest
@@ -443,70 +443,6 @@ func (o *BgpTestRequest) SetLinks(v TestLinks) {
 	o.Links = &v
 }
 
-// GetLabels returns the Labels field value if set, zero value otherwise.
-func (o *BgpTestRequest) GetLabels() []string {
-	if o == nil || utils.IsNil(o.Labels) {
-		var ret []string
-		return ret
-	}
-	return o.Labels
-}
-
-// GetLabelsOk returns a tuple with the Labels field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *BgpTestRequest) GetLabelsOk() ([]string, bool) {
-	if o == nil || utils.IsNil(o.Labels) {
-		return nil, false
-	}
-	return o.Labels, true
-}
-
-// HasLabels returns a boolean if a field has been set.
-func (o *BgpTestRequest) HasLabels() bool {
-	if o != nil && !utils.IsNil(o.Labels) {
-		return true
-	}
-
-	return false
-}
-
-// SetLabels gets a reference to the given []string and assigns it to the Labels field.
-func (o *BgpTestRequest) SetLabels(v []string) {
-	o.Labels = v
-}
-
-// GetSharedWithAccounts returns the SharedWithAccounts field value if set, zero value otherwise.
-func (o *BgpTestRequest) GetSharedWithAccounts() []string {
-	if o == nil || utils.IsNil(o.SharedWithAccounts) {
-		var ret []string
-		return ret
-	}
-	return o.SharedWithAccounts
-}
-
-// GetSharedWithAccountsOk returns a tuple with the SharedWithAccounts field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *BgpTestRequest) GetSharedWithAccountsOk() ([]string, bool) {
-	if o == nil || utils.IsNil(o.SharedWithAccounts) {
-		return nil, false
-	}
-	return o.SharedWithAccounts, true
-}
-
-// HasSharedWithAccounts returns a boolean if a field has been set.
-func (o *BgpTestRequest) HasSharedWithAccounts() bool {
-	if o != nil && !utils.IsNil(o.SharedWithAccounts) {
-		return true
-	}
-
-	return false
-}
-
-// SetSharedWithAccounts gets a reference to the given []string and assigns it to the SharedWithAccounts field.
-func (o *BgpTestRequest) SetSharedWithAccounts(v []string) {
-	o.SharedWithAccounts = v
-}
-
 // GetEnabled returns the Enabled field value if set, zero value otherwise.
 func (o *BgpTestRequest) GetEnabled() bool {
 	if o == nil || utils.IsNil(o.Enabled) {
@@ -537,38 +473,6 @@ func (o *BgpTestRequest) HasEnabled() bool {
 // SetEnabled gets a reference to the given bool and assigns it to the Enabled field.
 func (o *BgpTestRequest) SetEnabled(v bool) {
 	o.Enabled = &v
-}
-
-// GetMonitors returns the Monitors field value if set, zero value otherwise.
-func (o *BgpTestRequest) GetMonitors() []string {
-	if o == nil || utils.IsNil(o.Monitors) {
-		var ret []string
-		return ret
-	}
-	return o.Monitors
-}
-
-// GetMonitorsOk returns a tuple with the Monitors field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *BgpTestRequest) GetMonitorsOk() ([]string, bool) {
-	if o == nil || utils.IsNil(o.Monitors) {
-		return nil, false
-	}
-	return o.Monitors, true
-}
-
-// HasMonitors returns a boolean if a field has been set.
-func (o *BgpTestRequest) HasMonitors() bool {
-	if o != nil && !utils.IsNil(o.Monitors) {
-		return true
-	}
-
-	return false
-}
-
-// SetMonitors gets a reference to the given []string and assigns it to the Monitors field.
-func (o *BgpTestRequest) SetMonitors(v []string) {
-	o.Monitors = v
 }
 
 // GetIncludeCoveredPrefixes returns the IncludeCoveredPrefixes field value if set, zero value otherwise.
@@ -667,38 +571,6 @@ func (o *BgpTestRequest) SetAlertsEnabled(v bool) {
 	o.AlertsEnabled = &v
 }
 
-// GetAlertRules returns the AlertRules field value if set, zero value otherwise.
-func (o *BgpTestRequest) GetAlertRules() []string {
-	if o == nil || utils.IsNil(o.AlertRules) {
-		var ret []string
-		return ret
-	}
-	return o.AlertRules
-}
-
-// GetAlertRulesOk returns a tuple with the AlertRules field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *BgpTestRequest) GetAlertRulesOk() ([]string, bool) {
-	if o == nil || utils.IsNil(o.AlertRules) {
-		return nil, false
-	}
-	return o.AlertRules, true
-}
-
-// HasAlertRules returns a boolean if a field has been set.
-func (o *BgpTestRequest) HasAlertRules() bool {
-	if o != nil && !utils.IsNil(o.AlertRules) {
-		return true
-	}
-
-	return false
-}
-
-// SetAlertRules gets a reference to the given []string and assigns it to the AlertRules field.
-func (o *BgpTestRequest) SetAlertRules(v []string) {
-	o.AlertRules = v
-}
-
 // GetPrefix returns the Prefix field value
 func (o *BgpTestRequest) GetPrefix() string {
 	if o == nil {
@@ -721,6 +593,38 @@ func (o *BgpTestRequest) GetPrefixOk() (*string, bool) {
 // SetPrefix sets field value
 func (o *BgpTestRequest) SetPrefix(v string) {
 	o.Prefix = v
+}
+
+// GetLabels returns the Labels field value if set, zero value otherwise.
+func (o *BgpTestRequest) GetLabels() []string {
+	if o == nil || utils.IsNil(o.Labels) {
+		var ret []string
+		return ret
+	}
+	return o.Labels
+}
+
+// GetLabelsOk returns a tuple with the Labels field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BgpTestRequest) GetLabelsOk() ([]string, bool) {
+	if o == nil || utils.IsNil(o.Labels) {
+		return nil, false
+	}
+	return o.Labels, true
+}
+
+// HasLabels returns a boolean if a field has been set.
+func (o *BgpTestRequest) HasLabels() bool {
+	if o != nil && !utils.IsNil(o.Labels) {
+		return true
+	}
+
+	return false
+}
+
+// SetLabels gets a reference to the given []string and assigns it to the Labels field.
+func (o *BgpTestRequest) SetLabels(v []string) {
+	o.Labels = v
 }
 
 // GetTags returns the Tags field value if set, zero value otherwise.
@@ -753,6 +657,102 @@ func (o *BgpTestRequest) HasTags() bool {
 // SetTags gets a reference to the given []string and assigns it to the Tags field.
 func (o *BgpTestRequest) SetTags(v []string) {
 	o.Tags = v
+}
+
+// GetSharedWithAccounts returns the SharedWithAccounts field value if set, zero value otherwise.
+func (o *BgpTestRequest) GetSharedWithAccounts() []string {
+	if o == nil || utils.IsNil(o.SharedWithAccounts) {
+		var ret []string
+		return ret
+	}
+	return o.SharedWithAccounts
+}
+
+// GetSharedWithAccountsOk returns a tuple with the SharedWithAccounts field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BgpTestRequest) GetSharedWithAccountsOk() ([]string, bool) {
+	if o == nil || utils.IsNil(o.SharedWithAccounts) {
+		return nil, false
+	}
+	return o.SharedWithAccounts, true
+}
+
+// HasSharedWithAccounts returns a boolean if a field has been set.
+func (o *BgpTestRequest) HasSharedWithAccounts() bool {
+	if o != nil && !utils.IsNil(o.SharedWithAccounts) {
+		return true
+	}
+
+	return false
+}
+
+// SetSharedWithAccounts gets a reference to the given []string and assigns it to the SharedWithAccounts field.
+func (o *BgpTestRequest) SetSharedWithAccounts(v []string) {
+	o.SharedWithAccounts = v
+}
+
+// GetAlertRules returns the AlertRules field value if set, zero value otherwise.
+func (o *BgpTestRequest) GetAlertRules() []string {
+	if o == nil || utils.IsNil(o.AlertRules) {
+		var ret []string
+		return ret
+	}
+	return o.AlertRules
+}
+
+// GetAlertRulesOk returns a tuple with the AlertRules field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BgpTestRequest) GetAlertRulesOk() ([]string, bool) {
+	if o == nil || utils.IsNil(o.AlertRules) {
+		return nil, false
+	}
+	return o.AlertRules, true
+}
+
+// HasAlertRules returns a boolean if a field has been set.
+func (o *BgpTestRequest) HasAlertRules() bool {
+	if o != nil && !utils.IsNil(o.AlertRules) {
+		return true
+	}
+
+	return false
+}
+
+// SetAlertRules gets a reference to the given []string and assigns it to the AlertRules field.
+func (o *BgpTestRequest) SetAlertRules(v []string) {
+	o.AlertRules = v
+}
+
+// GetMonitors returns the Monitors field value if set, zero value otherwise.
+func (o *BgpTestRequest) GetMonitors() []string {
+	if o == nil || utils.IsNil(o.Monitors) {
+		var ret []string
+		return ret
+	}
+	return o.Monitors
+}
+
+// GetMonitorsOk returns a tuple with the Monitors field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BgpTestRequest) GetMonitorsOk() ([]string, bool) {
+	if o == nil || utils.IsNil(o.Monitors) {
+		return nil, false
+	}
+	return o.Monitors, true
+}
+
+// HasMonitors returns a boolean if a field has been set.
+func (o *BgpTestRequest) HasMonitors() bool {
+	if o != nil && !utils.IsNil(o.Monitors) {
+		return true
+	}
+
+	return false
+}
+
+// SetMonitors gets a reference to the given []string and assigns it to the Monitors field.
+func (o *BgpTestRequest) SetMonitors(v []string) {
+	o.Monitors = v
 }
 
 func (o BgpTestRequest) MarshalJSON() ([]byte, error) {
@@ -798,17 +798,8 @@ func (o BgpTestRequest) ToMap() (map[string]interface{}, error) {
 	if !utils.IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
-	if !utils.IsNil(o.Labels) {
-		toSerialize["labels"] = o.Labels
-	}
-	if !utils.IsNil(o.SharedWithAccounts) {
-		toSerialize["sharedWithAccounts"] = o.SharedWithAccounts
-	}
 	if !utils.IsNil(o.Enabled) {
 		toSerialize["enabled"] = o.Enabled
-	}
-	if !utils.IsNil(o.Monitors) {
-		toSerialize["monitors"] = o.Monitors
 	}
 	if !utils.IsNil(o.IncludeCoveredPrefixes) {
 		toSerialize["includeCoveredPrefixes"] = o.IncludeCoveredPrefixes
@@ -819,12 +810,21 @@ func (o BgpTestRequest) ToMap() (map[string]interface{}, error) {
 	if !utils.IsNil(o.AlertsEnabled) {
 		toSerialize["alertsEnabled"] = o.AlertsEnabled
 	}
+	toSerialize["prefix"] = o.Prefix
+	if !utils.IsNil(o.Labels) {
+		toSerialize["labels"] = o.Labels
+	}
+	if !utils.IsNil(o.Tags) {
+		toSerialize["tags"] = o.Tags
+	}
+	if !utils.IsNil(o.SharedWithAccounts) {
+		toSerialize["sharedWithAccounts"] = o.SharedWithAccounts
+	}
 	if !utils.IsNil(o.AlertRules) {
 		toSerialize["alertRules"] = o.AlertRules
 	}
-	toSerialize["prefix"] = o.Prefix
-	if !utils.IsNil(o.Tags) {
-		toSerialize["tags"] = o.Tags
+	if !utils.IsNil(o.Monitors) {
+		toSerialize["monitors"] = o.Monitors
 	}
 	return toSerialize, nil
 }

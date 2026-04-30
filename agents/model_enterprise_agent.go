@@ -39,10 +39,10 @@ type EnterpriseAgent struct {
 	Coordinates *Coordinates `json:"coordinates,omitempty"`
 	// Flag indicating if the agent is enabled.
 	Enabled *bool `json:"enabled,omitempty"`
-	// Prefix containing agents public IP address.
-	Prefix *string `json:"prefix,omitempty"`
 	// Flag indicating if has normal SSL operations or  if instead it's set to ignore SSL errors on browserbot-based tests.
 	VerifySslCertificates *bool `json:"verifySslCertificates,omitempty"`
+	// Prefix containing agents public IP address.
+	Prefix *string `json:"prefix,omitempty"`
 	// List of test IDs assigned to the agent.
 	TestIds []int64 `json:"testIds,omitempty"`
 	// List of tests. See `/tests` for more information.
@@ -404,38 +404,6 @@ func (o *EnterpriseAgent) SetEnabled(v bool) {
 	o.Enabled = &v
 }
 
-// GetPrefix returns the Prefix field value if set, zero value otherwise.
-func (o *EnterpriseAgent) GetPrefix() string {
-	if o == nil || utils.IsNil(o.Prefix) {
-		var ret string
-		return ret
-	}
-	return *o.Prefix
-}
-
-// GetPrefixOk returns a tuple with the Prefix field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *EnterpriseAgent) GetPrefixOk() (*string, bool) {
-	if o == nil || utils.IsNil(o.Prefix) {
-		return nil, false
-	}
-	return o.Prefix, true
-}
-
-// HasPrefix returns a boolean if a field has been set.
-func (o *EnterpriseAgent) HasPrefix() bool {
-	if o != nil && !utils.IsNil(o.Prefix) {
-		return true
-	}
-
-	return false
-}
-
-// SetPrefix gets a reference to the given string and assigns it to the Prefix field.
-func (o *EnterpriseAgent) SetPrefix(v string) {
-	o.Prefix = &v
-}
-
 // GetVerifySslCertificates returns the VerifySslCertificates field value if set, zero value otherwise.
 func (o *EnterpriseAgent) GetVerifySslCertificates() bool {
 	if o == nil || utils.IsNil(o.VerifySslCertificates) {
@@ -466,6 +434,38 @@ func (o *EnterpriseAgent) HasVerifySslCertificates() bool {
 // SetVerifySslCertificates gets a reference to the given bool and assigns it to the VerifySslCertificates field.
 func (o *EnterpriseAgent) SetVerifySslCertificates(v bool) {
 	o.VerifySslCertificates = &v
+}
+
+// GetPrefix returns the Prefix field value if set, zero value otherwise.
+func (o *EnterpriseAgent) GetPrefix() string {
+	if o == nil || utils.IsNil(o.Prefix) {
+		var ret string
+		return ret
+	}
+	return *o.Prefix
+}
+
+// GetPrefixOk returns a tuple with the Prefix field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EnterpriseAgent) GetPrefixOk() (*string, bool) {
+	if o == nil || utils.IsNil(o.Prefix) {
+		return nil, false
+	}
+	return o.Prefix, true
+}
+
+// HasPrefix returns a boolean if a field has been set.
+func (o *EnterpriseAgent) HasPrefix() bool {
+	if o != nil && !utils.IsNil(o.Prefix) {
+		return true
+	}
+
+	return false
+}
+
+// SetPrefix gets a reference to the given string and assigns it to the Prefix field.
+func (o *EnterpriseAgent) SetPrefix(v string) {
+	o.Prefix = &v
 }
 
 // GetTestIds returns the TestIds field value if set, zero value otherwise.
@@ -986,11 +986,11 @@ func (o EnterpriseAgent) ToMap() (map[string]interface{}, error) {
 	if !utils.IsNil(o.Enabled) {
 		toSerialize["enabled"] = o.Enabled
 	}
-	if !utils.IsNil(o.Prefix) {
-		toSerialize["prefix"] = o.Prefix
-	}
 	if !utils.IsNil(o.VerifySslCertificates) {
 		toSerialize["verifySslCertificates"] = o.VerifySslCertificates
+	}
+	if !utils.IsNil(o.Prefix) {
+		toSerialize["prefix"] = o.Prefix
 	}
 	if !utils.IsNil(o.TestIds) {
 		toSerialize["testIds"] = o.TestIds

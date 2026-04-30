@@ -41,10 +41,6 @@ type WebTransactionInstantTestRequest struct {
 	TestName *string `json:"testName,omitempty"`
 	Type *string `json:"type,omitempty"`
 	Links *TestLinks `json:"_links,omitempty"`
-	// A list of test label identifiers (get `labelId` from `/labels` endpoint).
-	Labels []string `json:"labels,omitempty"`
-	// A list of account group identifiers that the test is shared with (get `aid` from `/account-groups` endpoint).
-	SharedWithAccounts []string `json:"sharedWithAccounts,omitempty"`
 	AuthType *TestAuthType `json:"authType,omitempty"`
 	AgentInterfaces *AgentInterfaces `json:"agentInterfaces,omitempty"`
 	// Set to `true` to enable bandwidth measurements, only applies to Enterprise agents assigned to the test.
@@ -134,12 +130,16 @@ type WebTransactionInstantTestRequest struct {
 	RandomizedStartTime *bool `json:"randomizedStartTime,omitempty"`
 	// Determines how agent traffic is identified:  * `false`: Adds the `x-thousandeyes-agent: yes` header. * `true`: Appends `(ThousandEyes Agent)` to the `user-agent` header.  For more information, see [Notes on Agent ID Strategy](https://docs.thousandeyes.com/product-documentation/browser-synthetics/test-settings-page-load-transaction#notes-on-agent-id-strategy). 
 	IdentifyAgentTrafficWithUserAgent *bool `json:"identifyAgentTrafficWithUserAgent,omitempty"`
-	// Contains a list of credential IDs (get `credentialId` from `/credentials` endpoint).
-	Credentials []string `json:"credentials,omitempty"`
+	// A list of test label identifiers (get `labelId` from `/labels` endpoint).
+	Labels []string `json:"labels,omitempty"`
 	// A list of test tag identifiers (get `id` from `/tags` endpoint).
 	Tags []string `json:"tags,omitempty"`
+	// A list of account group identifiers that the test is shared with (get `aid` from `/account-groups` endpoint).
+	SharedWithAccounts []string `json:"sharedWithAccounts,omitempty"`
 	// A list of objects with `agentId` (required) and `sourceIpAddress` (optional).
 	Agents []TestAgent `json:"agents"`
+	// Contains a list of credential IDs (get `credentialId` from `/credentials` endpoint).
+	Credentials []string `json:"credentials,omitempty"`
 }
 
 type _WebTransactionInstantTestRequest WebTransactionInstantTestRequest
@@ -618,70 +618,6 @@ func (o *WebTransactionInstantTestRequest) HasLinks() bool {
 // SetLinks gets a reference to the given TestLinks and assigns it to the Links field.
 func (o *WebTransactionInstantTestRequest) SetLinks(v TestLinks) {
 	o.Links = &v
-}
-
-// GetLabels returns the Labels field value if set, zero value otherwise.
-func (o *WebTransactionInstantTestRequest) GetLabels() []string {
-	if o == nil || utils.IsNil(o.Labels) {
-		var ret []string
-		return ret
-	}
-	return o.Labels
-}
-
-// GetLabelsOk returns a tuple with the Labels field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *WebTransactionInstantTestRequest) GetLabelsOk() ([]string, bool) {
-	if o == nil || utils.IsNil(o.Labels) {
-		return nil, false
-	}
-	return o.Labels, true
-}
-
-// HasLabels returns a boolean if a field has been set.
-func (o *WebTransactionInstantTestRequest) HasLabels() bool {
-	if o != nil && !utils.IsNil(o.Labels) {
-		return true
-	}
-
-	return false
-}
-
-// SetLabels gets a reference to the given []string and assigns it to the Labels field.
-func (o *WebTransactionInstantTestRequest) SetLabels(v []string) {
-	o.Labels = v
-}
-
-// GetSharedWithAccounts returns the SharedWithAccounts field value if set, zero value otherwise.
-func (o *WebTransactionInstantTestRequest) GetSharedWithAccounts() []string {
-	if o == nil || utils.IsNil(o.SharedWithAccounts) {
-		var ret []string
-		return ret
-	}
-	return o.SharedWithAccounts
-}
-
-// GetSharedWithAccountsOk returns a tuple with the SharedWithAccounts field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *WebTransactionInstantTestRequest) GetSharedWithAccountsOk() ([]string, bool) {
-	if o == nil || utils.IsNil(o.SharedWithAccounts) {
-		return nil, false
-	}
-	return o.SharedWithAccounts, true
-}
-
-// HasSharedWithAccounts returns a boolean if a field has been set.
-func (o *WebTransactionInstantTestRequest) HasSharedWithAccounts() bool {
-	if o != nil && !utils.IsNil(o.SharedWithAccounts) {
-		return true
-	}
-
-	return false
-}
-
-// SetSharedWithAccounts gets a reference to the given []string and assigns it to the SharedWithAccounts field.
-func (o *WebTransactionInstantTestRequest) SetSharedWithAccounts(v []string) {
-	o.SharedWithAccounts = v
 }
 
 // GetAuthType returns the AuthType field value if set, zero value otherwise.
@@ -2236,36 +2172,36 @@ func (o *WebTransactionInstantTestRequest) SetIdentifyAgentTrafficWithUserAgent(
 	o.IdentifyAgentTrafficWithUserAgent = &v
 }
 
-// GetCredentials returns the Credentials field value if set, zero value otherwise.
-func (o *WebTransactionInstantTestRequest) GetCredentials() []string {
-	if o == nil || utils.IsNil(o.Credentials) {
+// GetLabels returns the Labels field value if set, zero value otherwise.
+func (o *WebTransactionInstantTestRequest) GetLabels() []string {
+	if o == nil || utils.IsNil(o.Labels) {
 		var ret []string
 		return ret
 	}
-	return o.Credentials
+	return o.Labels
 }
 
-// GetCredentialsOk returns a tuple with the Credentials field value if set, nil otherwise
+// GetLabelsOk returns a tuple with the Labels field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *WebTransactionInstantTestRequest) GetCredentialsOk() ([]string, bool) {
-	if o == nil || utils.IsNil(o.Credentials) {
+func (o *WebTransactionInstantTestRequest) GetLabelsOk() ([]string, bool) {
+	if o == nil || utils.IsNil(o.Labels) {
 		return nil, false
 	}
-	return o.Credentials, true
+	return o.Labels, true
 }
 
-// HasCredentials returns a boolean if a field has been set.
-func (o *WebTransactionInstantTestRequest) HasCredentials() bool {
-	if o != nil && !utils.IsNil(o.Credentials) {
+// HasLabels returns a boolean if a field has been set.
+func (o *WebTransactionInstantTestRequest) HasLabels() bool {
+	if o != nil && !utils.IsNil(o.Labels) {
 		return true
 	}
 
 	return false
 }
 
-// SetCredentials gets a reference to the given []string and assigns it to the Credentials field.
-func (o *WebTransactionInstantTestRequest) SetCredentials(v []string) {
-	o.Credentials = v
+// SetLabels gets a reference to the given []string and assigns it to the Labels field.
+func (o *WebTransactionInstantTestRequest) SetLabels(v []string) {
+	o.Labels = v
 }
 
 // GetTags returns the Tags field value if set, zero value otherwise.
@@ -2300,6 +2236,38 @@ func (o *WebTransactionInstantTestRequest) SetTags(v []string) {
 	o.Tags = v
 }
 
+// GetSharedWithAccounts returns the SharedWithAccounts field value if set, zero value otherwise.
+func (o *WebTransactionInstantTestRequest) GetSharedWithAccounts() []string {
+	if o == nil || utils.IsNil(o.SharedWithAccounts) {
+		var ret []string
+		return ret
+	}
+	return o.SharedWithAccounts
+}
+
+// GetSharedWithAccountsOk returns a tuple with the SharedWithAccounts field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *WebTransactionInstantTestRequest) GetSharedWithAccountsOk() ([]string, bool) {
+	if o == nil || utils.IsNil(o.SharedWithAccounts) {
+		return nil, false
+	}
+	return o.SharedWithAccounts, true
+}
+
+// HasSharedWithAccounts returns a boolean if a field has been set.
+func (o *WebTransactionInstantTestRequest) HasSharedWithAccounts() bool {
+	if o != nil && !utils.IsNil(o.SharedWithAccounts) {
+		return true
+	}
+
+	return false
+}
+
+// SetSharedWithAccounts gets a reference to the given []string and assigns it to the SharedWithAccounts field.
+func (o *WebTransactionInstantTestRequest) SetSharedWithAccounts(v []string) {
+	o.SharedWithAccounts = v
+}
+
 // GetAgents returns the Agents field value
 func (o *WebTransactionInstantTestRequest) GetAgents() []TestAgent {
 	if o == nil {
@@ -2322,6 +2290,38 @@ func (o *WebTransactionInstantTestRequest) GetAgentsOk() ([]TestAgent, bool) {
 // SetAgents sets field value
 func (o *WebTransactionInstantTestRequest) SetAgents(v []TestAgent) {
 	o.Agents = v
+}
+
+// GetCredentials returns the Credentials field value if set, zero value otherwise.
+func (o *WebTransactionInstantTestRequest) GetCredentials() []string {
+	if o == nil || utils.IsNil(o.Credentials) {
+		var ret []string
+		return ret
+	}
+	return o.Credentials
+}
+
+// GetCredentialsOk returns a tuple with the Credentials field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *WebTransactionInstantTestRequest) GetCredentialsOk() ([]string, bool) {
+	if o == nil || utils.IsNil(o.Credentials) {
+		return nil, false
+	}
+	return o.Credentials, true
+}
+
+// HasCredentials returns a boolean if a field has been set.
+func (o *WebTransactionInstantTestRequest) HasCredentials() bool {
+	if o != nil && !utils.IsNil(o.Credentials) {
+		return true
+	}
+
+	return false
+}
+
+// SetCredentials gets a reference to the given []string and assigns it to the Credentials field.
+func (o *WebTransactionInstantTestRequest) SetCredentials(v []string) {
+	o.Credentials = v
 }
 
 func (o WebTransactionInstantTestRequest) MarshalJSON() ([]byte, error) {
@@ -2366,12 +2366,6 @@ func (o WebTransactionInstantTestRequest) ToMap() (map[string]interface{}, error
 	}
 	if !utils.IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
-	}
-	if !utils.IsNil(o.Labels) {
-		toSerialize["labels"] = o.Labels
-	}
-	if !utils.IsNil(o.SharedWithAccounts) {
-		toSerialize["sharedWithAccounts"] = o.SharedWithAccounts
 	}
 	if !utils.IsNil(o.AuthType) {
 		toSerialize["authType"] = o.AuthType
@@ -2516,13 +2510,19 @@ func (o WebTransactionInstantTestRequest) ToMap() (map[string]interface{}, error
 	if !utils.IsNil(o.IdentifyAgentTrafficWithUserAgent) {
 		toSerialize["identifyAgentTrafficWithUserAgent"] = o.IdentifyAgentTrafficWithUserAgent
 	}
-	if !utils.IsNil(o.Credentials) {
-		toSerialize["credentials"] = o.Credentials
+	if !utils.IsNil(o.Labels) {
+		toSerialize["labels"] = o.Labels
 	}
 	if !utils.IsNil(o.Tags) {
 		toSerialize["tags"] = o.Tags
 	}
+	if !utils.IsNil(o.SharedWithAccounts) {
+		toSerialize["sharedWithAccounts"] = o.SharedWithAccounts
+	}
 	toSerialize["agents"] = o.Agents
+	if !utils.IsNil(o.Credentials) {
+		toSerialize["credentials"] = o.Credentials
+	}
 	return toSerialize, nil
 }
 

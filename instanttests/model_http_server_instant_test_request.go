@@ -41,10 +41,6 @@ type HttpServerInstantTestRequest struct {
 	TestName *string `json:"testName,omitempty"`
 	Type *string `json:"type,omitempty"`
 	Links *TestLinks `json:"_links,omitempty"`
-	// A list of test label identifiers (get `labelId` from `/labels` endpoint).
-	Labels []string `json:"labels,omitempty"`
-	// A list of account group identifiers that the test is shared with (get `aid` from `/account-groups` endpoint).
-	SharedWithAccounts []string `json:"sharedWithAccounts,omitempty"`
 	AuthType *TestAuthType `json:"authType,omitempty"`
 	AgentInterfaces *AgentInterfaces `json:"agentInterfaces,omitempty"`
 	// Set to `true` to enable bandwidth measurements, only applies to Enterprise agents assigned to the test.
@@ -114,8 +110,12 @@ type HttpServerInstantTestRequest struct {
 	// Enter the body for the HTTP POST request in this field. No special escaping is necessary. If the post body is provided with content, the `requestMethod` is automatically set to POST.
 	PostBody *string `json:"postBody,omitempty"`
 	Ipv6Policy *TestIpv6Policy `json:"ipv6Policy,omitempty"`
+	// A list of test label identifiers (get `labelId` from `/labels` endpoint).
+	Labels []string `json:"labels,omitempty"`
 	// A list of test tag identifiers (get `id` from `/tags` endpoint).
 	Tags []string `json:"tags,omitempty"`
+	// A list of account group identifiers that the test is shared with (get `aid` from `/account-groups` endpoint).
+	SharedWithAccounts []string `json:"sharedWithAccounts,omitempty"`
 	// A list of objects with `agentId` (required) and `sourceIpAddress` (optional).
 	Agents []TestAgent `json:"agents"`
 }
@@ -563,70 +563,6 @@ func (o *HttpServerInstantTestRequest) HasLinks() bool {
 // SetLinks gets a reference to the given TestLinks and assigns it to the Links field.
 func (o *HttpServerInstantTestRequest) SetLinks(v TestLinks) {
 	o.Links = &v
-}
-
-// GetLabels returns the Labels field value if set, zero value otherwise.
-func (o *HttpServerInstantTestRequest) GetLabels() []string {
-	if o == nil || utils.IsNil(o.Labels) {
-		var ret []string
-		return ret
-	}
-	return o.Labels
-}
-
-// GetLabelsOk returns a tuple with the Labels field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *HttpServerInstantTestRequest) GetLabelsOk() ([]string, bool) {
-	if o == nil || utils.IsNil(o.Labels) {
-		return nil, false
-	}
-	return o.Labels, true
-}
-
-// HasLabels returns a boolean if a field has been set.
-func (o *HttpServerInstantTestRequest) HasLabels() bool {
-	if o != nil && !utils.IsNil(o.Labels) {
-		return true
-	}
-
-	return false
-}
-
-// SetLabels gets a reference to the given []string and assigns it to the Labels field.
-func (o *HttpServerInstantTestRequest) SetLabels(v []string) {
-	o.Labels = v
-}
-
-// GetSharedWithAccounts returns the SharedWithAccounts field value if set, zero value otherwise.
-func (o *HttpServerInstantTestRequest) GetSharedWithAccounts() []string {
-	if o == nil || utils.IsNil(o.SharedWithAccounts) {
-		var ret []string
-		return ret
-	}
-	return o.SharedWithAccounts
-}
-
-// GetSharedWithAccountsOk returns a tuple with the SharedWithAccounts field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *HttpServerInstantTestRequest) GetSharedWithAccountsOk() ([]string, bool) {
-	if o == nil || utils.IsNil(o.SharedWithAccounts) {
-		return nil, false
-	}
-	return o.SharedWithAccounts, true
-}
-
-// HasSharedWithAccounts returns a boolean if a field has been set.
-func (o *HttpServerInstantTestRequest) HasSharedWithAccounts() bool {
-	if o != nil && !utils.IsNil(o.SharedWithAccounts) {
-		return true
-	}
-
-	return false
-}
-
-// SetSharedWithAccounts gets a reference to the given []string and assigns it to the SharedWithAccounts field.
-func (o *HttpServerInstantTestRequest) SetSharedWithAccounts(v []string) {
-	o.SharedWithAccounts = v
 }
 
 // GetAuthType returns the AuthType field value if set, zero value otherwise.
@@ -1869,6 +1805,38 @@ func (o *HttpServerInstantTestRequest) SetIpv6Policy(v TestIpv6Policy) {
 	o.Ipv6Policy = &v
 }
 
+// GetLabels returns the Labels field value if set, zero value otherwise.
+func (o *HttpServerInstantTestRequest) GetLabels() []string {
+	if o == nil || utils.IsNil(o.Labels) {
+		var ret []string
+		return ret
+	}
+	return o.Labels
+}
+
+// GetLabelsOk returns a tuple with the Labels field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *HttpServerInstantTestRequest) GetLabelsOk() ([]string, bool) {
+	if o == nil || utils.IsNil(o.Labels) {
+		return nil, false
+	}
+	return o.Labels, true
+}
+
+// HasLabels returns a boolean if a field has been set.
+func (o *HttpServerInstantTestRequest) HasLabels() bool {
+	if o != nil && !utils.IsNil(o.Labels) {
+		return true
+	}
+
+	return false
+}
+
+// SetLabels gets a reference to the given []string and assigns it to the Labels field.
+func (o *HttpServerInstantTestRequest) SetLabels(v []string) {
+	o.Labels = v
+}
+
 // GetTags returns the Tags field value if set, zero value otherwise.
 func (o *HttpServerInstantTestRequest) GetTags() []string {
 	if o == nil || utils.IsNil(o.Tags) {
@@ -1899,6 +1867,38 @@ func (o *HttpServerInstantTestRequest) HasTags() bool {
 // SetTags gets a reference to the given []string and assigns it to the Tags field.
 func (o *HttpServerInstantTestRequest) SetTags(v []string) {
 	o.Tags = v
+}
+
+// GetSharedWithAccounts returns the SharedWithAccounts field value if set, zero value otherwise.
+func (o *HttpServerInstantTestRequest) GetSharedWithAccounts() []string {
+	if o == nil || utils.IsNil(o.SharedWithAccounts) {
+		var ret []string
+		return ret
+	}
+	return o.SharedWithAccounts
+}
+
+// GetSharedWithAccountsOk returns a tuple with the SharedWithAccounts field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *HttpServerInstantTestRequest) GetSharedWithAccountsOk() ([]string, bool) {
+	if o == nil || utils.IsNil(o.SharedWithAccounts) {
+		return nil, false
+	}
+	return o.SharedWithAccounts, true
+}
+
+// HasSharedWithAccounts returns a boolean if a field has been set.
+func (o *HttpServerInstantTestRequest) HasSharedWithAccounts() bool {
+	if o != nil && !utils.IsNil(o.SharedWithAccounts) {
+		return true
+	}
+
+	return false
+}
+
+// SetSharedWithAccounts gets a reference to the given []string and assigns it to the SharedWithAccounts field.
+func (o *HttpServerInstantTestRequest) SetSharedWithAccounts(v []string) {
+	o.SharedWithAccounts = v
 }
 
 // GetAgents returns the Agents field value
@@ -1967,12 +1967,6 @@ func (o HttpServerInstantTestRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if !utils.IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
-	}
-	if !utils.IsNil(o.Labels) {
-		toSerialize["labels"] = o.Labels
-	}
-	if !utils.IsNil(o.SharedWithAccounts) {
-		toSerialize["sharedWithAccounts"] = o.SharedWithAccounts
 	}
 	if !utils.IsNil(o.AuthType) {
 		toSerialize["authType"] = o.AuthType
@@ -2089,8 +2083,14 @@ func (o HttpServerInstantTestRequest) ToMap() (map[string]interface{}, error) {
 	if !utils.IsNil(o.Ipv6Policy) {
 		toSerialize["ipv6Policy"] = o.Ipv6Policy
 	}
+	if !utils.IsNil(o.Labels) {
+		toSerialize["labels"] = o.Labels
+	}
 	if !utils.IsNil(o.Tags) {
 		toSerialize["tags"] = o.Tags
+	}
+	if !utils.IsNil(o.SharedWithAccounts) {
+		toSerialize["sharedWithAccounts"] = o.SharedWithAccounts
 	}
 	toSerialize["agents"] = o.Agents
 	return toSerialize, nil

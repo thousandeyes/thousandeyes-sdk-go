@@ -41,10 +41,6 @@ type ApiInstantTestRequest struct {
 	TestName *string `json:"testName,omitempty"`
 	Type *string `json:"type,omitempty"`
 	Links *TestLinks `json:"_links,omitempty"`
-	// A list of test label identifiers (get `labelId` from `/labels` endpoint).
-	Labels []string `json:"labels,omitempty"`
-	// A list of account group identifiers that the test is shared with (get `aid` from `/account-groups` endpoint).
-	SharedWithAccounts []string `json:"sharedWithAccounts,omitempty"`
 	// String representation (containing newline characters) of client certificate, the private key must be placed first, then the certificate.
 	ClientCertificate *string `json:"clientCertificate,omitempty"`
 	// Comma separated list of domains to send the client certificate.
@@ -79,12 +75,16 @@ type ApiInstantTestRequest struct {
 	TimeLimit *int32 `json:"timeLimit,omitempty"`
 	// Target for the test.
 	Url string `json:"url"`
-	// Contains a list of credential IDs (get `credentialId` from `/credentials` endpoint).
-	Credentials []string `json:"credentials,omitempty"`
+	// A list of test label identifiers (get `labelId` from `/labels` endpoint).
+	Labels []string `json:"labels,omitempty"`
 	// A list of test tag identifiers (get `id` from `/tags` endpoint).
 	Tags []string `json:"tags,omitempty"`
+	// A list of account group identifiers that the test is shared with (get `aid` from `/account-groups` endpoint).
+	SharedWithAccounts []string `json:"sharedWithAccounts,omitempty"`
 	// A list of objects with `agentId` (required) and `sourceIpAddress` (optional).
 	Agents []TestAgent `json:"agents"`
+	// Contains a list of credential IDs (get `credentialId` from `/credentials` endpoint).
+	Credentials []string `json:"credentials,omitempty"`
 }
 
 type _ApiInstantTestRequest ApiInstantTestRequest
@@ -503,70 +503,6 @@ func (o *ApiInstantTestRequest) HasLinks() bool {
 // SetLinks gets a reference to the given TestLinks and assigns it to the Links field.
 func (o *ApiInstantTestRequest) SetLinks(v TestLinks) {
 	o.Links = &v
-}
-
-// GetLabels returns the Labels field value if set, zero value otherwise.
-func (o *ApiInstantTestRequest) GetLabels() []string {
-	if o == nil || utils.IsNil(o.Labels) {
-		var ret []string
-		return ret
-	}
-	return o.Labels
-}
-
-// GetLabelsOk returns a tuple with the Labels field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ApiInstantTestRequest) GetLabelsOk() ([]string, bool) {
-	if o == nil || utils.IsNil(o.Labels) {
-		return nil, false
-	}
-	return o.Labels, true
-}
-
-// HasLabels returns a boolean if a field has been set.
-func (o *ApiInstantTestRequest) HasLabels() bool {
-	if o != nil && !utils.IsNil(o.Labels) {
-		return true
-	}
-
-	return false
-}
-
-// SetLabels gets a reference to the given []string and assigns it to the Labels field.
-func (o *ApiInstantTestRequest) SetLabels(v []string) {
-	o.Labels = v
-}
-
-// GetSharedWithAccounts returns the SharedWithAccounts field value if set, zero value otherwise.
-func (o *ApiInstantTestRequest) GetSharedWithAccounts() []string {
-	if o == nil || utils.IsNil(o.SharedWithAccounts) {
-		var ret []string
-		return ret
-	}
-	return o.SharedWithAccounts
-}
-
-// GetSharedWithAccountsOk returns a tuple with the SharedWithAccounts field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ApiInstantTestRequest) GetSharedWithAccountsOk() ([]string, bool) {
-	if o == nil || utils.IsNil(o.SharedWithAccounts) {
-		return nil, false
-	}
-	return o.SharedWithAccounts, true
-}
-
-// HasSharedWithAccounts returns a boolean if a field has been set.
-func (o *ApiInstantTestRequest) HasSharedWithAccounts() bool {
-	if o != nil && !utils.IsNil(o.SharedWithAccounts) {
-		return true
-	}
-
-	return false
-}
-
-// SetSharedWithAccounts gets a reference to the given []string and assigns it to the SharedWithAccounts field.
-func (o *ApiInstantTestRequest) SetSharedWithAccounts(v []string) {
-	o.SharedWithAccounts = v
 }
 
 // GetClientCertificate returns the ClientCertificate field value if set, zero value otherwise.
@@ -1193,36 +1129,36 @@ func (o *ApiInstantTestRequest) SetUrl(v string) {
 	o.Url = v
 }
 
-// GetCredentials returns the Credentials field value if set, zero value otherwise.
-func (o *ApiInstantTestRequest) GetCredentials() []string {
-	if o == nil || utils.IsNil(o.Credentials) {
+// GetLabels returns the Labels field value if set, zero value otherwise.
+func (o *ApiInstantTestRequest) GetLabels() []string {
+	if o == nil || utils.IsNil(o.Labels) {
 		var ret []string
 		return ret
 	}
-	return o.Credentials
+	return o.Labels
 }
 
-// GetCredentialsOk returns a tuple with the Credentials field value if set, nil otherwise
+// GetLabelsOk returns a tuple with the Labels field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ApiInstantTestRequest) GetCredentialsOk() ([]string, bool) {
-	if o == nil || utils.IsNil(o.Credentials) {
+func (o *ApiInstantTestRequest) GetLabelsOk() ([]string, bool) {
+	if o == nil || utils.IsNil(o.Labels) {
 		return nil, false
 	}
-	return o.Credentials, true
+	return o.Labels, true
 }
 
-// HasCredentials returns a boolean if a field has been set.
-func (o *ApiInstantTestRequest) HasCredentials() bool {
-	if o != nil && !utils.IsNil(o.Credentials) {
+// HasLabels returns a boolean if a field has been set.
+func (o *ApiInstantTestRequest) HasLabels() bool {
+	if o != nil && !utils.IsNil(o.Labels) {
 		return true
 	}
 
 	return false
 }
 
-// SetCredentials gets a reference to the given []string and assigns it to the Credentials field.
-func (o *ApiInstantTestRequest) SetCredentials(v []string) {
-	o.Credentials = v
+// SetLabels gets a reference to the given []string and assigns it to the Labels field.
+func (o *ApiInstantTestRequest) SetLabels(v []string) {
+	o.Labels = v
 }
 
 // GetTags returns the Tags field value if set, zero value otherwise.
@@ -1257,6 +1193,38 @@ func (o *ApiInstantTestRequest) SetTags(v []string) {
 	o.Tags = v
 }
 
+// GetSharedWithAccounts returns the SharedWithAccounts field value if set, zero value otherwise.
+func (o *ApiInstantTestRequest) GetSharedWithAccounts() []string {
+	if o == nil || utils.IsNil(o.SharedWithAccounts) {
+		var ret []string
+		return ret
+	}
+	return o.SharedWithAccounts
+}
+
+// GetSharedWithAccountsOk returns a tuple with the SharedWithAccounts field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiInstantTestRequest) GetSharedWithAccountsOk() ([]string, bool) {
+	if o == nil || utils.IsNil(o.SharedWithAccounts) {
+		return nil, false
+	}
+	return o.SharedWithAccounts, true
+}
+
+// HasSharedWithAccounts returns a boolean if a field has been set.
+func (o *ApiInstantTestRequest) HasSharedWithAccounts() bool {
+	if o != nil && !utils.IsNil(o.SharedWithAccounts) {
+		return true
+	}
+
+	return false
+}
+
+// SetSharedWithAccounts gets a reference to the given []string and assigns it to the SharedWithAccounts field.
+func (o *ApiInstantTestRequest) SetSharedWithAccounts(v []string) {
+	o.SharedWithAccounts = v
+}
+
 // GetAgents returns the Agents field value
 func (o *ApiInstantTestRequest) GetAgents() []TestAgent {
 	if o == nil {
@@ -1279,6 +1247,38 @@ func (o *ApiInstantTestRequest) GetAgentsOk() ([]TestAgent, bool) {
 // SetAgents sets field value
 func (o *ApiInstantTestRequest) SetAgents(v []TestAgent) {
 	o.Agents = v
+}
+
+// GetCredentials returns the Credentials field value if set, zero value otherwise.
+func (o *ApiInstantTestRequest) GetCredentials() []string {
+	if o == nil || utils.IsNil(o.Credentials) {
+		var ret []string
+		return ret
+	}
+	return o.Credentials
+}
+
+// GetCredentialsOk returns a tuple with the Credentials field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiInstantTestRequest) GetCredentialsOk() ([]string, bool) {
+	if o == nil || utils.IsNil(o.Credentials) {
+		return nil, false
+	}
+	return o.Credentials, true
+}
+
+// HasCredentials returns a boolean if a field has been set.
+func (o *ApiInstantTestRequest) HasCredentials() bool {
+	if o != nil && !utils.IsNil(o.Credentials) {
+		return true
+	}
+
+	return false
+}
+
+// SetCredentials gets a reference to the given []string and assigns it to the Credentials field.
+func (o *ApiInstantTestRequest) SetCredentials(v []string) {
+	o.Credentials = v
 }
 
 func (o ApiInstantTestRequest) MarshalJSON() ([]byte, error) {
@@ -1323,12 +1323,6 @@ func (o ApiInstantTestRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if !utils.IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
-	}
-	if !utils.IsNil(o.Labels) {
-		toSerialize["labels"] = o.Labels
-	}
-	if !utils.IsNil(o.SharedWithAccounts) {
-		toSerialize["sharedWithAccounts"] = o.SharedWithAccounts
 	}
 	if !utils.IsNil(o.ClientCertificate) {
 		toSerialize["clientCertificate"] = o.ClientCertificate
@@ -1386,13 +1380,19 @@ func (o ApiInstantTestRequest) ToMap() (map[string]interface{}, error) {
 		toSerialize["timeLimit"] = o.TimeLimit
 	}
 	toSerialize["url"] = o.Url
-	if !utils.IsNil(o.Credentials) {
-		toSerialize["credentials"] = o.Credentials
+	if !utils.IsNil(o.Labels) {
+		toSerialize["labels"] = o.Labels
 	}
 	if !utils.IsNil(o.Tags) {
 		toSerialize["tags"] = o.Tags
 	}
+	if !utils.IsNil(o.SharedWithAccounts) {
+		toSerialize["sharedWithAccounts"] = o.SharedWithAccounts
+	}
 	toSerialize["agents"] = o.Agents
+	if !utils.IsNil(o.Credentials) {
+		toSerialize["credentials"] = o.Credentials
+	}
 	return toSerialize, nil
 }
 

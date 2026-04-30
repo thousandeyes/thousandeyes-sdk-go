@@ -26,8 +26,6 @@ type AgentToServerTestRequest struct {
 	AlertsEnabled *bool `json:"alertsEnabled,omitempty"`
 	// Test is enabled.
 	Enabled *bool `json:"enabled,omitempty"`
-	// List of alert rules IDs to apply to the test (get `ruleId` from `/alerts/rules` endpoint. If `alertsEnabled` is set to `true` and `alertRules` is not included on test creation or update, applicable user default alert rules will be used)
-	AlertRules []string `json:"alertRules,omitempty"`
 	// User that created the test.
 	CreatedBy *string `json:"createdBy,omitempty"`
 	// UTC created date (ISO date-time format).
@@ -48,10 +46,6 @@ type AgentToServerTestRequest struct {
 	TestName *string `json:"testName,omitempty"`
 	Type *string `json:"type,omitempty"`
 	Links *TestLinks `json:"_links,omitempty"`
-	// Contains list of test label IDs (get `labelId` from `/labels` endpoint)
-	Labels []string `json:"labels,omitempty"`
-	// Contains list of account group IDs. Test is shared with the listed account groups (get `aid` from `/account-groups` endpoint)
-	SharedWithAccounts []string `json:"sharedWithAccounts,omitempty"`
 	// Set to `true` to enable bandwidth measurements, only applies to Enterprise agents assigned to the test.
 	BandwidthMeasurements *bool `json:"bandwidthMeasurements,omitempty"`
 	// To enable continuous monitoring, set this parameter to `true` to.  When continuous monitoring is enabled, the following actions occur: * `fixedPacketRate` is enforced * `bandwidthMeasurements` are disabled * If the `protocol` is set to `tcp`, `probeMode` is set to `syn`. 
@@ -81,12 +75,18 @@ type AgentToServerTestRequest struct {
 	BgpMeasurements *bool `json:"bgpMeasurements,omitempty"`
 	// Indicate if all available public BGP monitors should be used, when ommited defaults to `bgpMeasurements` value.
 	UsePublicBgp *bool `json:"usePublicBgp,omitempty"`
-	// Contains list of BGP monitor IDs (get `monitorId` from `/monitors` endpoint)
-	Monitors []string `json:"monitors,omitempty"`
+	// Contains list of test label IDs (get `labelId` from `/labels` endpoint)
+	Labels []string `json:"labels,omitempty"`
 	// Contains list of test tag IDs (get `id` from `/tags` endpoint).
 	Tags []string `json:"tags,omitempty"`
+	// Contains list of account group IDs. Test is shared with the listed account groups (get `aid` from `/account-groups` endpoint)
+	SharedWithAccounts []string `json:"sharedWithAccounts,omitempty"`
+	// List of alert rules IDs to apply to the test (get `ruleId` from `/alerts/rules` endpoint. If `alertsEnabled` is set to `true` and `alertRules` is not included on test creation or update, applicable user default alert rules will be used)
+	AlertRules []string `json:"alertRules,omitempty"`
 	// Contains list of Agent IDs (get `agentId` from `/agents` endpoint).
 	Agents []TestAgentRequest `json:"agents"`
+	// Contains list of BGP monitor IDs (get `monitorId` from `/monitors` endpoint)
+	Monitors []string `json:"monitors,omitempty"`
 	// Port number to use for the test. The default port is 80.
 	Port *int32 `json:"port,omitempty"`
 }
@@ -245,38 +245,6 @@ func (o *AgentToServerTestRequest) HasEnabled() bool {
 // SetEnabled gets a reference to the given bool and assigns it to the Enabled field.
 func (o *AgentToServerTestRequest) SetEnabled(v bool) {
 	o.Enabled = &v
-}
-
-// GetAlertRules returns the AlertRules field value if set, zero value otherwise.
-func (o *AgentToServerTestRequest) GetAlertRules() []string {
-	if o == nil || utils.IsNil(o.AlertRules) {
-		var ret []string
-		return ret
-	}
-	return o.AlertRules
-}
-
-// GetAlertRulesOk returns a tuple with the AlertRules field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *AgentToServerTestRequest) GetAlertRulesOk() ([]string, bool) {
-	if o == nil || utils.IsNil(o.AlertRules) {
-		return nil, false
-	}
-	return o.AlertRules, true
-}
-
-// HasAlertRules returns a boolean if a field has been set.
-func (o *AgentToServerTestRequest) HasAlertRules() bool {
-	if o != nil && !utils.IsNil(o.AlertRules) {
-		return true
-	}
-
-	return false
-}
-
-// SetAlertRules gets a reference to the given []string and assigns it to the AlertRules field.
-func (o *AgentToServerTestRequest) SetAlertRules(v []string) {
-	o.AlertRules = v
 }
 
 // GetCreatedBy returns the CreatedBy field value if set, zero value otherwise.
@@ -629,70 +597,6 @@ func (o *AgentToServerTestRequest) HasLinks() bool {
 // SetLinks gets a reference to the given TestLinks and assigns it to the Links field.
 func (o *AgentToServerTestRequest) SetLinks(v TestLinks) {
 	o.Links = &v
-}
-
-// GetLabels returns the Labels field value if set, zero value otherwise.
-func (o *AgentToServerTestRequest) GetLabels() []string {
-	if o == nil || utils.IsNil(o.Labels) {
-		var ret []string
-		return ret
-	}
-	return o.Labels
-}
-
-// GetLabelsOk returns a tuple with the Labels field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *AgentToServerTestRequest) GetLabelsOk() ([]string, bool) {
-	if o == nil || utils.IsNil(o.Labels) {
-		return nil, false
-	}
-	return o.Labels, true
-}
-
-// HasLabels returns a boolean if a field has been set.
-func (o *AgentToServerTestRequest) HasLabels() bool {
-	if o != nil && !utils.IsNil(o.Labels) {
-		return true
-	}
-
-	return false
-}
-
-// SetLabels gets a reference to the given []string and assigns it to the Labels field.
-func (o *AgentToServerTestRequest) SetLabels(v []string) {
-	o.Labels = v
-}
-
-// GetSharedWithAccounts returns the SharedWithAccounts field value if set, zero value otherwise.
-func (o *AgentToServerTestRequest) GetSharedWithAccounts() []string {
-	if o == nil || utils.IsNil(o.SharedWithAccounts) {
-		var ret []string
-		return ret
-	}
-	return o.SharedWithAccounts
-}
-
-// GetSharedWithAccountsOk returns a tuple with the SharedWithAccounts field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *AgentToServerTestRequest) GetSharedWithAccountsOk() ([]string, bool) {
-	if o == nil || utils.IsNil(o.SharedWithAccounts) {
-		return nil, false
-	}
-	return o.SharedWithAccounts, true
-}
-
-// HasSharedWithAccounts returns a boolean if a field has been set.
-func (o *AgentToServerTestRequest) HasSharedWithAccounts() bool {
-	if o != nil && !utils.IsNil(o.SharedWithAccounts) {
-		return true
-	}
-
-	return false
-}
-
-// SetSharedWithAccounts gets a reference to the given []string and assigns it to the SharedWithAccounts field.
-func (o *AgentToServerTestRequest) SetSharedWithAccounts(v []string) {
-	o.SharedWithAccounts = v
 }
 
 // GetBandwidthMeasurements returns the BandwidthMeasurements field value if set, zero value otherwise.
@@ -1231,36 +1135,36 @@ func (o *AgentToServerTestRequest) SetUsePublicBgp(v bool) {
 	o.UsePublicBgp = &v
 }
 
-// GetMonitors returns the Monitors field value if set, zero value otherwise.
-func (o *AgentToServerTestRequest) GetMonitors() []string {
-	if o == nil || utils.IsNil(o.Monitors) {
+// GetLabels returns the Labels field value if set, zero value otherwise.
+func (o *AgentToServerTestRequest) GetLabels() []string {
+	if o == nil || utils.IsNil(o.Labels) {
 		var ret []string
 		return ret
 	}
-	return o.Monitors
+	return o.Labels
 }
 
-// GetMonitorsOk returns a tuple with the Monitors field value if set, nil otherwise
+// GetLabelsOk returns a tuple with the Labels field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AgentToServerTestRequest) GetMonitorsOk() ([]string, bool) {
-	if o == nil || utils.IsNil(o.Monitors) {
+func (o *AgentToServerTestRequest) GetLabelsOk() ([]string, bool) {
+	if o == nil || utils.IsNil(o.Labels) {
 		return nil, false
 	}
-	return o.Monitors, true
+	return o.Labels, true
 }
 
-// HasMonitors returns a boolean if a field has been set.
-func (o *AgentToServerTestRequest) HasMonitors() bool {
-	if o != nil && !utils.IsNil(o.Monitors) {
+// HasLabels returns a boolean if a field has been set.
+func (o *AgentToServerTestRequest) HasLabels() bool {
+	if o != nil && !utils.IsNil(o.Labels) {
 		return true
 	}
 
 	return false
 }
 
-// SetMonitors gets a reference to the given []string and assigns it to the Monitors field.
-func (o *AgentToServerTestRequest) SetMonitors(v []string) {
-	o.Monitors = v
+// SetLabels gets a reference to the given []string and assigns it to the Labels field.
+func (o *AgentToServerTestRequest) SetLabels(v []string) {
+	o.Labels = v
 }
 
 // GetTags returns the Tags field value if set, zero value otherwise.
@@ -1295,6 +1199,70 @@ func (o *AgentToServerTestRequest) SetTags(v []string) {
 	o.Tags = v
 }
 
+// GetSharedWithAccounts returns the SharedWithAccounts field value if set, zero value otherwise.
+func (o *AgentToServerTestRequest) GetSharedWithAccounts() []string {
+	if o == nil || utils.IsNil(o.SharedWithAccounts) {
+		var ret []string
+		return ret
+	}
+	return o.SharedWithAccounts
+}
+
+// GetSharedWithAccountsOk returns a tuple with the SharedWithAccounts field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AgentToServerTestRequest) GetSharedWithAccountsOk() ([]string, bool) {
+	if o == nil || utils.IsNil(o.SharedWithAccounts) {
+		return nil, false
+	}
+	return o.SharedWithAccounts, true
+}
+
+// HasSharedWithAccounts returns a boolean if a field has been set.
+func (o *AgentToServerTestRequest) HasSharedWithAccounts() bool {
+	if o != nil && !utils.IsNil(o.SharedWithAccounts) {
+		return true
+	}
+
+	return false
+}
+
+// SetSharedWithAccounts gets a reference to the given []string and assigns it to the SharedWithAccounts field.
+func (o *AgentToServerTestRequest) SetSharedWithAccounts(v []string) {
+	o.SharedWithAccounts = v
+}
+
+// GetAlertRules returns the AlertRules field value if set, zero value otherwise.
+func (o *AgentToServerTestRequest) GetAlertRules() []string {
+	if o == nil || utils.IsNil(o.AlertRules) {
+		var ret []string
+		return ret
+	}
+	return o.AlertRules
+}
+
+// GetAlertRulesOk returns a tuple with the AlertRules field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AgentToServerTestRequest) GetAlertRulesOk() ([]string, bool) {
+	if o == nil || utils.IsNil(o.AlertRules) {
+		return nil, false
+	}
+	return o.AlertRules, true
+}
+
+// HasAlertRules returns a boolean if a field has been set.
+func (o *AgentToServerTestRequest) HasAlertRules() bool {
+	if o != nil && !utils.IsNil(o.AlertRules) {
+		return true
+	}
+
+	return false
+}
+
+// SetAlertRules gets a reference to the given []string and assigns it to the AlertRules field.
+func (o *AgentToServerTestRequest) SetAlertRules(v []string) {
+	o.AlertRules = v
+}
+
 // GetAgents returns the Agents field value
 func (o *AgentToServerTestRequest) GetAgents() []TestAgentRequest {
 	if o == nil {
@@ -1317,6 +1285,38 @@ func (o *AgentToServerTestRequest) GetAgentsOk() ([]TestAgentRequest, bool) {
 // SetAgents sets field value
 func (o *AgentToServerTestRequest) SetAgents(v []TestAgentRequest) {
 	o.Agents = v
+}
+
+// GetMonitors returns the Monitors field value if set, zero value otherwise.
+func (o *AgentToServerTestRequest) GetMonitors() []string {
+	if o == nil || utils.IsNil(o.Monitors) {
+		var ret []string
+		return ret
+	}
+	return o.Monitors
+}
+
+// GetMonitorsOk returns a tuple with the Monitors field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AgentToServerTestRequest) GetMonitorsOk() ([]string, bool) {
+	if o == nil || utils.IsNil(o.Monitors) {
+		return nil, false
+	}
+	return o.Monitors, true
+}
+
+// HasMonitors returns a boolean if a field has been set.
+func (o *AgentToServerTestRequest) HasMonitors() bool {
+	if o != nil && !utils.IsNil(o.Monitors) {
+		return true
+	}
+
+	return false
+}
+
+// SetMonitors gets a reference to the given []string and assigns it to the Monitors field.
+func (o *AgentToServerTestRequest) SetMonitors(v []string) {
+	o.Monitors = v
 }
 
 // GetPort returns the Port field value if set, zero value otherwise.
@@ -1368,9 +1368,6 @@ func (o AgentToServerTestRequest) ToMap() (map[string]interface{}, error) {
 	if !utils.IsNil(o.Enabled) {
 		toSerialize["enabled"] = o.Enabled
 	}
-	if !utils.IsNil(o.AlertRules) {
-		toSerialize["alertRules"] = o.AlertRules
-	}
 	if !utils.IsNil(o.CreatedBy) {
 		toSerialize["createdBy"] = o.CreatedBy
 	}
@@ -1403,12 +1400,6 @@ func (o AgentToServerTestRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if !utils.IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
-	}
-	if !utils.IsNil(o.Labels) {
-		toSerialize["labels"] = o.Labels
-	}
-	if !utils.IsNil(o.SharedWithAccounts) {
-		toSerialize["sharedWithAccounts"] = o.SharedWithAccounts
 	}
 	if !utils.IsNil(o.BandwidthMeasurements) {
 		toSerialize["bandwidthMeasurements"] = o.BandwidthMeasurements
@@ -1459,13 +1450,22 @@ func (o AgentToServerTestRequest) ToMap() (map[string]interface{}, error) {
 	if !utils.IsNil(o.UsePublicBgp) {
 		toSerialize["usePublicBgp"] = o.UsePublicBgp
 	}
-	if !utils.IsNil(o.Monitors) {
-		toSerialize["monitors"] = o.Monitors
+	if !utils.IsNil(o.Labels) {
+		toSerialize["labels"] = o.Labels
 	}
 	if !utils.IsNil(o.Tags) {
 		toSerialize["tags"] = o.Tags
 	}
+	if !utils.IsNil(o.SharedWithAccounts) {
+		toSerialize["sharedWithAccounts"] = o.SharedWithAccounts
+	}
+	if !utils.IsNil(o.AlertRules) {
+		toSerialize["alertRules"] = o.AlertRules
+	}
 	toSerialize["agents"] = o.Agents
+	if !utils.IsNil(o.Monitors) {
+		toSerialize["monitors"] = o.Monitors
+	}
 	if !utils.IsNil(o.Port) {
 		toSerialize["port"] = o.Port
 	}

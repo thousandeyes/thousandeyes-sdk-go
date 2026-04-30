@@ -64,7 +64,7 @@ model_dns_server_instant_test_.go
 model_dns_server_instant_test_request.go
 model_dns_server_instant_test_response.go
 model_dns_server_properties.go
-model_dns_servers_request.go
+model_dns_server_request_properties.go
 model_dns_trace_instant_test_.go
 model_dns_trace_instant_test_request.go
 model_dns_trace_instant_test_response.go
