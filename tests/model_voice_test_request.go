@@ -79,6 +79,8 @@ type VoiceTestRequest struct {
 	AlertRules []string `json:"alertRules,omitempty"`
 	// Contains list of Agent IDs (get `agentId` from `/agents` endpoint).
 	Agents []TestAgentRequest `json:"agents"`
+	// Contains list of BGP monitor IDs (get `monitorId` from `/monitors` endpoint)
+	Monitors []string `json:"monitors,omitempty"`
 }
 
 type _VoiceTestRequest VoiceTestRequest
@@ -1105,6 +1107,38 @@ func (o *VoiceTestRequest) SetAgents(v []TestAgentRequest) {
 	o.Agents = v
 }
 
+// GetMonitors returns the Monitors field value if set, zero value otherwise.
+func (o *VoiceTestRequest) GetMonitors() []string {
+	if o == nil || utils.IsNil(o.Monitors) {
+		var ret []string
+		return ret
+	}
+	return o.Monitors
+}
+
+// GetMonitorsOk returns a tuple with the Monitors field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *VoiceTestRequest) GetMonitorsOk() ([]string, bool) {
+	if o == nil || utils.IsNil(o.Monitors) {
+		return nil, false
+	}
+	return o.Monitors, true
+}
+
+// HasMonitors returns a boolean if a field has been set.
+func (o *VoiceTestRequest) HasMonitors() bool {
+	if o != nil && !utils.IsNil(o.Monitors) {
+		return true
+	}
+
+	return false
+}
+
+// SetMonitors gets a reference to the given []string and assigns it to the Monitors field.
+func (o *VoiceTestRequest) SetMonitors(v []string) {
+	o.Monitors = v
+}
+
 func (o VoiceTestRequest) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -1202,6 +1236,9 @@ func (o VoiceTestRequest) ToMap() (map[string]interface{}, error) {
 		toSerialize["alertRules"] = o.AlertRules
 	}
 	toSerialize["agents"] = o.Agents
+	if !utils.IsNil(o.Monitors) {
+		toSerialize["monitors"] = o.Monitors
+	}
 	return toSerialize, nil
 }
 
