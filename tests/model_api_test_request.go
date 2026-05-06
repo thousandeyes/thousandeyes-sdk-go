@@ -94,6 +94,8 @@ type ApiTestRequest struct {
 	AlertRules []string `json:"alertRules,omitempty"`
 	// Contains list of Agent IDs (get `agentId` from `/agents` endpoint).
 	Agents []TestAgentRequest `json:"agents"`
+	// Contains list of BGP monitor IDs (get `monitorId` from `/monitors` endpoint)
+	Monitors []string `json:"monitors,omitempty"`
 	// Contains a list of credential IDs (get `credentialId` from `/credentials` endpoint).
 	Credentials []string `json:"credentials,omitempty"`
 }
@@ -1459,6 +1461,38 @@ func (o *ApiTestRequest) SetAgents(v []TestAgentRequest) {
 	o.Agents = v
 }
 
+// GetMonitors returns the Monitors field value if set, zero value otherwise.
+func (o *ApiTestRequest) GetMonitors() []string {
+	if o == nil || utils.IsNil(o.Monitors) {
+		var ret []string
+		return ret
+	}
+	return o.Monitors
+}
+
+// GetMonitorsOk returns a tuple with the Monitors field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiTestRequest) GetMonitorsOk() ([]string, bool) {
+	if o == nil || utils.IsNil(o.Monitors) {
+		return nil, false
+	}
+	return o.Monitors, true
+}
+
+// HasMonitors returns a boolean if a field has been set.
+func (o *ApiTestRequest) HasMonitors() bool {
+	if o != nil && !utils.IsNil(o.Monitors) {
+		return true
+	}
+
+	return false
+}
+
+// SetMonitors gets a reference to the given []string and assigns it to the Monitors field.
+func (o *ApiTestRequest) SetMonitors(v []string) {
+	o.Monitors = v
+}
+
 // GetCredentials returns the Credentials field value if set, zero value otherwise.
 func (o *ApiTestRequest) GetCredentials() []string {
 	if o == nil || utils.IsNil(o.Credentials) {
@@ -1616,6 +1650,9 @@ func (o ApiTestRequest) ToMap() (map[string]interface{}, error) {
 		toSerialize["alertRules"] = o.AlertRules
 	}
 	toSerialize["agents"] = o.Agents
+	if !utils.IsNil(o.Monitors) {
+		toSerialize["monitors"] = o.Monitors
+	}
 	if !utils.IsNil(o.Credentials) {
 		toSerialize["credentials"] = o.Credentials
 	}
