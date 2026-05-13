@@ -84,7 +84,7 @@ Name | Type | Description  | Notes
 
 ## SetOperationConnectors
 
-> Assignments SetOperationConnectors(type_, id).RequestBody(requestBody).Aid(aid).Execute()
+> Assignments SetOperationConnectors(type_, id).RequestBody(requestBody).ConfirmDisabledObjects(confirmDisabledObjects).Aid(aid).Execute()
 
 Assign connectors to an operation
 
@@ -106,6 +106,7 @@ func main() {
 	type_ := "webhooks" // string | The operation type.
 	id := "cb1b8033-ea2d-4e9b-a920-fe87850693cf" // string | The operation ID.
 	requestBody := []string{"Property_example"} // []string | List of connector IDs to assign to the operation.
+	confirmDisabledObjects := true // bool | Confirmation to disable affected objects (for example, tests) for credential-vault operations. (optional) (default to false)
 	aid := "1234" // string | A unique identifier associated with your account group. You can retrieve your `AccountGroupId` from the `/account-groups` endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. (optional)
 
 	configuration := client.NewConfiguration().WithAuthToken("<bearer-token>")
@@ -113,7 +114,7 @@ func main() {
 
 	api := (*connectors.OperationConnectorsAPIService)(&apiClient.Common)
 
-	resp, r, err := api.SetOperationConnectors(type_, id).RequestBody(requestBody).Aid(aid).Execute()
+	resp, r, err := api.SetOperationConnectors(type_, id).RequestBody(requestBody).ConfirmDisabledObjects(confirmDisabledObjects).Aid(aid).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `OperationConnectorsAPI.SetOperationConnectors``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -139,6 +140,7 @@ Other parameters are passed through a pointer to a ApiSetOperationConnectorsRequ
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **requestBody** | **[]string** | List of connector IDs to assign to the operation. | 
+ **confirmDisabledObjects** | **bool** | Confirmation to disable affected objects (for example, tests) for credential-vault operations. | [default to false]
  **aid** | **string** | A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. | 
 
 ### Return type

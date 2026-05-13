@@ -564,7 +564,7 @@ func (r ApiListGenericConnectorOperationsRequest) Execute() (*Assignments, *http
 }
 
 /*
-ListGenericConnectorOperations List operation IDs assigned to a connector
+ListGenericConnectorOperations List operation IDs for a connector
 
 Returns a list of operation IDs assigned to a connector.
 

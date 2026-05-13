@@ -48,6 +48,8 @@ model_error_detail_code.go
 model_interface_ip_mapping.go
 model_link.go
 model_list_notification_rules_response.go
+model_network_provider_info.go
+model_network_provider_type.go
 model_notification_rule.go
 model_notification_rule_detail.go
 model_notification_rules.go

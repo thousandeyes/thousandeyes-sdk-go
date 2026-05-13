@@ -165,12 +165,19 @@ type ApiSetOperationConnectorsRequest struct {
 	type_ string
 	id string
 	requestBody *[]string
+	confirmDisabledObjects *bool
 	aid *string
 }
 
 // List of connector IDs to assign to the operation.
 func (r ApiSetOperationConnectorsRequest) RequestBody(requestBody []string) ApiSetOperationConnectorsRequest {
 	r.requestBody = &requestBody
+	return r
+}
+
+// Confirmation to disable affected objects (for example, tests) for credential-vault operations.
+func (r ApiSetOperationConnectorsRequest) ConfirmDisabledObjects(confirmDisabledObjects bool) ApiSetOperationConnectorsRequest {
+	r.confirmDisabledObjects = &confirmDisabledObjects
 	return r
 }
 
@@ -187,7 +194,7 @@ func (r ApiSetOperationConnectorsRequest) Execute() (*Assignments, *http.Respons
 /*
 SetOperationConnectors Assign connectors to an operation
 
-Assigns one or more connectors to an operation. This replaces any existing assignments.
+Assigns one or more connectors to an operation. This replaces any existing assignments. Note: This operation may disable affected objects (such as tests) if connectors are changed.
 
  @param type_ The operation type. @param id The operation ID.
  @return ApiSetOperationConnectorsRequest
@@ -228,6 +235,12 @@ func (a *OperationConnectorsAPIService) SetOperationConnectorsExecute(r ApiSetOp
 		return localVarReturnValue, nil, internalerror.ReportError("requestBody must have less than 1 elements")
 	}
 
+	if r.confirmDisabledObjects != nil {
+		request.ParameterAddToHeaderOrQuery(localVarQueryParams, "confirmDisabledObjects", r.confirmDisabledObjects, "")
+	} else {
+		var defaultValue bool = false
+		r.confirmDisabledObjects = &defaultValue
+	}
 	if r.aid != nil {
 		request.ParameterAddToHeaderOrQuery(localVarQueryParams, "aid", r.aid, "")
 	}

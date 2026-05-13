@@ -35,6 +35,7 @@ type AgentResponse struct {
 	// 2-digit ISO country code
 	CountryId *string `json:"countryId,omitempty"`
 	Coordinates *Coordinates `json:"coordinates,omitempty"`
+	NetworkProviderInfo *NetworkProviderInfo `json:"networkProviderInfo,omitempty"`
 	// Flag indicating if the agent is enabled.
 	Enabled *bool `json:"enabled,omitempty"`
 	// Flag indicating if has normal SSL operations or  if instead it's set to ignore SSL errors on browserbot-based tests.
@@ -320,6 +321,38 @@ func (o *AgentResponse) SetCoordinates(v Coordinates) {
 	o.Coordinates = &v
 }
 
+// GetNetworkProviderInfo returns the NetworkProviderInfo field value if set, zero value otherwise.
+func (o *AgentResponse) GetNetworkProviderInfo() NetworkProviderInfo {
+	if o == nil || utils.IsNil(o.NetworkProviderInfo) {
+		var ret NetworkProviderInfo
+		return ret
+	}
+	return *o.NetworkProviderInfo
+}
+
+// GetNetworkProviderInfoOk returns a tuple with the NetworkProviderInfo field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AgentResponse) GetNetworkProviderInfoOk() (*NetworkProviderInfo, bool) {
+	if o == nil || utils.IsNil(o.NetworkProviderInfo) {
+		return nil, false
+	}
+	return o.NetworkProviderInfo, true
+}
+
+// HasNetworkProviderInfo returns a boolean if a field has been set.
+func (o *AgentResponse) HasNetworkProviderInfo() bool {
+	if o != nil && !utils.IsNil(o.NetworkProviderInfo) {
+		return true
+	}
+
+	return false
+}
+
+// SetNetworkProviderInfo gets a reference to the given NetworkProviderInfo and assigns it to the NetworkProviderInfo field.
+func (o *AgentResponse) SetNetworkProviderInfo(v NetworkProviderInfo) {
+	o.NetworkProviderInfo = &v
+}
+
 // GetEnabled returns the Enabled field value if set, zero value otherwise.
 func (o *AgentResponse) GetEnabled() bool {
 	if o == nil || utils.IsNil(o.Enabled) {
@@ -473,6 +506,9 @@ func (o AgentResponse) ToMap() (map[string]interface{}, error) {
 	}
 	if !utils.IsNil(o.Coordinates) {
 		toSerialize["coordinates"] = o.Coordinates
+	}
+	if !utils.IsNil(o.NetworkProviderInfo) {
+		toSerialize["networkProviderInfo"] = o.NetworkProviderInfo
 	}
 	if !utils.IsNil(o.Enabled) {
 		toSerialize["enabled"] = o.Enabled
