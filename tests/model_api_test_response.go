@@ -87,6 +87,8 @@ type ApiTestResponse struct {
 	Url string `json:"url"`
 	// Contains a list of credential IDs (get `credentialId` from `/credentials` endpoint).
 	Credentials []string `json:"credentials,omitempty"`
+	// List of credential IDs that are stored in an external vault.
+	VaultCredentials []TestVaultCredential `json:"vaultCredentials,omitempty"`
 	// Set to `true` to enable bgp measurements.
 	BgpMeasurements *bool `json:"bgpMeasurements,omitempty"`
 	// Indicate if all available public BGP monitors should be used, when ommited defaults to `bgpMeasurements` value.
@@ -1369,6 +1371,38 @@ func (o *ApiTestResponse) SetCredentials(v []string) {
 	o.Credentials = v
 }
 
+// GetVaultCredentials returns the VaultCredentials field value if set, zero value otherwise.
+func (o *ApiTestResponse) GetVaultCredentials() []TestVaultCredential {
+	if o == nil || utils.IsNil(o.VaultCredentials) {
+		var ret []TestVaultCredential
+		return ret
+	}
+	return o.VaultCredentials
+}
+
+// GetVaultCredentialsOk returns a tuple with the VaultCredentials field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiTestResponse) GetVaultCredentialsOk() ([]TestVaultCredential, bool) {
+	if o == nil || utils.IsNil(o.VaultCredentials) {
+		return nil, false
+	}
+	return o.VaultCredentials, true
+}
+
+// HasVaultCredentials returns a boolean if a field has been set.
+func (o *ApiTestResponse) HasVaultCredentials() bool {
+	if o != nil && !utils.IsNil(o.VaultCredentials) {
+		return true
+	}
+
+	return false
+}
+
+// SetVaultCredentials gets a reference to the given []TestVaultCredential and assigns it to the VaultCredentials field.
+func (o *ApiTestResponse) SetVaultCredentials(v []TestVaultCredential) {
+	o.VaultCredentials = v
+}
+
 // GetBgpMeasurements returns the BgpMeasurements field value if set, zero value otherwise.
 func (o *ApiTestResponse) GetBgpMeasurements() bool {
 	if o == nil || utils.IsNil(o.BgpMeasurements) {
@@ -1614,6 +1648,9 @@ func (o ApiTestResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize["url"] = o.Url
 	if !utils.IsNil(o.Credentials) {
 		toSerialize["credentials"] = o.Credentials
+	}
+	if !utils.IsNil(o.VaultCredentials) {
+		toSerialize["vaultCredentials"] = o.VaultCredentials
 	}
 	if !utils.IsNil(o.BgpMeasurements) {
 		toSerialize["bgpMeasurements"] = o.BgpMeasurements

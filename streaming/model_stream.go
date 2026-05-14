@@ -31,8 +31,10 @@ type Stream struct {
 	Enabled *bool `json:"enabled,omitempty"`
 	Filters *Filters `json:"filters,omitempty"`
 	ExporterConfig *ExporterConfig `json:"exporterConfig,omitempty"`
-	// A collection of Endpoint Agent label IDs that determines what local network data is included in the data stream.
+	// A collection of Endpoint Agent label IDs that determines what local network data is included in the data stream. `endpointAgentLabel` and `endpointAgentTag` represent the same data. Configure only one; both are synchronized.
 	EndpointAgentLabel []EndpointAgentLabel `json:"endpointAgentLabel,omitempty"`
+	// A collection of Endpoint Agent Tag IDs that determines what local network data is included in the data stream. `endpointAgentLabel` and `endpointAgentTag` represent the same data. Configure only one; both are synchronized.
+	EndpointAgentTag []EndpointAgentTag `json:"endpointAgentTag,omitempty"`
 	Type *StreamType `json:"type,omitempty"`
 	Signal *Signal `json:"signal,omitempty"`
 	EndpointType *EndpointType `json:"endpointType,omitempty"`
@@ -324,6 +326,38 @@ func (o *Stream) SetEndpointAgentLabel(v []EndpointAgentLabel) {
 	o.EndpointAgentLabel = v
 }
 
+// GetEndpointAgentTag returns the EndpointAgentTag field value if set, zero value otherwise.
+func (o *Stream) GetEndpointAgentTag() []EndpointAgentTag {
+	if o == nil || utils.IsNil(o.EndpointAgentTag) {
+		var ret []EndpointAgentTag
+		return ret
+	}
+	return o.EndpointAgentTag
+}
+
+// GetEndpointAgentTagOk returns a tuple with the EndpointAgentTag field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Stream) GetEndpointAgentTagOk() ([]EndpointAgentTag, bool) {
+	if o == nil || utils.IsNil(o.EndpointAgentTag) {
+		return nil, false
+	}
+	return o.EndpointAgentTag, true
+}
+
+// HasEndpointAgentTag returns a boolean if a field has been set.
+func (o *Stream) HasEndpointAgentTag() bool {
+	if o != nil && !utils.IsNil(o.EndpointAgentTag) {
+		return true
+	}
+
+	return false
+}
+
+// SetEndpointAgentTag gets a reference to the given []EndpointAgentTag and assigns it to the EndpointAgentTag field.
+func (o *Stream) SetEndpointAgentTag(v []EndpointAgentTag) {
+	o.EndpointAgentTag = v
+}
+
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *Stream) GetType() StreamType {
 	if o == nil || utils.IsNil(o.Type) {
@@ -485,6 +519,9 @@ func (o Stream) ToMap() (map[string]interface{}, error) {
 	}
 	if !utils.IsNil(o.EndpointAgentLabel) {
 		toSerialize["endpointAgentLabel"] = o.EndpointAgentLabel
+	}
+	if !utils.IsNil(o.EndpointAgentTag) {
+		toSerialize["endpointAgentTag"] = o.EndpointAgentTag
 	}
 	if !utils.IsNil(o.Type) {
 		toSerialize["type"] = o.Type

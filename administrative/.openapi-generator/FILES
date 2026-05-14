@@ -36,6 +36,8 @@ model_expand_account_group_options.go
 model_extended_user.go
 model_interface_ip_mapping.go
 model_link.go
+model_network_provider_info.go
+model_network_provider_type.go
 model_pagination_links.go
 model_permission.go
 model_permissions.go
