@@ -12,6 +12,7 @@ package streaming
 import (
 	"encoding/json"
     "github.com/thousandeyes/thousandeyes-sdk-go/v3/internal/utils"
+	"fmt"
 )
 
 // checks if the EndpointAgentLabel type satisfies the MappedNullable interface at compile time
@@ -20,15 +21,18 @@ var _ utils.MappedNullable = &EndpointAgentLabel{}
 // EndpointAgentLabel Endpoint Agent label configuration.
 type EndpointAgentLabel struct {
 	// The label ID of Endpoint Agent labels.
-	Id *string `json:"id,omitempty"`
+	Id string `json:"id"`
 }
+
+type _EndpointAgentLabel EndpointAgentLabel
 
 // NewEndpointAgentLabel instantiates a new EndpointAgentLabel object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewEndpointAgentLabel() *EndpointAgentLabel {
+func NewEndpointAgentLabel(id string) *EndpointAgentLabel {
 	this := EndpointAgentLabel{}
+	this.Id = id
 	return &this
 }
 
@@ -40,36 +44,28 @@ func NewEndpointAgentLabelWithDefaults() *EndpointAgentLabel {
 	return &this
 }
 
-// GetId returns the Id field value if set, zero value otherwise.
+// GetId returns the Id field value
 func (o *EndpointAgentLabel) GetId() string {
-	if o == nil || utils.IsNil(o.Id) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Id
+
+	return o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *EndpointAgentLabel) GetIdOk() (*string, bool) {
-	if o == nil || utils.IsNil(o.Id) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Id, true
+	return &o.Id, true
 }
 
-// HasId returns a boolean if a field has been set.
-func (o *EndpointAgentLabel) HasId() bool {
-	if o != nil && !utils.IsNil(o.Id) {
-		return true
-	}
-
-	return false
-}
-
-// SetId gets a reference to the given string and assigns it to the Id field.
+// SetId sets field value
 func (o *EndpointAgentLabel) SetId(v string) {
-	o.Id = &v
+	o.Id = v
 }
 
 func (o EndpointAgentLabel) MarshalJSON() ([]byte, error) {
@@ -82,10 +78,43 @@ func (o EndpointAgentLabel) MarshalJSON() ([]byte, error) {
 
 func (o EndpointAgentLabel) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !utils.IsNil(o.Id) {
-		toSerialize["id"] = o.Id
-	}
+	toSerialize["id"] = o.Id
 	return toSerialize, nil
+}
+
+func (o *EndpointAgentLabel) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varEndpointAgentLabel := _EndpointAgentLabel{}
+
+    err = json.Unmarshal(data, &varEndpointAgentLabel)
+
+	if err != nil {
+		return err
+	}
+
+	*o = EndpointAgentLabel(varEndpointAgentLabel)
+
+	return err
 }
 
 type NullableEndpointAgentLabel struct {

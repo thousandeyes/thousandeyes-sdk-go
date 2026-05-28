@@ -85,6 +85,8 @@ type ApiInstantTestRequest struct {
 	Agents []TestAgent `json:"agents"`
 	// Contains a list of credential IDs (get `credentialId` from `/credentials` endpoint).
 	Credentials []string `json:"credentials,omitempty"`
+	// List of credential IDs that are stored in an external vault.
+	VaultCredentials []TestVaultCredential `json:"vaultCredentials,omitempty"`
 }
 
 type _ApiInstantTestRequest ApiInstantTestRequest
@@ -1281,6 +1283,38 @@ func (o *ApiInstantTestRequest) SetCredentials(v []string) {
 	o.Credentials = v
 }
 
+// GetVaultCredentials returns the VaultCredentials field value if set, zero value otherwise.
+func (o *ApiInstantTestRequest) GetVaultCredentials() []TestVaultCredential {
+	if o == nil || utils.IsNil(o.VaultCredentials) {
+		var ret []TestVaultCredential
+		return ret
+	}
+	return o.VaultCredentials
+}
+
+// GetVaultCredentialsOk returns a tuple with the VaultCredentials field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiInstantTestRequest) GetVaultCredentialsOk() ([]TestVaultCredential, bool) {
+	if o == nil || utils.IsNil(o.VaultCredentials) {
+		return nil, false
+	}
+	return o.VaultCredentials, true
+}
+
+// HasVaultCredentials returns a boolean if a field has been set.
+func (o *ApiInstantTestRequest) HasVaultCredentials() bool {
+	if o != nil && !utils.IsNil(o.VaultCredentials) {
+		return true
+	}
+
+	return false
+}
+
+// SetVaultCredentials gets a reference to the given []TestVaultCredential and assigns it to the VaultCredentials field.
+func (o *ApiInstantTestRequest) SetVaultCredentials(v []TestVaultCredential) {
+	o.VaultCredentials = v
+}
+
 func (o ApiInstantTestRequest) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -1392,6 +1426,9 @@ func (o ApiInstantTestRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize["agents"] = o.Agents
 	if !utils.IsNil(o.Credentials) {
 		toSerialize["credentials"] = o.Credentials
+	}
+	if !utils.IsNil(o.VaultCredentials) {
+		toSerialize["vaultCredentials"] = o.VaultCredentials
 	}
 	return toSerialize, nil
 }

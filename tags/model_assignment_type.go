@@ -23,6 +23,7 @@ const (
 	ASSIGNMENTTYPE_V_AGENT AssignmentType = "v-agent"
 	ASSIGNMENTTYPE_ENDPOINT_TEST AssignmentType = "endpoint-test"
 	ASSIGNMENTTYPE_DASHBOARD AssignmentType = "dashboard"
+	ASSIGNMENTTYPE_CONNECTED_DEVICES_TEST AssignmentType = "connected-devices-test"
 	ASSIGNMENTTYPE_UNKNOWN AssignmentType = "unknown"
 )
 
@@ -32,6 +33,7 @@ var AllowedAssignmentTypeEnumValues = []AssignmentType{
 	"v-agent",
 	"endpoint-test",
 	"dashboard",
+	"connected-devices-test",
 	"unknown",
 }
 

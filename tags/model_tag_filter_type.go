@@ -20,14 +20,20 @@ type TagFilterType string
 // List of TagFilterType
 const (
 	TAGFILTERTYPE_AGENT_ID TagFilterType = "agent-id"
+	TAGFILTERTYPE_LOCATION TagFilterType = "location"
+	TAGFILTERTYPE_SERIAL_NUMBER TagFilterType = "serial-number"
 	TAGFILTERTYPE_PUBLIC_NETWORK TagFilterType = "public-network"
 	TAGFILTERTYPE_LOCAL_NETWORK TagFilterType = "local-network"
 	TAGFILTERTYPE_CONNECTION TagFilterType = "connection"
 	TAGFILTERTYPE_GATEWAY TagFilterType = "gateway"
 	TAGFILTERTYPE_PLATFORM TagFilterType = "platform"
+	TAGFILTERTYPE_NIC_MODEL TagFilterType = "nic-model"
+	TAGFILTERTYPE_NIC_DRIVER_VERSION TagFilterType = "nic-driver-version"
 	TAGFILTERTYPE_AGENT_TYPE TagFilterType = "agent-type"
+	TAGFILTERTYPE_PROXY_TARGET TagFilterType = "proxy-target"
 	TAGFILTERTYPE_VPN_VENDOR TagFilterType = "vpn-vendor"
 	TAGFILTERTYPE_VPN_GATEWAY_ADDRESS TagFilterType = "vpn-gateway-address"
+	TAGFILTERTYPE_VPN_TARGET TagFilterType = "vpn-target"
 	TAGFILTERTYPE_VPN_CLIENT_NETWORK TagFilterType = "vpn-client-network"
 	TAGFILTERTYPE_VPN_CLIENT_ADDRESS TagFilterType = "vpn-client-address"
 	TAGFILTERTYPE_IP_ADDRESS_FAMILY TagFilterType = "ip-address-family"
@@ -42,14 +48,20 @@ const (
 // All allowed values of TagFilterType enum
 var AllowedTagFilterTypeEnumValues = []TagFilterType{
 	"agent-id",
+	"location",
+	"serial-number",
 	"public-network",
 	"local-network",
 	"connection",
 	"gateway",
 	"platform",
+	"nic-model",
+	"nic-driver-version",
 	"agent-type",
+	"proxy-target",
 	"vpn-vendor",
 	"vpn-gateway-address",
+	"vpn-target",
 	"vpn-client-network",
 	"vpn-client-address",
 	"ip-address-family",
