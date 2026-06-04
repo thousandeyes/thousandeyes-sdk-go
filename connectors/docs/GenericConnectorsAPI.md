@@ -8,7 +8,7 @@ Method | HTTP request | Description
 [**DeleteGenericConnector**](GenericConnectorsAPI.md#DeleteGenericConnector) | **Delete** /connectors/generic/{id} | Delete connector
 [**GetGenericConnector**](GenericConnectorsAPI.md#GetGenericConnector) | **Get** /connectors/generic/{id} | Retrieve connector
 [**GetGenericConnectors**](GenericConnectorsAPI.md#GetGenericConnectors) | **Get** /connectors/generic | List connectors
-[**ListGenericConnectorOperations**](GenericConnectorsAPI.md#ListGenericConnectorOperations) | **Get** /connectors/generic/{id}/operations | List operation IDs assigned to a connector
+[**ListGenericConnectorOperations**](GenericConnectorsAPI.md#ListGenericConnectorOperations) | **Get** /connectors/generic/{id}/operations | List operation IDs for a connector
 [**SetGenericConnectorOperations**](GenericConnectorsAPI.md#SetGenericConnectorOperations) | **Put** /connectors/generic/{id}/operations | Assign operations to a connector
 [**UpdateGenericConnector**](GenericConnectorsAPI.md#UpdateGenericConnector) | **Put** /connectors/generic/{id} | Update connector
 
@@ -297,7 +297,7 @@ Name | Type | Description  | Notes
 
 > Assignments ListGenericConnectorOperations(id).Aid(aid).Execute()
 
-List operation IDs assigned to a connector
+List operation IDs for a connector
 
 
 

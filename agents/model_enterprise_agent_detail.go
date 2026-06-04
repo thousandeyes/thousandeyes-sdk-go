@@ -36,6 +36,7 @@ type EnterpriseAgentDetail struct {
 	// 2-digit ISO country code
 	CountryId *string `json:"countryId,omitempty"`
 	Coordinates *Coordinates `json:"coordinates,omitempty"`
+	NetworkProviderInfo *SimpleAgentAllOfNetworkProviderInfo `json:"networkProviderInfo,omitempty"`
 	// Flag indicating if the agent is enabled.
 	Enabled *bool `json:"enabled,omitempty"`
 	// Flag indicating if has normal SSL operations or  if instead it's set to ignore SSL errors on browserbot-based tests.
@@ -354,6 +355,38 @@ func (o *EnterpriseAgentDetail) HasCoordinates() bool {
 // SetCoordinates gets a reference to the given Coordinates and assigns it to the Coordinates field.
 func (o *EnterpriseAgentDetail) SetCoordinates(v Coordinates) {
 	o.Coordinates = &v
+}
+
+// GetNetworkProviderInfo returns the NetworkProviderInfo field value if set, zero value otherwise.
+func (o *EnterpriseAgentDetail) GetNetworkProviderInfo() SimpleAgentAllOfNetworkProviderInfo {
+	if o == nil || utils.IsNil(o.NetworkProviderInfo) {
+		var ret SimpleAgentAllOfNetworkProviderInfo
+		return ret
+	}
+	return *o.NetworkProviderInfo
+}
+
+// GetNetworkProviderInfoOk returns a tuple with the NetworkProviderInfo field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EnterpriseAgentDetail) GetNetworkProviderInfoOk() (*SimpleAgentAllOfNetworkProviderInfo, bool) {
+	if o == nil || utils.IsNil(o.NetworkProviderInfo) {
+		return nil, false
+	}
+	return o.NetworkProviderInfo, true
+}
+
+// HasNetworkProviderInfo returns a boolean if a field has been set.
+func (o *EnterpriseAgentDetail) HasNetworkProviderInfo() bool {
+	if o != nil && !utils.IsNil(o.NetworkProviderInfo) {
+		return true
+	}
+
+	return false
+}
+
+// SetNetworkProviderInfo gets a reference to the given SimpleAgentAllOfNetworkProviderInfo and assigns it to the NetworkProviderInfo field.
+func (o *EnterpriseAgentDetail) SetNetworkProviderInfo(v SimpleAgentAllOfNetworkProviderInfo) {
+	o.NetworkProviderInfo = &v
 }
 
 // GetEnabled returns the Enabled field value if set, zero value otherwise.
@@ -1117,6 +1150,9 @@ func (o EnterpriseAgentDetail) ToMap() (map[string]interface{}, error) {
 	}
 	if !utils.IsNil(o.Coordinates) {
 		toSerialize["coordinates"] = o.Coordinates
+	}
+	if !utils.IsNil(o.NetworkProviderInfo) {
+		toSerialize["networkProviderInfo"] = o.NetworkProviderInfo
 	}
 	if !utils.IsNil(o.Enabled) {
 		toSerialize["enabled"] = o.Enabled

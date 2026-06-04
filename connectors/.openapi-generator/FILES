@@ -1,8 +1,12 @@
 .openapi-generator-ignore
 README.md
+api_credential_vault_operations.go
+api_cyber_ark_conjur_connectors.go
 api_generic_connectors.go
 api_operation_connectors.go
 api_webhook_operations.go
+docs/CredentialVaultOperationsAPI.md
+docs/CyberArkConjurConnectorsAPI.md
 docs/GenericConnectorsAPI.md
 docs/OperationConnectorsAPI.md
 docs/WebhookOperationsAPI.md
@@ -10,7 +14,13 @@ model_assignments.go
 model_authentication_type.go
 model_basic_authentication.go
 model_bearer_token_authentication.go
+model_conjur_connector.go
+model_conjur_connectors.go
+model_conjur_host_authentication.go
 model_connector_type.go
+model_credential_vault_operation.go
+model_credential_vault_operations.go
+model_credential_vault_secret.go
 model_error.go
 model_generic_connector.go
 model_generic_connector_auth.go

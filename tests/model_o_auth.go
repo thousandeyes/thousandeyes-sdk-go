@@ -21,7 +21,7 @@ var _ utils.MappedNullable = &OAuth{}
 type OAuth struct {
 	// Target for the test.
 	TestUrl *string `json:"testUrl,omitempty"`
-	RequestMethod *OAuthRequestMethod `json:"requestMethod,omitempty"`
+	RequestMethod *RequestMethod `json:"requestMethod,omitempty"`
 	// Enter the OAuth body for the HTTP POST request in this field when using OAuth as the authentication mechanism. No special escaping is required. The value is saved only when `requestMethod` is set to `post`.
 	PostBody *string `json:"postBody,omitempty"`
 	// Request headers used for OAuth.
@@ -87,9 +87,9 @@ func (o *OAuth) SetTestUrl(v string) {
 }
 
 // GetRequestMethod returns the RequestMethod field value if set, zero value otherwise.
-func (o *OAuth) GetRequestMethod() OAuthRequestMethod {
+func (o *OAuth) GetRequestMethod() RequestMethod {
 	if o == nil || utils.IsNil(o.RequestMethod) {
-		var ret OAuthRequestMethod
+		var ret RequestMethod
 		return ret
 	}
 	return *o.RequestMethod
@@ -97,7 +97,7 @@ func (o *OAuth) GetRequestMethod() OAuthRequestMethod {
 
 // GetRequestMethodOk returns a tuple with the RequestMethod field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *OAuth) GetRequestMethodOk() (*OAuthRequestMethod, bool) {
+func (o *OAuth) GetRequestMethodOk() (*RequestMethod, bool) {
 	if o == nil || utils.IsNil(o.RequestMethod) {
 		return nil, false
 	}
@@ -113,8 +113,8 @@ func (o *OAuth) HasRequestMethod() bool {
 	return false
 }
 
-// SetRequestMethod gets a reference to the given OAuthRequestMethod and assigns it to the RequestMethod field.
-func (o *OAuth) SetRequestMethod(v OAuthRequestMethod) {
+// SetRequestMethod gets a reference to the given RequestMethod and assigns it to the RequestMethod field.
+func (o *OAuth) SetRequestMethod(v RequestMethod) {
 	o.RequestMethod = &v
 }
 

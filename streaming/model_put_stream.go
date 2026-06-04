@@ -31,8 +31,10 @@ type PutStream struct {
 	Enabled *bool `json:"enabled,omitempty"`
 	Filters *Filters `json:"filters,omitempty"`
 	ExporterConfig *ExporterConfig `json:"exporterConfig,omitempty"`
-	// A collection of Endpoint Agent label IDs that determines what local network data is included in the data stream.
+	// A collection of Endpoint Agent label IDs that determines what local network data is included in the data stream. `endpointAgentLabel` and `endpointAgentTag` represent the same data. Configure only one; both are synchronized.
 	EndpointAgentLabel []EndpointAgentLabel `json:"endpointAgentLabel,omitempty"`
+	// A collection of Endpoint Agent Tag IDs that determines what local network data is included in the data stream. `endpointAgentLabel` and `endpointAgentTag` represent the same data. Configure only one; both are synchronized.
+	EndpointAgentTag []EndpointAgentTag `json:"endpointAgentTag,omitempty"`
 }
 
 // NewPutStream instantiates a new PutStream object
@@ -308,6 +310,38 @@ func (o *PutStream) SetEndpointAgentLabel(v []EndpointAgentLabel) {
 	o.EndpointAgentLabel = v
 }
 
+// GetEndpointAgentTag returns the EndpointAgentTag field value if set, zero value otherwise.
+func (o *PutStream) GetEndpointAgentTag() []EndpointAgentTag {
+	if o == nil || utils.IsNil(o.EndpointAgentTag) {
+		var ret []EndpointAgentTag
+		return ret
+	}
+	return o.EndpointAgentTag
+}
+
+// GetEndpointAgentTagOk returns a tuple with the EndpointAgentTag field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PutStream) GetEndpointAgentTagOk() ([]EndpointAgentTag, bool) {
+	if o == nil || utils.IsNil(o.EndpointAgentTag) {
+		return nil, false
+	}
+	return o.EndpointAgentTag, true
+}
+
+// HasEndpointAgentTag returns a boolean if a field has been set.
+func (o *PutStream) HasEndpointAgentTag() bool {
+	if o != nil && !utils.IsNil(o.EndpointAgentTag) {
+		return true
+	}
+
+	return false
+}
+
+// SetEndpointAgentTag gets a reference to the given []EndpointAgentTag and assigns it to the EndpointAgentTag field.
+func (o *PutStream) SetEndpointAgentTag(v []EndpointAgentTag) {
+	o.EndpointAgentTag = v
+}
+
 func (o PutStream) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -341,6 +375,9 @@ func (o PutStream) ToMap() (map[string]interface{}, error) {
 	}
 	if !utils.IsNil(o.EndpointAgentLabel) {
 		toSerialize["endpointAgentLabel"] = o.EndpointAgentLabel
+	}
+	if !utils.IsNil(o.EndpointAgentTag) {
+		toSerialize["endpointAgentTag"] = o.EndpointAgentTag
 	}
 	return toSerialize, nil
 }
