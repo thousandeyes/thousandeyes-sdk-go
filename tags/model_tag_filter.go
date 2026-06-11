@@ -19,9 +19,11 @@ var _ utils.MappedNullable = &TagFilter{}
 
 // TagFilter struct for TagFilter
 type TagFilter struct {
-	Key *TagFilterType `json:"key,omitempty"`
+	// Filter key used for filtering.  When `scope` is `default`, accepted values are `agent-id`, `location`, `serial-number`, `public-network`, `local-network`, `connection`, `gateway`, `platform`, `nic-model`, `nic-driver-version`, `agent-type`, `proxy-target`, `vpn-vendor`, `vpn-gateway-address`, `vpn-target`, `vpn-client-network`, `vpn-client-address`, `ip-address-family`, `ssid`, `bssid`, `hostname`, `username`, and `asn`.  When `scope` is `custom`, use a user-defined check-in metadata key. 
+	Key *string `json:"key,omitempty"`
 	Values []string `json:"values,omitempty"`
 	Mode *TagFilterMode `json:"mode,omitempty"`
+	Scope *TagFilterScope `json:"scope,omitempty"`
 }
 
 // NewTagFilter instantiates a new TagFilter object
@@ -30,6 +32,8 @@ type TagFilter struct {
 // will change when the set of required properties is changed
 func NewTagFilter() *TagFilter {
 	this := TagFilter{}
+	var scope TagFilterScope = "default"
+	this.Scope = &scope
 	return &this
 }
 
@@ -38,13 +42,15 @@ func NewTagFilter() *TagFilter {
 // but it doesn't guarantee that properties required by API are set
 func NewTagFilterWithDefaults() *TagFilter {
 	this := TagFilter{}
+	var scope TagFilterScope = "default"
+	this.Scope = &scope
 	return &this
 }
 
 // GetKey returns the Key field value if set, zero value otherwise.
-func (o *TagFilter) GetKey() TagFilterType {
+func (o *TagFilter) GetKey() string {
 	if o == nil || utils.IsNil(o.Key) {
-		var ret TagFilterType
+		var ret string
 		return ret
 	}
 	return *o.Key
@@ -52,7 +58,7 @@ func (o *TagFilter) GetKey() TagFilterType {
 
 // GetKeyOk returns a tuple with the Key field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TagFilter) GetKeyOk() (*TagFilterType, bool) {
+func (o *TagFilter) GetKeyOk() (*string, bool) {
 	if o == nil || utils.IsNil(o.Key) {
 		return nil, false
 	}
@@ -68,8 +74,8 @@ func (o *TagFilter) HasKey() bool {
 	return false
 }
 
-// SetKey gets a reference to the given TagFilterType and assigns it to the Key field.
-func (o *TagFilter) SetKey(v TagFilterType) {
+// SetKey gets a reference to the given string and assigns it to the Key field.
+func (o *TagFilter) SetKey(v string) {
 	o.Key = &v
 }
 
@@ -137,6 +143,38 @@ func (o *TagFilter) SetMode(v TagFilterMode) {
 	o.Mode = &v
 }
 
+// GetScope returns the Scope field value if set, zero value otherwise.
+func (o *TagFilter) GetScope() TagFilterScope {
+	if o == nil || utils.IsNil(o.Scope) {
+		var ret TagFilterScope
+		return ret
+	}
+	return *o.Scope
+}
+
+// GetScopeOk returns a tuple with the Scope field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TagFilter) GetScopeOk() (*TagFilterScope, bool) {
+	if o == nil || utils.IsNil(o.Scope) {
+		return nil, false
+	}
+	return o.Scope, true
+}
+
+// HasScope returns a boolean if a field has been set.
+func (o *TagFilter) HasScope() bool {
+	if o != nil && !utils.IsNil(o.Scope) {
+		return true
+	}
+
+	return false
+}
+
+// SetScope gets a reference to the given TagFilterScope and assigns it to the Scope field.
+func (o *TagFilter) SetScope(v TagFilterScope) {
+	o.Scope = &v
+}
+
 func (o TagFilter) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -155,6 +193,9 @@ func (o TagFilter) ToMap() (map[string]interface{}, error) {
 	}
 	if !utils.IsNil(o.Mode) {
 		toSerialize["mode"] = o.Mode
+	}
+	if !utils.IsNil(o.Scope) {
+		toSerialize["scope"] = o.Scope
 	}
 	return toSerialize, nil
 }

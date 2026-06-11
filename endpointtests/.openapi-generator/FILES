@@ -15,6 +15,7 @@ model_dynamic_test_self_link.go
 model_dynamic_tests.go
 model_endpoint_agent_labels_selector_config.go
 model_endpoint_agent_selector_config.go
+model_endpoint_agent_tags_selector_config.go
 model_endpoint_agent_to_server_instant_test_.go
 model_endpoint_agent_to_server_test_.go
 model_endpoint_agent_to_server_test_request.go

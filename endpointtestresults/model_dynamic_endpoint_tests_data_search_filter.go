@@ -23,8 +23,12 @@ type DynamicEndpointTestsDataSearchFilter struct {
 	AgentId []string `json:"agentId,omitempty"`
 	// Filters results based on an array of `userPrincipalName` values.
 	UserPrincipalName []string `json:"userPrincipalName,omitempty"`
-	// Filter using the `conference-id` of the webex call.
+	// Filter using the `conference-id` of the Webex call.
 	WebexConferenceId []string `json:"webexConferenceId,omitempty"`
+	// Filter using the `correlation-id` of the Webex call.
+	WebexCorrelationId []string `json:"webexCorrelationId,omitempty"`
+	// Filter using the `local-sip-session-id` of the Webex call.
+	WebexLocalSipSessionId []string `json:"webexLocalSipSessionId,omitempty"`
 }
 
 // NewDynamicEndpointTestsDataSearchFilter instantiates a new DynamicEndpointTestsDataSearchFilter object
@@ -140,6 +144,70 @@ func (o *DynamicEndpointTestsDataSearchFilter) SetWebexConferenceId(v []string) 
 	o.WebexConferenceId = v
 }
 
+// GetWebexCorrelationId returns the WebexCorrelationId field value if set, zero value otherwise.
+func (o *DynamicEndpointTestsDataSearchFilter) GetWebexCorrelationId() []string {
+	if o == nil || utils.IsNil(o.WebexCorrelationId) {
+		var ret []string
+		return ret
+	}
+	return o.WebexCorrelationId
+}
+
+// GetWebexCorrelationIdOk returns a tuple with the WebexCorrelationId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DynamicEndpointTestsDataSearchFilter) GetWebexCorrelationIdOk() ([]string, bool) {
+	if o == nil || utils.IsNil(o.WebexCorrelationId) {
+		return nil, false
+	}
+	return o.WebexCorrelationId, true
+}
+
+// HasWebexCorrelationId returns a boolean if a field has been set.
+func (o *DynamicEndpointTestsDataSearchFilter) HasWebexCorrelationId() bool {
+	if o != nil && !utils.IsNil(o.WebexCorrelationId) {
+		return true
+	}
+
+	return false
+}
+
+// SetWebexCorrelationId gets a reference to the given []string and assigns it to the WebexCorrelationId field.
+func (o *DynamicEndpointTestsDataSearchFilter) SetWebexCorrelationId(v []string) {
+	o.WebexCorrelationId = v
+}
+
+// GetWebexLocalSipSessionId returns the WebexLocalSipSessionId field value if set, zero value otherwise.
+func (o *DynamicEndpointTestsDataSearchFilter) GetWebexLocalSipSessionId() []string {
+	if o == nil || utils.IsNil(o.WebexLocalSipSessionId) {
+		var ret []string
+		return ret
+	}
+	return o.WebexLocalSipSessionId
+}
+
+// GetWebexLocalSipSessionIdOk returns a tuple with the WebexLocalSipSessionId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DynamicEndpointTestsDataSearchFilter) GetWebexLocalSipSessionIdOk() ([]string, bool) {
+	if o == nil || utils.IsNil(o.WebexLocalSipSessionId) {
+		return nil, false
+	}
+	return o.WebexLocalSipSessionId, true
+}
+
+// HasWebexLocalSipSessionId returns a boolean if a field has been set.
+func (o *DynamicEndpointTestsDataSearchFilter) HasWebexLocalSipSessionId() bool {
+	if o != nil && !utils.IsNil(o.WebexLocalSipSessionId) {
+		return true
+	}
+
+	return false
+}
+
+// SetWebexLocalSipSessionId gets a reference to the given []string and assigns it to the WebexLocalSipSessionId field.
+func (o *DynamicEndpointTestsDataSearchFilter) SetWebexLocalSipSessionId(v []string) {
+	o.WebexLocalSipSessionId = v
+}
+
 func (o DynamicEndpointTestsDataSearchFilter) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -158,6 +226,12 @@ func (o DynamicEndpointTestsDataSearchFilter) ToMap() (map[string]interface{}, e
 	}
 	if !utils.IsNil(o.WebexConferenceId) {
 		toSerialize["webexConferenceId"] = o.WebexConferenceId
+	}
+	if !utils.IsNil(o.WebexCorrelationId) {
+		toSerialize["webexCorrelationId"] = o.WebexCorrelationId
+	}
+	if !utils.IsNil(o.WebexLocalSipSessionId) {
+		toSerialize["webexLocalSipSessionId"] = o.WebexLocalSipSessionId
 	}
 	return toSerialize, nil
 }

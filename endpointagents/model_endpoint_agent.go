@@ -26,11 +26,17 @@ type EndpointAgent struct {
 	// The name of the agent.
 	Name *string `json:"name,omitempty"`
 	ComputerName *string `json:"computerName,omitempty"`
+	// Free storage space as a normalized percentage (0-1).
+	FreeDiskSpaceNormalized utils.NullableFloat64 `json:"freeDiskSpaceNormalized,omitempty"`
 	OsVersion *string `json:"osVersion,omitempty"`
 	Platform *Platform `json:"platform,omitempty"`
 	KernelVersion *string `json:"kernelVersion,omitempty"`
 	Manufacturer *string `json:"manufacturer,omitempty"`
 	Model *string `json:"model,omitempty"`
+	// Network interface card driver version.
+	NicDriverVersion utils.NullableString `json:"nicDriverVersion,omitempty"`
+	// Network interface card model.
+	NicModel utils.NullableString `json:"nicModel,omitempty"`
 	SerialNumber *string `json:"serialNumber,omitempty"`
 	// The last time the agent checked-in.
 	LastSeen *time.Time `json:"lastSeen,omitempty"`
@@ -210,6 +216,48 @@ func (o *EndpointAgent) SetComputerName(v string) {
 	o.ComputerName = &v
 }
 
+// GetFreeDiskSpaceNormalized returns the FreeDiskSpaceNormalized field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *EndpointAgent) GetFreeDiskSpaceNormalized() float64 {
+	if o == nil || utils.IsNil(o.FreeDiskSpaceNormalized.Get()) {
+		var ret float64
+		return ret
+	}
+	return *o.FreeDiskSpaceNormalized.Get()
+}
+
+// GetFreeDiskSpaceNormalizedOk returns a tuple with the FreeDiskSpaceNormalized field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *EndpointAgent) GetFreeDiskSpaceNormalizedOk() (*float64, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.FreeDiskSpaceNormalized.Get(), o.FreeDiskSpaceNormalized.IsSet()
+}
+
+// HasFreeDiskSpaceNormalized returns a boolean if a field has been set.
+func (o *EndpointAgent) HasFreeDiskSpaceNormalized() bool {
+	if o != nil && o.FreeDiskSpaceNormalized.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetFreeDiskSpaceNormalized gets a reference to the given NullableFloat64 and assigns it to the FreeDiskSpaceNormalized field.
+func (o *EndpointAgent) SetFreeDiskSpaceNormalized(v float64) {
+	o.FreeDiskSpaceNormalized.Set(&v)
+}
+// SetFreeDiskSpaceNormalizedNil sets the value for FreeDiskSpaceNormalized to be an explicit nil
+func (o *EndpointAgent) SetFreeDiskSpaceNormalizedNil() {
+	o.FreeDiskSpaceNormalized.Set(nil)
+}
+
+// UnsetFreeDiskSpaceNormalized ensures that no value is present for FreeDiskSpaceNormalized, not even an explicit nil
+func (o *EndpointAgent) UnsetFreeDiskSpaceNormalized() {
+	o.FreeDiskSpaceNormalized.Unset()
+}
+
 // GetOsVersion returns the OsVersion field value if set, zero value otherwise.
 func (o *EndpointAgent) GetOsVersion() string {
 	if o == nil || utils.IsNil(o.OsVersion) {
@@ -368,6 +416,90 @@ func (o *EndpointAgent) HasModel() bool {
 // SetModel gets a reference to the given string and assigns it to the Model field.
 func (o *EndpointAgent) SetModel(v string) {
 	o.Model = &v
+}
+
+// GetNicDriverVersion returns the NicDriverVersion field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *EndpointAgent) GetNicDriverVersion() string {
+	if o == nil || utils.IsNil(o.NicDriverVersion.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.NicDriverVersion.Get()
+}
+
+// GetNicDriverVersionOk returns a tuple with the NicDriverVersion field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *EndpointAgent) GetNicDriverVersionOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.NicDriverVersion.Get(), o.NicDriverVersion.IsSet()
+}
+
+// HasNicDriverVersion returns a boolean if a field has been set.
+func (o *EndpointAgent) HasNicDriverVersion() bool {
+	if o != nil && o.NicDriverVersion.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetNicDriverVersion gets a reference to the given NullableString and assigns it to the NicDriverVersion field.
+func (o *EndpointAgent) SetNicDriverVersion(v string) {
+	o.NicDriverVersion.Set(&v)
+}
+// SetNicDriverVersionNil sets the value for NicDriverVersion to be an explicit nil
+func (o *EndpointAgent) SetNicDriverVersionNil() {
+	o.NicDriverVersion.Set(nil)
+}
+
+// UnsetNicDriverVersion ensures that no value is present for NicDriverVersion, not even an explicit nil
+func (o *EndpointAgent) UnsetNicDriverVersion() {
+	o.NicDriverVersion.Unset()
+}
+
+// GetNicModel returns the NicModel field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *EndpointAgent) GetNicModel() string {
+	if o == nil || utils.IsNil(o.NicModel.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.NicModel.Get()
+}
+
+// GetNicModelOk returns a tuple with the NicModel field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *EndpointAgent) GetNicModelOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.NicModel.Get(), o.NicModel.IsSet()
+}
+
+// HasNicModel returns a boolean if a field has been set.
+func (o *EndpointAgent) HasNicModel() bool {
+	if o != nil && o.NicModel.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetNicModel gets a reference to the given NullableString and assigns it to the NicModel field.
+func (o *EndpointAgent) SetNicModel(v string) {
+	o.NicModel.Set(&v)
+}
+// SetNicModelNil sets the value for NicModel to be an explicit nil
+func (o *EndpointAgent) SetNicModelNil() {
+	o.NicModel.Set(nil)
+}
+
+// UnsetNicModel ensures that no value is present for NicModel, not even an explicit nil
+func (o *EndpointAgent) UnsetNicModel() {
+	o.NicModel.Unset()
 }
 
 // GetSerialNumber returns the SerialNumber field value if set, zero value otherwise.
@@ -1128,6 +1260,9 @@ func (o EndpointAgent) ToMap() (map[string]interface{}, error) {
 	if !utils.IsNil(o.ComputerName) {
 		toSerialize["computerName"] = o.ComputerName
 	}
+	if o.FreeDiskSpaceNormalized.IsSet() {
+		toSerialize["freeDiskSpaceNormalized"] = o.FreeDiskSpaceNormalized.Get()
+	}
 	if !utils.IsNil(o.OsVersion) {
 		toSerialize["osVersion"] = o.OsVersion
 	}
@@ -1142,6 +1277,12 @@ func (o EndpointAgent) ToMap() (map[string]interface{}, error) {
 	}
 	if !utils.IsNil(o.Model) {
 		toSerialize["model"] = o.Model
+	}
+	if o.NicDriverVersion.IsSet() {
+		toSerialize["nicDriverVersion"] = o.NicDriverVersion.Get()
+	}
+	if o.NicModel.IsSet() {
+		toSerialize["nicModel"] = o.NicModel.Get()
 	}
 	if !utils.IsNil(o.SerialNumber) {
 		toSerialize["serialNumber"] = o.SerialNumber

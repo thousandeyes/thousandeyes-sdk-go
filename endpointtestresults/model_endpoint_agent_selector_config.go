@@ -18,6 +18,7 @@ import (
 // EndpointAgentSelectorConfig - Agents selection object based on agentSelectorType.
 type EndpointAgentSelectorConfig struct {
 	EndpointAgentLabelsSelectorConfig *EndpointAgentLabelsSelectorConfig
+	EndpointAgentTagsSelectorConfig *EndpointAgentTagsSelectorConfig
 	EndpointAllAgentsSelectorConfig *EndpointAllAgentsSelectorConfig
 	EndpointSpecificAgentsSelectorConfig *EndpointSpecificAgentsSelectorConfig
 }
@@ -26,6 +27,13 @@ type EndpointAgentSelectorConfig struct {
 func EndpointAgentLabelsSelectorConfigAsEndpointAgentSelectorConfig(v *EndpointAgentLabelsSelectorConfig) EndpointAgentSelectorConfig {
 	return EndpointAgentSelectorConfig{
 		EndpointAgentLabelsSelectorConfig: v,
+	}
+}
+
+// EndpointAgentTagsSelectorConfigAsEndpointAgentSelectorConfig is a convenience function that returns EndpointAgentTagsSelectorConfig wrapped in EndpointAgentSelectorConfig
+func EndpointAgentTagsSelectorConfigAsEndpointAgentSelectorConfig(v *EndpointAgentTagsSelectorConfig) EndpointAgentSelectorConfig {
+	return EndpointAgentSelectorConfig{
+		EndpointAgentTagsSelectorConfig: v,
 	}
 }
 
@@ -66,6 +74,18 @@ func (dst *EndpointAgentSelectorConfig) UnmarshalJSON(data []byte) error {
 		}
 	}
 
+	// check if the discriminator value is 'agent-tags'
+	if jsonDict["agentSelectorType"] == "agent-tags" {
+		// try to unmarshal JSON data into EndpointAgentTagsSelectorConfig
+		err = json.Unmarshal(data, &dst.EndpointAgentTagsSelectorConfig)
+		if err == nil {
+			return nil // data stored in dst.EndpointAgentTagsSelectorConfig, return on the first match
+		} else {
+			dst.EndpointAgentTagsSelectorConfig = nil
+			return fmt.Errorf("failed to unmarshal EndpointAgentSelectorConfig as EndpointAgentTagsSelectorConfig: %s", err.Error())
+		}
+	}
+
 	// check if the discriminator value is 'all-agents'
 	if jsonDict["agentSelectorType"] == "all-agents" {
 		// try to unmarshal JSON data into EndpointAllAgentsSelectorConfig
@@ -102,6 +122,18 @@ func (dst *EndpointAgentSelectorConfig) UnmarshalJSON(data []byte) error {
 		}
 	}
 
+	// check if the discriminator value is 'EndpointAgentTagsSelectorConfig'
+	if jsonDict["agentSelectorType"] == "EndpointAgentTagsSelectorConfig" {
+		// try to unmarshal JSON data into EndpointAgentTagsSelectorConfig
+		err = json.Unmarshal(data, &dst.EndpointAgentTagsSelectorConfig)
+		if err == nil {
+			return nil // data stored in dst.EndpointAgentTagsSelectorConfig, return on the first match
+		} else {
+			dst.EndpointAgentTagsSelectorConfig = nil
+			return fmt.Errorf("failed to unmarshal EndpointAgentSelectorConfig as EndpointAgentTagsSelectorConfig: %s", err.Error())
+		}
+	}
+
 	// check if the discriminator value is 'EndpointAllAgentsSelectorConfig'
 	if jsonDict["agentSelectorType"] == "EndpointAllAgentsSelectorConfig" {
 		// try to unmarshal JSON data into EndpointAllAgentsSelectorConfig
@@ -135,6 +167,10 @@ func (src EndpointAgentSelectorConfig) MarshalJSON() ([]byte, error) {
 		return json.Marshal(&src.EndpointAgentLabelsSelectorConfig)
 	}
 
+	if src.EndpointAgentTagsSelectorConfig != nil {
+		return json.Marshal(&src.EndpointAgentTagsSelectorConfig)
+	}
+
 	if src.EndpointAllAgentsSelectorConfig != nil {
 		return json.Marshal(&src.EndpointAllAgentsSelectorConfig)
 	}
@@ -153,6 +189,10 @@ func (obj *EndpointAgentSelectorConfig) GetActualInstance() (interface{}) {
 	}
 	if obj.EndpointAgentLabelsSelectorConfig != nil {
 		return obj.EndpointAgentLabelsSelectorConfig
+	}
+
+	if obj.EndpointAgentTagsSelectorConfig != nil {
+		return obj.EndpointAgentTagsSelectorConfig
 	}
 
 	if obj.EndpointAllAgentsSelectorConfig != nil {

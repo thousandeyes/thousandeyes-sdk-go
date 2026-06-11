@@ -14,7 +14,7 @@ import (
 	"fmt"
 )
 
-// EndpointTestAgentSelectorType Retrieve either all available agents, a specific list of agents, or a list of agent labels.
+// EndpointTestAgentSelectorType Specifies how agents are selected for the endpoint test.  Agents can be selected from:   - all available agents   - a specific list of agents   - agents matching tags   - agents matching labels (deprecated) 
 type EndpointTestAgentSelectorType string
 
 // List of EndpointTestAgentSelectorType
@@ -22,6 +22,7 @@ const (
 	ENDPOINTTESTAGENTSELECTORTYPE_ALL_AGENTS EndpointTestAgentSelectorType = "all-agents"
 	ENDPOINTTESTAGENTSELECTORTYPE_SPECIFIC_AGENTS EndpointTestAgentSelectorType = "specific-agents"
 	ENDPOINTTESTAGENTSELECTORTYPE_AGENT_LABELS EndpointTestAgentSelectorType = "agent-labels"
+	ENDPOINTTESTAGENTSELECTORTYPE_AGENT_TAGS EndpointTestAgentSelectorType = "agent-tags"
 	ENDPOINTTESTAGENTSELECTORTYPE_UNKNOWN EndpointTestAgentSelectorType = "unknown"
 )
 
@@ -30,6 +31,7 @@ var AllowedEndpointTestAgentSelectorTypeEnumValues = []EndpointTestAgentSelector
 	"all-agents",
 	"specific-agents",
 	"agent-labels",
+	"agent-tags",
 	"unknown",
 }
 

@@ -113,6 +113,8 @@ type WebTransactionTestResponse struct {
 	OverrideProxyId *string `json:"overrideProxyId,omitempty"`
 	// Indicates whether network data to the proxy should be collected.
 	CollectProxyNetworkData *bool `json:"collectProxyNetworkData,omitempty"`
+	// List of credential IDs that are stored in an external vault.
+	VaultCredentials []TestVaultCredential `json:"vaultCredentials,omitempty"`
 	// ID of the emulated device, if specified when the test was created.
 	EmulatedDeviceId *string `json:"emulatedDeviceId,omitempty"`
 	// Target completion time, in seconds. Defaults to 10. Cannot exceed the `timeLimit` value.
@@ -1941,6 +1943,38 @@ func (o *WebTransactionTestResponse) SetCollectProxyNetworkData(v bool) {
 	o.CollectProxyNetworkData = &v
 }
 
+// GetVaultCredentials returns the VaultCredentials field value if set, zero value otherwise.
+func (o *WebTransactionTestResponse) GetVaultCredentials() []TestVaultCredential {
+	if o == nil || utils.IsNil(o.VaultCredentials) {
+		var ret []TestVaultCredential
+		return ret
+	}
+	return o.VaultCredentials
+}
+
+// GetVaultCredentialsOk returns a tuple with the VaultCredentials field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *WebTransactionTestResponse) GetVaultCredentialsOk() ([]TestVaultCredential, bool) {
+	if o == nil || utils.IsNil(o.VaultCredentials) {
+		return nil, false
+	}
+	return o.VaultCredentials, true
+}
+
+// HasVaultCredentials returns a boolean if a field has been set.
+func (o *WebTransactionTestResponse) HasVaultCredentials() bool {
+	if o != nil && !utils.IsNil(o.VaultCredentials) {
+		return true
+	}
+
+	return false
+}
+
+// SetVaultCredentials gets a reference to the given []TestVaultCredential and assigns it to the VaultCredentials field.
+func (o *WebTransactionTestResponse) SetVaultCredentials(v []TestVaultCredential) {
+	o.VaultCredentials = v
+}
+
 // GetEmulatedDeviceId returns the EmulatedDeviceId field value if set, zero value otherwise.
 func (o *WebTransactionTestResponse) GetEmulatedDeviceId() string {
 	if o == nil || utils.IsNil(o.EmulatedDeviceId) {
@@ -2734,6 +2768,9 @@ func (o WebTransactionTestResponse) ToMap() (map[string]interface{}, error) {
 	}
 	if !utils.IsNil(o.CollectProxyNetworkData) {
 		toSerialize["collectProxyNetworkData"] = o.CollectProxyNetworkData
+	}
+	if !utils.IsNil(o.VaultCredentials) {
+		toSerialize["vaultCredentials"] = o.VaultCredentials
 	}
 	if !utils.IsNil(o.EmulatedDeviceId) {
 		toSerialize["emulatedDeviceId"] = o.EmulatedDeviceId
