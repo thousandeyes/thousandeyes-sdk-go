@@ -28,6 +28,7 @@ type GenericConnector struct {
 	LastModifiedDate *int64 `json:"lastModifiedDate,omitempty"`
 	Authentication *GenericConnectorAuth `json:"authentication,omitempty"`
 	Headers []Header `json:"headers,omitempty"`
+	Links *SelfLinks `json:"_links,omitempty"`
 }
 
 type _GenericConnector GenericConnector
@@ -252,6 +253,38 @@ func (o *GenericConnector) SetHeaders(v []Header) {
 	o.Headers = v
 }
 
+// GetLinks returns the Links field value if set, zero value otherwise.
+func (o *GenericConnector) GetLinks() SelfLinks {
+	if o == nil || utils.IsNil(o.Links) {
+		var ret SelfLinks
+		return ret
+	}
+	return *o.Links
+}
+
+// GetLinksOk returns a tuple with the Links field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GenericConnector) GetLinksOk() (*SelfLinks, bool) {
+	if o == nil || utils.IsNil(o.Links) {
+		return nil, false
+	}
+	return o.Links, true
+}
+
+// HasLinks returns a boolean if a field has been set.
+func (o *GenericConnector) HasLinks() bool {
+	if o != nil && !utils.IsNil(o.Links) {
+		return true
+	}
+
+	return false
+}
+
+// SetLinks gets a reference to the given SelfLinks and assigns it to the Links field.
+func (o *GenericConnector) SetLinks(v SelfLinks) {
+	o.Links = &v
+}
+
 func (o GenericConnector) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -276,6 +309,9 @@ func (o GenericConnector) ToMap() (map[string]interface{}, error) {
 	}
 	if !utils.IsNil(o.Headers) {
 		toSerialize["headers"] = o.Headers
+	}
+	if !utils.IsNil(o.Links) {
+		toSerialize["_links"] = o.Links
 	}
 	return toSerialize, nil
 }

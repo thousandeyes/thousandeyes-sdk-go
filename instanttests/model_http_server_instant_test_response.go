@@ -43,6 +43,8 @@ type HttpServerInstantTestResponse struct {
 	Links *TestLinks `json:"_links,omitempty"`
 	// Labels to which the test is assigned. This field is not returned for Instant Tests.
 	Labels []TestLabel `json:"labels,omitempty"`
+	// Tags assigned to the test. Returned only when `expand=tag` is specified. This field is not returned for Instant Tests. For more information, see `/tags`.
+	Tags []TestTag `json:"tags,omitempty"`
 	SharedWithAccounts []SharedWithAccount `json:"sharedWithAccounts,omitempty"`
 	AuthType *TestAuthType `json:"authType,omitempty"`
 	AgentInterfaces *AgentInterfaces `json:"agentInterfaces,omitempty"`
@@ -106,11 +108,14 @@ type HttpServerInstantTestResponse struct {
 	OverrideProxyId *string `json:"overrideProxyId,omitempty"`
 	// Indicates whether network data to the proxy should be collected.
 	CollectProxyNetworkData *bool `json:"collectProxyNetworkData,omitempty"`
+	// List of credential IDs that are stored in an external vault.
+	VaultCredentials []TestVaultCredential `json:"vaultCredentials,omitempty"`
 	// HTTP request headers used.
 	Headers []string `json:"headers,omitempty"`
 	// Indicates whether agents should randomize the start time in each test round.
 	RandomizedStartTime *bool `json:"randomizedStartTime,omitempty"`
-	// Enter the body for the HTTP POST request in this field. No special escaping is necessary. If the post body is provided with content, the `requestMethod` is automatically set to POST.
+	RequestMethod *RequestMethod `json:"requestMethod,omitempty"`
+	// Enter the body for the HTTP POST request in this field. No special escaping is required. If content is provided and `requestMethod` is not specified, `requestMethod` is automatically set to `post`.
 	PostBody *string `json:"postBody,omitempty"`
 	Ipv6Policy *TestIpv6Policy `json:"ipv6Policy,omitempty"`
 	// Contains list of agents.
@@ -591,6 +596,38 @@ func (o *HttpServerInstantTestResponse) HasLabels() bool {
 // SetLabels gets a reference to the given []TestLabel and assigns it to the Labels field.
 func (o *HttpServerInstantTestResponse) SetLabels(v []TestLabel) {
 	o.Labels = v
+}
+
+// GetTags returns the Tags field value if set, zero value otherwise.
+func (o *HttpServerInstantTestResponse) GetTags() []TestTag {
+	if o == nil || utils.IsNil(o.Tags) {
+		var ret []TestTag
+		return ret
+	}
+	return o.Tags
+}
+
+// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *HttpServerInstantTestResponse) GetTagsOk() ([]TestTag, bool) {
+	if o == nil || utils.IsNil(o.Tags) {
+		return nil, false
+	}
+	return o.Tags, true
+}
+
+// HasTags returns a boolean if a field has been set.
+func (o *HttpServerInstantTestResponse) HasTags() bool {
+	if o != nil && !utils.IsNil(o.Tags) {
+		return true
+	}
+
+	return false
+}
+
+// SetTags gets a reference to the given []TestTag and assigns it to the Tags field.
+func (o *HttpServerInstantTestResponse) SetTags(v []TestTag) {
+	o.Tags = v
 }
 
 // GetSharedWithAccounts returns the SharedWithAccounts field value if set, zero value otherwise.
@@ -1737,6 +1774,38 @@ func (o *HttpServerInstantTestResponse) SetCollectProxyNetworkData(v bool) {
 	o.CollectProxyNetworkData = &v
 }
 
+// GetVaultCredentials returns the VaultCredentials field value if set, zero value otherwise.
+func (o *HttpServerInstantTestResponse) GetVaultCredentials() []TestVaultCredential {
+	if o == nil || utils.IsNil(o.VaultCredentials) {
+		var ret []TestVaultCredential
+		return ret
+	}
+	return o.VaultCredentials
+}
+
+// GetVaultCredentialsOk returns a tuple with the VaultCredentials field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *HttpServerInstantTestResponse) GetVaultCredentialsOk() ([]TestVaultCredential, bool) {
+	if o == nil || utils.IsNil(o.VaultCredentials) {
+		return nil, false
+	}
+	return o.VaultCredentials, true
+}
+
+// HasVaultCredentials returns a boolean if a field has been set.
+func (o *HttpServerInstantTestResponse) HasVaultCredentials() bool {
+	if o != nil && !utils.IsNil(o.VaultCredentials) {
+		return true
+	}
+
+	return false
+}
+
+// SetVaultCredentials gets a reference to the given []TestVaultCredential and assigns it to the VaultCredentials field.
+func (o *HttpServerInstantTestResponse) SetVaultCredentials(v []TestVaultCredential) {
+	o.VaultCredentials = v
+}
+
 // GetHeaders returns the Headers field value if set, zero value otherwise.
 func (o *HttpServerInstantTestResponse) GetHeaders() []string {
 	if o == nil || utils.IsNil(o.Headers) {
@@ -1799,6 +1868,38 @@ func (o *HttpServerInstantTestResponse) HasRandomizedStartTime() bool {
 // SetRandomizedStartTime gets a reference to the given bool and assigns it to the RandomizedStartTime field.
 func (o *HttpServerInstantTestResponse) SetRandomizedStartTime(v bool) {
 	o.RandomizedStartTime = &v
+}
+
+// GetRequestMethod returns the RequestMethod field value if set, zero value otherwise.
+func (o *HttpServerInstantTestResponse) GetRequestMethod() RequestMethod {
+	if o == nil || utils.IsNil(o.RequestMethod) {
+		var ret RequestMethod
+		return ret
+	}
+	return *o.RequestMethod
+}
+
+// GetRequestMethodOk returns a tuple with the RequestMethod field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *HttpServerInstantTestResponse) GetRequestMethodOk() (*RequestMethod, bool) {
+	if o == nil || utils.IsNil(o.RequestMethod) {
+		return nil, false
+	}
+	return o.RequestMethod, true
+}
+
+// HasRequestMethod returns a boolean if a field has been set.
+func (o *HttpServerInstantTestResponse) HasRequestMethod() bool {
+	if o != nil && !utils.IsNil(o.RequestMethod) {
+		return true
+	}
+
+	return false
+}
+
+// SetRequestMethod gets a reference to the given RequestMethod and assigns it to the RequestMethod field.
+func (o *HttpServerInstantTestResponse) SetRequestMethod(v RequestMethod) {
+	o.RequestMethod = &v
 }
 
 // GetPostBody returns the PostBody field value if set, zero value otherwise.
@@ -1943,6 +2044,9 @@ func (o HttpServerInstantTestResponse) ToMap() (map[string]interface{}, error) {
 	if !utils.IsNil(o.Labels) {
 		toSerialize["labels"] = o.Labels
 	}
+	if !utils.IsNil(o.Tags) {
+		toSerialize["tags"] = o.Tags
+	}
 	if !utils.IsNil(o.SharedWithAccounts) {
 		toSerialize["sharedWithAccounts"] = o.SharedWithAccounts
 	}
@@ -2049,11 +2153,17 @@ func (o HttpServerInstantTestResponse) ToMap() (map[string]interface{}, error) {
 	if !utils.IsNil(o.CollectProxyNetworkData) {
 		toSerialize["collectProxyNetworkData"] = o.CollectProxyNetworkData
 	}
+	if !utils.IsNil(o.VaultCredentials) {
+		toSerialize["vaultCredentials"] = o.VaultCredentials
+	}
 	if !utils.IsNil(o.Headers) {
 		toSerialize["headers"] = o.Headers
 	}
 	if !utils.IsNil(o.RandomizedStartTime) {
 		toSerialize["randomizedStartTime"] = o.RandomizedStartTime
+	}
+	if !utils.IsNil(o.RequestMethod) {
+		toSerialize["requestMethod"] = o.RequestMethod
 	}
 	if !utils.IsNil(o.PostBody) {
 		toSerialize["postBody"] = o.PostBody

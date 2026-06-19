@@ -36,6 +36,8 @@ model_expand_account_group_options.go
 model_extended_user.go
 model_interface_ip_mapping.go
 model_link.go
+model_network_provider_info.go
+model_network_provider_type.go
 model_pagination_links.go
 model_permission.go
 model_permissions.go
@@ -46,6 +48,7 @@ model_role_request_body.go
 model_roles.go
 model_self_links.go
 model_simple_agent.go
+model_simple_agent_all_of_network_provider_info.go
 model_simple_test_.go
 model_test_interval.go
 model_test_links.go

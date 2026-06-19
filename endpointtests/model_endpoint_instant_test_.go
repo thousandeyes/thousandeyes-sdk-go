@@ -23,8 +23,11 @@ type EndpointInstantTest struct {
 	AgentSelectorType *EndpointTestAgentSelectorType `json:"agentSelectorType,omitempty"`
 	// List of endpoint agent IDs (obtained from `/endpoint/agents` endpoint). Required when `agentSelectorType` is set to `specific-agent`.
 	Agents []string `json:"agents,omitempty"`
-	// List of endpoint agent label IDs (obtained from `/endpoint/labels` endpoint), required when `agentSelectorType` is set to `agent-labels`.
+	// Deprecated. Use `tagIds` instead.  List of endpoint agent label IDs (obtained from `/endpoint/labels` endpoint), required when `agentSelectorType` is set to `agent-labels`. 
+	// Deprecated
 	EndpointAgentLabels []string `json:"endpointAgentLabels,omitempty"`
+	// List of tag IDs (obtained from `/tags` endpoint).
+	TagIds []string `json:"tagIds,omitempty"`
 	// Maximum number of agents which can execute the test.
 	MaxMachines *int32 `json:"maxMachines,omitempty"`
 	// Name of the test.
@@ -125,6 +128,7 @@ func (o *EndpointInstantTest) SetAgents(v []string) {
 }
 
 // GetEndpointAgentLabels returns the EndpointAgentLabels field value if set, zero value otherwise.
+// Deprecated
 func (o *EndpointInstantTest) GetEndpointAgentLabels() []string {
 	if o == nil || utils.IsNil(o.EndpointAgentLabels) {
 		var ret []string
@@ -135,6 +139,7 @@ func (o *EndpointInstantTest) GetEndpointAgentLabels() []string {
 
 // GetEndpointAgentLabelsOk returns a tuple with the EndpointAgentLabels field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// Deprecated
 func (o *EndpointInstantTest) GetEndpointAgentLabelsOk() ([]string, bool) {
 	if o == nil || utils.IsNil(o.EndpointAgentLabels) {
 		return nil, false
@@ -152,8 +157,41 @@ func (o *EndpointInstantTest) HasEndpointAgentLabels() bool {
 }
 
 // SetEndpointAgentLabels gets a reference to the given []string and assigns it to the EndpointAgentLabels field.
+// Deprecated
 func (o *EndpointInstantTest) SetEndpointAgentLabels(v []string) {
 	o.EndpointAgentLabels = v
+}
+
+// GetTagIds returns the TagIds field value if set, zero value otherwise.
+func (o *EndpointInstantTest) GetTagIds() []string {
+	if o == nil || utils.IsNil(o.TagIds) {
+		var ret []string
+		return ret
+	}
+	return o.TagIds
+}
+
+// GetTagIdsOk returns a tuple with the TagIds field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EndpointInstantTest) GetTagIdsOk() ([]string, bool) {
+	if o == nil || utils.IsNil(o.TagIds) {
+		return nil, false
+	}
+	return o.TagIds, true
+}
+
+// HasTagIds returns a boolean if a field has been set.
+func (o *EndpointInstantTest) HasTagIds() bool {
+	if o != nil && !utils.IsNil(o.TagIds) {
+		return true
+	}
+
+	return false
+}
+
+// SetTagIds gets a reference to the given []string and assigns it to the TagIds field.
+func (o *EndpointInstantTest) SetTagIds(v []string) {
+	o.TagIds = v
 }
 
 // GetMaxMachines returns the MaxMachines field value if set, zero value otherwise.
@@ -262,6 +300,9 @@ func (o EndpointInstantTest) ToMap() (map[string]interface{}, error) {
 	}
 	if !utils.IsNil(o.EndpointAgentLabels) {
 		toSerialize["endpointAgentLabels"] = o.EndpointAgentLabels
+	}
+	if !utils.IsNil(o.TagIds) {
+		toSerialize["tagIds"] = o.TagIds
 	}
 	if !utils.IsNil(o.MaxMachines) {
 		toSerialize["maxMachines"] = o.MaxMachines

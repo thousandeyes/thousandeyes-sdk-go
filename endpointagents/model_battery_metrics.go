@@ -20,6 +20,8 @@ var _ utils.MappedNullable = &BatteryMetrics{}
 
 // BatteryMetrics Battery metrics for the endpoint agent.
 type BatteryMetrics struct {
+	// Battery health as a normalized percentage (0-1).
+	BatteryHealthNormalizedPercent *float64 `json:"batteryHealthNormalizedPercent,omitempty"`
 	BatteryLevel BatteryLevel `json:"batteryLevel"`
 	// Battery level as a normalized percentage (0-1).
 	BatteryLevelNormalizedPercent float64 `json:"batteryLevelNormalizedPercent"`
@@ -44,6 +46,38 @@ func NewBatteryMetrics(batteryLevel BatteryLevel, batteryLevelNormalizedPercent 
 func NewBatteryMetricsWithDefaults() *BatteryMetrics {
 	this := BatteryMetrics{}
 	return &this
+}
+
+// GetBatteryHealthNormalizedPercent returns the BatteryHealthNormalizedPercent field value if set, zero value otherwise.
+func (o *BatteryMetrics) GetBatteryHealthNormalizedPercent() float64 {
+	if o == nil || utils.IsNil(o.BatteryHealthNormalizedPercent) {
+		var ret float64
+		return ret
+	}
+	return *o.BatteryHealthNormalizedPercent
+}
+
+// GetBatteryHealthNormalizedPercentOk returns a tuple with the BatteryHealthNormalizedPercent field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BatteryMetrics) GetBatteryHealthNormalizedPercentOk() (*float64, bool) {
+	if o == nil || utils.IsNil(o.BatteryHealthNormalizedPercent) {
+		return nil, false
+	}
+	return o.BatteryHealthNormalizedPercent, true
+}
+
+// HasBatteryHealthNormalizedPercent returns a boolean if a field has been set.
+func (o *BatteryMetrics) HasBatteryHealthNormalizedPercent() bool {
+	if o != nil && !utils.IsNil(o.BatteryHealthNormalizedPercent) {
+		return true
+	}
+
+	return false
+}
+
+// SetBatteryHealthNormalizedPercent gets a reference to the given float64 and assigns it to the BatteryHealthNormalizedPercent field.
+func (o *BatteryMetrics) SetBatteryHealthNormalizedPercent(v float64) {
+	o.BatteryHealthNormalizedPercent = &v
 }
 
 // GetBatteryLevel returns the BatteryLevel field value
@@ -104,6 +138,9 @@ func (o BatteryMetrics) MarshalJSON() ([]byte, error) {
 
 func (o BatteryMetrics) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !utils.IsNil(o.BatteryHealthNormalizedPercent) {
+		toSerialize["batteryHealthNormalizedPercent"] = o.BatteryHealthNormalizedPercent
+	}
 	toSerialize["batteryLevel"] = o.BatteryLevel
 	toSerialize["batteryLevelNormalizedPercent"] = o.BatteryLevelNormalizedPercent
 	return toSerialize, nil

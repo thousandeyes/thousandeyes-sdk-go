@@ -50,10 +50,12 @@ type VoiceTestResponse struct {
 	Links *TestLinks `json:"_links,omitempty"`
 	// Labels to which the test is assigned. This field is not returned for Instant Tests.
 	Labels []TestLabel `json:"labels,omitempty"`
+	// Tags assigned to the test. Returned only when `expand=tag` is specified. This field is not returned for Instant Tests. For more information, see `/tags`.
+	Tags []TestTag `json:"tags,omitempty"`
 	SharedWithAccounts []SharedWithAccount `json:"sharedWithAccounts,omitempty"`
 	// Codec label
 	Codec *string `json:"codec,omitempty"`
-	// Coded ID, [see the list of acceptable values](https://docs.thousandeyes.com/product-documentation/internet-and-wan-monitoring/tests/working-with-test-settings#rtp-stream-advanced-settings-tab)
+	// Codec identifier for the RTP stream. Valid values:  * `0`: G.711 @ 64 Kbps * `1`: G.722.1 @ 24 Kbps (WB) * `2`: G.722.1 @ 32 Kbps (WB) * `3`: G.726 @ 32 Kbps * `4`: G.723.1 @ 6.4 Kbps * `5`: G.729a @ 8 Kbps * `6`: RTAudio @ 45 Kbps (WB) * `7`: RTAudio @ 27.8 Kbps * `8`: SILK @ 36 Kbps (WB) * `9`: G.722 @ 64 Kbps (WB) 
 	CodecId *string `json:"codecId,omitempty"`
 	// DSCP label.
 	Dscp *string `json:"dscp,omitempty"`
@@ -639,6 +641,38 @@ func (o *VoiceTestResponse) SetLabels(v []TestLabel) {
 	o.Labels = v
 }
 
+// GetTags returns the Tags field value if set, zero value otherwise.
+func (o *VoiceTestResponse) GetTags() []TestTag {
+	if o == nil || utils.IsNil(o.Tags) {
+		var ret []TestTag
+		return ret
+	}
+	return o.Tags
+}
+
+// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *VoiceTestResponse) GetTagsOk() ([]TestTag, bool) {
+	if o == nil || utils.IsNil(o.Tags) {
+		return nil, false
+	}
+	return o.Tags, true
+}
+
+// HasTags returns a boolean if a field has been set.
+func (o *VoiceTestResponse) HasTags() bool {
+	if o != nil && !utils.IsNil(o.Tags) {
+		return true
+	}
+
+	return false
+}
+
+// SetTags gets a reference to the given []TestTag and assigns it to the Tags field.
+func (o *VoiceTestResponse) SetTags(v []TestTag) {
+	o.Tags = v
+}
+
 // GetSharedWithAccounts returns the SharedWithAccounts field value if set, zero value otherwise.
 func (o *VoiceTestResponse) GetSharedWithAccounts() []SharedWithAccount {
 	if o == nil || utils.IsNil(o.SharedWithAccounts) {
@@ -1166,6 +1200,9 @@ func (o VoiceTestResponse) ToMap() (map[string]interface{}, error) {
 	}
 	if !utils.IsNil(o.Labels) {
 		toSerialize["labels"] = o.Labels
+	}
+	if !utils.IsNil(o.Tags) {
+		toSerialize["tags"] = o.Tags
 	}
 	if !utils.IsNil(o.SharedWithAccounts) {
 		toSerialize["sharedWithAccounts"] = o.SharedWithAccounts

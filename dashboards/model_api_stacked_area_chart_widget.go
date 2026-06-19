@@ -50,6 +50,8 @@ type ApiStackedAreaChartWidget struct {
 	Type string `json:"type"`
 	GroupBy *ApiAggregateProperty `json:"groupBy,omitempty"`
 	DataSource *StackedAreaChartDatasource `json:"dataSource,omitempty"`
+	// Controls how metrics with submetric components are displayed. If `true` (default), the widget displays one chart per group. If `false`, the widget displays all submetrics in a single chart. For metrics without submetric components, this field is ignored and returned as `null`.
+	ShowSubmetrics utils.NullableBool `json:"showSubmetrics,omitempty"`
 }
 
 type _ApiStackedAreaChartWidget ApiStackedAreaChartWidget
@@ -63,6 +65,8 @@ func NewApiStackedAreaChartWidget(type_ string) *ApiStackedAreaChartWidget {
 	var visualMode VisualMode = "Full"
 	this.VisualMode = &visualMode
 	this.Type = type_
+	var showSubmetrics bool = true
+	this.ShowSubmetrics = *NewNullableBool(&showSubmetrics)
 	return &this
 }
 
@@ -73,6 +77,8 @@ func NewApiStackedAreaChartWidgetWithDefaults() *ApiStackedAreaChartWidget {
 	this := ApiStackedAreaChartWidget{}
 	var visualMode VisualMode = "Full"
 	this.VisualMode = &visualMode
+	var showSubmetrics bool = true
+	this.ShowSubmetrics = *NewNullableBool(&showSubmetrics)
 	return &this
 }
 
@@ -711,6 +717,48 @@ func (o *ApiStackedAreaChartWidget) SetDataSource(v StackedAreaChartDatasource) 
 	o.DataSource = &v
 }
 
+// GetShowSubmetrics returns the ShowSubmetrics field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ApiStackedAreaChartWidget) GetShowSubmetrics() bool {
+	if o == nil || utils.IsNil(o.ShowSubmetrics.Get()) {
+		var ret bool
+		return ret
+	}
+	return *o.ShowSubmetrics.Get()
+}
+
+// GetShowSubmetricsOk returns a tuple with the ShowSubmetrics field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ApiStackedAreaChartWidget) GetShowSubmetricsOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.ShowSubmetrics.Get(), o.ShowSubmetrics.IsSet()
+}
+
+// HasShowSubmetrics returns a boolean if a field has been set.
+func (o *ApiStackedAreaChartWidget) HasShowSubmetrics() bool {
+	if o != nil && o.ShowSubmetrics.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetShowSubmetrics gets a reference to the given NullableBool and assigns it to the ShowSubmetrics field.
+func (o *ApiStackedAreaChartWidget) SetShowSubmetrics(v bool) {
+	o.ShowSubmetrics.Set(&v)
+}
+// SetShowSubmetricsNil sets the value for ShowSubmetrics to be an explicit nil
+func (o *ApiStackedAreaChartWidget) SetShowSubmetricsNil() {
+	o.ShowSubmetrics.Set(nil)
+}
+
+// UnsetShowSubmetrics ensures that no value is present for ShowSubmetrics, not even an explicit nil
+func (o *ApiStackedAreaChartWidget) UnsetShowSubmetrics() {
+	o.ShowSubmetrics.Unset()
+}
+
 func (o ApiStackedAreaChartWidget) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -778,6 +826,9 @@ func (o ApiStackedAreaChartWidget) ToMap() (map[string]interface{}, error) {
 	}
 	if !utils.IsNil(o.DataSource) {
 		toSerialize["dataSource"] = o.DataSource
+	}
+	if o.ShowSubmetrics.IsSet() {
+		toSerialize["showSubmetrics"] = o.ShowSubmetrics.Get()
 	}
 	return toSerialize, nil
 }

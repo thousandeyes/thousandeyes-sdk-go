@@ -4,11 +4,13 @@ api_agent_proxies.go
 api_cloud_and_enterprise_agent_notification_rules.go
 api_cloud_and_enterprise_agents.go
 api_enterprise_agent_cluster.go
+api_local_problems.go
 api_tests_assignment_on_agents.go
 docs/AgentProxiesAPI.md
 docs/CloudAndEnterpriseAgentNotificationRulesAPI.md
 docs/CloudAndEnterpriseAgentsAPI.md
 docs/EnterpriseAgentClusterAPI.md
+docs/LocalProblemsAPI.md
 docs/TestsAssignmentOnAgentsAPI.md
 model_account_group.go
 model_agent_base.go
@@ -48,6 +50,11 @@ model_error_detail_code.go
 model_interface_ip_mapping.go
 model_link.go
 model_list_notification_rules_response.go
+model_local_problem.go
+model_local_problem_agent.go
+model_local_problem_agent_results.go
+model_network_provider_info.go
+model_network_provider_type.go
 model_notification_rule.go
 model_notification_rule_detail.go
 model_notification_rules.go
@@ -55,6 +62,7 @@ model_proxy_auth_type.go
 model_proxy_type.go
 model_self_links.go
 model_simple_agent.go
+model_simple_agent_all_of_network_provider_info.go
 model_simple_enterprise_agent.go
 model_simple_test_.go
 model_test_interval.go
