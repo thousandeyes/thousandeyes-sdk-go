@@ -43,6 +43,8 @@ type WebTransactionInstantTestResponse struct {
 	Links *TestLinks `json:"_links,omitempty"`
 	// Labels to which the test is assigned. This field is not returned for Instant Tests.
 	Labels []TestLabel `json:"labels,omitempty"`
+	// Tags assigned to the test. Returned only when `expand=tag` is specified. This field is not returned for Instant Tests. For more information, see `/tags`.
+	Tags []TestTag `json:"tags,omitempty"`
 	SharedWithAccounts []SharedWithAccount `json:"sharedWithAccounts,omitempty"`
 	AuthType *TestAuthType `json:"authType,omitempty"`
 	AgentInterfaces *AgentInterfaces `json:"agentInterfaces,omitempty"`
@@ -106,6 +108,8 @@ type WebTransactionInstantTestResponse struct {
 	OverrideProxyId *string `json:"overrideProxyId,omitempty"`
 	// Indicates whether network data to the proxy should be collected.
 	CollectProxyNetworkData *bool `json:"collectProxyNetworkData,omitempty"`
+	// List of credential IDs that are stored in an external vault.
+	VaultCredentials []TestVaultCredential `json:"vaultCredentials,omitempty"`
 	// ID of the emulated device, if specified when the test was created.
 	EmulatedDeviceId *string `json:"emulatedDeviceId,omitempty"`
 	// Target completion time, in seconds. Defaults to 10. Cannot exceed the `timeLimit` value.
@@ -646,6 +650,38 @@ func (o *WebTransactionInstantTestResponse) HasLabels() bool {
 // SetLabels gets a reference to the given []TestLabel and assigns it to the Labels field.
 func (o *WebTransactionInstantTestResponse) SetLabels(v []TestLabel) {
 	o.Labels = v
+}
+
+// GetTags returns the Tags field value if set, zero value otherwise.
+func (o *WebTransactionInstantTestResponse) GetTags() []TestTag {
+	if o == nil || utils.IsNil(o.Tags) {
+		var ret []TestTag
+		return ret
+	}
+	return o.Tags
+}
+
+// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *WebTransactionInstantTestResponse) GetTagsOk() ([]TestTag, bool) {
+	if o == nil || utils.IsNil(o.Tags) {
+		return nil, false
+	}
+	return o.Tags, true
+}
+
+// HasTags returns a boolean if a field has been set.
+func (o *WebTransactionInstantTestResponse) HasTags() bool {
+	if o != nil && !utils.IsNil(o.Tags) {
+		return true
+	}
+
+	return false
+}
+
+// SetTags gets a reference to the given []TestTag and assigns it to the Tags field.
+func (o *WebTransactionInstantTestResponse) SetTags(v []TestTag) {
+	o.Tags = v
 }
 
 // GetSharedWithAccounts returns the SharedWithAccounts field value if set, zero value otherwise.
@@ -1792,6 +1828,38 @@ func (o *WebTransactionInstantTestResponse) SetCollectProxyNetworkData(v bool) {
 	o.CollectProxyNetworkData = &v
 }
 
+// GetVaultCredentials returns the VaultCredentials field value if set, zero value otherwise.
+func (o *WebTransactionInstantTestResponse) GetVaultCredentials() []TestVaultCredential {
+	if o == nil || utils.IsNil(o.VaultCredentials) {
+		var ret []TestVaultCredential
+		return ret
+	}
+	return o.VaultCredentials
+}
+
+// GetVaultCredentialsOk returns a tuple with the VaultCredentials field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *WebTransactionInstantTestResponse) GetVaultCredentialsOk() ([]TestVaultCredential, bool) {
+	if o == nil || utils.IsNil(o.VaultCredentials) {
+		return nil, false
+	}
+	return o.VaultCredentials, true
+}
+
+// HasVaultCredentials returns a boolean if a field has been set.
+func (o *WebTransactionInstantTestResponse) HasVaultCredentials() bool {
+	if o != nil && !utils.IsNil(o.VaultCredentials) {
+		return true
+	}
+
+	return false
+}
+
+// SetVaultCredentials gets a reference to the given []TestVaultCredential and assigns it to the VaultCredentials field.
+func (o *WebTransactionInstantTestResponse) SetVaultCredentials(v []TestVaultCredential) {
+	o.VaultCredentials = v
+}
+
 // GetEmulatedDeviceId returns the EmulatedDeviceId field value if set, zero value otherwise.
 func (o *WebTransactionInstantTestResponse) GetEmulatedDeviceId() string {
 	if o == nil || utils.IsNil(o.EmulatedDeviceId) {
@@ -2342,6 +2410,9 @@ func (o WebTransactionInstantTestResponse) ToMap() (map[string]interface{}, erro
 	if !utils.IsNil(o.Labels) {
 		toSerialize["labels"] = o.Labels
 	}
+	if !utils.IsNil(o.Tags) {
+		toSerialize["tags"] = o.Tags
+	}
 	if !utils.IsNil(o.SharedWithAccounts) {
 		toSerialize["sharedWithAccounts"] = o.SharedWithAccounts
 	}
@@ -2447,6 +2518,9 @@ func (o WebTransactionInstantTestResponse) ToMap() (map[string]interface{}, erro
 	}
 	if !utils.IsNil(o.CollectProxyNetworkData) {
 		toSerialize["collectProxyNetworkData"] = o.CollectProxyNetworkData
+	}
+	if !utils.IsNil(o.VaultCredentials) {
+		toSerialize["vaultCredentials"] = o.VaultCredentials
 	}
 	if !utils.IsNil(o.EmulatedDeviceId) {
 		toSerialize["emulatedDeviceId"] = o.EmulatedDeviceId

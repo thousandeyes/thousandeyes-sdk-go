@@ -108,11 +108,14 @@ type HttpServerTestRequest struct {
 	OverrideProxyId *string `json:"overrideProxyId,omitempty"`
 	// Indicates whether network data to the proxy should be collected.
 	CollectProxyNetworkData *bool `json:"collectProxyNetworkData,omitempty"`
+	// List of credential IDs that are stored in an external vault.
+	VaultCredentials []TestVaultCredential `json:"vaultCredentials,omitempty"`
 	// HTTP request headers used.
 	Headers []string `json:"headers,omitempty"`
 	// Indicates whether agents should randomize the start time in each test round.
 	RandomizedStartTime *bool `json:"randomizedStartTime,omitempty"`
-	// Enter the body for the HTTP POST request in this field. No special escaping is necessary. If the post body is provided with content, the `requestMethod` is automatically set to POST.
+	RequestMethod *RequestMethod `json:"requestMethod,omitempty"`
+	// Enter the body for the HTTP POST request in this field. No special escaping is required. If content is provided and `requestMethod` is not specified, `requestMethod` is automatically set to `post`.
 	PostBody *string `json:"postBody,omitempty"`
 	Ipv6Policy *TestIpv6Policy `json:"ipv6Policy,omitempty"`
 	// Set to `true` to enable bgp measurements.
@@ -1793,6 +1796,38 @@ func (o *HttpServerTestRequest) SetCollectProxyNetworkData(v bool) {
 	o.CollectProxyNetworkData = &v
 }
 
+// GetVaultCredentials returns the VaultCredentials field value if set, zero value otherwise.
+func (o *HttpServerTestRequest) GetVaultCredentials() []TestVaultCredential {
+	if o == nil || utils.IsNil(o.VaultCredentials) {
+		var ret []TestVaultCredential
+		return ret
+	}
+	return o.VaultCredentials
+}
+
+// GetVaultCredentialsOk returns a tuple with the VaultCredentials field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *HttpServerTestRequest) GetVaultCredentialsOk() ([]TestVaultCredential, bool) {
+	if o == nil || utils.IsNil(o.VaultCredentials) {
+		return nil, false
+	}
+	return o.VaultCredentials, true
+}
+
+// HasVaultCredentials returns a boolean if a field has been set.
+func (o *HttpServerTestRequest) HasVaultCredentials() bool {
+	if o != nil && !utils.IsNil(o.VaultCredentials) {
+		return true
+	}
+
+	return false
+}
+
+// SetVaultCredentials gets a reference to the given []TestVaultCredential and assigns it to the VaultCredentials field.
+func (o *HttpServerTestRequest) SetVaultCredentials(v []TestVaultCredential) {
+	o.VaultCredentials = v
+}
+
 // GetHeaders returns the Headers field value if set, zero value otherwise.
 func (o *HttpServerTestRequest) GetHeaders() []string {
 	if o == nil || utils.IsNil(o.Headers) {
@@ -1855,6 +1890,38 @@ func (o *HttpServerTestRequest) HasRandomizedStartTime() bool {
 // SetRandomizedStartTime gets a reference to the given bool and assigns it to the RandomizedStartTime field.
 func (o *HttpServerTestRequest) SetRandomizedStartTime(v bool) {
 	o.RandomizedStartTime = &v
+}
+
+// GetRequestMethod returns the RequestMethod field value if set, zero value otherwise.
+func (o *HttpServerTestRequest) GetRequestMethod() RequestMethod {
+	if o == nil || utils.IsNil(o.RequestMethod) {
+		var ret RequestMethod
+		return ret
+	}
+	return *o.RequestMethod
+}
+
+// GetRequestMethodOk returns a tuple with the RequestMethod field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *HttpServerTestRequest) GetRequestMethodOk() (*RequestMethod, bool) {
+	if o == nil || utils.IsNil(o.RequestMethod) {
+		return nil, false
+	}
+	return o.RequestMethod, true
+}
+
+// HasRequestMethod returns a boolean if a field has been set.
+func (o *HttpServerTestRequest) HasRequestMethod() bool {
+	if o != nil && !utils.IsNil(o.RequestMethod) {
+		return true
+	}
+
+	return false
+}
+
+// SetRequestMethod gets a reference to the given RequestMethod and assigns it to the RequestMethod field.
+func (o *HttpServerTestRequest) SetRequestMethod(v RequestMethod) {
+	o.RequestMethod = &v
 }
 
 // GetPostBody returns the PostBody field value if set, zero value otherwise.
@@ -2322,11 +2389,17 @@ func (o HttpServerTestRequest) ToMap() (map[string]interface{}, error) {
 	if !utils.IsNil(o.CollectProxyNetworkData) {
 		toSerialize["collectProxyNetworkData"] = o.CollectProxyNetworkData
 	}
+	if !utils.IsNil(o.VaultCredentials) {
+		toSerialize["vaultCredentials"] = o.VaultCredentials
+	}
 	if !utils.IsNil(o.Headers) {
 		toSerialize["headers"] = o.Headers
 	}
 	if !utils.IsNil(o.RandomizedStartTime) {
 		toSerialize["randomizedStartTime"] = o.RandomizedStartTime
+	}
+	if !utils.IsNil(o.RequestMethod) {
+		toSerialize["requestMethod"] = o.RequestMethod
 	}
 	if !utils.IsNil(o.PostBody) {
 		toSerialize["postBody"] = o.PostBody

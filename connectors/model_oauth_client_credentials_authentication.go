@@ -24,6 +24,7 @@ type OauthClientCredentialsAuthentication struct {
 	OauthClientId string `json:"oauthClientId"`
 	OauthTokenUrl string `json:"oauthTokenUrl"`
 	OauthClientSecret string `json:"oauthClientSecret"`
+	Scope *string `json:"scope,omitempty"`
 	Type AuthenticationType `json:"type"`
 }
 
@@ -154,6 +155,38 @@ func (o *OauthClientCredentialsAuthentication) SetOauthClientSecret(v string) {
 	o.OauthClientSecret = v
 }
 
+// GetScope returns the Scope field value if set, zero value otherwise.
+func (o *OauthClientCredentialsAuthentication) GetScope() string {
+	if o == nil || utils.IsNil(o.Scope) {
+		var ret string
+		return ret
+	}
+	return *o.Scope
+}
+
+// GetScopeOk returns a tuple with the Scope field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OauthClientCredentialsAuthentication) GetScopeOk() (*string, bool) {
+	if o == nil || utils.IsNil(o.Scope) {
+		return nil, false
+	}
+	return o.Scope, true
+}
+
+// HasScope returns a boolean if a field has been set.
+func (o *OauthClientCredentialsAuthentication) HasScope() bool {
+	if o != nil && !utils.IsNil(o.Scope) {
+		return true
+	}
+
+	return false
+}
+
+// SetScope gets a reference to the given string and assigns it to the Scope field.
+func (o *OauthClientCredentialsAuthentication) SetScope(v string) {
+	o.Scope = &v
+}
+
 // GetType returns the Type field value
 func (o *OauthClientCredentialsAuthentication) GetType() AuthenticationType {
 	if o == nil {
@@ -194,6 +227,9 @@ func (o OauthClientCredentialsAuthentication) ToMap() (map[string]interface{}, e
 	toSerialize["oauthClientId"] = o.OauthClientId
 	toSerialize["oauthTokenUrl"] = o.OauthTokenUrl
 	toSerialize["oauthClientSecret"] = o.OauthClientSecret
+	if !utils.IsNil(o.Scope) {
+		toSerialize["scope"] = o.Scope
+	}
 	toSerialize["type"] = o.Type
 	return toSerialize, nil
 }

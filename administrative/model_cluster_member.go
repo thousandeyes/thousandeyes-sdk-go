@@ -37,6 +37,8 @@ type ClusterMember struct {
 	AgentState *EnterpriseAgentState `json:"agentState,omitempty"`
 	// Test target IP address.
 	TargetForTests *string `json:"targetForTests,omitempty"`
+	// Serial number of an enterprise agent or cluster member device. This field is not available for Cloud Agents.
+	SerialNumber *string `json:"serialNumber,omitempty"`
 	// Shows overall utilization percentage (online Enterprise Agents and Enterprise Clusters only).
 	Utilization *int32 `json:"utilization,omitempty"`
 }
@@ -346,6 +348,38 @@ func (o *ClusterMember) SetTargetForTests(v string) {
 	o.TargetForTests = &v
 }
 
+// GetSerialNumber returns the SerialNumber field value if set, zero value otherwise.
+func (o *ClusterMember) GetSerialNumber() string {
+	if o == nil || utils.IsNil(o.SerialNumber) {
+		var ret string
+		return ret
+	}
+	return *o.SerialNumber
+}
+
+// GetSerialNumberOk returns a tuple with the SerialNumber field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ClusterMember) GetSerialNumberOk() (*string, bool) {
+	if o == nil || utils.IsNil(o.SerialNumber) {
+		return nil, false
+	}
+	return o.SerialNumber, true
+}
+
+// HasSerialNumber returns a boolean if a field has been set.
+func (o *ClusterMember) HasSerialNumber() bool {
+	if o != nil && !utils.IsNil(o.SerialNumber) {
+		return true
+	}
+
+	return false
+}
+
+// SetSerialNumber gets a reference to the given string and assigns it to the SerialNumber field.
+func (o *ClusterMember) SetSerialNumber(v string) {
+	o.SerialNumber = &v
+}
+
 // GetUtilization returns the Utilization field value if set, zero value otherwise.
 func (o *ClusterMember) GetUtilization() int32 {
 	if o == nil || utils.IsNil(o.Utilization) {
@@ -414,6 +448,9 @@ func (o ClusterMember) ToMap() (map[string]interface{}, error) {
 	}
 	if !utils.IsNil(o.TargetForTests) {
 		toSerialize["targetForTests"] = o.TargetForTests
+	}
+	if !utils.IsNil(o.SerialNumber) {
+		toSerialize["serialNumber"] = o.SerialNumber
 	}
 	if !utils.IsNil(o.Utilization) {
 		toSerialize["utilization"] = o.Utilization

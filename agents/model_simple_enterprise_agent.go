@@ -35,6 +35,7 @@ type SimpleEnterpriseAgent struct {
 	// 2-digit ISO country code
 	CountryId *string `json:"countryId,omitempty"`
 	Coordinates *Coordinates `json:"coordinates,omitempty"`
+	NetworkProviderInfo *SimpleAgentAllOfNetworkProviderInfo `json:"networkProviderInfo,omitempty"`
 	// Flag indicating if the agent is enabled.
 	Enabled *bool `json:"enabled,omitempty"`
 	// Flag indicating if has normal SSL operations or  if instead it's set to ignore SSL errors on browserbot-based tests.
@@ -65,6 +66,8 @@ type SimpleEnterpriseAgent struct {
 	CreatedDate *time.Time `json:"createdDate,omitempty"`
 	// Test target IP address.
 	TargetForTests *string `json:"targetForTests,omitempty"`
+	// Serial number of an enterprise agent or cluster member device. This field is not available for Cloud Agents.
+	SerialNumber *string `json:"serialNumber,omitempty"`
 	// To perform rDNS lookups for public IP ranges, this field represents the public IP ranges. The range must be in CIDR notation; for example, 10.1.1.0/24. Maximum of 5 prefixes allowed (Enterprise Agents and Enterprise Agent clusters only).
 	LocalResolutionPrefixes []string `json:"localResolutionPrefixes,omitempty"`
 	InterfaceIpMapping []InterfaceIpMapping `json:"interfaceIpMapping,omitempty"`
@@ -341,6 +344,38 @@ func (o *SimpleEnterpriseAgent) HasCoordinates() bool {
 // SetCoordinates gets a reference to the given Coordinates and assigns it to the Coordinates field.
 func (o *SimpleEnterpriseAgent) SetCoordinates(v Coordinates) {
 	o.Coordinates = &v
+}
+
+// GetNetworkProviderInfo returns the NetworkProviderInfo field value if set, zero value otherwise.
+func (o *SimpleEnterpriseAgent) GetNetworkProviderInfo() SimpleAgentAllOfNetworkProviderInfo {
+	if o == nil || utils.IsNil(o.NetworkProviderInfo) {
+		var ret SimpleAgentAllOfNetworkProviderInfo
+		return ret
+	}
+	return *o.NetworkProviderInfo
+}
+
+// GetNetworkProviderInfoOk returns a tuple with the NetworkProviderInfo field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SimpleEnterpriseAgent) GetNetworkProviderInfoOk() (*SimpleAgentAllOfNetworkProviderInfo, bool) {
+	if o == nil || utils.IsNil(o.NetworkProviderInfo) {
+		return nil, false
+	}
+	return o.NetworkProviderInfo, true
+}
+
+// HasNetworkProviderInfo returns a boolean if a field has been set.
+func (o *SimpleEnterpriseAgent) HasNetworkProviderInfo() bool {
+	if o != nil && !utils.IsNil(o.NetworkProviderInfo) {
+		return true
+	}
+
+	return false
+}
+
+// SetNetworkProviderInfo gets a reference to the given SimpleAgentAllOfNetworkProviderInfo and assigns it to the NetworkProviderInfo field.
+func (o *SimpleEnterpriseAgent) SetNetworkProviderInfo(v SimpleAgentAllOfNetworkProviderInfo) {
+	o.NetworkProviderInfo = &v
 }
 
 // GetEnabled returns the Enabled field value if set, zero value otherwise.
@@ -855,6 +890,38 @@ func (o *SimpleEnterpriseAgent) SetTargetForTests(v string) {
 	o.TargetForTests = &v
 }
 
+// GetSerialNumber returns the SerialNumber field value if set, zero value otherwise.
+func (o *SimpleEnterpriseAgent) GetSerialNumber() string {
+	if o == nil || utils.IsNil(o.SerialNumber) {
+		var ret string
+		return ret
+	}
+	return *o.SerialNumber
+}
+
+// GetSerialNumberOk returns a tuple with the SerialNumber field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SimpleEnterpriseAgent) GetSerialNumberOk() (*string, bool) {
+	if o == nil || utils.IsNil(o.SerialNumber) {
+		return nil, false
+	}
+	return o.SerialNumber, true
+}
+
+// HasSerialNumber returns a boolean if a field has been set.
+func (o *SimpleEnterpriseAgent) HasSerialNumber() bool {
+	if o != nil && !utils.IsNil(o.SerialNumber) {
+		return true
+	}
+
+	return false
+}
+
+// SetSerialNumber gets a reference to the given string and assigns it to the SerialNumber field.
+func (o *SimpleEnterpriseAgent) SetSerialNumber(v string) {
+	o.SerialNumber = &v
+}
+
 // GetLocalResolutionPrefixes returns the LocalResolutionPrefixes field value if set, zero value otherwise.
 func (o *SimpleEnterpriseAgent) GetLocalResolutionPrefixes() []string {
 	if o == nil || utils.IsNil(o.LocalResolutionPrefixes) {
@@ -953,6 +1020,9 @@ func (o SimpleEnterpriseAgent) ToMap() (map[string]interface{}, error) {
 	if !utils.IsNil(o.Coordinates) {
 		toSerialize["coordinates"] = o.Coordinates
 	}
+	if !utils.IsNil(o.NetworkProviderInfo) {
+		toSerialize["networkProviderInfo"] = o.NetworkProviderInfo
+	}
 	if !utils.IsNil(o.Enabled) {
 		toSerialize["enabled"] = o.Enabled
 	}
@@ -1000,6 +1070,9 @@ func (o SimpleEnterpriseAgent) ToMap() (map[string]interface{}, error) {
 	}
 	if !utils.IsNil(o.TargetForTests) {
 		toSerialize["targetForTests"] = o.TargetForTests
+	}
+	if !utils.IsNil(o.SerialNumber) {
+		toSerialize["serialNumber"] = o.SerialNumber
 	}
 	if !utils.IsNil(o.LocalResolutionPrefixes) {
 		toSerialize["localResolutionPrefixes"] = o.LocalResolutionPrefixes

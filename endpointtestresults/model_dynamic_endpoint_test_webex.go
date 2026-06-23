@@ -25,6 +25,8 @@ type DynamicEndpointTestWebex struct {
 	CorrelationId *string `json:"correlationId,omitempty"`
 	// Webex calling local sip session ID.
 	LocalSipSessionId *string `json:"localSipSessionId,omitempty"`
+	// RoomOS meeting app.
+	MeetingApp *string `json:"meetingApp,omitempty"`
 	// Webex calling remote sip session ID.
 	RemoteSipSessionId *string `json:"remoteSipSessionId,omitempty"`
 }
@@ -142,6 +144,38 @@ func (o *DynamicEndpointTestWebex) SetLocalSipSessionId(v string) {
 	o.LocalSipSessionId = &v
 }
 
+// GetMeetingApp returns the MeetingApp field value if set, zero value otherwise.
+func (o *DynamicEndpointTestWebex) GetMeetingApp() string {
+	if o == nil || utils.IsNil(o.MeetingApp) {
+		var ret string
+		return ret
+	}
+	return *o.MeetingApp
+}
+
+// GetMeetingAppOk returns a tuple with the MeetingApp field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DynamicEndpointTestWebex) GetMeetingAppOk() (*string, bool) {
+	if o == nil || utils.IsNil(o.MeetingApp) {
+		return nil, false
+	}
+	return o.MeetingApp, true
+}
+
+// HasMeetingApp returns a boolean if a field has been set.
+func (o *DynamicEndpointTestWebex) HasMeetingApp() bool {
+	if o != nil && !utils.IsNil(o.MeetingApp) {
+		return true
+	}
+
+	return false
+}
+
+// SetMeetingApp gets a reference to the given string and assigns it to the MeetingApp field.
+func (o *DynamicEndpointTestWebex) SetMeetingApp(v string) {
+	o.MeetingApp = &v
+}
+
 // GetRemoteSipSessionId returns the RemoteSipSessionId field value if set, zero value otherwise.
 func (o *DynamicEndpointTestWebex) GetRemoteSipSessionId() string {
 	if o == nil || utils.IsNil(o.RemoteSipSessionId) {
@@ -192,6 +226,9 @@ func (o DynamicEndpointTestWebex) ToMap() (map[string]interface{}, error) {
 	}
 	if !utils.IsNil(o.LocalSipSessionId) {
 		toSerialize["localSipSessionId"] = o.LocalSipSessionId
+	}
+	if !utils.IsNil(o.MeetingApp) {
+		toSerialize["meetingApp"] = o.MeetingApp
 	}
 	if !utils.IsNil(o.RemoteSipSessionId) {
 		toSerialize["remoteSipSessionId"] = o.RemoteSipSessionId

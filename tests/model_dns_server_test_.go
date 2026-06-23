@@ -50,6 +50,8 @@ type DnsServerTest struct {
 	Links *TestLinks `json:"_links,omitempty"`
 	// Labels to which the test is assigned. This field is not returned for Instant Tests.
 	Labels []TestLabel `json:"labels,omitempty"`
+	// Tags assigned to the test. Returned only when `expand=tag` is specified. This field is not returned for Instant Tests. For more information, see `/tags`.
+	Tags []TestTag `json:"tags,omitempty"`
 	SharedWithAccounts []SharedWithAccount `json:"sharedWithAccounts,omitempty"`
 	// Set to `true` to enable bandwidth measurements, only applies to Enterprise agents assigned to the test.
 	BandwidthMeasurements *bool `json:"bandwidthMeasurements,omitempty"`
@@ -652,6 +654,38 @@ func (o *DnsServerTest) HasLabels() bool {
 // SetLabels gets a reference to the given []TestLabel and assigns it to the Labels field.
 func (o *DnsServerTest) SetLabels(v []TestLabel) {
 	o.Labels = v
+}
+
+// GetTags returns the Tags field value if set, zero value otherwise.
+func (o *DnsServerTest) GetTags() []TestTag {
+	if o == nil || utils.IsNil(o.Tags) {
+		var ret []TestTag
+		return ret
+	}
+	return o.Tags
+}
+
+// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DnsServerTest) GetTagsOk() ([]TestTag, bool) {
+	if o == nil || utils.IsNil(o.Tags) {
+		return nil, false
+	}
+	return o.Tags, true
+}
+
+// HasTags returns a boolean if a field has been set.
+func (o *DnsServerTest) HasTags() bool {
+	if o != nil && !utils.IsNil(o.Tags) {
+		return true
+	}
+
+	return false
+}
+
+// SetTags gets a reference to the given []TestTag and assigns it to the Tags field.
+func (o *DnsServerTest) SetTags(v []TestTag) {
+	o.Tags = v
 }
 
 // GetSharedWithAccounts returns the SharedWithAccounts field value if set, zero value otherwise.
@@ -1301,6 +1335,9 @@ func (o DnsServerTest) ToMap() (map[string]interface{}, error) {
 	}
 	if !utils.IsNil(o.Labels) {
 		toSerialize["labels"] = o.Labels
+	}
+	if !utils.IsNil(o.Tags) {
+		toSerialize["tags"] = o.Tags
 	}
 	if !utils.IsNil(o.SharedWithAccounts) {
 		toSerialize["sharedWithAccounts"] = o.SharedWithAccounts

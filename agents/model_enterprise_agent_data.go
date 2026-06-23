@@ -44,6 +44,8 @@ type EnterpriseAgentData struct {
 	CreatedDate *time.Time `json:"createdDate,omitempty"`
 	// Test target IP address.
 	TargetForTests *string `json:"targetForTests,omitempty"`
+	// Serial number of an enterprise agent or cluster member device. This field is not available for Cloud Agents.
+	SerialNumber *string `json:"serialNumber,omitempty"`
 	// To perform rDNS lookups for public IP ranges, this field represents the public IP ranges. The range must be in CIDR notation; for example, 10.1.1.0/24. Maximum of 5 prefixes allowed (Enterprise Agents and Enterprise Agent clusters only).
 	LocalResolutionPrefixes []string `json:"localResolutionPrefixes,omitempty"`
 	InterfaceIpMapping []InterfaceIpMapping `json:"interfaceIpMapping,omitempty"`
@@ -482,6 +484,38 @@ func (o *EnterpriseAgentData) SetTargetForTests(v string) {
 	o.TargetForTests = &v
 }
 
+// GetSerialNumber returns the SerialNumber field value if set, zero value otherwise.
+func (o *EnterpriseAgentData) GetSerialNumber() string {
+	if o == nil || utils.IsNil(o.SerialNumber) {
+		var ret string
+		return ret
+	}
+	return *o.SerialNumber
+}
+
+// GetSerialNumberOk returns a tuple with the SerialNumber field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EnterpriseAgentData) GetSerialNumberOk() (*string, bool) {
+	if o == nil || utils.IsNil(o.SerialNumber) {
+		return nil, false
+	}
+	return o.SerialNumber, true
+}
+
+// HasSerialNumber returns a boolean if a field has been set.
+func (o *EnterpriseAgentData) HasSerialNumber() bool {
+	if o != nil && !utils.IsNil(o.SerialNumber) {
+		return true
+	}
+
+	return false
+}
+
+// SetSerialNumber gets a reference to the given string and assigns it to the SerialNumber field.
+func (o *EnterpriseAgentData) SetSerialNumber(v string) {
+	o.SerialNumber = &v
+}
+
 // GetLocalResolutionPrefixes returns the LocalResolutionPrefixes field value if set, zero value otherwise.
 func (o *EnterpriseAgentData) GetLocalResolutionPrefixes() []string {
 	if o == nil || utils.IsNil(o.LocalResolutionPrefixes) {
@@ -594,6 +628,9 @@ func (o EnterpriseAgentData) ToMap() (map[string]interface{}, error) {
 	}
 	if !utils.IsNil(o.TargetForTests) {
 		toSerialize["targetForTests"] = o.TargetForTests
+	}
+	if !utils.IsNil(o.SerialNumber) {
+		toSerialize["serialNumber"] = o.SerialNumber
 	}
 	if !utils.IsNil(o.LocalResolutionPrefixes) {
 		toSerialize["localResolutionPrefixes"] = o.LocalResolutionPrefixes

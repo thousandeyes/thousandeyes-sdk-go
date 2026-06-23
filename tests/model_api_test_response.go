@@ -50,6 +50,8 @@ type ApiTestResponse struct {
 	Links *TestLinks `json:"_links,omitempty"`
 	// Labels to which the test is assigned. This field is not returned for Instant Tests.
 	Labels []TestLabel `json:"labels,omitempty"`
+	// Tags assigned to the test. Returned only when `expand=tag` is specified. This field is not returned for Instant Tests. For more information, see `/tags`.
+	Tags []TestTag `json:"tags,omitempty"`
 	SharedWithAccounts []SharedWithAccount `json:"sharedWithAccounts,omitempty"`
 	// String representation (containing newline characters) of client certificate, the private key must be placed first, then the certificate.
 	ClientCertificate *string `json:"clientCertificate,omitempty"`
@@ -87,6 +89,8 @@ type ApiTestResponse struct {
 	Url string `json:"url"`
 	// Contains a list of credential IDs (get `credentialId` from `/credentials` endpoint).
 	Credentials []string `json:"credentials,omitempty"`
+	// List of credential IDs that are stored in an external vault.
+	VaultCredentials []TestVaultCredential `json:"vaultCredentials,omitempty"`
 	// Set to `true` to enable bgp measurements.
 	BgpMeasurements *bool `json:"bgpMeasurements,omitempty"`
 	// Indicate if all available public BGP monitors should be used, when ommited defaults to `bgpMeasurements` value.
@@ -679,6 +683,38 @@ func (o *ApiTestResponse) HasLabels() bool {
 // SetLabels gets a reference to the given []TestLabel and assigns it to the Labels field.
 func (o *ApiTestResponse) SetLabels(v []TestLabel) {
 	o.Labels = v
+}
+
+// GetTags returns the Tags field value if set, zero value otherwise.
+func (o *ApiTestResponse) GetTags() []TestTag {
+	if o == nil || utils.IsNil(o.Tags) {
+		var ret []TestTag
+		return ret
+	}
+	return o.Tags
+}
+
+// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiTestResponse) GetTagsOk() ([]TestTag, bool) {
+	if o == nil || utils.IsNil(o.Tags) {
+		return nil, false
+	}
+	return o.Tags, true
+}
+
+// HasTags returns a boolean if a field has been set.
+func (o *ApiTestResponse) HasTags() bool {
+	if o != nil && !utils.IsNil(o.Tags) {
+		return true
+	}
+
+	return false
+}
+
+// SetTags gets a reference to the given []TestTag and assigns it to the Tags field.
+func (o *ApiTestResponse) SetTags(v []TestTag) {
+	o.Tags = v
 }
 
 // GetSharedWithAccounts returns the SharedWithAccounts field value if set, zero value otherwise.
@@ -1369,6 +1405,38 @@ func (o *ApiTestResponse) SetCredentials(v []string) {
 	o.Credentials = v
 }
 
+// GetVaultCredentials returns the VaultCredentials field value if set, zero value otherwise.
+func (o *ApiTestResponse) GetVaultCredentials() []TestVaultCredential {
+	if o == nil || utils.IsNil(o.VaultCredentials) {
+		var ret []TestVaultCredential
+		return ret
+	}
+	return o.VaultCredentials
+}
+
+// GetVaultCredentialsOk returns a tuple with the VaultCredentials field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiTestResponse) GetVaultCredentialsOk() ([]TestVaultCredential, bool) {
+	if o == nil || utils.IsNil(o.VaultCredentials) {
+		return nil, false
+	}
+	return o.VaultCredentials, true
+}
+
+// HasVaultCredentials returns a boolean if a field has been set.
+func (o *ApiTestResponse) HasVaultCredentials() bool {
+	if o != nil && !utils.IsNil(o.VaultCredentials) {
+		return true
+	}
+
+	return false
+}
+
+// SetVaultCredentials gets a reference to the given []TestVaultCredential and assigns it to the VaultCredentials field.
+func (o *ApiTestResponse) SetVaultCredentials(v []TestVaultCredential) {
+	o.VaultCredentials = v
+}
+
 // GetBgpMeasurements returns the BgpMeasurements field value if set, zero value otherwise.
 func (o *ApiTestResponse) GetBgpMeasurements() bool {
 	if o == nil || utils.IsNil(o.BgpMeasurements) {
@@ -1553,6 +1621,9 @@ func (o ApiTestResponse) ToMap() (map[string]interface{}, error) {
 	if !utils.IsNil(o.Labels) {
 		toSerialize["labels"] = o.Labels
 	}
+	if !utils.IsNil(o.Tags) {
+		toSerialize["tags"] = o.Tags
+	}
 	if !utils.IsNil(o.SharedWithAccounts) {
 		toSerialize["sharedWithAccounts"] = o.SharedWithAccounts
 	}
@@ -1614,6 +1685,9 @@ func (o ApiTestResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize["url"] = o.Url
 	if !utils.IsNil(o.Credentials) {
 		toSerialize["credentials"] = o.Credentials
+	}
+	if !utils.IsNil(o.VaultCredentials) {
+		toSerialize["vaultCredentials"] = o.VaultCredentials
 	}
 	if !utils.IsNil(o.BgpMeasurements) {
 		toSerialize["bgpMeasurements"] = o.BgpMeasurements
