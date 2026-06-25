@@ -38,7 +38,7 @@ func NewApiPieChartWidgetProperties(type_ string) *ApiPieChartWidgetProperties {
 	this := ApiPieChartWidgetProperties{}
 	this.Type = type_
 	var showSubmetrics bool = true
-	this.ShowSubmetrics = *NewNullableBool(&showSubmetrics)
+	this.ShowSubmetrics = *utils.NewNullableBool(&showSubmetrics)
 	return &this
 }
 
@@ -48,7 +48,7 @@ func NewApiPieChartWidgetProperties(type_ string) *ApiPieChartWidgetProperties {
 func NewApiPieChartWidgetPropertiesWithDefaults() *ApiPieChartWidgetProperties {
 	this := ApiPieChartWidgetProperties{}
 	var showSubmetrics bool = true
-	this.ShowSubmetrics = *NewNullableBool(&showSubmetrics)
+	this.ShowSubmetrics = *utils.NewNullableBool(&showSubmetrics)
 	return &this
 }
 
