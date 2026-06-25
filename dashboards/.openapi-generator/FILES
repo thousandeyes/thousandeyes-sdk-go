@@ -35,6 +35,7 @@ model_api_duration.go
 model_api_geo_map_widget.go
 model_api_graphlet_point.go
 model_api_grouped_barchart_widget.go
+model_api_heatmap_widget.go
 model_api_list_widget.go
 model_api_multi_metric_column.go
 model_api_multi_metric_column_data.go
@@ -87,6 +88,7 @@ model_error.go
 model_generate_dashboard_snapshot_request.go
 model_geo_map_datasource.go
 model_grouped_bar_chart_datasource.go
+model_heatmap_datasource.go
 model_legacy_agent_widget_show.go
 model_legacy_agent_widget_type.go
 model_legacy_alert_list_alert_type.go

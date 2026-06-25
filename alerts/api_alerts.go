@@ -218,7 +218,8 @@ func (r ApiGetAlertsRequest) Execute() (*Alerts, *http.Response, error) {
 /*
 GetAlerts List alerts
 
-Returns a list of alerts. Only active (triggered) alerts are returned by default. 
+Returns a list of alerts. Only active (triggered) alerts are returned by default.
+When no time filter is specified, only triggered alerts from the last 90 days are returned. To retrieve triggered alerts from a specific date range, specify `state=trigger` with `startDate` and `endDate`. Only use `window` for a lookback interval ending at the current request time.
 To retrieve cleared alerts, specify `clear` in the optional `state` parameter. Note that the `state` parameter only accepts a single value, so to get both active and cleared alerts within a time range, two separate requests are needed.
 Time filters (`window`, `startDate`, `endDate`) are applied differently depending on state: - For `state=trigger`: filters by when the alert started. - For `state=clear`: filters by when the alert cleared. - When state is not specified: returns cleared alerts within the time range plus any currently active alerts that started before the end of the range.
 
