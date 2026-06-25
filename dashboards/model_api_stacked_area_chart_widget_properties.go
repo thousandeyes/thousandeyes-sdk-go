@@ -38,7 +38,7 @@ func NewApiStackedAreaChartWidgetProperties(type_ string) *ApiStackedAreaChartWi
 	this := ApiStackedAreaChartWidgetProperties{}
 	this.Type = type_
 	var showSubmetrics bool = true
-	this.ShowSubmetrics = *NewNullableBool(&showSubmetrics)
+	this.ShowSubmetrics = *utils.NewNullableBool(&showSubmetrics)
 	return &this
 }
 
@@ -48,7 +48,7 @@ func NewApiStackedAreaChartWidgetProperties(type_ string) *ApiStackedAreaChartWi
 func NewApiStackedAreaChartWidgetPropertiesWithDefaults() *ApiStackedAreaChartWidgetProperties {
 	this := ApiStackedAreaChartWidgetProperties{}
 	var showSubmetrics bool = true
-	this.ShowSubmetrics = *NewNullableBool(&showSubmetrics)
+	this.ShowSubmetrics = *utils.NewNullableBool(&showSubmetrics)
 	return &this
 }
 

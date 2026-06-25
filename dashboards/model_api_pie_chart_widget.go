@@ -61,7 +61,7 @@ func NewApiPieChartWidget(type_ string) *ApiPieChartWidget {
 	this.VisualMode = &visualMode
 	this.Type = type_
 	var showSubmetrics bool = true
-	this.ShowSubmetrics = *NewNullableBool(&showSubmetrics)
+	this.ShowSubmetrics = *utils.NewNullableBool(&showSubmetrics)
 	return &this
 }
 
@@ -73,7 +73,7 @@ func NewApiPieChartWidgetWithDefaults() *ApiPieChartWidget {
 	var visualMode VisualMode = "Full"
 	this.VisualMode = &visualMode
 	var showSubmetrics bool = true
-	this.ShowSubmetrics = *NewNullableBool(&showSubmetrics)
+	this.ShowSubmetrics = *utils.NewNullableBool(&showSubmetrics)
 	return &this
 }
 
