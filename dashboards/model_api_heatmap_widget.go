@@ -15,11 +15,11 @@ import (
 	"fmt"
 )
 
-// checks if the ApiPieChartWidget type satisfies the MappedNullable interface at compile time
-var _ utils.MappedNullable = &ApiPieChartWidget{}
+// checks if the ApiHeatmapWidget type satisfies the MappedNullable interface at compile time
+var _ utils.MappedNullable = &ApiHeatmapWidget{}
 
-// ApiPieChartWidget Displays data as segments of a pie, with each slice representing a portion of the total value.
-type ApiPieChartWidget struct {
+// ApiHeatmapWidget Displays metric intensity across row and column groupings in a grid to help compare relative values across two dimensions.
+type ApiHeatmapWidget struct {
 	// Identifier of the widget.
 	Id *string `json:"id,omitempty"`
 	// Title of the widget
@@ -41,44 +41,45 @@ type ApiPieChartWidget struct {
 	// Excludes alert suppression window data if set to `true`.
 	ShouldExcludeAlertSuppressionWindows *bool `json:"shouldExcludeAlertSuppressionWindows,omitempty"`
 	Links *SelfLinks `json:"_links,omitempty"`
-	// Pie Chart widget type
+	// Heatmap widget type.
 	Type string `json:"type"`
-	GroupBy *ApiAggregateProperty `json:"groupBy,omitempty"`
-	DataSource *PieChartDatasource `json:"dataSource,omitempty"`
-	// Controls how metrics with submetric components are displayed. If `true` (default), the widget displays one chart per group. If `false`, the widget displays all submetrics in a single chart. For metrics without submetric components, this field is ignored and returned as `null`.
-	ShowSubmetrics utils.NullableBool `json:"showSubmetrics,omitempty"`
+	RowGroupBy *ApiAggregateProperty `json:"rowGroupBy,omitempty"`
+	ColumnGroupBy *ApiAggregateProperty `json:"columnGroupBy,omitempty"`
+	// Deprecated
+	SortBy *LegacyWidgetSortProperty `json:"sortBy,omitempty"`
+	// Deprecated
+	SortDirection *LegacyWidgetSortDirection `json:"sortDirection,omitempty"`
+	// Limit configured in the widget.
+	Limit *int32 `json:"limit,omitempty"`
+	DataSource *HeatmapDatasource `json:"dataSource,omitempty"`
 }
 
-type _ApiPieChartWidget ApiPieChartWidget
+type _ApiHeatmapWidget ApiHeatmapWidget
 
-// NewApiPieChartWidget instantiates a new ApiPieChartWidget object
+// NewApiHeatmapWidget instantiates a new ApiHeatmapWidget object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewApiPieChartWidget(type_ string) *ApiPieChartWidget {
-	this := ApiPieChartWidget{}
+func NewApiHeatmapWidget(type_ string) *ApiHeatmapWidget {
+	this := ApiHeatmapWidget{}
 	var visualMode VisualMode = "Full"
 	this.VisualMode = &visualMode
 	this.Type = type_
-	var showSubmetrics bool = true
-	this.ShowSubmetrics = *utils.NewNullableBool(&showSubmetrics)
 	return &this
 }
 
-// NewApiPieChartWidgetWithDefaults instantiates a new ApiPieChartWidget object
+// NewApiHeatmapWidgetWithDefaults instantiates a new ApiHeatmapWidget object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewApiPieChartWidgetWithDefaults() *ApiPieChartWidget {
-	this := ApiPieChartWidget{}
+func NewApiHeatmapWidgetWithDefaults() *ApiHeatmapWidget {
+	this := ApiHeatmapWidget{}
 	var visualMode VisualMode = "Full"
 	this.VisualMode = &visualMode
-	var showSubmetrics bool = true
-	this.ShowSubmetrics = *utils.NewNullableBool(&showSubmetrics)
 	return &this
 }
 
 // GetId returns the Id field value if set, zero value otherwise.
-func (o *ApiPieChartWidget) GetId() string {
+func (o *ApiHeatmapWidget) GetId() string {
 	if o == nil || utils.IsNil(o.Id) {
 		var ret string
 		return ret
@@ -88,7 +89,7 @@ func (o *ApiPieChartWidget) GetId() string {
 
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ApiPieChartWidget) GetIdOk() (*string, bool) {
+func (o *ApiHeatmapWidget) GetIdOk() (*string, bool) {
 	if o == nil || utils.IsNil(o.Id) {
 		return nil, false
 	}
@@ -96,7 +97,7 @@ func (o *ApiPieChartWidget) GetIdOk() (*string, bool) {
 }
 
 // HasId returns a boolean if a field has been set.
-func (o *ApiPieChartWidget) HasId() bool {
+func (o *ApiHeatmapWidget) HasId() bool {
 	if o != nil && !utils.IsNil(o.Id) {
 		return true
 	}
@@ -105,12 +106,12 @@ func (o *ApiPieChartWidget) HasId() bool {
 }
 
 // SetId gets a reference to the given string and assigns it to the Id field.
-func (o *ApiPieChartWidget) SetId(v string) {
+func (o *ApiHeatmapWidget) SetId(v string) {
 	o.Id = &v
 }
 
 // GetTitle returns the Title field value if set, zero value otherwise.
-func (o *ApiPieChartWidget) GetTitle() string {
+func (o *ApiHeatmapWidget) GetTitle() string {
 	if o == nil || utils.IsNil(o.Title) {
 		var ret string
 		return ret
@@ -120,7 +121,7 @@ func (o *ApiPieChartWidget) GetTitle() string {
 
 // GetTitleOk returns a tuple with the Title field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ApiPieChartWidget) GetTitleOk() (*string, bool) {
+func (o *ApiHeatmapWidget) GetTitleOk() (*string, bool) {
 	if o == nil || utils.IsNil(o.Title) {
 		return nil, false
 	}
@@ -128,7 +129,7 @@ func (o *ApiPieChartWidget) GetTitleOk() (*string, bool) {
 }
 
 // HasTitle returns a boolean if a field has been set.
-func (o *ApiPieChartWidget) HasTitle() bool {
+func (o *ApiHeatmapWidget) HasTitle() bool {
 	if o != nil && !utils.IsNil(o.Title) {
 		return true
 	}
@@ -137,12 +138,12 @@ func (o *ApiPieChartWidget) HasTitle() bool {
 }
 
 // SetTitle gets a reference to the given string and assigns it to the Title field.
-func (o *ApiPieChartWidget) SetTitle(v string) {
+func (o *ApiHeatmapWidget) SetTitle(v string) {
 	o.Title = &v
 }
 
 // GetVisualMode returns the VisualMode field value if set, zero value otherwise.
-func (o *ApiPieChartWidget) GetVisualMode() VisualMode {
+func (o *ApiHeatmapWidget) GetVisualMode() VisualMode {
 	if o == nil || utils.IsNil(o.VisualMode) {
 		var ret VisualMode
 		return ret
@@ -152,7 +153,7 @@ func (o *ApiPieChartWidget) GetVisualMode() VisualMode {
 
 // GetVisualModeOk returns a tuple with the VisualMode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ApiPieChartWidget) GetVisualModeOk() (*VisualMode, bool) {
+func (o *ApiHeatmapWidget) GetVisualModeOk() (*VisualMode, bool) {
 	if o == nil || utils.IsNil(o.VisualMode) {
 		return nil, false
 	}
@@ -160,7 +161,7 @@ func (o *ApiPieChartWidget) GetVisualModeOk() (*VisualMode, bool) {
 }
 
 // HasVisualMode returns a boolean if a field has been set.
-func (o *ApiPieChartWidget) HasVisualMode() bool {
+func (o *ApiHeatmapWidget) HasVisualMode() bool {
 	if o != nil && !utils.IsNil(o.VisualMode) {
 		return true
 	}
@@ -169,12 +170,12 @@ func (o *ApiPieChartWidget) HasVisualMode() bool {
 }
 
 // SetVisualMode gets a reference to the given VisualMode and assigns it to the VisualMode field.
-func (o *ApiPieChartWidget) SetVisualMode(v VisualMode) {
+func (o *ApiHeatmapWidget) SetVisualMode(v VisualMode) {
 	o.VisualMode = &v
 }
 
 // GetEmbedUrl returns the EmbedUrl field value if set, zero value otherwise.
-func (o *ApiPieChartWidget) GetEmbedUrl() string {
+func (o *ApiHeatmapWidget) GetEmbedUrl() string {
 	if o == nil || utils.IsNil(o.EmbedUrl) {
 		var ret string
 		return ret
@@ -184,7 +185,7 @@ func (o *ApiPieChartWidget) GetEmbedUrl() string {
 
 // GetEmbedUrlOk returns a tuple with the EmbedUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ApiPieChartWidget) GetEmbedUrlOk() (*string, bool) {
+func (o *ApiHeatmapWidget) GetEmbedUrlOk() (*string, bool) {
 	if o == nil || utils.IsNil(o.EmbedUrl) {
 		return nil, false
 	}
@@ -192,7 +193,7 @@ func (o *ApiPieChartWidget) GetEmbedUrlOk() (*string, bool) {
 }
 
 // HasEmbedUrl returns a boolean if a field has been set.
-func (o *ApiPieChartWidget) HasEmbedUrl() bool {
+func (o *ApiHeatmapWidget) HasEmbedUrl() bool {
 	if o != nil && !utils.IsNil(o.EmbedUrl) {
 		return true
 	}
@@ -201,12 +202,12 @@ func (o *ApiPieChartWidget) HasEmbedUrl() bool {
 }
 
 // SetEmbedUrl gets a reference to the given string and assigns it to the EmbedUrl field.
-func (o *ApiPieChartWidget) SetEmbedUrl(v string) {
+func (o *ApiHeatmapWidget) SetEmbedUrl(v string) {
 	o.EmbedUrl = &v
 }
 
 // GetIsEmbedded returns the IsEmbedded field value if set, zero value otherwise.
-func (o *ApiPieChartWidget) GetIsEmbedded() bool {
+func (o *ApiHeatmapWidget) GetIsEmbedded() bool {
 	if o == nil || utils.IsNil(o.IsEmbedded) {
 		var ret bool
 		return ret
@@ -216,7 +217,7 @@ func (o *ApiPieChartWidget) GetIsEmbedded() bool {
 
 // GetIsEmbeddedOk returns a tuple with the IsEmbedded field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ApiPieChartWidget) GetIsEmbeddedOk() (*bool, bool) {
+func (o *ApiHeatmapWidget) GetIsEmbeddedOk() (*bool, bool) {
 	if o == nil || utils.IsNil(o.IsEmbedded) {
 		return nil, false
 	}
@@ -224,7 +225,7 @@ func (o *ApiPieChartWidget) GetIsEmbeddedOk() (*bool, bool) {
 }
 
 // HasIsEmbedded returns a boolean if a field has been set.
-func (o *ApiPieChartWidget) HasIsEmbedded() bool {
+func (o *ApiHeatmapWidget) HasIsEmbedded() bool {
 	if o != nil && !utils.IsNil(o.IsEmbedded) {
 		return true
 	}
@@ -233,12 +234,12 @@ func (o *ApiPieChartWidget) HasIsEmbedded() bool {
 }
 
 // SetIsEmbedded gets a reference to the given bool and assigns it to the IsEmbedded field.
-func (o *ApiPieChartWidget) SetIsEmbedded(v bool) {
+func (o *ApiHeatmapWidget) SetIsEmbedded(v bool) {
 	o.IsEmbedded = &v
 }
 
 // GetMetricGroup returns the MetricGroup field value if set, zero value otherwise.
-func (o *ApiPieChartWidget) GetMetricGroup() MetricGroup {
+func (o *ApiHeatmapWidget) GetMetricGroup() MetricGroup {
 	if o == nil || utils.IsNil(o.MetricGroup) {
 		var ret MetricGroup
 		return ret
@@ -248,7 +249,7 @@ func (o *ApiPieChartWidget) GetMetricGroup() MetricGroup {
 
 // GetMetricGroupOk returns a tuple with the MetricGroup field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ApiPieChartWidget) GetMetricGroupOk() (*MetricGroup, bool) {
+func (o *ApiHeatmapWidget) GetMetricGroupOk() (*MetricGroup, bool) {
 	if o == nil || utils.IsNil(o.MetricGroup) {
 		return nil, false
 	}
@@ -256,7 +257,7 @@ func (o *ApiPieChartWidget) GetMetricGroupOk() (*MetricGroup, bool) {
 }
 
 // HasMetricGroup returns a boolean if a field has been set.
-func (o *ApiPieChartWidget) HasMetricGroup() bool {
+func (o *ApiHeatmapWidget) HasMetricGroup() bool {
 	if o != nil && !utils.IsNil(o.MetricGroup) {
 		return true
 	}
@@ -265,12 +266,12 @@ func (o *ApiPieChartWidget) HasMetricGroup() bool {
 }
 
 // SetMetricGroup gets a reference to the given MetricGroup and assigns it to the MetricGroup field.
-func (o *ApiPieChartWidget) SetMetricGroup(v MetricGroup) {
+func (o *ApiHeatmapWidget) SetMetricGroup(v MetricGroup) {
 	o.MetricGroup = &v
 }
 
 // GetDirection returns the Direction field value if set, zero value otherwise.
-func (o *ApiPieChartWidget) GetDirection() DashboardMetricDirection {
+func (o *ApiHeatmapWidget) GetDirection() DashboardMetricDirection {
 	if o == nil || utils.IsNil(o.Direction) {
 		var ret DashboardMetricDirection
 		return ret
@@ -280,7 +281,7 @@ func (o *ApiPieChartWidget) GetDirection() DashboardMetricDirection {
 
 // GetDirectionOk returns a tuple with the Direction field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ApiPieChartWidget) GetDirectionOk() (*DashboardMetricDirection, bool) {
+func (o *ApiHeatmapWidget) GetDirectionOk() (*DashboardMetricDirection, bool) {
 	if o == nil || utils.IsNil(o.Direction) {
 		return nil, false
 	}
@@ -288,7 +289,7 @@ func (o *ApiPieChartWidget) GetDirectionOk() (*DashboardMetricDirection, bool) {
 }
 
 // HasDirection returns a boolean if a field has been set.
-func (o *ApiPieChartWidget) HasDirection() bool {
+func (o *ApiHeatmapWidget) HasDirection() bool {
 	if o != nil && !utils.IsNil(o.Direction) {
 		return true
 	}
@@ -297,12 +298,12 @@ func (o *ApiPieChartWidget) HasDirection() bool {
 }
 
 // SetDirection gets a reference to the given DashboardMetricDirection and assigns it to the Direction field.
-func (o *ApiPieChartWidget) SetDirection(v DashboardMetricDirection) {
+func (o *ApiHeatmapWidget) SetDirection(v DashboardMetricDirection) {
 	o.Direction = &v
 }
 
 // GetMetric returns the Metric field value if set, zero value otherwise.
-func (o *ApiPieChartWidget) GetMetric() DashboardMetric {
+func (o *ApiHeatmapWidget) GetMetric() DashboardMetric {
 	if o == nil || utils.IsNil(o.Metric) {
 		var ret DashboardMetric
 		return ret
@@ -312,7 +313,7 @@ func (o *ApiPieChartWidget) GetMetric() DashboardMetric {
 
 // GetMetricOk returns a tuple with the Metric field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ApiPieChartWidget) GetMetricOk() (*DashboardMetric, bool) {
+func (o *ApiHeatmapWidget) GetMetricOk() (*DashboardMetric, bool) {
 	if o == nil || utils.IsNil(o.Metric) {
 		return nil, false
 	}
@@ -320,7 +321,7 @@ func (o *ApiPieChartWidget) GetMetricOk() (*DashboardMetric, bool) {
 }
 
 // HasMetric returns a boolean if a field has been set.
-func (o *ApiPieChartWidget) HasMetric() bool {
+func (o *ApiHeatmapWidget) HasMetric() bool {
 	if o != nil && !utils.IsNil(o.Metric) {
 		return true
 	}
@@ -329,12 +330,12 @@ func (o *ApiPieChartWidget) HasMetric() bool {
 }
 
 // SetMetric gets a reference to the given DashboardMetric and assigns it to the Metric field.
-func (o *ApiPieChartWidget) SetMetric(v DashboardMetric) {
+func (o *ApiHeatmapWidget) SetMetric(v DashboardMetric) {
 	o.Metric = &v
 }
 
 // GetFilters returns the Filters field value if set, zero value otherwise.
-func (o *ApiPieChartWidget) GetFilters() map[string][]interface{} {
+func (o *ApiHeatmapWidget) GetFilters() map[string][]interface{} {
 	if o == nil || utils.IsNil(o.Filters) {
 		var ret map[string][]interface{}
 		return ret
@@ -344,7 +345,7 @@ func (o *ApiPieChartWidget) GetFilters() map[string][]interface{} {
 
 // GetFiltersOk returns a tuple with the Filters field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ApiPieChartWidget) GetFiltersOk() (*map[string][]interface{}, bool) {
+func (o *ApiHeatmapWidget) GetFiltersOk() (*map[string][]interface{}, bool) {
 	if o == nil || utils.IsNil(o.Filters) {
 		return nil, false
 	}
@@ -352,7 +353,7 @@ func (o *ApiPieChartWidget) GetFiltersOk() (*map[string][]interface{}, bool) {
 }
 
 // HasFilters returns a boolean if a field has been set.
-func (o *ApiPieChartWidget) HasFilters() bool {
+func (o *ApiHeatmapWidget) HasFilters() bool {
 	if o != nil && !utils.IsNil(o.Filters) {
 		return true
 	}
@@ -361,12 +362,12 @@ func (o *ApiPieChartWidget) HasFilters() bool {
 }
 
 // SetFilters gets a reference to the given map[string][]interface{} and assigns it to the Filters field.
-func (o *ApiPieChartWidget) SetFilters(v map[string][]interface{}) {
+func (o *ApiHeatmapWidget) SetFilters(v map[string][]interface{}) {
 	o.Filters = &v
 }
 
 // GetMeasure returns the Measure field value if set, zero value otherwise.
-func (o *ApiPieChartWidget) GetMeasure() ApiWidgetMeasure {
+func (o *ApiHeatmapWidget) GetMeasure() ApiWidgetMeasure {
 	if o == nil || utils.IsNil(o.Measure) {
 		var ret ApiWidgetMeasure
 		return ret
@@ -376,7 +377,7 @@ func (o *ApiPieChartWidget) GetMeasure() ApiWidgetMeasure {
 
 // GetMeasureOk returns a tuple with the Measure field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ApiPieChartWidget) GetMeasureOk() (*ApiWidgetMeasure, bool) {
+func (o *ApiHeatmapWidget) GetMeasureOk() (*ApiWidgetMeasure, bool) {
 	if o == nil || utils.IsNil(o.Measure) {
 		return nil, false
 	}
@@ -384,7 +385,7 @@ func (o *ApiPieChartWidget) GetMeasureOk() (*ApiWidgetMeasure, bool) {
 }
 
 // HasMeasure returns a boolean if a field has been set.
-func (o *ApiPieChartWidget) HasMeasure() bool {
+func (o *ApiHeatmapWidget) HasMeasure() bool {
 	if o != nil && !utils.IsNil(o.Measure) {
 		return true
 	}
@@ -393,12 +394,12 @@ func (o *ApiPieChartWidget) HasMeasure() bool {
 }
 
 // SetMeasure gets a reference to the given ApiWidgetMeasure and assigns it to the Measure field.
-func (o *ApiPieChartWidget) SetMeasure(v ApiWidgetMeasure) {
+func (o *ApiHeatmapWidget) SetMeasure(v ApiWidgetMeasure) {
 	o.Measure = &v
 }
 
 // GetFixedTimespan returns the FixedTimespan field value if set, zero value otherwise.
-func (o *ApiPieChartWidget) GetFixedTimespan() ApiDuration {
+func (o *ApiHeatmapWidget) GetFixedTimespan() ApiDuration {
 	if o == nil || utils.IsNil(o.FixedTimespan) {
 		var ret ApiDuration
 		return ret
@@ -408,7 +409,7 @@ func (o *ApiPieChartWidget) GetFixedTimespan() ApiDuration {
 
 // GetFixedTimespanOk returns a tuple with the FixedTimespan field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ApiPieChartWidget) GetFixedTimespanOk() (*ApiDuration, bool) {
+func (o *ApiHeatmapWidget) GetFixedTimespanOk() (*ApiDuration, bool) {
 	if o == nil || utils.IsNil(o.FixedTimespan) {
 		return nil, false
 	}
@@ -416,7 +417,7 @@ func (o *ApiPieChartWidget) GetFixedTimespanOk() (*ApiDuration, bool) {
 }
 
 // HasFixedTimespan returns a boolean if a field has been set.
-func (o *ApiPieChartWidget) HasFixedTimespan() bool {
+func (o *ApiHeatmapWidget) HasFixedTimespan() bool {
 	if o != nil && !utils.IsNil(o.FixedTimespan) {
 		return true
 	}
@@ -425,13 +426,13 @@ func (o *ApiPieChartWidget) HasFixedTimespan() bool {
 }
 
 // SetFixedTimespan gets a reference to the given ApiDuration and assigns it to the FixedTimespan field.
-func (o *ApiPieChartWidget) SetFixedTimespan(v ApiDuration) {
+func (o *ApiHeatmapWidget) SetFixedTimespan(v ApiDuration) {
 	o.FixedTimespan = &v
 }
 
 // GetApiLink returns the ApiLink field value if set, zero value otherwise.
 // Deprecated
-func (o *ApiPieChartWidget) GetApiLink() string {
+func (o *ApiHeatmapWidget) GetApiLink() string {
 	if o == nil || utils.IsNil(o.ApiLink) {
 		var ret string
 		return ret
@@ -442,7 +443,7 @@ func (o *ApiPieChartWidget) GetApiLink() string {
 // GetApiLinkOk returns a tuple with the ApiLink field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // Deprecated
-func (o *ApiPieChartWidget) GetApiLinkOk() (*string, bool) {
+func (o *ApiHeatmapWidget) GetApiLinkOk() (*string, bool) {
 	if o == nil || utils.IsNil(o.ApiLink) {
 		return nil, false
 	}
@@ -450,7 +451,7 @@ func (o *ApiPieChartWidget) GetApiLinkOk() (*string, bool) {
 }
 
 // HasApiLink returns a boolean if a field has been set.
-func (o *ApiPieChartWidget) HasApiLink() bool {
+func (o *ApiHeatmapWidget) HasApiLink() bool {
 	if o != nil && !utils.IsNil(o.ApiLink) {
 		return true
 	}
@@ -460,12 +461,12 @@ func (o *ApiPieChartWidget) HasApiLink() bool {
 
 // SetApiLink gets a reference to the given string and assigns it to the ApiLink field.
 // Deprecated
-func (o *ApiPieChartWidget) SetApiLink(v string) {
+func (o *ApiHeatmapWidget) SetApiLink(v string) {
 	o.ApiLink = &v
 }
 
 // GetShouldExcludeAlertSuppressionWindows returns the ShouldExcludeAlertSuppressionWindows field value if set, zero value otherwise.
-func (o *ApiPieChartWidget) GetShouldExcludeAlertSuppressionWindows() bool {
+func (o *ApiHeatmapWidget) GetShouldExcludeAlertSuppressionWindows() bool {
 	if o == nil || utils.IsNil(o.ShouldExcludeAlertSuppressionWindows) {
 		var ret bool
 		return ret
@@ -475,7 +476,7 @@ func (o *ApiPieChartWidget) GetShouldExcludeAlertSuppressionWindows() bool {
 
 // GetShouldExcludeAlertSuppressionWindowsOk returns a tuple with the ShouldExcludeAlertSuppressionWindows field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ApiPieChartWidget) GetShouldExcludeAlertSuppressionWindowsOk() (*bool, bool) {
+func (o *ApiHeatmapWidget) GetShouldExcludeAlertSuppressionWindowsOk() (*bool, bool) {
 	if o == nil || utils.IsNil(o.ShouldExcludeAlertSuppressionWindows) {
 		return nil, false
 	}
@@ -483,7 +484,7 @@ func (o *ApiPieChartWidget) GetShouldExcludeAlertSuppressionWindowsOk() (*bool, 
 }
 
 // HasShouldExcludeAlertSuppressionWindows returns a boolean if a field has been set.
-func (o *ApiPieChartWidget) HasShouldExcludeAlertSuppressionWindows() bool {
+func (o *ApiHeatmapWidget) HasShouldExcludeAlertSuppressionWindows() bool {
 	if o != nil && !utils.IsNil(o.ShouldExcludeAlertSuppressionWindows) {
 		return true
 	}
@@ -492,12 +493,12 @@ func (o *ApiPieChartWidget) HasShouldExcludeAlertSuppressionWindows() bool {
 }
 
 // SetShouldExcludeAlertSuppressionWindows gets a reference to the given bool and assigns it to the ShouldExcludeAlertSuppressionWindows field.
-func (o *ApiPieChartWidget) SetShouldExcludeAlertSuppressionWindows(v bool) {
+func (o *ApiHeatmapWidget) SetShouldExcludeAlertSuppressionWindows(v bool) {
 	o.ShouldExcludeAlertSuppressionWindows = &v
 }
 
 // GetLinks returns the Links field value if set, zero value otherwise.
-func (o *ApiPieChartWidget) GetLinks() SelfLinks {
+func (o *ApiHeatmapWidget) GetLinks() SelfLinks {
 	if o == nil || utils.IsNil(o.Links) {
 		var ret SelfLinks
 		return ret
@@ -507,7 +508,7 @@ func (o *ApiPieChartWidget) GetLinks() SelfLinks {
 
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ApiPieChartWidget) GetLinksOk() (*SelfLinks, bool) {
+func (o *ApiHeatmapWidget) GetLinksOk() (*SelfLinks, bool) {
 	if o == nil || utils.IsNil(o.Links) {
 		return nil, false
 	}
@@ -515,7 +516,7 @@ func (o *ApiPieChartWidget) GetLinksOk() (*SelfLinks, bool) {
 }
 
 // HasLinks returns a boolean if a field has been set.
-func (o *ApiPieChartWidget) HasLinks() bool {
+func (o *ApiHeatmapWidget) HasLinks() bool {
 	if o != nil && !utils.IsNil(o.Links) {
 		return true
 	}
@@ -524,12 +525,12 @@ func (o *ApiPieChartWidget) HasLinks() bool {
 }
 
 // SetLinks gets a reference to the given SelfLinks and assigns it to the Links field.
-func (o *ApiPieChartWidget) SetLinks(v SelfLinks) {
+func (o *ApiHeatmapWidget) SetLinks(v SelfLinks) {
 	o.Links = &v
 }
 
 // GetType returns the Type field value
-func (o *ApiPieChartWidget) GetType() string {
+func (o *ApiHeatmapWidget) GetType() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -540,7 +541,7 @@ func (o *ApiPieChartWidget) GetType() string {
 
 // GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
-func (o *ApiPieChartWidget) GetTypeOk() (*string, bool) {
+func (o *ApiHeatmapWidget) GetTypeOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -548,46 +549,180 @@ func (o *ApiPieChartWidget) GetTypeOk() (*string, bool) {
 }
 
 // SetType sets field value
-func (o *ApiPieChartWidget) SetType(v string) {
+func (o *ApiHeatmapWidget) SetType(v string) {
 	o.Type = v
 }
 
-// GetGroupBy returns the GroupBy field value if set, zero value otherwise.
-func (o *ApiPieChartWidget) GetGroupBy() ApiAggregateProperty {
-	if o == nil || utils.IsNil(o.GroupBy) {
+// GetRowGroupBy returns the RowGroupBy field value if set, zero value otherwise.
+func (o *ApiHeatmapWidget) GetRowGroupBy() ApiAggregateProperty {
+	if o == nil || utils.IsNil(o.RowGroupBy) {
 		var ret ApiAggregateProperty
 		return ret
 	}
-	return *o.GroupBy
+	return *o.RowGroupBy
 }
 
-// GetGroupByOk returns a tuple with the GroupBy field value if set, nil otherwise
+// GetRowGroupByOk returns a tuple with the RowGroupBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ApiPieChartWidget) GetGroupByOk() (*ApiAggregateProperty, bool) {
-	if o == nil || utils.IsNil(o.GroupBy) {
+func (o *ApiHeatmapWidget) GetRowGroupByOk() (*ApiAggregateProperty, bool) {
+	if o == nil || utils.IsNil(o.RowGroupBy) {
 		return nil, false
 	}
-	return o.GroupBy, true
+	return o.RowGroupBy, true
 }
 
-// HasGroupBy returns a boolean if a field has been set.
-func (o *ApiPieChartWidget) HasGroupBy() bool {
-	if o != nil && !utils.IsNil(o.GroupBy) {
+// HasRowGroupBy returns a boolean if a field has been set.
+func (o *ApiHeatmapWidget) HasRowGroupBy() bool {
+	if o != nil && !utils.IsNil(o.RowGroupBy) {
 		return true
 	}
 
 	return false
 }
 
-// SetGroupBy gets a reference to the given ApiAggregateProperty and assigns it to the GroupBy field.
-func (o *ApiPieChartWidget) SetGroupBy(v ApiAggregateProperty) {
-	o.GroupBy = &v
+// SetRowGroupBy gets a reference to the given ApiAggregateProperty and assigns it to the RowGroupBy field.
+func (o *ApiHeatmapWidget) SetRowGroupBy(v ApiAggregateProperty) {
+	o.RowGroupBy = &v
+}
+
+// GetColumnGroupBy returns the ColumnGroupBy field value if set, zero value otherwise.
+func (o *ApiHeatmapWidget) GetColumnGroupBy() ApiAggregateProperty {
+	if o == nil || utils.IsNil(o.ColumnGroupBy) {
+		var ret ApiAggregateProperty
+		return ret
+	}
+	return *o.ColumnGroupBy
+}
+
+// GetColumnGroupByOk returns a tuple with the ColumnGroupBy field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiHeatmapWidget) GetColumnGroupByOk() (*ApiAggregateProperty, bool) {
+	if o == nil || utils.IsNil(o.ColumnGroupBy) {
+		return nil, false
+	}
+	return o.ColumnGroupBy, true
+}
+
+// HasColumnGroupBy returns a boolean if a field has been set.
+func (o *ApiHeatmapWidget) HasColumnGroupBy() bool {
+	if o != nil && !utils.IsNil(o.ColumnGroupBy) {
+		return true
+	}
+
+	return false
+}
+
+// SetColumnGroupBy gets a reference to the given ApiAggregateProperty and assigns it to the ColumnGroupBy field.
+func (o *ApiHeatmapWidget) SetColumnGroupBy(v ApiAggregateProperty) {
+	o.ColumnGroupBy = &v
+}
+
+// GetSortBy returns the SortBy field value if set, zero value otherwise.
+// Deprecated
+func (o *ApiHeatmapWidget) GetSortBy() LegacyWidgetSortProperty {
+	if o == nil || utils.IsNil(o.SortBy) {
+		var ret LegacyWidgetSortProperty
+		return ret
+	}
+	return *o.SortBy
+}
+
+// GetSortByOk returns a tuple with the SortBy field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// Deprecated
+func (o *ApiHeatmapWidget) GetSortByOk() (*LegacyWidgetSortProperty, bool) {
+	if o == nil || utils.IsNil(o.SortBy) {
+		return nil, false
+	}
+	return o.SortBy, true
+}
+
+// HasSortBy returns a boolean if a field has been set.
+func (o *ApiHeatmapWidget) HasSortBy() bool {
+	if o != nil && !utils.IsNil(o.SortBy) {
+		return true
+	}
+
+	return false
+}
+
+// SetSortBy gets a reference to the given LegacyWidgetSortProperty and assigns it to the SortBy field.
+// Deprecated
+func (o *ApiHeatmapWidget) SetSortBy(v LegacyWidgetSortProperty) {
+	o.SortBy = &v
+}
+
+// GetSortDirection returns the SortDirection field value if set, zero value otherwise.
+// Deprecated
+func (o *ApiHeatmapWidget) GetSortDirection() LegacyWidgetSortDirection {
+	if o == nil || utils.IsNil(o.SortDirection) {
+		var ret LegacyWidgetSortDirection
+		return ret
+	}
+	return *o.SortDirection
+}
+
+// GetSortDirectionOk returns a tuple with the SortDirection field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// Deprecated
+func (o *ApiHeatmapWidget) GetSortDirectionOk() (*LegacyWidgetSortDirection, bool) {
+	if o == nil || utils.IsNil(o.SortDirection) {
+		return nil, false
+	}
+	return o.SortDirection, true
+}
+
+// HasSortDirection returns a boolean if a field has been set.
+func (o *ApiHeatmapWidget) HasSortDirection() bool {
+	if o != nil && !utils.IsNil(o.SortDirection) {
+		return true
+	}
+
+	return false
+}
+
+// SetSortDirection gets a reference to the given LegacyWidgetSortDirection and assigns it to the SortDirection field.
+// Deprecated
+func (o *ApiHeatmapWidget) SetSortDirection(v LegacyWidgetSortDirection) {
+	o.SortDirection = &v
+}
+
+// GetLimit returns the Limit field value if set, zero value otherwise.
+func (o *ApiHeatmapWidget) GetLimit() int32 {
+	if o == nil || utils.IsNil(o.Limit) {
+		var ret int32
+		return ret
+	}
+	return *o.Limit
+}
+
+// GetLimitOk returns a tuple with the Limit field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiHeatmapWidget) GetLimitOk() (*int32, bool) {
+	if o == nil || utils.IsNil(o.Limit) {
+		return nil, false
+	}
+	return o.Limit, true
+}
+
+// HasLimit returns a boolean if a field has been set.
+func (o *ApiHeatmapWidget) HasLimit() bool {
+	if o != nil && !utils.IsNil(o.Limit) {
+		return true
+	}
+
+	return false
+}
+
+// SetLimit gets a reference to the given int32 and assigns it to the Limit field.
+func (o *ApiHeatmapWidget) SetLimit(v int32) {
+	o.Limit = &v
 }
 
 // GetDataSource returns the DataSource field value if set, zero value otherwise.
-func (o *ApiPieChartWidget) GetDataSource() PieChartDatasource {
+func (o *ApiHeatmapWidget) GetDataSource() HeatmapDatasource {
 	if o == nil || utils.IsNil(o.DataSource) {
-		var ret PieChartDatasource
+		var ret HeatmapDatasource
 		return ret
 	}
 	return *o.DataSource
@@ -595,7 +730,7 @@ func (o *ApiPieChartWidget) GetDataSource() PieChartDatasource {
 
 // GetDataSourceOk returns a tuple with the DataSource field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ApiPieChartWidget) GetDataSourceOk() (*PieChartDatasource, bool) {
+func (o *ApiHeatmapWidget) GetDataSourceOk() (*HeatmapDatasource, bool) {
 	if o == nil || utils.IsNil(o.DataSource) {
 		return nil, false
 	}
@@ -603,7 +738,7 @@ func (o *ApiPieChartWidget) GetDataSourceOk() (*PieChartDatasource, bool) {
 }
 
 // HasDataSource returns a boolean if a field has been set.
-func (o *ApiPieChartWidget) HasDataSource() bool {
+func (o *ApiHeatmapWidget) HasDataSource() bool {
 	if o != nil && !utils.IsNil(o.DataSource) {
 		return true
 	}
@@ -611,54 +746,12 @@ func (o *ApiPieChartWidget) HasDataSource() bool {
 	return false
 }
 
-// SetDataSource gets a reference to the given PieChartDatasource and assigns it to the DataSource field.
-func (o *ApiPieChartWidget) SetDataSource(v PieChartDatasource) {
+// SetDataSource gets a reference to the given HeatmapDatasource and assigns it to the DataSource field.
+func (o *ApiHeatmapWidget) SetDataSource(v HeatmapDatasource) {
 	o.DataSource = &v
 }
 
-// GetShowSubmetrics returns the ShowSubmetrics field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ApiPieChartWidget) GetShowSubmetrics() bool {
-	if o == nil || utils.IsNil(o.ShowSubmetrics.Get()) {
-		var ret bool
-		return ret
-	}
-	return *o.ShowSubmetrics.Get()
-}
-
-// GetShowSubmetricsOk returns a tuple with the ShowSubmetrics field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ApiPieChartWidget) GetShowSubmetricsOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.ShowSubmetrics.Get(), o.ShowSubmetrics.IsSet()
-}
-
-// HasShowSubmetrics returns a boolean if a field has been set.
-func (o *ApiPieChartWidget) HasShowSubmetrics() bool {
-	if o != nil && o.ShowSubmetrics.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetShowSubmetrics gets a reference to the given NullableBool and assigns it to the ShowSubmetrics field.
-func (o *ApiPieChartWidget) SetShowSubmetrics(v bool) {
-	o.ShowSubmetrics.Set(&v)
-}
-// SetShowSubmetricsNil sets the value for ShowSubmetrics to be an explicit nil
-func (o *ApiPieChartWidget) SetShowSubmetricsNil() {
-	o.ShowSubmetrics.Set(nil)
-}
-
-// UnsetShowSubmetrics ensures that no value is present for ShowSubmetrics, not even an explicit nil
-func (o *ApiPieChartWidget) UnsetShowSubmetrics() {
-	o.ShowSubmetrics.Unset()
-}
-
-func (o ApiPieChartWidget) MarshalJSON() ([]byte, error) {
+func (o ApiHeatmapWidget) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -666,7 +759,7 @@ func (o ApiPieChartWidget) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o ApiPieChartWidget) ToMap() (map[string]interface{}, error) {
+func (o ApiHeatmapWidget) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !utils.IsNil(o.Id) {
 		toSerialize["id"] = o.Id
@@ -711,19 +804,28 @@ func (o ApiPieChartWidget) ToMap() (map[string]interface{}, error) {
 		toSerialize["_links"] = o.Links
 	}
 	toSerialize["type"] = o.Type
-	if !utils.IsNil(o.GroupBy) {
-		toSerialize["groupBy"] = o.GroupBy
+	if !utils.IsNil(o.RowGroupBy) {
+		toSerialize["rowGroupBy"] = o.RowGroupBy
+	}
+	if !utils.IsNil(o.ColumnGroupBy) {
+		toSerialize["columnGroupBy"] = o.ColumnGroupBy
+	}
+	if !utils.IsNil(o.SortBy) {
+		toSerialize["sortBy"] = o.SortBy
+	}
+	if !utils.IsNil(o.SortDirection) {
+		toSerialize["sortDirection"] = o.SortDirection
+	}
+	if !utils.IsNil(o.Limit) {
+		toSerialize["limit"] = o.Limit
 	}
 	if !utils.IsNil(o.DataSource) {
 		toSerialize["dataSource"] = o.DataSource
 	}
-	if o.ShowSubmetrics.IsSet() {
-		toSerialize["showSubmetrics"] = o.ShowSubmetrics.Get()
-	}
 	return toSerialize, nil
 }
 
-func (o *ApiPieChartWidget) UnmarshalJSON(data []byte) (err error) {
+func (o *ApiHeatmapWidget) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -745,51 +847,51 @@ func (o *ApiPieChartWidget) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varApiPieChartWidget := _ApiPieChartWidget{}
+	varApiHeatmapWidget := _ApiHeatmapWidget{}
 
-    err = json.Unmarshal(data, &varApiPieChartWidget)
+    err = json.Unmarshal(data, &varApiHeatmapWidget)
 
 	if err != nil {
 		return err
 	}
 
-	*o = ApiPieChartWidget(varApiPieChartWidget)
+	*o = ApiHeatmapWidget(varApiHeatmapWidget)
 
 	return err
 }
 
-type NullableApiPieChartWidget struct {
-	value *ApiPieChartWidget
+type NullableApiHeatmapWidget struct {
+	value *ApiHeatmapWidget
 	isSet bool
 }
 
-func (v NullableApiPieChartWidget) Get() *ApiPieChartWidget {
+func (v NullableApiHeatmapWidget) Get() *ApiHeatmapWidget {
 	return v.value
 }
 
-func (v *NullableApiPieChartWidget) Set(val *ApiPieChartWidget) {
+func (v *NullableApiHeatmapWidget) Set(val *ApiHeatmapWidget) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableApiPieChartWidget) IsSet() bool {
+func (v NullableApiHeatmapWidget) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableApiPieChartWidget) Unset() {
+func (v *NullableApiHeatmapWidget) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableApiPieChartWidget(val *ApiPieChartWidget) *NullableApiPieChartWidget {
-	return &NullableApiPieChartWidget{value: val, isSet: true}
+func NewNullableApiHeatmapWidget(val *ApiHeatmapWidget) *NullableApiHeatmapWidget {
+	return &NullableApiHeatmapWidget{value: val, isSet: true}
 }
 
-func (v NullableApiPieChartWidget) MarshalJSON() ([]byte, error) {
+func (v NullableApiHeatmapWidget) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableApiPieChartWidget) UnmarshalJSON(src []byte) error {
+func (v *NullableApiHeatmapWidget) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
