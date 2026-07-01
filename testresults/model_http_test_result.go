@@ -40,6 +40,7 @@ type HttpTestResult struct {
 	RedirectTime *int32 `json:"redirectTime,omitempty"`
 	// Time required to resolve DNS in milliseconds
 	DnsTime *int32 `json:"dnsTime,omitempty"`
+	DnsServerMeasurement *DnsServerMeasurement `json:"dnsServerMeasurement,omitempty"`
 	// Time to negotiate SSL/TLS in milliseconds
 	SslTime *int32 `json:"sslTime,omitempty"`
 	// Time required to establish a TCP connection to the server
@@ -437,6 +438,38 @@ func (o *HttpTestResult) HasDnsTime() bool {
 // SetDnsTime gets a reference to the given int32 and assigns it to the DnsTime field.
 func (o *HttpTestResult) SetDnsTime(v int32) {
 	o.DnsTime = &v
+}
+
+// GetDnsServerMeasurement returns the DnsServerMeasurement field value if set, zero value otherwise.
+func (o *HttpTestResult) GetDnsServerMeasurement() DnsServerMeasurement {
+	if o == nil || utils.IsNil(o.DnsServerMeasurement) {
+		var ret DnsServerMeasurement
+		return ret
+	}
+	return *o.DnsServerMeasurement
+}
+
+// GetDnsServerMeasurementOk returns a tuple with the DnsServerMeasurement field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *HttpTestResult) GetDnsServerMeasurementOk() (*DnsServerMeasurement, bool) {
+	if o == nil || utils.IsNil(o.DnsServerMeasurement) {
+		return nil, false
+	}
+	return o.DnsServerMeasurement, true
+}
+
+// HasDnsServerMeasurement returns a boolean if a field has been set.
+func (o *HttpTestResult) HasDnsServerMeasurement() bool {
+	if o != nil && !utils.IsNil(o.DnsServerMeasurement) {
+		return true
+	}
+
+	return false
+}
+
+// SetDnsServerMeasurement gets a reference to the given DnsServerMeasurement and assigns it to the DnsServerMeasurement field.
+func (o *HttpTestResult) SetDnsServerMeasurement(v DnsServerMeasurement) {
+	o.DnsServerMeasurement = &v
 }
 
 // GetSslTime returns the SslTime field value if set, zero value otherwise.
@@ -961,6 +994,9 @@ func (o HttpTestResult) ToMap() (map[string]interface{}, error) {
 	}
 	if !utils.IsNil(o.DnsTime) {
 		toSerialize["dnsTime"] = o.DnsTime
+	}
+	if !utils.IsNil(o.DnsServerMeasurement) {
+		toSerialize["dnsServerMeasurement"] = o.DnsServerMeasurement
 	}
 	if !utils.IsNil(o.SslTime) {
 		toSerialize["sslTime"] = o.SslTime
