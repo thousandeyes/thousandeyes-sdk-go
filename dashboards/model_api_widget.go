@@ -23,6 +23,7 @@ type ApiWidget struct {
 	ApiColorGridWidget *ApiColorGridWidget
 	ApiGeoMapWidget *ApiGeoMapWidget
 	ApiGroupedBarchartWidget *ApiGroupedBarchartWidget
+	ApiHeatmapWidget *ApiHeatmapWidget
 	ApiListWidget *ApiListWidget
 	ApiMultiMetricTableWidget *ApiMultiMetricTableWidget
 	ApiNumbersCardWidget *ApiNumbersCardWidget
@@ -73,6 +74,13 @@ func ApiGeoMapWidgetAsApiWidget(v *ApiGeoMapWidget) ApiWidget {
 func ApiGroupedBarchartWidgetAsApiWidget(v *ApiGroupedBarchartWidget) ApiWidget {
 	return ApiWidget{
 		ApiGroupedBarchartWidget: v,
+	}
+}
+
+// ApiHeatmapWidgetAsApiWidget is a convenience function that returns ApiHeatmapWidget wrapped in ApiWidget
+func ApiHeatmapWidgetAsApiWidget(v *ApiHeatmapWidget) ApiWidget {
+	return ApiWidget{
+		ApiHeatmapWidget: v,
 	}
 }
 
@@ -219,6 +227,18 @@ func (dst *ApiWidget) UnmarshalJSON(data []byte) error {
 		} else {
 			dst.ApiColorGridWidget = nil
 			return fmt.Errorf("failed to unmarshal ApiWidget as ApiColorGridWidget: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'Heatmap'
+	if jsonDict["type"] == "Heatmap" {
+		// try to unmarshal JSON data into ApiHeatmapWidget
+		err = json.Unmarshal(data, &dst.ApiHeatmapWidget)
+		if err == nil {
+			return nil // data stored in dst.ApiHeatmapWidget, return on the first match
+		} else {
+			dst.ApiHeatmapWidget = nil
+			return fmt.Errorf("failed to unmarshal ApiWidget as ApiHeatmapWidget: %s", err.Error())
 		}
 	}
 
@@ -402,6 +422,18 @@ func (dst *ApiWidget) UnmarshalJSON(data []byte) error {
 		}
 	}
 
+	// check if the discriminator value is 'ApiHeatmapWidget'
+	if jsonDict["type"] == "ApiHeatmapWidget" {
+		// try to unmarshal JSON data into ApiHeatmapWidget
+		err = json.Unmarshal(data, &dst.ApiHeatmapWidget)
+		if err == nil {
+			return nil // data stored in dst.ApiHeatmapWidget, return on the first match
+		} else {
+			dst.ApiHeatmapWidget = nil
+			return fmt.Errorf("failed to unmarshal ApiWidget as ApiHeatmapWidget: %s", err.Error())
+		}
+	}
+
 	// check if the discriminator value is 'ApiListWidget'
 	if jsonDict["type"] == "ApiListWidget" {
 		// try to unmarshal JSON data into ApiListWidget
@@ -539,6 +571,10 @@ func (src ApiWidget) MarshalJSON() ([]byte, error) {
 		return json.Marshal(&src.ApiGroupedBarchartWidget)
 	}
 
+	if src.ApiHeatmapWidget != nil {
+		return json.Marshal(&src.ApiHeatmapWidget)
+	}
+
 	if src.ApiListWidget != nil {
 		return json.Marshal(&src.ApiListWidget)
 	}
@@ -605,6 +641,10 @@ func (obj *ApiWidget) GetActualInstance() (interface{}) {
 
 	if obj.ApiGroupedBarchartWidget != nil {
 		return obj.ApiGroupedBarchartWidget
+	}
+
+	if obj.ApiHeatmapWidget != nil {
+		return obj.ApiHeatmapWidget
 	}
 
 	if obj.ApiListWidget != nil {
