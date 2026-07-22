@@ -21,6 +21,8 @@ var _ utils.MappedNullable = &HttpEndpointTestResults{}
 // HttpEndpointTestResults struct for HttpEndpointTestResults
 type HttpEndpointTestResults struct {
 	Results []HttpEndpointTestResult `json:"results,omitempty"`
+	// Total number of measurements that match the search criteria.
+	TotalHits *int32 `json:"totalHits,omitempty"`
 	Test *EndpointHttpServerTest `json:"test,omitempty"`
 	// (Optional) When passing `window` or `startDate` parameter,  the client will also receive the `startDate` field indicating the UTC start date of the data's time range being retrieved  (ISO date-time format).
 	StartDate *time.Time `json:"startDate,omitempty"`
@@ -76,6 +78,38 @@ func (o *HttpEndpointTestResults) HasResults() bool {
 // SetResults gets a reference to the given []HttpEndpointTestResult and assigns it to the Results field.
 func (o *HttpEndpointTestResults) SetResults(v []HttpEndpointTestResult) {
 	o.Results = v
+}
+
+// GetTotalHits returns the TotalHits field value if set, zero value otherwise.
+func (o *HttpEndpointTestResults) GetTotalHits() int32 {
+	if o == nil || utils.IsNil(o.TotalHits) {
+		var ret int32
+		return ret
+	}
+	return *o.TotalHits
+}
+
+// GetTotalHitsOk returns a tuple with the TotalHits field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *HttpEndpointTestResults) GetTotalHitsOk() (*int32, bool) {
+	if o == nil || utils.IsNil(o.TotalHits) {
+		return nil, false
+	}
+	return o.TotalHits, true
+}
+
+// HasTotalHits returns a boolean if a field has been set.
+func (o *HttpEndpointTestResults) HasTotalHits() bool {
+	if o != nil && !utils.IsNil(o.TotalHits) {
+		return true
+	}
+
+	return false
+}
+
+// SetTotalHits gets a reference to the given int32 and assigns it to the TotalHits field.
+func (o *HttpEndpointTestResults) SetTotalHits(v int32) {
+	o.TotalHits = &v
 }
 
 // GetTest returns the Test field value if set, zero value otherwise.
@@ -218,6 +252,9 @@ func (o HttpEndpointTestResults) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !utils.IsNil(o.Results) {
 		toSerialize["results"] = o.Results
+	}
+	if !utils.IsNil(o.TotalHits) {
+		toSerialize["totalHits"] = o.TotalHits
 	}
 	if !utils.IsNil(o.Test) {
 		toSerialize["test"] = o.Test

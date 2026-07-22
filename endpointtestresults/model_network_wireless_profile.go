@@ -31,6 +31,8 @@ type NetworkWirelessProfile struct {
 	Rssi *int32 `json:"rssi,omitempty"`
 	// Wireless network noise.
 	Noise *int32 `json:"noise,omitempty"`
+	// Wireless network signal-to-noise ratio (SNR), in dB.
+	Snr *int32 `json:"snr,omitempty"`
 	// Wireless network quality.
 	Quality *int32 `json:"quality,omitempty"`
 	// Wireless network transmitted rate.
@@ -248,6 +250,38 @@ func (o *NetworkWirelessProfile) SetNoise(v int32) {
 	o.Noise = &v
 }
 
+// GetSnr returns the Snr field value if set, zero value otherwise.
+func (o *NetworkWirelessProfile) GetSnr() int32 {
+	if o == nil || utils.IsNil(o.Snr) {
+		var ret int32
+		return ret
+	}
+	return *o.Snr
+}
+
+// GetSnrOk returns a tuple with the Snr field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *NetworkWirelessProfile) GetSnrOk() (*int32, bool) {
+	if o == nil || utils.IsNil(o.Snr) {
+		return nil, false
+	}
+	return o.Snr, true
+}
+
+// HasSnr returns a boolean if a field has been set.
+func (o *NetworkWirelessProfile) HasSnr() bool {
+	if o != nil && !utils.IsNil(o.Snr) {
+		return true
+	}
+
+	return false
+}
+
+// SetSnr gets a reference to the given int32 and assigns it to the Snr field.
+func (o *NetworkWirelessProfile) SetSnr(v int32) {
+	o.Snr = &v
+}
+
 // GetQuality returns the Quality field value if set, zero value otherwise.
 func (o *NetworkWirelessProfile) GetQuality() int32 {
 	if o == nil || utils.IsNil(o.Quality) {
@@ -371,6 +405,9 @@ func (o NetworkWirelessProfile) ToMap() (map[string]interface{}, error) {
 	}
 	if !utils.IsNil(o.Noise) {
 		toSerialize["noise"] = o.Noise
+	}
+	if !utils.IsNil(o.Snr) {
+		toSerialize["snr"] = o.Snr
 	}
 	if !utils.IsNil(o.Quality) {
 		toSerialize["quality"] = o.Quality

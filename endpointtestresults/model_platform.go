@@ -24,6 +24,7 @@ const (
 	PLATFORM_PHONEOS Platform = "phoneos"
 	PLATFORM_ELUX Platform = "elux"
 	PLATFORM_CISCO_WIRELESS Platform = "cisco-wireless"
+	PLATFORM_CISCO_WIRELESS_CLOUD Platform = "cisco-wireless-cloud"
 	PLATFORM_LINUX Platform = "linux"
 	PLATFORM_MAC Platform = "mac"
 	PLATFORM_ANDROID Platform = "android"
@@ -37,6 +38,7 @@ var AllowedPlatformEnumValues = []Platform{
 	"phoneos",
 	"elux",
 	"cisco-wireless",
+	"cisco-wireless-cloud",
 	"linux",
 	"mac",
 	"android",
