@@ -96,7 +96,7 @@ func (a *TagAssignmentAPIService) AssignTagExecute(r ApiAssignTagRequest) (*Bulk
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+	localVarHTTPHeaderAccepts := []string{"application/hal+json", "application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := request.SelectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -236,7 +236,7 @@ func (a *TagAssignmentAPIService) AssignTagsExecute(r ApiAssignTagsRequest) (*Bu
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+	localVarHTTPHeaderAccepts := []string{"application/hal+json", "application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := request.SelectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -508,7 +508,7 @@ func (a *TagAssignmentAPIService) UnassignTagsExecute(r ApiUnassignTagsRequest) 
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+	localVarHTTPHeaderAccepts := []string{"application/hal+json", "application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := request.SelectHeaderAccept(localVarHTTPHeaderAccepts)

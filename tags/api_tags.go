@@ -92,7 +92,7 @@ func (a *TagsAPIService) CreateTagExecute(r ApiCreateTagRequest) (*Tag, *http.Re
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+	localVarHTTPHeaderAccepts := []string{"application/hal+json", "application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := request.SelectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -220,7 +220,7 @@ func (a *TagsAPIService) CreateTagsExecute(r ApiCreateTagsRequest) (*BulkTagResp
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+	localVarHTTPHeaderAccepts := []string{"application/hal+json", "application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := request.SelectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -483,7 +483,7 @@ func (a *TagsAPIService) GetTagExecute(r ApiGetTagRequest) (*Tag, *http.Response
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+	localVarHTTPHeaderAccepts := []string{"application/hal+json", "application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := request.SelectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -630,7 +630,7 @@ func (a *TagsAPIService) GetTagsExecute(r ApiGetTagsRequest) (*Tags, *http.Respo
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+	localVarHTTPHeaderAccepts := []string{"application/hal+json", "application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := request.SelectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -768,7 +768,7 @@ func (a *TagsAPIService) UpdateTagExecute(r ApiUpdateTagRequest) (*Tag, *http.Re
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+	localVarHTTPHeaderAccepts := []string{"application/hal+json", "application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := request.SelectHeaderAccept(localVarHTTPHeaderAccepts)
