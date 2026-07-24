@@ -1,6 +1,7 @@
 package client
 
 import (
+	"math"
 	"net/http"
 	"regexp"
 	"strconv"
@@ -35,14 +36,13 @@ func thousandEyesBackoff(min, max time.Duration, attemptNum int, resp *http.Resp
 			if sleep, ok := parseResetHeader(&resetTimeStr); ok {
 				return sleep
 			}
-
-			// Default backoff if no valid reset time is found
-			return retryablehttp.DefaultBackoff(min, max, attemptNum, resp)
 		}
 	}
 
 	// Default case for no Retry-After and rateLimitResetHeaders
-	return retryablehttp.DefaultBackoff(min, max, attemptNum, resp)
+	// Retry-After has already been validated above. Do not pass the response to
+	// DefaultBackoff, which would parse an invalid header again.
+	return retryablehttp.DefaultBackoff(min, max, attemptNum, nil)
 }
 
 func parseRetryAfterHeader(headers []string) (time.Duration, bool) {
@@ -52,14 +52,14 @@ func parseRetryAfterHeader(headers []string) (time.Duration, bool) {
 	header := headers[0]
 	// Retry-After: 120
 	if sleep, err := strconv.ParseInt(header, 10, 64); err == nil {
-		if sleep < 0 { // a negative sleep doesn't make sense
+		if sleep < 0 || sleep > math.MaxInt64/int64(time.Second) {
 			return 0, false
 		}
 		return time.Second * time.Duration(sleep), true
 	}
 
 	// Retry-After: Fri, 31 Dec 1999 23:59:59 GMT
-	retryTime, err := time.Parse(time.RFC1123, header)
+	retryTime, err := http.ParseTime(header)
 	if err != nil {
 		return 0, false
 	}
@@ -84,7 +84,7 @@ func parseResetHeader(value *string) (time.Duration, bool) {
 
 	// Calculate the duration until the reset time
 	resetTime := time.Unix(resetTimeUnix, 0)
-	waitDuration := time.Until(resetTime)
+	waitDuration := resetTime.Sub(timeNow())
 
 	// Return 0 if the reset time has already passed
 	if waitDuration < 0 {

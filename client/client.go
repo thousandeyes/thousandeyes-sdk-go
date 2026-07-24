@@ -186,30 +186,6 @@ func (c *APIClient) Decode(v interface{}, b []byte, contentType string) (err err
 		*s = string(b)
 		return nil
 	}
-	if f, ok := v.(*os.File); ok {
-		f, err = os.CreateTemp("", "HttpClientFile")
-		if err != nil {
-			return
-		}
-		_, err = f.Write(b)
-		if err != nil {
-			return
-		}
-		_, err = f.Seek(0, io.SeekStart)
-		return
-	}
-	if f, ok := v.(**os.File); ok {
-		*f, err = os.CreateTemp("", "HttpClientFile")
-		if err != nil {
-			return
-		}
-		_, err = (*f).Write(b)
-		if err != nil {
-			return
-		}
-		_, err = (*f).Seek(0, io.SeekStart)
-		return
-	}
 	if JsonCheck.MatchString(contentType) {
 		if actualObj, ok := v.(interface{ GetActualInstance() interface{} }); ok { // oneOf, anyOf schemas
 			if unmarshalObj, ok := actualObj.(interface{ UnmarshalJSON([]byte) error }); ok { // make sure it has UnmarshalJSON defined
