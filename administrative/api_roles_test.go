@@ -1,6 +1,7 @@
 package administrative_test
 
 import (
+	"encoding/json"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -76,5 +77,80 @@ func TestGetRole(t *testing.T) {
 	}
 	if got := role.Permissions[0].GetPermissionId(); got != "permission-789" {
 		t.Errorf("GetRole().Permissions[0].PermissionId = %q, want %q", got, "permission-789")
+	}
+}
+
+func TestCreateRoleWithDeserializedRequestBody(t *testing.T) {
+	const requestJSON = `{
+		"name": "Network Operators",
+		"permissions": [
+			"permission-123",
+			"permission-456"
+		]
+	}`
+
+	var requestBody administrative.RoleRequestBody
+	if err := json.Unmarshal([]byte(requestJSON), &requestBody); err != nil {
+		t.Fatalf("json.Unmarshal() error = %v", err)
+	}
+
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != http.MethodPost {
+			t.Errorf("method = %q, want %q", r.Method, http.MethodPost)
+		}
+		if r.URL.Path != "/roles" {
+			t.Errorf("path = %q, want %q", r.URL.Path, "/roles")
+		}
+		if got := r.Header.Get("Content-Type"); got != "application/json" {
+			t.Errorf("Content-Type = %q, want %q", got, "application/json")
+		}
+
+		var receivedBody administrative.RoleRequestBody
+		if err := json.NewDecoder(r.Body).Decode(&receivedBody); err != nil {
+			t.Errorf("decoding request body: %v", err)
+			http.Error(w, "invalid request body", http.StatusBadRequest)
+			return
+		}
+
+		if got := receivedBody.GetName(); got != "Network Operators" {
+			t.Errorf("request body Name = %q, want %q", got, "Network Operators")
+		}
+		if got := receivedBody.GetPermissions(); len(got) != 2 ||
+			got[0] != "permission-123" || got[1] != "permission-456" {
+			t.Errorf(
+				"request body Permissions = %v, want %v",
+				got,
+				[]string{"permission-123", "permission-456"},
+			)
+		}
+
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusCreated)
+		_, _ = w.Write([]byte(`{
+			"name": "Network Operators",
+			"roleId": "role-123",
+			"isBuiltin": false
+		}`))
+	}))
+	t.Cleanup(server.Close)
+
+	config := client.NewConfiguration().WithServerUrl(server.URL)
+	config.HTTPClient = server.Client()
+
+	apiClient := client.NewAPIClient(config)
+	rolesAPI := (*administrative.RolesAPIService)(&apiClient.Common)
+
+	role, response, err := rolesAPI.CreateRole().RoleRequestBody(requestBody).Execute()
+	if err != nil {
+		t.Fatalf("CreateRole() error = %v", err)
+	}
+	if response.StatusCode != http.StatusCreated {
+		t.Fatalf("CreateRole() status = %d, want %d", response.StatusCode, http.StatusCreated)
+	}
+	if got := role.GetRoleId(); got != "role-123" {
+		t.Errorf("CreateRole().RoleId = %q, want %q", got, "role-123")
+	}
+	if got := role.GetName(); got != "Network Operators" {
+		t.Errorf("CreateRole().Name = %q, want %q", got, "Network Operators")
 	}
 }
