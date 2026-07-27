@@ -21,7 +21,7 @@ var _ utils.MappedNullable = &EventApiAffectedAgent{}
 type EventApiAffectedAgent struct {
 	// The ID of the virtual agent.
 	AgentId *string `json:"agentId,omitempty"`
-	Type *CloudEnterpriseAgentType `json:"type,omitempty"`
+	Type *EventAffectedAgentType `json:"type,omitempty"`
 	// The name of the agent as defined in settings.
 	Name *string `json:"name,omitempty"`
 	// The name of the agent's location.
@@ -85,9 +85,9 @@ func (o *EventApiAffectedAgent) SetAgentId(v string) {
 }
 
 // GetType returns the Type field value if set, zero value otherwise.
-func (o *EventApiAffectedAgent) GetType() CloudEnterpriseAgentType {
+func (o *EventApiAffectedAgent) GetType() EventAffectedAgentType {
 	if o == nil || utils.IsNil(o.Type) {
-		var ret CloudEnterpriseAgentType
+		var ret EventAffectedAgentType
 		return ret
 	}
 	return *o.Type
@@ -95,7 +95,7 @@ func (o *EventApiAffectedAgent) GetType() CloudEnterpriseAgentType {
 
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EventApiAffectedAgent) GetTypeOk() (*CloudEnterpriseAgentType, bool) {
+func (o *EventApiAffectedAgent) GetTypeOk() (*EventAffectedAgentType, bool) {
 	if o == nil || utils.IsNil(o.Type) {
 		return nil, false
 	}
@@ -111,8 +111,8 @@ func (o *EventApiAffectedAgent) HasType() bool {
 	return false
 }
 
-// SetType gets a reference to the given CloudEnterpriseAgentType and assigns it to the Type field.
-func (o *EventApiAffectedAgent) SetType(v CloudEnterpriseAgentType) {
+// SetType gets a reference to the given EventAffectedAgentType and assigns it to the Type field.
+func (o *EventApiAffectedAgent) SetType(v EventAffectedAgentType) {
 	o.Type = &v
 }
 

@@ -171,6 +171,7 @@ type ApiGetEventsRequest struct {
 	endDate *time.Time
 	max *int32
 	cursor *string
+	ongoing *bool
 }
 
 // A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response.
@@ -206,6 +207,12 @@ func (r ApiGetEventsRequest) Max(max int32) ApiGetEventsRequest {
 // (Optional) Opaque cursor used for pagination. Clients should use &#x60;next&#x60; value from &#x60;_links&#x60; instead of this parameter.
 func (r ApiGetEventsRequest) Cursor(cursor string) ApiGetEventsRequest {
 	r.cursor = &cursor
+	return r
+}
+
+// When set to &#x60;true&#x60;, only ongoing (active) events whose start date is within the specified time window are included in the response. When set to &#x60;false&#x60;, ongoing events are excluded from the response. If not set, both ongoing and concluded events appear in the response.
+func (r ApiGetEventsRequest) Ongoing(ongoing bool) ApiGetEventsRequest {
+	r.ongoing = &ongoing
 	return r
 }
 
@@ -261,6 +268,9 @@ func (a *EventsAPIService) GetEventsExecute(r ApiGetEventsRequest) (*Events, *ht
 	}
 	if r.cursor != nil {
 		request.ParameterAddToHeaderOrQuery(localVarQueryParams, "cursor", r.cursor, "")
+	}
+	if r.ongoing != nil {
+		request.ParameterAddToHeaderOrQuery(localVarQueryParams, "ongoing", r.ongoing, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

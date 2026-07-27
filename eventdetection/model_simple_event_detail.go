@@ -27,7 +27,7 @@ type SimpleEventDetail struct {
 	State *EventState `json:"state,omitempty"`
 	// The start date and time (in UTC, ISO 8601 format) when the event was first detected.
 	StartDate *time.Time `json:"startDate,omitempty"`
-	// The end date and time (in UTC, ISO 8601 format) when the event was resolved (due to timeout). This value is populated for \"ongoing\" events.
+	// The end date and time (in UTC, ISO 8601 format) when the event was resolved (due to timeout). This value is null for \"ongoing\" (active) events and is populated once the event is resolved.
 	EndDate utils.NullableTime `json:"endDate,omitempty"`
 	Severity *EventAlertSeverity `json:"severity,omitempty"`
 }

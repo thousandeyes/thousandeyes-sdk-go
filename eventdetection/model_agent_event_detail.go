@@ -13,13 +13,14 @@ import (
 	"encoding/json"
     "github.com/thousandeyes/thousandeyes-sdk-go/v3/internal/utils"
 	"time"
+	"fmt"
 )
 
-// checks if the EventDetailBase type satisfies the MappedNullable interface at compile time
-var _ utils.MappedNullable = &EventDetailBase{}
+// checks if the AgentEventDetail type satisfies the MappedNullable interface at compile time
+var _ utils.MappedNullable = &AgentEventDetail{}
 
-// EventDetailBase struct for EventDetailBase
-type EventDetailBase struct {
+// AgentEventDetail struct for AgentEventDetail
+type AgentEventDetail struct {
 	// A unique ID for each event.
 	Id *string `json:"id,omitempty"`
 	// Event type name. Examples include, Local Agent Issue, Network Path Issue, Network Outage, DNS Issue, Server Issue, and Proxy Issue.
@@ -41,27 +42,33 @@ type EventDetailBase struct {
 	// The cause of the error.
 	Cause []string `json:"cause,omitempty"`
 	Links *SelfLinks `json:"_links,omitempty"`
+	// Agent event type.
+	Type string `json:"type"`
+	Grouping *AgentEventGrouping `json:"grouping,omitempty"`
 }
 
-// NewEventDetailBase instantiates a new EventDetailBase object
+type _AgentEventDetail AgentEventDetail
+
+// NewAgentEventDetail instantiates a new AgentEventDetail object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewEventDetailBase() *EventDetailBase {
-	this := EventDetailBase{}
+func NewAgentEventDetail(type_ string) *AgentEventDetail {
+	this := AgentEventDetail{}
+	this.Type = type_
 	return &this
 }
 
-// NewEventDetailBaseWithDefaults instantiates a new EventDetailBase object
+// NewAgentEventDetailWithDefaults instantiates a new AgentEventDetail object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewEventDetailBaseWithDefaults() *EventDetailBase {
-	this := EventDetailBase{}
+func NewAgentEventDetailWithDefaults() *AgentEventDetail {
+	this := AgentEventDetail{}
 	return &this
 }
 
 // GetId returns the Id field value if set, zero value otherwise.
-func (o *EventDetailBase) GetId() string {
+func (o *AgentEventDetail) GetId() string {
 	if o == nil || utils.IsNil(o.Id) {
 		var ret string
 		return ret
@@ -71,7 +78,7 @@ func (o *EventDetailBase) GetId() string {
 
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EventDetailBase) GetIdOk() (*string, bool) {
+func (o *AgentEventDetail) GetIdOk() (*string, bool) {
 	if o == nil || utils.IsNil(o.Id) {
 		return nil, false
 	}
@@ -79,7 +86,7 @@ func (o *EventDetailBase) GetIdOk() (*string, bool) {
 }
 
 // HasId returns a boolean if a field has been set.
-func (o *EventDetailBase) HasId() bool {
+func (o *AgentEventDetail) HasId() bool {
 	if o != nil && !utils.IsNil(o.Id) {
 		return true
 	}
@@ -88,12 +95,12 @@ func (o *EventDetailBase) HasId() bool {
 }
 
 // SetId gets a reference to the given string and assigns it to the Id field.
-func (o *EventDetailBase) SetId(v string) {
+func (o *AgentEventDetail) SetId(v string) {
 	o.Id = &v
 }
 
 // GetTypeName returns the TypeName field value if set, zero value otherwise.
-func (o *EventDetailBase) GetTypeName() string {
+func (o *AgentEventDetail) GetTypeName() string {
 	if o == nil || utils.IsNil(o.TypeName) {
 		var ret string
 		return ret
@@ -103,7 +110,7 @@ func (o *EventDetailBase) GetTypeName() string {
 
 // GetTypeNameOk returns a tuple with the TypeName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EventDetailBase) GetTypeNameOk() (*string, bool) {
+func (o *AgentEventDetail) GetTypeNameOk() (*string, bool) {
 	if o == nil || utils.IsNil(o.TypeName) {
 		return nil, false
 	}
@@ -111,7 +118,7 @@ func (o *EventDetailBase) GetTypeNameOk() (*string, bool) {
 }
 
 // HasTypeName returns a boolean if a field has been set.
-func (o *EventDetailBase) HasTypeName() bool {
+func (o *AgentEventDetail) HasTypeName() bool {
 	if o != nil && !utils.IsNil(o.TypeName) {
 		return true
 	}
@@ -120,12 +127,12 @@ func (o *EventDetailBase) HasTypeName() bool {
 }
 
 // SetTypeName gets a reference to the given string and assigns it to the TypeName field.
-func (o *EventDetailBase) SetTypeName(v string) {
+func (o *AgentEventDetail) SetTypeName(v string) {
 	o.TypeName = &v
 }
 
 // GetState returns the State field value if set, zero value otherwise.
-func (o *EventDetailBase) GetState() EventState {
+func (o *AgentEventDetail) GetState() EventState {
 	if o == nil || utils.IsNil(o.State) {
 		var ret EventState
 		return ret
@@ -135,7 +142,7 @@ func (o *EventDetailBase) GetState() EventState {
 
 // GetStateOk returns a tuple with the State field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EventDetailBase) GetStateOk() (*EventState, bool) {
+func (o *AgentEventDetail) GetStateOk() (*EventState, bool) {
 	if o == nil || utils.IsNil(o.State) {
 		return nil, false
 	}
@@ -143,7 +150,7 @@ func (o *EventDetailBase) GetStateOk() (*EventState, bool) {
 }
 
 // HasState returns a boolean if a field has been set.
-func (o *EventDetailBase) HasState() bool {
+func (o *AgentEventDetail) HasState() bool {
 	if o != nil && !utils.IsNil(o.State) {
 		return true
 	}
@@ -152,12 +159,12 @@ func (o *EventDetailBase) HasState() bool {
 }
 
 // SetState gets a reference to the given EventState and assigns it to the State field.
-func (o *EventDetailBase) SetState(v EventState) {
+func (o *AgentEventDetail) SetState(v EventState) {
 	o.State = &v
 }
 
 // GetStartDate returns the StartDate field value if set, zero value otherwise.
-func (o *EventDetailBase) GetStartDate() time.Time {
+func (o *AgentEventDetail) GetStartDate() time.Time {
 	if o == nil || utils.IsNil(o.StartDate) {
 		var ret time.Time
 		return ret
@@ -167,7 +174,7 @@ func (o *EventDetailBase) GetStartDate() time.Time {
 
 // GetStartDateOk returns a tuple with the StartDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EventDetailBase) GetStartDateOk() (*time.Time, bool) {
+func (o *AgentEventDetail) GetStartDateOk() (*time.Time, bool) {
 	if o == nil || utils.IsNil(o.StartDate) {
 		return nil, false
 	}
@@ -175,7 +182,7 @@ func (o *EventDetailBase) GetStartDateOk() (*time.Time, bool) {
 }
 
 // HasStartDate returns a boolean if a field has been set.
-func (o *EventDetailBase) HasStartDate() bool {
+func (o *AgentEventDetail) HasStartDate() bool {
 	if o != nil && !utils.IsNil(o.StartDate) {
 		return true
 	}
@@ -184,12 +191,12 @@ func (o *EventDetailBase) HasStartDate() bool {
 }
 
 // SetStartDate gets a reference to the given time.Time and assigns it to the StartDate field.
-func (o *EventDetailBase) SetStartDate(v time.Time) {
+func (o *AgentEventDetail) SetStartDate(v time.Time) {
 	o.StartDate = &v
 }
 
 // GetEndDate returns the EndDate field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *EventDetailBase) GetEndDate() time.Time {
+func (o *AgentEventDetail) GetEndDate() time.Time {
 	if o == nil || utils.IsNil(o.EndDate.Get()) {
 		var ret time.Time
 		return ret
@@ -200,7 +207,7 @@ func (o *EventDetailBase) GetEndDate() time.Time {
 // GetEndDateOk returns a tuple with the EndDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *EventDetailBase) GetEndDateOk() (*time.Time, bool) {
+func (o *AgentEventDetail) GetEndDateOk() (*time.Time, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -208,7 +215,7 @@ func (o *EventDetailBase) GetEndDateOk() (*time.Time, bool) {
 }
 
 // HasEndDate returns a boolean if a field has been set.
-func (o *EventDetailBase) HasEndDate() bool {
+func (o *AgentEventDetail) HasEndDate() bool {
 	if o != nil && o.EndDate.IsSet() {
 		return true
 	}
@@ -217,21 +224,21 @@ func (o *EventDetailBase) HasEndDate() bool {
 }
 
 // SetEndDate gets a reference to the given NullableTime and assigns it to the EndDate field.
-func (o *EventDetailBase) SetEndDate(v time.Time) {
+func (o *AgentEventDetail) SetEndDate(v time.Time) {
 	o.EndDate.Set(&v)
 }
 // SetEndDateNil sets the value for EndDate to be an explicit nil
-func (o *EventDetailBase) SetEndDateNil() {
+func (o *AgentEventDetail) SetEndDateNil() {
 	o.EndDate.Set(nil)
 }
 
 // UnsetEndDate ensures that no value is present for EndDate, not even an explicit nil
-func (o *EventDetailBase) UnsetEndDate() {
+func (o *AgentEventDetail) UnsetEndDate() {
 	o.EndDate.Unset()
 }
 
 // GetSeverity returns the Severity field value if set, zero value otherwise.
-func (o *EventDetailBase) GetSeverity() EventAlertSeverity {
+func (o *AgentEventDetail) GetSeverity() EventAlertSeverity {
 	if o == nil || utils.IsNil(o.Severity) {
 		var ret EventAlertSeverity
 		return ret
@@ -241,7 +248,7 @@ func (o *EventDetailBase) GetSeverity() EventAlertSeverity {
 
 // GetSeverityOk returns a tuple with the Severity field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EventDetailBase) GetSeverityOk() (*EventAlertSeverity, bool) {
+func (o *AgentEventDetail) GetSeverityOk() (*EventAlertSeverity, bool) {
 	if o == nil || utils.IsNil(o.Severity) {
 		return nil, false
 	}
@@ -249,7 +256,7 @@ func (o *EventDetailBase) GetSeverityOk() (*EventAlertSeverity, bool) {
 }
 
 // HasSeverity returns a boolean if a field has been set.
-func (o *EventDetailBase) HasSeverity() bool {
+func (o *AgentEventDetail) HasSeverity() bool {
 	if o != nil && !utils.IsNil(o.Severity) {
 		return true
 	}
@@ -258,12 +265,12 @@ func (o *EventDetailBase) HasSeverity() bool {
 }
 
 // SetSeverity gets a reference to the given EventAlertSeverity and assigns it to the Severity field.
-func (o *EventDetailBase) SetSeverity(v EventAlertSeverity) {
+func (o *AgentEventDetail) SetSeverity(v EventAlertSeverity) {
 	o.Severity = &v
 }
 
 // GetAid returns the Aid field value if set, zero value otherwise.
-func (o *EventDetailBase) GetAid() string {
+func (o *AgentEventDetail) GetAid() string {
 	if o == nil || utils.IsNil(o.Aid) {
 		var ret string
 		return ret
@@ -273,7 +280,7 @@ func (o *EventDetailBase) GetAid() string {
 
 // GetAidOk returns a tuple with the Aid field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EventDetailBase) GetAidOk() (*string, bool) {
+func (o *AgentEventDetail) GetAidOk() (*string, bool) {
 	if o == nil || utils.IsNil(o.Aid) {
 		return nil, false
 	}
@@ -281,7 +288,7 @@ func (o *EventDetailBase) GetAidOk() (*string, bool) {
 }
 
 // HasAid returns a boolean if a field has been set.
-func (o *EventDetailBase) HasAid() bool {
+func (o *AgentEventDetail) HasAid() bool {
 	if o != nil && !utils.IsNil(o.Aid) {
 		return true
 	}
@@ -290,12 +297,12 @@ func (o *EventDetailBase) HasAid() bool {
 }
 
 // SetAid gets a reference to the given string and assigns it to the Aid field.
-func (o *EventDetailBase) SetAid(v string) {
+func (o *AgentEventDetail) SetAid(v string) {
 	o.Aid = &v
 }
 
 // GetSummary returns the Summary field value if set, zero value otherwise.
-func (o *EventDetailBase) GetSummary() string {
+func (o *AgentEventDetail) GetSummary() string {
 	if o == nil || utils.IsNil(o.Summary) {
 		var ret string
 		return ret
@@ -305,7 +312,7 @@ func (o *EventDetailBase) GetSummary() string {
 
 // GetSummaryOk returns a tuple with the Summary field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EventDetailBase) GetSummaryOk() (*string, bool) {
+func (o *AgentEventDetail) GetSummaryOk() (*string, bool) {
 	if o == nil || utils.IsNil(o.Summary) {
 		return nil, false
 	}
@@ -313,7 +320,7 @@ func (o *EventDetailBase) GetSummaryOk() (*string, bool) {
 }
 
 // HasSummary returns a boolean if a field has been set.
-func (o *EventDetailBase) HasSummary() bool {
+func (o *AgentEventDetail) HasSummary() bool {
 	if o != nil && !utils.IsNil(o.Summary) {
 		return true
 	}
@@ -322,12 +329,12 @@ func (o *EventDetailBase) HasSummary() bool {
 }
 
 // SetSummary gets a reference to the given string and assigns it to the Summary field.
-func (o *EventDetailBase) SetSummary(v string) {
+func (o *AgentEventDetail) SetSummary(v string) {
 	o.Summary = &v
 }
 
 // GetAgentType returns the AgentType field value if set, zero value otherwise.
-func (o *EventDetailBase) GetAgentType() EventAgentType {
+func (o *AgentEventDetail) GetAgentType() EventAgentType {
 	if o == nil || utils.IsNil(o.AgentType) {
 		var ret EventAgentType
 		return ret
@@ -337,7 +344,7 @@ func (o *EventDetailBase) GetAgentType() EventAgentType {
 
 // GetAgentTypeOk returns a tuple with the AgentType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EventDetailBase) GetAgentTypeOk() (*EventAgentType, bool) {
+func (o *AgentEventDetail) GetAgentTypeOk() (*EventAgentType, bool) {
 	if o == nil || utils.IsNil(o.AgentType) {
 		return nil, false
 	}
@@ -345,7 +352,7 @@ func (o *EventDetailBase) GetAgentTypeOk() (*EventAgentType, bool) {
 }
 
 // HasAgentType returns a boolean if a field has been set.
-func (o *EventDetailBase) HasAgentType() bool {
+func (o *AgentEventDetail) HasAgentType() bool {
 	if o != nil && !utils.IsNil(o.AgentType) {
 		return true
 	}
@@ -354,12 +361,12 @@ func (o *EventDetailBase) HasAgentType() bool {
 }
 
 // SetAgentType gets a reference to the given EventAgentType and assigns it to the AgentType field.
-func (o *EventDetailBase) SetAgentType(v EventAgentType) {
+func (o *AgentEventDetail) SetAgentType(v EventAgentType) {
 	o.AgentType = &v
 }
 
 // GetAffectedTests returns the AffectedTests field value if set, zero value otherwise.
-func (o *EventDetailBase) GetAffectedTests() AffectedTests {
+func (o *AgentEventDetail) GetAffectedTests() AffectedTests {
 	if o == nil || utils.IsNil(o.AffectedTests) {
 		var ret AffectedTests
 		return ret
@@ -369,7 +376,7 @@ func (o *EventDetailBase) GetAffectedTests() AffectedTests {
 
 // GetAffectedTestsOk returns a tuple with the AffectedTests field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EventDetailBase) GetAffectedTestsOk() (*AffectedTests, bool) {
+func (o *AgentEventDetail) GetAffectedTestsOk() (*AffectedTests, bool) {
 	if o == nil || utils.IsNil(o.AffectedTests) {
 		return nil, false
 	}
@@ -377,7 +384,7 @@ func (o *EventDetailBase) GetAffectedTestsOk() (*AffectedTests, bool) {
 }
 
 // HasAffectedTests returns a boolean if a field has been set.
-func (o *EventDetailBase) HasAffectedTests() bool {
+func (o *AgentEventDetail) HasAffectedTests() bool {
 	if o != nil && !utils.IsNil(o.AffectedTests) {
 		return true
 	}
@@ -386,12 +393,12 @@ func (o *EventDetailBase) HasAffectedTests() bool {
 }
 
 // SetAffectedTests gets a reference to the given AffectedTests and assigns it to the AffectedTests field.
-func (o *EventDetailBase) SetAffectedTests(v AffectedTests) {
+func (o *AgentEventDetail) SetAffectedTests(v AffectedTests) {
 	o.AffectedTests = &v
 }
 
 // GetAffectedTargets returns the AffectedTargets field value if set, zero value otherwise.
-func (o *EventDetailBase) GetAffectedTargets() AffectedTargets {
+func (o *AgentEventDetail) GetAffectedTargets() AffectedTargets {
 	if o == nil || utils.IsNil(o.AffectedTargets) {
 		var ret AffectedTargets
 		return ret
@@ -401,7 +408,7 @@ func (o *EventDetailBase) GetAffectedTargets() AffectedTargets {
 
 // GetAffectedTargetsOk returns a tuple with the AffectedTargets field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EventDetailBase) GetAffectedTargetsOk() (*AffectedTargets, bool) {
+func (o *AgentEventDetail) GetAffectedTargetsOk() (*AffectedTargets, bool) {
 	if o == nil || utils.IsNil(o.AffectedTargets) {
 		return nil, false
 	}
@@ -409,7 +416,7 @@ func (o *EventDetailBase) GetAffectedTargetsOk() (*AffectedTargets, bool) {
 }
 
 // HasAffectedTargets returns a boolean if a field has been set.
-func (o *EventDetailBase) HasAffectedTargets() bool {
+func (o *AgentEventDetail) HasAffectedTargets() bool {
 	if o != nil && !utils.IsNil(o.AffectedTargets) {
 		return true
 	}
@@ -418,12 +425,12 @@ func (o *EventDetailBase) HasAffectedTargets() bool {
 }
 
 // SetAffectedTargets gets a reference to the given AffectedTargets and assigns it to the AffectedTargets field.
-func (o *EventDetailBase) SetAffectedTargets(v AffectedTargets) {
+func (o *AgentEventDetail) SetAffectedTargets(v AffectedTargets) {
 	o.AffectedTargets = &v
 }
 
 // GetAffectedAgents returns the AffectedAgents field value if set, zero value otherwise.
-func (o *EventDetailBase) GetAffectedAgents() AffectedAgents {
+func (o *AgentEventDetail) GetAffectedAgents() AffectedAgents {
 	if o == nil || utils.IsNil(o.AffectedAgents) {
 		var ret AffectedAgents
 		return ret
@@ -433,7 +440,7 @@ func (o *EventDetailBase) GetAffectedAgents() AffectedAgents {
 
 // GetAffectedAgentsOk returns a tuple with the AffectedAgents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EventDetailBase) GetAffectedAgentsOk() (*AffectedAgents, bool) {
+func (o *AgentEventDetail) GetAffectedAgentsOk() (*AffectedAgents, bool) {
 	if o == nil || utils.IsNil(o.AffectedAgents) {
 		return nil, false
 	}
@@ -441,7 +448,7 @@ func (o *EventDetailBase) GetAffectedAgentsOk() (*AffectedAgents, bool) {
 }
 
 // HasAffectedAgents returns a boolean if a field has been set.
-func (o *EventDetailBase) HasAffectedAgents() bool {
+func (o *AgentEventDetail) HasAffectedAgents() bool {
 	if o != nil && !utils.IsNil(o.AffectedAgents) {
 		return true
 	}
@@ -450,12 +457,12 @@ func (o *EventDetailBase) HasAffectedAgents() bool {
 }
 
 // SetAffectedAgents gets a reference to the given AffectedAgents and assigns it to the AffectedAgents field.
-func (o *EventDetailBase) SetAffectedAgents(v AffectedAgents) {
+func (o *AgentEventDetail) SetAffectedAgents(v AffectedAgents) {
 	o.AffectedAgents = &v
 }
 
 // GetCause returns the Cause field value if set, zero value otherwise.
-func (o *EventDetailBase) GetCause() []string {
+func (o *AgentEventDetail) GetCause() []string {
 	if o == nil || utils.IsNil(o.Cause) {
 		var ret []string
 		return ret
@@ -465,7 +472,7 @@ func (o *EventDetailBase) GetCause() []string {
 
 // GetCauseOk returns a tuple with the Cause field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EventDetailBase) GetCauseOk() ([]string, bool) {
+func (o *AgentEventDetail) GetCauseOk() ([]string, bool) {
 	if o == nil || utils.IsNil(o.Cause) {
 		return nil, false
 	}
@@ -473,7 +480,7 @@ func (o *EventDetailBase) GetCauseOk() ([]string, bool) {
 }
 
 // HasCause returns a boolean if a field has been set.
-func (o *EventDetailBase) HasCause() bool {
+func (o *AgentEventDetail) HasCause() bool {
 	if o != nil && !utils.IsNil(o.Cause) {
 		return true
 	}
@@ -482,12 +489,12 @@ func (o *EventDetailBase) HasCause() bool {
 }
 
 // SetCause gets a reference to the given []string and assigns it to the Cause field.
-func (o *EventDetailBase) SetCause(v []string) {
+func (o *AgentEventDetail) SetCause(v []string) {
 	o.Cause = v
 }
 
 // GetLinks returns the Links field value if set, zero value otherwise.
-func (o *EventDetailBase) GetLinks() SelfLinks {
+func (o *AgentEventDetail) GetLinks() SelfLinks {
 	if o == nil || utils.IsNil(o.Links) {
 		var ret SelfLinks
 		return ret
@@ -497,7 +504,7 @@ func (o *EventDetailBase) GetLinks() SelfLinks {
 
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EventDetailBase) GetLinksOk() (*SelfLinks, bool) {
+func (o *AgentEventDetail) GetLinksOk() (*SelfLinks, bool) {
 	if o == nil || utils.IsNil(o.Links) {
 		return nil, false
 	}
@@ -505,7 +512,7 @@ func (o *EventDetailBase) GetLinksOk() (*SelfLinks, bool) {
 }
 
 // HasLinks returns a boolean if a field has been set.
-func (o *EventDetailBase) HasLinks() bool {
+func (o *AgentEventDetail) HasLinks() bool {
 	if o != nil && !utils.IsNil(o.Links) {
 		return true
 	}
@@ -514,11 +521,67 @@ func (o *EventDetailBase) HasLinks() bool {
 }
 
 // SetLinks gets a reference to the given SelfLinks and assigns it to the Links field.
-func (o *EventDetailBase) SetLinks(v SelfLinks) {
+func (o *AgentEventDetail) SetLinks(v SelfLinks) {
 	o.Links = &v
 }
 
-func (o EventDetailBase) MarshalJSON() ([]byte, error) {
+// GetType returns the Type field value
+func (o *AgentEventDetail) GetType() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value
+// and a boolean to check if the value has been set.
+func (o *AgentEventDetail) GetTypeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Type, true
+}
+
+// SetType sets field value
+func (o *AgentEventDetail) SetType(v string) {
+	o.Type = v
+}
+
+// GetGrouping returns the Grouping field value if set, zero value otherwise.
+func (o *AgentEventDetail) GetGrouping() AgentEventGrouping {
+	if o == nil || utils.IsNil(o.Grouping) {
+		var ret AgentEventGrouping
+		return ret
+	}
+	return *o.Grouping
+}
+
+// GetGroupingOk returns a tuple with the Grouping field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AgentEventDetail) GetGroupingOk() (*AgentEventGrouping, bool) {
+	if o == nil || utils.IsNil(o.Grouping) {
+		return nil, false
+	}
+	return o.Grouping, true
+}
+
+// HasGrouping returns a boolean if a field has been set.
+func (o *AgentEventDetail) HasGrouping() bool {
+	if o != nil && !utils.IsNil(o.Grouping) {
+		return true
+	}
+
+	return false
+}
+
+// SetGrouping gets a reference to the given AgentEventGrouping and assigns it to the Grouping field.
+func (o *AgentEventDetail) SetGrouping(v AgentEventGrouping) {
+	o.Grouping = &v
+}
+
+func (o AgentEventDetail) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -526,7 +589,7 @@ func (o EventDetailBase) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o EventDetailBase) ToMap() (map[string]interface{}, error) {
+func (o AgentEventDetail) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !utils.IsNil(o.Id) {
 		toSerialize["id"] = o.Id
@@ -570,41 +633,80 @@ func (o EventDetailBase) ToMap() (map[string]interface{}, error) {
 	if !utils.IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
+	toSerialize["type"] = o.Type
+	if !utils.IsNil(o.Grouping) {
+		toSerialize["grouping"] = o.Grouping
+	}
 	return toSerialize, nil
 }
 
-type NullableEventDetailBase struct {
-	value *EventDetailBase
+func (o *AgentEventDetail) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"type",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varAgentEventDetail := _AgentEventDetail{}
+
+    err = json.Unmarshal(data, &varAgentEventDetail)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AgentEventDetail(varAgentEventDetail)
+
+	return err
+}
+
+type NullableAgentEventDetail struct {
+	value *AgentEventDetail
 	isSet bool
 }
 
-func (v NullableEventDetailBase) Get() *EventDetailBase {
+func (v NullableAgentEventDetail) Get() *AgentEventDetail {
 	return v.value
 }
 
-func (v *NullableEventDetailBase) Set(val *EventDetailBase) {
+func (v *NullableAgentEventDetail) Set(val *AgentEventDetail) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableEventDetailBase) IsSet() bool {
+func (v NullableAgentEventDetail) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableEventDetailBase) Unset() {
+func (v *NullableAgentEventDetail) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableEventDetailBase(val *EventDetailBase) *NullableEventDetailBase {
-	return &NullableEventDetailBase{value: val, isSet: true}
+func NewNullableAgentEventDetail(val *AgentEventDetail) *NullableAgentEventDetail {
+	return &NullableAgentEventDetail{value: val, isSet: true}
 }
 
-func (v NullableEventDetailBase) MarshalJSON() ([]byte, error) {
+func (v NullableAgentEventDetail) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableEventDetailBase) UnmarshalJSON(src []byte) error {
+func (v *NullableAgentEventDetail) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
