@@ -33,6 +33,11 @@ func NewPager[T any](
 	return &Pager[T]{cursor: initialCursor, fetch: fetch, nextHref: nextHref}
 }
 
+// HasMorePages reports whether NextPage may fetch another page.
+func (p *Pager[T]) HasMorePages() bool {
+	return !p.complete
+}
+
 // NextPage fetches one page or returns io.EOF after the final page.
 func (p *Pager[T]) NextPage(ctx context.Context) (*T, *http.Response, error) {
 	if p.complete {

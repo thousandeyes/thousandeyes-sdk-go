@@ -39,6 +39,9 @@ func TestPagerTraversesPagesLazily(t *testing.T) {
 	if len(cursors) != 0 {
 		t.Fatal("NewPager fetched a page")
 	}
+	if !pager.HasMorePages() {
+		t.Fatal("new pager reported no pages")
+	}
 
 	for index, wantPage := range pages {
 		gotPage, gotResponse, err := pager.NextPage(context.Background())
@@ -50,6 +53,9 @@ func TestPagerTraversesPagesLazily(t *testing.T) {
 		}
 		if gotResponse != responses[index] {
 			t.Fatalf("NextPage(%d) response = %p, want %p", index, gotResponse, responses[index])
+		}
+		if got, want := pager.HasMorePages(), index < len(pages)-1; got != want {
+			t.Fatalf("HasMorePages() after page %d = %t, want %t", index+1, got, want)
 		}
 	}
 
