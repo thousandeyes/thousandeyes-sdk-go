@@ -304,6 +304,36 @@ func TestPagerRejectsInvalidContinuation(t *testing.T) {
 	}
 }
 
+func TestPagerRejectsRepeatedContinuation(t *testing.T) {
+	initialCursor := "first"
+	var cursors []string
+	pager := NewPager(
+		&initialCursor,
+		func(_ context.Context, cursor *string) (*testPage, *http.Response, error) {
+			cursors = append(cursors, *cursor)
+			nextCursor := "second"
+			if *cursor == "second" {
+				nextCursor = "first"
+			}
+			return &testPage{nextHref: "?cursor=" + nextCursor},
+				&http.Response{StatusCode: http.StatusOK}, nil
+		},
+		func(page *testPage) (string, bool) { return page.nextHref, true },
+	)
+
+	if _, _, err := pager.NextPage(context.Background()); err != nil {
+		t.Fatalf("first NextPage error = %v", err)
+	}
+	if _, _, err := pager.NextPage(context.Background()); !errors.Is(err, ErrRepeatedContinuation) {
+		t.Fatalf("second NextPage error = %v, want ErrRepeatedContinuation", err)
+	}
+
+	wantCursors := []string{"first", "second"}
+	if !reflect.DeepEqual(cursors, wantCursors) {
+		t.Fatalf("fetch cursors = %q, want %q", cursors, wantCursors)
+	}
+}
+
 func TestPagerUsesInitialCursor(t *testing.T) {
 	initialCursor := "configured"
 	var fetchedCursor string
