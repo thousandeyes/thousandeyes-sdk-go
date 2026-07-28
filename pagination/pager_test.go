@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"io"
+	"iter"
 	"net/http"
 	"reflect"
 	"testing"
@@ -12,6 +13,211 @@ import (
 type testPage struct {
 	items    []string
 	nextHref string
+}
+
+func testPager(pages []*testPage, fetchCalls *int) *Pager[testPage] {
+	return NewPager(
+		nil,
+		func(context.Context, *string) (*testPage, *http.Response, error) {
+			index := *fetchCalls
+			*fetchCalls = *fetchCalls + 1
+			if index >= len(pages) {
+				return nil, nil, errors.New("unexpected page fetch")
+			}
+			return pages[index], &http.Response{StatusCode: http.StatusOK}, nil
+		},
+		func(page *testPage) (string, bool) {
+			return page.nextHref, page.nextHref != ""
+		},
+	)
+}
+
+func testPageItems(page *testPage) []string {
+	return page.items
+}
+
+func TestAllIsLazy(t *testing.T) {
+	fetchCalls := 0
+	pager := testPager([]*testPage{{items: []string{"first"}}}, &fetchCalls)
+
+	sequence := All(context.Background(), pager, testPageItems)
+
+	if fetchCalls != 0 {
+		t.Fatalf("All fetched %d pages before iteration, want 0", fetchCalls)
+	}
+
+	for item, err := range sequence {
+		if err != nil {
+			t.Fatalf("All yielded error = %v", err)
+		}
+		if item != "first" {
+			t.Fatalf("All yielded item = %q, want first", item)
+		}
+		break
+	}
+
+	if fetchCalls != 1 {
+		t.Fatalf("All fetched %d pages after first item, want 1", fetchCalls)
+	}
+}
+
+func TestAllYieldsItemsAcrossPages(t *testing.T) {
+	fetchCalls := 0
+	pager := testPager(
+		[]*testPage{
+			{items: []string{"first", "second"}, nextHref: "?cursor=page-two"},
+			{items: []string{"third", "fourth"}},
+		},
+		&fetchCalls,
+	)
+
+	var got []string
+	for item, err := range All(context.Background(), pager, testPageItems) {
+		if err != nil {
+			t.Fatalf("All yielded error = %v", err)
+		}
+		got = append(got, item)
+	}
+
+	want := []string{"first", "second", "third", "fourth"}
+	if !reflect.DeepEqual(got, want) {
+		t.Fatalf("All yielded items = %q, want %q", got, want)
+	}
+	if fetchCalls != 2 {
+		t.Fatalf("All fetched %d pages, want 2", fetchCalls)
+	}
+}
+
+func TestAllSkipsEmptyIntermediatePages(t *testing.T) {
+	fetchCalls := 0
+	pager := testPager(
+		[]*testPage{
+			{items: []string{"first"}, nextHref: "?cursor=empty"},
+			{nextHref: "?cursor=last"},
+			{items: []string{"last"}},
+		},
+		&fetchCalls,
+	)
+
+	var got []string
+	for item, err := range All(context.Background(), pager, testPageItems) {
+		if err != nil {
+			t.Fatalf("All yielded error = %v", err)
+		}
+		got = append(got, item)
+	}
+
+	want := []string{"first", "last"}
+	if !reflect.DeepEqual(got, want) {
+		t.Fatalf("All yielded items = %q, want %q", got, want)
+	}
+	if fetchCalls != 3 {
+		t.Fatalf("All fetched %d pages, want 3", fetchCalls)
+	}
+}
+
+func TestAllYieldsFetchErrorOnceThenStops(t *testing.T) {
+	wantErr := errors.New("fetch failed")
+	fetchCalls := 0
+	pager := NewPager(
+		nil,
+		func(context.Context, *string) (*testPage, *http.Response, error) {
+			fetchCalls++
+			if fetchCalls == 1 {
+				return &testPage{
+					items:    []string{"first"},
+					nextHref: "?cursor=failed",
+				}, &http.Response{StatusCode: http.StatusOK}, nil
+			}
+			return nil, nil, wantErr
+		},
+		func(page *testPage) (string, bool) {
+			return page.nextHref, page.nextHref != ""
+		},
+	)
+
+	next, stop := iter.Pull2(All(context.Background(), pager, testPageItems))
+	defer stop()
+
+	item, err, ok := next()
+	if !ok || item != "first" || err != nil {
+		t.Fatalf("first yield = (%q, %v, %t), want (first, nil, true)", item, err, ok)
+	}
+
+	item, err, ok = next()
+	if !ok || item != "" || !errors.Is(err, wantErr) {
+		t.Fatalf("error yield = (%q, %v, %t), want (zero, fetch error, true)", item, err, ok)
+	}
+
+	item, err, ok = next()
+	if ok || item != "" || err != nil {
+		t.Fatalf("yield after error = (%q, %v, %t), want (zero, nil, false)", item, err, ok)
+	}
+	if fetchCalls != 2 {
+		t.Fatalf("All fetched %d pages, want 2", fetchCalls)
+	}
+}
+
+func TestAllPropagatesContextCancellation(t *testing.T) {
+	type contextKey struct{}
+
+	ctx := context.WithValue(context.Background(), contextKey{}, "marker")
+	ctx, cancel := context.WithCancel(ctx)
+	cancel()
+
+	fetchCalls := 0
+	pager := NewPager(
+		nil,
+		func(gotCtx context.Context, _ *string) (*testPage, *http.Response, error) {
+			fetchCalls++
+			if got := gotCtx.Value(contextKey{}); got != "marker" {
+				t.Errorf("fetch context value = %v, want marker", got)
+			}
+			return nil, nil, gotCtx.Err()
+		},
+		func(*testPage) (string, bool) { return "", false },
+	)
+
+	next, stop := iter.Pull2(All(ctx, pager, testPageItems))
+	defer stop()
+
+	item, err, ok := next()
+	if !ok || item != "" || !errors.Is(err, context.Canceled) {
+		t.Fatalf("canceled yield = (%q, %v, %t), want (zero, context.Canceled, true)", item, err, ok)
+	}
+
+	item, err, ok = next()
+	if ok || item != "" || err != nil {
+		t.Fatalf("yield after cancellation = (%q, %v, %t), want (zero, nil, false)", item, err, ok)
+	}
+	if fetchCalls != 1 {
+		t.Fatalf("All fetched %d pages, want 1", fetchCalls)
+	}
+}
+
+func TestAllStopsFetchingWhenConsumerBreaks(t *testing.T) {
+	fetchCalls := 0
+	pager := testPager(
+		[]*testPage{
+			{items: []string{"first"}, nextHref: "?cursor=page-two"},
+			{items: []string{"should not be fetched"}},
+		},
+		&fetchCalls,
+	)
+
+	for item, err := range All(context.Background(), pager, testPageItems) {
+		if err != nil {
+			t.Fatalf("All yielded error = %v", err)
+		}
+		if item != "first" {
+			t.Fatalf("All yielded item = %q, want first", item)
+		}
+		break
+	}
+
+	if fetchCalls != 1 {
+		t.Fatalf("All fetched %d pages after consumer break, want 1", fetchCalls)
+	}
 }
 
 func TestPagerTraversesPagesLazily(t *testing.T) {

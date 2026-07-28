@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"iter"
 	"net/http"
 	"net/url"
 )
@@ -31,6 +32,31 @@ func NewPager[T any](
 		initialCursor = &cursor
 	}
 	return &Pager[T]{cursor: initialCursor, fetch: fetch, nextHref: nextHref}
+}
+
+// All returns a single-use sequence that lazily yields items from pager.
+// The context is passed to each page request. A pagination error is yielded
+// once before the sequence stops.
+func All[Page, Item any](
+	ctx context.Context,
+	pager *Pager[Page],
+	items func(*Page) []Item,
+) iter.Seq2[Item, error] {
+	return func(yield func(Item, error) bool) {
+		for pager.HasMorePages() {
+			page, _, err := pager.NextPage(ctx)
+			if err != nil {
+				var zero Item
+				yield(zero, err)
+				return
+			}
+			for _, item := range items(page) {
+				if !yield(item, nil) {
+					return
+				}
+			}
+		}
+	}
 }
 
 // HasMorePages reports whether NextPage may fetch another page.
