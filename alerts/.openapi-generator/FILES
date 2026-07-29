@@ -1,8 +1,11 @@
 .openapi-generator-ignore
 README.md
 api_alert_rules.go
+api_alert_rules_test.go
 api_alert_suppression_windows_.go
+api_alert_suppression_windows__test.go
 api_alerts.go
+api_alerts_test.go
 docs/AlertRulesAPI.md
 docs/AlertSuppressionWindowsAPI.md
 docs/AlertsAPI.md

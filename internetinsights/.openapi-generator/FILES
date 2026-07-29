@@ -1,7 +1,9 @@
 .openapi-generator-ignore
 README.md
 api_internet_insights_catalog_providers.go
+api_internet_insights_catalog_providers_test.go
 api_internet_insights_outages.go
+api_internet_insights_outages_test.go
 docs/InternetInsightsCatalogProvidersAPI.md
 docs/InternetInsightsOutagesAPI.md
 model_api_application_outage_affected_location.go

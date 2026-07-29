@@ -1,6 +1,7 @@
 .openapi-generator-ignore
 README.md
 api_endpoint_agent_labels.go
+api_endpoint_agent_labels_test.go
 docs/EndpointAgentLabelsAPI.md
 model_error.go
 model_expand_label_options.go

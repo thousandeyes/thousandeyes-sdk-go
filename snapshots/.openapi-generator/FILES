@@ -1,6 +1,7 @@
 .openapi-generator-ignore
 README.md
 api_test_snapshots.go
+api_test_snapshots_test.go
 docs/TestSnapshotsAPI.md
 model_app_and_self_links.go
 model_error.go

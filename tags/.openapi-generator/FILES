@@ -1,7 +1,9 @@
 .openapi-generator-ignore
 README.md
 api_tag_assignment.go
+api_tag_assignment_test.go
 api_tags.go
+api_tags_test.go
 docs/TagAssignmentAPI.md
 docs/TagsAPI.md
 model_access_type.go

@@ -1,6 +1,7 @@
 .openapi-generator-ignore
 README.md
 api_streaming.go
+api_streaming_test.go
 docs/StreamingAPI.md
 model_api_error.go
 model_api_error_integration_limits.go
