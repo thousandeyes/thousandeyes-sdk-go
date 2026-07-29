@@ -83,7 +83,7 @@ Name | Type | Description  | Notes
 
 ## GetEvents
 
-> Events GetEvents().Aid(aid).Window(window).StartDate(startDate).EndDate(endDate).Max(max).Cursor(cursor).Execute()
+> Events GetEvents().Aid(aid).Window(window).StartDate(startDate).EndDate(endDate).Max(max).Cursor(cursor).Ongoing(ongoing).Execute()
 
 List events
 
@@ -109,13 +109,14 @@ func main() {
 	endDate := time.Now() // time.Time | Defaults to current time the request is made. Use with the `startDate` parameter. Include the complete time (hours, minutes, and seconds) in UTC time zone, following the ISO 8601 date-time format. See the example for reference. Please note that this parameter can't be used with `window`. (optional)
 	max := int32(5) // int32 | (Optional) Maximum number of objects to return. (optional)
 	cursor := "cursor_example" // string | (Optional) Opaque cursor used for pagination. Clients should use `next` value from `_links` instead of this parameter. (optional)
+	ongoing := true // bool | When set to `true`, only ongoing (active) events whose start date is within the specified time window are included in the response. When set to `false`, ongoing events are excluded from the response. If not set, both ongoing and concluded events appear in the response. (optional)
 
 	configuration := client.NewConfiguration().WithAuthToken("<bearer-token>")
 	apiClient := client.NewAPIClient(configuration)
 
 	api := (*eventdetection.EventsAPIService)(&apiClient.Common)
 
-	resp, r, err := api.GetEvents().Aid(aid).Window(window).StartDate(startDate).EndDate(endDate).Max(max).Cursor(cursor).Execute()
+	resp, r, err := api.GetEvents().Aid(aid).Window(window).StartDate(startDate).EndDate(endDate).Max(max).Cursor(cursor).Ongoing(ongoing).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `EventsAPI.GetEvents``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -143,6 +144,7 @@ Name | Type | Description  | Notes
  **endDate** | **time.Time** | Defaults to current time the request is made. Use with the &#x60;startDate&#x60; parameter. Include the complete time (hours, minutes, and seconds) in UTC time zone, following the ISO 8601 date-time format. See the example for reference. Please note that this parameter can&#39;t be used with &#x60;window&#x60;. | 
  **max** | **int32** | (Optional) Maximum number of objects to return. | 
  **cursor** | **string** | (Optional) Opaque cursor used for pagination. Clients should use &#x60;next&#x60; value from &#x60;_links&#x60; instead of this parameter. | 
+ **ongoing** | **bool** | When set to &#x60;true&#x60;, only ongoing (active) events whose start date is within the specified time window are included in the response. When set to &#x60;false&#x60;, ongoing events are excluded from the response. If not set, both ongoing and concluded events appear in the response. | 
 
 ### Return type
 

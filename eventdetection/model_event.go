@@ -27,12 +27,13 @@ type Event struct {
 	State *EventState `json:"state,omitempty"`
 	// The start date and time (in UTC, ISO 8601 format) when the event was first detected.
 	StartDate *time.Time `json:"startDate,omitempty"`
-	// The end date and time (in UTC, ISO 8601 format) when the event was resolved (due to timeout). This value is populated for \"ongoing\" events.
+	// The end date and time (in UTC, ISO 8601 format) when the event was resolved (due to timeout). This value is null for \"ongoing\" (active) events and is populated once the event is resolved.
 	EndDate utils.NullableTime `json:"endDate,omitempty"`
 	Severity *EventAlertSeverity `json:"severity,omitempty"`
 	// Event title
 	Title *string `json:"title,omitempty"`
 	Type *EventType `json:"type,omitempty"`
+	AgentType *EventAgentType `json:"agentType,omitempty"`
 	AffectedTests *AffectedCount `json:"affectedTests,omitempty"`
 	AffectedTargets *AffectedCount `json:"affectedTargets,omitempty"`
 	AffectedAgents *AffectedCount `json:"affectedAgents,omitempty"`
@@ -322,6 +323,38 @@ func (o *Event) SetType(v EventType) {
 	o.Type = &v
 }
 
+// GetAgentType returns the AgentType field value if set, zero value otherwise.
+func (o *Event) GetAgentType() EventAgentType {
+	if o == nil || utils.IsNil(o.AgentType) {
+		var ret EventAgentType
+		return ret
+	}
+	return *o.AgentType
+}
+
+// GetAgentTypeOk returns a tuple with the AgentType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Event) GetAgentTypeOk() (*EventAgentType, bool) {
+	if o == nil || utils.IsNil(o.AgentType) {
+		return nil, false
+	}
+	return o.AgentType, true
+}
+
+// HasAgentType returns a boolean if a field has been set.
+func (o *Event) HasAgentType() bool {
+	if o != nil && !utils.IsNil(o.AgentType) {
+		return true
+	}
+
+	return false
+}
+
+// SetAgentType gets a reference to the given EventAgentType and assigns it to the AgentType field.
+func (o *Event) SetAgentType(v EventAgentType) {
+	o.AgentType = &v
+}
+
 // GetAffectedTests returns the AffectedTests field value if set, zero value otherwise.
 func (o *Event) GetAffectedTests() AffectedCount {
 	if o == nil || utils.IsNil(o.AffectedTests) {
@@ -483,6 +516,9 @@ func (o Event) ToMap() (map[string]interface{}, error) {
 	}
 	if !utils.IsNil(o.Type) {
 		toSerialize["type"] = o.Type
+	}
+	if !utils.IsNil(o.AgentType) {
+		toSerialize["agentType"] = o.AgentType
 	}
 	if !utils.IsNil(o.AffectedTests) {
 		toSerialize["affectedTests"] = o.AffectedTests

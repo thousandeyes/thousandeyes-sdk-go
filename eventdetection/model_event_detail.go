@@ -17,13 +17,37 @@ import (
 
 // EventDetail - struct for EventDetail
 type EventDetail struct {
+	AgentBranchEventDetail *AgentBranchEventDetail
+	AgentEventDetail *AgentEventDetail
 	AgentLocalEventDetail *AgentLocalEventDetail
+	ApplicationEventDetail *ApplicationEventDetail
 	DnsEventDetail *DnsEventDetail
+	DnsNameEventDetail *DnsNameEventDetail
+	DnsServerEventDetail *DnsServerEventDetail
+	DomainEventDetail *DomainEventDetail
+	GatewayEventDetail *GatewayEventDetail
+	NameServerEventDetail *NameServerEventDetail
 	NetworkEventDetail *NetworkEventDetail
 	NetworkPopEventDetail *NetworkPopEventDetail
 	ProxyEventDetail *ProxyEventDetail
 	TargetEventDetail *TargetEventDetail
 	TargetNetworkEventDetail *TargetNetworkEventDetail
+	VpnEventDetail *VpnEventDetail
+	WirelessEventDetail *WirelessEventDetail
+}
+
+// AgentBranchEventDetailAsEventDetail is a convenience function that returns AgentBranchEventDetail wrapped in EventDetail
+func AgentBranchEventDetailAsEventDetail(v *AgentBranchEventDetail) EventDetail {
+	return EventDetail{
+		AgentBranchEventDetail: v,
+	}
+}
+
+// AgentEventDetailAsEventDetail is a convenience function that returns AgentEventDetail wrapped in EventDetail
+func AgentEventDetailAsEventDetail(v *AgentEventDetail) EventDetail {
+	return EventDetail{
+		AgentEventDetail: v,
+	}
 }
 
 // AgentLocalEventDetailAsEventDetail is a convenience function that returns AgentLocalEventDetail wrapped in EventDetail
@@ -33,10 +57,52 @@ func AgentLocalEventDetailAsEventDetail(v *AgentLocalEventDetail) EventDetail {
 	}
 }
 
+// ApplicationEventDetailAsEventDetail is a convenience function that returns ApplicationEventDetail wrapped in EventDetail
+func ApplicationEventDetailAsEventDetail(v *ApplicationEventDetail) EventDetail {
+	return EventDetail{
+		ApplicationEventDetail: v,
+	}
+}
+
 // DnsEventDetailAsEventDetail is a convenience function that returns DnsEventDetail wrapped in EventDetail
 func DnsEventDetailAsEventDetail(v *DnsEventDetail) EventDetail {
 	return EventDetail{
 		DnsEventDetail: v,
+	}
+}
+
+// DnsNameEventDetailAsEventDetail is a convenience function that returns DnsNameEventDetail wrapped in EventDetail
+func DnsNameEventDetailAsEventDetail(v *DnsNameEventDetail) EventDetail {
+	return EventDetail{
+		DnsNameEventDetail: v,
+	}
+}
+
+// DnsServerEventDetailAsEventDetail is a convenience function that returns DnsServerEventDetail wrapped in EventDetail
+func DnsServerEventDetailAsEventDetail(v *DnsServerEventDetail) EventDetail {
+	return EventDetail{
+		DnsServerEventDetail: v,
+	}
+}
+
+// DomainEventDetailAsEventDetail is a convenience function that returns DomainEventDetail wrapped in EventDetail
+func DomainEventDetailAsEventDetail(v *DomainEventDetail) EventDetail {
+	return EventDetail{
+		DomainEventDetail: v,
+	}
+}
+
+// GatewayEventDetailAsEventDetail is a convenience function that returns GatewayEventDetail wrapped in EventDetail
+func GatewayEventDetailAsEventDetail(v *GatewayEventDetail) EventDetail {
+	return EventDetail{
+		GatewayEventDetail: v,
+	}
+}
+
+// NameServerEventDetailAsEventDetail is a convenience function that returns NameServerEventDetail wrapped in EventDetail
+func NameServerEventDetailAsEventDetail(v *NameServerEventDetail) EventDetail {
+	return EventDetail{
+		NameServerEventDetail: v,
 	}
 }
 
@@ -75,6 +141,20 @@ func TargetNetworkEventDetailAsEventDetail(v *TargetNetworkEventDetail) EventDet
 	}
 }
 
+// VpnEventDetailAsEventDetail is a convenience function that returns VpnEventDetail wrapped in EventDetail
+func VpnEventDetailAsEventDetail(v *VpnEventDetail) EventDetail {
+	return EventDetail{
+		VpnEventDetail: v,
+	}
+}
+
+// WirelessEventDetailAsEventDetail is a convenience function that returns WirelessEventDetail wrapped in EventDetail
+func WirelessEventDetailAsEventDetail(v *WirelessEventDetail) EventDetail {
+	return EventDetail{
+		WirelessEventDetail: v,
+	}
+}
+
 
 // Unmarshal JSON data into one of the pointers in the struct
 func (dst *EventDetail) UnmarshalJSON(data []byte) error {
@@ -84,6 +164,30 @@ func (dst *EventDetail) UnmarshalJSON(data []byte) error {
 	err = utils.NewStrictDecoder(data).Decode(&jsonDict)
 	if err != nil {
 		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
+	}
+
+	// check if the discriminator value is 'agent'
+	if jsonDict["type"] == "agent" {
+		// try to unmarshal JSON data into AgentEventDetail
+		err = json.Unmarshal(data, &dst.AgentEventDetail)
+		if err == nil {
+			return nil // data stored in dst.AgentEventDetail, return on the first match
+		} else {
+			dst.AgentEventDetail = nil
+			return fmt.Errorf("failed to unmarshal EventDetail as AgentEventDetail: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'agent-branch'
+	if jsonDict["type"] == "agent-branch" {
+		// try to unmarshal JSON data into AgentBranchEventDetail
+		err = json.Unmarshal(data, &dst.AgentBranchEventDetail)
+		if err == nil {
+			return nil // data stored in dst.AgentBranchEventDetail, return on the first match
+		} else {
+			dst.AgentBranchEventDetail = nil
+			return fmt.Errorf("failed to unmarshal EventDetail as AgentBranchEventDetail: %s", err.Error())
+		}
 	}
 
 	// check if the discriminator value is 'agent-local'
@@ -98,6 +202,18 @@ func (dst *EventDetail) UnmarshalJSON(data []byte) error {
 		}
 	}
 
+	// check if the discriminator value is 'application'
+	if jsonDict["type"] == "application" {
+		// try to unmarshal JSON data into ApplicationEventDetail
+		err = json.Unmarshal(data, &dst.ApplicationEventDetail)
+		if err == nil {
+			return nil // data stored in dst.ApplicationEventDetail, return on the first match
+		} else {
+			dst.ApplicationEventDetail = nil
+			return fmt.Errorf("failed to unmarshal EventDetail as ApplicationEventDetail: %s", err.Error())
+		}
+	}
+
 	// check if the discriminator value is 'dns'
 	if jsonDict["type"] == "dns" {
 		// try to unmarshal JSON data into DnsEventDetail
@@ -107,6 +223,66 @@ func (dst *EventDetail) UnmarshalJSON(data []byte) error {
 		} else {
 			dst.DnsEventDetail = nil
 			return fmt.Errorf("failed to unmarshal EventDetail as DnsEventDetail: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'dns-name'
+	if jsonDict["type"] == "dns-name" {
+		// try to unmarshal JSON data into DnsNameEventDetail
+		err = json.Unmarshal(data, &dst.DnsNameEventDetail)
+		if err == nil {
+			return nil // data stored in dst.DnsNameEventDetail, return on the first match
+		} else {
+			dst.DnsNameEventDetail = nil
+			return fmt.Errorf("failed to unmarshal EventDetail as DnsNameEventDetail: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'dns-server'
+	if jsonDict["type"] == "dns-server" {
+		// try to unmarshal JSON data into DnsServerEventDetail
+		err = json.Unmarshal(data, &dst.DnsServerEventDetail)
+		if err == nil {
+			return nil // data stored in dst.DnsServerEventDetail, return on the first match
+		} else {
+			dst.DnsServerEventDetail = nil
+			return fmt.Errorf("failed to unmarshal EventDetail as DnsServerEventDetail: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'domain'
+	if jsonDict["type"] == "domain" {
+		// try to unmarshal JSON data into DomainEventDetail
+		err = json.Unmarshal(data, &dst.DomainEventDetail)
+		if err == nil {
+			return nil // data stored in dst.DomainEventDetail, return on the first match
+		} else {
+			dst.DomainEventDetail = nil
+			return fmt.Errorf("failed to unmarshal EventDetail as DomainEventDetail: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'gateway'
+	if jsonDict["type"] == "gateway" {
+		// try to unmarshal JSON data into GatewayEventDetail
+		err = json.Unmarshal(data, &dst.GatewayEventDetail)
+		if err == nil {
+			return nil // data stored in dst.GatewayEventDetail, return on the first match
+		} else {
+			dst.GatewayEventDetail = nil
+			return fmt.Errorf("failed to unmarshal EventDetail as GatewayEventDetail: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'name-server'
+	if jsonDict["type"] == "name-server" {
+		// try to unmarshal JSON data into NameServerEventDetail
+		err = json.Unmarshal(data, &dst.NameServerEventDetail)
+		if err == nil {
+			return nil // data stored in dst.NameServerEventDetail, return on the first match
+		} else {
+			dst.NameServerEventDetail = nil
+			return fmt.Errorf("failed to unmarshal EventDetail as NameServerEventDetail: %s", err.Error())
 		}
 	}
 
@@ -170,6 +346,54 @@ func (dst *EventDetail) UnmarshalJSON(data []byte) error {
 		}
 	}
 
+	// check if the discriminator value is 'vpn'
+	if jsonDict["type"] == "vpn" {
+		// try to unmarshal JSON data into VpnEventDetail
+		err = json.Unmarshal(data, &dst.VpnEventDetail)
+		if err == nil {
+			return nil // data stored in dst.VpnEventDetail, return on the first match
+		} else {
+			dst.VpnEventDetail = nil
+			return fmt.Errorf("failed to unmarshal EventDetail as VpnEventDetail: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'wireless'
+	if jsonDict["type"] == "wireless" {
+		// try to unmarshal JSON data into WirelessEventDetail
+		err = json.Unmarshal(data, &dst.WirelessEventDetail)
+		if err == nil {
+			return nil // data stored in dst.WirelessEventDetail, return on the first match
+		} else {
+			dst.WirelessEventDetail = nil
+			return fmt.Errorf("failed to unmarshal EventDetail as WirelessEventDetail: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'AgentBranchEventDetail'
+	if jsonDict["type"] == "AgentBranchEventDetail" {
+		// try to unmarshal JSON data into AgentBranchEventDetail
+		err = json.Unmarshal(data, &dst.AgentBranchEventDetail)
+		if err == nil {
+			return nil // data stored in dst.AgentBranchEventDetail, return on the first match
+		} else {
+			dst.AgentBranchEventDetail = nil
+			return fmt.Errorf("failed to unmarshal EventDetail as AgentBranchEventDetail: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'AgentEventDetail'
+	if jsonDict["type"] == "AgentEventDetail" {
+		// try to unmarshal JSON data into AgentEventDetail
+		err = json.Unmarshal(data, &dst.AgentEventDetail)
+		if err == nil {
+			return nil // data stored in dst.AgentEventDetail, return on the first match
+		} else {
+			dst.AgentEventDetail = nil
+			return fmt.Errorf("failed to unmarshal EventDetail as AgentEventDetail: %s", err.Error())
+		}
+	}
+
 	// check if the discriminator value is 'AgentLocalEventDetail'
 	if jsonDict["type"] == "AgentLocalEventDetail" {
 		// try to unmarshal JSON data into AgentLocalEventDetail
@@ -182,6 +406,18 @@ func (dst *EventDetail) UnmarshalJSON(data []byte) error {
 		}
 	}
 
+	// check if the discriminator value is 'ApplicationEventDetail'
+	if jsonDict["type"] == "ApplicationEventDetail" {
+		// try to unmarshal JSON data into ApplicationEventDetail
+		err = json.Unmarshal(data, &dst.ApplicationEventDetail)
+		if err == nil {
+			return nil // data stored in dst.ApplicationEventDetail, return on the first match
+		} else {
+			dst.ApplicationEventDetail = nil
+			return fmt.Errorf("failed to unmarshal EventDetail as ApplicationEventDetail: %s", err.Error())
+		}
+	}
+
 	// check if the discriminator value is 'DnsEventDetail'
 	if jsonDict["type"] == "DnsEventDetail" {
 		// try to unmarshal JSON data into DnsEventDetail
@@ -191,6 +427,66 @@ func (dst *EventDetail) UnmarshalJSON(data []byte) error {
 		} else {
 			dst.DnsEventDetail = nil
 			return fmt.Errorf("failed to unmarshal EventDetail as DnsEventDetail: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'DnsNameEventDetail'
+	if jsonDict["type"] == "DnsNameEventDetail" {
+		// try to unmarshal JSON data into DnsNameEventDetail
+		err = json.Unmarshal(data, &dst.DnsNameEventDetail)
+		if err == nil {
+			return nil // data stored in dst.DnsNameEventDetail, return on the first match
+		} else {
+			dst.DnsNameEventDetail = nil
+			return fmt.Errorf("failed to unmarshal EventDetail as DnsNameEventDetail: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'DnsServerEventDetail'
+	if jsonDict["type"] == "DnsServerEventDetail" {
+		// try to unmarshal JSON data into DnsServerEventDetail
+		err = json.Unmarshal(data, &dst.DnsServerEventDetail)
+		if err == nil {
+			return nil // data stored in dst.DnsServerEventDetail, return on the first match
+		} else {
+			dst.DnsServerEventDetail = nil
+			return fmt.Errorf("failed to unmarshal EventDetail as DnsServerEventDetail: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'DomainEventDetail'
+	if jsonDict["type"] == "DomainEventDetail" {
+		// try to unmarshal JSON data into DomainEventDetail
+		err = json.Unmarshal(data, &dst.DomainEventDetail)
+		if err == nil {
+			return nil // data stored in dst.DomainEventDetail, return on the first match
+		} else {
+			dst.DomainEventDetail = nil
+			return fmt.Errorf("failed to unmarshal EventDetail as DomainEventDetail: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'GatewayEventDetail'
+	if jsonDict["type"] == "GatewayEventDetail" {
+		// try to unmarshal JSON data into GatewayEventDetail
+		err = json.Unmarshal(data, &dst.GatewayEventDetail)
+		if err == nil {
+			return nil // data stored in dst.GatewayEventDetail, return on the first match
+		} else {
+			dst.GatewayEventDetail = nil
+			return fmt.Errorf("failed to unmarshal EventDetail as GatewayEventDetail: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'NameServerEventDetail'
+	if jsonDict["type"] == "NameServerEventDetail" {
+		// try to unmarshal JSON data into NameServerEventDetail
+		err = json.Unmarshal(data, &dst.NameServerEventDetail)
+		if err == nil {
+			return nil // data stored in dst.NameServerEventDetail, return on the first match
+		} else {
+			dst.NameServerEventDetail = nil
+			return fmt.Errorf("failed to unmarshal EventDetail as NameServerEventDetail: %s", err.Error())
 		}
 	}
 
@@ -254,17 +550,73 @@ func (dst *EventDetail) UnmarshalJSON(data []byte) error {
 		}
 	}
 
+	// check if the discriminator value is 'VpnEventDetail'
+	if jsonDict["type"] == "VpnEventDetail" {
+		// try to unmarshal JSON data into VpnEventDetail
+		err = json.Unmarshal(data, &dst.VpnEventDetail)
+		if err == nil {
+			return nil // data stored in dst.VpnEventDetail, return on the first match
+		} else {
+			dst.VpnEventDetail = nil
+			return fmt.Errorf("failed to unmarshal EventDetail as VpnEventDetail: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'WirelessEventDetail'
+	if jsonDict["type"] == "WirelessEventDetail" {
+		// try to unmarshal JSON data into WirelessEventDetail
+		err = json.Unmarshal(data, &dst.WirelessEventDetail)
+		if err == nil {
+			return nil // data stored in dst.WirelessEventDetail, return on the first match
+		} else {
+			dst.WirelessEventDetail = nil
+			return fmt.Errorf("failed to unmarshal EventDetail as WirelessEventDetail: %s", err.Error())
+		}
+	}
+
 	return nil
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON
 func (src EventDetail) MarshalJSON() ([]byte, error) {
+	if src.AgentBranchEventDetail != nil {
+		return json.Marshal(&src.AgentBranchEventDetail)
+	}
+
+	if src.AgentEventDetail != nil {
+		return json.Marshal(&src.AgentEventDetail)
+	}
+
 	if src.AgentLocalEventDetail != nil {
 		return json.Marshal(&src.AgentLocalEventDetail)
 	}
 
+	if src.ApplicationEventDetail != nil {
+		return json.Marshal(&src.ApplicationEventDetail)
+	}
+
 	if src.DnsEventDetail != nil {
 		return json.Marshal(&src.DnsEventDetail)
+	}
+
+	if src.DnsNameEventDetail != nil {
+		return json.Marshal(&src.DnsNameEventDetail)
+	}
+
+	if src.DnsServerEventDetail != nil {
+		return json.Marshal(&src.DnsServerEventDetail)
+	}
+
+	if src.DomainEventDetail != nil {
+		return json.Marshal(&src.DomainEventDetail)
+	}
+
+	if src.GatewayEventDetail != nil {
+		return json.Marshal(&src.GatewayEventDetail)
+	}
+
+	if src.NameServerEventDetail != nil {
+		return json.Marshal(&src.NameServerEventDetail)
 	}
 
 	if src.NetworkEventDetail != nil {
@@ -287,6 +639,14 @@ func (src EventDetail) MarshalJSON() ([]byte, error) {
 		return json.Marshal(&src.TargetNetworkEventDetail)
 	}
 
+	if src.VpnEventDetail != nil {
+		return json.Marshal(&src.VpnEventDetail)
+	}
+
+	if src.WirelessEventDetail != nil {
+		return json.Marshal(&src.WirelessEventDetail)
+	}
+
 	return nil, nil // no data in oneOf schemas
 }
 
@@ -295,12 +655,44 @@ func (obj *EventDetail) GetActualInstance() (interface{}) {
 	if obj == nil {
 		return nil
 	}
+	if obj.AgentBranchEventDetail != nil {
+		return obj.AgentBranchEventDetail
+	}
+
+	if obj.AgentEventDetail != nil {
+		return obj.AgentEventDetail
+	}
+
 	if obj.AgentLocalEventDetail != nil {
 		return obj.AgentLocalEventDetail
 	}
 
+	if obj.ApplicationEventDetail != nil {
+		return obj.ApplicationEventDetail
+	}
+
 	if obj.DnsEventDetail != nil {
 		return obj.DnsEventDetail
+	}
+
+	if obj.DnsNameEventDetail != nil {
+		return obj.DnsNameEventDetail
+	}
+
+	if obj.DnsServerEventDetail != nil {
+		return obj.DnsServerEventDetail
+	}
+
+	if obj.DomainEventDetail != nil {
+		return obj.DomainEventDetail
+	}
+
+	if obj.GatewayEventDetail != nil {
+		return obj.GatewayEventDetail
+	}
+
+	if obj.NameServerEventDetail != nil {
+		return obj.NameServerEventDetail
 	}
 
 	if obj.NetworkEventDetail != nil {
@@ -321,6 +713,14 @@ func (obj *EventDetail) GetActualInstance() (interface{}) {
 
 	if obj.TargetNetworkEventDetail != nil {
 		return obj.TargetNetworkEventDetail
+	}
+
+	if obj.VpnEventDetail != nil {
+		return obj.VpnEventDetail
+	}
+
+	if obj.WirelessEventDetail != nil {
+		return obj.WirelessEventDetail
 	}
 
 	// all schemas are nil

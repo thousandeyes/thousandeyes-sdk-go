@@ -14,7 +14,7 @@ import (
 	"fmt"
 )
 
-// EventType Specifies the event type in a machine-readable and backwards-compatible format. Allowed values are: `agent-local`, `network-pop`, `network`, `dns`, `target`, and `proxy`.
+// EventType Specifies the event type in a machine-readable and backwards-compatible format, such as `agent` or `target`.
 type EventType string
 
 // List of EventType
@@ -26,6 +26,16 @@ const (
 	EVENTTYPE_TARGET EventType = "target"
 	EVENTTYPE_TARGET_NETWORK EventType = "target-network"
 	EVENTTYPE_PROXY EventType = "proxy"
+	EVENTTYPE_AGENT EventType = "agent"
+	EVENTTYPE_APPLICATION EventType = "application"
+	EVENTTYPE_WIRELESS EventType = "wireless"
+	EVENTTYPE_GATEWAY EventType = "gateway"
+	EVENTTYPE_DNS_SERVER EventType = "dns-server"
+	EVENTTYPE_DNS_NAME EventType = "dns-name"
+	EVENTTYPE_VPN EventType = "vpn"
+	EVENTTYPE_AGENT_BRANCH EventType = "agent-branch"
+	EVENTTYPE_DOMAIN EventType = "domain"
+	EVENTTYPE_NAME_SERVER EventType = "name-server"
 	EVENTTYPE_UNKNOWN EventType = "unknown"
 )
 
@@ -38,6 +48,16 @@ var AllowedEventTypeEnumValues = []EventType{
 	"target",
 	"target-network",
 	"proxy",
+	"agent",
+	"application",
+	"wireless",
+	"gateway",
+	"dns-server",
+	"dns-name",
+	"vpn",
+	"agent-branch",
+	"domain",
+	"name-server",
 	"unknown",
 }
 

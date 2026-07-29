@@ -28,13 +28,14 @@ type TargetEventDetail struct {
 	State *EventState `json:"state,omitempty"`
 	// The start date and time (in UTC, ISO 8601 format) when the event was first detected.
 	StartDate *time.Time `json:"startDate,omitempty"`
-	// The end date and time (in UTC, ISO 8601 format) when the event was resolved (due to timeout). This value is populated for \"ongoing\" events.
+	// The end date and time (in UTC, ISO 8601 format) when the event was resolved (due to timeout). This value is null for \"ongoing\" (active) events and is populated once the event is resolved.
 	EndDate utils.NullableTime `json:"endDate,omitempty"`
 	Severity *EventAlertSeverity `json:"severity,omitempty"`
 	// A unique identifier associated with your account group. You can retrieve your `AccountGroupId` from the `/account-groups` endpoint.
 	Aid *string `json:"aid,omitempty"`
 	// A brief summary describing the cause of the event.
 	Summary *string `json:"summary,omitempty"`
+	AgentType *EventAgentType `json:"agentType,omitempty"`
 	AffectedTests *AffectedTests `json:"affectedTests,omitempty"`
 	AffectedTargets *AffectedTargets `json:"affectedTargets,omitempty"`
 	AffectedAgents *AffectedAgents `json:"affectedAgents,omitempty"`
@@ -332,6 +333,38 @@ func (o *TargetEventDetail) SetSummary(v string) {
 	o.Summary = &v
 }
 
+// GetAgentType returns the AgentType field value if set, zero value otherwise.
+func (o *TargetEventDetail) GetAgentType() EventAgentType {
+	if o == nil || utils.IsNil(o.AgentType) {
+		var ret EventAgentType
+		return ret
+	}
+	return *o.AgentType
+}
+
+// GetAgentTypeOk returns a tuple with the AgentType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TargetEventDetail) GetAgentTypeOk() (*EventAgentType, bool) {
+	if o == nil || utils.IsNil(o.AgentType) {
+		return nil, false
+	}
+	return o.AgentType, true
+}
+
+// HasAgentType returns a boolean if a field has been set.
+func (o *TargetEventDetail) HasAgentType() bool {
+	if o != nil && !utils.IsNil(o.AgentType) {
+		return true
+	}
+
+	return false
+}
+
+// SetAgentType gets a reference to the given EventAgentType and assigns it to the AgentType field.
+func (o *TargetEventDetail) SetAgentType(v EventAgentType) {
+	o.AgentType = &v
+}
+
 // GetAffectedTests returns the AffectedTests field value if set, zero value otherwise.
 func (o *TargetEventDetail) GetAffectedTests() AffectedTests {
 	if o == nil || utils.IsNil(o.AffectedTests) {
@@ -581,6 +614,9 @@ func (o TargetEventDetail) ToMap() (map[string]interface{}, error) {
 	}
 	if !utils.IsNil(o.Summary) {
 		toSerialize["summary"] = o.Summary
+	}
+	if !utils.IsNil(o.AgentType) {
+		toSerialize["agentType"] = o.AgentType
 	}
 	if !utils.IsNil(o.AffectedTests) {
 		toSerialize["affectedTests"] = o.AffectedTests
