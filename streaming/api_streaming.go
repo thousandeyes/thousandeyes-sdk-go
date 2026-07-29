@@ -118,31 +118,23 @@ func (a *StreamingAPIService) CreateStreamExecute(r ApiCreateStreamRequest) (*Cr
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &internalerror.GenericAPIError{
-			Body:  localVarBody,
-			ErrorMessage: localVarHTTPResponse.Status,
-		}
 		if localVarHTTPResponse.StatusCode == 400 {
 			var v BadRequestError
-            a.decodeError(&v, localVarBody, localVarHTTPResponse, newErr)
-            return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
 			var v UnauthorizedError
-            a.decodeError(&v, localVarBody, localVarHTTPResponse, newErr)
-            return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
 		}
 		if localVarHTTPResponse.StatusCode == 412 {
 			var v ApiErrorIntegrationLimits
-            a.decodeError(&v, localVarBody, localVarHTTPResponse, newErr)
-            return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
 			var v ApiError
-            a.decodeError(&v, localVarBody, localVarHTTPResponse, newErr)
-            return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, nil, localVarBody, localVarHTTPResponse)
 	}
 
 	err = a.Client.Decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
@@ -243,21 +235,15 @@ func (a *StreamingAPIService) DeleteStreamExecute(r ApiDeleteStreamRequest) (*ht
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &internalerror.GenericAPIError{
-			Body:  localVarBody,
-			ErrorMessage: localVarHTTPResponse.Status,
-		}
 		if localVarHTTPResponse.StatusCode == 401 {
 			var v UnauthorizedError
-            a.decodeError(&v, localVarBody, localVarHTTPResponse, newErr)
-            return localVarHTTPResponse, newErr
+			return localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
 			var v ApiError
-            a.decodeError(&v, localVarBody, localVarHTTPResponse, newErr)
-            return localVarHTTPResponse, newErr
+			return localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
 		}
-		return localVarHTTPResponse, newErr
+		return localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, nil, localVarBody, localVarHTTPResponse)
 	}
 
 	return localVarHTTPResponse, nil
@@ -361,21 +347,15 @@ func (a *StreamingAPIService) GetStreamExecute(r ApiGetStreamRequest) (*GetStrea
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &internalerror.GenericAPIError{
-			Body:  localVarBody,
-			ErrorMessage: localVarHTTPResponse.Status,
-		}
 		if localVarHTTPResponse.StatusCode == 401 {
 			var v UnauthorizedError
-            a.decodeError(&v, localVarBody, localVarHTTPResponse, newErr)
-            return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
 			var v ApiError
-            a.decodeError(&v, localVarBody, localVarHTTPResponse, newErr)
-            return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, nil, localVarBody, localVarHTTPResponse)
 	}
 
 	err = a.Client.Decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
@@ -485,26 +465,19 @@ func (a *StreamingAPIService) GetStreamsExecute(r ApiGetStreamsRequest) ([]GetSt
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &internalerror.GenericAPIError{
-			Body:  localVarBody,
-			ErrorMessage: localVarHTTPResponse.Status,
-		}
 		if localVarHTTPResponse.StatusCode == 400 {
 			var v BadRequestError
-            a.decodeError(&v, localVarBody, localVarHTTPResponse, newErr)
-            return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
 			var v UnauthorizedError
-            a.decodeError(&v, localVarBody, localVarHTTPResponse, newErr)
-            return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
 			var v ApiError
-            a.decodeError(&v, localVarBody, localVarHTTPResponse, newErr)
-            return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, nil, localVarBody, localVarHTTPResponse)
 	}
 
 	err = a.Client.Decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
@@ -615,26 +588,19 @@ func (a *StreamingAPIService) UpdateStreamExecute(r ApiUpdateStreamRequest) (*Ge
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &internalerror.GenericAPIError{
-			Body:  localVarBody,
-			ErrorMessage: localVarHTTPResponse.Status,
-		}
 		if localVarHTTPResponse.StatusCode == 400 {
 			var v BadRequestError
-            a.decodeError(&v, localVarBody, localVarHTTPResponse, newErr)
-            return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
 			var v UnauthorizedError
-            a.decodeError(&v, localVarBody, localVarHTTPResponse, newErr)
-            return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
 			var v ApiError
-            a.decodeError(&v, localVarBody, localVarHTTPResponse, newErr)
-            return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, nil, localVarBody, localVarHTTPResponse)
 	}
 
 	err = a.Client.Decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
@@ -647,14 +613,4 @@ func (a *StreamingAPIService) UpdateStreamExecute(r ApiUpdateStreamRequest) (*Ge
 	}
 
 	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-func (a *StreamingAPIService) decodeError(v interface{}, localVarBody []byte, localVarHTTPResponse *http.Response, newErr *internalerror.GenericAPIError) {
-    err := a.Client.Decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-    if err != nil {
-        newErr.ErrorMessage = err.Error()
-        return
-    }
-    newErr.ErrorMessage = internalerror.FormatErrorMessage(localVarHTTPResponse.Status, string(localVarBody), &v)
-    newErr.Model = v
 }

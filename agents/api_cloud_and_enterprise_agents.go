@@ -115,41 +115,31 @@ func (a *CloudAndEnterpriseAgentsAPIService) DeleteAgentExecute(r ApiDeleteAgent
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &internalerror.GenericAPIError{
-			Body:  localVarBody,
-			ErrorMessage: localVarHTTPResponse.Status,
-		}
 		if localVarHTTPResponse.StatusCode == 401 {
 			var v UnauthorizedError
-            a.decodeError(&v, localVarBody, localVarHTTPResponse, newErr)
-            return localVarHTTPResponse, newErr
+			return localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
 			var v Error
-            a.decodeError(&v, localVarBody, localVarHTTPResponse, newErr)
-            return localVarHTTPResponse, newErr
+			return localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
 			var v Error
-            a.decodeError(&v, localVarBody, localVarHTTPResponse, newErr)
-            return localVarHTTPResponse, newErr
+			return localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
 			var v Error
-            a.decodeError(&v, localVarBody, localVarHTTPResponse, newErr)
-            return localVarHTTPResponse, newErr
+			return localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
 			var v Error
-            a.decodeError(&v, localVarBody, localVarHTTPResponse, newErr)
-            return localVarHTTPResponse, newErr
+			return localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
 		}
 		if localVarHTTPResponse.StatusCode == 502 {
 			var v Error
-            a.decodeError(&v, localVarBody, localVarHTTPResponse, newErr)
-            return localVarHTTPResponse, newErr
+			return localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
 		}
-		return localVarHTTPResponse, newErr
+		return localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, nil, localVarBody, localVarHTTPResponse)
 	}
 
 	return localVarHTTPResponse, nil
@@ -256,41 +246,31 @@ func (a *CloudAndEnterpriseAgentsAPIService) GetAgentExecute(r ApiGetAgentReques
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &internalerror.GenericAPIError{
-			Body:  localVarBody,
-			ErrorMessage: localVarHTTPResponse.Status,
-		}
 		if localVarHTTPResponse.StatusCode == 401 {
 			var v UnauthorizedError
-            a.decodeError(&v, localVarBody, localVarHTTPResponse, newErr)
-            return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
 			var v Error
-            a.decodeError(&v, localVarBody, localVarHTTPResponse, newErr)
-            return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
 			var v Error
-            a.decodeError(&v, localVarBody, localVarHTTPResponse, newErr)
-            return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
 			var v Error
-            a.decodeError(&v, localVarBody, localVarHTTPResponse, newErr)
-            return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
 			var v Error
-            a.decodeError(&v, localVarBody, localVarHTTPResponse, newErr)
-            return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
 		}
 		if localVarHTTPResponse.StatusCode == 502 {
 			var v Error
-            a.decodeError(&v, localVarBody, localVarHTTPResponse, newErr)
-            return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, nil, localVarBody, localVarHTTPResponse)
 	}
 
 	err = a.Client.Decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
@@ -433,41 +413,31 @@ func (a *CloudAndEnterpriseAgentsAPIService) GetAgentsExecute(r ApiGetAgentsRequ
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &internalerror.GenericAPIError{
-			Body:  localVarBody,
-			ErrorMessage: localVarHTTPResponse.Status,
-		}
 		if localVarHTTPResponse.StatusCode == 401 {
 			var v UnauthorizedError
-            a.decodeError(&v, localVarBody, localVarHTTPResponse, newErr)
-            return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
 			var v Error
-            a.decodeError(&v, localVarBody, localVarHTTPResponse, newErr)
-            return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
 			var v Error
-            a.decodeError(&v, localVarBody, localVarHTTPResponse, newErr)
-            return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
 			var v Error
-            a.decodeError(&v, localVarBody, localVarHTTPResponse, newErr)
-            return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
 			var v Error
-            a.decodeError(&v, localVarBody, localVarHTTPResponse, newErr)
-            return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
 		}
 		if localVarHTTPResponse.StatusCode == 502 {
 			var v Error
-            a.decodeError(&v, localVarBody, localVarHTTPResponse, newErr)
-            return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, nil, localVarBody, localVarHTTPResponse)
 	}
 
 	err = a.Client.Decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
@@ -606,46 +576,35 @@ func (a *CloudAndEnterpriseAgentsAPIService) UpdateAgentExecute(r ApiUpdateAgent
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &internalerror.GenericAPIError{
-			Body:  localVarBody,
-			ErrorMessage: localVarHTTPResponse.Status,
-		}
 		if localVarHTTPResponse.StatusCode == 400 {
 			var v ValidationError
-            a.decodeError(&v, localVarBody, localVarHTTPResponse, newErr)
-            return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
 			var v UnauthorizedError
-            a.decodeError(&v, localVarBody, localVarHTTPResponse, newErr)
-            return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
 			var v Error
-            a.decodeError(&v, localVarBody, localVarHTTPResponse, newErr)
-            return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
 			var v Error
-            a.decodeError(&v, localVarBody, localVarHTTPResponse, newErr)
-            return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
 			var v Error
-            a.decodeError(&v, localVarBody, localVarHTTPResponse, newErr)
-            return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
 			var v Error
-            a.decodeError(&v, localVarBody, localVarHTTPResponse, newErr)
-            return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
 		}
 		if localVarHTTPResponse.StatusCode == 502 {
 			var v Error
-            a.decodeError(&v, localVarBody, localVarHTTPResponse, newErr)
-            return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, nil, localVarBody, localVarHTTPResponse)
 	}
 
 	err = a.Client.Decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
@@ -658,14 +617,4 @@ func (a *CloudAndEnterpriseAgentsAPIService) UpdateAgentExecute(r ApiUpdateAgent
 	}
 
 	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-func (a *CloudAndEnterpriseAgentsAPIService) decodeError(v interface{}, localVarBody []byte, localVarHTTPResponse *http.Response, newErr *internalerror.GenericAPIError) {
-    err := a.Client.Decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-    if err != nil {
-        newErr.ErrorMessage = err.Error()
-        return
-    }
-    newErr.ErrorMessage = internalerror.FormatErrorMessage(localVarHTTPResponse.Status, string(localVarBody), &v)
-    newErr.Model = v
 }
