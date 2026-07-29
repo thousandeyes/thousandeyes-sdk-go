@@ -1,7 +1,9 @@
 .openapi-generator-ignore
 README.md
 api_quotas.go
+api_quotas_test.go
 api_usage.go
+api_usage_test.go
 docs/QuotasAPI.md
 docs/UsageAPI.md
 model_account_group_quota.go

@@ -1,6 +1,7 @@
 .openapi-generator-ignore
 README.md
 api_events.go
+api_events_test.go
 docs/EventsAPI.md
 model_affected_agents.go
 model_affected_count.go

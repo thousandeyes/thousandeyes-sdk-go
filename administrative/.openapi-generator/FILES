@@ -1,10 +1,15 @@
 .openapi-generator-ignore
 README.md
 api_account_groups.go
+api_account_groups_test.go
 api_permissions.go
+api_permissions_test.go
 api_roles.go
+api_roles_test.go
 api_user_events.go
+api_user_events_test.go
 api_users.go
+api_users_test.go
 docs/AccountGroupsAPI.md
 docs/PermissionsAPI.md
 docs/RolesAPI.md

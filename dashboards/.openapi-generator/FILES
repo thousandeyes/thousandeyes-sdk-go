@@ -1,8 +1,11 @@
 .openapi-generator-ignore
 README.md
 api_dashboard_snapshots.go
+api_dashboard_snapshots_test.go
 api_dashboards.go
 api_dashboards_filters.go
+api_dashboards_filters_test.go
+api_dashboards_test.go
 docs/DashboardSnapshotsAPI.md
 docs/DashboardsAPI.md
 docs/DashboardsFiltersAPI.md

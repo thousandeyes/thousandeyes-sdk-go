@@ -1,11 +1,17 @@
 .openapi-generator-ignore
 README.md
 api_agent_proxies.go
+api_agent_proxies_test.go
 api_cloud_and_enterprise_agent_notification_rules.go
+api_cloud_and_enterprise_agent_notification_rules_test.go
 api_cloud_and_enterprise_agents.go
+api_cloud_and_enterprise_agents_test.go
 api_enterprise_agent_cluster.go
+api_enterprise_agent_cluster_test.go
 api_local_problems.go
+api_local_problems_test.go
 api_tests_assignment_on_agents.go
+api_tests_assignment_on_agents_test.go
 docs/AgentProxiesAPI.md
 docs/CloudAndEnterpriseAgentNotificationRulesAPI.md
 docs/CloudAndEnterpriseAgentsAPI.md
