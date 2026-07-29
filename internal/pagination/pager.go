@@ -10,13 +10,12 @@ import (
 	"net/url"
 )
 
-// ErrInvalidContinuation indicates that a next link has no single, non-empty cursor.
-var ErrInvalidContinuation = errors.New("pagination: next link must contain exactly one non-empty cursor")
+var (
+	errInvalidContinuation  = errors.New("pagination: next link must contain exactly one non-empty cursor")
+	errRepeatedContinuation = errors.New("pagination: next link repeated a cursor")
+)
 
-// ErrRepeatedContinuation indicates that a next link repeats a cursor already used by the pager.
-var ErrRepeatedContinuation = errors.New("pagination: next link repeated a cursor")
-
-// Pager fetches complete response pages on demand.
+// Pager fetches response pages lazily.
 type Pager[T any] struct {
 	cursor      *string
 	seenCursors map[string]struct{}
@@ -25,7 +24,7 @@ type Pager[T any] struct {
 	complete    bool
 }
 
-// NewPager creates a lazy page iterator.
+// NewPager creates a Pager.
 func NewPager[T any](
 	initialCursor *string,
 	fetch func(context.Context, *string) (*T, *http.Response, error),
@@ -47,9 +46,7 @@ func NewPager[T any](
 	}
 }
 
-// All returns a single-use sequence that lazily yields items from pager.
-// The context is passed to each page request. A pagination error is yielded
-// once before the sequence stops.
+// All returns a lazy, single-use item sequence.
 func All[Page, Item any](
 	ctx context.Context,
 	pager *Pager[Page],
@@ -72,12 +69,12 @@ func All[Page, Item any](
 	}
 }
 
-// HasMorePages reports whether NextPage may fetch another page.
+// HasMorePages reports whether another page may be fetched.
 func (p *Pager[T]) HasMorePages() bool {
 	return !p.complete
 }
 
-// NextPage fetches one page or returns io.EOF after the final page.
+// NextPage fetches the next response page.
 func (p *Pager[T]) NextPage(ctx context.Context) (*T, *http.Response, error) {
 	if p.complete {
 		return nil, nil, io.EOF
@@ -99,7 +96,7 @@ func (p *Pager[T]) NextPage(ctx context.Context) (*T, *http.Response, error) {
 		return page, response, err
 	}
 	if _, repeated := p.seenCursors[cursor]; repeated {
-		return page, response, ErrRepeatedContinuation
+		return page, response, errRepeatedContinuation
 	}
 	p.seenCursors[cursor] = struct{}{}
 	p.cursor = &cursor
@@ -109,15 +106,15 @@ func (p *Pager[T]) NextPage(ctx context.Context) (*T, *http.Response, error) {
 func cursorFromHref(href string) (string, error) {
 	parsed, err := url.Parse(href)
 	if err != nil {
-		return "", fmt.Errorf("%w: %v", ErrInvalidContinuation, err)
+		return "", fmt.Errorf("%w: %v", errInvalidContinuation, err)
 	}
 	query, err := url.ParseQuery(parsed.RawQuery)
 	if err != nil {
-		return "", fmt.Errorf("%w: %v", ErrInvalidContinuation, err)
+		return "", fmt.Errorf("%w: %v", errInvalidContinuation, err)
 	}
 	cursors := query["cursor"]
 	if len(cursors) != 1 || cursors[0] == "" {
-		return "", ErrInvalidContinuation
+		return "", errInvalidContinuation
 	}
 	return cursors[0], nil
 }

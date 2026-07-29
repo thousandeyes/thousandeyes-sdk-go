@@ -297,8 +297,8 @@ func TestPagerRejectsInvalidContinuation(t *testing.T) {
 				func(page *testPage) (string, bool) { return page.nextHref, true },
 			)
 
-			if _, _, err := pager.NextPage(context.Background()); !errors.Is(err, ErrInvalidContinuation) {
-				t.Fatalf("NextPage error = %v, want ErrInvalidContinuation", err)
+			if _, _, err := pager.NextPage(context.Background()); !errors.Is(err, errInvalidContinuation) {
+				t.Fatalf("NextPage error = %v, want errInvalidContinuation", err)
 			}
 		})
 	}
@@ -324,8 +324,8 @@ func TestPagerRejectsRepeatedContinuation(t *testing.T) {
 	if _, _, err := pager.NextPage(context.Background()); err != nil {
 		t.Fatalf("first NextPage error = %v", err)
 	}
-	if _, _, err := pager.NextPage(context.Background()); !errors.Is(err, ErrRepeatedContinuation) {
-		t.Fatalf("second NextPage error = %v, want ErrRepeatedContinuation", err)
+	if _, _, err := pager.NextPage(context.Background()); !errors.Is(err, errRepeatedContinuation) {
+		t.Fatalf("second NextPage error = %v, want errRepeatedContinuation", err)
 	}
 
 	wantCursors := []string{"first", "second"}
