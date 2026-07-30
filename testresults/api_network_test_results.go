@@ -11,10 +11,13 @@ package testresults
 
 import (
 	"bytes"
+	"context"
 	"github.com/thousandeyes/thousandeyes-sdk-go/v3/client"
 	internalerror "github.com/thousandeyes/thousandeyes-sdk-go/v3/internal/error"
 	"github.com/thousandeyes/thousandeyes-sdk-go/v3/internal/request"
+	"github.com/thousandeyes/thousandeyes-sdk-go/v3/internal/pagination"
 	"io"
+	"iter"
 	"net/http"
 	"net/url"
 	"strings"
@@ -35,6 +38,7 @@ type ApiGetTestNetworkResultsRequest struct {
 	endDate *time.Time
 	cursor *string
 	direction *TestDirection
+	ctx context.Context
 }
 
 // A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response.
@@ -75,6 +79,46 @@ func (r ApiGetTestNetworkResultsRequest) Direction(direction TestDirection) ApiG
 
 func (r ApiGetTestNetworkResultsRequest) Execute() (*NetworkTestResults, *http.Response, error) {
 	return r.ApiService.GetTestNetworkResultsExecute(r)
+}
+
+func (r ApiGetTestNetworkResultsRequest) ExecuteContext(ctx context.Context) (*NetworkTestResults, *http.Response, error) {
+	r.ctx = ctx
+	return r.Execute()
+}
+
+func (r ApiGetTestNetworkResultsRequest) Paginated() *pagination.Pager[NetworkTestResults] {
+	return pagination.NewPager(
+		r.cursor,
+		func(ctx context.Context, cursor *string) (*NetworkTestResults, *http.Response, error) {
+			pageRequest := r
+			if cursor != nil {
+				pageRequest = pageRequest.Cursor(*cursor)
+			}
+			return pageRequest.ExecuteContext(ctx)
+		},
+		func(page *NetworkTestResults) (string, bool) {
+			if page == nil {
+				return "", false
+			}
+			links, ok := page.GetLinksOk()
+			if !ok {
+				return "", false
+			}
+			next, ok := links.GetNextOk()
+			if !ok {
+				return "", false
+			}
+			href, ok := next.GetHrefOk()
+			if !ok {
+				return "", true
+			}
+			return *href, true
+		},
+	)
+}
+
+func (r ApiGetTestNetworkResultsRequest) All(ctx context.Context) iter.Seq2[NetworkTestResult, error] {
+	return pagination.All(ctx, r.Paginated(), (*NetworkTestResults).GetResults)
 }
 
 /*
@@ -154,6 +198,9 @@ func (a *NetworkTestResultsAPIService) GetTestNetworkResultsExecute(r ApiGetTest
 		return localVarReturnValue, nil, err
 	}
 
+	if r.ctx != nil {
+		req = req.WithContext(r.ctx)
+	}
 	localVarHTTPResponse, err := a.Client.CallAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err
@@ -370,6 +417,7 @@ type ApiGetTestPathVisResultsRequest struct {
 	endDate *time.Time
 	cursor *string
 	direction *PathVisDirection
+	ctx context.Context
 }
 
 // A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response.
@@ -410,6 +458,46 @@ func (r ApiGetTestPathVisResultsRequest) Direction(direction PathVisDirection) A
 
 func (r ApiGetTestPathVisResultsRequest) Execute() (*PathVisTestResults, *http.Response, error) {
 	return r.ApiService.GetTestPathVisResultsExecute(r)
+}
+
+func (r ApiGetTestPathVisResultsRequest) ExecuteContext(ctx context.Context) (*PathVisTestResults, *http.Response, error) {
+	r.ctx = ctx
+	return r.Execute()
+}
+
+func (r ApiGetTestPathVisResultsRequest) Paginated() *pagination.Pager[PathVisTestResults] {
+	return pagination.NewPager(
+		r.cursor,
+		func(ctx context.Context, cursor *string) (*PathVisTestResults, *http.Response, error) {
+			pageRequest := r
+			if cursor != nil {
+				pageRequest = pageRequest.Cursor(*cursor)
+			}
+			return pageRequest.ExecuteContext(ctx)
+		},
+		func(page *PathVisTestResults) (string, bool) {
+			if page == nil {
+				return "", false
+			}
+			links, ok := page.GetLinksOk()
+			if !ok {
+				return "", false
+			}
+			next, ok := links.GetNextOk()
+			if !ok {
+				return "", false
+			}
+			href, ok := next.GetHrefOk()
+			if !ok {
+				return "", true
+			}
+			return *href, true
+		},
+	)
+}
+
+func (r ApiGetTestPathVisResultsRequest) All(ctx context.Context) iter.Seq2[PathVisTestResult, error] {
+	return pagination.All(ctx, r.Paginated(), (*PathVisTestResults).GetResults)
 }
 
 /*
@@ -488,6 +576,9 @@ func (a *NetworkTestResultsAPIService) GetTestPathVisResultsExecute(r ApiGetTest
 		return localVarReturnValue, nil, err
 	}
 
+	if r.ctx != nil {
+		req = req.WithContext(r.ctx)
+	}
 	localVarHTTPResponse, err := a.Client.CallAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err

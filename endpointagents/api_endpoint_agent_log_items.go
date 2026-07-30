@@ -11,10 +11,13 @@ package endpointagents
 
 import (
 	"bytes"
+	"context"
 	"github.com/thousandeyes/thousandeyes-sdk-go/v3/client"
 	internalerror "github.com/thousandeyes/thousandeyes-sdk-go/v3/internal/error"
 	"github.com/thousandeyes/thousandeyes-sdk-go/v3/internal/request"
+	"github.com/thousandeyes/thousandeyes-sdk-go/v3/internal/pagination"
 	"io"
+	"iter"
 	"net/http"
 	"net/url"
 	"strings"
@@ -35,6 +38,7 @@ type ApiGetEndpointAgentLogItemsRequest struct {
 	window *string
 	startDate *time.Time
 	endDate *time.Time
+	ctx context.Context
 }
 
 // A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response.
@@ -75,6 +79,46 @@ func (r ApiGetEndpointAgentLogItemsRequest) EndDate(endDate time.Time) ApiGetEnd
 
 func (r ApiGetEndpointAgentLogItemsRequest) Execute() (*EndpointAgentLogItemsResponse, *http.Response, error) {
 	return r.ApiService.GetEndpointAgentLogItemsExecute(r)
+}
+
+func (r ApiGetEndpointAgentLogItemsRequest) ExecuteContext(ctx context.Context) (*EndpointAgentLogItemsResponse, *http.Response, error) {
+	r.ctx = ctx
+	return r.Execute()
+}
+
+func (r ApiGetEndpointAgentLogItemsRequest) Paginated() *pagination.Pager[EndpointAgentLogItemsResponse] {
+	return pagination.NewPager(
+		r.cursor,
+		func(ctx context.Context, cursor *string) (*EndpointAgentLogItemsResponse, *http.Response, error) {
+			pageRequest := r
+			if cursor != nil {
+				pageRequest = pageRequest.Cursor(*cursor)
+			}
+			return pageRequest.ExecuteContext(ctx)
+		},
+		func(page *EndpointAgentLogItemsResponse) (string, bool) {
+			if page == nil {
+				return "", false
+			}
+			links, ok := page.GetLinksOk()
+			if !ok {
+				return "", false
+			}
+			next, ok := links.GetNextOk()
+			if !ok {
+				return "", false
+			}
+			href, ok := next.GetHrefOk()
+			if !ok {
+				return "", true
+			}
+			return *href, true
+		},
+	)
+}
+
+func (r ApiGetEndpointAgentLogItemsRequest) All(ctx context.Context) iter.Seq2[EndpointAgentLogItem, error] {
+	return pagination.All(ctx, r.Paginated(), (*EndpointAgentLogItemsResponse).GetLogs)
 }
 
 /*
@@ -153,6 +197,9 @@ func (a *EndpointAgentLogItemsAPIService) GetEndpointAgentLogItemsExecute(r ApiG
 		return localVarReturnValue, nil, err
 	}
 
+	if r.ctx != nil {
+		req = req.WithContext(r.ctx)
+	}
 	localVarHTTPResponse, err := a.Client.CallAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err

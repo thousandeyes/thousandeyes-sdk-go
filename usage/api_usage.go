@@ -11,10 +11,13 @@ package usage
 
 import (
 	"bytes"
+	"context"
 	"github.com/thousandeyes/thousandeyes-sdk-go/v3/client"
 	internalerror "github.com/thousandeyes/thousandeyes-sdk-go/v3/internal/error"
 	"github.com/thousandeyes/thousandeyes-sdk-go/v3/internal/request"
+	"github.com/thousandeyes/thousandeyes-sdk-go/v3/internal/pagination"
 	"io"
+	"iter"
 	"net/http"
 	"net/url"
 	"time"
@@ -30,6 +33,7 @@ type ApiGetEnterpriseAgentsUnitsUsageRequest struct {
 	startDate *time.Time
 	endDate *time.Time
 	cursor *string
+	ctx context.Context
 }
 
 // Use with the &#x60;endDate&#x60; parameter. Include the complete time (hours, minutes, and seconds) in UTC time zone, following the ISO 8601 date-time format. See the example for reference. Please note that this parameter can&#39;t be used with &#x60;window&#x60;.
@@ -52,6 +56,46 @@ func (r ApiGetEnterpriseAgentsUnitsUsageRequest) Cursor(cursor string) ApiGetEnt
 
 func (r ApiGetEnterpriseAgentsUnitsUsageRequest) Execute() (*EnterpriseAgentsUsage, *http.Response, error) {
 	return r.ApiService.GetEnterpriseAgentsUnitsUsageExecute(r)
+}
+
+func (r ApiGetEnterpriseAgentsUnitsUsageRequest) ExecuteContext(ctx context.Context) (*EnterpriseAgentsUsage, *http.Response, error) {
+	r.ctx = ctx
+	return r.Execute()
+}
+
+func (r ApiGetEnterpriseAgentsUnitsUsageRequest) Paginated() *pagination.Pager[EnterpriseAgentsUsage] {
+	return pagination.NewPager(
+		r.cursor,
+		func(ctx context.Context, cursor *string) (*EnterpriseAgentsUsage, *http.Response, error) {
+			pageRequest := r
+			if cursor != nil {
+				pageRequest = pageRequest.Cursor(*cursor)
+			}
+			return pageRequest.ExecuteContext(ctx)
+		},
+		func(page *EnterpriseAgentsUsage) (string, bool) {
+			if page == nil {
+				return "", false
+			}
+			links, ok := page.GetLinksOk()
+			if !ok {
+				return "", false
+			}
+			next, ok := links.GetNextOk()
+			if !ok {
+				return "", false
+			}
+			href, ok := next.GetHrefOk()
+			if !ok {
+				return "", true
+			}
+			return *href, true
+		},
+	)
+}
+
+func (r ApiGetEnterpriseAgentsUnitsUsageRequest) All(ctx context.Context) iter.Seq2[EnterpriseAgentUnitsByTestOwnerAccountGroup, error] {
+	return pagination.All(ctx, r.Paginated(), (*EnterpriseAgentsUsage).GetBreakdowns)
 }
 
 /*
@@ -117,6 +161,9 @@ func (a *UsageAPIService) GetEnterpriseAgentsUnitsUsageExecute(r ApiGetEnterpris
 		return localVarReturnValue, nil, err
 	}
 
+	if r.ctx != nil {
+		req = req.WithContext(r.ctx)
+	}
 	localVarHTTPResponse, err := a.Client.CallAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err
@@ -176,6 +223,7 @@ type ApiGetTestsUnitsUsageRequest struct {
 	startDate *time.Time
 	endDate *time.Time
 	cursor *string
+	ctx context.Context
 }
 
 // A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response.
@@ -204,6 +252,46 @@ func (r ApiGetTestsUnitsUsageRequest) Cursor(cursor string) ApiGetTestsUnitsUsag
 
 func (r ApiGetTestsUnitsUsageRequest) Execute() (*TestsUsage, *http.Response, error) {
 	return r.ApiService.GetTestsUnitsUsageExecute(r)
+}
+
+func (r ApiGetTestsUnitsUsageRequest) ExecuteContext(ctx context.Context) (*TestsUsage, *http.Response, error) {
+	r.ctx = ctx
+	return r.Execute()
+}
+
+func (r ApiGetTestsUnitsUsageRequest) Paginated() *pagination.Pager[TestsUsage] {
+	return pagination.NewPager(
+		r.cursor,
+		func(ctx context.Context, cursor *string) (*TestsUsage, *http.Response, error) {
+			pageRequest := r
+			if cursor != nil {
+				pageRequest = pageRequest.Cursor(*cursor)
+			}
+			return pageRequest.ExecuteContext(ctx)
+		},
+		func(page *TestsUsage) (string, bool) {
+			if page == nil {
+				return "", false
+			}
+			links, ok := page.GetLinksOk()
+			if !ok {
+				return "", false
+			}
+			next, ok := links.GetNextOk()
+			if !ok {
+				return "", false
+			}
+			href, ok := next.GetHrefOk()
+			if !ok {
+				return "", true
+			}
+			return *href, true
+		},
+	)
+}
+
+func (r ApiGetTestsUnitsUsageRequest) All(ctx context.Context) iter.Seq2[UnitsByTests, error] {
+	return pagination.All(ctx, r.Paginated(), (*TestsUsage).GetBreakdowns)
 }
 
 /*
@@ -272,6 +360,9 @@ func (a *UsageAPIService) GetTestsUnitsUsageExecute(r ApiGetTestsUnitsUsageReque
 		return localVarReturnValue, nil, err
 	}
 
+	if r.ctx != nil {
+		req = req.WithContext(r.ctx)
+	}
 	localVarHTTPResponse, err := a.Client.CallAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err

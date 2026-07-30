@@ -11,10 +11,13 @@ package endpointagents
 
 import (
 	"bytes"
+	"context"
 	"github.com/thousandeyes/thousandeyes-sdk-go/v3/client"
 	internalerror "github.com/thousandeyes/thousandeyes-sdk-go/v3/internal/error"
 	"github.com/thousandeyes/thousandeyes-sdk-go/v3/internal/request"
+	"github.com/thousandeyes/thousandeyes-sdk-go/v3/internal/pagination"
 	"io"
+	"iter"
 	"net/http"
 	"net/url"
 	"strings"
@@ -390,6 +393,7 @@ type ApiFilterEndpointAgentsRequest struct {
 	aid *string
 	expand *[]ExpandEndpointAgentOptions
 	includeDeleted *bool
+	ctx context.Context
 }
 
 // The filter options for advanced search filtering for agents.
@@ -430,6 +434,46 @@ func (r ApiFilterEndpointAgentsRequest) IncludeDeleted(includeDeleted bool) ApiF
 
 func (r ApiFilterEndpointAgentsRequest) Execute() (*FilterEndpointAgentsResponse, *http.Response, error) {
 	return r.ApiService.FilterEndpointAgentsExecute(r)
+}
+
+func (r ApiFilterEndpointAgentsRequest) ExecuteContext(ctx context.Context) (*FilterEndpointAgentsResponse, *http.Response, error) {
+	r.ctx = ctx
+	return r.Execute()
+}
+
+func (r ApiFilterEndpointAgentsRequest) Paginated() *pagination.Pager[FilterEndpointAgentsResponse] {
+	return pagination.NewPager(
+		r.cursor,
+		func(ctx context.Context, cursor *string) (*FilterEndpointAgentsResponse, *http.Response, error) {
+			pageRequest := r
+			if cursor != nil {
+				pageRequest = pageRequest.Cursor(*cursor)
+			}
+			return pageRequest.ExecuteContext(ctx)
+		},
+		func(page *FilterEndpointAgentsResponse) (string, bool) {
+			if page == nil {
+				return "", false
+			}
+			links, ok := page.GetLinksOk()
+			if !ok {
+				return "", false
+			}
+			next, ok := links.GetNextOk()
+			if !ok {
+				return "", false
+			}
+			href, ok := next.GetHrefOk()
+			if !ok {
+				return "", true
+			}
+			return *href, true
+		},
+	)
+}
+
+func (r ApiFilterEndpointAgentsRequest) All(ctx context.Context) iter.Seq2[EndpointAgent, error] {
+	return pagination.All(ctx, r.Paginated(), (*FilterEndpointAgentsResponse).GetAgents)
 }
 
 /*
@@ -508,6 +552,9 @@ func (a *EndpointAgentsAPIService) FilterEndpointAgentsExecute(r ApiFilterEndpoi
 		return localVarReturnValue, nil, err
 	}
 
+	if r.ctx != nil {
+		req = req.WithContext(r.ctx)
+	}
 	localVarHTTPResponse, err := a.Client.CallAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err
@@ -702,6 +749,7 @@ type ApiGetEndpointAgentsRequest struct {
 	useAllPermittedAids *bool
 	agentName *string
 	computerName *string
+	ctx context.Context
 }
 
 // (Optional) Maximum number of objects to return.
@@ -754,6 +802,46 @@ func (r ApiGetEndpointAgentsRequest) ComputerName(computerName string) ApiGetEnd
 
 func (r ApiGetEndpointAgentsRequest) Execute() (*ListEndpointAgentsResponse, *http.Response, error) {
 	return r.ApiService.GetEndpointAgentsExecute(r)
+}
+
+func (r ApiGetEndpointAgentsRequest) ExecuteContext(ctx context.Context) (*ListEndpointAgentsResponse, *http.Response, error) {
+	r.ctx = ctx
+	return r.Execute()
+}
+
+func (r ApiGetEndpointAgentsRequest) Paginated() *pagination.Pager[ListEndpointAgentsResponse] {
+	return pagination.NewPager(
+		r.cursor,
+		func(ctx context.Context, cursor *string) (*ListEndpointAgentsResponse, *http.Response, error) {
+			pageRequest := r
+			if cursor != nil {
+				pageRequest = pageRequest.Cursor(*cursor)
+			}
+			return pageRequest.ExecuteContext(ctx)
+		},
+		func(page *ListEndpointAgentsResponse) (string, bool) {
+			if page == nil {
+				return "", false
+			}
+			links, ok := page.GetLinksOk()
+			if !ok {
+				return "", false
+			}
+			next, ok := links.GetNextOk()
+			if !ok {
+				return "", false
+			}
+			href, ok := next.GetHrefOk()
+			if !ok {
+				return "", true
+			}
+			return *href, true
+		},
+	)
+}
+
+func (r ApiGetEndpointAgentsRequest) All(ctx context.Context) iter.Seq2[EndpointAgent, error] {
+	return pagination.All(ctx, r.Paginated(), (*ListEndpointAgentsResponse).GetAgents)
 }
 
 /*
@@ -839,6 +927,9 @@ func (a *EndpointAgentsAPIService) GetEndpointAgentsExecute(r ApiGetEndpointAgen
 		return localVarReturnValue, nil, err
 	}
 
+	if r.ctx != nil {
+		req = req.WithContext(r.ctx)
+	}
 	localVarHTTPResponse, err := a.Client.CallAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err
