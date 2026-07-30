@@ -11,10 +11,13 @@ package endpointtestresults
 
 import (
 	"bytes"
+	"context"
 	"github.com/thousandeyes/thousandeyes-sdk-go/v3/client"
 	internalerror "github.com/thousandeyes/thousandeyes-sdk-go/v3/internal/error"
 	"github.com/thousandeyes/thousandeyes-sdk-go/v3/internal/request"
+	"github.com/thousandeyes/thousandeyes-sdk-go/v3/internal/pagination"
 	"io"
+	"iter"
 	"net/http"
 	"net/url"
 	"strings"
@@ -36,6 +39,7 @@ type ApiFilterDynamicTestNetworkResultsRequest struct {
 	cursor *string
 	expand *[]ExpandEndpointDynamicNetworkOptions
 	dynamicEndpointTestsDataRoundSearch *DynamicEndpointTestsDataRoundSearch
+	ctx context.Context
 }
 
 // A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response.
@@ -82,6 +86,46 @@ func (r ApiFilterDynamicTestNetworkResultsRequest) DynamicEndpointTestsDataRound
 
 func (r ApiFilterDynamicTestNetworkResultsRequest) Execute() (*NetworkDynamicEndpointTestResults, *http.Response, error) {
 	return r.ApiService.FilterDynamicTestNetworkResultsExecute(r)
+}
+
+func (r ApiFilterDynamicTestNetworkResultsRequest) ExecuteContext(ctx context.Context) (*NetworkDynamicEndpointTestResults, *http.Response, error) {
+	r.ctx = ctx
+	return r.Execute()
+}
+
+func (r ApiFilterDynamicTestNetworkResultsRequest) Paginated() *pagination.Pager[NetworkDynamicEndpointTestResults] {
+	return pagination.NewPager(
+		r.cursor,
+		func(ctx context.Context, cursor *string) (*NetworkDynamicEndpointTestResults, *http.Response, error) {
+			pageRequest := r
+			if cursor != nil {
+				pageRequest = pageRequest.Cursor(*cursor)
+			}
+			return pageRequest.ExecuteContext(ctx)
+		},
+		func(page *NetworkDynamicEndpointTestResults) (string, bool) {
+			if page == nil {
+				return "", false
+			}
+			links, ok := page.GetLinksOk()
+			if !ok {
+				return "", false
+			}
+			next, ok := links.GetNextOk()
+			if !ok {
+				return "", false
+			}
+			href, ok := next.GetHrefOk()
+			if !ok {
+				return "", true
+			}
+			return *href, true
+		},
+	)
+}
+
+func (r ApiFilterDynamicTestNetworkResultsRequest) All(ctx context.Context) iter.Seq2[NetworkDynamicEndpointTestResult, error] {
+	return pagination.All(ctx, r.Paginated(), (*NetworkDynamicEndpointTestResults).GetResults)
 }
 
 /*
@@ -160,6 +204,9 @@ func (a *NetworkDynamicEndpointTestResultsAPIService) FilterDynamicTestNetworkRe
 		return localVarReturnValue, nil, err
 	}
 
+	if r.ctx != nil {
+		req = req.WithContext(r.ctx)
+	}
 	localVarHTTPResponse, err := a.Client.CallAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err
@@ -359,6 +406,7 @@ type ApiGetDynamicTestPathVisResultsRequest struct {
 	startDate *time.Time
 	endDate *time.Time
 	cursor *string
+	ctx context.Context
 }
 
 // A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response.
@@ -393,6 +441,46 @@ func (r ApiGetDynamicTestPathVisResultsRequest) Cursor(cursor string) ApiGetDyna
 
 func (r ApiGetDynamicTestPathVisResultsRequest) Execute() (*PathVisDynamicEndpointTestResults, *http.Response, error) {
 	return r.ApiService.GetDynamicTestPathVisResultsExecute(r)
+}
+
+func (r ApiGetDynamicTestPathVisResultsRequest) ExecuteContext(ctx context.Context) (*PathVisDynamicEndpointTestResults, *http.Response, error) {
+	r.ctx = ctx
+	return r.Execute()
+}
+
+func (r ApiGetDynamicTestPathVisResultsRequest) Paginated() *pagination.Pager[PathVisDynamicEndpointTestResults] {
+	return pagination.NewPager(
+		r.cursor,
+		func(ctx context.Context, cursor *string) (*PathVisDynamicEndpointTestResults, *http.Response, error) {
+			pageRequest := r
+			if cursor != nil {
+				pageRequest = pageRequest.Cursor(*cursor)
+			}
+			return pageRequest.ExecuteContext(ctx)
+		},
+		func(page *PathVisDynamicEndpointTestResults) (string, bool) {
+			if page == nil {
+				return "", false
+			}
+			links, ok := page.GetLinksOk()
+			if !ok {
+				return "", false
+			}
+			next, ok := links.GetNextOk()
+			if !ok {
+				return "", false
+			}
+			href, ok := next.GetHrefOk()
+			if !ok {
+				return "", true
+			}
+			return *href, true
+		},
+	)
+}
+
+func (r ApiGetDynamicTestPathVisResultsRequest) All(ctx context.Context) iter.Seq2[PathVisDynamicEndpointTestResult, error] {
+	return pagination.All(ctx, r.Paginated(), (*PathVisDynamicEndpointTestResults).GetResults)
 }
 
 /*
@@ -466,6 +554,9 @@ func (a *NetworkDynamicEndpointTestResultsAPIService) GetDynamicTestPathVisResul
 		return localVarReturnValue, nil, err
 	}
 
+	if r.ctx != nil {
+		req = req.WithContext(r.ctx)
+	}
 	localVarHTTPResponse, err := a.Client.CallAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err
