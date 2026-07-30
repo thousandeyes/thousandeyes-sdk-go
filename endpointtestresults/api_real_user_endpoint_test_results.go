@@ -11,10 +11,13 @@ package endpointtestresults
 
 import (
 	"bytes"
+	"context"
 	"github.com/thousandeyes/thousandeyes-sdk-go/v3/client"
 	internalerror "github.com/thousandeyes/thousandeyes-sdk-go/v3/internal/error"
 	"github.com/thousandeyes/thousandeyes-sdk-go/v3/internal/request"
+	"github.com/thousandeyes/thousandeyes-sdk-go/v3/internal/pagination"
 	"io"
+	"iter"
 	"net/http"
 	"net/url"
 	"strings"
@@ -34,6 +37,7 @@ type ApiFilterRealUserTestsNetworkResultsRequest struct {
 	endDate *time.Time
 	cursor *string
 	realUserEndpointTestResultsRequest *RealUserEndpointTestResultsRequest
+	ctx context.Context
 }
 
 // A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response.
@@ -73,6 +77,46 @@ func (r ApiFilterRealUserTestsNetworkResultsRequest) RealUserEndpointTestResults
 
 func (r ApiFilterRealUserTestsNetworkResultsRequest) Execute() (*RealUserEndpointTestNetworkResults, *http.Response, error) {
 	return r.ApiService.FilterRealUserTestsNetworkResultsExecute(r)
+}
+
+func (r ApiFilterRealUserTestsNetworkResultsRequest) ExecuteContext(ctx context.Context) (*RealUserEndpointTestNetworkResults, *http.Response, error) {
+	r.ctx = ctx
+	return r.Execute()
+}
+
+func (r ApiFilterRealUserTestsNetworkResultsRequest) Paginated() *pagination.Pager[RealUserEndpointTestNetworkResults] {
+	return pagination.NewPager(
+		r.cursor,
+		func(ctx context.Context, cursor *string) (*RealUserEndpointTestNetworkResults, *http.Response, error) {
+			pageRequest := r
+			if cursor != nil {
+				pageRequest = pageRequest.Cursor(*cursor)
+			}
+			return pageRequest.ExecuteContext(ctx)
+		},
+		func(page *RealUserEndpointTestNetworkResults) (string, bool) {
+			if page == nil {
+				return "", false
+			}
+			links, ok := page.GetLinksOk()
+			if !ok {
+				return "", false
+			}
+			next, ok := links.GetNextOk()
+			if !ok {
+				return "", false
+			}
+			href, ok := next.GetHrefOk()
+			if !ok {
+				return "", true
+			}
+			return *href, true
+		},
+	)
+}
+
+func (r ApiFilterRealUserTestsNetworkResultsRequest) All(ctx context.Context) iter.Seq2[RealUserEndpointTestNetworkResult, error] {
+	return pagination.All(ctx, r.Paginated(), (*RealUserEndpointTestNetworkResults).GetResults)
 }
 
 /*
@@ -192,6 +236,9 @@ func (a *RealUserEndpointTestResultsAPIService) FilterRealUserTestsNetworkResult
 		return localVarReturnValue, nil, err
 	}
 
+	if r.ctx != nil {
+		req = req.WithContext(r.ctx)
+	}
 	localVarHTTPResponse, err := a.Client.CallAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err
@@ -257,6 +304,7 @@ type ApiFilterRealUserTestsResultsRequest struct {
 	endDate *time.Time
 	cursor *string
 	realUserEndpointTestResultsRequest *RealUserEndpointTestResultsRequest
+	ctx context.Context
 }
 
 // A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response.
@@ -296,6 +344,46 @@ func (r ApiFilterRealUserTestsResultsRequest) RealUserEndpointTestResultsRequest
 
 func (r ApiFilterRealUserTestsResultsRequest) Execute() (*RealUserEndpointTestResults, *http.Response, error) {
 	return r.ApiService.FilterRealUserTestsResultsExecute(r)
+}
+
+func (r ApiFilterRealUserTestsResultsRequest) ExecuteContext(ctx context.Context) (*RealUserEndpointTestResults, *http.Response, error) {
+	r.ctx = ctx
+	return r.Execute()
+}
+
+func (r ApiFilterRealUserTestsResultsRequest) Paginated() *pagination.Pager[RealUserEndpointTestResults] {
+	return pagination.NewPager(
+		r.cursor,
+		func(ctx context.Context, cursor *string) (*RealUserEndpointTestResults, *http.Response, error) {
+			pageRequest := r
+			if cursor != nil {
+				pageRequest = pageRequest.Cursor(*cursor)
+			}
+			return pageRequest.ExecuteContext(ctx)
+		},
+		func(page *RealUserEndpointTestResults) (string, bool) {
+			if page == nil {
+				return "", false
+			}
+			links, ok := page.GetLinksOk()
+			if !ok {
+				return "", false
+			}
+			next, ok := links.GetNextOk()
+			if !ok {
+				return "", false
+			}
+			href, ok := next.GetHrefOk()
+			if !ok {
+				return "", true
+			}
+			return *href, true
+		},
+	)
+}
+
+func (r ApiFilterRealUserTestsResultsRequest) All(ctx context.Context) iter.Seq2[RealUserEndpointTest, error] {
+	return pagination.All(ctx, r.Paginated(), (*RealUserEndpointTestResults).GetResults)
 }
 
 /*
@@ -417,6 +505,9 @@ func (a *RealUserEndpointTestResultsAPIService) FilterRealUserTestsResultsExecut
 		return localVarReturnValue, nil, err
 	}
 
+	if r.ctx != nil {
+		req = req.WithContext(r.ctx)
+	}
 	localVarHTTPResponse, err := a.Client.CallAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err
@@ -482,6 +573,7 @@ type ApiFilterRealUserTestsVisitedPagesResultsRequest struct {
 	endDate *time.Time
 	cursor *string
 	realUserEndpointTestResultRequestFilter *RealUserEndpointTestResultRequestFilter
+	ctx context.Context
 }
 
 // A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response.
@@ -521,6 +613,46 @@ func (r ApiFilterRealUserTestsVisitedPagesResultsRequest) RealUserEndpointTestRe
 
 func (r ApiFilterRealUserTestsVisitedPagesResultsRequest) Execute() (*RealUserEndpointTestPageResults, *http.Response, error) {
 	return r.ApiService.FilterRealUserTestsVisitedPagesResultsExecute(r)
+}
+
+func (r ApiFilterRealUserTestsVisitedPagesResultsRequest) ExecuteContext(ctx context.Context) (*RealUserEndpointTestPageResults, *http.Response, error) {
+	r.ctx = ctx
+	return r.Execute()
+}
+
+func (r ApiFilterRealUserTestsVisitedPagesResultsRequest) Paginated() *pagination.Pager[RealUserEndpointTestPageResults] {
+	return pagination.NewPager(
+		r.cursor,
+		func(ctx context.Context, cursor *string) (*RealUserEndpointTestPageResults, *http.Response, error) {
+			pageRequest := r
+			if cursor != nil {
+				pageRequest = pageRequest.Cursor(*cursor)
+			}
+			return pageRequest.ExecuteContext(ctx)
+		},
+		func(page *RealUserEndpointTestPageResults) (string, bool) {
+			if page == nil {
+				return "", false
+			}
+			links, ok := page.GetLinksOk()
+			if !ok {
+				return "", false
+			}
+			next, ok := links.GetNextOk()
+			if !ok {
+				return "", false
+			}
+			href, ok := next.GetHrefOk()
+			if !ok {
+				return "", true
+			}
+			return *href, true
+		},
+	)
+}
+
+func (r ApiFilterRealUserTestsVisitedPagesResultsRequest) All(ctx context.Context) iter.Seq2[RealUserEndpointTestPageResult, error] {
+	return pagination.All(ctx, r.Paginated(), (*RealUserEndpointTestPageResults).GetResults)
 }
 
 /*
@@ -640,6 +772,9 @@ func (a *RealUserEndpointTestResultsAPIService) FilterRealUserTestsVisitedPagesR
 		return localVarReturnValue, nil, err
 	}
 
+	if r.ctx != nil {
+		req = req.WithContext(r.ctx)
+	}
 	localVarHTTPResponse, err := a.Client.CallAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err

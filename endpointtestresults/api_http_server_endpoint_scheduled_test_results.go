@@ -11,10 +11,13 @@ package endpointtestresults
 
 import (
 	"bytes"
+	"context"
 	"github.com/thousandeyes/thousandeyes-sdk-go/v3/client"
 	internalerror "github.com/thousandeyes/thousandeyes-sdk-go/v3/internal/error"
 	"github.com/thousandeyes/thousandeyes-sdk-go/v3/internal/request"
+	"github.com/thousandeyes/thousandeyes-sdk-go/v3/internal/pagination"
 	"io"
+	"iter"
 	"net/http"
 	"net/url"
 	"strings"
@@ -35,6 +38,7 @@ type ApiGetHttpServerScheduledTestResultsRequest struct {
 	endDate *time.Time
 	cursor *string
 	expand *[]ExpandEndpointHttpServerOptions
+	ctx context.Context
 }
 
 // A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response.
@@ -75,6 +79,46 @@ func (r ApiGetHttpServerScheduledTestResultsRequest) Expand(expand []ExpandEndpo
 
 func (r ApiGetHttpServerScheduledTestResultsRequest) Execute() (*HttpEndpointTestResults, *http.Response, error) {
 	return r.ApiService.GetHttpServerScheduledTestResultsExecute(r)
+}
+
+func (r ApiGetHttpServerScheduledTestResultsRequest) ExecuteContext(ctx context.Context) (*HttpEndpointTestResults, *http.Response, error) {
+	r.ctx = ctx
+	return r.Execute()
+}
+
+func (r ApiGetHttpServerScheduledTestResultsRequest) Paginated() *pagination.Pager[HttpEndpointTestResults] {
+	return pagination.NewPager(
+		r.cursor,
+		func(ctx context.Context, cursor *string) (*HttpEndpointTestResults, *http.Response, error) {
+			pageRequest := r
+			if cursor != nil {
+				pageRequest = pageRequest.Cursor(*cursor)
+			}
+			return pageRequest.ExecuteContext(ctx)
+		},
+		func(page *HttpEndpointTestResults) (string, bool) {
+			if page == nil {
+				return "", false
+			}
+			links, ok := page.GetLinksOk()
+			if !ok {
+				return "", false
+			}
+			next, ok := links.GetNextOk()
+			if !ok {
+				return "", false
+			}
+			href, ok := next.GetHrefOk()
+			if !ok {
+				return "", true
+			}
+			return *href, true
+		},
+	)
+}
+
+func (r ApiGetHttpServerScheduledTestResultsRequest) All(ctx context.Context) iter.Seq2[HttpEndpointTestResult, error] {
+	return pagination.All(ctx, r.Paginated(), (*HttpEndpointTestResults).GetResults)
 }
 
 /*
@@ -151,6 +195,9 @@ func (a *HTTPServerEndpointScheduledTestResultsAPIService) GetHttpServerSchedule
 		return localVarReturnValue, nil, err
 	}
 
+	if r.ctx != nil {
+		req = req.WithContext(r.ctx)
+	}
 	localVarHTTPResponse, err := a.Client.CallAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err
@@ -214,6 +261,7 @@ type ApiGetMultiTestFilteredHttpServerScheduledTestResultsRequest struct {
 	useAllPermittedAids *bool
 	expand *[]ExpandEndpointHttpServerOptions
 	httpEndpointTestsDataRoundsSearch *HttpEndpointTestsDataRoundsSearch
+	ctx context.Context
 }
 
 // A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response.
@@ -266,6 +314,46 @@ func (r ApiGetMultiTestFilteredHttpServerScheduledTestResultsRequest) HttpEndpoi
 
 func (r ApiGetMultiTestFilteredHttpServerScheduledTestResultsRequest) Execute() (*HttpMultiEndpointTestResults, *http.Response, error) {
 	return r.ApiService.GetMultiTestFilteredHttpServerScheduledTestResultsExecute(r)
+}
+
+func (r ApiGetMultiTestFilteredHttpServerScheduledTestResultsRequest) ExecuteContext(ctx context.Context) (*HttpMultiEndpointTestResults, *http.Response, error) {
+	r.ctx = ctx
+	return r.Execute()
+}
+
+func (r ApiGetMultiTestFilteredHttpServerScheduledTestResultsRequest) Paginated() *pagination.Pager[HttpMultiEndpointTestResults] {
+	return pagination.NewPager(
+		r.cursor,
+		func(ctx context.Context, cursor *string) (*HttpMultiEndpointTestResults, *http.Response, error) {
+			pageRequest := r
+			if cursor != nil {
+				pageRequest = pageRequest.Cursor(*cursor)
+			}
+			return pageRequest.ExecuteContext(ctx)
+		},
+		func(page *HttpMultiEndpointTestResults) (string, bool) {
+			if page == nil {
+				return "", false
+			}
+			links, ok := page.GetLinksOk()
+			if !ok {
+				return "", false
+			}
+			next, ok := links.GetNextOk()
+			if !ok {
+				return "", false
+			}
+			href, ok := next.GetHrefOk()
+			if !ok {
+				return "", true
+			}
+			return *href, true
+		},
+	)
+}
+
+func (r ApiGetMultiTestFilteredHttpServerScheduledTestResultsRequest) All(ctx context.Context) iter.Seq2[HttpEndpointTestResult, error] {
+	return pagination.All(ctx, r.Paginated(), (*HttpMultiEndpointTestResults).GetResults)
 }
 
 /*
@@ -348,6 +436,9 @@ func (a *HTTPServerEndpointScheduledTestResultsAPIService) GetMultiTestFilteredH
 		return localVarReturnValue, nil, err
 	}
 
+	if r.ctx != nil {
+		req = req.WithContext(r.ctx)
+	}
 	localVarHTTPResponse, err := a.Client.CallAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err
@@ -415,6 +506,7 @@ type ApiGetSingleTestFilteredHttpServerScheduledTestResultsRequest struct {
 	cursor *string
 	expand *[]ExpandEndpointHttpServerOptions
 	httpEndpointTestsDataRoundsSearch *HttpEndpointTestsDataRoundsSearch
+	ctx context.Context
 }
 
 // A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response.
@@ -461,6 +553,46 @@ func (r ApiGetSingleTestFilteredHttpServerScheduledTestResultsRequest) HttpEndpo
 
 func (r ApiGetSingleTestFilteredHttpServerScheduledTestResultsRequest) Execute() (*HttpMultiEndpointTestResults, *http.Response, error) {
 	return r.ApiService.GetSingleTestFilteredHttpServerScheduledTestResultsExecute(r)
+}
+
+func (r ApiGetSingleTestFilteredHttpServerScheduledTestResultsRequest) ExecuteContext(ctx context.Context) (*HttpMultiEndpointTestResults, *http.Response, error) {
+	r.ctx = ctx
+	return r.Execute()
+}
+
+func (r ApiGetSingleTestFilteredHttpServerScheduledTestResultsRequest) Paginated() *pagination.Pager[HttpMultiEndpointTestResults] {
+	return pagination.NewPager(
+		r.cursor,
+		func(ctx context.Context, cursor *string) (*HttpMultiEndpointTestResults, *http.Response, error) {
+			pageRequest := r
+			if cursor != nil {
+				pageRequest = pageRequest.Cursor(*cursor)
+			}
+			return pageRequest.ExecuteContext(ctx)
+		},
+		func(page *HttpMultiEndpointTestResults) (string, bool) {
+			if page == nil {
+				return "", false
+			}
+			links, ok := page.GetLinksOk()
+			if !ok {
+				return "", false
+			}
+			next, ok := links.GetNextOk()
+			if !ok {
+				return "", false
+			}
+			href, ok := next.GetHrefOk()
+			if !ok {
+				return "", true
+			}
+			return *href, true
+		},
+	)
+}
+
+func (r ApiGetSingleTestFilteredHttpServerScheduledTestResultsRequest) All(ctx context.Context) iter.Seq2[HttpEndpointTestResult, error] {
+	return pagination.All(ctx, r.Paginated(), (*HttpMultiEndpointTestResults).GetResults)
 }
 
 /*
@@ -539,6 +671,9 @@ func (a *HTTPServerEndpointScheduledTestResultsAPIService) GetSingleTestFiltered
 		return localVarReturnValue, nil, err
 	}
 
+	if r.ctx != nil {
+		req = req.WithContext(r.ctx)
+	}
 	localVarHTTPResponse, err := a.Client.CallAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err

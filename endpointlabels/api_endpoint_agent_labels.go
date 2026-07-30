@@ -11,10 +11,13 @@ package endpointlabels
 
 import (
 	"bytes"
+	"context"
 	"github.com/thousandeyes/thousandeyes-sdk-go/v3/client"
 	internalerror "github.com/thousandeyes/thousandeyes-sdk-go/v3/internal/error"
 	"github.com/thousandeyes/thousandeyes-sdk-go/v3/internal/request"
+	"github.com/thousandeyes/thousandeyes-sdk-go/v3/internal/pagination"
 	"io"
+	"iter"
 	"net/http"
 	"net/url"
 	"strings"
@@ -394,6 +397,7 @@ type ApiGetEndpointLabelsRequest struct {
 	cursor *string
 	expand *[]ExpandLabelOptions
 	aid *string
+	ctx context.Context
 }
 
 // (Optional) Maximum number of objects to return.
@@ -422,6 +426,46 @@ func (r ApiGetEndpointLabelsRequest) Aid(aid string) ApiGetEndpointLabelsRequest
 
 func (r ApiGetEndpointLabelsRequest) Execute() (*Labels, *http.Response, error) {
 	return r.ApiService.GetEndpointLabelsExecute(r)
+}
+
+func (r ApiGetEndpointLabelsRequest) ExecuteContext(ctx context.Context) (*Labels, *http.Response, error) {
+	r.ctx = ctx
+	return r.Execute()
+}
+
+func (r ApiGetEndpointLabelsRequest) Paginated() *pagination.Pager[Labels] {
+	return pagination.NewPager(
+		r.cursor,
+		func(ctx context.Context, cursor *string) (*Labels, *http.Response, error) {
+			pageRequest := r
+			if cursor != nil {
+				pageRequest = pageRequest.Cursor(*cursor)
+			}
+			return pageRequest.ExecuteContext(ctx)
+		},
+		func(page *Labels) (string, bool) {
+			if page == nil {
+				return "", false
+			}
+			links, ok := page.GetLinksOk()
+			if !ok {
+				return "", false
+			}
+			next, ok := links.GetNextOk()
+			if !ok {
+				return "", false
+			}
+			href, ok := next.GetHrefOk()
+			if !ok {
+				return "", true
+			}
+			return *href, true
+		},
+	)
+}
+
+func (r ApiGetEndpointLabelsRequest) All(ctx context.Context) iter.Seq2[LabelResponse, error] {
+	return pagination.All(ctx, r.Paginated(), (*Labels).GetLabels)
 }
 
 /*
@@ -489,6 +533,9 @@ func (a *EndpointAgentLabelsAPIService) GetEndpointLabelsExecute(r ApiGetEndpoin
 		return localVarReturnValue, nil, err
 	}
 
+	if r.ctx != nil {
+		req = req.WithContext(r.ctx)
+	}
 	localVarHTTPResponse, err := a.Client.CallAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err
