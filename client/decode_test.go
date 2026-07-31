@@ -2,7 +2,9 @@ package client
 
 import (
 	"errors"
+	"io"
 	"os"
+	"path/filepath"
 	"strings"
 	"testing"
 )
@@ -85,6 +87,47 @@ func TestDecodeStringBody(t *testing.T) {
 	}
 }
 
+func TestDecodeFileBody(t *testing.T) {
+	apiClient := newRequestTestClient(NewConfiguration())
+	body := []byte("file body")
+
+	t.Run("*os.File", func(t *testing.T) {
+		missingTempDir := filepath.Join(t.TempDir(), "missing")
+		t.Setenv("TMPDIR", missingTempDir)
+		t.Setenv("TMP", missingTempDir)
+		t.Setenv("TEMP", missingTempDir)
+
+		var destination os.File
+		err := apiClient.Decode(&destination, body, "application/octet-stream")
+		if !errors.Is(err, os.ErrNotExist) {
+			t.Fatalf("Decode() error = %v, want temporary-file creation error", err)
+		}
+	})
+
+	t.Run("**os.File", func(t *testing.T) {
+		var destination *os.File
+		if err := apiClient.Decode(&destination, body, "application/octet-stream"); err != nil {
+			t.Fatalf("Decode() error = %v", err)
+		}
+		if destination == nil {
+			t.Fatal("decoded file = nil")
+		}
+		t.Cleanup(func() {
+			name := destination.Name()
+			_ = destination.Close()
+			_ = os.Remove(name)
+		})
+
+		got, err := io.ReadAll(destination)
+		if err != nil {
+			t.Fatalf("ReadAll() error = %v", err)
+		}
+		if string(got) != string(body) {
+			t.Fatalf("decoded file body = %q, want %q", got, body)
+		}
+	})
+}
+
 func TestDecodeFailures(t *testing.T) {
 	apiClient := newRequestTestClient(NewConfiguration())
 
@@ -117,19 +160,6 @@ func TestDecodeFailures(t *testing.T) {
 		err := apiClient.Decode(&got, []byte(`{}`), "application/json")
 		if err == nil || !strings.Contains(err.Error(), "no unmarshalObj.UnmarshalJSON defined") {
 			t.Fatalf("Decode() error = %v, want missing custom unmarshaller error", err)
-		}
-	})
-
-	t.Run("former file response", func(t *testing.T) {
-		var got *os.File
-		err := apiClient.Decode(&got, []byte("file body"), "application/octet-stream")
-		if got != nil {
-			name := got.Name()
-			_ = got.Close()
-			_ = os.Remove(name)
-		}
-		if err == nil || err.Error() != "undefined response type" {
-			t.Fatalf("Decode() error = %v, want undefined response type", err)
 		}
 	})
 }
