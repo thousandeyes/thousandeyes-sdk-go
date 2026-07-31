@@ -186,29 +186,29 @@ func (c *APIClient) Decode(v interface{}, b []byte, contentType string) (err err
 		*s = string(b)
 		return nil
 	}
-	if f, ok := v.(*os.File); ok {
-		f, err = os.CreateTemp("", "HttpClientFile")
+	if destination, ok := v.(**os.File); ok {
+		decodedFile, err := os.CreateTemp("", "HttpClientFile")
 		if err != nil {
-			return
+			return err
 		}
-		_, err = f.Write(b)
+
+		cleanup := func() {
+			_ = decodedFile.Close()
+			_ = os.Remove(decodedFile.Name())
+		}
+
+		_, err = decodedFile.Write(b)
 		if err != nil {
-			return
+			cleanup()
+			return err
 		}
-		_, err = f.Seek(0, io.SeekStart)
-		return
-	}
-	if f, ok := v.(**os.File); ok {
-		*f, err = os.CreateTemp("", "HttpClientFile")
-		if err != nil {
-			return
+		if _, err = decodedFile.Seek(0, io.SeekStart); err != nil {
+			cleanup()
+			return err
 		}
-		_, err = (*f).Write(b)
-		if err != nil {
-			return
-		}
-		_, err = (*f).Seek(0, io.SeekStart)
-		return
+
+		*destination = decodedFile
+		return nil
 	}
 	if JsonCheck.MatchString(contentType) {
 		if actualObj, ok := v.(interface{ GetActualInstance() interface{} }); ok { // oneOf, anyOf schemas
