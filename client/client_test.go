@@ -18,42 +18,41 @@ func newRequestTestClient(cfg *Configuration) *APIClient {
 	return &APIClient{cfg: cfg}
 }
 
-func TestDumpRedactedRequest(t *testing.T) {
+func TestFormatRequestLog(t *testing.T) {
 	const requestBody = `{"password":"body-password"}`
 	request, err := http.NewRequest(
 		http.MethodPost,
-		"https://example.test/resource",
+		"https://example.test/resource/path-secret?apiKey=query-secret",
 		strings.NewReader(requestBody),
 	)
 	if err != nil {
 		t.Fatalf("creating request: %v", err)
 	}
 	request.Header.Set("Authorization", "Bearer header-token")
+	request.Header.Set("Cookie", "session=cookie-secret")
+	request.Header.Set("X-Api-Key", "custom-header-secret")
 
-	dump, err := dumpRedactedRequest(request)
-	if err != nil {
-		t.Fatalf("dumpRedactedRequest() error = %v", err)
-	}
-	logged := string(dump)
+	logged := formatRequestLog(request)
 
-	for _, secret := range []string{"body-password", "header-token"} {
+	for _, secret := range []string{
+		"body-password",
+		"path-secret",
+		"query-secret",
+		"header-token",
+		"cookie-secret",
+		"custom-header-secret",
+	} {
 		if strings.Contains(logged, secret) {
 			t.Errorf("debug request log contains sensitive value %q", secret)
 		}
 	}
-	if !strings.Contains(logged, "Authorization: [REDACTED]") {
-		t.Errorf("debug request log does not contain a redacted Authorization header\nlog:\n%s", logged)
+	if want := "POST request (URL, headers, and body omitted)"; logged != want {
+		t.Errorf("formatRequestLog() = %q, want %q", logged, want)
 	}
 
-	if got := request.Header.Get("Authorization"); got != "Bearer header-token" {
-		t.Errorf("original Authorization header = %q, want unchanged", got)
-	}
-	body, err := io.ReadAll(request.Body)
-	if err != nil {
-		t.Fatalf("reading original request body: %v", err)
-	}
-	if got := string(body); got != requestBody {
-		t.Errorf("original request body = %q, want %q", got, requestBody)
+	request.Method = "method-secret"
+	if got, want := formatRequestLog(request), "HTTP request (URL, headers, and body omitted)"; got != want {
+		t.Errorf("formatRequestLog() with unknown method = %q, want %q", got, want)
 	}
 }
 

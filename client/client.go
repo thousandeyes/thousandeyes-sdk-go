@@ -68,11 +68,7 @@ func (c *APIClient) GetConfig() *Configuration {
 // CallAPI do the request.
 func (c *APIClient) CallAPI(request *http.Request) (*http.Response, error) {
 	if c.cfg.Debug {
-		dump, err := dumpRedactedRequest(request)
-		if err != nil {
-			return nil, err
-		}
-		log.Printf("\n%s\n", string(dump))
+		log.Printf("\n%s\n", formatRequestLog(request))
 	}
 
 	resp, err := c.cfg.HTTPClient.Do(request)
@@ -88,14 +84,23 @@ func (c *APIClient) CallAPI(request *http.Request) (*http.Response, error) {
 	return resp, err
 }
 
-func dumpRedactedRequest(request *http.Request) ([]byte, error) {
-	requestForLogging := request.Clone(request.Context())
-	if requestForLogging.Header.Get("Authorization") != "" {
-		requestForLogging.Header.Set("Authorization", "[REDACTED]")
-	}
+func formatRequestLog(request *http.Request) string {
+	const detailsOmitted = " request (URL, headers, and body omitted)"
 
-	// Request bodies can contain passwords, API keys, and other secrets.
-	return httputil.DumpRequestOut(requestForLogging, false)
+	switch request.Method {
+	case http.MethodDelete:
+		return "DELETE" + detailsOmitted
+	case http.MethodGet:
+		return "GET" + detailsOmitted
+	case http.MethodPatch:
+		return "PATCH" + detailsOmitted
+	case http.MethodPost:
+		return "POST" + detailsOmitted
+	case http.MethodPut:
+		return "PUT" + detailsOmitted
+	default:
+		return "HTTP" + detailsOmitted
+	}
 }
 
 // PrepareRequest build the request
