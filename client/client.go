@@ -68,7 +68,7 @@ func (c *APIClient) GetConfig() *Configuration {
 // CallAPI do the request.
 func (c *APIClient) CallAPI(request *http.Request) (*http.Response, error) {
 	if c.cfg.Debug {
-		dump, err := httputil.DumpRequestOut(request, true)
+		dump, err := dumpRedactedRequest(request)
 		if err != nil {
 			return nil, err
 		}
@@ -86,6 +86,16 @@ func (c *APIClient) CallAPI(request *http.Request) (*http.Response, error) {
 	}
 
 	return resp, err
+}
+
+func dumpRedactedRequest(request *http.Request) ([]byte, error) {
+	requestForLogging := request.Clone(request.Context())
+	if requestForLogging.Header.Get("Authorization") != "" {
+		requestForLogging.Header.Set("Authorization", "[REDACTED]")
+	}
+
+	// Request bodies can contain passwords, API keys, and other secrets.
+	return httputil.DumpRequestOut(requestForLogging, false)
 }
 
 // PrepareRequest build the request

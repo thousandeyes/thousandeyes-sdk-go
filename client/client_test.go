@@ -18,6 +18,45 @@ func newRequestTestClient(cfg *Configuration) *APIClient {
 	return &APIClient{cfg: cfg}
 }
 
+func TestDumpRedactedRequest(t *testing.T) {
+	const requestBody = `{"password":"body-password"}`
+	request, err := http.NewRequest(
+		http.MethodPost,
+		"https://example.test/resource",
+		strings.NewReader(requestBody),
+	)
+	if err != nil {
+		t.Fatalf("creating request: %v", err)
+	}
+	request.Header.Set("Authorization", "Bearer header-token")
+
+	dump, err := dumpRedactedRequest(request)
+	if err != nil {
+		t.Fatalf("dumpRedactedRequest() error = %v", err)
+	}
+	logged := string(dump)
+
+	for _, secret := range []string{"body-password", "header-token"} {
+		if strings.Contains(logged, secret) {
+			t.Errorf("debug request log contains sensitive value %q", secret)
+		}
+	}
+	if !strings.Contains(logged, "Authorization: [REDACTED]") {
+		t.Errorf("debug request log does not contain a redacted Authorization header\nlog:\n%s", logged)
+	}
+
+	if got := request.Header.Get("Authorization"); got != "Bearer header-token" {
+		t.Errorf("original Authorization header = %q, want unchanged", got)
+	}
+	body, err := io.ReadAll(request.Body)
+	if err != nil {
+		t.Fatalf("reading original request body: %v", err)
+	}
+	if got := string(body); got != requestBody {
+		t.Errorf("original request body = %q, want %q", got, requestBody)
+	}
+}
+
 func TestPrepareRequestHeadersQueryAndContext(t *testing.T) {
 	baseCtx, cancel := context.WithCancel(context.Background())
 	ctx := context.WithValue(baseCtx, contextKey{}, "context-value")
