@@ -1,70 +1,227 @@
-[![GoDoc](https://godoc.org/github.com/thousandeyes/thousandeyes-sdk-go?status.svg)](http://godoc.org/github.com/thousandeyes/thousandeyes-sdk-go) [![Go Report Card](https://goreportcard.com/badge/github.com/thousandeyes/thousandeyes-sdk-go)](https://goreportcard.com/report/github.com/thousandeyes/thousandeyes-sdk-go) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/gojp/goreportcard/blob/master/LICENSE)
+[![Go Reference](https://pkg.go.dev/badge/github.com/thousandeyes/thousandeyes-sdk-go/v3.svg)](https://pkg.go.dev/github.com/thousandeyes/thousandeyes-sdk-go/v3)
+[![Release](https://img.shields.io/github/v/release/thousandeyes/thousandeyes-sdk-go?include_prereleases&sort=semver)](https://github.com/thousandeyes/thousandeyes-sdk-go/releases)
+[![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](./LICENSE)
 
-# thousandeyes-sdk-go
-`thousandeyes-sdk-go` is a [go](https://golang.org/) client library for the [Thousandeyes v6 API](https://developer.thousandeyes.com/v6).
+# ThousandEyes Go SDK
 
-## Installation
-thousandeyes-sdk-go is compatible with modern Go releases in module mode, with Go installed:
+## Description
 
-```cli
-go get github.com/thousandeyes/thousandeyes-sdk-go/v2
+`thousandeyes-sdk-go` provides generated Go clients for the
+[ThousandEyes API v7](https://developer.cisco.com/docs/thousandeyes/v7/).
+Each API domain is exposed as a separate package and uses the shared `client`
+package for authentication, configuration, HTTP execution, and retries.
+
+This project is maintained by the ThousandEyes team at Cisco. The v3 module
+uses Go semantic import versioning through the `/v3` module path. Pin an exact
+release when you need reproducible builds, and review the
+[release notes](https://github.com/thousandeyes/thousandeyes-sdk-go/releases)
+before upgrading.
+
+## Installation and usage
+
+### Requirements
+
+The module's `go` directive is 1.23 and its suggested toolchain is Go 1.24.8,
+as declared in [`go.mod`](./go.mod).
+
+### Install the module
+
+Add the v3 module to your project:
+
+```sh
+go get github.com/thousandeyes/thousandeyes-sdk-go/v3@latest
 ```
 
-will resolve and add the package to the current development module, along with its dependencies.
+For reproducible builds, replace `latest` with a specific v3 release tag.
+Import the shared client and the package for the API domain you need:
 
-Alternatively the same can be achieved if you use import in a package:
 ```go
-import "github.com/thousandeyes/thousandeyes-sdk-go/v2"
+import (
+	"github.com/thousandeyes/thousandeyes-sdk-go/v3/administrative"
+	"github.com/thousandeyes/thousandeyes-sdk-go/v3/client"
+)
 ```
 
-and run go get without parameters.
+### API packages
 
-## Usage
-Example code to list ThousandEyes agents:
+Use the module installation above. Each published API domain includes generated
+endpoint and model documentation:
+
+- [Administrative](./administrative/README.md)
+- [Agents](./agents/README.md)
+- [Alerts](./alerts/README.md)
+- [BGP monitors](./bgpmonitors/README.md)
+- [Connectors](./connectors/README.md)
+- [Credentials](./credentials/README.md)
+- [Dashboards](./dashboards/README.md)
+- [Emulation](./emulation/README.md)
+- [Endpoint agents](./endpointagents/README.md)
+- [Endpoint instant tests](./endpointinstanttests/README.md)
+- [Endpoint labels](./endpointlabels/README.md)
+- [Endpoint test results](./endpointtestresults/README.md)
+- [Endpoint tests](./endpointtests/README.md)
+- [Event detection](./eventdetection/README.md)
+- [Instant tests](./instanttests/README.md)
+- [Internet Insights](./internetinsights/README.md)
+- [Snapshots](./snapshots/README.md)
+- [Streaming](./streaming/README.md)
+- [Tags](./tags/README.md)
+- [Test results](./testresults/README.md)
+- [Tests](./tests/README.md)
+- [Usage](./usage/README.md)
+
+### Authenticate and call an API
+
+ThousandEyes API v7 uses bearer token authentication. Load tokens from an
+environment variable or secret manager and never commit them to source control,
+examples, fixtures, or logs.
+
+The following example lists roles from the Administrative API:
 
 ```go
 package main
 
 import (
 	"fmt"
+	"log"
 	"os"
 
-	"github.com/thousandeyes/thousandeyes-sdk-go/v2"
+	"github.com/thousandeyes/thousandeyes-sdk-go/v3/administrative"
+	"github.com/thousandeyes/thousandeyes-sdk-go/v3/client"
 )
 
 func main() {
-	opts := thousandeyes.ClientOptions{
-		AuthToken: os.Getenv("TE_TOKEN"),
-		AccountID: os.Getenv("TE_AID"),
+	token := os.Getenv("TE_TOKEN")
+	if token == "" {
+		log.Fatal("TE_TOKEN is required")
 	}
 
-	client := thousandeyes.NewClient(&opts)
-	agents, err := client.GetAgents()
+	configuration := client.NewConfiguration().WithAuthToken(token)
+	apiClient := client.NewAPIClient(configuration)
+	rolesAPI := (*administrative.RolesAPIService)(&apiClient.Common)
+
+	request := rolesAPI.GetRoles()
+	if aid := os.Getenv("TE_AID"); aid != "" {
+		request = request.Aid(aid)
+	}
+
+	roles, response, err := request.Execute()
 	if err != nil {
-		panic(err)
+		if response != nil {
+			log.Fatalf("list roles failed with %s: %v", response.Status, err)
+		}
+		log.Fatalf("list roles failed before receiving a response: %v", err)
 	}
-	for _, a := range *agents {
-		fmt.Println(*a.AgentName)
-	}
+
+	fmt.Printf("received %d roles\n", len(roles.GetRoles()))
 }
 ```
 
+`client.NewConfiguration()` defaults to
+`https://api.thousandeyes.com/v7`. Configuration methods can provide a token or
+different API v7 endpoint, while fields on the configuration allow a custom
+HTTP client, context, and user agent. Create and reuse a configured API client;
+do not modify its configuration while requests are in flight.
+
+Keep `Debug` disabled in production. Debug mode dumps complete HTTP requests
+and responses, which can include the bearer token and sensitive API data.
+
+Account-group context is optional and is set per request with `.Aid(aid)` on
+operations that support it. The example reads it from `TE_AID` when present.
+
+### Migrating from v2
+
+Version 3 is a generated API v7 client and is not a drop-in replacement for the
+hand-written v2 API v6 client. Expect to update imports and API calls:
+
+| v2 | v3 |
+| --- | --- |
+| Module path ends in `/v2` | Module path ends in `/v3` |
+| One root `thousandeyes` package | Shared `client` plus one package per API domain |
+| Default endpoint is `https://api.thousandeyes.com/v6` | Default endpoint is `https://api.thousandeyes.com/v7` |
+| `thousandeyes.NewClient(&thousandeyes.ClientOptions{AuthToken: token, AccountID: aid})` | `client.NewAPIClient(client.NewConfiguration().WithAuthToken(token))` |
+| `AccountID` applies to all client calls | `.Aid(aid)` sets account context on each supported request |
+| `sdk.GetRoles()` returns a model and error | `rolesAPI.GetRoles().Execute()` also returns the HTTP response |
+
+Review the generated README and endpoint documentation for each API package.
+API v7 model and method names may not have direct v2 equivalents.
+
+### Pagination
+
+Cursor-paginated request types expose `.Paginated()`. The returned pager fetches
+one page at a time with `NextPage(ctx)` and reports whether another page may be
+available through `HasMorePages()`. Use `.Cursor(value)` before `.Paginated()`
+when you need to start from a known cursor.
+
+When the response's item collection is known, the request also exposes
+`.All(ctx)`. It returns a lazy, single-use iterator that follows `_links.next`,
+stops fetching when the caller stops iterating, and yields an error if a page
+cannot be retrieved:
+
+```go
+func listAllUserEvents(
+	ctx context.Context,
+	api *administrative.UserEventsAPIService,
+) error {
+	request := api.GetUserEvents().Window("1d")
+	for event, err := range request.All(ctx) {
+		if err != nil {
+			return fmt.Errorf("list user events: %w", err)
+		}
+		fmt.Printf("event: %+v\n", event)
+	}
+	return nil
+}
+```
+
+The pager rejects `_links.next` continuations with missing, empty, duplicate,
+or previously seen cursor values instead of silently looping or restarting
+pagination.
+
+### Errors and retries
+
+Generated `Execute` methods return a decoded model, an `*http.Response`, and an
+`error`. Check the error before using the model. The response can be nil when a
+request fails before the server responds or retry attempts are exhausted.
+
+The shared client automatically retries recoverable connection failures, HTTP
+429 responses, and most HTTP 5xx responses. It honors supported rate-limit and
+`Retry-After` headers before falling back to exponential backoff. Because this
+also applies to generated mutation operations, design non-idempotent workflows
+to tolerate an ambiguous response and a retried request.
+
 ## Support
 
-Join the discussion in the [ThousandEyes Community](https://community.cisco.com/t5/thousandeyes/bd-p/disc-thousandeyes).
-For bug reports, feature requests, or questions about this SDK, please contact [ThousandEyes Support](https://docs.thousandeyes.com/product-documentation/getting-started/getting-support-from-thousandeyes#contacting-support).
+Use the
+[ThousandEyes Community](https://community.cisco.com/t5/thousandeyes/bd-p/disc-thousandeyes)
+for general best practices, help, tips, and examples. These resources may also
+answer your question:
+
+- [ThousandEyes Documentation](https://docs.thousandeyes.com/)
+- [Internet and Cloud Intelligence Blog](https://www.thousandeyes.com/blog/)
+- [Cisco ThousandEyes Blog](https://blogs.cisco.com/tag/cisco-thousandeyes?dtid=osscdc000283)
+- [API developer support](https://developer.cisco.com/docs/thousandeyes/v7/developer-support/#developer-support)
+
+For bug reports, feature requests, or questions about this SDK, contact
+[ThousandEyes Support](https://docs.thousandeyes.com/product-documentation/getting-started/getting-support-from-thousandeyes#contacting-support).
+
+## Roadmap and maintenance
+
+This library is continuously updated alongside the
+[ThousandEyes API v7](https://developer.cisco.com/docs/thousandeyes/v7/).
 
 ## Contributing
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create a new Pull Request
+
+The API domain packages are generated from ThousandEyes OpenAPI definitions.
+Generated files contain a `Code generated` notice and should not be edited as a
+one-off fix. Changes to generated APIs must be made in the appropriate
+specification or generator source and then regenerated. Contributions to shared
+runtime code, documentation, tests, and workflows are welcome.
 
 ## License
-This library is distributed under the Apache 2.0 license found in the [LICENSE](/LICENSE) file.
 
-## Maintenance and Acknowledgements
-This project is maintained by the ThousandEyes engineering team and accepts community contributions.
+This project is licensed under the [Apache License 2.0](./LICENSE).
 
-ThousandEyes would like to extend a thank you to William Fleming, John Dyer, and Joshua Blanchard for their contributions and community maintenance of this project.
+The ThousandEyes engineering team maintains this project and thanks William
+Fleming, John Dyer, Joshua Blanchard, and all community contributors for their
+work on the SDK.
