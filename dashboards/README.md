@@ -49,6 +49,39 @@ configuration := client.NewConfiguration().WithAuthToken("<bearer-token>")
 apiClient := client.NewAPIClient(configuration)
 ```
 
+## Pagination
+
+Cursor-based list operations expose lazy pagination helpers in addition to the existing
+`Execute()` method. The examples below assume `request` is a generated request builder with its
+required arguments, filters, headers, and body already configured.
+
+Use `Paginated()` when page metadata or the HTTP response is needed. Creating the pager does not
+send a request; the first request is made by `NextPage(ctx)`.
+
+```go
+pager := request.Paginated()
+
+for pager.HasMorePages() {
+	page, response, err := pager.NextPage(ctx)
+	if err != nil {
+		// Includes context cancellation, deadlines, and later-page API errors.
+		return err
+	}
+
+	fmt.Printf("status=%d page=%v\n", response.StatusCode, page)
+}
+```
+
+The original HTTP method, path, filters, query parameters, headers, and POST body are preserved for
+every page; only the cursor changes. The cursor is extracted from `_links.next.href` without
+following that link's host or path. A missing next link completes pagination, while invalid or
+repeated cursors return an error. Canceling `ctx` stops pagination and returns the context error.
+
+Existing `Execute()` methods are unchanged: they perform exactly one request and do not follow a
+next link. Operations whose items are nested inside response data, including dashboard snapshots
+and dashboard widget data, may expose `Paginated()` without `All(ctx)` so callers can handle the
+response structure explicitly.
+
 ## Documentation for API Endpoints
 
 All URIs are relative to *https://api.thousandeyes.com/v7*
