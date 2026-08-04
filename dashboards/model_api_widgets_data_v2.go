@@ -33,6 +33,10 @@ type ApiWidgetsDataV2 struct {
 	Alerts []ApiAlertListAlert `json:"alerts,omitempty"`
 	Summary *ApiAgentStatusSummary `json:"summary,omitempty"`
 	Agents []ApiAgentStatusAgent `json:"agents,omitempty"`
+	// Detailed information about each row in the **List** widget.
+	Rows []ApiListWidgetRow `json:"rows,omitempty"`
+	// Map of legend labels to their counts for the **List** widget.
+	Legend *map[string]int32 `json:"legend,omitempty"`
 	// Message for not fully configured card or no data.
 	Status *string `json:"status,omitempty"`
 }
@@ -406,6 +410,70 @@ func (o *ApiWidgetsDataV2) SetAgents(v []ApiAgentStatusAgent) {
 	o.Agents = v
 }
 
+// GetRows returns the Rows field value if set, zero value otherwise.
+func (o *ApiWidgetsDataV2) GetRows() []ApiListWidgetRow {
+	if o == nil || utils.IsNil(o.Rows) {
+		var ret []ApiListWidgetRow
+		return ret
+	}
+	return o.Rows
+}
+
+// GetRowsOk returns a tuple with the Rows field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiWidgetsDataV2) GetRowsOk() ([]ApiListWidgetRow, bool) {
+	if o == nil || utils.IsNil(o.Rows) {
+		return nil, false
+	}
+	return o.Rows, true
+}
+
+// HasRows returns a boolean if a field has been set.
+func (o *ApiWidgetsDataV2) HasRows() bool {
+	if o != nil && !utils.IsNil(o.Rows) {
+		return true
+	}
+
+	return false
+}
+
+// SetRows gets a reference to the given []ApiListWidgetRow and assigns it to the Rows field.
+func (o *ApiWidgetsDataV2) SetRows(v []ApiListWidgetRow) {
+	o.Rows = v
+}
+
+// GetLegend returns the Legend field value if set, zero value otherwise.
+func (o *ApiWidgetsDataV2) GetLegend() map[string]int32 {
+	if o == nil || utils.IsNil(o.Legend) {
+		var ret map[string]int32
+		return ret
+	}
+	return *o.Legend
+}
+
+// GetLegendOk returns a tuple with the Legend field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiWidgetsDataV2) GetLegendOk() (*map[string]int32, bool) {
+	if o == nil || utils.IsNil(o.Legend) {
+		return nil, false
+	}
+	return o.Legend, true
+}
+
+// HasLegend returns a boolean if a field has been set.
+func (o *ApiWidgetsDataV2) HasLegend() bool {
+	if o != nil && !utils.IsNil(o.Legend) {
+		return true
+	}
+
+	return false
+}
+
+// SetLegend gets a reference to the given map[string]int32 and assigns it to the Legend field.
+func (o *ApiWidgetsDataV2) SetLegend(v map[string]int32) {
+	o.Legend = &v
+}
+
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *ApiWidgetsDataV2) GetStatus() string {
 	if o == nil || utils.IsNil(o.Status) {
@@ -480,6 +548,12 @@ func (o ApiWidgetsDataV2) ToMap() (map[string]interface{}, error) {
 	}
 	if !utils.IsNil(o.Agents) {
 		toSerialize["agents"] = o.Agents
+	}
+	if !utils.IsNil(o.Rows) {
+		toSerialize["rows"] = o.Rows
+	}
+	if !utils.IsNil(o.Legend) {
+		toSerialize["legend"] = o.Legend
 	}
 	if !utils.IsNil(o.Status) {
 		toSerialize["status"] = o.Status

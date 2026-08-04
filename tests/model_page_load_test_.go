@@ -137,6 +137,7 @@ type PageLoadTest struct {
 	ChromeOptions *string `json:"chromeOptions,omitempty"`
 	// JSON string of Chrome policy settings to apply.
 	ChromePolicies *string `json:"chromePolicies,omitempty"`
+	ChromiumTrack *TestChromiumTrack `json:"chromiumTrack,omitempty"`
 	PageLoadingStrategy *TestPageLoadingStrategy `json:"pageLoadingStrategy,omitempty"`
 	// Indicates whether agents should randomize the start time in each test round.
 	RandomizedStartTime *bool `json:"randomizedStartTime,omitempty"`
@@ -208,6 +209,8 @@ func NewPageLoadTest(interval TestInterval, url string) *PageLoadTest {
 	this.ChromeOptions = &chromeOptions
 	var chromePolicies string = "{}"
 	this.ChromePolicies = &chromePolicies
+	var chromiumTrack TestChromiumTrack = "stable"
+	this.ChromiumTrack = &chromiumTrack
 	var pageLoadingStrategy TestPageLoadingStrategy = "normal"
 	this.PageLoadingStrategy = &pageLoadingStrategy
 	var randomizedStartTime bool = false
@@ -274,6 +277,8 @@ func NewPageLoadTestWithDefaults() *PageLoadTest {
 	this.ChromeOptions = &chromeOptions
 	var chromePolicies string = "{}"
 	this.ChromePolicies = &chromePolicies
+	var chromiumTrack TestChromiumTrack = "stable"
+	this.ChromiumTrack = &chromiumTrack
 	var pageLoadingStrategy TestPageLoadingStrategy = "normal"
 	this.PageLoadingStrategy = &pageLoadingStrategy
 	var randomizedStartTime bool = false
@@ -2319,6 +2324,38 @@ func (o *PageLoadTest) SetChromePolicies(v string) {
 	o.ChromePolicies = &v
 }
 
+// GetChromiumTrack returns the ChromiumTrack field value if set, zero value otherwise.
+func (o *PageLoadTest) GetChromiumTrack() TestChromiumTrack {
+	if o == nil || utils.IsNil(o.ChromiumTrack) {
+		var ret TestChromiumTrack
+		return ret
+	}
+	return *o.ChromiumTrack
+}
+
+// GetChromiumTrackOk returns a tuple with the ChromiumTrack field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PageLoadTest) GetChromiumTrackOk() (*TestChromiumTrack, bool) {
+	if o == nil || utils.IsNil(o.ChromiumTrack) {
+		return nil, false
+	}
+	return o.ChromiumTrack, true
+}
+
+// HasChromiumTrack returns a boolean if a field has been set.
+func (o *PageLoadTest) HasChromiumTrack() bool {
+	if o != nil && !utils.IsNil(o.ChromiumTrack) {
+		return true
+	}
+
+	return false
+}
+
+// SetChromiumTrack gets a reference to the given TestChromiumTrack and assigns it to the ChromiumTrack field.
+func (o *PageLoadTest) SetChromiumTrack(v TestChromiumTrack) {
+	o.ChromiumTrack = &v
+}
+
 // GetPageLoadingStrategy returns the PageLoadingStrategy field value if set, zero value otherwise.
 func (o *PageLoadTest) GetPageLoadingStrategy() TestPageLoadingStrategy {
 	if o == nil || utils.IsNil(o.PageLoadingStrategy) {
@@ -2772,6 +2809,9 @@ func (o PageLoadTest) ToMap() (map[string]interface{}, error) {
 	}
 	if !utils.IsNil(o.ChromePolicies) {
 		toSerialize["chromePolicies"] = o.ChromePolicies
+	}
+	if !utils.IsNil(o.ChromiumTrack) {
+		toSerialize["chromiumTrack"] = o.ChromiumTrack
 	}
 	if !utils.IsNil(o.PageLoadingStrategy) {
 		toSerialize["pageLoadingStrategy"] = o.PageLoadingStrategy

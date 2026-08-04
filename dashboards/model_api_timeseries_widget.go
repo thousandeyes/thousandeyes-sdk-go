@@ -48,11 +48,13 @@ type ApiTimeseriesWidget struct {
 	Unit *ApiWidgetFixedYScalePrefix `json:"unit,omitempty"`
 	// Time Series: Line widget type.
 	Type string `json:"type"`
-	// Displays the overall baseline if set to `true`.
+	// Displays the overall baseline when set to `true`.
 	ShowTimeseriesOverallBaseline *bool `json:"showTimeseriesOverallBaseline,omitempty"`
 	GroupBy *ApiAggregateProperty `json:"groupBy,omitempty"`
-	// Displays a separate chart for each line if set to `true`.
+	// Displays a separate chart for each line when set to `true`.
 	IsTimeseriesOneChartPerLine *bool `json:"isTimeseriesOneChartPerLine,omitempty"`
+	// Displays the zoom slider on the time axis when set to `true`.
+	ShowZoomSlider *bool `json:"showZoomSlider,omitempty"`
 	DataSource *TimeseriesDatasource `json:"dataSource,omitempty"`
 }
 
@@ -67,6 +69,12 @@ func NewApiTimeseriesWidget(type_ string) *ApiTimeseriesWidget {
 	var visualMode VisualMode = "Full"
 	this.VisualMode = &visualMode
 	this.Type = type_
+	var showTimeseriesOverallBaseline bool = false
+	this.ShowTimeseriesOverallBaseline = &showTimeseriesOverallBaseline
+	var isTimeseriesOneChartPerLine bool = false
+	this.IsTimeseriesOneChartPerLine = &isTimeseriesOneChartPerLine
+	var showZoomSlider bool = false
+	this.ShowZoomSlider = &showZoomSlider
 	return &this
 }
 
@@ -77,6 +85,12 @@ func NewApiTimeseriesWidgetWithDefaults() *ApiTimeseriesWidget {
 	this := ApiTimeseriesWidget{}
 	var visualMode VisualMode = "Full"
 	this.VisualMode = &visualMode
+	var showTimeseriesOverallBaseline bool = false
+	this.ShowTimeseriesOverallBaseline = &showTimeseriesOverallBaseline
+	var isTimeseriesOneChartPerLine bool = false
+	this.IsTimeseriesOneChartPerLine = &isTimeseriesOneChartPerLine
+	var showZoomSlider bool = false
+	this.ShowZoomSlider = &showZoomSlider
 	return &this
 }
 
@@ -747,6 +761,38 @@ func (o *ApiTimeseriesWidget) SetIsTimeseriesOneChartPerLine(v bool) {
 	o.IsTimeseriesOneChartPerLine = &v
 }
 
+// GetShowZoomSlider returns the ShowZoomSlider field value if set, zero value otherwise.
+func (o *ApiTimeseriesWidget) GetShowZoomSlider() bool {
+	if o == nil || utils.IsNil(o.ShowZoomSlider) {
+		var ret bool
+		return ret
+	}
+	return *o.ShowZoomSlider
+}
+
+// GetShowZoomSliderOk returns a tuple with the ShowZoomSlider field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiTimeseriesWidget) GetShowZoomSliderOk() (*bool, bool) {
+	if o == nil || utils.IsNil(o.ShowZoomSlider) {
+		return nil, false
+	}
+	return o.ShowZoomSlider, true
+}
+
+// HasShowZoomSlider returns a boolean if a field has been set.
+func (o *ApiTimeseriesWidget) HasShowZoomSlider() bool {
+	if o != nil && !utils.IsNil(o.ShowZoomSlider) {
+		return true
+	}
+
+	return false
+}
+
+// SetShowZoomSlider gets a reference to the given bool and assigns it to the ShowZoomSlider field.
+func (o *ApiTimeseriesWidget) SetShowZoomSlider(v bool) {
+	o.ShowZoomSlider = &v
+}
+
 // GetDataSource returns the DataSource field value if set, zero value otherwise.
 func (o *ApiTimeseriesWidget) GetDataSource() TimeseriesDatasource {
 	if o == nil || utils.IsNil(o.DataSource) {
@@ -849,6 +895,9 @@ func (o ApiTimeseriesWidget) ToMap() (map[string]interface{}, error) {
 	}
 	if !utils.IsNil(o.IsTimeseriesOneChartPerLine) {
 		toSerialize["isTimeseriesOneChartPerLine"] = o.IsTimeseriesOneChartPerLine
+	}
+	if !utils.IsNil(o.ShowZoomSlider) {
+		toSerialize["showZoomSlider"] = o.ShowZoomSlider
 	}
 	if !utils.IsNil(o.DataSource) {
 		toSerialize["dataSource"] = o.DataSource
