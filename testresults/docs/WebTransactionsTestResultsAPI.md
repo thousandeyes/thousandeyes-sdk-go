@@ -4,10 +4,85 @@ All URIs are relative to *https://api.thousandeyes.com/v7*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**GetTestConsoleLogsAgentRoundResults**](WebTransactionsTestResultsAPI.md#GetTestConsoleLogsAgentRoundResults) | **Get** /test-results/{testId}/web-transactions/agent/{agentId}/round/{roundId}/console-logs | Get console logs test results by agent and round
 [**GetTestWebTransactionAgentRoundPageResults**](WebTransactionsTestResultsAPI.md#GetTestWebTransactionAgentRoundPageResults) | **Get** /test-results/{testId}/web-transactions/agent/{agentId}/round/{roundId}/page/{pageId} | Get detailed web transactions test result by agent, round, and page
 [**GetTestWebTransactionAgentRoundResults**](WebTransactionsTestResultsAPI.md#GetTestWebTransactionAgentRoundResults) | **Get** /test-results/{testId}/web-transactions/agent/{agentId}/round/{roundId} | Get web transactions test results by agent and round
 [**GetTestWebTransactionResults**](WebTransactionsTestResultsAPI.md#GetTestWebTransactionResults) | **Get** /test-results/{testId}/web-transactions | Get web transactions test results
 
+
+
+## GetTestConsoleLogsAgentRoundResults
+
+> ConsoleLogsTestResults GetTestConsoleLogsAgentRoundResults(testId, agentId, roundId).Aid(aid).Execute()
+
+Get console logs test results by agent and round
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"fmt"
+	"os"
+	"github.com/thousandeyes/thousandeyes-sdk-go/v3/client"
+	"github.com/thousandeyes/thousandeyes-sdk-go/v3/testresults"
+)
+
+func main() {
+	testId := "202701" // string | Test ID
+	agentId := "11" // string | Agent ID
+	roundId := "1384309800" // string | Round ID
+	aid := "1234" // string | A unique identifier associated with your account group. You can retrieve your `AccountGroupId` from the `/account-groups` endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. (optional)
+
+	configuration := client.NewConfiguration().WithAuthToken("<bearer-token>")
+	apiClient := client.NewAPIClient(configuration)
+
+	api := (*testresults.WebTransactionsTestResultsAPIService)(&apiClient.Common)
+
+	resp, r, err := api.GetTestConsoleLogsAgentRoundResults(testId, agentId, roundId).Aid(aid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `WebTransactionsTestResultsAPI.GetTestConsoleLogsAgentRoundResults``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetTestConsoleLogsAgentRoundResults`: ConsoleLogsTestResults
+	json, _ := resp.MarshalJSON()
+	fmt.Fprintf(os.Stdout, "Response from `WebTransactionsTestResultsAPI.GetTestConsoleLogsAgentRoundResults`: %v\n", string(json))
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**testId** | **string** | Test ID | **agentId** | **string** | Agent ID | **roundId** | **string** | Round ID | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a ApiGetTestConsoleLogsAgentRoundResultsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **aid** | **string** | A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. | 
+
+### Return type
+
+[**ConsoleLogsTestResults**](ConsoleLogsTestResults.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/hal+json, application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)[[Back to README]](../README.md)
 
 
 ## GetTestWebTransactionAgentRoundPageResults

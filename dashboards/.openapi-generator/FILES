@@ -40,6 +40,9 @@ model_api_graphlet_point.go
 model_api_grouped_barchart_widget.go
 model_api_heatmap_widget.go
 model_api_list_widget.go
+model_api_list_widget_row.go
+model_api_list_widget_row_links.go
+model_api_list_widget_row_value.go
 model_api_multi_metric_column.go
 model_api_multi_metric_column_data.go
 model_api_multi_metric_table_widget.go
@@ -60,6 +63,7 @@ model_api_test_table_data.go
 model_api_test_table_graphlets_data.go
 model_api_test_table_widget.go
 model_api_timeseries_widget.go
+model_api_timeseries_widget_properties.go
 model_api_widget.go
 model_api_widget_data.go
 model_api_widget_data_point.go
@@ -108,6 +112,7 @@ model_multi_metrics_table_datasource.go
 model_numbers_card_datasource.go
 model_pagination_links.go
 model_pie_chart_datasource.go
+model_refresh_rate.go
 model_scalable_widget.go
 model_self_links.go
 model_stacked_area_chart_datasource.go
