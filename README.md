@@ -218,6 +218,11 @@ one-off fix. Changes to generated APIs must be made in the appropriate
 specification or generator source and then regenerated. Contributions to shared
 runtime code, documentation, tests, and workflows are welcome.
 
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for local development, formatting,
+testing, and pull request guidance. Report security vulnerabilities privately
+as described in [SECURITY.md](./SECURITY.md). All contributors must follow the
+[Code of Conduct](./CODE_OF_CONDUCT.md).
+
 ## License
 
 This project is licensed under the [Apache License 2.0](./LICENSE).
