@@ -33,6 +33,10 @@ type AgentSearchFilters struct {
 	Platform []Platform `json:"platform,omitempty"`
 	// Case-insensitive prefix filter on the OS version.
 	OsVersion []string `json:"osVersion,omitempty"`
+	// Returns only agents whose NIC model is an exact, case-sensitive match for one of the provided values.
+	NicModel []string `json:"nicModel,omitempty"`
+	// Returns only agents whose NIC driver version is an exact, case-sensitive match for one of the provided values.
+	NicDriverVersion []string `json:"nicDriverVersion,omitempty"`
 	// Case-insensitive prefix filter on the serial number.
 	SerialNumber []string `json:"serialNumber,omitempty"`
 	// Filter using the ISO country code of the location. 
@@ -288,6 +292,70 @@ func (o *AgentSearchFilters) SetOsVersion(v []string) {
 	o.OsVersion = v
 }
 
+// GetNicModel returns the NicModel field value if set, zero value otherwise.
+func (o *AgentSearchFilters) GetNicModel() []string {
+	if o == nil || utils.IsNil(o.NicModel) {
+		var ret []string
+		return ret
+	}
+	return o.NicModel
+}
+
+// GetNicModelOk returns a tuple with the NicModel field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AgentSearchFilters) GetNicModelOk() ([]string, bool) {
+	if o == nil || utils.IsNil(o.NicModel) {
+		return nil, false
+	}
+	return o.NicModel, true
+}
+
+// HasNicModel returns a boolean if a field has been set.
+func (o *AgentSearchFilters) HasNicModel() bool {
+	if o != nil && !utils.IsNil(o.NicModel) {
+		return true
+	}
+
+	return false
+}
+
+// SetNicModel gets a reference to the given []string and assigns it to the NicModel field.
+func (o *AgentSearchFilters) SetNicModel(v []string) {
+	o.NicModel = v
+}
+
+// GetNicDriverVersion returns the NicDriverVersion field value if set, zero value otherwise.
+func (o *AgentSearchFilters) GetNicDriverVersion() []string {
+	if o == nil || utils.IsNil(o.NicDriverVersion) {
+		var ret []string
+		return ret
+	}
+	return o.NicDriverVersion
+}
+
+// GetNicDriverVersionOk returns a tuple with the NicDriverVersion field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AgentSearchFilters) GetNicDriverVersionOk() ([]string, bool) {
+	if o == nil || utils.IsNil(o.NicDriverVersion) {
+		return nil, false
+	}
+	return o.NicDriverVersion, true
+}
+
+// HasNicDriverVersion returns a boolean if a field has been set.
+func (o *AgentSearchFilters) HasNicDriverVersion() bool {
+	if o != nil && !utils.IsNil(o.NicDriverVersion) {
+		return true
+	}
+
+	return false
+}
+
+// SetNicDriverVersion gets a reference to the given []string and assigns it to the NicDriverVersion field.
+func (o *AgentSearchFilters) SetNicDriverVersion(v []string) {
+	o.NicDriverVersion = v
+}
+
 // GetSerialNumber returns the SerialNumber field value if set, zero value otherwise.
 func (o *AgentSearchFilters) GetSerialNumber() []string {
 	if o == nil || utils.IsNil(o.SerialNumber) {
@@ -510,6 +578,12 @@ func (o AgentSearchFilters) ToMap() (map[string]interface{}, error) {
 	}
 	if !utils.IsNil(o.OsVersion) {
 		toSerialize["osVersion"] = o.OsVersion
+	}
+	if !utils.IsNil(o.NicModel) {
+		toSerialize["nicModel"] = o.NicModel
+	}
+	if !utils.IsNil(o.NicDriverVersion) {
+		toSerialize["nicDriverVersion"] = o.NicDriverVersion
 	}
 	if !utils.IsNil(o.SerialNumber) {
 		toSerialize["serialNumber"] = o.SerialNumber

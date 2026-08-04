@@ -28,6 +28,144 @@ import (
 // WebTransactionsTestResultsAPIService WebTransactionsTestResultsAPI service
 type WebTransactionsTestResultsAPIService client.Service
 
+type ApiGetTestConsoleLogsAgentRoundResultsRequest struct {
+
+	ApiService *WebTransactionsTestResultsAPIService
+	testId string
+	agentId string
+	roundId string
+	aid *string
+}
+
+// A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response.
+func (r ApiGetTestConsoleLogsAgentRoundResultsRequest) Aid(aid string) ApiGetTestConsoleLogsAgentRoundResultsRequest {
+	r.aid = &aid
+	return r
+}
+
+func (r ApiGetTestConsoleLogsAgentRoundResultsRequest) Execute() (*ConsoleLogsTestResults, *http.Response, error) {
+	return r.ApiService.GetTestConsoleLogsAgentRoundResultsExecute(r)
+}
+
+/*
+GetTestConsoleLogsAgentRoundResults Get console logs test results by agent and round
+
+Returns console logs for the specified test, agent, and round ID.
+
+
+ @param testId Test ID @param agentId Agent ID @param roundId Round ID
+ @return ApiGetTestConsoleLogsAgentRoundResultsRequest
+*/
+func (a *WebTransactionsTestResultsAPIService) GetTestConsoleLogsAgentRoundResults(testId string , agentId string , roundId string ) ApiGetTestConsoleLogsAgentRoundResultsRequest {
+	return ApiGetTestConsoleLogsAgentRoundResultsRequest{
+		ApiService: a,
+		testId: testId,
+		agentId: agentId,
+		roundId: roundId,
+	}
+}
+
+// Execute executes the request
+//  @return ConsoleLogsTestResults
+func (a *WebTransactionsTestResultsAPIService) GetTestConsoleLogsAgentRoundResultsExecute(r ApiGetTestConsoleLogsAgentRoundResultsRequest) (*ConsoleLogsTestResults, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		localVarReturnValue  *ConsoleLogsTestResults
+	)
+
+	localBasePath := a.Client.GetConfig().ServerURL
+
+	localVarPath := localBasePath + "/test-results/{testId}/web-transactions/agent/{agentId}/round/{roundId}/console-logs"
+	localVarPath = strings.Replace(localVarPath, "{"+"testId"+"}", url.PathEscape(request.ParameterValueToString(r.testId, "testId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"agentId"+"}", url.PathEscape(request.ParameterValueToString(r.agentId, "agentId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"roundId"+"}", url.PathEscape(request.ParameterValueToString(r.roundId, "roundId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.aid != nil {
+		request.ParameterAddToHeaderOrQuery(localVarQueryParams, "aid", r.aid, "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := request.SelectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/hal+json", "application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := request.SelectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.Client.PrepareRequest(localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.Client.CallAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ValidationError
+			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v UnauthorizedError
+			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v Error
+			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v Error
+			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
+		}
+		if localVarHTTPResponse.StatusCode == 429 {
+			var v Error
+			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v Error
+			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
+		}
+		if localVarHTTPResponse.StatusCode == 502 {
+			var v Error
+			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
+		}
+		return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, nil, localVarBody, localVarHTTPResponse)
+	}
+
+	err = a.Client.Decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &internalerror.GenericAPIError{
+			Body:  localVarBody,
+			ErrorMessage: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiGetTestWebTransactionAgentRoundPageResultsRequest struct {
 
 	ApiService *WebTransactionsTestResultsAPIService

@@ -23,7 +23,7 @@ type Tag struct {
 	Assignments []Assignment `json:"assignments,omitempty"`
 	AccessType *AccessType `json:"accessType,omitempty"`
 	// The account group ID
-	Aid *int64 `json:"aid,omitempty"`
+	Aid utils.NullableInt64 `json:"aid,omitempty"`
 	// Indicates whether it is a built-in tag or a user-created (custom) tag.
 	BuiltIn *bool `json:"builtIn,omitempty"`
 	// Tag color
@@ -131,36 +131,46 @@ func (o *Tag) SetAccessType(v AccessType) {
 	o.AccessType = &v
 }
 
-// GetAid returns the Aid field value if set, zero value otherwise.
+// GetAid returns the Aid field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *Tag) GetAid() int64 {
-	if o == nil || utils.IsNil(o.Aid) {
+	if o == nil || utils.IsNil(o.Aid.Get()) {
 		var ret int64
 		return ret
 	}
-	return *o.Aid
+	return *o.Aid.Get()
 }
 
 // GetAidOk returns a tuple with the Aid field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Tag) GetAidOk() (*int64, bool) {
-	if o == nil || utils.IsNil(o.Aid) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Aid, true
+	return o.Aid.Get(), o.Aid.IsSet()
 }
 
 // HasAid returns a boolean if a field has been set.
 func (o *Tag) HasAid() bool {
-	if o != nil && !utils.IsNil(o.Aid) {
+	if o != nil && o.Aid.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetAid gets a reference to the given int64 and assigns it to the Aid field.
+// SetAid gets a reference to the given NullableInt64 and assigns it to the Aid field.
 func (o *Tag) SetAid(v int64) {
-	o.Aid = &v
+	o.Aid.Set(&v)
+}
+// SetAidNil sets the value for Aid to be an explicit nil
+func (o *Tag) SetAidNil() {
+	o.Aid.Set(nil)
+}
+
+// UnsetAid ensures that no value is present for Aid, not even an explicit nil
+func (o *Tag) UnsetAid() {
+	o.Aid.Unset()
 }
 
 // GetBuiltIn returns the BuiltIn field value if set, zero value otherwise.
@@ -699,8 +709,8 @@ func (o Tag) ToMap() (map[string]interface{}, error) {
 	if !utils.IsNil(o.AccessType) {
 		toSerialize["accessType"] = o.AccessType
 	}
-	if !utils.IsNil(o.Aid) {
-		toSerialize["aid"] = o.Aid
+	if o.Aid.IsSet() {
+		toSerialize["aid"] = o.Aid.Get()
 	}
 	if !utils.IsNil(o.BuiltIn) {
 		toSerialize["builtIn"] = o.BuiltIn

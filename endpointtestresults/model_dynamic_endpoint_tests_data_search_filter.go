@@ -23,6 +23,10 @@ type DynamicEndpointTestsDataSearchFilter struct {
 	AgentId []string `json:"agentId,omitempty"`
 	// Filters results based on an array of `userPrincipalName` values.
 	UserPrincipalName []string `json:"userPrincipalName,omitempty"`
+	// Filters results to NIC models that exactly match one of the provided values. Matching is case-sensitive.
+	NicModel []string `json:"nicModel,omitempty"`
+	// Filters results to NIC driver versions that exactly match one of the provided values. Matching is case-sensitive.
+	NicDriverVersion []string `json:"nicDriverVersion,omitempty"`
 	// Filter using the `conference-id` of the Webex call.
 	WebexConferenceId []string `json:"webexConferenceId,omitempty"`
 	// Filter using the `correlation-id` of the Webex call.
@@ -110,6 +114,70 @@ func (o *DynamicEndpointTestsDataSearchFilter) HasUserPrincipalName() bool {
 // SetUserPrincipalName gets a reference to the given []string and assigns it to the UserPrincipalName field.
 func (o *DynamicEndpointTestsDataSearchFilter) SetUserPrincipalName(v []string) {
 	o.UserPrincipalName = v
+}
+
+// GetNicModel returns the NicModel field value if set, zero value otherwise.
+func (o *DynamicEndpointTestsDataSearchFilter) GetNicModel() []string {
+	if o == nil || utils.IsNil(o.NicModel) {
+		var ret []string
+		return ret
+	}
+	return o.NicModel
+}
+
+// GetNicModelOk returns a tuple with the NicModel field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DynamicEndpointTestsDataSearchFilter) GetNicModelOk() ([]string, bool) {
+	if o == nil || utils.IsNil(o.NicModel) {
+		return nil, false
+	}
+	return o.NicModel, true
+}
+
+// HasNicModel returns a boolean if a field has been set.
+func (o *DynamicEndpointTestsDataSearchFilter) HasNicModel() bool {
+	if o != nil && !utils.IsNil(o.NicModel) {
+		return true
+	}
+
+	return false
+}
+
+// SetNicModel gets a reference to the given []string and assigns it to the NicModel field.
+func (o *DynamicEndpointTestsDataSearchFilter) SetNicModel(v []string) {
+	o.NicModel = v
+}
+
+// GetNicDriverVersion returns the NicDriverVersion field value if set, zero value otherwise.
+func (o *DynamicEndpointTestsDataSearchFilter) GetNicDriverVersion() []string {
+	if o == nil || utils.IsNil(o.NicDriverVersion) {
+		var ret []string
+		return ret
+	}
+	return o.NicDriverVersion
+}
+
+// GetNicDriverVersionOk returns a tuple with the NicDriverVersion field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DynamicEndpointTestsDataSearchFilter) GetNicDriverVersionOk() ([]string, bool) {
+	if o == nil || utils.IsNil(o.NicDriverVersion) {
+		return nil, false
+	}
+	return o.NicDriverVersion, true
+}
+
+// HasNicDriverVersion returns a boolean if a field has been set.
+func (o *DynamicEndpointTestsDataSearchFilter) HasNicDriverVersion() bool {
+	if o != nil && !utils.IsNil(o.NicDriverVersion) {
+		return true
+	}
+
+	return false
+}
+
+// SetNicDriverVersion gets a reference to the given []string and assigns it to the NicDriverVersion field.
+func (o *DynamicEndpointTestsDataSearchFilter) SetNicDriverVersion(v []string) {
+	o.NicDriverVersion = v
 }
 
 // GetWebexConferenceId returns the WebexConferenceId field value if set, zero value otherwise.
@@ -223,6 +291,12 @@ func (o DynamicEndpointTestsDataSearchFilter) ToMap() (map[string]interface{}, e
 	}
 	if !utils.IsNil(o.UserPrincipalName) {
 		toSerialize["userPrincipalName"] = o.UserPrincipalName
+	}
+	if !utils.IsNil(o.NicModel) {
+		toSerialize["nicModel"] = o.NicModel
+	}
+	if !utils.IsNil(o.NicDriverVersion) {
+		toSerialize["nicDriverVersion"] = o.NicDriverVersion
 	}
 	if !utils.IsNil(o.WebexConferenceId) {
 		toSerialize["webexConferenceId"] = o.WebexConferenceId

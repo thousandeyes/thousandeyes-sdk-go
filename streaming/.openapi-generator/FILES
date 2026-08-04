@@ -8,6 +8,7 @@ model_api_error_integration_limits.go
 model_audit_operation.go
 model_audit_operation_with_update.go
 model_bad_request_error.go
+model_connected_devices.go
 model_create_stream_response.go
 model_data_model_version.go
 model_endpoint_agent_label.go
@@ -20,6 +21,8 @@ model_exporter_config_splunk_hec.go
 model_filters.go
 model_filters_test_types.go
 model_get_stream_response.go
+model_input_config.go
+model_input_config_metric.go
 model_put_stream.go
 model_signal.go
 model_stream.go
