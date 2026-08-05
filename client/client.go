@@ -78,9 +78,10 @@ func (c *APIClient) CallAPI(request *http.Request) (*http.Response, error) {
 	if c.cfg.Debug {
 		dump, err := dumpRedactedRequest(request)
 		if err != nil {
-			return nil, err
+			log.Printf("failed to dump request for debug logging: %v", err)
+		} else {
+			log.Printf("\n%s\n", string(dump))
 		}
-		log.Printf("\n%s\n", string(dump))
 	}
 
 	resp, err := c.cfg.HTTPClient.Do(request)
