@@ -123,8 +123,11 @@ different API v7 endpoint, while fields on the configuration allow a custom
 HTTP client, context, and user agent. Create and reuse a configured API client;
 do not modify its configuration while requests are in flight.
 
-Keep `Debug` disabled in production. Debug mode dumps complete HTTP requests
-and responses, which can include the bearer token and sensitive API data.
+`Debug` is disabled by default and should remain disabled in production. When
+enabled, it dumps complete HTTP requests and responses, including payloads.
+Common credential fields and authentication or cookie headers are redacted, but
+URLs, other headers, and payloads can still contain sensitive API data. Treat
+debug logs as sensitive and review them before persisting or sharing them.
 
 Account-group context is optional and is set per request with `.Aid(aid)` on
 operations that support it. The example reads it from `TE_AID` when present.
