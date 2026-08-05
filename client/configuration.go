@@ -8,7 +8,7 @@ import (
 
 // This sdkVersion will be updated by release.yaml
 // Do not modify this line manually
-var sdkVersion = "v3"
+var sdkVersion = "v3.0.0"
 
 func SDKVersion() string {
 	return sdkVersion
