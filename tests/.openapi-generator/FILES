@@ -163,6 +163,7 @@ model_sip_server_tests.go
 model_sip_test_protocol.go
 model_test_agent_request.go
 model_test_auth_type.go
+model_test_chromium_track.go
 model_test_custom_headers.go
 model_test_direction.go
 model_test_dns_server.go

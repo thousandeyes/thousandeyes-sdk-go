@@ -72,6 +72,7 @@ type ApiDashboard struct {
 	// True if this dashboard was previously a report.
 	IsMigratedReport *bool `json:"isMigratedReport,omitempty"`
 	Layout *DashboardLayout `json:"layout,omitempty"`
+	RefreshRate *RefreshRate `json:"refreshRate,omitempty"`
 	Links *DashboardLinks `json:"_links,omitempty"`
 }
 
@@ -81,6 +82,8 @@ type ApiDashboard struct {
 // will change when the set of required properties is changed
 func NewApiDashboard() *ApiDashboard {
 	this := ApiDashboard{}
+	var refreshRate RefreshRate = "off"
+	this.RefreshRate = &refreshRate
 	return &this
 }
 
@@ -89,6 +92,8 @@ func NewApiDashboard() *ApiDashboard {
 // but it doesn't guarantee that properties required by API are set
 func NewApiDashboardWithDefaults() *ApiDashboard {
 	this := ApiDashboard{}
+	var refreshRate RefreshRate = "off"
+	this.RefreshRate = &refreshRate
 	return &this
 }
 
@@ -881,6 +886,38 @@ func (o *ApiDashboard) SetLayout(v DashboardLayout) {
 	o.Layout = &v
 }
 
+// GetRefreshRate returns the RefreshRate field value if set, zero value otherwise.
+func (o *ApiDashboard) GetRefreshRate() RefreshRate {
+	if o == nil || utils.IsNil(o.RefreshRate) {
+		var ret RefreshRate
+		return ret
+	}
+	return *o.RefreshRate
+}
+
+// GetRefreshRateOk returns a tuple with the RefreshRate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiDashboard) GetRefreshRateOk() (*RefreshRate, bool) {
+	if o == nil || utils.IsNil(o.RefreshRate) {
+		return nil, false
+	}
+	return o.RefreshRate, true
+}
+
+// HasRefreshRate returns a boolean if a field has been set.
+func (o *ApiDashboard) HasRefreshRate() bool {
+	if o != nil && !utils.IsNil(o.RefreshRate) {
+		return true
+	}
+
+	return false
+}
+
+// SetRefreshRate gets a reference to the given RefreshRate and assigns it to the RefreshRate field.
+func (o *ApiDashboard) SetRefreshRate(v RefreshRate) {
+	o.RefreshRate = &v
+}
+
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *ApiDashboard) GetLinks() DashboardLinks {
 	if o == nil || utils.IsNil(o.Links) {
@@ -994,6 +1031,9 @@ func (o ApiDashboard) ToMap() (map[string]interface{}, error) {
 	}
 	if !utils.IsNil(o.Layout) {
 		toSerialize["layout"] = o.Layout
+	}
+	if !utils.IsNil(o.RefreshRate) {
+		toSerialize["refreshRate"] = o.RefreshRate
 	}
 	if !utils.IsNil(o.Links) {
 		toSerialize["_links"] = o.Links

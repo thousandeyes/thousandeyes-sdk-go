@@ -50,6 +50,9 @@ model_bgp_test_result.go
 model_bgp_test_results.go
 model_bgp_test_route_information_result.go
 model_bgp_test_route_information_results.go
+model_console_logs.go
+model_console_logs_result.go
+model_console_logs_test_results.go
 model_dns_measurement_protocol.go
 model_dns_opcode.go
 model_dns_qr.go
