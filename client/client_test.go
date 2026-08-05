@@ -18,11 +18,12 @@ func newRequestTestClient(cfg *Configuration) *APIClient {
 	return &APIClient{cfg: cfg}
 }
 
-func TestFormatRequestLog(t *testing.T) {
-	const requestBody = `{"password":"body-password"}`
+func TestDumpRedactedRequest(t *testing.T) {
+	const requestBody = `{"password":"alpha beta","apiKey":"gamma&delta",` +
+		`"token":"epsilon\"zeta","clientSecret":"eta,theta","name":"body-visible"}`
 	request, err := http.NewRequest(
 		http.MethodPost,
-		"https://example.test/resource/path-secret?apiKey=query-secret",
+		"https://example.test/resource/path-visible?apiKey=query-secret&filter=query-visible",
 		strings.NewReader(requestBody),
 	)
 	if err != nil {
@@ -31,28 +32,76 @@ func TestFormatRequestLog(t *testing.T) {
 	request.Header.Set("Authorization", "Bearer header-token")
 	request.Header.Set("Cookie", "session=cookie-secret")
 	request.Header.Set("X-Api-Key", "custom-header-secret")
+	request.Header.Set("X-Trace", "header-visible")
 
-	logged := formatRequestLog(request)
+	dump, err := dumpRedactedRequest(request)
+	if err != nil {
+		t.Fatalf("dumpRedactedRequest() error = %v", err)
+	}
+	logged := string(dump)
 
 	for _, secret := range []string{
-		"body-password",
-		"path-secret",
-		"query-secret",
 		"header-token",
 		"cookie-secret",
 		"custom-header-secret",
+		"query-secret",
+		"alpha",
+		"beta",
+		"gamma",
+		"delta",
+		"epsilon",
+		"zeta",
+		"eta",
+		"theta",
 	} {
 		if strings.Contains(logged, secret) {
 			t.Errorf("debug request log contains sensitive value %q", secret)
 		}
 	}
-	if want := "POST request (URL, headers, and body omitted)"; logged != want {
-		t.Errorf("formatRequestLog() = %q, want %q", logged, want)
+	for _, detail := range []string{"path-visible", "query-visible", "header-visible", "body-visible"} {
+		if !strings.Contains(logged, detail) {
+			t.Errorf("debug request log does not contain request detail %q", detail)
+		}
+	}
+	if !strings.Contains(logged, "Authorization: [REDACTED]") {
+		t.Errorf("debug request log does not contain a redacted Authorization header\nlog:\n%s", logged)
 	}
 
-	request.Method = "method-secret"
-	if got, want := formatRequestLog(request), "HTTP request (URL, headers, and body omitted)"; got != want {
-		t.Errorf("formatRequestLog() with unknown method = %q, want %q", got, want)
+	if got := request.Header.Get("Authorization"); got != "Bearer header-token" {
+		t.Errorf("original Authorization header = %q, want unchanged", got)
+	}
+	if got := request.Header.Get("Cookie"); got != "session=cookie-secret" {
+		t.Errorf("original Cookie header = %q, want unchanged", got)
+	}
+	if got := request.Header.Get("X-Api-Key"); got != "custom-header-secret" {
+		t.Errorf("original X-Api-Key header = %q, want unchanged", got)
+	}
+	body, err := io.ReadAll(request.Body)
+	if err != nil {
+		t.Fatalf("reading original request body: %v", err)
+	}
+	if got := string(body); got != requestBody {
+		t.Errorf("original request body = %q, want %q", got, requestBody)
+	}
+}
+
+func TestRedactSensitiveResponseData(t *testing.T) {
+	dump := []byte("HTTP/1.1 200 OK\r\n" +
+		"Set-Cookie: session=response-cookie\r\n" +
+		"X-Trace: response-header\r\n" +
+		"Content-Type: application/json\r\n\r\n" +
+		`{"refreshToken":"response token","result":"response-visible"}`)
+
+	logged := string(redactSensitiveData(dump))
+	for _, secret := range []string{"response-cookie", "response token"} {
+		if strings.Contains(logged, secret) {
+			t.Errorf("debug response log contains sensitive value %q", secret)
+		}
+	}
+	for _, detail := range []string{"response-header", "response-visible"} {
+		if !strings.Contains(logged, detail) {
+			t.Errorf("debug response log does not contain response detail %q", detail)
+		}
 	}
 }
 

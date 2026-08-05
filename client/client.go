@@ -18,10 +18,18 @@ import (
 	"github.com/hashicorp/go-retryablehttp"
 )
 
+const sensitiveFieldPattern = `(?:password|secret(?:[_-]?key)?|api[_-]?key|` +
+	`(?:access|refresh|bearer|auth|account|api)?[_-]?token|` +
+	`(?:oauth[_-]?)?client[_-]?secret|authorization)`
+
 var (
 	JsonCheck       = regexp.MustCompile(`(?i:application/((hal|problem)\+)?json)`)
 	queryParamSplit = regexp.MustCompile(`(^|&)([^&]+)`)
 	queryDescape    = strings.NewReplacer("%5B", "[", "%5D", "]")
+
+	sensitiveJSONFieldRe  = regexp.MustCompile(`(?i)("` + sensitiveFieldPattern + `"\s*:\s*")((?:\\.|[^"\\])*)(")`)
+	sensitiveParameterRe  = regexp.MustCompile(`(?im)((?:^|[?&])` + sensitiveFieldPattern + `=)[^&\s\r\n]*`)
+	sensitiveHeaderLineRe = regexp.MustCompile(`(?im)^((?:Authorization|Proxy-Authorization|Cookie|Set-Cookie|X-Api-Key|Api-Key|X-Auth-Token)\s*:\s*)[^\r\n]*`)
 )
 
 // APIClient In most cases there should be only one, shared, APIClient.
@@ -68,39 +76,61 @@ func (c *APIClient) GetConfig() *Configuration {
 // CallAPI do the request.
 func (c *APIClient) CallAPI(request *http.Request) (*http.Response, error) {
 	if c.cfg.Debug {
-		log.Printf("\n%s\n", formatRequestLog(request))
+		dump, err := dumpRedactedRequest(request)
+		if err != nil {
+			return nil, err
+		}
+		log.Printf("\n%s\n", string(dump))
 	}
 
 	resp, err := c.cfg.HTTPClient.Do(request)
 
-	if c.cfg.Debug {
+	if c.cfg.Debug && resp != nil {
 		dump, err := httputil.DumpResponse(resp, true)
 		if err != nil {
 			return resp, err
 		}
-		log.Printf("\n%s\n", string(dump))
+		log.Printf("\n%s\n", string(redactSensitiveData(dump)))
 	}
 
 	return resp, err
 }
 
-func formatRequestLog(request *http.Request) string {
-	const detailsOmitted = " request (URL, headers, and body omitted)"
+func redactSensitiveData(dump []byte) []byte {
+	dump = sensitiveHeaderLineRe.ReplaceAll(dump, []byte(`${1}[REDACTED]`))
+	dump = sensitiveParameterRe.ReplaceAll(dump, []byte(`${1}[REDACTED]`))
+	return sensitiveJSONFieldRe.ReplaceAll(dump, []byte(`${1}[REDACTED]${3}`))
+}
 
-	switch request.Method {
-	case http.MethodDelete:
-		return "DELETE" + detailsOmitted
-	case http.MethodGet:
-		return "GET" + detailsOmitted
-	case http.MethodPatch:
-		return "PATCH" + detailsOmitted
-	case http.MethodPost:
-		return "POST" + detailsOmitted
-	case http.MethodPut:
-		return "PUT" + detailsOmitted
-	default:
-		return "HTTP" + detailsOmitted
+func dumpRedactedRequest(request *http.Request) ([]byte, error) {
+	requestForLogging := request.Clone(request.Context())
+	if requestForLogging.Header.Get("Authorization") != "" {
+		requestForLogging.Header.Set("Authorization", "[REDACTED]")
 	}
+
+	if request.Body != nil {
+		if request.GetBody != nil {
+			body, err := request.GetBody()
+			if err != nil {
+				return nil, err
+			}
+			requestForLogging.Body = body
+		} else {
+			body, err := io.ReadAll(request.Body)
+			if err != nil {
+				return nil, err
+			}
+			_ = request.Body.Close()
+			request.Body = io.NopCloser(bytes.NewReader(body))
+			requestForLogging.Body = io.NopCloser(bytes.NewReader(body))
+		}
+	}
+
+	dump, err := httputil.DumpRequestOut(requestForLogging, true)
+	if err != nil {
+		return nil, err
+	}
+	return redactSensitiveData(dump), nil
 }
 
 // PrepareRequest build the request
