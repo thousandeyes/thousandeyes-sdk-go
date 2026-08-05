@@ -1,7 +1,7 @@
 /*
 ThousandEyes for OpenTelemetry API
 
-**Note:** The following ThousandEyes for OpenTelemetry API capabilities are not available for ThousandEyes for Government instance:  * Traces * OTel-based integrations that rely on connectors and operations, including:   * Splunk Cloud Platform HEC   * Splunk Enterprise HEC   * Splunk Observability APM   * Dynatrace Observability APM  ThousandEyes for OpenTelemetry provides machine-to-machine integration between ThousandEyes and its customers. It allows you to export ThousandEyes telemetry data in OTel format, which is widely used in the industry. With ThousandEyes for OTel, you can leverage frameworks widely used in the observability domain - such as Splunk, Grafana, and Honeycomb - to capture and analyze ThousandEyes data. Any client that supports OTel can use ThousandEyes for OpenTelemetry.  ThousandEyes for OTel is made up of the following components:  * Data streaming APIs that you can use to configure and enable your ThousandEyes tests with OTel-compatible streams, in particular to configure how ThousandEyes telemetry data is exported to client integrations. * A set of streaming pipelines called _collectors_ that actively fetch ThousandEyes network test data, enrich the data with some additional detail, filter, and push the data to the customer-configured endpoints, depending on what you configure via the public APIs. * Third-party OTel collectors that receive, transform, filter, and export different metrics to client applications such as AppD, or any other OTel-capable client configuration.  For more information about ThousandEyes for OpenTelemetry, see the [product documentation](https://docs.thousandeyes.com/product-documentation/integration-guides/opentelemetry). 
+**Note:** The following ThousandEyes for OpenTelemetry API capabilities are not available for ThousandEyes for Government instance:  * Traces * Connected Devices * OTel-based integrations that rely on connectors and operations, including:   * Splunk Cloud Platform HEC   * Splunk Enterprise HEC   * Splunk Observability APM   * Dynatrace Observability APM  ThousandEyes for OpenTelemetry provides machine-to-machine integration between ThousandEyes and its customers. It allows you to export ThousandEyes telemetry data in OTel format, which is widely used in the industry. With ThousandEyes for OTel, you can leverage frameworks widely used in the observability domain - such as Splunk, Grafana, and Honeycomb - to capture and analyze ThousandEyes data. Any client that supports OTel can use ThousandEyes for OpenTelemetry.  ThousandEyes for OTel is made up of the following components:  * Data streaming APIs that you can use to configure and enable your ThousandEyes tests with OTel-compatible streams, in particular to configure how ThousandEyes telemetry data is exported to client integrations. * A set of streaming pipelines called _collectors_ that actively fetch ThousandEyes network test data, enrich the data with some additional detail, filter, and push the data to the customer-configured endpoints, depending on what you configure via the public APIs. * Third-party OTel collectors that receive, transform, filter, and export different metrics to client applications such as AppD, or any other OTel-capable client configuration.  For more information about ThousandEyes for OpenTelemetry, see the [product documentation](https://docs.thousandeyes.com/product-documentation/integration-guides/opentelemetry). 
 
 */
 
@@ -37,6 +37,7 @@ type CreateStreamResponse struct {
 	// A collection of tests to be included in the data stream.
 	TestMatch []TestMatch `json:"testMatch,omitempty"`
 	Filters *Filters `json:"filters,omitempty"`
+	InputConfig *InputConfig `json:"inputConfig,omitempty"`
 	ExporterConfig *ExporterConfig `json:"exporterConfig,omitempty"`
 	// A collection of Endpoint Agent label IDs that determines what local network data is included in the data stream. `endpointAgentLabel` and `endpointAgentTag` represent the same data. Configure only one; both are synchronized.
 	EndpointAgentLabel []EndpointAgentLabel `json:"endpointAgentLabel,omitempty"`
@@ -459,6 +460,38 @@ func (o *CreateStreamResponse) SetFilters(v Filters) {
 	o.Filters = &v
 }
 
+// GetInputConfig returns the InputConfig field value if set, zero value otherwise.
+func (o *CreateStreamResponse) GetInputConfig() InputConfig {
+	if o == nil || utils.IsNil(o.InputConfig) {
+		var ret InputConfig
+		return ret
+	}
+	return *o.InputConfig
+}
+
+// GetInputConfigOk returns a tuple with the InputConfig field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateStreamResponse) GetInputConfigOk() (*InputConfig, bool) {
+	if o == nil || utils.IsNil(o.InputConfig) {
+		return nil, false
+	}
+	return o.InputConfig, true
+}
+
+// HasInputConfig returns a boolean if a field has been set.
+func (o *CreateStreamResponse) HasInputConfig() bool {
+	if o != nil && !utils.IsNil(o.InputConfig) {
+		return true
+	}
+
+	return false
+}
+
+// SetInputConfig gets a reference to the given InputConfig and assigns it to the InputConfig field.
+func (o *CreateStreamResponse) SetInputConfig(v InputConfig) {
+	o.InputConfig = &v
+}
+
 // GetExporterConfig returns the ExporterConfig field value if set, zero value otherwise.
 func (o *CreateStreamResponse) GetExporterConfig() ExporterConfig {
 	if o == nil || utils.IsNil(o.ExporterConfig) {
@@ -664,6 +697,9 @@ func (o CreateStreamResponse) ToMap() (map[string]interface{}, error) {
 	}
 	if !utils.IsNil(o.Filters) {
 		toSerialize["filters"] = o.Filters
+	}
+	if !utils.IsNil(o.InputConfig) {
+		toSerialize["inputConfig"] = o.InputConfig
 	}
 	if !utils.IsNil(o.ExporterConfig) {
 		toSerialize["exporterConfig"] = o.ExporterConfig

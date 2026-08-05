@@ -37,6 +37,10 @@ type EndpointNetworkTopologyResultRequestFilter struct {
 	Ssid []string `json:"ssid,omitempty"`
 	// WiFi BSSID.
 	Bssid []string `json:"bssid,omitempty"`
+	// Filters results to NIC models that exactly match one of the provided values. Matching is case-sensitive.
+	NicModel []string `json:"nicModel,omitempty"`
+	// Filters results to NIC driver versions that exactly match one of the provided values. Matching is case-sensitive.
+	NicDriverVersion []string `json:"nicDriverVersion,omitempty"`
 	// Web site base domain visited during the session.
 	Type []NetworkTopologyType `json:"type,omitempty"`
 }
@@ -378,6 +382,70 @@ func (o *EndpointNetworkTopologyResultRequestFilter) SetBssid(v []string) {
 	o.Bssid = v
 }
 
+// GetNicModel returns the NicModel field value if set, zero value otherwise.
+func (o *EndpointNetworkTopologyResultRequestFilter) GetNicModel() []string {
+	if o == nil || utils.IsNil(o.NicModel) {
+		var ret []string
+		return ret
+	}
+	return o.NicModel
+}
+
+// GetNicModelOk returns a tuple with the NicModel field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EndpointNetworkTopologyResultRequestFilter) GetNicModelOk() ([]string, bool) {
+	if o == nil || utils.IsNil(o.NicModel) {
+		return nil, false
+	}
+	return o.NicModel, true
+}
+
+// HasNicModel returns a boolean if a field has been set.
+func (o *EndpointNetworkTopologyResultRequestFilter) HasNicModel() bool {
+	if o != nil && !utils.IsNil(o.NicModel) {
+		return true
+	}
+
+	return false
+}
+
+// SetNicModel gets a reference to the given []string and assigns it to the NicModel field.
+func (o *EndpointNetworkTopologyResultRequestFilter) SetNicModel(v []string) {
+	o.NicModel = v
+}
+
+// GetNicDriverVersion returns the NicDriverVersion field value if set, zero value otherwise.
+func (o *EndpointNetworkTopologyResultRequestFilter) GetNicDriverVersion() []string {
+	if o == nil || utils.IsNil(o.NicDriverVersion) {
+		var ret []string
+		return ret
+	}
+	return o.NicDriverVersion
+}
+
+// GetNicDriverVersionOk returns a tuple with the NicDriverVersion field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EndpointNetworkTopologyResultRequestFilter) GetNicDriverVersionOk() ([]string, bool) {
+	if o == nil || utils.IsNil(o.NicDriverVersion) {
+		return nil, false
+	}
+	return o.NicDriverVersion, true
+}
+
+// HasNicDriverVersion returns a boolean if a field has been set.
+func (o *EndpointNetworkTopologyResultRequestFilter) HasNicDriverVersion() bool {
+	if o != nil && !utils.IsNil(o.NicDriverVersion) {
+		return true
+	}
+
+	return false
+}
+
+// SetNicDriverVersion gets a reference to the given []string and assigns it to the NicDriverVersion field.
+func (o *EndpointNetworkTopologyResultRequestFilter) SetNicDriverVersion(v []string) {
+	o.NicDriverVersion = v
+}
+
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *EndpointNetworkTopologyResultRequestFilter) GetType() []NetworkTopologyType {
 	if o == nil || utils.IsNil(o.Type) {
@@ -449,6 +517,12 @@ func (o EndpointNetworkTopologyResultRequestFilter) ToMap() (map[string]interfac
 	}
 	if !utils.IsNil(o.Bssid) {
 		toSerialize["bssid"] = o.Bssid
+	}
+	if !utils.IsNil(o.NicModel) {
+		toSerialize["nicModel"] = o.NicModel
+	}
+	if !utils.IsNil(o.NicDriverVersion) {
+		toSerialize["nicDriverVersion"] = o.NicDriverVersion
 	}
 	if !utils.IsNil(o.Type) {
 		toSerialize["type"] = o.Type

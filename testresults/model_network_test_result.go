@@ -38,7 +38,7 @@ type NetworkTestResult struct {
 	Capacity *float64 `json:"capacity,omitempty"`
 	// Standard deviation of latency
 	Jitter *float64 `json:"jitter,omitempty"`
-	// Percentage of packets not reaching destination
+	// Percentage of packets not reaching the destination. This field is omitted when no loss measurement is available.
 	Loss *float64 `json:"loss,omitempty"`
 	// Maximum RTT for packets sent to destination
 	MaxLatency *float64 `json:"maxLatency,omitempty"`
@@ -64,6 +64,8 @@ type NetworkTestResult struct {
 	// A normalized value (0.0-1.0) representing the network connection health of the test target. Returns negative values as error codes. -1.0 indicates there was insufficient data to calculate the health score.
 	HealthScore *float32 `json:"healthScore,omitempty"`
 	Direction *TestDirection `json:"direction,omitempty"`
+	// Error details. This field is omitted when no error occurs.
+	ErrorDetails *string `json:"errorDetails,omitempty"`
 }
 
 // NewNetworkTestResult instantiates a new NetworkTestResult object
@@ -855,6 +857,38 @@ func (o *NetworkTestResult) SetDirection(v TestDirection) {
 	o.Direction = &v
 }
 
+// GetErrorDetails returns the ErrorDetails field value if set, zero value otherwise.
+func (o *NetworkTestResult) GetErrorDetails() string {
+	if o == nil || utils.IsNil(o.ErrorDetails) {
+		var ret string
+		return ret
+	}
+	return *o.ErrorDetails
+}
+
+// GetErrorDetailsOk returns a tuple with the ErrorDetails field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *NetworkTestResult) GetErrorDetailsOk() (*string, bool) {
+	if o == nil || utils.IsNil(o.ErrorDetails) {
+		return nil, false
+	}
+	return o.ErrorDetails, true
+}
+
+// HasErrorDetails returns a boolean if a field has been set.
+func (o *NetworkTestResult) HasErrorDetails() bool {
+	if o != nil && !utils.IsNil(o.ErrorDetails) {
+		return true
+	}
+
+	return false
+}
+
+// SetErrorDetails gets a reference to the given string and assigns it to the ErrorDetails field.
+func (o *NetworkTestResult) SetErrorDetails(v string) {
+	o.ErrorDetails = &v
+}
+
 func (o NetworkTestResult) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -936,6 +970,9 @@ func (o NetworkTestResult) ToMap() (map[string]interface{}, error) {
 	}
 	if !utils.IsNil(o.Direction) {
 		toSerialize["direction"] = o.Direction
+	}
+	if !utils.IsNil(o.ErrorDetails) {
+		toSerialize["errorDetails"] = o.ErrorDetails
 	}
 	return toSerialize, nil
 }
