@@ -257,7 +257,7 @@ func TestOperationConnectorsAPIService_SetOperationConnectors(t *testing.T) {
 	var id string = "cb1b8033-ea2d-4e9b-a920-fe87850693cf"
 	var confirmDisabledObjects bool = true
 	var aid string = "1234"
-	requestBodyJSON := []byte("[\"ca39314d-eb4f-496f-9435-b5d20b1bfbff\"]")
+	requestBodyJSON := []byte("[ \"ca39314d-eb4f-496f-9435-b5d20b1bfbff\" ]")
 	var requestBody []string
 	if err := json.Unmarshal(requestBodyJSON, &requestBody); err != nil {
 		t.Fatalf("unmarshal request body: %v", err)
@@ -340,7 +340,7 @@ func TestOperationConnectorsAPIService_SetOperationConnectors_Errors(t *testing.
 	var id string = "cb1b8033-ea2d-4e9b-a920-fe87850693cf"
 	var confirmDisabledObjects bool = true
 	var aid string = "1234"
-	requestBodyJSON := []byte("[\"ca39314d-eb4f-496f-9435-b5d20b1bfbff\"]")
+	requestBodyJSON := []byte("[ \"ca39314d-eb4f-496f-9435-b5d20b1bfbff\" ]")
 	var requestBody []string
 	if err := json.Unmarshal(requestBodyJSON, &requestBody); err != nil {
 		t.Fatalf("unmarshal request body: %v", err)
