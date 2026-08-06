@@ -1155,7 +1155,7 @@ func TestPanoramaConnectorsAPIService_SetPanoramaConnectorOperations(t *testing.
 
 	var id string = "cb1b8033-ea2d-4e9b-a920-fe87850693cf"
 	var aid string = "1234"
-	requestBodyJSON := []byte("[\"ca39314d-eb4f-496f-9435-b5d20b1bfbff\",\"a32cfbab-32f6-41d8-9027-7127cba965dd\"]")
+	requestBodyJSON := []byte("[ \"ca39314d-eb4f-496f-9435-b5d20b1bfbff\", \"a32cfbab-32f6-41d8-9027-7127cba965dd\" ]")
 	var requestBody []string
 	if err := json.Unmarshal(requestBodyJSON, &requestBody); err != nil {
 		t.Fatalf("unmarshal request body: %v", err)
@@ -1232,7 +1232,7 @@ func TestPanoramaConnectorsAPIService_SetPanoramaConnectorOperations_Errors(t *t
 
 	var id string = "cb1b8033-ea2d-4e9b-a920-fe87850693cf"
 	var aid string = "1234"
-	requestBodyJSON := []byte("[\"ca39314d-eb4f-496f-9435-b5d20b1bfbff\",\"a32cfbab-32f6-41d8-9027-7127cba965dd\"]")
+	requestBodyJSON := []byte("[ \"ca39314d-eb4f-496f-9435-b5d20b1bfbff\", \"a32cfbab-32f6-41d8-9027-7127cba965dd\" ]")
 	var requestBody []string
 	if err := json.Unmarshal(requestBodyJSON, &requestBody); err != nil {
 		t.Fatalf("unmarshal request body: %v", err)
