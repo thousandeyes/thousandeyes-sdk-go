@@ -20,6 +20,7 @@ var _ utils.MappedNullable = &PathVisDetailEndpointTestResults{}
 // PathVisDetailEndpointTestResults struct for PathVisDetailEndpointTestResults
 type PathVisDetailEndpointTestResults struct {
 	Results []PathVisDetailEndpointTestResult `json:"results,omitempty"`
+	// The scheduled test configuration. Omitted when the user lacks the `View endpoint experience tests` permission.
 	Test *EndpointScheduledTest `json:"test,omitempty"`
 	Links *SelfLinks `json:"_links,omitempty"`
 }

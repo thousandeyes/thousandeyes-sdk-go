@@ -51,6 +51,7 @@ type Dashboard struct {
 	// True if this dashboard was previously a report.
 	IsMigratedReport *bool `json:"isMigratedReport,omitempty"`
 	Layout *DashboardLayout `json:"layout,omitempty"`
+	Schedule *DashboardSchedule `json:"schedule,omitempty"`
 	RefreshRate *RefreshRate `json:"refreshRate,omitempty"`
 	Links *DashboardLinks `json:"_links,omitempty"`
 }
@@ -620,6 +621,38 @@ func (o *Dashboard) SetLayout(v DashboardLayout) {
 	o.Layout = &v
 }
 
+// GetSchedule returns the Schedule field value if set, zero value otherwise.
+func (o *Dashboard) GetSchedule() DashboardSchedule {
+	if o == nil || utils.IsNil(o.Schedule) {
+		var ret DashboardSchedule
+		return ret
+	}
+	return *o.Schedule
+}
+
+// GetScheduleOk returns a tuple with the Schedule field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Dashboard) GetScheduleOk() (*DashboardSchedule, bool) {
+	if o == nil || utils.IsNil(o.Schedule) {
+		return nil, false
+	}
+	return o.Schedule, true
+}
+
+// HasSchedule returns a boolean if a field has been set.
+func (o *Dashboard) HasSchedule() bool {
+	if o != nil && !utils.IsNil(o.Schedule) {
+		return true
+	}
+
+	return false
+}
+
+// SetSchedule gets a reference to the given DashboardSchedule and assigns it to the Schedule field.
+func (o *Dashboard) SetSchedule(v DashboardSchedule) {
+	o.Schedule = &v
+}
+
 // GetRefreshRate returns the RefreshRate field value if set, zero value otherwise.
 func (o *Dashboard) GetRefreshRate() RefreshRate {
 	if o == nil || utils.IsNil(o.RefreshRate) {
@@ -744,6 +777,9 @@ func (o Dashboard) ToMap() (map[string]interface{}, error) {
 	}
 	if !utils.IsNil(o.Layout) {
 		toSerialize["layout"] = o.Layout
+	}
+	if !utils.IsNil(o.Schedule) {
+		toSerialize["schedule"] = o.Schedule
 	}
 	if !utils.IsNil(o.RefreshRate) {
 		toSerialize["refreshRate"] = o.RefreshRate

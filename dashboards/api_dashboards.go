@@ -27,6 +27,147 @@ import (
 // DashboardsAPIService DashboardsAPI service
 type DashboardsAPIService client.Service
 
+type ApiCloneDashboardRequest struct {
+
+	ApiService *DashboardsAPIService
+	dashboardId string
+	aid *string
+	cloneDashboardRequest *CloneDashboardRequest
+}
+
+// A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response.
+func (r ApiCloneDashboardRequest) Aid(aid string) ApiCloneDashboardRequest {
+	r.aid = &aid
+	return r
+}
+
+// Optional overrides for the cloned dashboard.
+func (r ApiCloneDashboardRequest) CloneDashboardRequest(cloneDashboardRequest CloneDashboardRequest) ApiCloneDashboardRequest {
+	r.cloneDashboardRequest = &cloneDashboardRequest
+	return r
+}
+
+func (r ApiCloneDashboardRequest) Execute() (*Dashboard, *http.Response, error) {
+	return r.ApiService.CloneDashboardExecute(r)
+}
+
+/*
+CloneDashboard Clone dashboard
+
+Creates a dashboard by cloning an existing dashboard. By default, the clone inherits the source dashboard's widgets, layout, default timespan, tags, and other supported settings. Values provided in the request override the corresponding source dashboard settings. Sharing settings are not inherited. If `title` is omitted, the API generates a unique title for the clone.
+
+**Note**:
+* Users with the `Edit dashboard templates for all users in account group` permission (Account Admin) can clone any dashboard they can view.
+* Users with the `Edit own dashboard templates` permission (Regular User) can clone dashboards they can view. The current user owns the cloned dashboard.
+
+
+ @param dashboardId A Identifier for a dashboard which can be obtained from the `/dashboards` endpoint.
+ @return ApiCloneDashboardRequest
+*/
+func (a *DashboardsAPIService) CloneDashboard(dashboardId string ) ApiCloneDashboardRequest {
+	return ApiCloneDashboardRequest{
+		ApiService: a,
+		dashboardId: dashboardId,
+	}
+}
+
+// Execute executes the request
+//  @return Dashboard
+func (a *DashboardsAPIService) CloneDashboardExecute(r ApiCloneDashboardRequest) (*Dashboard, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		localVarReturnValue  *Dashboard
+	)
+
+	localBasePath := a.Client.GetConfig().ServerURL
+
+	localVarPath := localBasePath + "/dashboards/{dashboardId}/clone"
+	localVarPath = strings.Replace(localVarPath, "{"+"dashboardId"+"}", url.PathEscape(request.ParameterValueToString(r.dashboardId, "dashboardId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.aid != nil {
+		request.ParameterAddToHeaderOrQuery(localVarQueryParams, "aid", r.aid, "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := request.SelectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/hal+json", "application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := request.SelectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.cloneDashboardRequest
+	req, err := a.Client.PrepareRequest(localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.Client.CallAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ValidationError
+			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v UnauthorizedError
+			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v Error
+			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v Error
+			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
+		}
+		if localVarHTTPResponse.StatusCode == 429 {
+			var v Error
+			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v Error
+			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
+		}
+		return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, nil, localVarBody, localVarHTTPResponse)
+	}
+
+	err = a.Client.Decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &internalerror.GenericAPIError{
+			Body:  localVarBody,
+			ErrorMessage: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiCreateDashboardRequest struct {
 
 	ApiService *DashboardsAPIService
@@ -271,6 +412,127 @@ func (a *DashboardsAPIService) DeleteDashboardExecute(r ApiDeleteDashboardReques
 			return localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
+			var v Error
+			return localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
+		}
+		if localVarHTTPResponse.StatusCode == 429 {
+			var v Error
+			return localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v Error
+			return localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
+		}
+		return localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, nil, localVarBody, localVarHTTPResponse)
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type ApiDeleteDashboardScheduleRequest struct {
+
+	ApiService *DashboardsAPIService
+	dashboardId string
+	aid *string
+}
+
+// A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response.
+func (r ApiDeleteDashboardScheduleRequest) Aid(aid string) ApiDeleteDashboardScheduleRequest {
+	r.aid = &aid
+	return r
+}
+
+func (r ApiDeleteDashboardScheduleRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteDashboardScheduleExecute(r)
+}
+
+/*
+DeleteDashboardSchedule Delete dashboard snapshot schedule
+
+Removes the snapshot schedule from a dashboard. Existing snapshots are not deleted.
+
+
+ @param dashboardId A Identifier for a dashboard which can be obtained from the `/dashboards` endpoint.
+ @return ApiDeleteDashboardScheduleRequest
+*/
+func (a *DashboardsAPIService) DeleteDashboardSchedule(dashboardId string ) ApiDeleteDashboardScheduleRequest {
+	return ApiDeleteDashboardScheduleRequest{
+		ApiService: a,
+		dashboardId: dashboardId,
+	}
+}
+
+// Execute executes the request
+func (a *DashboardsAPIService) DeleteDashboardScheduleExecute(r ApiDeleteDashboardScheduleRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodDelete
+		localVarPostBody     interface{}
+	)
+
+	localBasePath := a.Client.GetConfig().ServerURL
+
+	localVarPath := localBasePath + "/dashboards/{dashboardId}/actions/schedule"
+	localVarPath = strings.Replace(localVarPath, "{"+"dashboardId"+"}", url.PathEscape(request.ParameterValueToString(r.dashboardId, "dashboardId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.aid != nil {
+		request.ParameterAddToHeaderOrQuery(localVarQueryParams, "aid", r.aid, "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := request.SelectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := request.SelectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.Client.PrepareRequest(localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.Client.CallAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ValidationError
+			return localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v UnauthorizedError
+			return localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v Error
+			return localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v Error
+			return localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
+		}
+		if localVarHTTPResponse.StatusCode == 409 {
 			var v Error
 			return localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
 		}
@@ -1228,6 +1490,150 @@ func (a *DashboardsAPIService) UpdateDashboardExecute(r ApiUpdateDashboardReques
 			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
+			var v Error
+			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
+		}
+		if localVarHTTPResponse.StatusCode == 429 {
+			var v Error
+			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v Error
+			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
+		}
+		return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, nil, localVarBody, localVarHTTPResponse)
+	}
+
+	err = a.Client.Decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &internalerror.GenericAPIError{
+			Body:  localVarBody,
+			ErrorMessage: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiUpdateDashboardScheduleRequest struct {
+
+	ApiService *DashboardsAPIService
+	dashboardId string
+	dashboardScheduleRequest *DashboardScheduleRequest
+	aid *string
+}
+
+// Snapshot schedule configuration.
+func (r ApiUpdateDashboardScheduleRequest) DashboardScheduleRequest(dashboardScheduleRequest DashboardScheduleRequest) ApiUpdateDashboardScheduleRequest {
+	r.dashboardScheduleRequest = &dashboardScheduleRequest
+	return r
+}
+
+// A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response.
+func (r ApiUpdateDashboardScheduleRequest) Aid(aid string) ApiUpdateDashboardScheduleRequest {
+	r.aid = &aid
+	return r
+}
+
+func (r ApiUpdateDashboardScheduleRequest) Execute() (*ApiDashboard, *http.Response, error) {
+	return r.ApiService.UpdateDashboardScheduleExecute(r)
+}
+
+/*
+UpdateDashboardSchedule Create or update dashboard snapshot schedule
+
+Creates or replaces the snapshot schedule for a dashboard. Set `repeat` to `NONE` to generate one snapshot at `startTime`. Other `repeat` values create recurring snapshots. Schedule settings control when snapshots are generated, the data time range included in each snapshot, and email delivery options.
+
+
+ @param dashboardId A Identifier for a dashboard which can be obtained from the `/dashboards` endpoint.
+ @return ApiUpdateDashboardScheduleRequest
+*/
+func (a *DashboardsAPIService) UpdateDashboardSchedule(dashboardId string ) ApiUpdateDashboardScheduleRequest {
+	return ApiUpdateDashboardScheduleRequest{
+		ApiService: a,
+		dashboardId: dashboardId,
+	}
+}
+
+// Execute executes the request
+//  @return ApiDashboard
+func (a *DashboardsAPIService) UpdateDashboardScheduleExecute(r ApiUpdateDashboardScheduleRequest) (*ApiDashboard, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPut
+		localVarPostBody     interface{}
+		localVarReturnValue  *ApiDashboard
+	)
+
+	localBasePath := a.Client.GetConfig().ServerURL
+
+	localVarPath := localBasePath + "/dashboards/{dashboardId}/actions/schedule"
+	localVarPath = strings.Replace(localVarPath, "{"+"dashboardId"+"}", url.PathEscape(request.ParameterValueToString(r.dashboardId, "dashboardId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.dashboardScheduleRequest == nil {
+		return localVarReturnValue, nil, internalerror.ReportError("dashboardScheduleRequest is required and must be specified")
+	}
+
+	if r.aid != nil {
+		request.ParameterAddToHeaderOrQuery(localVarQueryParams, "aid", r.aid, "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := request.SelectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/hal+json", "application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := request.SelectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.dashboardScheduleRequest
+	req, err := a.Client.PrepareRequest(localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.Client.CallAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ValidationError
+			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v UnauthorizedError
+			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v Error
+			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v Error
+			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
+		}
+		if localVarHTTPResponse.StatusCode == 409 {
 			var v Error
 			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
 		}

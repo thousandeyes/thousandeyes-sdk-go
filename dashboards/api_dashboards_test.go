@@ -25,16 +25,290 @@ import (
 	internalerror "github.com/thousandeyes/thousandeyes-sdk-go/v3/internal/error"
 )
 
+func TestDashboardsAPIService_CloneDashboard(t *testing.T) {
+	const testToken = "test-token"
+
+	var dashboardId string = "646f4d2ce3c99b0536c3821e"
+	var aid string = "1234"
+	requestBodyJSON := []byte("{\n  \"isSharedWithAllAccountGroups\" : false,\n  \"tagIds\" : \"\",\n  \"isDefaultForAccount\" : false,\n  \"description\" : \"Copy of the HTTP Server Widgets dashboard\",\n  \"isDefaultForUser\" : false,\n  \"isPrivate\" : true,\n  \"title\" : \"HTTP Server Widgets Copy\",\n  \"defaultTimespan\" : {\n    \"duration\" : 7200,\n    \"timespanDuration\" : 7200,\n    \"start\" : \"2023-05-16T10:14:28Z\",\n    \"end\" : \"2023-05-16T11:14:28Z\",\n    \"timespanStart\" : \"2023-05-16 10:14:28\",\n    \"timespanEnd\" : \"2023-05-16 11:14:28\"\n  },\n  \"layout\" : {\n    \"layoutId\" : \"grid-layout-1\",\n    \"type\" : \"grid\",\n    \"details\" : {\n      \"widgetPositioning\" : [ {\n        \"x\" : 0,\n        \"y\" : 0,\n        \"w\" : 9,\n        \"h\" : 5,\n        \"id\" : \"widgetId-71lbb\"\n      } ]\n    }\n  },\n  \"globalFilterId\" : \"65babd9bb90bf55b17c96c8d\",\n  \"refreshRate\" : \"5m\",\n  \"sharedAccountIds\" : [ \"1234\", \"5678\" ],\n  \"isGlobalOverride\" : false\n}")
+	var requestBody CloneDashboardRequest
+	if err := json.Unmarshal(requestBodyJSON, &requestBody); err != nil {
+		t.Fatalf("unmarshal request body: %v", err)
+	}
+	responseBodyJSON := []byte("{\n  \"isMigratedReport\" : false,\n  \"_links\" : {\n    \"snapshots\" : {\n      \"hreflang\" : \"hreflang\",\n      \"templated\" : true,\n      \"profile\" : \"profile\",\n      \"name\" : \"name\",\n      \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n      \"type\" : \"type\",\n      \"deprecation\" : \"deprecation\",\n      \"title\" : \"title\"\n    },\n    \"self\" : {\n      \"hreflang\" : \"hreflang\",\n      \"templated\" : true,\n      \"profile\" : \"profile\",\n      \"name\" : \"name\",\n      \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n      \"type\" : \"type\",\n      \"deprecation\" : \"deprecation\",\n      \"title\" : \"title\"\n    }\n  },\n  \"isDefaultForAccount\" : false,\n  \"isDefaultForUser\" : true,\n  \"description\" : \"HTTP Server Widgets\",\n  \"isPrivate\" : true,\n  \"title\" : \"HTTP Server Widgets\",\n  \"isBuiltIn\" : true,\n  \"widgets\" : [ {\n    \"embedUrl\" : \"https://embed.thousandeyes.com/e/00aa:3039802d-5c76-42d2-9a93-c6e5f9d3122f\",\n    \"shouldExcludeAlertSuppressionWindows\" : true,\n    \"_links\" : {\n      \"self\" : {\n        \"hreflang\" : \"hreflang\",\n        \"templated\" : true,\n        \"profile\" : \"profile\",\n        \"name\" : \"name\",\n        \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n        \"type\" : \"type\",\n        \"deprecation\" : \"deprecation\",\n        \"title\" : \"title\"\n      }\n    },\n    \"visualMode\" : \"Full\",\n    \"filters\" : {\n      \"TEST\" : [ 5187, 5227 ],\n      \"ENDPOINT_MACHINE_ID\" : [ \"fbd0050c-07f7-43f7-9631-14b32f096962\" ]\n    },\n    \"title\" : \"Widget Title\",\n    \"type\" : \"Agent Status\",\n    \"metricGroup\" : \"BGP\",\n    \"measure\" : {\n      \"percentileValue\" : 95,\n      \"type\" : \"MEAN\"\n    },\n    \"apiLink\" : \"apiLink\",\n    \"metric\" : \"ENDPOINT_GATEWAY_CPU_LOAD_PERCENT\",\n    \"isEmbedded\" : true,\n    \"id\" : \"1234\",\n    \"fixedTimespan\" : {\n      \"unit\" : \"Days\",\n      \"value\" : 10\n    },\n    \"dataSource\" : \"ENDPOINT_AGENTS\",\n    \"direction\" : \"FROM_TARGET\"\n  }, {\n    \"embedUrl\" : \"https://embed.thousandeyes.com/e/00aa:3039802d-5c76-42d2-9a93-c6e5f9d3122f\",\n    \"shouldExcludeAlertSuppressionWindows\" : true,\n    \"_links\" : {\n      \"self\" : {\n        \"hreflang\" : \"hreflang\",\n        \"templated\" : true,\n        \"profile\" : \"profile\",\n        \"name\" : \"name\",\n        \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n        \"type\" : \"type\",\n        \"deprecation\" : \"deprecation\",\n        \"title\" : \"title\"\n      }\n    },\n    \"visualMode\" : \"Full\",\n    \"filters\" : {\n      \"TEST\" : [ 5187, 5227 ],\n      \"ENDPOINT_MACHINE_ID\" : [ \"fbd0050c-07f7-43f7-9631-14b32f096962\" ]\n    },\n    \"title\" : \"Widget Title\",\n    \"type\" : \"Agent Status\",\n    \"metricGroup\" : \"BGP\",\n    \"measure\" : {\n      \"percentileValue\" : 95,\n      \"type\" : \"MEAN\"\n    },\n    \"apiLink\" : \"apiLink\",\n    \"metric\" : \"ENDPOINT_GATEWAY_CPU_LOAD_PERCENT\",\n    \"isEmbedded\" : true,\n    \"id\" : \"1234\",\n    \"fixedTimespan\" : {\n      \"unit\" : \"Days\",\n      \"value\" : 10\n    },\n    \"dataSource\" : \"ENDPOINT_AGENTS\",\n    \"direction\" : \"FROM_TARGET\"\n  } ],\n  \"defaultTimespan\" : {\n    \"duration\" : 7200,\n    \"timespanDuration\" : 7200,\n    \"start\" : \"2023-05-16T10:14:28Z\",\n    \"end\" : \"2023-05-16T11:14:28Z\",\n    \"timespanStart\" : \"2023-05-16 10:14:28\",\n    \"timespanEnd\" : \"2023-05-16 11:14:28\"\n  },\n  \"layout\" : {\n    \"layoutId\" : \"grid-layout-1\",\n    \"type\" : \"grid\",\n    \"details\" : {\n      \"widgetPositioning\" : [ {\n        \"x\" : 0,\n        \"y\" : 0,\n        \"w\" : 9,\n        \"h\" : 5,\n        \"id\" : \"widgetId-71lbb\"\n      } ]\n    }\n  },\n  \"globalFilterId\" : \"65babd9bb90bf55b17c96c8d\",\n  \"schedule\" : \"\",\n  \"dashboardId\" : \"5e1f7a99143ae6004fdc3bb4\",\n  \"createdBy\" : \"1\",\n  \"refreshRate\" : \"off\",\n  \"modifiedDate\" : \"2023-05-16T10:14:28Z\",\n  \"modifiedBy\" : \"1\",\n  \"isGlobalOverride\" : true,\n  \"aid\" : \"1234\"\n}")
+	responseStatus := 201
+	responseContentType := "application/json"
+	var expectedResponse Dashboard
+	if err := json.Unmarshal(responseBodyJSON, &expectedResponse); err != nil {
+		t.Fatalf("unmarshal response body: %v", err)
+	}
+
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != http.MethodPost {
+			t.Errorf("method = %q, want %q", r.Method, http.MethodPost)
+		}
+
+		expectedPath := "/dashboards/{dashboardId}/clone"
+		expectedPath = strings.ReplaceAll(expectedPath, "{dashboardId}", url.PathEscape(fmt.Sprint(dashboardId)))
+		if r.URL.EscapedPath() != expectedPath {
+			t.Errorf("path = %q, want %q", r.URL.EscapedPath(), expectedPath)
+		}
+		if got := r.Header.Get("Authorization"); got != "Bearer "+testToken {
+			t.Errorf("Authorization = %q, want %q", got, "Bearer "+testToken)
+		}
+		if _, ok := r.URL.Query()["aid"]; !ok {
+			t.Errorf("query parameter %q was not sent", "aid")
+		}
+		if got := r.Header.Get("Content-Type"); got != "application/json" {
+			t.Errorf("Content-Type = %q, want %q", got, "application/json")
+		}
+
+		var receivedBody CloneDashboardRequest
+		if err := json.NewDecoder(r.Body).Decode(&receivedBody); err != nil {
+			t.Errorf("decode request body: %v", err)
+			http.Error(w, "invalid request body", http.StatusBadRequest)
+			return
+		}
+		if !reflect.DeepEqual(receivedBody, requestBody) {
+			t.Errorf("request body = %#v, want %#v", receivedBody, requestBody)
+		}
+		w.Header().Set("Content-Type", responseContentType)
+		w.WriteHeader(responseStatus)
+		_, _ = w.Write(responseBodyJSON)
+	}))
+	t.Cleanup(server.Close)
+
+	config := client.NewConfiguration().
+		WithServerUrl(server.URL).
+		WithAuthToken(testToken)
+	config.HTTPClient = server.Client()
+
+	apiClient := client.NewAPIClient(config)
+	api := (*DashboardsAPIService)(&apiClient.Common)
+
+	actualResponse, httpResponse, err := api.CloneDashboard(dashboardId).Aid(aid).CloneDashboardRequest(requestBody).Execute()
+	if err != nil {
+		t.Fatalf("CloneDashboard() error = %v", err)
+	}
+	if httpResponse == nil {
+		t.Fatal("CloneDashboard() returned a nil HTTP response")
+	}
+	if httpResponse.StatusCode != responseStatus {
+		t.Errorf("CloneDashboard() status = %d, want %d", httpResponse.StatusCode, responseStatus)
+	}
+	expected := &expectedResponse
+	if !reflect.DeepEqual(actualResponse, expected) {
+		t.Errorf("CloneDashboard() response = %#v, want %#v", actualResponse, expected)
+	}
+}
+
+func TestDashboardsAPIService_CloneDashboard_Errors(t *testing.T) {
+	const testToken = "test-token"
+
+	var dashboardId string = "646f4d2ce3c99b0536c3821e"
+	var aid string = "1234"
+	requestBodyJSON := []byte("{\n  \"isSharedWithAllAccountGroups\" : false,\n  \"tagIds\" : \"\",\n  \"isDefaultForAccount\" : false,\n  \"description\" : \"Copy of the HTTP Server Widgets dashboard\",\n  \"isDefaultForUser\" : false,\n  \"isPrivate\" : true,\n  \"title\" : \"HTTP Server Widgets Copy\",\n  \"defaultTimespan\" : {\n    \"duration\" : 7200,\n    \"timespanDuration\" : 7200,\n    \"start\" : \"2023-05-16T10:14:28Z\",\n    \"end\" : \"2023-05-16T11:14:28Z\",\n    \"timespanStart\" : \"2023-05-16 10:14:28\",\n    \"timespanEnd\" : \"2023-05-16 11:14:28\"\n  },\n  \"layout\" : {\n    \"layoutId\" : \"grid-layout-1\",\n    \"type\" : \"grid\",\n    \"details\" : {\n      \"widgetPositioning\" : [ {\n        \"x\" : 0,\n        \"y\" : 0,\n        \"w\" : 9,\n        \"h\" : 5,\n        \"id\" : \"widgetId-71lbb\"\n      } ]\n    }\n  },\n  \"globalFilterId\" : \"65babd9bb90bf55b17c96c8d\",\n  \"refreshRate\" : \"5m\",\n  \"sharedAccountIds\" : [ \"1234\", \"5678\" ],\n  \"isGlobalOverride\" : false\n}")
+	var requestBody CloneDashboardRequest
+	if err := json.Unmarshal(requestBodyJSON, &requestBody); err != nil {
+		t.Fatalf("unmarshal request body: %v", err)
+	}
+
+	runErrorCase := func(
+		t *testing.T,
+		responseStatus int,
+		responseContentType string,
+		responseBodyJSON []byte,
+		expectedModel interface{},
+	) {
+		t.Helper()
+
+		server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			if r.Method != http.MethodPost {
+				t.Errorf("method = %q, want %q", r.Method, http.MethodPost)
+			}
+
+			expectedPath := "/dashboards/{dashboardId}/clone"
+			expectedPath = strings.ReplaceAll(expectedPath, "{dashboardId}", url.PathEscape(fmt.Sprint(dashboardId)))
+			if r.URL.EscapedPath() != expectedPath {
+				t.Errorf("path = %q, want %q", r.URL.EscapedPath(), expectedPath)
+			}
+			if got := r.Header.Get("Authorization"); got != "Bearer "+testToken {
+				t.Errorf("Authorization = %q, want %q", got, "Bearer "+testToken)
+			}
+			if _, ok := r.URL.Query()["aid"]; !ok {
+				t.Errorf("query parameter %q was not sent", "aid")
+			}
+			if got := r.Header.Get("Content-Type"); got != "application/json" {
+				t.Errorf("Content-Type = %q, want %q", got, "application/json")
+			}
+
+			var receivedBody CloneDashboardRequest
+			if err := json.NewDecoder(r.Body).Decode(&receivedBody); err != nil {
+				t.Errorf("decode request body: %v", err)
+				http.Error(w, "invalid request body", http.StatusBadRequest)
+				return
+			}
+			if !reflect.DeepEqual(receivedBody, requestBody) {
+				t.Errorf("request body = %#v, want %#v", receivedBody, requestBody)
+			}
+			w.Header().Set("Content-Type", responseContentType)
+			w.WriteHeader(responseStatus)
+			_, _ = w.Write(responseBodyJSON)
+		}))
+		t.Cleanup(server.Close)
+
+		config := client.NewConfiguration().
+			WithServerUrl(server.URL).
+			WithAuthToken(testToken)
+		config.HTTPClient = server.Client()
+
+		apiClient := client.NewAPIClient(config)
+		apiClient.GetConfig().HTTPClient = server.Client()
+		api := (*DashboardsAPIService)(&apiClient.Common)
+
+		_, httpResponse, err := api.CloneDashboard(dashboardId).Aid(aid).CloneDashboardRequest(requestBody).Execute()
+		if err == nil {
+			t.Fatalf("CloneDashboard() error = nil, want *GenericAPIError")
+		}
+		if httpResponse == nil {
+			t.Fatal("CloneDashboard() returned a nil HTTP response")
+		}
+		if httpResponse.StatusCode != responseStatus {
+			t.Errorf("CloneDashboard() status = %d, want %d", httpResponse.StatusCode, responseStatus)
+		}
+
+		var apiError *internalerror.GenericAPIError
+		if !errors.As(err, &apiError) {
+			t.Fatalf("CloneDashboard() error type = %T, want *GenericAPIError", err)
+		}
+		if !reflect.DeepEqual(apiError.Body, responseBodyJSON) {
+			t.Errorf("GenericAPIError.Body = %q, want %q", apiError.Body, responseBodyJSON)
+		}
+		if !reflect.DeepEqual(apiError.Model, expectedModel) {
+			t.Errorf("GenericAPIError.Model = %#v, want %#v", apiError.Model, expectedModel)
+		}
+
+		expectedErrorMessage := internalerror.FormatErrorMessage(
+			httpResponse.Status,
+			string(responseBodyJSON),
+			expectedModel,
+		)
+		if apiError.ErrorMessage != expectedErrorMessage {
+			t.Errorf(
+				"GenericAPIError.ErrorMessage = %q, want %q",
+				apiError.ErrorMessage,
+				expectedErrorMessage,
+			)
+		}
+	}
+
+	t.Run("400", func(t *testing.T) {
+		responseBodyJSON := []byte("{\n  \"instance\" : \"instance\",\n  \"detail\" : \"detail\",\n  \"type\" : \"type\",\n  \"title\" : \"title\",\n  \"errors\" : [ {\n    \"code\" : \"code\",\n    \"field\" : \"field\",\n    \"message\" : \"message\"\n  }, {\n    \"code\" : \"code\",\n    \"field\" : \"field\",\n    \"message\" : \"message\"\n  } ],\n  \"status\" : 0\n}")
+		var expectedErrorModel ValidationError
+		if err := json.Unmarshal(responseBodyJSON, &expectedErrorModel); err != nil {
+			t.Fatalf("unmarshal 400 error body: %v", err)
+		}
+
+		runErrorCase(
+			t,
+			400,
+			"application/problem+json",
+			responseBodyJSON,
+			&expectedErrorModel,
+		)
+	})
+
+	t.Run("401", func(t *testing.T) {
+		responseBodyJSON := []byte("{\n  \"error_description\" : \"Invalid access token\",\n  \"error\" : \"invalid_token\"\n}")
+		var expectedErrorModel UnauthorizedError
+		if err := json.Unmarshal(responseBodyJSON, &expectedErrorModel); err != nil {
+			t.Fatalf("unmarshal 401 error body: %v", err)
+		}
+
+		runErrorCase(
+			t,
+			401,
+			"application/problem+json",
+			responseBodyJSON,
+			&expectedErrorModel,
+		)
+	})
+
+	t.Run("403", func(t *testing.T) {
+		responseBodyJSON := []byte("{\n  \"instance\" : \"instance\",\n  \"detail\" : \"detail\",\n  \"type\" : \"type\",\n  \"title\" : \"title\",\n  \"status\" : 6\n}")
+		var expectedErrorModel Error
+		if err := json.Unmarshal(responseBodyJSON, &expectedErrorModel); err != nil {
+			t.Fatalf("unmarshal 403 error body: %v", err)
+		}
+
+		runErrorCase(
+			t,
+			403,
+			"application/problem+json",
+			responseBodyJSON,
+			&expectedErrorModel,
+		)
+	})
+
+	t.Run("404", func(t *testing.T) {
+		responseBodyJSON := []byte("{\n  \"instance\" : \"instance\",\n  \"detail\" : \"detail\",\n  \"type\" : \"type\",\n  \"title\" : \"title\",\n  \"status\" : 6\n}")
+		var expectedErrorModel Error
+		if err := json.Unmarshal(responseBodyJSON, &expectedErrorModel); err != nil {
+			t.Fatalf("unmarshal 404 error body: %v", err)
+		}
+
+		runErrorCase(
+			t,
+			404,
+			"application/problem+json",
+			responseBodyJSON,
+			&expectedErrorModel,
+		)
+	})
+
+	t.Run("429", func(t *testing.T) {
+		responseBodyJSON := []byte("{\n  \"instance\" : \"instance\",\n  \"detail\" : \"detail\",\n  \"type\" : \"type\",\n  \"title\" : \"title\",\n  \"status\" : 6\n}")
+		var expectedErrorModel Error
+		if err := json.Unmarshal(responseBodyJSON, &expectedErrorModel); err != nil {
+			t.Fatalf("unmarshal 429 error body: %v", err)
+		}
+
+		runErrorCase(
+			t,
+			429,
+			"application/problem+json",
+			responseBodyJSON,
+			&expectedErrorModel,
+		)
+	})
+
+	t.Run("500", func(t *testing.T) {
+		responseBodyJSON := []byte("{\n  \"instance\" : \"instance\",\n  \"detail\" : \"detail\",\n  \"type\" : \"type\",\n  \"title\" : \"title\",\n  \"status\" : 6\n}")
+		var expectedErrorModel Error
+		if err := json.Unmarshal(responseBodyJSON, &expectedErrorModel); err != nil {
+			t.Fatalf("unmarshal 500 error body: %v", err)
+		}
+
+		runErrorCase(
+			t,
+			500,
+			"application/problem+json",
+			responseBodyJSON,
+			&expectedErrorModel,
+		)
+	})
+
+}
 func TestDashboardsAPIService_CreateDashboard(t *testing.T) {
 	const testToken = "test-token"
 
 	var aid string = "1234"
-	requestBodyJSON := []byte("{\n  \"isMigratedReport\" : false,\n  \"_links\" : {\n    \"snapshots\" : {\n      \"hreflang\" : \"hreflang\",\n      \"templated\" : true,\n      \"profile\" : \"profile\",\n      \"name\" : \"name\",\n      \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n      \"type\" : \"type\",\n      \"deprecation\" : \"deprecation\",\n      \"title\" : \"title\"\n    },\n    \"self\" : {\n      \"hreflang\" : \"hreflang\",\n      \"templated\" : true,\n      \"profile\" : \"profile\",\n      \"name\" : \"name\",\n      \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n      \"type\" : \"type\",\n      \"deprecation\" : \"deprecation\",\n      \"title\" : \"title\"\n    }\n  },\n  \"isDefaultForAccount\" : false,\n  \"isDefaultForUser\" : true,\n  \"description\" : \"HTTP Server Widgets\",\n  \"isPrivate\" : true,\n  \"title\" : \"HTTP Server Widgets\",\n  \"isBuiltIn\" : true,\n  \"widgets\" : [ {\n    \"embedUrl\" : \"https://embed.thousandeyes.com/e/00aa:3039802d-5c76-42d2-9a93-c6e5f9d3122f\",\n    \"shouldExcludeAlertSuppressionWindows\" : true,\n    \"_links\" : {\n      \"self\" : {\n        \"hreflang\" : \"hreflang\",\n        \"templated\" : true,\n        \"profile\" : \"profile\",\n        \"name\" : \"name\",\n        \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n        \"type\" : \"type\",\n        \"deprecation\" : \"deprecation\",\n        \"title\" : \"title\"\n      }\n    },\n    \"visualMode\" : \"Full\",\n    \"filters\" : {\n      \"TEST\" : [ 5187, 5227 ],\n      \"ENDPOINT_MACHINE_ID\" : [ \"fbd0050c-07f7-43f7-9631-14b32f096962\" ]\n    },\n    \"title\" : \"Widget Title\",\n    \"type\" : \"Agent Status\",\n    \"metricGroup\" : \"BGP\",\n    \"measure\" : {\n      \"percentileValue\" : 95,\n      \"type\" : \"MEAN\"\n    },\n    \"apiLink\" : \"apiLink\",\n    \"metric\" : \"ENDPOINT_GATEWAY_CPU_LOAD_PERCENT\",\n    \"isEmbedded\" : true,\n    \"id\" : \"1234\",\n    \"fixedTimespan\" : {\n      \"unit\" : \"Days\",\n      \"value\" : 10\n    },\n    \"dataSource\" : \"ENDPOINT_AGENTS\",\n    \"direction\" : \"FROM_TARGET\"\n  }, {\n    \"embedUrl\" : \"https://embed.thousandeyes.com/e/00aa:3039802d-5c76-42d2-9a93-c6e5f9d3122f\",\n    \"shouldExcludeAlertSuppressionWindows\" : true,\n    \"_links\" : {\n      \"self\" : {\n        \"hreflang\" : \"hreflang\",\n        \"templated\" : true,\n        \"profile\" : \"profile\",\n        \"name\" : \"name\",\n        \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n        \"type\" : \"type\",\n        \"deprecation\" : \"deprecation\",\n        \"title\" : \"title\"\n      }\n    },\n    \"visualMode\" : \"Full\",\n    \"filters\" : {\n      \"TEST\" : [ 5187, 5227 ],\n      \"ENDPOINT_MACHINE_ID\" : [ \"fbd0050c-07f7-43f7-9631-14b32f096962\" ]\n    },\n    \"title\" : \"Widget Title\",\n    \"type\" : \"Agent Status\",\n    \"metricGroup\" : \"BGP\",\n    \"measure\" : {\n      \"percentileValue\" : 95,\n      \"type\" : \"MEAN\"\n    },\n    \"apiLink\" : \"apiLink\",\n    \"metric\" : \"ENDPOINT_GATEWAY_CPU_LOAD_PERCENT\",\n    \"isEmbedded\" : true,\n    \"id\" : \"1234\",\n    \"fixedTimespan\" : {\n      \"unit\" : \"Days\",\n      \"value\" : 10\n    },\n    \"dataSource\" : \"ENDPOINT_AGENTS\",\n    \"direction\" : \"FROM_TARGET\"\n  } ],\n  \"defaultTimespan\" : {\n    \"duration\" : 7200,\n    \"timespanDuration\" : 7200,\n    \"start\" : \"2023-05-16T10:14:28Z\",\n    \"end\" : \"2023-05-16T11:14:28Z\",\n    \"timespanStart\" : \"2023-05-16 10:14:28\",\n    \"timespanEnd\" : \"2023-05-16 11:14:28\"\n  },\n  \"layout\" : {\n    \"layoutId\" : \"grid-layout-1\",\n    \"type\" : \"grid\",\n    \"details\" : {\n      \"widgetPositioning\" : [ {\n        \"x\" : 0,\n        \"y\" : 0,\n        \"w\" : 9,\n        \"h\" : 5,\n        \"id\" : \"widgetId-71lbb\"\n      } ]\n    }\n  },\n  \"globalFilterId\" : \"65babd9bb90bf55b17c96c8d\",\n  \"dashboardId\" : \"5e1f7a99143ae6004fdc3bb4\",\n  \"createdBy\" : \"1\",\n  \"refreshRate\" : \"off\",\n  \"modifiedDate\" : \"2023-05-16T10:14:28Z\",\n  \"modifiedBy\" : \"1\",\n  \"isGlobalOverride\" : true,\n  \"aid\" : \"1234\"\n}")
+	requestBodyJSON := []byte("{\n  \"isMigratedReport\" : false,\n  \"_links\" : {\n    \"snapshots\" : {\n      \"hreflang\" : \"hreflang\",\n      \"templated\" : true,\n      \"profile\" : \"profile\",\n      \"name\" : \"name\",\n      \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n      \"type\" : \"type\",\n      \"deprecation\" : \"deprecation\",\n      \"title\" : \"title\"\n    },\n    \"self\" : {\n      \"hreflang\" : \"hreflang\",\n      \"templated\" : true,\n      \"profile\" : \"profile\",\n      \"name\" : \"name\",\n      \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n      \"type\" : \"type\",\n      \"deprecation\" : \"deprecation\",\n      \"title\" : \"title\"\n    }\n  },\n  \"isDefaultForAccount\" : false,\n  \"isDefaultForUser\" : true,\n  \"description\" : \"HTTP Server Widgets\",\n  \"isPrivate\" : true,\n  \"title\" : \"HTTP Server Widgets\",\n  \"isBuiltIn\" : true,\n  \"widgets\" : [ {\n    \"embedUrl\" : \"https://embed.thousandeyes.com/e/00aa:3039802d-5c76-42d2-9a93-c6e5f9d3122f\",\n    \"shouldExcludeAlertSuppressionWindows\" : true,\n    \"_links\" : {\n      \"self\" : {\n        \"hreflang\" : \"hreflang\",\n        \"templated\" : true,\n        \"profile\" : \"profile\",\n        \"name\" : \"name\",\n        \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n        \"type\" : \"type\",\n        \"deprecation\" : \"deprecation\",\n        \"title\" : \"title\"\n      }\n    },\n    \"visualMode\" : \"Full\",\n    \"filters\" : {\n      \"TEST\" : [ 5187, 5227 ],\n      \"ENDPOINT_MACHINE_ID\" : [ \"fbd0050c-07f7-43f7-9631-14b32f096962\" ]\n    },\n    \"title\" : \"Widget Title\",\n    \"type\" : \"Agent Status\",\n    \"metricGroup\" : \"BGP\",\n    \"measure\" : {\n      \"percentileValue\" : 95,\n      \"type\" : \"MEAN\"\n    },\n    \"apiLink\" : \"apiLink\",\n    \"metric\" : \"ENDPOINT_GATEWAY_CPU_LOAD_PERCENT\",\n    \"isEmbedded\" : true,\n    \"id\" : \"1234\",\n    \"fixedTimespan\" : {\n      \"unit\" : \"Days\",\n      \"value\" : 10\n    },\n    \"dataSource\" : \"ENDPOINT_AGENTS\",\n    \"direction\" : \"FROM_TARGET\"\n  }, {\n    \"embedUrl\" : \"https://embed.thousandeyes.com/e/00aa:3039802d-5c76-42d2-9a93-c6e5f9d3122f\",\n    \"shouldExcludeAlertSuppressionWindows\" : true,\n    \"_links\" : {\n      \"self\" : {\n        \"hreflang\" : \"hreflang\",\n        \"templated\" : true,\n        \"profile\" : \"profile\",\n        \"name\" : \"name\",\n        \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n        \"type\" : \"type\",\n        \"deprecation\" : \"deprecation\",\n        \"title\" : \"title\"\n      }\n    },\n    \"visualMode\" : \"Full\",\n    \"filters\" : {\n      \"TEST\" : [ 5187, 5227 ],\n      \"ENDPOINT_MACHINE_ID\" : [ \"fbd0050c-07f7-43f7-9631-14b32f096962\" ]\n    },\n    \"title\" : \"Widget Title\",\n    \"type\" : \"Agent Status\",\n    \"metricGroup\" : \"BGP\",\n    \"measure\" : {\n      \"percentileValue\" : 95,\n      \"type\" : \"MEAN\"\n    },\n    \"apiLink\" : \"apiLink\",\n    \"metric\" : \"ENDPOINT_GATEWAY_CPU_LOAD_PERCENT\",\n    \"isEmbedded\" : true,\n    \"id\" : \"1234\",\n    \"fixedTimespan\" : {\n      \"unit\" : \"Days\",\n      \"value\" : 10\n    },\n    \"dataSource\" : \"ENDPOINT_AGENTS\",\n    \"direction\" : \"FROM_TARGET\"\n  } ],\n  \"defaultTimespan\" : {\n    \"duration\" : 7200,\n    \"timespanDuration\" : 7200,\n    \"start\" : \"2023-05-16T10:14:28Z\",\n    \"end\" : \"2023-05-16T11:14:28Z\",\n    \"timespanStart\" : \"2023-05-16 10:14:28\",\n    \"timespanEnd\" : \"2023-05-16 11:14:28\"\n  },\n  \"layout\" : {\n    \"layoutId\" : \"grid-layout-1\",\n    \"type\" : \"grid\",\n    \"details\" : {\n      \"widgetPositioning\" : [ {\n        \"x\" : 0,\n        \"y\" : 0,\n        \"w\" : 9,\n        \"h\" : 5,\n        \"id\" : \"widgetId-71lbb\"\n      } ]\n    }\n  },\n  \"globalFilterId\" : \"65babd9bb90bf55b17c96c8d\",\n  \"schedule\" : \"\",\n  \"dashboardId\" : \"5e1f7a99143ae6004fdc3bb4\",\n  \"createdBy\" : \"1\",\n  \"refreshRate\" : \"off\",\n  \"modifiedDate\" : \"2023-05-16T10:14:28Z\",\n  \"modifiedBy\" : \"1\",\n  \"isGlobalOverride\" : true,\n  \"aid\" : \"1234\"\n}")
 	var requestBody Dashboard
 	if err := json.Unmarshal(requestBodyJSON, &requestBody); err != nil {
 		t.Fatalf("unmarshal request body: %v", err)
 	}
-	responseBodyJSON := []byte("{\n  \"isMigratedReport\" : false,\n  \"_links\" : {\n    \"snapshots\" : {\n      \"hreflang\" : \"hreflang\",\n      \"templated\" : true,\n      \"profile\" : \"profile\",\n      \"name\" : \"name\",\n      \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n      \"type\" : \"type\",\n      \"deprecation\" : \"deprecation\",\n      \"title\" : \"title\"\n    },\n    \"self\" : {\n      \"hreflang\" : \"hreflang\",\n      \"templated\" : true,\n      \"profile\" : \"profile\",\n      \"name\" : \"name\",\n      \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n      \"type\" : \"type\",\n      \"deprecation\" : \"deprecation\",\n      \"title\" : \"title\"\n    }\n  },\n  \"isDefaultForAccount\" : false,\n  \"isDefaultForUser\" : true,\n  \"description\" : \"HTTP Server Widgets\",\n  \"isPrivate\" : true,\n  \"title\" : \"HTTP Server Widgets\",\n  \"isBuiltIn\" : true,\n  \"widgets\" : [ {\n    \"embedUrl\" : \"https://embed.thousandeyes.com/e/00aa:3039802d-5c76-42d2-9a93-c6e5f9d3122f\",\n    \"shouldExcludeAlertSuppressionWindows\" : true,\n    \"_links\" : {\n      \"self\" : {\n        \"hreflang\" : \"hreflang\",\n        \"templated\" : true,\n        \"profile\" : \"profile\",\n        \"name\" : \"name\",\n        \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n        \"type\" : \"type\",\n        \"deprecation\" : \"deprecation\",\n        \"title\" : \"title\"\n      }\n    },\n    \"visualMode\" : \"Full\",\n    \"filters\" : {\n      \"TEST\" : [ 5187, 5227 ],\n      \"ENDPOINT_MACHINE_ID\" : [ \"fbd0050c-07f7-43f7-9631-14b32f096962\" ]\n    },\n    \"title\" : \"Widget Title\",\n    \"type\" : \"Agent Status\",\n    \"metricGroup\" : \"BGP\",\n    \"measure\" : {\n      \"percentileValue\" : 95,\n      \"type\" : \"MEAN\"\n    },\n    \"apiLink\" : \"apiLink\",\n    \"metric\" : \"ENDPOINT_GATEWAY_CPU_LOAD_PERCENT\",\n    \"isEmbedded\" : true,\n    \"id\" : \"1234\",\n    \"fixedTimespan\" : {\n      \"unit\" : \"Days\",\n      \"value\" : 10\n    },\n    \"dataSource\" : \"ENDPOINT_AGENTS\",\n    \"direction\" : \"FROM_TARGET\"\n  }, {\n    \"embedUrl\" : \"https://embed.thousandeyes.com/e/00aa:3039802d-5c76-42d2-9a93-c6e5f9d3122f\",\n    \"shouldExcludeAlertSuppressionWindows\" : true,\n    \"_links\" : {\n      \"self\" : {\n        \"hreflang\" : \"hreflang\",\n        \"templated\" : true,\n        \"profile\" : \"profile\",\n        \"name\" : \"name\",\n        \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n        \"type\" : \"type\",\n        \"deprecation\" : \"deprecation\",\n        \"title\" : \"title\"\n      }\n    },\n    \"visualMode\" : \"Full\",\n    \"filters\" : {\n      \"TEST\" : [ 5187, 5227 ],\n      \"ENDPOINT_MACHINE_ID\" : [ \"fbd0050c-07f7-43f7-9631-14b32f096962\" ]\n    },\n    \"title\" : \"Widget Title\",\n    \"type\" : \"Agent Status\",\n    \"metricGroup\" : \"BGP\",\n    \"measure\" : {\n      \"percentileValue\" : 95,\n      \"type\" : \"MEAN\"\n    },\n    \"apiLink\" : \"apiLink\",\n    \"metric\" : \"ENDPOINT_GATEWAY_CPU_LOAD_PERCENT\",\n    \"isEmbedded\" : true,\n    \"id\" : \"1234\",\n    \"fixedTimespan\" : {\n      \"unit\" : \"Days\",\n      \"value\" : 10\n    },\n    \"dataSource\" : \"ENDPOINT_AGENTS\",\n    \"direction\" : \"FROM_TARGET\"\n  } ],\n  \"defaultTimespan\" : {\n    \"duration\" : 7200,\n    \"timespanDuration\" : 7200,\n    \"start\" : \"2023-05-16T10:14:28Z\",\n    \"end\" : \"2023-05-16T11:14:28Z\",\n    \"timespanStart\" : \"2023-05-16 10:14:28\",\n    \"timespanEnd\" : \"2023-05-16 11:14:28\"\n  },\n  \"layout\" : {\n    \"layoutId\" : \"grid-layout-1\",\n    \"type\" : \"grid\",\n    \"details\" : {\n      \"widgetPositioning\" : [ {\n        \"x\" : 0,\n        \"y\" : 0,\n        \"w\" : 9,\n        \"h\" : 5,\n        \"id\" : \"widgetId-71lbb\"\n      } ]\n    }\n  },\n  \"globalFilterId\" : \"65babd9bb90bf55b17c96c8d\",\n  \"dashboardId\" : \"5e1f7a99143ae6004fdc3bb4\",\n  \"createdBy\" : \"1\",\n  \"refreshRate\" : \"off\",\n  \"modifiedDate\" : \"2023-05-16T10:14:28Z\",\n  \"modifiedBy\" : \"1\",\n  \"isGlobalOverride\" : true,\n  \"aid\" : \"1234\"\n}")
+	responseBodyJSON := []byte("{\n  \"isMigratedReport\" : false,\n  \"_links\" : {\n    \"snapshots\" : {\n      \"hreflang\" : \"hreflang\",\n      \"templated\" : true,\n      \"profile\" : \"profile\",\n      \"name\" : \"name\",\n      \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n      \"type\" : \"type\",\n      \"deprecation\" : \"deprecation\",\n      \"title\" : \"title\"\n    },\n    \"self\" : {\n      \"hreflang\" : \"hreflang\",\n      \"templated\" : true,\n      \"profile\" : \"profile\",\n      \"name\" : \"name\",\n      \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n      \"type\" : \"type\",\n      \"deprecation\" : \"deprecation\",\n      \"title\" : \"title\"\n    }\n  },\n  \"isDefaultForAccount\" : false,\n  \"isDefaultForUser\" : true,\n  \"description\" : \"HTTP Server Widgets\",\n  \"isPrivate\" : true,\n  \"title\" : \"HTTP Server Widgets\",\n  \"isBuiltIn\" : true,\n  \"widgets\" : [ {\n    \"embedUrl\" : \"https://embed.thousandeyes.com/e/00aa:3039802d-5c76-42d2-9a93-c6e5f9d3122f\",\n    \"shouldExcludeAlertSuppressionWindows\" : true,\n    \"_links\" : {\n      \"self\" : {\n        \"hreflang\" : \"hreflang\",\n        \"templated\" : true,\n        \"profile\" : \"profile\",\n        \"name\" : \"name\",\n        \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n        \"type\" : \"type\",\n        \"deprecation\" : \"deprecation\",\n        \"title\" : \"title\"\n      }\n    },\n    \"visualMode\" : \"Full\",\n    \"filters\" : {\n      \"TEST\" : [ 5187, 5227 ],\n      \"ENDPOINT_MACHINE_ID\" : [ \"fbd0050c-07f7-43f7-9631-14b32f096962\" ]\n    },\n    \"title\" : \"Widget Title\",\n    \"type\" : \"Agent Status\",\n    \"metricGroup\" : \"BGP\",\n    \"measure\" : {\n      \"percentileValue\" : 95,\n      \"type\" : \"MEAN\"\n    },\n    \"apiLink\" : \"apiLink\",\n    \"metric\" : \"ENDPOINT_GATEWAY_CPU_LOAD_PERCENT\",\n    \"isEmbedded\" : true,\n    \"id\" : \"1234\",\n    \"fixedTimespan\" : {\n      \"unit\" : \"Days\",\n      \"value\" : 10\n    },\n    \"dataSource\" : \"ENDPOINT_AGENTS\",\n    \"direction\" : \"FROM_TARGET\"\n  }, {\n    \"embedUrl\" : \"https://embed.thousandeyes.com/e/00aa:3039802d-5c76-42d2-9a93-c6e5f9d3122f\",\n    \"shouldExcludeAlertSuppressionWindows\" : true,\n    \"_links\" : {\n      \"self\" : {\n        \"hreflang\" : \"hreflang\",\n        \"templated\" : true,\n        \"profile\" : \"profile\",\n        \"name\" : \"name\",\n        \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n        \"type\" : \"type\",\n        \"deprecation\" : \"deprecation\",\n        \"title\" : \"title\"\n      }\n    },\n    \"visualMode\" : \"Full\",\n    \"filters\" : {\n      \"TEST\" : [ 5187, 5227 ],\n      \"ENDPOINT_MACHINE_ID\" : [ \"fbd0050c-07f7-43f7-9631-14b32f096962\" ]\n    },\n    \"title\" : \"Widget Title\",\n    \"type\" : \"Agent Status\",\n    \"metricGroup\" : \"BGP\",\n    \"measure\" : {\n      \"percentileValue\" : 95,\n      \"type\" : \"MEAN\"\n    },\n    \"apiLink\" : \"apiLink\",\n    \"metric\" : \"ENDPOINT_GATEWAY_CPU_LOAD_PERCENT\",\n    \"isEmbedded\" : true,\n    \"id\" : \"1234\",\n    \"fixedTimespan\" : {\n      \"unit\" : \"Days\",\n      \"value\" : 10\n    },\n    \"dataSource\" : \"ENDPOINT_AGENTS\",\n    \"direction\" : \"FROM_TARGET\"\n  } ],\n  \"defaultTimespan\" : {\n    \"duration\" : 7200,\n    \"timespanDuration\" : 7200,\n    \"start\" : \"2023-05-16T10:14:28Z\",\n    \"end\" : \"2023-05-16T11:14:28Z\",\n    \"timespanStart\" : \"2023-05-16 10:14:28\",\n    \"timespanEnd\" : \"2023-05-16 11:14:28\"\n  },\n  \"layout\" : {\n    \"layoutId\" : \"grid-layout-1\",\n    \"type\" : \"grid\",\n    \"details\" : {\n      \"widgetPositioning\" : [ {\n        \"x\" : 0,\n        \"y\" : 0,\n        \"w\" : 9,\n        \"h\" : 5,\n        \"id\" : \"widgetId-71lbb\"\n      } ]\n    }\n  },\n  \"globalFilterId\" : \"65babd9bb90bf55b17c96c8d\",\n  \"schedule\" : \"\",\n  \"dashboardId\" : \"5e1f7a99143ae6004fdc3bb4\",\n  \"createdBy\" : \"1\",\n  \"refreshRate\" : \"off\",\n  \"modifiedDate\" : \"2023-05-16T10:14:28Z\",\n  \"modifiedBy\" : \"1\",\n  \"isGlobalOverride\" : true,\n  \"aid\" : \"1234\"\n}")
 	responseStatus := 201
 	responseContentType := "application/json"
 	var expectedResponse Dashboard
@@ -104,7 +378,7 @@ func TestDashboardsAPIService_CreateDashboard_Errors(t *testing.T) {
 	const testToken = "test-token"
 
 	var aid string = "1234"
-	requestBodyJSON := []byte("{\n  \"isMigratedReport\" : false,\n  \"_links\" : {\n    \"snapshots\" : {\n      \"hreflang\" : \"hreflang\",\n      \"templated\" : true,\n      \"profile\" : \"profile\",\n      \"name\" : \"name\",\n      \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n      \"type\" : \"type\",\n      \"deprecation\" : \"deprecation\",\n      \"title\" : \"title\"\n    },\n    \"self\" : {\n      \"hreflang\" : \"hreflang\",\n      \"templated\" : true,\n      \"profile\" : \"profile\",\n      \"name\" : \"name\",\n      \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n      \"type\" : \"type\",\n      \"deprecation\" : \"deprecation\",\n      \"title\" : \"title\"\n    }\n  },\n  \"isDefaultForAccount\" : false,\n  \"isDefaultForUser\" : true,\n  \"description\" : \"HTTP Server Widgets\",\n  \"isPrivate\" : true,\n  \"title\" : \"HTTP Server Widgets\",\n  \"isBuiltIn\" : true,\n  \"widgets\" : [ {\n    \"embedUrl\" : \"https://embed.thousandeyes.com/e/00aa:3039802d-5c76-42d2-9a93-c6e5f9d3122f\",\n    \"shouldExcludeAlertSuppressionWindows\" : true,\n    \"_links\" : {\n      \"self\" : {\n        \"hreflang\" : \"hreflang\",\n        \"templated\" : true,\n        \"profile\" : \"profile\",\n        \"name\" : \"name\",\n        \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n        \"type\" : \"type\",\n        \"deprecation\" : \"deprecation\",\n        \"title\" : \"title\"\n      }\n    },\n    \"visualMode\" : \"Full\",\n    \"filters\" : {\n      \"TEST\" : [ 5187, 5227 ],\n      \"ENDPOINT_MACHINE_ID\" : [ \"fbd0050c-07f7-43f7-9631-14b32f096962\" ]\n    },\n    \"title\" : \"Widget Title\",\n    \"type\" : \"Agent Status\",\n    \"metricGroup\" : \"BGP\",\n    \"measure\" : {\n      \"percentileValue\" : 95,\n      \"type\" : \"MEAN\"\n    },\n    \"apiLink\" : \"apiLink\",\n    \"metric\" : \"ENDPOINT_GATEWAY_CPU_LOAD_PERCENT\",\n    \"isEmbedded\" : true,\n    \"id\" : \"1234\",\n    \"fixedTimespan\" : {\n      \"unit\" : \"Days\",\n      \"value\" : 10\n    },\n    \"dataSource\" : \"ENDPOINT_AGENTS\",\n    \"direction\" : \"FROM_TARGET\"\n  }, {\n    \"embedUrl\" : \"https://embed.thousandeyes.com/e/00aa:3039802d-5c76-42d2-9a93-c6e5f9d3122f\",\n    \"shouldExcludeAlertSuppressionWindows\" : true,\n    \"_links\" : {\n      \"self\" : {\n        \"hreflang\" : \"hreflang\",\n        \"templated\" : true,\n        \"profile\" : \"profile\",\n        \"name\" : \"name\",\n        \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n        \"type\" : \"type\",\n        \"deprecation\" : \"deprecation\",\n        \"title\" : \"title\"\n      }\n    },\n    \"visualMode\" : \"Full\",\n    \"filters\" : {\n      \"TEST\" : [ 5187, 5227 ],\n      \"ENDPOINT_MACHINE_ID\" : [ \"fbd0050c-07f7-43f7-9631-14b32f096962\" ]\n    },\n    \"title\" : \"Widget Title\",\n    \"type\" : \"Agent Status\",\n    \"metricGroup\" : \"BGP\",\n    \"measure\" : {\n      \"percentileValue\" : 95,\n      \"type\" : \"MEAN\"\n    },\n    \"apiLink\" : \"apiLink\",\n    \"metric\" : \"ENDPOINT_GATEWAY_CPU_LOAD_PERCENT\",\n    \"isEmbedded\" : true,\n    \"id\" : \"1234\",\n    \"fixedTimespan\" : {\n      \"unit\" : \"Days\",\n      \"value\" : 10\n    },\n    \"dataSource\" : \"ENDPOINT_AGENTS\",\n    \"direction\" : \"FROM_TARGET\"\n  } ],\n  \"defaultTimespan\" : {\n    \"duration\" : 7200,\n    \"timespanDuration\" : 7200,\n    \"start\" : \"2023-05-16T10:14:28Z\",\n    \"end\" : \"2023-05-16T11:14:28Z\",\n    \"timespanStart\" : \"2023-05-16 10:14:28\",\n    \"timespanEnd\" : \"2023-05-16 11:14:28\"\n  },\n  \"layout\" : {\n    \"layoutId\" : \"grid-layout-1\",\n    \"type\" : \"grid\",\n    \"details\" : {\n      \"widgetPositioning\" : [ {\n        \"x\" : 0,\n        \"y\" : 0,\n        \"w\" : 9,\n        \"h\" : 5,\n        \"id\" : \"widgetId-71lbb\"\n      } ]\n    }\n  },\n  \"globalFilterId\" : \"65babd9bb90bf55b17c96c8d\",\n  \"dashboardId\" : \"5e1f7a99143ae6004fdc3bb4\",\n  \"createdBy\" : \"1\",\n  \"refreshRate\" : \"off\",\n  \"modifiedDate\" : \"2023-05-16T10:14:28Z\",\n  \"modifiedBy\" : \"1\",\n  \"isGlobalOverride\" : true,\n  \"aid\" : \"1234\"\n}")
+	requestBodyJSON := []byte("{\n  \"isMigratedReport\" : false,\n  \"_links\" : {\n    \"snapshots\" : {\n      \"hreflang\" : \"hreflang\",\n      \"templated\" : true,\n      \"profile\" : \"profile\",\n      \"name\" : \"name\",\n      \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n      \"type\" : \"type\",\n      \"deprecation\" : \"deprecation\",\n      \"title\" : \"title\"\n    },\n    \"self\" : {\n      \"hreflang\" : \"hreflang\",\n      \"templated\" : true,\n      \"profile\" : \"profile\",\n      \"name\" : \"name\",\n      \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n      \"type\" : \"type\",\n      \"deprecation\" : \"deprecation\",\n      \"title\" : \"title\"\n    }\n  },\n  \"isDefaultForAccount\" : false,\n  \"isDefaultForUser\" : true,\n  \"description\" : \"HTTP Server Widgets\",\n  \"isPrivate\" : true,\n  \"title\" : \"HTTP Server Widgets\",\n  \"isBuiltIn\" : true,\n  \"widgets\" : [ {\n    \"embedUrl\" : \"https://embed.thousandeyes.com/e/00aa:3039802d-5c76-42d2-9a93-c6e5f9d3122f\",\n    \"shouldExcludeAlertSuppressionWindows\" : true,\n    \"_links\" : {\n      \"self\" : {\n        \"hreflang\" : \"hreflang\",\n        \"templated\" : true,\n        \"profile\" : \"profile\",\n        \"name\" : \"name\",\n        \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n        \"type\" : \"type\",\n        \"deprecation\" : \"deprecation\",\n        \"title\" : \"title\"\n      }\n    },\n    \"visualMode\" : \"Full\",\n    \"filters\" : {\n      \"TEST\" : [ 5187, 5227 ],\n      \"ENDPOINT_MACHINE_ID\" : [ \"fbd0050c-07f7-43f7-9631-14b32f096962\" ]\n    },\n    \"title\" : \"Widget Title\",\n    \"type\" : \"Agent Status\",\n    \"metricGroup\" : \"BGP\",\n    \"measure\" : {\n      \"percentileValue\" : 95,\n      \"type\" : \"MEAN\"\n    },\n    \"apiLink\" : \"apiLink\",\n    \"metric\" : \"ENDPOINT_GATEWAY_CPU_LOAD_PERCENT\",\n    \"isEmbedded\" : true,\n    \"id\" : \"1234\",\n    \"fixedTimespan\" : {\n      \"unit\" : \"Days\",\n      \"value\" : 10\n    },\n    \"dataSource\" : \"ENDPOINT_AGENTS\",\n    \"direction\" : \"FROM_TARGET\"\n  }, {\n    \"embedUrl\" : \"https://embed.thousandeyes.com/e/00aa:3039802d-5c76-42d2-9a93-c6e5f9d3122f\",\n    \"shouldExcludeAlertSuppressionWindows\" : true,\n    \"_links\" : {\n      \"self\" : {\n        \"hreflang\" : \"hreflang\",\n        \"templated\" : true,\n        \"profile\" : \"profile\",\n        \"name\" : \"name\",\n        \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n        \"type\" : \"type\",\n        \"deprecation\" : \"deprecation\",\n        \"title\" : \"title\"\n      }\n    },\n    \"visualMode\" : \"Full\",\n    \"filters\" : {\n      \"TEST\" : [ 5187, 5227 ],\n      \"ENDPOINT_MACHINE_ID\" : [ \"fbd0050c-07f7-43f7-9631-14b32f096962\" ]\n    },\n    \"title\" : \"Widget Title\",\n    \"type\" : \"Agent Status\",\n    \"metricGroup\" : \"BGP\",\n    \"measure\" : {\n      \"percentileValue\" : 95,\n      \"type\" : \"MEAN\"\n    },\n    \"apiLink\" : \"apiLink\",\n    \"metric\" : \"ENDPOINT_GATEWAY_CPU_LOAD_PERCENT\",\n    \"isEmbedded\" : true,\n    \"id\" : \"1234\",\n    \"fixedTimespan\" : {\n      \"unit\" : \"Days\",\n      \"value\" : 10\n    },\n    \"dataSource\" : \"ENDPOINT_AGENTS\",\n    \"direction\" : \"FROM_TARGET\"\n  } ],\n  \"defaultTimespan\" : {\n    \"duration\" : 7200,\n    \"timespanDuration\" : 7200,\n    \"start\" : \"2023-05-16T10:14:28Z\",\n    \"end\" : \"2023-05-16T11:14:28Z\",\n    \"timespanStart\" : \"2023-05-16 10:14:28\",\n    \"timespanEnd\" : \"2023-05-16 11:14:28\"\n  },\n  \"layout\" : {\n    \"layoutId\" : \"grid-layout-1\",\n    \"type\" : \"grid\",\n    \"details\" : {\n      \"widgetPositioning\" : [ {\n        \"x\" : 0,\n        \"y\" : 0,\n        \"w\" : 9,\n        \"h\" : 5,\n        \"id\" : \"widgetId-71lbb\"\n      } ]\n    }\n  },\n  \"globalFilterId\" : \"65babd9bb90bf55b17c96c8d\",\n  \"schedule\" : \"\",\n  \"dashboardId\" : \"5e1f7a99143ae6004fdc3bb4\",\n  \"createdBy\" : \"1\",\n  \"refreshRate\" : \"off\",\n  \"modifiedDate\" : \"2023-05-16T10:14:28Z\",\n  \"modifiedBy\" : \"1\",\n  \"isGlobalOverride\" : true,\n  \"aid\" : \"1234\"\n}")
 	var requestBody Dashboard
 	if err := json.Unmarshal(requestBodyJSON, &requestBody); err != nil {
 		t.Fatalf("unmarshal request body: %v", err)
@@ -521,12 +795,238 @@ func TestDashboardsAPIService_DeleteDashboard_Errors(t *testing.T) {
 	})
 
 }
+func TestDashboardsAPIService_DeleteDashboardSchedule(t *testing.T) {
+	const testToken = "test-token"
+
+	var dashboardId string = "646f4d2ce3c99b0536c3821e"
+	var aid string = "1234"
+	responseStatus := 204
+
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != http.MethodDelete {
+			t.Errorf("method = %q, want %q", r.Method, http.MethodDelete)
+		}
+
+		expectedPath := "/dashboards/{dashboardId}/actions/schedule"
+		expectedPath = strings.ReplaceAll(expectedPath, "{dashboardId}", url.PathEscape(fmt.Sprint(dashboardId)))
+		if r.URL.EscapedPath() != expectedPath {
+			t.Errorf("path = %q, want %q", r.URL.EscapedPath(), expectedPath)
+		}
+		if got := r.Header.Get("Authorization"); got != "Bearer "+testToken {
+			t.Errorf("Authorization = %q, want %q", got, "Bearer "+testToken)
+		}
+		if _, ok := r.URL.Query()["aid"]; !ok {
+			t.Errorf("query parameter %q was not sent", "aid")
+		}
+		w.WriteHeader(responseStatus)
+	}))
+	t.Cleanup(server.Close)
+
+	config := client.NewConfiguration().
+		WithServerUrl(server.URL).
+		WithAuthToken(testToken)
+	config.HTTPClient = server.Client()
+
+	apiClient := client.NewAPIClient(config)
+	api := (*DashboardsAPIService)(&apiClient.Common)
+
+	httpResponse, err := api.DeleteDashboardSchedule(dashboardId).Aid(aid).Execute()
+	if err != nil {
+		t.Fatalf("DeleteDashboardSchedule() error = %v", err)
+	}
+	if httpResponse == nil {
+		t.Fatal("DeleteDashboardSchedule() returned a nil HTTP response")
+	}
+	if httpResponse.StatusCode != responseStatus {
+		t.Errorf("DeleteDashboardSchedule() status = %d, want %d", httpResponse.StatusCode, responseStatus)
+	}
+}
+
+func TestDashboardsAPIService_DeleteDashboardSchedule_Errors(t *testing.T) {
+	const testToken = "test-token"
+
+	var dashboardId string = "646f4d2ce3c99b0536c3821e"
+	var aid string = "1234"
+
+	runErrorCase := func(
+		t *testing.T,
+		responseStatus int,
+		responseContentType string,
+		responseBodyJSON []byte,
+		expectedModel interface{},
+	) {
+		t.Helper()
+
+		server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			if r.Method != http.MethodDelete {
+				t.Errorf("method = %q, want %q", r.Method, http.MethodDelete)
+			}
+
+			expectedPath := "/dashboards/{dashboardId}/actions/schedule"
+			expectedPath = strings.ReplaceAll(expectedPath, "{dashboardId}", url.PathEscape(fmt.Sprint(dashboardId)))
+			if r.URL.EscapedPath() != expectedPath {
+				t.Errorf("path = %q, want %q", r.URL.EscapedPath(), expectedPath)
+			}
+			if got := r.Header.Get("Authorization"); got != "Bearer "+testToken {
+				t.Errorf("Authorization = %q, want %q", got, "Bearer "+testToken)
+			}
+			if _, ok := r.URL.Query()["aid"]; !ok {
+				t.Errorf("query parameter %q was not sent", "aid")
+			}
+			w.Header().Set("Content-Type", responseContentType)
+			w.WriteHeader(responseStatus)
+			_, _ = w.Write(responseBodyJSON)
+		}))
+		t.Cleanup(server.Close)
+
+		config := client.NewConfiguration().
+			WithServerUrl(server.URL).
+			WithAuthToken(testToken)
+		config.HTTPClient = server.Client()
+
+		apiClient := client.NewAPIClient(config)
+		apiClient.GetConfig().HTTPClient = server.Client()
+		api := (*DashboardsAPIService)(&apiClient.Common)
+
+		httpResponse, err := api.DeleteDashboardSchedule(dashboardId).Aid(aid).Execute()
+		if err == nil {
+			t.Fatalf("DeleteDashboardSchedule() error = nil, want *GenericAPIError")
+		}
+		if httpResponse == nil {
+			t.Fatal("DeleteDashboardSchedule() returned a nil HTTP response")
+		}
+		if httpResponse.StatusCode != responseStatus {
+			t.Errorf("DeleteDashboardSchedule() status = %d, want %d", httpResponse.StatusCode, responseStatus)
+		}
+
+		var apiError *internalerror.GenericAPIError
+		if !errors.As(err, &apiError) {
+			t.Fatalf("DeleteDashboardSchedule() error type = %T, want *GenericAPIError", err)
+		}
+		if !reflect.DeepEqual(apiError.Body, responseBodyJSON) {
+			t.Errorf("GenericAPIError.Body = %q, want %q", apiError.Body, responseBodyJSON)
+		}
+		if !reflect.DeepEqual(apiError.Model, expectedModel) {
+			t.Errorf("GenericAPIError.Model = %#v, want %#v", apiError.Model, expectedModel)
+		}
+
+		expectedErrorMessage := internalerror.FormatErrorMessage(
+			httpResponse.Status,
+			string(responseBodyJSON),
+			expectedModel,
+		)
+		if apiError.ErrorMessage != expectedErrorMessage {
+			t.Errorf(
+				"GenericAPIError.ErrorMessage = %q, want %q",
+				apiError.ErrorMessage,
+				expectedErrorMessage,
+			)
+		}
+	}
+
+	t.Run("400", func(t *testing.T) {
+		responseBodyJSON := []byte("{\n  \"instance\" : \"instance\",\n  \"detail\" : \"detail\",\n  \"type\" : \"type\",\n  \"title\" : \"title\",\n  \"errors\" : [ {\n    \"code\" : \"code\",\n    \"field\" : \"field\",\n    \"message\" : \"message\"\n  }, {\n    \"code\" : \"code\",\n    \"field\" : \"field\",\n    \"message\" : \"message\"\n  } ],\n  \"status\" : 0\n}")
+		var expectedErrorModel ValidationError
+		if err := json.Unmarshal(responseBodyJSON, &expectedErrorModel); err != nil {
+			t.Fatalf("unmarshal 400 error body: %v", err)
+		}
+
+		runErrorCase(
+			t,
+			400,
+			"application/problem+json",
+			responseBodyJSON,
+			&expectedErrorModel,
+		)
+	})
+
+	t.Run("401", func(t *testing.T) {
+		responseBodyJSON := []byte("{\n  \"error_description\" : \"Invalid access token\",\n  \"error\" : \"invalid_token\"\n}")
+		var expectedErrorModel UnauthorizedError
+		if err := json.Unmarshal(responseBodyJSON, &expectedErrorModel); err != nil {
+			t.Fatalf("unmarshal 401 error body: %v", err)
+		}
+
+		runErrorCase(
+			t,
+			401,
+			"application/problem+json",
+			responseBodyJSON,
+			&expectedErrorModel,
+		)
+	})
+
+	t.Run("403", func(t *testing.T) {
+		responseBodyJSON := []byte("{\n  \"instance\" : \"instance\",\n  \"detail\" : \"detail\",\n  \"type\" : \"type\",\n  \"title\" : \"title\",\n  \"status\" : 6\n}")
+		var expectedErrorModel Error
+		if err := json.Unmarshal(responseBodyJSON, &expectedErrorModel); err != nil {
+			t.Fatalf("unmarshal 403 error body: %v", err)
+		}
+
+		runErrorCase(
+			t,
+			403,
+			"application/problem+json",
+			responseBodyJSON,
+			&expectedErrorModel,
+		)
+	})
+
+	t.Run("404", func(t *testing.T) {
+		responseBodyJSON := []byte("{\n  \"instance\" : \"instance\",\n  \"detail\" : \"detail\",\n  \"type\" : \"type\",\n  \"title\" : \"title\",\n  \"status\" : 6\n}")
+		var expectedErrorModel Error
+		if err := json.Unmarshal(responseBodyJSON, &expectedErrorModel); err != nil {
+			t.Fatalf("unmarshal 404 error body: %v", err)
+		}
+
+		runErrorCase(
+			t,
+			404,
+			"application/problem+json",
+			responseBodyJSON,
+			&expectedErrorModel,
+		)
+	})
+
+	t.Run("429", func(t *testing.T) {
+		responseBodyJSON := []byte("{\n  \"instance\" : \"instance\",\n  \"detail\" : \"detail\",\n  \"type\" : \"type\",\n  \"title\" : \"title\",\n  \"status\" : 6\n}")
+		var expectedErrorModel Error
+		if err := json.Unmarshal(responseBodyJSON, &expectedErrorModel); err != nil {
+			t.Fatalf("unmarshal 429 error body: %v", err)
+		}
+
+		runErrorCase(
+			t,
+			429,
+			"application/problem+json",
+			responseBodyJSON,
+			&expectedErrorModel,
+		)
+	})
+
+	t.Run("500", func(t *testing.T) {
+		responseBodyJSON := []byte("{\n  \"instance\" : \"instance\",\n  \"detail\" : \"detail\",\n  \"type\" : \"type\",\n  \"title\" : \"title\",\n  \"status\" : 6\n}")
+		var expectedErrorModel Error
+		if err := json.Unmarshal(responseBodyJSON, &expectedErrorModel); err != nil {
+			t.Fatalf("unmarshal 500 error body: %v", err)
+		}
+
+		runErrorCase(
+			t,
+			500,
+			"application/problem+json",
+			responseBodyJSON,
+			&expectedErrorModel,
+		)
+	})
+
+}
 func TestDashboardsAPIService_GetDashboard(t *testing.T) {
 	const testToken = "test-token"
 
 	var dashboardId string = "646f4d2ce3c99b0536c3821e"
 	var aid string = "1234"
-	responseBodyJSON := []byte("{\n  \"isMigratedReport\" : false,\n  \"dashboardCreatedBy\" : \"1\",\n  \"_links\" : {\n    \"snapshots\" : {\n      \"hreflang\" : \"hreflang\",\n      \"templated\" : true,\n      \"profile\" : \"profile\",\n      \"name\" : \"name\",\n      \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n      \"type\" : \"type\",\n      \"deprecation\" : \"deprecation\",\n      \"title\" : \"title\"\n    },\n    \"self\" : {\n      \"hreflang\" : \"hreflang\",\n      \"templated\" : true,\n      \"profile\" : \"profile\",\n      \"name\" : \"name\",\n      \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n      \"type\" : \"type\",\n      \"deprecation\" : \"deprecation\",\n      \"title\" : \"title\"\n    }\n  },\n  \"isDefaultForUser\" : true,\n  \"description\" : \"HTTP Server Widgets\",\n  \"isPrivate\" : true,\n  \"title\" : \"HTTP Server Widgets\",\n  \"isBuiltIn\" : true,\n  \"widgets\" : [ {\n    \"embedUrl\" : \"https://embed.thousandeyes.com/e/00aa:3039802d-5c76-42d2-9a93-c6e5f9d3122f\",\n    \"shouldExcludeAlertSuppressionWindows\" : true,\n    \"_links\" : {\n      \"self\" : {\n        \"hreflang\" : \"hreflang\",\n        \"templated\" : true,\n        \"profile\" : \"profile\",\n        \"name\" : \"name\",\n        \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n        \"type\" : \"type\",\n        \"deprecation\" : \"deprecation\",\n        \"title\" : \"title\"\n      }\n    },\n    \"visualMode\" : \"Full\",\n    \"filters\" : {\n      \"TEST\" : [ 5187, 5227 ],\n      \"ENDPOINT_MACHINE_ID\" : [ \"fbd0050c-07f7-43f7-9631-14b32f096962\" ]\n    },\n    \"title\" : \"Widget Title\",\n    \"type\" : \"Agent Status\",\n    \"metricGroup\" : \"BGP\",\n    \"measure\" : {\n      \"percentileValue\" : 95,\n      \"type\" : \"MEAN\"\n    },\n    \"apiLink\" : \"apiLink\",\n    \"metric\" : \"ENDPOINT_GATEWAY_CPU_LOAD_PERCENT\",\n    \"isEmbedded\" : true,\n    \"id\" : \"1234\",\n    \"fixedTimespan\" : {\n      \"unit\" : \"Days\",\n      \"value\" : 10\n    },\n    \"dataSource\" : \"ENDPOINT_AGENTS\",\n    \"direction\" : \"FROM_TARGET\"\n  }, {\n    \"embedUrl\" : \"https://embed.thousandeyes.com/e/00aa:3039802d-5c76-42d2-9a93-c6e5f9d3122f\",\n    \"shouldExcludeAlertSuppressionWindows\" : true,\n    \"_links\" : {\n      \"self\" : {\n        \"hreflang\" : \"hreflang\",\n        \"templated\" : true,\n        \"profile\" : \"profile\",\n        \"name\" : \"name\",\n        \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n        \"type\" : \"type\",\n        \"deprecation\" : \"deprecation\",\n        \"title\" : \"title\"\n      }\n    },\n    \"visualMode\" : \"Full\",\n    \"filters\" : {\n      \"TEST\" : [ 5187, 5227 ],\n      \"ENDPOINT_MACHINE_ID\" : [ \"fbd0050c-07f7-43f7-9631-14b32f096962\" ]\n    },\n    \"title\" : \"Widget Title\",\n    \"type\" : \"Agent Status\",\n    \"metricGroup\" : \"BGP\",\n    \"measure\" : {\n      \"percentileValue\" : 95,\n      \"type\" : \"MEAN\"\n    },\n    \"apiLink\" : \"apiLink\",\n    \"metric\" : \"ENDPOINT_GATEWAY_CPU_LOAD_PERCENT\",\n    \"isEmbedded\" : true,\n    \"id\" : \"1234\",\n    \"fixedTimespan\" : {\n      \"unit\" : \"Days\",\n      \"value\" : 10\n    },\n    \"dataSource\" : \"ENDPOINT_AGENTS\",\n    \"direction\" : \"FROM_TARGET\"\n  } ],\n  \"globalFilterId\" : \"65babd9bb90bf55b17c96c8d\",\n  \"refreshRate\" : \"off\",\n  \"modifiedBy\" : 1,\n  \"dashboardModifiedBy\" : \"1\",\n  \"migratedReport\" : false,\n  \"isDefaultForAccount\" : false,\n  \"defaultTimespan\" : {\n    \"duration\" : 7200,\n    \"timespanDuration\" : 7200,\n    \"start\" : \"2023-05-16T10:14:28Z\",\n    \"end\" : \"2023-05-16T11:14:28Z\",\n    \"timespanStart\" : \"2023-05-16 10:14:28\",\n    \"timespanEnd\" : \"2023-05-16 11:14:28\"\n  },\n  \"layout\" : {\n    \"layoutId\" : \"grid-layout-1\",\n    \"type\" : \"grid\",\n    \"details\" : {\n      \"widgetPositioning\" : [ {\n        \"x\" : 0,\n        \"y\" : 0,\n        \"w\" : 9,\n        \"h\" : 5,\n        \"id\" : \"widgetId-71lbb\"\n      } ]\n    }\n  },\n  \"accountId\" : 1234,\n  \"apiLink\" : [ {\n    \"key\" : \"\"\n  }, {\n    \"key\" : \"\"\n  } ],\n  \"dashboardId\" : \"5e1f7a99143ae6004fdc3bb4\",\n  \"createdBy\" : 1,\n  \"globalOverride\" : true,\n  \"modifiedDate\" : \"2023-05-16 10:14:28\",\n  \"isGlobalOverride\" : true,\n  \"aid\" : \"1234\",\n  \"dashboardModifiedDate\" : \"2023-05-16T10:14:28Z\"\n}")
+	responseBodyJSON := []byte("{\n  \"isMigratedReport\" : false,\n  \"dashboardCreatedBy\" : \"1\",\n  \"_links\" : {\n    \"snapshots\" : {\n      \"hreflang\" : \"hreflang\",\n      \"templated\" : true,\n      \"profile\" : \"profile\",\n      \"name\" : \"name\",\n      \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n      \"type\" : \"type\",\n      \"deprecation\" : \"deprecation\",\n      \"title\" : \"title\"\n    },\n    \"self\" : {\n      \"hreflang\" : \"hreflang\",\n      \"templated\" : true,\n      \"profile\" : \"profile\",\n      \"name\" : \"name\",\n      \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n      \"type\" : \"type\",\n      \"deprecation\" : \"deprecation\",\n      \"title\" : \"title\"\n    }\n  },\n  \"isDefaultForUser\" : true,\n  \"description\" : \"HTTP Server Widgets\",\n  \"isPrivate\" : true,\n  \"title\" : \"HTTP Server Widgets\",\n  \"isBuiltIn\" : true,\n  \"widgets\" : [ {\n    \"embedUrl\" : \"https://embed.thousandeyes.com/e/00aa:3039802d-5c76-42d2-9a93-c6e5f9d3122f\",\n    \"shouldExcludeAlertSuppressionWindows\" : true,\n    \"_links\" : {\n      \"self\" : {\n        \"hreflang\" : \"hreflang\",\n        \"templated\" : true,\n        \"profile\" : \"profile\",\n        \"name\" : \"name\",\n        \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n        \"type\" : \"type\",\n        \"deprecation\" : \"deprecation\",\n        \"title\" : \"title\"\n      }\n    },\n    \"visualMode\" : \"Full\",\n    \"filters\" : {\n      \"TEST\" : [ 5187, 5227 ],\n      \"ENDPOINT_MACHINE_ID\" : [ \"fbd0050c-07f7-43f7-9631-14b32f096962\" ]\n    },\n    \"title\" : \"Widget Title\",\n    \"type\" : \"Agent Status\",\n    \"metricGroup\" : \"BGP\",\n    \"measure\" : {\n      \"percentileValue\" : 95,\n      \"type\" : \"MEAN\"\n    },\n    \"apiLink\" : \"apiLink\",\n    \"metric\" : \"ENDPOINT_GATEWAY_CPU_LOAD_PERCENT\",\n    \"isEmbedded\" : true,\n    \"id\" : \"1234\",\n    \"fixedTimespan\" : {\n      \"unit\" : \"Days\",\n      \"value\" : 10\n    },\n    \"dataSource\" : \"ENDPOINT_AGENTS\",\n    \"direction\" : \"FROM_TARGET\"\n  }, {\n    \"embedUrl\" : \"https://embed.thousandeyes.com/e/00aa:3039802d-5c76-42d2-9a93-c6e5f9d3122f\",\n    \"shouldExcludeAlertSuppressionWindows\" : true,\n    \"_links\" : {\n      \"self\" : {\n        \"hreflang\" : \"hreflang\",\n        \"templated\" : true,\n        \"profile\" : \"profile\",\n        \"name\" : \"name\",\n        \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n        \"type\" : \"type\",\n        \"deprecation\" : \"deprecation\",\n        \"title\" : \"title\"\n      }\n    },\n    \"visualMode\" : \"Full\",\n    \"filters\" : {\n      \"TEST\" : [ 5187, 5227 ],\n      \"ENDPOINT_MACHINE_ID\" : [ \"fbd0050c-07f7-43f7-9631-14b32f096962\" ]\n    },\n    \"title\" : \"Widget Title\",\n    \"type\" : \"Agent Status\",\n    \"metricGroup\" : \"BGP\",\n    \"measure\" : {\n      \"percentileValue\" : 95,\n      \"type\" : \"MEAN\"\n    },\n    \"apiLink\" : \"apiLink\",\n    \"metric\" : \"ENDPOINT_GATEWAY_CPU_LOAD_PERCENT\",\n    \"isEmbedded\" : true,\n    \"id\" : \"1234\",\n    \"fixedTimespan\" : {\n      \"unit\" : \"Days\",\n      \"value\" : 10\n    },\n    \"dataSource\" : \"ENDPOINT_AGENTS\",\n    \"direction\" : \"FROM_TARGET\"\n  } ],\n  \"globalFilterId\" : \"65babd9bb90bf55b17c96c8d\",\n  \"refreshRate\" : \"off\",\n  \"modifiedBy\" : 1,\n  \"dashboardModifiedBy\" : \"1\",\n  \"migratedReport\" : false,\n  \"isDefaultForAccount\" : false,\n  \"defaultTimespan\" : {\n    \"duration\" : 7200,\n    \"timespanDuration\" : 7200,\n    \"start\" : \"2023-05-16T10:14:28Z\",\n    \"end\" : \"2023-05-16T11:14:28Z\",\n    \"timespanStart\" : \"2023-05-16 10:14:28\",\n    \"timespanEnd\" : \"2023-05-16 11:14:28\"\n  },\n  \"layout\" : {\n    \"layoutId\" : \"grid-layout-1\",\n    \"type\" : \"grid\",\n    \"details\" : {\n      \"widgetPositioning\" : [ {\n        \"x\" : 0,\n        \"y\" : 0,\n        \"w\" : 9,\n        \"h\" : 5,\n        \"id\" : \"widgetId-71lbb\"\n      } ]\n    }\n  },\n  \"schedule\" : \"\",\n  \"accountId\" : 1234,\n  \"apiLink\" : [ {\n    \"key\" : \"\"\n  }, {\n    \"key\" : \"\"\n  } ],\n  \"dashboardId\" : \"5e1f7a99143ae6004fdc3bb4\",\n  \"createdBy\" : 1,\n  \"globalOverride\" : true,\n  \"modifiedDate\" : \"2023-05-16 10:14:28\",\n  \"isGlobalOverride\" : true,\n  \"aid\" : \"1234\",\n  \"dashboardModifiedDate\" : \"2023-05-16T10:14:28Z\"\n}")
 	responseStatus := 200
 	responseContentType := "application/json"
 	var expectedResponse ApiDashboard
@@ -1061,7 +1561,7 @@ func TestDashboardsAPIService_GetDashboards(t *testing.T) {
 	const testToken = "test-token"
 
 	var aid string = "1234"
-	responseBodyJSON := []byte("[ {\n  \"isMigratedReport\" : false,\n  \"dashboardCreatedBy\" : \"1\",\n  \"_links\" : {\n    \"snapshots\" : {\n      \"hreflang\" : \"hreflang\",\n      \"templated\" : true,\n      \"profile\" : \"profile\",\n      \"name\" : \"name\",\n      \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n      \"type\" : \"type\",\n      \"deprecation\" : \"deprecation\",\n      \"title\" : \"title\"\n    },\n    \"self\" : {\n      \"hreflang\" : \"hreflang\",\n      \"templated\" : true,\n      \"profile\" : \"profile\",\n      \"name\" : \"name\",\n      \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n      \"type\" : \"type\",\n      \"deprecation\" : \"deprecation\",\n      \"title\" : \"title\"\n    }\n  },\n  \"isDefaultForUser\" : true,\n  \"description\" : \"HTTP Server Widgets\",\n  \"isPrivate\" : true,\n  \"title\" : \"HTTP Server Widgets\",\n  \"isBuiltIn\" : true,\n  \"widgets\" : [ {\n    \"embedUrl\" : \"https://embed.thousandeyes.com/e/00aa:3039802d-5c76-42d2-9a93-c6e5f9d3122f\",\n    \"shouldExcludeAlertSuppressionWindows\" : true,\n    \"_links\" : {\n      \"self\" : {\n        \"hreflang\" : \"hreflang\",\n        \"templated\" : true,\n        \"profile\" : \"profile\",\n        \"name\" : \"name\",\n        \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n        \"type\" : \"type\",\n        \"deprecation\" : \"deprecation\",\n        \"title\" : \"title\"\n      }\n    },\n    \"visualMode\" : \"Full\",\n    \"filters\" : {\n      \"TEST\" : [ 5187, 5227 ],\n      \"ENDPOINT_MACHINE_ID\" : [ \"fbd0050c-07f7-43f7-9631-14b32f096962\" ]\n    },\n    \"title\" : \"Widget Title\",\n    \"type\" : \"Agent Status\",\n    \"metricGroup\" : \"BGP\",\n    \"measure\" : {\n      \"percentileValue\" : 95,\n      \"type\" : \"MEAN\"\n    },\n    \"apiLink\" : \"apiLink\",\n    \"metric\" : \"ENDPOINT_GATEWAY_CPU_LOAD_PERCENT\",\n    \"isEmbedded\" : true,\n    \"id\" : \"1234\",\n    \"fixedTimespan\" : {\n      \"unit\" : \"Days\",\n      \"value\" : 10\n    },\n    \"dataSource\" : \"ENDPOINT_AGENTS\",\n    \"direction\" : \"FROM_TARGET\"\n  }, {\n    \"embedUrl\" : \"https://embed.thousandeyes.com/e/00aa:3039802d-5c76-42d2-9a93-c6e5f9d3122f\",\n    \"shouldExcludeAlertSuppressionWindows\" : true,\n    \"_links\" : {\n      \"self\" : {\n        \"hreflang\" : \"hreflang\",\n        \"templated\" : true,\n        \"profile\" : \"profile\",\n        \"name\" : \"name\",\n        \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n        \"type\" : \"type\",\n        \"deprecation\" : \"deprecation\",\n        \"title\" : \"title\"\n      }\n    },\n    \"visualMode\" : \"Full\",\n    \"filters\" : {\n      \"TEST\" : [ 5187, 5227 ],\n      \"ENDPOINT_MACHINE_ID\" : [ \"fbd0050c-07f7-43f7-9631-14b32f096962\" ]\n    },\n    \"title\" : \"Widget Title\",\n    \"type\" : \"Agent Status\",\n    \"metricGroup\" : \"BGP\",\n    \"measure\" : {\n      \"percentileValue\" : 95,\n      \"type\" : \"MEAN\"\n    },\n    \"apiLink\" : \"apiLink\",\n    \"metric\" : \"ENDPOINT_GATEWAY_CPU_LOAD_PERCENT\",\n    \"isEmbedded\" : true,\n    \"id\" : \"1234\",\n    \"fixedTimespan\" : {\n      \"unit\" : \"Days\",\n      \"value\" : 10\n    },\n    \"dataSource\" : \"ENDPOINT_AGENTS\",\n    \"direction\" : \"FROM_TARGET\"\n  } ],\n  \"globalFilterId\" : \"65babd9bb90bf55b17c96c8d\",\n  \"refreshRate\" : \"off\",\n  \"modifiedBy\" : 1,\n  \"dashboardModifiedBy\" : \"1\",\n  \"migratedReport\" : false,\n  \"isDefaultForAccount\" : false,\n  \"defaultTimespan\" : {\n    \"duration\" : 7200,\n    \"timespanDuration\" : 7200,\n    \"start\" : \"2023-05-16T10:14:28Z\",\n    \"end\" : \"2023-05-16T11:14:28Z\",\n    \"timespanStart\" : \"2023-05-16 10:14:28\",\n    \"timespanEnd\" : \"2023-05-16 11:14:28\"\n  },\n  \"layout\" : {\n    \"layoutId\" : \"grid-layout-1\",\n    \"type\" : \"grid\",\n    \"details\" : {\n      \"widgetPositioning\" : [ {\n        \"x\" : 0,\n        \"y\" : 0,\n        \"w\" : 9,\n        \"h\" : 5,\n        \"id\" : \"widgetId-71lbb\"\n      } ]\n    }\n  },\n  \"accountId\" : 1234,\n  \"apiLink\" : [ {\n    \"key\" : \"\"\n  }, {\n    \"key\" : \"\"\n  } ],\n  \"dashboardId\" : \"5e1f7a99143ae6004fdc3bb4\",\n  \"createdBy\" : 1,\n  \"globalOverride\" : true,\n  \"modifiedDate\" : \"2023-05-16 10:14:28\",\n  \"isGlobalOverride\" : true,\n  \"aid\" : \"1234\",\n  \"dashboardModifiedDate\" : \"2023-05-16T10:14:28Z\"\n}, {\n  \"isMigratedReport\" : false,\n  \"dashboardCreatedBy\" : \"1\",\n  \"_links\" : {\n    \"snapshots\" : {\n      \"hreflang\" : \"hreflang\",\n      \"templated\" : true,\n      \"profile\" : \"profile\",\n      \"name\" : \"name\",\n      \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n      \"type\" : \"type\",\n      \"deprecation\" : \"deprecation\",\n      \"title\" : \"title\"\n    },\n    \"self\" : {\n      \"hreflang\" : \"hreflang\",\n      \"templated\" : true,\n      \"profile\" : \"profile\",\n      \"name\" : \"name\",\n      \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n      \"type\" : \"type\",\n      \"deprecation\" : \"deprecation\",\n      \"title\" : \"title\"\n    }\n  },\n  \"isDefaultForUser\" : true,\n  \"description\" : \"HTTP Server Widgets\",\n  \"isPrivate\" : true,\n  \"title\" : \"HTTP Server Widgets\",\n  \"isBuiltIn\" : true,\n  \"widgets\" : [ {\n    \"embedUrl\" : \"https://embed.thousandeyes.com/e/00aa:3039802d-5c76-42d2-9a93-c6e5f9d3122f\",\n    \"shouldExcludeAlertSuppressionWindows\" : true,\n    \"_links\" : {\n      \"self\" : {\n        \"hreflang\" : \"hreflang\",\n        \"templated\" : true,\n        \"profile\" : \"profile\",\n        \"name\" : \"name\",\n        \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n        \"type\" : \"type\",\n        \"deprecation\" : \"deprecation\",\n        \"title\" : \"title\"\n      }\n    },\n    \"visualMode\" : \"Full\",\n    \"filters\" : {\n      \"TEST\" : [ 5187, 5227 ],\n      \"ENDPOINT_MACHINE_ID\" : [ \"fbd0050c-07f7-43f7-9631-14b32f096962\" ]\n    },\n    \"title\" : \"Widget Title\",\n    \"type\" : \"Agent Status\",\n    \"metricGroup\" : \"BGP\",\n    \"measure\" : {\n      \"percentileValue\" : 95,\n      \"type\" : \"MEAN\"\n    },\n    \"apiLink\" : \"apiLink\",\n    \"metric\" : \"ENDPOINT_GATEWAY_CPU_LOAD_PERCENT\",\n    \"isEmbedded\" : true,\n    \"id\" : \"1234\",\n    \"fixedTimespan\" : {\n      \"unit\" : \"Days\",\n      \"value\" : 10\n    },\n    \"dataSource\" : \"ENDPOINT_AGENTS\",\n    \"direction\" : \"FROM_TARGET\"\n  }, {\n    \"embedUrl\" : \"https://embed.thousandeyes.com/e/00aa:3039802d-5c76-42d2-9a93-c6e5f9d3122f\",\n    \"shouldExcludeAlertSuppressionWindows\" : true,\n    \"_links\" : {\n      \"self\" : {\n        \"hreflang\" : \"hreflang\",\n        \"templated\" : true,\n        \"profile\" : \"profile\",\n        \"name\" : \"name\",\n        \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n        \"type\" : \"type\",\n        \"deprecation\" : \"deprecation\",\n        \"title\" : \"title\"\n      }\n    },\n    \"visualMode\" : \"Full\",\n    \"filters\" : {\n      \"TEST\" : [ 5187, 5227 ],\n      \"ENDPOINT_MACHINE_ID\" : [ \"fbd0050c-07f7-43f7-9631-14b32f096962\" ]\n    },\n    \"title\" : \"Widget Title\",\n    \"type\" : \"Agent Status\",\n    \"metricGroup\" : \"BGP\",\n    \"measure\" : {\n      \"percentileValue\" : 95,\n      \"type\" : \"MEAN\"\n    },\n    \"apiLink\" : \"apiLink\",\n    \"metric\" : \"ENDPOINT_GATEWAY_CPU_LOAD_PERCENT\",\n    \"isEmbedded\" : true,\n    \"id\" : \"1234\",\n    \"fixedTimespan\" : {\n      \"unit\" : \"Days\",\n      \"value\" : 10\n    },\n    \"dataSource\" : \"ENDPOINT_AGENTS\",\n    \"direction\" : \"FROM_TARGET\"\n  } ],\n  \"globalFilterId\" : \"65babd9bb90bf55b17c96c8d\",\n  \"refreshRate\" : \"off\",\n  \"modifiedBy\" : 1,\n  \"dashboardModifiedBy\" : \"1\",\n  \"migratedReport\" : false,\n  \"isDefaultForAccount\" : false,\n  \"defaultTimespan\" : {\n    \"duration\" : 7200,\n    \"timespanDuration\" : 7200,\n    \"start\" : \"2023-05-16T10:14:28Z\",\n    \"end\" : \"2023-05-16T11:14:28Z\",\n    \"timespanStart\" : \"2023-05-16 10:14:28\",\n    \"timespanEnd\" : \"2023-05-16 11:14:28\"\n  },\n  \"layout\" : {\n    \"layoutId\" : \"grid-layout-1\",\n    \"type\" : \"grid\",\n    \"details\" : {\n      \"widgetPositioning\" : [ {\n        \"x\" : 0,\n        \"y\" : 0,\n        \"w\" : 9,\n        \"h\" : 5,\n        \"id\" : \"widgetId-71lbb\"\n      } ]\n    }\n  },\n  \"accountId\" : 1234,\n  \"apiLink\" : [ {\n    \"key\" : \"\"\n  }, {\n    \"key\" : \"\"\n  } ],\n  \"dashboardId\" : \"5e1f7a99143ae6004fdc3bb4\",\n  \"createdBy\" : 1,\n  \"globalOverride\" : true,\n  \"modifiedDate\" : \"2023-05-16 10:14:28\",\n  \"isGlobalOverride\" : true,\n  \"aid\" : \"1234\",\n  \"dashboardModifiedDate\" : \"2023-05-16T10:14:28Z\"\n} ]")
+	responseBodyJSON := []byte("[ {\n  \"isMigratedReport\" : false,\n  \"dashboardCreatedBy\" : \"1\",\n  \"_links\" : {\n    \"snapshots\" : {\n      \"hreflang\" : \"hreflang\",\n      \"templated\" : true,\n      \"profile\" : \"profile\",\n      \"name\" : \"name\",\n      \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n      \"type\" : \"type\",\n      \"deprecation\" : \"deprecation\",\n      \"title\" : \"title\"\n    },\n    \"self\" : {\n      \"hreflang\" : \"hreflang\",\n      \"templated\" : true,\n      \"profile\" : \"profile\",\n      \"name\" : \"name\",\n      \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n      \"type\" : \"type\",\n      \"deprecation\" : \"deprecation\",\n      \"title\" : \"title\"\n    }\n  },\n  \"isDefaultForUser\" : true,\n  \"description\" : \"HTTP Server Widgets\",\n  \"isPrivate\" : true,\n  \"title\" : \"HTTP Server Widgets\",\n  \"isBuiltIn\" : true,\n  \"widgets\" : [ {\n    \"embedUrl\" : \"https://embed.thousandeyes.com/e/00aa:3039802d-5c76-42d2-9a93-c6e5f9d3122f\",\n    \"shouldExcludeAlertSuppressionWindows\" : true,\n    \"_links\" : {\n      \"self\" : {\n        \"hreflang\" : \"hreflang\",\n        \"templated\" : true,\n        \"profile\" : \"profile\",\n        \"name\" : \"name\",\n        \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n        \"type\" : \"type\",\n        \"deprecation\" : \"deprecation\",\n        \"title\" : \"title\"\n      }\n    },\n    \"visualMode\" : \"Full\",\n    \"filters\" : {\n      \"TEST\" : [ 5187, 5227 ],\n      \"ENDPOINT_MACHINE_ID\" : [ \"fbd0050c-07f7-43f7-9631-14b32f096962\" ]\n    },\n    \"title\" : \"Widget Title\",\n    \"type\" : \"Agent Status\",\n    \"metricGroup\" : \"BGP\",\n    \"measure\" : {\n      \"percentileValue\" : 95,\n      \"type\" : \"MEAN\"\n    },\n    \"apiLink\" : \"apiLink\",\n    \"metric\" : \"ENDPOINT_GATEWAY_CPU_LOAD_PERCENT\",\n    \"isEmbedded\" : true,\n    \"id\" : \"1234\",\n    \"fixedTimespan\" : {\n      \"unit\" : \"Days\",\n      \"value\" : 10\n    },\n    \"dataSource\" : \"ENDPOINT_AGENTS\",\n    \"direction\" : \"FROM_TARGET\"\n  }, {\n    \"embedUrl\" : \"https://embed.thousandeyes.com/e/00aa:3039802d-5c76-42d2-9a93-c6e5f9d3122f\",\n    \"shouldExcludeAlertSuppressionWindows\" : true,\n    \"_links\" : {\n      \"self\" : {\n        \"hreflang\" : \"hreflang\",\n        \"templated\" : true,\n        \"profile\" : \"profile\",\n        \"name\" : \"name\",\n        \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n        \"type\" : \"type\",\n        \"deprecation\" : \"deprecation\",\n        \"title\" : \"title\"\n      }\n    },\n    \"visualMode\" : \"Full\",\n    \"filters\" : {\n      \"TEST\" : [ 5187, 5227 ],\n      \"ENDPOINT_MACHINE_ID\" : [ \"fbd0050c-07f7-43f7-9631-14b32f096962\" ]\n    },\n    \"title\" : \"Widget Title\",\n    \"type\" : \"Agent Status\",\n    \"metricGroup\" : \"BGP\",\n    \"measure\" : {\n      \"percentileValue\" : 95,\n      \"type\" : \"MEAN\"\n    },\n    \"apiLink\" : \"apiLink\",\n    \"metric\" : \"ENDPOINT_GATEWAY_CPU_LOAD_PERCENT\",\n    \"isEmbedded\" : true,\n    \"id\" : \"1234\",\n    \"fixedTimespan\" : {\n      \"unit\" : \"Days\",\n      \"value\" : 10\n    },\n    \"dataSource\" : \"ENDPOINT_AGENTS\",\n    \"direction\" : \"FROM_TARGET\"\n  } ],\n  \"globalFilterId\" : \"65babd9bb90bf55b17c96c8d\",\n  \"refreshRate\" : \"off\",\n  \"modifiedBy\" : 1,\n  \"dashboardModifiedBy\" : \"1\",\n  \"migratedReport\" : false,\n  \"isDefaultForAccount\" : false,\n  \"defaultTimespan\" : {\n    \"duration\" : 7200,\n    \"timespanDuration\" : 7200,\n    \"start\" : \"2023-05-16T10:14:28Z\",\n    \"end\" : \"2023-05-16T11:14:28Z\",\n    \"timespanStart\" : \"2023-05-16 10:14:28\",\n    \"timespanEnd\" : \"2023-05-16 11:14:28\"\n  },\n  \"layout\" : {\n    \"layoutId\" : \"grid-layout-1\",\n    \"type\" : \"grid\",\n    \"details\" : {\n      \"widgetPositioning\" : [ {\n        \"x\" : 0,\n        \"y\" : 0,\n        \"w\" : 9,\n        \"h\" : 5,\n        \"id\" : \"widgetId-71lbb\"\n      } ]\n    }\n  },\n  \"schedule\" : \"\",\n  \"accountId\" : 1234,\n  \"apiLink\" : [ {\n    \"key\" : \"\"\n  }, {\n    \"key\" : \"\"\n  } ],\n  \"dashboardId\" : \"5e1f7a99143ae6004fdc3bb4\",\n  \"createdBy\" : 1,\n  \"globalOverride\" : true,\n  \"modifiedDate\" : \"2023-05-16 10:14:28\",\n  \"isGlobalOverride\" : true,\n  \"aid\" : \"1234\",\n  \"dashboardModifiedDate\" : \"2023-05-16T10:14:28Z\"\n}, {\n  \"isMigratedReport\" : false,\n  \"dashboardCreatedBy\" : \"1\",\n  \"_links\" : {\n    \"snapshots\" : {\n      \"hreflang\" : \"hreflang\",\n      \"templated\" : true,\n      \"profile\" : \"profile\",\n      \"name\" : \"name\",\n      \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n      \"type\" : \"type\",\n      \"deprecation\" : \"deprecation\",\n      \"title\" : \"title\"\n    },\n    \"self\" : {\n      \"hreflang\" : \"hreflang\",\n      \"templated\" : true,\n      \"profile\" : \"profile\",\n      \"name\" : \"name\",\n      \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n      \"type\" : \"type\",\n      \"deprecation\" : \"deprecation\",\n      \"title\" : \"title\"\n    }\n  },\n  \"isDefaultForUser\" : true,\n  \"description\" : \"HTTP Server Widgets\",\n  \"isPrivate\" : true,\n  \"title\" : \"HTTP Server Widgets\",\n  \"isBuiltIn\" : true,\n  \"widgets\" : [ {\n    \"embedUrl\" : \"https://embed.thousandeyes.com/e/00aa:3039802d-5c76-42d2-9a93-c6e5f9d3122f\",\n    \"shouldExcludeAlertSuppressionWindows\" : true,\n    \"_links\" : {\n      \"self\" : {\n        \"hreflang\" : \"hreflang\",\n        \"templated\" : true,\n        \"profile\" : \"profile\",\n        \"name\" : \"name\",\n        \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n        \"type\" : \"type\",\n        \"deprecation\" : \"deprecation\",\n        \"title\" : \"title\"\n      }\n    },\n    \"visualMode\" : \"Full\",\n    \"filters\" : {\n      \"TEST\" : [ 5187, 5227 ],\n      \"ENDPOINT_MACHINE_ID\" : [ \"fbd0050c-07f7-43f7-9631-14b32f096962\" ]\n    },\n    \"title\" : \"Widget Title\",\n    \"type\" : \"Agent Status\",\n    \"metricGroup\" : \"BGP\",\n    \"measure\" : {\n      \"percentileValue\" : 95,\n      \"type\" : \"MEAN\"\n    },\n    \"apiLink\" : \"apiLink\",\n    \"metric\" : \"ENDPOINT_GATEWAY_CPU_LOAD_PERCENT\",\n    \"isEmbedded\" : true,\n    \"id\" : \"1234\",\n    \"fixedTimespan\" : {\n      \"unit\" : \"Days\",\n      \"value\" : 10\n    },\n    \"dataSource\" : \"ENDPOINT_AGENTS\",\n    \"direction\" : \"FROM_TARGET\"\n  }, {\n    \"embedUrl\" : \"https://embed.thousandeyes.com/e/00aa:3039802d-5c76-42d2-9a93-c6e5f9d3122f\",\n    \"shouldExcludeAlertSuppressionWindows\" : true,\n    \"_links\" : {\n      \"self\" : {\n        \"hreflang\" : \"hreflang\",\n        \"templated\" : true,\n        \"profile\" : \"profile\",\n        \"name\" : \"name\",\n        \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n        \"type\" : \"type\",\n        \"deprecation\" : \"deprecation\",\n        \"title\" : \"title\"\n      }\n    },\n    \"visualMode\" : \"Full\",\n    \"filters\" : {\n      \"TEST\" : [ 5187, 5227 ],\n      \"ENDPOINT_MACHINE_ID\" : [ \"fbd0050c-07f7-43f7-9631-14b32f096962\" ]\n    },\n    \"title\" : \"Widget Title\",\n    \"type\" : \"Agent Status\",\n    \"metricGroup\" : \"BGP\",\n    \"measure\" : {\n      \"percentileValue\" : 95,\n      \"type\" : \"MEAN\"\n    },\n    \"apiLink\" : \"apiLink\",\n    \"metric\" : \"ENDPOINT_GATEWAY_CPU_LOAD_PERCENT\",\n    \"isEmbedded\" : true,\n    \"id\" : \"1234\",\n    \"fixedTimespan\" : {\n      \"unit\" : \"Days\",\n      \"value\" : 10\n    },\n    \"dataSource\" : \"ENDPOINT_AGENTS\",\n    \"direction\" : \"FROM_TARGET\"\n  } ],\n  \"globalFilterId\" : \"65babd9bb90bf55b17c96c8d\",\n  \"refreshRate\" : \"off\",\n  \"modifiedBy\" : 1,\n  \"dashboardModifiedBy\" : \"1\",\n  \"migratedReport\" : false,\n  \"isDefaultForAccount\" : false,\n  \"defaultTimespan\" : {\n    \"duration\" : 7200,\n    \"timespanDuration\" : 7200,\n    \"start\" : \"2023-05-16T10:14:28Z\",\n    \"end\" : \"2023-05-16T11:14:28Z\",\n    \"timespanStart\" : \"2023-05-16 10:14:28\",\n    \"timespanEnd\" : \"2023-05-16 11:14:28\"\n  },\n  \"layout\" : {\n    \"layoutId\" : \"grid-layout-1\",\n    \"type\" : \"grid\",\n    \"details\" : {\n      \"widgetPositioning\" : [ {\n        \"x\" : 0,\n        \"y\" : 0,\n        \"w\" : 9,\n        \"h\" : 5,\n        \"id\" : \"widgetId-71lbb\"\n      } ]\n    }\n  },\n  \"schedule\" : \"\",\n  \"accountId\" : 1234,\n  \"apiLink\" : [ {\n    \"key\" : \"\"\n  }, {\n    \"key\" : \"\"\n  } ],\n  \"dashboardId\" : \"5e1f7a99143ae6004fdc3bb4\",\n  \"createdBy\" : 1,\n  \"globalOverride\" : true,\n  \"modifiedDate\" : \"2023-05-16 10:14:28\",\n  \"isGlobalOverride\" : true,\n  \"aid\" : \"1234\",\n  \"dashboardModifiedDate\" : \"2023-05-16T10:14:28Z\"\n} ]")
 	responseStatus := 200
 	responseContentType := "application/json"
 	var expectedResponse []ApiDashboard
@@ -1836,12 +2336,12 @@ func TestDashboardsAPIService_UpdateDashboard(t *testing.T) {
 
 	var dashboardId string = "646f4d2ce3c99b0536c3821e"
 	var aid string = "1234"
-	requestBodyJSON := []byte("{\n  \"isMigratedReport\" : false,\n  \"_links\" : {\n    \"snapshots\" : {\n      \"hreflang\" : \"hreflang\",\n      \"templated\" : true,\n      \"profile\" : \"profile\",\n      \"name\" : \"name\",\n      \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n      \"type\" : \"type\",\n      \"deprecation\" : \"deprecation\",\n      \"title\" : \"title\"\n    },\n    \"self\" : {\n      \"hreflang\" : \"hreflang\",\n      \"templated\" : true,\n      \"profile\" : \"profile\",\n      \"name\" : \"name\",\n      \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n      \"type\" : \"type\",\n      \"deprecation\" : \"deprecation\",\n      \"title\" : \"title\"\n    }\n  },\n  \"isDefaultForAccount\" : false,\n  \"isDefaultForUser\" : true,\n  \"description\" : \"HTTP Server Widgets\",\n  \"isPrivate\" : true,\n  \"title\" : \"HTTP Server Widgets\",\n  \"isBuiltIn\" : true,\n  \"widgets\" : [ {\n    \"embedUrl\" : \"https://embed.thousandeyes.com/e/00aa:3039802d-5c76-42d2-9a93-c6e5f9d3122f\",\n    \"shouldExcludeAlertSuppressionWindows\" : true,\n    \"_links\" : {\n      \"self\" : {\n        \"hreflang\" : \"hreflang\",\n        \"templated\" : true,\n        \"profile\" : \"profile\",\n        \"name\" : \"name\",\n        \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n        \"type\" : \"type\",\n        \"deprecation\" : \"deprecation\",\n        \"title\" : \"title\"\n      }\n    },\n    \"visualMode\" : \"Full\",\n    \"filters\" : {\n      \"TEST\" : [ 5187, 5227 ],\n      \"ENDPOINT_MACHINE_ID\" : [ \"fbd0050c-07f7-43f7-9631-14b32f096962\" ]\n    },\n    \"title\" : \"Widget Title\",\n    \"type\" : \"Agent Status\",\n    \"metricGroup\" : \"BGP\",\n    \"measure\" : {\n      \"percentileValue\" : 95,\n      \"type\" : \"MEAN\"\n    },\n    \"apiLink\" : \"apiLink\",\n    \"metric\" : \"ENDPOINT_GATEWAY_CPU_LOAD_PERCENT\",\n    \"isEmbedded\" : true,\n    \"id\" : \"1234\",\n    \"fixedTimespan\" : {\n      \"unit\" : \"Days\",\n      \"value\" : 10\n    },\n    \"dataSource\" : \"ENDPOINT_AGENTS\",\n    \"direction\" : \"FROM_TARGET\"\n  }, {\n    \"embedUrl\" : \"https://embed.thousandeyes.com/e/00aa:3039802d-5c76-42d2-9a93-c6e5f9d3122f\",\n    \"shouldExcludeAlertSuppressionWindows\" : true,\n    \"_links\" : {\n      \"self\" : {\n        \"hreflang\" : \"hreflang\",\n        \"templated\" : true,\n        \"profile\" : \"profile\",\n        \"name\" : \"name\",\n        \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n        \"type\" : \"type\",\n        \"deprecation\" : \"deprecation\",\n        \"title\" : \"title\"\n      }\n    },\n    \"visualMode\" : \"Full\",\n    \"filters\" : {\n      \"TEST\" : [ 5187, 5227 ],\n      \"ENDPOINT_MACHINE_ID\" : [ \"fbd0050c-07f7-43f7-9631-14b32f096962\" ]\n    },\n    \"title\" : \"Widget Title\",\n    \"type\" : \"Agent Status\",\n    \"metricGroup\" : \"BGP\",\n    \"measure\" : {\n      \"percentileValue\" : 95,\n      \"type\" : \"MEAN\"\n    },\n    \"apiLink\" : \"apiLink\",\n    \"metric\" : \"ENDPOINT_GATEWAY_CPU_LOAD_PERCENT\",\n    \"isEmbedded\" : true,\n    \"id\" : \"1234\",\n    \"fixedTimespan\" : {\n      \"unit\" : \"Days\",\n      \"value\" : 10\n    },\n    \"dataSource\" : \"ENDPOINT_AGENTS\",\n    \"direction\" : \"FROM_TARGET\"\n  } ],\n  \"defaultTimespan\" : {\n    \"duration\" : 7200,\n    \"timespanDuration\" : 7200,\n    \"start\" : \"2023-05-16T10:14:28Z\",\n    \"end\" : \"2023-05-16T11:14:28Z\",\n    \"timespanStart\" : \"2023-05-16 10:14:28\",\n    \"timespanEnd\" : \"2023-05-16 11:14:28\"\n  },\n  \"layout\" : {\n    \"layoutId\" : \"grid-layout-1\",\n    \"type\" : \"grid\",\n    \"details\" : {\n      \"widgetPositioning\" : [ {\n        \"x\" : 0,\n        \"y\" : 0,\n        \"w\" : 9,\n        \"h\" : 5,\n        \"id\" : \"widgetId-71lbb\"\n      } ]\n    }\n  },\n  \"globalFilterId\" : \"65babd9bb90bf55b17c96c8d\",\n  \"dashboardId\" : \"5e1f7a99143ae6004fdc3bb4\",\n  \"createdBy\" : \"1\",\n  \"refreshRate\" : \"off\",\n  \"modifiedDate\" : \"2023-05-16T10:14:28Z\",\n  \"modifiedBy\" : \"1\",\n  \"isGlobalOverride\" : true,\n  \"aid\" : \"1234\"\n}")
+	requestBodyJSON := []byte("{\n  \"isMigratedReport\" : false,\n  \"_links\" : {\n    \"snapshots\" : {\n      \"hreflang\" : \"hreflang\",\n      \"templated\" : true,\n      \"profile\" : \"profile\",\n      \"name\" : \"name\",\n      \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n      \"type\" : \"type\",\n      \"deprecation\" : \"deprecation\",\n      \"title\" : \"title\"\n    },\n    \"self\" : {\n      \"hreflang\" : \"hreflang\",\n      \"templated\" : true,\n      \"profile\" : \"profile\",\n      \"name\" : \"name\",\n      \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n      \"type\" : \"type\",\n      \"deprecation\" : \"deprecation\",\n      \"title\" : \"title\"\n    }\n  },\n  \"isDefaultForAccount\" : false,\n  \"isDefaultForUser\" : true,\n  \"description\" : \"HTTP Server Widgets\",\n  \"isPrivate\" : true,\n  \"title\" : \"HTTP Server Widgets\",\n  \"isBuiltIn\" : true,\n  \"widgets\" : [ {\n    \"embedUrl\" : \"https://embed.thousandeyes.com/e/00aa:3039802d-5c76-42d2-9a93-c6e5f9d3122f\",\n    \"shouldExcludeAlertSuppressionWindows\" : true,\n    \"_links\" : {\n      \"self\" : {\n        \"hreflang\" : \"hreflang\",\n        \"templated\" : true,\n        \"profile\" : \"profile\",\n        \"name\" : \"name\",\n        \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n        \"type\" : \"type\",\n        \"deprecation\" : \"deprecation\",\n        \"title\" : \"title\"\n      }\n    },\n    \"visualMode\" : \"Full\",\n    \"filters\" : {\n      \"TEST\" : [ 5187, 5227 ],\n      \"ENDPOINT_MACHINE_ID\" : [ \"fbd0050c-07f7-43f7-9631-14b32f096962\" ]\n    },\n    \"title\" : \"Widget Title\",\n    \"type\" : \"Agent Status\",\n    \"metricGroup\" : \"BGP\",\n    \"measure\" : {\n      \"percentileValue\" : 95,\n      \"type\" : \"MEAN\"\n    },\n    \"apiLink\" : \"apiLink\",\n    \"metric\" : \"ENDPOINT_GATEWAY_CPU_LOAD_PERCENT\",\n    \"isEmbedded\" : true,\n    \"id\" : \"1234\",\n    \"fixedTimespan\" : {\n      \"unit\" : \"Days\",\n      \"value\" : 10\n    },\n    \"dataSource\" : \"ENDPOINT_AGENTS\",\n    \"direction\" : \"FROM_TARGET\"\n  }, {\n    \"embedUrl\" : \"https://embed.thousandeyes.com/e/00aa:3039802d-5c76-42d2-9a93-c6e5f9d3122f\",\n    \"shouldExcludeAlertSuppressionWindows\" : true,\n    \"_links\" : {\n      \"self\" : {\n        \"hreflang\" : \"hreflang\",\n        \"templated\" : true,\n        \"profile\" : \"profile\",\n        \"name\" : \"name\",\n        \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n        \"type\" : \"type\",\n        \"deprecation\" : \"deprecation\",\n        \"title\" : \"title\"\n      }\n    },\n    \"visualMode\" : \"Full\",\n    \"filters\" : {\n      \"TEST\" : [ 5187, 5227 ],\n      \"ENDPOINT_MACHINE_ID\" : [ \"fbd0050c-07f7-43f7-9631-14b32f096962\" ]\n    },\n    \"title\" : \"Widget Title\",\n    \"type\" : \"Agent Status\",\n    \"metricGroup\" : \"BGP\",\n    \"measure\" : {\n      \"percentileValue\" : 95,\n      \"type\" : \"MEAN\"\n    },\n    \"apiLink\" : \"apiLink\",\n    \"metric\" : \"ENDPOINT_GATEWAY_CPU_LOAD_PERCENT\",\n    \"isEmbedded\" : true,\n    \"id\" : \"1234\",\n    \"fixedTimespan\" : {\n      \"unit\" : \"Days\",\n      \"value\" : 10\n    },\n    \"dataSource\" : \"ENDPOINT_AGENTS\",\n    \"direction\" : \"FROM_TARGET\"\n  } ],\n  \"defaultTimespan\" : {\n    \"duration\" : 7200,\n    \"timespanDuration\" : 7200,\n    \"start\" : \"2023-05-16T10:14:28Z\",\n    \"end\" : \"2023-05-16T11:14:28Z\",\n    \"timespanStart\" : \"2023-05-16 10:14:28\",\n    \"timespanEnd\" : \"2023-05-16 11:14:28\"\n  },\n  \"layout\" : {\n    \"layoutId\" : \"grid-layout-1\",\n    \"type\" : \"grid\",\n    \"details\" : {\n      \"widgetPositioning\" : [ {\n        \"x\" : 0,\n        \"y\" : 0,\n        \"w\" : 9,\n        \"h\" : 5,\n        \"id\" : \"widgetId-71lbb\"\n      } ]\n    }\n  },\n  \"globalFilterId\" : \"65babd9bb90bf55b17c96c8d\",\n  \"schedule\" : \"\",\n  \"dashboardId\" : \"5e1f7a99143ae6004fdc3bb4\",\n  \"createdBy\" : \"1\",\n  \"refreshRate\" : \"off\",\n  \"modifiedDate\" : \"2023-05-16T10:14:28Z\",\n  \"modifiedBy\" : \"1\",\n  \"isGlobalOverride\" : true,\n  \"aid\" : \"1234\"\n}")
 	var requestBody Dashboard
 	if err := json.Unmarshal(requestBodyJSON, &requestBody); err != nil {
 		t.Fatalf("unmarshal request body: %v", err)
 	}
-	responseBodyJSON := []byte("{\n  \"isMigratedReport\" : false,\n  \"_links\" : {\n    \"snapshots\" : {\n      \"hreflang\" : \"hreflang\",\n      \"templated\" : true,\n      \"profile\" : \"profile\",\n      \"name\" : \"name\",\n      \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n      \"type\" : \"type\",\n      \"deprecation\" : \"deprecation\",\n      \"title\" : \"title\"\n    },\n    \"self\" : {\n      \"hreflang\" : \"hreflang\",\n      \"templated\" : true,\n      \"profile\" : \"profile\",\n      \"name\" : \"name\",\n      \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n      \"type\" : \"type\",\n      \"deprecation\" : \"deprecation\",\n      \"title\" : \"title\"\n    }\n  },\n  \"isDefaultForAccount\" : false,\n  \"isDefaultForUser\" : true,\n  \"description\" : \"HTTP Server Widgets\",\n  \"isPrivate\" : true,\n  \"title\" : \"HTTP Server Widgets\",\n  \"isBuiltIn\" : true,\n  \"widgets\" : [ {\n    \"embedUrl\" : \"https://embed.thousandeyes.com/e/00aa:3039802d-5c76-42d2-9a93-c6e5f9d3122f\",\n    \"shouldExcludeAlertSuppressionWindows\" : true,\n    \"_links\" : {\n      \"self\" : {\n        \"hreflang\" : \"hreflang\",\n        \"templated\" : true,\n        \"profile\" : \"profile\",\n        \"name\" : \"name\",\n        \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n        \"type\" : \"type\",\n        \"deprecation\" : \"deprecation\",\n        \"title\" : \"title\"\n      }\n    },\n    \"visualMode\" : \"Full\",\n    \"filters\" : {\n      \"TEST\" : [ 5187, 5227 ],\n      \"ENDPOINT_MACHINE_ID\" : [ \"fbd0050c-07f7-43f7-9631-14b32f096962\" ]\n    },\n    \"title\" : \"Widget Title\",\n    \"type\" : \"Agent Status\",\n    \"metricGroup\" : \"BGP\",\n    \"measure\" : {\n      \"percentileValue\" : 95,\n      \"type\" : \"MEAN\"\n    },\n    \"apiLink\" : \"apiLink\",\n    \"metric\" : \"ENDPOINT_GATEWAY_CPU_LOAD_PERCENT\",\n    \"isEmbedded\" : true,\n    \"id\" : \"1234\",\n    \"fixedTimespan\" : {\n      \"unit\" : \"Days\",\n      \"value\" : 10\n    },\n    \"dataSource\" : \"ENDPOINT_AGENTS\",\n    \"direction\" : \"FROM_TARGET\"\n  }, {\n    \"embedUrl\" : \"https://embed.thousandeyes.com/e/00aa:3039802d-5c76-42d2-9a93-c6e5f9d3122f\",\n    \"shouldExcludeAlertSuppressionWindows\" : true,\n    \"_links\" : {\n      \"self\" : {\n        \"hreflang\" : \"hreflang\",\n        \"templated\" : true,\n        \"profile\" : \"profile\",\n        \"name\" : \"name\",\n        \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n        \"type\" : \"type\",\n        \"deprecation\" : \"deprecation\",\n        \"title\" : \"title\"\n      }\n    },\n    \"visualMode\" : \"Full\",\n    \"filters\" : {\n      \"TEST\" : [ 5187, 5227 ],\n      \"ENDPOINT_MACHINE_ID\" : [ \"fbd0050c-07f7-43f7-9631-14b32f096962\" ]\n    },\n    \"title\" : \"Widget Title\",\n    \"type\" : \"Agent Status\",\n    \"metricGroup\" : \"BGP\",\n    \"measure\" : {\n      \"percentileValue\" : 95,\n      \"type\" : \"MEAN\"\n    },\n    \"apiLink\" : \"apiLink\",\n    \"metric\" : \"ENDPOINT_GATEWAY_CPU_LOAD_PERCENT\",\n    \"isEmbedded\" : true,\n    \"id\" : \"1234\",\n    \"fixedTimespan\" : {\n      \"unit\" : \"Days\",\n      \"value\" : 10\n    },\n    \"dataSource\" : \"ENDPOINT_AGENTS\",\n    \"direction\" : \"FROM_TARGET\"\n  } ],\n  \"defaultTimespan\" : {\n    \"duration\" : 7200,\n    \"timespanDuration\" : 7200,\n    \"start\" : \"2023-05-16T10:14:28Z\",\n    \"end\" : \"2023-05-16T11:14:28Z\",\n    \"timespanStart\" : \"2023-05-16 10:14:28\",\n    \"timespanEnd\" : \"2023-05-16 11:14:28\"\n  },\n  \"layout\" : {\n    \"layoutId\" : \"grid-layout-1\",\n    \"type\" : \"grid\",\n    \"details\" : {\n      \"widgetPositioning\" : [ {\n        \"x\" : 0,\n        \"y\" : 0,\n        \"w\" : 9,\n        \"h\" : 5,\n        \"id\" : \"widgetId-71lbb\"\n      } ]\n    }\n  },\n  \"globalFilterId\" : \"65babd9bb90bf55b17c96c8d\",\n  \"dashboardId\" : \"5e1f7a99143ae6004fdc3bb4\",\n  \"createdBy\" : \"1\",\n  \"refreshRate\" : \"off\",\n  \"modifiedDate\" : \"2023-05-16T10:14:28Z\",\n  \"modifiedBy\" : \"1\",\n  \"isGlobalOverride\" : true,\n  \"aid\" : \"1234\"\n}")
+	responseBodyJSON := []byte("{\n  \"isMigratedReport\" : false,\n  \"_links\" : {\n    \"snapshots\" : {\n      \"hreflang\" : \"hreflang\",\n      \"templated\" : true,\n      \"profile\" : \"profile\",\n      \"name\" : \"name\",\n      \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n      \"type\" : \"type\",\n      \"deprecation\" : \"deprecation\",\n      \"title\" : \"title\"\n    },\n    \"self\" : {\n      \"hreflang\" : \"hreflang\",\n      \"templated\" : true,\n      \"profile\" : \"profile\",\n      \"name\" : \"name\",\n      \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n      \"type\" : \"type\",\n      \"deprecation\" : \"deprecation\",\n      \"title\" : \"title\"\n    }\n  },\n  \"isDefaultForAccount\" : false,\n  \"isDefaultForUser\" : true,\n  \"description\" : \"HTTP Server Widgets\",\n  \"isPrivate\" : true,\n  \"title\" : \"HTTP Server Widgets\",\n  \"isBuiltIn\" : true,\n  \"widgets\" : [ {\n    \"embedUrl\" : \"https://embed.thousandeyes.com/e/00aa:3039802d-5c76-42d2-9a93-c6e5f9d3122f\",\n    \"shouldExcludeAlertSuppressionWindows\" : true,\n    \"_links\" : {\n      \"self\" : {\n        \"hreflang\" : \"hreflang\",\n        \"templated\" : true,\n        \"profile\" : \"profile\",\n        \"name\" : \"name\",\n        \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n        \"type\" : \"type\",\n        \"deprecation\" : \"deprecation\",\n        \"title\" : \"title\"\n      }\n    },\n    \"visualMode\" : \"Full\",\n    \"filters\" : {\n      \"TEST\" : [ 5187, 5227 ],\n      \"ENDPOINT_MACHINE_ID\" : [ \"fbd0050c-07f7-43f7-9631-14b32f096962\" ]\n    },\n    \"title\" : \"Widget Title\",\n    \"type\" : \"Agent Status\",\n    \"metricGroup\" : \"BGP\",\n    \"measure\" : {\n      \"percentileValue\" : 95,\n      \"type\" : \"MEAN\"\n    },\n    \"apiLink\" : \"apiLink\",\n    \"metric\" : \"ENDPOINT_GATEWAY_CPU_LOAD_PERCENT\",\n    \"isEmbedded\" : true,\n    \"id\" : \"1234\",\n    \"fixedTimespan\" : {\n      \"unit\" : \"Days\",\n      \"value\" : 10\n    },\n    \"dataSource\" : \"ENDPOINT_AGENTS\",\n    \"direction\" : \"FROM_TARGET\"\n  }, {\n    \"embedUrl\" : \"https://embed.thousandeyes.com/e/00aa:3039802d-5c76-42d2-9a93-c6e5f9d3122f\",\n    \"shouldExcludeAlertSuppressionWindows\" : true,\n    \"_links\" : {\n      \"self\" : {\n        \"hreflang\" : \"hreflang\",\n        \"templated\" : true,\n        \"profile\" : \"profile\",\n        \"name\" : \"name\",\n        \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n        \"type\" : \"type\",\n        \"deprecation\" : \"deprecation\",\n        \"title\" : \"title\"\n      }\n    },\n    \"visualMode\" : \"Full\",\n    \"filters\" : {\n      \"TEST\" : [ 5187, 5227 ],\n      \"ENDPOINT_MACHINE_ID\" : [ \"fbd0050c-07f7-43f7-9631-14b32f096962\" ]\n    },\n    \"title\" : \"Widget Title\",\n    \"type\" : \"Agent Status\",\n    \"metricGroup\" : \"BGP\",\n    \"measure\" : {\n      \"percentileValue\" : 95,\n      \"type\" : \"MEAN\"\n    },\n    \"apiLink\" : \"apiLink\",\n    \"metric\" : \"ENDPOINT_GATEWAY_CPU_LOAD_PERCENT\",\n    \"isEmbedded\" : true,\n    \"id\" : \"1234\",\n    \"fixedTimespan\" : {\n      \"unit\" : \"Days\",\n      \"value\" : 10\n    },\n    \"dataSource\" : \"ENDPOINT_AGENTS\",\n    \"direction\" : \"FROM_TARGET\"\n  } ],\n  \"defaultTimespan\" : {\n    \"duration\" : 7200,\n    \"timespanDuration\" : 7200,\n    \"start\" : \"2023-05-16T10:14:28Z\",\n    \"end\" : \"2023-05-16T11:14:28Z\",\n    \"timespanStart\" : \"2023-05-16 10:14:28\",\n    \"timespanEnd\" : \"2023-05-16 11:14:28\"\n  },\n  \"layout\" : {\n    \"layoutId\" : \"grid-layout-1\",\n    \"type\" : \"grid\",\n    \"details\" : {\n      \"widgetPositioning\" : [ {\n        \"x\" : 0,\n        \"y\" : 0,\n        \"w\" : 9,\n        \"h\" : 5,\n        \"id\" : \"widgetId-71lbb\"\n      } ]\n    }\n  },\n  \"globalFilterId\" : \"65babd9bb90bf55b17c96c8d\",\n  \"schedule\" : \"\",\n  \"dashboardId\" : \"5e1f7a99143ae6004fdc3bb4\",\n  \"createdBy\" : \"1\",\n  \"refreshRate\" : \"off\",\n  \"modifiedDate\" : \"2023-05-16T10:14:28Z\",\n  \"modifiedBy\" : \"1\",\n  \"isGlobalOverride\" : true,\n  \"aid\" : \"1234\"\n}")
 	responseStatus := 200
 	responseContentType := "application/json"
 	var expectedResponse Dashboard
@@ -1913,7 +2413,7 @@ func TestDashboardsAPIService_UpdateDashboard_Errors(t *testing.T) {
 
 	var dashboardId string = "646f4d2ce3c99b0536c3821e"
 	var aid string = "1234"
-	requestBodyJSON := []byte("{\n  \"isMigratedReport\" : false,\n  \"_links\" : {\n    \"snapshots\" : {\n      \"hreflang\" : \"hreflang\",\n      \"templated\" : true,\n      \"profile\" : \"profile\",\n      \"name\" : \"name\",\n      \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n      \"type\" : \"type\",\n      \"deprecation\" : \"deprecation\",\n      \"title\" : \"title\"\n    },\n    \"self\" : {\n      \"hreflang\" : \"hreflang\",\n      \"templated\" : true,\n      \"profile\" : \"profile\",\n      \"name\" : \"name\",\n      \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n      \"type\" : \"type\",\n      \"deprecation\" : \"deprecation\",\n      \"title\" : \"title\"\n    }\n  },\n  \"isDefaultForAccount\" : false,\n  \"isDefaultForUser\" : true,\n  \"description\" : \"HTTP Server Widgets\",\n  \"isPrivate\" : true,\n  \"title\" : \"HTTP Server Widgets\",\n  \"isBuiltIn\" : true,\n  \"widgets\" : [ {\n    \"embedUrl\" : \"https://embed.thousandeyes.com/e/00aa:3039802d-5c76-42d2-9a93-c6e5f9d3122f\",\n    \"shouldExcludeAlertSuppressionWindows\" : true,\n    \"_links\" : {\n      \"self\" : {\n        \"hreflang\" : \"hreflang\",\n        \"templated\" : true,\n        \"profile\" : \"profile\",\n        \"name\" : \"name\",\n        \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n        \"type\" : \"type\",\n        \"deprecation\" : \"deprecation\",\n        \"title\" : \"title\"\n      }\n    },\n    \"visualMode\" : \"Full\",\n    \"filters\" : {\n      \"TEST\" : [ 5187, 5227 ],\n      \"ENDPOINT_MACHINE_ID\" : [ \"fbd0050c-07f7-43f7-9631-14b32f096962\" ]\n    },\n    \"title\" : \"Widget Title\",\n    \"type\" : \"Agent Status\",\n    \"metricGroup\" : \"BGP\",\n    \"measure\" : {\n      \"percentileValue\" : 95,\n      \"type\" : \"MEAN\"\n    },\n    \"apiLink\" : \"apiLink\",\n    \"metric\" : \"ENDPOINT_GATEWAY_CPU_LOAD_PERCENT\",\n    \"isEmbedded\" : true,\n    \"id\" : \"1234\",\n    \"fixedTimespan\" : {\n      \"unit\" : \"Days\",\n      \"value\" : 10\n    },\n    \"dataSource\" : \"ENDPOINT_AGENTS\",\n    \"direction\" : \"FROM_TARGET\"\n  }, {\n    \"embedUrl\" : \"https://embed.thousandeyes.com/e/00aa:3039802d-5c76-42d2-9a93-c6e5f9d3122f\",\n    \"shouldExcludeAlertSuppressionWindows\" : true,\n    \"_links\" : {\n      \"self\" : {\n        \"hreflang\" : \"hreflang\",\n        \"templated\" : true,\n        \"profile\" : \"profile\",\n        \"name\" : \"name\",\n        \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n        \"type\" : \"type\",\n        \"deprecation\" : \"deprecation\",\n        \"title\" : \"title\"\n      }\n    },\n    \"visualMode\" : \"Full\",\n    \"filters\" : {\n      \"TEST\" : [ 5187, 5227 ],\n      \"ENDPOINT_MACHINE_ID\" : [ \"fbd0050c-07f7-43f7-9631-14b32f096962\" ]\n    },\n    \"title\" : \"Widget Title\",\n    \"type\" : \"Agent Status\",\n    \"metricGroup\" : \"BGP\",\n    \"measure\" : {\n      \"percentileValue\" : 95,\n      \"type\" : \"MEAN\"\n    },\n    \"apiLink\" : \"apiLink\",\n    \"metric\" : \"ENDPOINT_GATEWAY_CPU_LOAD_PERCENT\",\n    \"isEmbedded\" : true,\n    \"id\" : \"1234\",\n    \"fixedTimespan\" : {\n      \"unit\" : \"Days\",\n      \"value\" : 10\n    },\n    \"dataSource\" : \"ENDPOINT_AGENTS\",\n    \"direction\" : \"FROM_TARGET\"\n  } ],\n  \"defaultTimespan\" : {\n    \"duration\" : 7200,\n    \"timespanDuration\" : 7200,\n    \"start\" : \"2023-05-16T10:14:28Z\",\n    \"end\" : \"2023-05-16T11:14:28Z\",\n    \"timespanStart\" : \"2023-05-16 10:14:28\",\n    \"timespanEnd\" : \"2023-05-16 11:14:28\"\n  },\n  \"layout\" : {\n    \"layoutId\" : \"grid-layout-1\",\n    \"type\" : \"grid\",\n    \"details\" : {\n      \"widgetPositioning\" : [ {\n        \"x\" : 0,\n        \"y\" : 0,\n        \"w\" : 9,\n        \"h\" : 5,\n        \"id\" : \"widgetId-71lbb\"\n      } ]\n    }\n  },\n  \"globalFilterId\" : \"65babd9bb90bf55b17c96c8d\",\n  \"dashboardId\" : \"5e1f7a99143ae6004fdc3bb4\",\n  \"createdBy\" : \"1\",\n  \"refreshRate\" : \"off\",\n  \"modifiedDate\" : \"2023-05-16T10:14:28Z\",\n  \"modifiedBy\" : \"1\",\n  \"isGlobalOverride\" : true,\n  \"aid\" : \"1234\"\n}")
+	requestBodyJSON := []byte("{\n  \"isMigratedReport\" : false,\n  \"_links\" : {\n    \"snapshots\" : {\n      \"hreflang\" : \"hreflang\",\n      \"templated\" : true,\n      \"profile\" : \"profile\",\n      \"name\" : \"name\",\n      \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n      \"type\" : \"type\",\n      \"deprecation\" : \"deprecation\",\n      \"title\" : \"title\"\n    },\n    \"self\" : {\n      \"hreflang\" : \"hreflang\",\n      \"templated\" : true,\n      \"profile\" : \"profile\",\n      \"name\" : \"name\",\n      \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n      \"type\" : \"type\",\n      \"deprecation\" : \"deprecation\",\n      \"title\" : \"title\"\n    }\n  },\n  \"isDefaultForAccount\" : false,\n  \"isDefaultForUser\" : true,\n  \"description\" : \"HTTP Server Widgets\",\n  \"isPrivate\" : true,\n  \"title\" : \"HTTP Server Widgets\",\n  \"isBuiltIn\" : true,\n  \"widgets\" : [ {\n    \"embedUrl\" : \"https://embed.thousandeyes.com/e/00aa:3039802d-5c76-42d2-9a93-c6e5f9d3122f\",\n    \"shouldExcludeAlertSuppressionWindows\" : true,\n    \"_links\" : {\n      \"self\" : {\n        \"hreflang\" : \"hreflang\",\n        \"templated\" : true,\n        \"profile\" : \"profile\",\n        \"name\" : \"name\",\n        \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n        \"type\" : \"type\",\n        \"deprecation\" : \"deprecation\",\n        \"title\" : \"title\"\n      }\n    },\n    \"visualMode\" : \"Full\",\n    \"filters\" : {\n      \"TEST\" : [ 5187, 5227 ],\n      \"ENDPOINT_MACHINE_ID\" : [ \"fbd0050c-07f7-43f7-9631-14b32f096962\" ]\n    },\n    \"title\" : \"Widget Title\",\n    \"type\" : \"Agent Status\",\n    \"metricGroup\" : \"BGP\",\n    \"measure\" : {\n      \"percentileValue\" : 95,\n      \"type\" : \"MEAN\"\n    },\n    \"apiLink\" : \"apiLink\",\n    \"metric\" : \"ENDPOINT_GATEWAY_CPU_LOAD_PERCENT\",\n    \"isEmbedded\" : true,\n    \"id\" : \"1234\",\n    \"fixedTimespan\" : {\n      \"unit\" : \"Days\",\n      \"value\" : 10\n    },\n    \"dataSource\" : \"ENDPOINT_AGENTS\",\n    \"direction\" : \"FROM_TARGET\"\n  }, {\n    \"embedUrl\" : \"https://embed.thousandeyes.com/e/00aa:3039802d-5c76-42d2-9a93-c6e5f9d3122f\",\n    \"shouldExcludeAlertSuppressionWindows\" : true,\n    \"_links\" : {\n      \"self\" : {\n        \"hreflang\" : \"hreflang\",\n        \"templated\" : true,\n        \"profile\" : \"profile\",\n        \"name\" : \"name\",\n        \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n        \"type\" : \"type\",\n        \"deprecation\" : \"deprecation\",\n        \"title\" : \"title\"\n      }\n    },\n    \"visualMode\" : \"Full\",\n    \"filters\" : {\n      \"TEST\" : [ 5187, 5227 ],\n      \"ENDPOINT_MACHINE_ID\" : [ \"fbd0050c-07f7-43f7-9631-14b32f096962\" ]\n    },\n    \"title\" : \"Widget Title\",\n    \"type\" : \"Agent Status\",\n    \"metricGroup\" : \"BGP\",\n    \"measure\" : {\n      \"percentileValue\" : 95,\n      \"type\" : \"MEAN\"\n    },\n    \"apiLink\" : \"apiLink\",\n    \"metric\" : \"ENDPOINT_GATEWAY_CPU_LOAD_PERCENT\",\n    \"isEmbedded\" : true,\n    \"id\" : \"1234\",\n    \"fixedTimespan\" : {\n      \"unit\" : \"Days\",\n      \"value\" : 10\n    },\n    \"dataSource\" : \"ENDPOINT_AGENTS\",\n    \"direction\" : \"FROM_TARGET\"\n  } ],\n  \"defaultTimespan\" : {\n    \"duration\" : 7200,\n    \"timespanDuration\" : 7200,\n    \"start\" : \"2023-05-16T10:14:28Z\",\n    \"end\" : \"2023-05-16T11:14:28Z\",\n    \"timespanStart\" : \"2023-05-16 10:14:28\",\n    \"timespanEnd\" : \"2023-05-16 11:14:28\"\n  },\n  \"layout\" : {\n    \"layoutId\" : \"grid-layout-1\",\n    \"type\" : \"grid\",\n    \"details\" : {\n      \"widgetPositioning\" : [ {\n        \"x\" : 0,\n        \"y\" : 0,\n        \"w\" : 9,\n        \"h\" : 5,\n        \"id\" : \"widgetId-71lbb\"\n      } ]\n    }\n  },\n  \"globalFilterId\" : \"65babd9bb90bf55b17c96c8d\",\n  \"schedule\" : \"\",\n  \"dashboardId\" : \"5e1f7a99143ae6004fdc3bb4\",\n  \"createdBy\" : \"1\",\n  \"refreshRate\" : \"off\",\n  \"modifiedDate\" : \"2023-05-16T10:14:28Z\",\n  \"modifiedBy\" : \"1\",\n  \"isGlobalOverride\" : true,\n  \"aid\" : \"1234\"\n}")
 	var requestBody Dashboard
 	if err := json.Unmarshal(requestBodyJSON, &requestBody); err != nil {
 		t.Fatalf("unmarshal request body: %v", err)
@@ -1986,6 +2486,280 @@ func TestDashboardsAPIService_UpdateDashboard_Errors(t *testing.T) {
 		var apiError *internalerror.GenericAPIError
 		if !errors.As(err, &apiError) {
 			t.Fatalf("UpdateDashboard() error type = %T, want *GenericAPIError", err)
+		}
+		if !reflect.DeepEqual(apiError.Body, responseBodyJSON) {
+			t.Errorf("GenericAPIError.Body = %q, want %q", apiError.Body, responseBodyJSON)
+		}
+		if !reflect.DeepEqual(apiError.Model, expectedModel) {
+			t.Errorf("GenericAPIError.Model = %#v, want %#v", apiError.Model, expectedModel)
+		}
+
+		expectedErrorMessage := internalerror.FormatErrorMessage(
+			httpResponse.Status,
+			string(responseBodyJSON),
+			expectedModel,
+		)
+		if apiError.ErrorMessage != expectedErrorMessage {
+			t.Errorf(
+				"GenericAPIError.ErrorMessage = %q, want %q",
+				apiError.ErrorMessage,
+				expectedErrorMessage,
+			)
+		}
+	}
+
+	t.Run("400", func(t *testing.T) {
+		responseBodyJSON := []byte("{\n  \"instance\" : \"instance\",\n  \"detail\" : \"detail\",\n  \"type\" : \"type\",\n  \"title\" : \"title\",\n  \"errors\" : [ {\n    \"code\" : \"code\",\n    \"field\" : \"field\",\n    \"message\" : \"message\"\n  }, {\n    \"code\" : \"code\",\n    \"field\" : \"field\",\n    \"message\" : \"message\"\n  } ],\n  \"status\" : 0\n}")
+		var expectedErrorModel ValidationError
+		if err := json.Unmarshal(responseBodyJSON, &expectedErrorModel); err != nil {
+			t.Fatalf("unmarshal 400 error body: %v", err)
+		}
+
+		runErrorCase(
+			t,
+			400,
+			"application/problem+json",
+			responseBodyJSON,
+			&expectedErrorModel,
+		)
+	})
+
+	t.Run("401", func(t *testing.T) {
+		responseBodyJSON := []byte("{\n  \"error_description\" : \"Invalid access token\",\n  \"error\" : \"invalid_token\"\n}")
+		var expectedErrorModel UnauthorizedError
+		if err := json.Unmarshal(responseBodyJSON, &expectedErrorModel); err != nil {
+			t.Fatalf("unmarshal 401 error body: %v", err)
+		}
+
+		runErrorCase(
+			t,
+			401,
+			"application/problem+json",
+			responseBodyJSON,
+			&expectedErrorModel,
+		)
+	})
+
+	t.Run("403", func(t *testing.T) {
+		responseBodyJSON := []byte("{\n  \"instance\" : \"instance\",\n  \"detail\" : \"detail\",\n  \"type\" : \"type\",\n  \"title\" : \"title\",\n  \"status\" : 6\n}")
+		var expectedErrorModel Error
+		if err := json.Unmarshal(responseBodyJSON, &expectedErrorModel); err != nil {
+			t.Fatalf("unmarshal 403 error body: %v", err)
+		}
+
+		runErrorCase(
+			t,
+			403,
+			"application/problem+json",
+			responseBodyJSON,
+			&expectedErrorModel,
+		)
+	})
+
+	t.Run("404", func(t *testing.T) {
+		responseBodyJSON := []byte("{\n  \"instance\" : \"instance\",\n  \"detail\" : \"detail\",\n  \"type\" : \"type\",\n  \"title\" : \"title\",\n  \"status\" : 6\n}")
+		var expectedErrorModel Error
+		if err := json.Unmarshal(responseBodyJSON, &expectedErrorModel); err != nil {
+			t.Fatalf("unmarshal 404 error body: %v", err)
+		}
+
+		runErrorCase(
+			t,
+			404,
+			"application/problem+json",
+			responseBodyJSON,
+			&expectedErrorModel,
+		)
+	})
+
+	t.Run("429", func(t *testing.T) {
+		responseBodyJSON := []byte("{\n  \"instance\" : \"instance\",\n  \"detail\" : \"detail\",\n  \"type\" : \"type\",\n  \"title\" : \"title\",\n  \"status\" : 6\n}")
+		var expectedErrorModel Error
+		if err := json.Unmarshal(responseBodyJSON, &expectedErrorModel); err != nil {
+			t.Fatalf("unmarshal 429 error body: %v", err)
+		}
+
+		runErrorCase(
+			t,
+			429,
+			"application/problem+json",
+			responseBodyJSON,
+			&expectedErrorModel,
+		)
+	})
+
+	t.Run("500", func(t *testing.T) {
+		responseBodyJSON := []byte("{\n  \"instance\" : \"instance\",\n  \"detail\" : \"detail\",\n  \"type\" : \"type\",\n  \"title\" : \"title\",\n  \"status\" : 6\n}")
+		var expectedErrorModel Error
+		if err := json.Unmarshal(responseBodyJSON, &expectedErrorModel); err != nil {
+			t.Fatalf("unmarshal 500 error body: %v", err)
+		}
+
+		runErrorCase(
+			t,
+			500,
+			"application/problem+json",
+			responseBodyJSON,
+			&expectedErrorModel,
+		)
+	})
+
+}
+func TestDashboardsAPIService_UpdateDashboardSchedule(t *testing.T) {
+	const testToken = "test-token"
+
+	var dashboardId string = "646f4d2ce3c99b0536c3821e"
+	var aid string = "1234"
+	requestBodyJSON := []byte("{\n  \"expiresAfter\" : 157680000,\n  \"cronSpec\" : {\n    \"repeat\" : \"EVERY_WEEK\",\n    \"endRepeat\" : {\n      \"endConditionType\" : \"NEVER\"\n    },\n    \"startTime\" : 1753200000,\n    \"zoneCode\" : \"America/Los_Angeles\"\n  },\n  \"flagLocked\" : false,\n  \"recipients\" : [ \"alice@example.com\", \"bob@example.com\" ],\n  \"flagAutoShare\" : false,\n  \"dataTimespan\" : {\n    \"period\" : \"WEEK\",\n    \"n\" : 1\n  },\n  \"flagAttachPdfToEmail\" : true,\n  \"dataSource\" : {\n    \"name\" : \"Weekly network report\"\n  },\n  \"flagIsIncludePiiUserData\" : false,\n  \"flagEnabled\" : true\n}")
+	var requestBody DashboardScheduleRequest
+	if err := json.Unmarshal(requestBodyJSON, &requestBody); err != nil {
+		t.Fatalf("unmarshal request body: %v", err)
+	}
+	responseBodyJSON := []byte("{\n  \"isMigratedReport\" : false,\n  \"dashboardCreatedBy\" : \"1\",\n  \"_links\" : {\n    \"snapshots\" : {\n      \"hreflang\" : \"hreflang\",\n      \"templated\" : true,\n      \"profile\" : \"profile\",\n      \"name\" : \"name\",\n      \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n      \"type\" : \"type\",\n      \"deprecation\" : \"deprecation\",\n      \"title\" : \"title\"\n    },\n    \"self\" : {\n      \"hreflang\" : \"hreflang\",\n      \"templated\" : true,\n      \"profile\" : \"profile\",\n      \"name\" : \"name\",\n      \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n      \"type\" : \"type\",\n      \"deprecation\" : \"deprecation\",\n      \"title\" : \"title\"\n    }\n  },\n  \"isDefaultForUser\" : true,\n  \"description\" : \"HTTP Server Widgets\",\n  \"isPrivate\" : true,\n  \"title\" : \"HTTP Server Widgets\",\n  \"isBuiltIn\" : true,\n  \"widgets\" : [ {\n    \"embedUrl\" : \"https://embed.thousandeyes.com/e/00aa:3039802d-5c76-42d2-9a93-c6e5f9d3122f\",\n    \"shouldExcludeAlertSuppressionWindows\" : true,\n    \"_links\" : {\n      \"self\" : {\n        \"hreflang\" : \"hreflang\",\n        \"templated\" : true,\n        \"profile\" : \"profile\",\n        \"name\" : \"name\",\n        \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n        \"type\" : \"type\",\n        \"deprecation\" : \"deprecation\",\n        \"title\" : \"title\"\n      }\n    },\n    \"visualMode\" : \"Full\",\n    \"filters\" : {\n      \"TEST\" : [ 5187, 5227 ],\n      \"ENDPOINT_MACHINE_ID\" : [ \"fbd0050c-07f7-43f7-9631-14b32f096962\" ]\n    },\n    \"title\" : \"Widget Title\",\n    \"type\" : \"Agent Status\",\n    \"metricGroup\" : \"BGP\",\n    \"measure\" : {\n      \"percentileValue\" : 95,\n      \"type\" : \"MEAN\"\n    },\n    \"apiLink\" : \"apiLink\",\n    \"metric\" : \"ENDPOINT_GATEWAY_CPU_LOAD_PERCENT\",\n    \"isEmbedded\" : true,\n    \"id\" : \"1234\",\n    \"fixedTimespan\" : {\n      \"unit\" : \"Days\",\n      \"value\" : 10\n    },\n    \"dataSource\" : \"ENDPOINT_AGENTS\",\n    \"direction\" : \"FROM_TARGET\"\n  }, {\n    \"embedUrl\" : \"https://embed.thousandeyes.com/e/00aa:3039802d-5c76-42d2-9a93-c6e5f9d3122f\",\n    \"shouldExcludeAlertSuppressionWindows\" : true,\n    \"_links\" : {\n      \"self\" : {\n        \"hreflang\" : \"hreflang\",\n        \"templated\" : true,\n        \"profile\" : \"profile\",\n        \"name\" : \"name\",\n        \"href\" : \"https://api.thousandeyes.com/v7/link/to/resource/id\",\n        \"type\" : \"type\",\n        \"deprecation\" : \"deprecation\",\n        \"title\" : \"title\"\n      }\n    },\n    \"visualMode\" : \"Full\",\n    \"filters\" : {\n      \"TEST\" : [ 5187, 5227 ],\n      \"ENDPOINT_MACHINE_ID\" : [ \"fbd0050c-07f7-43f7-9631-14b32f096962\" ]\n    },\n    \"title\" : \"Widget Title\",\n    \"type\" : \"Agent Status\",\n    \"metricGroup\" : \"BGP\",\n    \"measure\" : {\n      \"percentileValue\" : 95,\n      \"type\" : \"MEAN\"\n    },\n    \"apiLink\" : \"apiLink\",\n    \"metric\" : \"ENDPOINT_GATEWAY_CPU_LOAD_PERCENT\",\n    \"isEmbedded\" : true,\n    \"id\" : \"1234\",\n    \"fixedTimespan\" : {\n      \"unit\" : \"Days\",\n      \"value\" : 10\n    },\n    \"dataSource\" : \"ENDPOINT_AGENTS\",\n    \"direction\" : \"FROM_TARGET\"\n  } ],\n  \"globalFilterId\" : \"65babd9bb90bf55b17c96c8d\",\n  \"refreshRate\" : \"off\",\n  \"modifiedBy\" : 1,\n  \"dashboardModifiedBy\" : \"1\",\n  \"migratedReport\" : false,\n  \"isDefaultForAccount\" : false,\n  \"defaultTimespan\" : {\n    \"duration\" : 7200,\n    \"timespanDuration\" : 7200,\n    \"start\" : \"2023-05-16T10:14:28Z\",\n    \"end\" : \"2023-05-16T11:14:28Z\",\n    \"timespanStart\" : \"2023-05-16 10:14:28\",\n    \"timespanEnd\" : \"2023-05-16 11:14:28\"\n  },\n  \"layout\" : {\n    \"layoutId\" : \"grid-layout-1\",\n    \"type\" : \"grid\",\n    \"details\" : {\n      \"widgetPositioning\" : [ {\n        \"x\" : 0,\n        \"y\" : 0,\n        \"w\" : 9,\n        \"h\" : 5,\n        \"id\" : \"widgetId-71lbb\"\n      } ]\n    }\n  },\n  \"schedule\" : \"\",\n  \"accountId\" : 1234,\n  \"apiLink\" : [ {\n    \"key\" : \"\"\n  }, {\n    \"key\" : \"\"\n  } ],\n  \"dashboardId\" : \"5e1f7a99143ae6004fdc3bb4\",\n  \"createdBy\" : 1,\n  \"globalOverride\" : true,\n  \"modifiedDate\" : \"2023-05-16 10:14:28\",\n  \"isGlobalOverride\" : true,\n  \"aid\" : \"1234\",\n  \"dashboardModifiedDate\" : \"2023-05-16T10:14:28Z\"\n}")
+	responseStatus := 200
+	responseContentType := "application/json"
+	var expectedResponse ApiDashboard
+	if err := json.Unmarshal(responseBodyJSON, &expectedResponse); err != nil {
+		t.Fatalf("unmarshal response body: %v", err)
+	}
+
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != http.MethodPut {
+			t.Errorf("method = %q, want %q", r.Method, http.MethodPut)
+		}
+
+		expectedPath := "/dashboards/{dashboardId}/actions/schedule"
+		expectedPath = strings.ReplaceAll(expectedPath, "{dashboardId}", url.PathEscape(fmt.Sprint(dashboardId)))
+		if r.URL.EscapedPath() != expectedPath {
+			t.Errorf("path = %q, want %q", r.URL.EscapedPath(), expectedPath)
+		}
+		if got := r.Header.Get("Authorization"); got != "Bearer "+testToken {
+			t.Errorf("Authorization = %q, want %q", got, "Bearer "+testToken)
+		}
+		if _, ok := r.URL.Query()["aid"]; !ok {
+			t.Errorf("query parameter %q was not sent", "aid")
+		}
+		if got := r.Header.Get("Content-Type"); got != "application/json" {
+			t.Errorf("Content-Type = %q, want %q", got, "application/json")
+		}
+
+		var receivedBody DashboardScheduleRequest
+		if err := json.NewDecoder(r.Body).Decode(&receivedBody); err != nil {
+			t.Errorf("decode request body: %v", err)
+			http.Error(w, "invalid request body", http.StatusBadRequest)
+			return
+		}
+		if !reflect.DeepEqual(receivedBody, requestBody) {
+			t.Errorf("request body = %#v, want %#v", receivedBody, requestBody)
+		}
+		w.Header().Set("Content-Type", responseContentType)
+		w.WriteHeader(responseStatus)
+		_, _ = w.Write(responseBodyJSON)
+	}))
+	t.Cleanup(server.Close)
+
+	config := client.NewConfiguration().
+		WithServerUrl(server.URL).
+		WithAuthToken(testToken)
+	config.HTTPClient = server.Client()
+
+	apiClient := client.NewAPIClient(config)
+	api := (*DashboardsAPIService)(&apiClient.Common)
+
+	actualResponse, httpResponse, err := api.UpdateDashboardSchedule(dashboardId).DashboardScheduleRequest(requestBody).Aid(aid).Execute()
+	if err != nil {
+		t.Fatalf("UpdateDashboardSchedule() error = %v", err)
+	}
+	if httpResponse == nil {
+		t.Fatal("UpdateDashboardSchedule() returned a nil HTTP response")
+	}
+	if httpResponse.StatusCode != responseStatus {
+		t.Errorf("UpdateDashboardSchedule() status = %d, want %d", httpResponse.StatusCode, responseStatus)
+	}
+	expected := &expectedResponse
+	if !reflect.DeepEqual(actualResponse, expected) {
+		t.Errorf("UpdateDashboardSchedule() response = %#v, want %#v", actualResponse, expected)
+	}
+}
+
+func TestDashboardsAPIService_UpdateDashboardSchedule_Errors(t *testing.T) {
+	const testToken = "test-token"
+
+	var dashboardId string = "646f4d2ce3c99b0536c3821e"
+	var aid string = "1234"
+	requestBodyJSON := []byte("{\n  \"expiresAfter\" : 157680000,\n  \"cronSpec\" : {\n    \"repeat\" : \"EVERY_WEEK\",\n    \"endRepeat\" : {\n      \"endConditionType\" : \"NEVER\"\n    },\n    \"startTime\" : 1753200000,\n    \"zoneCode\" : \"America/Los_Angeles\"\n  },\n  \"flagLocked\" : false,\n  \"recipients\" : [ \"alice@example.com\", \"bob@example.com\" ],\n  \"flagAutoShare\" : false,\n  \"dataTimespan\" : {\n    \"period\" : \"WEEK\",\n    \"n\" : 1\n  },\n  \"flagAttachPdfToEmail\" : true,\n  \"dataSource\" : {\n    \"name\" : \"Weekly network report\"\n  },\n  \"flagIsIncludePiiUserData\" : false,\n  \"flagEnabled\" : true\n}")
+	var requestBody DashboardScheduleRequest
+	if err := json.Unmarshal(requestBodyJSON, &requestBody); err != nil {
+		t.Fatalf("unmarshal request body: %v", err)
+	}
+
+	runErrorCase := func(
+		t *testing.T,
+		responseStatus int,
+		responseContentType string,
+		responseBodyJSON []byte,
+		expectedModel interface{},
+	) {
+		t.Helper()
+
+		server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			if r.Method != http.MethodPut {
+				t.Errorf("method = %q, want %q", r.Method, http.MethodPut)
+			}
+
+			expectedPath := "/dashboards/{dashboardId}/actions/schedule"
+			expectedPath = strings.ReplaceAll(expectedPath, "{dashboardId}", url.PathEscape(fmt.Sprint(dashboardId)))
+			if r.URL.EscapedPath() != expectedPath {
+				t.Errorf("path = %q, want %q", r.URL.EscapedPath(), expectedPath)
+			}
+			if got := r.Header.Get("Authorization"); got != "Bearer "+testToken {
+				t.Errorf("Authorization = %q, want %q", got, "Bearer "+testToken)
+			}
+			if _, ok := r.URL.Query()["aid"]; !ok {
+				t.Errorf("query parameter %q was not sent", "aid")
+			}
+			if got := r.Header.Get("Content-Type"); got != "application/json" {
+				t.Errorf("Content-Type = %q, want %q", got, "application/json")
+			}
+
+			var receivedBody DashboardScheduleRequest
+			if err := json.NewDecoder(r.Body).Decode(&receivedBody); err != nil {
+				t.Errorf("decode request body: %v", err)
+				http.Error(w, "invalid request body", http.StatusBadRequest)
+				return
+			}
+			if !reflect.DeepEqual(receivedBody, requestBody) {
+				t.Errorf("request body = %#v, want %#v", receivedBody, requestBody)
+			}
+			w.Header().Set("Content-Type", responseContentType)
+			w.WriteHeader(responseStatus)
+			_, _ = w.Write(responseBodyJSON)
+		}))
+		t.Cleanup(server.Close)
+
+		config := client.NewConfiguration().
+			WithServerUrl(server.URL).
+			WithAuthToken(testToken)
+		config.HTTPClient = server.Client()
+
+		apiClient := client.NewAPIClient(config)
+		apiClient.GetConfig().HTTPClient = server.Client()
+		api := (*DashboardsAPIService)(&apiClient.Common)
+
+		_, httpResponse, err := api.UpdateDashboardSchedule(dashboardId).DashboardScheduleRequest(requestBody).Aid(aid).Execute()
+		if err == nil {
+			t.Fatalf("UpdateDashboardSchedule() error = nil, want *GenericAPIError")
+		}
+		if httpResponse == nil {
+			t.Fatal("UpdateDashboardSchedule() returned a nil HTTP response")
+		}
+		if httpResponse.StatusCode != responseStatus {
+			t.Errorf("UpdateDashboardSchedule() status = %d, want %d", httpResponse.StatusCode, responseStatus)
+		}
+
+		var apiError *internalerror.GenericAPIError
+		if !errors.As(err, &apiError) {
+			t.Fatalf("UpdateDashboardSchedule() error type = %T, want *GenericAPIError", err)
 		}
 		if !reflect.DeepEqual(apiError.Body, responseBodyJSON) {
 			t.Errorf("GenericAPIError.Body = %q, want %q", apiError.Body, responseBodyJSON)
