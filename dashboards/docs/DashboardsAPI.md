@@ -4,15 +4,92 @@ All URIs are relative to *https://api.thousandeyes.com/v7*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**CloneDashboard**](DashboardsAPI.md#CloneDashboard) | **Post** /dashboards/{dashboardId}/clone | Clone dashboard
 [**CreateDashboard**](DashboardsAPI.md#CreateDashboard) | **Post** /dashboards | Create dashboard
 [**DeleteDashboard**](DashboardsAPI.md#DeleteDashboard) | **Delete** /dashboards/{dashboardId} | Delete dashboard
+[**DeleteDashboardSchedule**](DashboardsAPI.md#DeleteDashboardSchedule) | **Delete** /dashboards/{dashboardId}/actions/schedule | Delete dashboard snapshot schedule
 [**GetDashboard**](DashboardsAPI.md#GetDashboard) | **Get** /dashboards/{dashboardId} | Retrieve dashboard
 [**GetDashboardWidgetData**](DashboardsAPI.md#GetDashboardWidgetData) | **Get** /dashboards/{dashboardId}/widgets/{widgetId} | Retrieve dashboard widget data
 [**GetDashboards**](DashboardsAPI.md#GetDashboards) | **Get** /dashboards | List dashboards
 [**GetIndividualCardData**](DashboardsAPI.md#GetIndividualCardData) | **Get** /dashboards/{dashboardId}/widgets/{widgetId}/cards/{cardId} | Retrieve individual card data from numbers widget
 [**GetIndividualColumnData**](DashboardsAPI.md#GetIndividualColumnData) | **Get** /dashboards/{dashboardId}/widgets/{widgetId}/columns/{columnId} | Retrieve individual column data from multi-metric table widget
 [**UpdateDashboard**](DashboardsAPI.md#UpdateDashboard) | **Put** /dashboards/{dashboardId} | Update dashboard
+[**UpdateDashboardSchedule**](DashboardsAPI.md#UpdateDashboardSchedule) | **Put** /dashboards/{dashboardId}/actions/schedule | Create or update dashboard snapshot schedule
 
+
+
+## CloneDashboard
+
+> Dashboard CloneDashboard(dashboardId).Aid(aid).CloneDashboardRequest(cloneDashboardRequest).Execute()
+
+Clone dashboard
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"fmt"
+	"os"
+	"github.com/thousandeyes/thousandeyes-sdk-go/v3/client"
+	"github.com/thousandeyes/thousandeyes-sdk-go/v3/dashboards"
+)
+
+func main() {
+	dashboardId := "646f4d2ce3c99b0536c3821e" // string | A Identifier for a dashboard which can be obtained from the `/dashboards` endpoint.
+	aid := "1234" // string | A unique identifier associated with your account group. You can retrieve your `AccountGroupId` from the `/account-groups` endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. (optional)
+	cloneDashboardRequest := *dashboards.NewCloneDashboardRequest() // CloneDashboardRequest | Optional overrides for the cloned dashboard. (optional)
+
+	configuration := client.NewConfiguration().WithAuthToken("<bearer-token>")
+	apiClient := client.NewAPIClient(configuration)
+
+	api := (*dashboards.DashboardsAPIService)(&apiClient.Common)
+
+	resp, r, err := api.CloneDashboard(dashboardId).Aid(aid).CloneDashboardRequest(cloneDashboardRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DashboardsAPI.CloneDashboard``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CloneDashboard`: Dashboard
+	json, _ := resp.MarshalJSON()
+	fmt.Fprintf(os.Stdout, "Response from `DashboardsAPI.CloneDashboard`: %v\n", string(json))
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**dashboardId** | **string** | A Identifier for a dashboard which can be obtained from the &#x60;/dashboards&#x60; endpoint. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a ApiCloneDashboardRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **aid** | **string** | A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. | 
+ **cloneDashboardRequest** | [**CloneDashboardRequest**](CloneDashboardRequest.md) | Optional overrides for the cloned dashboard. | 
+
+### Return type
+
+[**Dashboard**](Dashboard.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/hal+json, application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)[[Back to README]](../README.md)
 
 
 ## CreateDashboard
@@ -132,6 +209,75 @@ Name | Type | Description  | Notes
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ApiDeleteDashboardRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **aid** | **string** | A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)[[Back to README]](../README.md)
+
+
+## DeleteDashboardSchedule
+
+> DeleteDashboardSchedule(dashboardId).Aid(aid).Execute()
+
+Delete dashboard snapshot schedule
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"fmt"
+	"os"
+	"github.com/thousandeyes/thousandeyes-sdk-go/v3/client"
+	"github.com/thousandeyes/thousandeyes-sdk-go/v3/dashboards"
+)
+
+func main() {
+	dashboardId := "646f4d2ce3c99b0536c3821e" // string | A Identifier for a dashboard which can be obtained from the `/dashboards` endpoint.
+	aid := "1234" // string | A unique identifier associated with your account group. You can retrieve your `AccountGroupId` from the `/account-groups` endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. (optional)
+
+	configuration := client.NewConfiguration().WithAuthToken("<bearer-token>")
+	apiClient := client.NewAPIClient(configuration)
+
+	api := (*dashboards.DashboardsAPIService)(&apiClient.Common)
+
+	r, err := api.DeleteDashboardSchedule(dashboardId).Aid(aid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DashboardsAPI.DeleteDashboardSchedule``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**dashboardId** | **string** | A Identifier for a dashboard which can be obtained from the &#x60;/dashboards&#x60; endpoint. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a ApiDeleteDashboardScheduleRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -605,6 +751,80 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**Dashboard**](Dashboard.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/hal+json, application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)[[Back to README]](../README.md)
+
+
+## UpdateDashboardSchedule
+
+> ApiDashboard UpdateDashboardSchedule(dashboardId).DashboardScheduleRequest(dashboardScheduleRequest).Aid(aid).Execute()
+
+Create or update dashboard snapshot schedule
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"fmt"
+	"os"
+	"github.com/thousandeyes/thousandeyes-sdk-go/v3/client"
+	"github.com/thousandeyes/thousandeyes-sdk-go/v3/dashboards"
+)
+
+func main() {
+	dashboardId := "646f4d2ce3c99b0536c3821e" // string | A Identifier for a dashboard which can be obtained from the `/dashboards` endpoint.
+	dashboardScheduleRequest := *dashboards.NewDashboardScheduleRequest(dashboards.DashboardScheduleCronSpec{DashboardScheduleCustomCronSpec: dashboards.NewDashboardScheduleCustomCronSpec(*dashboards.NewDashboardScheduleCustomRepeat(int32(2), dashboards.DashboardScheduleCustomRepeatUnit("DAY")))}, *dashboards.NewDashboardScheduleDataSource("Weekly network report"), *dashboards.NewDashboardScheduleTimespan(int32(1), dashboards.DashboardScheduleTimespanPeriod("DAY")), true) // DashboardScheduleRequest | Snapshot schedule configuration.
+	aid := "1234" // string | A unique identifier associated with your account group. You can retrieve your `AccountGroupId` from the `/account-groups` endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. (optional)
+
+	configuration := client.NewConfiguration().WithAuthToken("<bearer-token>")
+	apiClient := client.NewAPIClient(configuration)
+
+	api := (*dashboards.DashboardsAPIService)(&apiClient.Common)
+
+	resp, r, err := api.UpdateDashboardSchedule(dashboardId).DashboardScheduleRequest(dashboardScheduleRequest).Aid(aid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DashboardsAPI.UpdateDashboardSchedule``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdateDashboardSchedule`: ApiDashboard
+	json, _ := resp.MarshalJSON()
+	fmt.Fprintf(os.Stdout, "Response from `DashboardsAPI.UpdateDashboardSchedule`: %v\n", string(json))
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**dashboardId** | **string** | A Identifier for a dashboard which can be obtained from the &#x60;/dashboards&#x60; endpoint. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a ApiUpdateDashboardScheduleRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **dashboardScheduleRequest** | [**DashboardScheduleRequest**](DashboardScheduleRequest.md) | Snapshot schedule configuration. | 
+ **aid** | **string** | A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. | 
+
+### Return type
+
+[**ApiDashboard**](ApiDashboard.md)
 
 ### Authorization
 

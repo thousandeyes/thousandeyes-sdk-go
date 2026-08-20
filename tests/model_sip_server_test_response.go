@@ -92,7 +92,7 @@ type SipServerTestResponse struct {
 	// Username for SIP registration, should be unique within a ThousandEyes account group.
 	User *string `json:"user,omitempty"`
 	// Contains list of agents.
-	Agents []AgentResponse `json:"agents,omitempty"`
+	Agents []TestAgentResponse `json:"agents,omitempty"`
 }
 
 type _SipServerTestResponse SipServerTestResponse
@@ -1401,9 +1401,9 @@ func (o *SipServerTestResponse) SetUser(v string) {
 }
 
 // GetAgents returns the Agents field value if set, zero value otherwise.
-func (o *SipServerTestResponse) GetAgents() []AgentResponse {
+func (o *SipServerTestResponse) GetAgents() []TestAgentResponse {
 	if o == nil || utils.IsNil(o.Agents) {
-		var ret []AgentResponse
+		var ret []TestAgentResponse
 		return ret
 	}
 	return o.Agents
@@ -1411,7 +1411,7 @@ func (o *SipServerTestResponse) GetAgents() []AgentResponse {
 
 // GetAgentsOk returns a tuple with the Agents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SipServerTestResponse) GetAgentsOk() ([]AgentResponse, bool) {
+func (o *SipServerTestResponse) GetAgentsOk() ([]TestAgentResponse, bool) {
 	if o == nil || utils.IsNil(o.Agents) {
 		return nil, false
 	}
@@ -1427,8 +1427,8 @@ func (o *SipServerTestResponse) HasAgents() bool {
 	return false
 }
 
-// SetAgents gets a reference to the given []AgentResponse and assigns it to the Agents field.
-func (o *SipServerTestResponse) SetAgents(v []AgentResponse) {
+// SetAgents gets a reference to the given []TestAgentResponse and assigns it to the Agents field.
+func (o *SipServerTestResponse) SetAgents(v []TestAgentResponse) {
 	o.Agents = v
 }
 

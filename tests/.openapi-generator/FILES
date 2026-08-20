@@ -162,6 +162,8 @@ model_sip_server_test_response.go
 model_sip_server_tests.go
 model_sip_test_protocol.go
 model_test_agent_request.go
+model_test_agent_response.go
+model_test_agent_response_properties.go
 model_test_auth_type.go
 model_test_chromium_track.go
 model_test_custom_headers.go

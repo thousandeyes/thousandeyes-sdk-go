@@ -21,6 +21,7 @@ var _ utils.MappedNullable = &PathVisEndpointTestResults{}
 // PathVisEndpointTestResults struct for PathVisEndpointTestResults
 type PathVisEndpointTestResults struct {
 	Results []PathVisEndpointTestResult `json:"results,omitempty"`
+	// The scheduled test configuration. Omitted when the user lacks the `View endpoint experience tests` permission.
 	Test *EndpointScheduledTest `json:"test,omitempty"`
 	// (Optional) When passing `window` or `startDate` parameter,  the client will also receive the `startDate` field indicating the UTC start date of the data's time range being retrieved  (ISO date-time format).
 	StartDate *time.Time `json:"startDate,omitempty"`
