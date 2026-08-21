@@ -51,7 +51,9 @@ func (r ApiCreateTagRequest) Execute() (*Tag, *http.Response, error) {
 /*
 CreateTag Create tag
 
-Creates a new tag.
+Creates a new tag. Creating a dynamic endpoint-agent tag (`objectType: endpoint-agent`, `type: dynamic`) requires all Endpoint Agent PII view permissions. Requests missing any of these permissions return `403`.
+ 
+ For more information, see [Endpoint Agent permissions](https://docs.thousandeyes.com/product-documentation/global-vantage-points/endpoint-agents#endpoint-agent-permissions).
 
 
  @return ApiCreateTagRequest
@@ -127,6 +129,10 @@ func (a *TagsAPIService) CreateTagExecute(r ApiCreateTagRequest) (*Tag, *http.Re
 			var v UnauthorizedError
 			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
 		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v Error
+			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
+		}
 		if localVarHTTPResponse.StatusCode == 500 {
 			var v ApiError
 			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
@@ -172,7 +178,9 @@ func (r ApiCreateTagsRequest) Execute() (*BulkTagResponse, *http.Response, error
 /*
 CreateTags Create multiple tags
 
-Creates multiple tags. Note the response includes a `statuses` array. This array provides status information for each tag object, indexed 1:1 with the `tags` array.  
+Creates multiple tags. Note the response includes a `statuses` array. This array provides status information for each tag object, indexed 1:1 with the `tags` array.
+Creating a dynamic endpoint-agent tag (`objectType: endpoint-agent`, `type: dynamic`) requires all Endpoint Agent PII view permissions. A tag that fails this permission check is reported as a per-item `403` in the `errors` array, while the top-level status remains `207`. If the caller does not have permission to create tags, the request returns a top-level `403`.
+For more information, see [Endpoint Agent permissions](https://docs.thousandeyes.com/product-documentation/global-vantage-points/endpoint-agents#endpoint-agent-permissions).
 
 
  @return ApiCreateTagsRequest
@@ -246,6 +254,10 @@ func (a *TagsAPIService) CreateTagsExecute(r ApiCreateTagsRequest) (*BulkTagResp
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
 			var v UnauthorizedError
+			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v Error
 			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -684,7 +696,8 @@ func (r ApiUpdateTagRequest) Execute() (*Tag, *http.Response, error) {
 /*
 UpdateTag Update tag
 
-Updates a tag.
+Updates a tag. Updating a dynamic endpoint-agent tag (`objectType: endpoint-agent`, `type: dynamic`) requires all Endpoint Agent PII view permissions. Requests missing any of these permissions return `403`.
+For more information, see [Endpoint Agent permissions](https://docs.thousandeyes.com/product-documentation/global-vantage-points/endpoint-agents#endpoint-agent-permissions).
 
  @param id ID of tag to update
  @return ApiUpdateTagRequest

@@ -66,7 +66,7 @@ type VoiceInstantTestResponse struct {
 	// Agent ID of the target agent for the test.
 	TargetAgentId string `json:"targetAgentId"`
 	// Contains list of agents.
-	Agents []AgentResponse `json:"agents,omitempty"`
+	Agents []TestAgentResponse `json:"agents,omitempty"`
 }
 
 type _VoiceInstantTestResponse VoiceInstantTestResponse
@@ -870,9 +870,9 @@ func (o *VoiceInstantTestResponse) SetTargetAgentId(v string) {
 }
 
 // GetAgents returns the Agents field value if set, zero value otherwise.
-func (o *VoiceInstantTestResponse) GetAgents() []AgentResponse {
+func (o *VoiceInstantTestResponse) GetAgents() []TestAgentResponse {
 	if o == nil || utils.IsNil(o.Agents) {
-		var ret []AgentResponse
+		var ret []TestAgentResponse
 		return ret
 	}
 	return o.Agents
@@ -880,7 +880,7 @@ func (o *VoiceInstantTestResponse) GetAgents() []AgentResponse {
 
 // GetAgentsOk returns a tuple with the Agents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *VoiceInstantTestResponse) GetAgentsOk() ([]AgentResponse, bool) {
+func (o *VoiceInstantTestResponse) GetAgentsOk() ([]TestAgentResponse, bool) {
 	if o == nil || utils.IsNil(o.Agents) {
 		return nil, false
 	}
@@ -896,8 +896,8 @@ func (o *VoiceInstantTestResponse) HasAgents() bool {
 	return false
 }
 
-// SetAgents gets a reference to the given []AgentResponse and assigns it to the Agents field.
-func (o *VoiceInstantTestResponse) SetAgents(v []AgentResponse) {
+// SetAgents gets a reference to the given []TestAgentResponse and assigns it to the Agents field.
+func (o *VoiceInstantTestResponse) SetAgents(v []TestAgentResponse) {
 	o.Agents = v
 }
 

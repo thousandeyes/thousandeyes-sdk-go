@@ -60,7 +60,7 @@ type DnsTraceTestResponse struct {
 	// Indicates whether agents should randomize the start time in each test round.
 	RandomizedStartTime *bool `json:"randomizedStartTime,omitempty"`
 	// Contains list of agents.
-	Agents []AgentResponse `json:"agents,omitempty"`
+	Agents []TestAgentResponse `json:"agents,omitempty"`
 }
 
 type _DnsTraceTestResponse DnsTraceTestResponse
@@ -787,9 +787,9 @@ func (o *DnsTraceTestResponse) SetRandomizedStartTime(v bool) {
 }
 
 // GetAgents returns the Agents field value if set, zero value otherwise.
-func (o *DnsTraceTestResponse) GetAgents() []AgentResponse {
+func (o *DnsTraceTestResponse) GetAgents() []TestAgentResponse {
 	if o == nil || utils.IsNil(o.Agents) {
-		var ret []AgentResponse
+		var ret []TestAgentResponse
 		return ret
 	}
 	return o.Agents
@@ -797,7 +797,7 @@ func (o *DnsTraceTestResponse) GetAgents() []AgentResponse {
 
 // GetAgentsOk returns a tuple with the Agents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DnsTraceTestResponse) GetAgentsOk() ([]AgentResponse, bool) {
+func (o *DnsTraceTestResponse) GetAgentsOk() ([]TestAgentResponse, bool) {
 	if o == nil || utils.IsNil(o.Agents) {
 		return nil, false
 	}
@@ -813,8 +813,8 @@ func (o *DnsTraceTestResponse) HasAgents() bool {
 	return false
 }
 
-// SetAgents gets a reference to the given []AgentResponse and assigns it to the Agents field.
-func (o *DnsTraceTestResponse) SetAgents(v []AgentResponse) {
+// SetAgents gets a reference to the given []TestAgentResponse and assigns it to the Agents field.
+func (o *DnsTraceTestResponse) SetAgents(v []TestAgentResponse) {
 	o.Agents = v
 }
 

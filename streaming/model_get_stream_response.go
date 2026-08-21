@@ -30,6 +30,8 @@ type GetStreamResponse struct {
 	// The URL ThousandEyes sends data stream to. For a URL to be valid, it needs to: - Be syntactically correct. - Be reachable. - Use the HTTPS protocol. - When using the `grpc` endpointType, streamEndpointUrl cannot contain paths:     - Valid . `grpc` - `https://example.com`     - Invalid . `grpc` - `https://example.com/collector`.     - Valid . `http` - `https://example.com/collector`.  - When using the `http` endpointType, the operation must match the exact final full URL (including the path if there is one) to which the data will be sent. Examples below:     - `https://api.honeycomb.io:443/v1/metrics`     - `https://ingest.eu0.signalfx.com/v2/datapoint/otlp`
 	StreamEndpointUrl *string `json:"streamEndpointUrl,omitempty"`
 	DataModelVersion *DataModelVersion `json:"dataModelVersion,omitempty"`
+	// Name of the data stream. When omitted, a name is generated on creation and the existing name is preserved on update.
+	Name *string `json:"name,omitempty"`
 	// Custom headers.
 	CustomHeaders *map[string]string `json:"customHeaders,omitempty"`
 	// A collection of tags that determine what tests are included in the data stream. These tag values are also included as attributes in the data stream metrics. Tags are invalid if the tag key includes characters that are not allowed by the [OpenTelemetry naming recommendations for attributes](https://opentelemetry.io/docs/specs/semconv/general/naming/#recommendations-for-application-developers).
@@ -330,6 +332,38 @@ func (o *GetStreamResponse) HasDataModelVersion() bool {
 // SetDataModelVersion gets a reference to the given DataModelVersion and assigns it to the DataModelVersion field.
 func (o *GetStreamResponse) SetDataModelVersion(v DataModelVersion) {
 	o.DataModelVersion = &v
+}
+
+// GetName returns the Name field value if set, zero value otherwise.
+func (o *GetStreamResponse) GetName() string {
+	if o == nil || utils.IsNil(o.Name) {
+		var ret string
+		return ret
+	}
+	return *o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GetStreamResponse) GetNameOk() (*string, bool) {
+	if o == nil || utils.IsNil(o.Name) {
+		return nil, false
+	}
+	return o.Name, true
+}
+
+// HasName returns a boolean if a field has been set.
+func (o *GetStreamResponse) HasName() bool {
+	if o != nil && !utils.IsNil(o.Name) {
+		return true
+	}
+
+	return false
+}
+
+// SetName gets a reference to the given string and assigns it to the Name field.
+func (o *GetStreamResponse) SetName(v string) {
+	o.Name = &v
 }
 
 // GetCustomHeaders returns the CustomHeaders field value if set, zero value otherwise.
@@ -685,6 +719,9 @@ func (o GetStreamResponse) ToMap() (map[string]interface{}, error) {
 	}
 	if !utils.IsNil(o.DataModelVersion) {
 		toSerialize["dataModelVersion"] = o.DataModelVersion
+	}
+	if !utils.IsNil(o.Name) {
+		toSerialize["name"] = o.Name
 	}
 	if !utils.IsNil(o.CustomHeaders) {
 		toSerialize["customHeaders"] = o.CustomHeaders

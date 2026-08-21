@@ -71,7 +71,7 @@ type AgentToAgentInstantTestResponse struct {
 	// Sets packets rate sent to measure the network in packets per second.
 	FixedPacketRate *int32 `json:"fixedPacketRate,omitempty"`
 	// Contains list of agents.
-	Agents []AgentResponse `json:"agents,omitempty"`
+	Agents []TestAgentResponse `json:"agents,omitempty"`
 }
 
 type _AgentToAgentInstantTestResponse AgentToAgentInstantTestResponse
@@ -1019,9 +1019,9 @@ func (o *AgentToAgentInstantTestResponse) SetFixedPacketRate(v int32) {
 }
 
 // GetAgents returns the Agents field value if set, zero value otherwise.
-func (o *AgentToAgentInstantTestResponse) GetAgents() []AgentResponse {
+func (o *AgentToAgentInstantTestResponse) GetAgents() []TestAgentResponse {
 	if o == nil || utils.IsNil(o.Agents) {
-		var ret []AgentResponse
+		var ret []TestAgentResponse
 		return ret
 	}
 	return o.Agents
@@ -1029,7 +1029,7 @@ func (o *AgentToAgentInstantTestResponse) GetAgents() []AgentResponse {
 
 // GetAgentsOk returns a tuple with the Agents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AgentToAgentInstantTestResponse) GetAgentsOk() ([]AgentResponse, bool) {
+func (o *AgentToAgentInstantTestResponse) GetAgentsOk() ([]TestAgentResponse, bool) {
 	if o == nil || utils.IsNil(o.Agents) {
 		return nil, false
 	}
@@ -1045,8 +1045,8 @@ func (o *AgentToAgentInstantTestResponse) HasAgents() bool {
 	return false
 }
 
-// SetAgents gets a reference to the given []AgentResponse and assigns it to the Agents field.
-func (o *AgentToAgentInstantTestResponse) SetAgents(v []AgentResponse) {
+// SetAgents gets a reference to the given []TestAgentResponse and assigns it to the Agents field.
+func (o *AgentToAgentInstantTestResponse) SetAgents(v []TestAgentResponse) {
 	o.Agents = v
 }
 

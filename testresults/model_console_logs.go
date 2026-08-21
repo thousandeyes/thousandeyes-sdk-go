@@ -22,7 +22,7 @@ type ConsoleLogs struct {
 	// Severity level of the log, or UNKNOWN if the log is system-generated.
 	Level *string `json:"level,omitempty"`
 	// Unix epoch time, in milliseconds, when the log entry was captured.
-	Timestamp *string `json:"timestamp,omitempty"`
+	Timestamp *int64 `json:"timestamp,omitempty"`
 	// Log message.
 	Value *string `json:"value,omitempty"`
 }
@@ -77,9 +77,9 @@ func (o *ConsoleLogs) SetLevel(v string) {
 }
 
 // GetTimestamp returns the Timestamp field value if set, zero value otherwise.
-func (o *ConsoleLogs) GetTimestamp() string {
+func (o *ConsoleLogs) GetTimestamp() int64 {
 	if o == nil || utils.IsNil(o.Timestamp) {
-		var ret string
+		var ret int64
 		return ret
 	}
 	return *o.Timestamp
@@ -87,7 +87,7 @@ func (o *ConsoleLogs) GetTimestamp() string {
 
 // GetTimestampOk returns a tuple with the Timestamp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsoleLogs) GetTimestampOk() (*string, bool) {
+func (o *ConsoleLogs) GetTimestampOk() (*int64, bool) {
 	if o == nil || utils.IsNil(o.Timestamp) {
 		return nil, false
 	}
@@ -103,8 +103,8 @@ func (o *ConsoleLogs) HasTimestamp() bool {
 	return false
 }
 
-// SetTimestamp gets a reference to the given string and assigns it to the Timestamp field.
-func (o *ConsoleLogs) SetTimestamp(v string) {
+// SetTimestamp gets a reference to the given int64 and assigns it to the Timestamp field.
+func (o *ConsoleLogs) SetTimestamp(v int64) {
 	o.Timestamp = &v
 }
 

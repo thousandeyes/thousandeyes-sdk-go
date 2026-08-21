@@ -20,9 +20,9 @@ var _ utils.MappedNullable = &TagBulkCreateError{}
 // TagBulkCreateError struct for TagBulkCreateError
 type TagBulkCreateError struct {
 	Tag *map[string]TagInfo `json:"tag,omitempty"`
-	// HTTP response code
+	// HTTP response code.
 	ResponseCode *int32 `json:"responseCode,omitempty"`
-	// Status / error message
+	// Status or error message.
 	Message *string `json:"message,omitempty"`
 }
 

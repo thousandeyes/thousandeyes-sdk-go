@@ -45,7 +45,7 @@ type Tag struct {
 	// The tag's value
 	Value *string `json:"value,omitempty"`
 	MatchType *TagMatchType `json:"matchType,omitempty"`
-	// The combination of filters (filter keys) dynamically assigned to an `endpoint-agent` as determined by the matching logic (`and` or `or`). For example, if you filter on `bssid` and `ssid` with a matching logic of `and`, both filters are assigned as tags to the `endpoint-agent`; `or` means either filter can be assigned. **Note:** filters currently only apply to `endpoint-agent` object types.
+	// Filter criteria used to dynamically assign the tag to endpoint agents. The matching logic determines how multiple filters are evaluated: `and` requires all filters to match, while `or` requires any filter to match. Filters are supported only for `endpoint-agent` object types.
 	Filters []TagFilter `json:"filters,omitempty"`
 	Links *SelfLinks `json:"_links,omitempty"`
 }
