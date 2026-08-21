@@ -83,7 +83,7 @@ type DnsServerTestResponse struct {
 	// Contains list of enabled BGP monitors.
 	Monitors []Monitor `json:"monitors,omitempty"`
 	// Contains list of agents.
-	Agents []AgentResponse `json:"agents,omitempty"`
+	Agents []TestAgentResponse `json:"agents,omitempty"`
 }
 
 type _DnsServerTestResponse DnsServerTestResponse
@@ -1283,9 +1283,9 @@ func (o *DnsServerTestResponse) SetMonitors(v []Monitor) {
 }
 
 // GetAgents returns the Agents field value if set, zero value otherwise.
-func (o *DnsServerTestResponse) GetAgents() []AgentResponse {
+func (o *DnsServerTestResponse) GetAgents() []TestAgentResponse {
 	if o == nil || utils.IsNil(o.Agents) {
-		var ret []AgentResponse
+		var ret []TestAgentResponse
 		return ret
 	}
 	return o.Agents
@@ -1293,7 +1293,7 @@ func (o *DnsServerTestResponse) GetAgents() []AgentResponse {
 
 // GetAgentsOk returns a tuple with the Agents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DnsServerTestResponse) GetAgentsOk() ([]AgentResponse, bool) {
+func (o *DnsServerTestResponse) GetAgentsOk() ([]TestAgentResponse, bool) {
 	if o == nil || utils.IsNil(o.Agents) {
 		return nil, false
 	}
@@ -1309,8 +1309,8 @@ func (o *DnsServerTestResponse) HasAgents() bool {
 	return false
 }
 
-// SetAgents gets a reference to the given []AgentResponse and assigns it to the Agents field.
-func (o *DnsServerTestResponse) SetAgents(v []AgentResponse) {
+// SetAgents gets a reference to the given []TestAgentResponse and assigns it to the Agents field.
+func (o *DnsServerTestResponse) SetAgents(v []TestAgentResponse) {
 	o.Agents = v
 }
 

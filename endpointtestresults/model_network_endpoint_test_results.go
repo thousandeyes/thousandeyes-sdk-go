@@ -23,6 +23,7 @@ type NetworkEndpointTestResults struct {
 	Results []NetworkEndpointTestResult `json:"results,omitempty"`
 	// Total number of measurements that match the search criteria.
 	TotalHits *int32 `json:"totalHits,omitempty"`
+	// The scheduled test configuration. Omitted when the user lacks the `View endpoint experience tests` permission.
 	Test *EndpointScheduledTest `json:"test,omitempty"`
 	// (Optional) When passing `window` or `startDate` parameter,  the client will also receive the `startDate` field indicating the UTC start date of the data's time range being retrieved  (ISO date-time format).
 	StartDate *time.Time `json:"startDate,omitempty"`

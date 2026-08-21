@@ -157,7 +157,7 @@ type WebTransactionTestResponse struct {
 	Monitors []Monitor `json:"monitors,omitempty"`
 	Subinterval *TestSubInterval `json:"subinterval,omitempty"`
 	// Contains list of agents.
-	Agents []AgentResponse `json:"agents,omitempty"`
+	Agents []TestAgentResponse `json:"agents,omitempty"`
 }
 
 type _WebTransactionTestResponse WebTransactionTestResponse
@@ -2685,9 +2685,9 @@ func (o *WebTransactionTestResponse) SetSubinterval(v TestSubInterval) {
 }
 
 // GetAgents returns the Agents field value if set, zero value otherwise.
-func (o *WebTransactionTestResponse) GetAgents() []AgentResponse {
+func (o *WebTransactionTestResponse) GetAgents() []TestAgentResponse {
 	if o == nil || utils.IsNil(o.Agents) {
-		var ret []AgentResponse
+		var ret []TestAgentResponse
 		return ret
 	}
 	return o.Agents
@@ -2695,7 +2695,7 @@ func (o *WebTransactionTestResponse) GetAgents() []AgentResponse {
 
 // GetAgentsOk returns a tuple with the Agents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *WebTransactionTestResponse) GetAgentsOk() ([]AgentResponse, bool) {
+func (o *WebTransactionTestResponse) GetAgentsOk() ([]TestAgentResponse, bool) {
 	if o == nil || utils.IsNil(o.Agents) {
 		return nil, false
 	}
@@ -2711,8 +2711,8 @@ func (o *WebTransactionTestResponse) HasAgents() bool {
 	return false
 }
 
-// SetAgents gets a reference to the given []AgentResponse and assigns it to the Agents field.
-func (o *WebTransactionTestResponse) SetAgents(v []AgentResponse) {
+// SetAgents gets a reference to the given []TestAgentResponse and assigns it to the Agents field.
+func (o *WebTransactionTestResponse) SetAgents(v []TestAgentResponse) {
 	o.Agents = v
 }
 

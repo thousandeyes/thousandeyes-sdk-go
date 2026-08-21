@@ -137,7 +137,7 @@ type PageLoadInstantTestResponse struct {
 	// Determines how agent traffic is identified:  * `false`: Adds the `x-thousandeyes-agent: yes` header. * `true`: Appends `(ThousandEyes Agent)` to the `user-agent` header.  For more information, see [Notes on Agent ID Strategy](https://docs.thousandeyes.com/product-documentation/browser-synthetics/test-settings-page-load-transaction#notes-on-agent-id-strategy). 
 	IdentifyAgentTrafficWithUserAgent *bool `json:"identifyAgentTrafficWithUserAgent,omitempty"`
 	// Contains list of agents.
-	Agents []AgentResponse `json:"agents,omitempty"`
+	Agents []TestAgentResponse `json:"agents,omitempty"`
 }
 
 type _PageLoadInstantTestResponse PageLoadInstantTestResponse
@@ -2305,9 +2305,9 @@ func (o *PageLoadInstantTestResponse) SetIdentifyAgentTrafficWithUserAgent(v boo
 }
 
 // GetAgents returns the Agents field value if set, zero value otherwise.
-func (o *PageLoadInstantTestResponse) GetAgents() []AgentResponse {
+func (o *PageLoadInstantTestResponse) GetAgents() []TestAgentResponse {
 	if o == nil || utils.IsNil(o.Agents) {
-		var ret []AgentResponse
+		var ret []TestAgentResponse
 		return ret
 	}
 	return o.Agents
@@ -2315,7 +2315,7 @@ func (o *PageLoadInstantTestResponse) GetAgents() []AgentResponse {
 
 // GetAgentsOk returns a tuple with the Agents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PageLoadInstantTestResponse) GetAgentsOk() ([]AgentResponse, bool) {
+func (o *PageLoadInstantTestResponse) GetAgentsOk() ([]TestAgentResponse, bool) {
 	if o == nil || utils.IsNil(o.Agents) {
 		return nil, false
 	}
@@ -2331,8 +2331,8 @@ func (o *PageLoadInstantTestResponse) HasAgents() bool {
 	return false
 }
 
-// SetAgents gets a reference to the given []AgentResponse and assigns it to the Agents field.
-func (o *PageLoadInstantTestResponse) SetAgents(v []AgentResponse) {
+// SetAgents gets a reference to the given []TestAgentResponse and assigns it to the Agents field.
+func (o *PageLoadInstantTestResponse) SetAgents(v []TestAgentResponse) {
 	o.Agents = v
 }
 

@@ -72,7 +72,7 @@ type AgentToServerInstantTestResponse struct {
 	// View packet loss in 1-second intervals. This is only available for 1-minute interval tests. Set to `true` to enable network measurements.
 	NetworkMeasurements *bool `json:"networkMeasurements,omitempty"`
 	// Contains list of agents.
-	Agents []AgentResponse `json:"agents,omitempty"`
+	Agents []TestAgentResponse `json:"agents,omitempty"`
 }
 
 type _AgentToServerInstantTestResponse AgentToServerInstantTestResponse
@@ -1048,9 +1048,9 @@ func (o *AgentToServerInstantTestResponse) SetNetworkMeasurements(v bool) {
 }
 
 // GetAgents returns the Agents field value if set, zero value otherwise.
-func (o *AgentToServerInstantTestResponse) GetAgents() []AgentResponse {
+func (o *AgentToServerInstantTestResponse) GetAgents() []TestAgentResponse {
 	if o == nil || utils.IsNil(o.Agents) {
-		var ret []AgentResponse
+		var ret []TestAgentResponse
 		return ret
 	}
 	return o.Agents
@@ -1058,7 +1058,7 @@ func (o *AgentToServerInstantTestResponse) GetAgents() []AgentResponse {
 
 // GetAgentsOk returns a tuple with the Agents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AgentToServerInstantTestResponse) GetAgentsOk() ([]AgentResponse, bool) {
+func (o *AgentToServerInstantTestResponse) GetAgentsOk() ([]TestAgentResponse, bool) {
 	if o == nil || utils.IsNil(o.Agents) {
 		return nil, false
 	}
@@ -1074,8 +1074,8 @@ func (o *AgentToServerInstantTestResponse) HasAgents() bool {
 	return false
 }
 
-// SetAgents gets a reference to the given []AgentResponse and assigns it to the Agents field.
-func (o *AgentToServerInstantTestResponse) SetAgents(v []AgentResponse) {
+// SetAgents gets a reference to the given []TestAgentResponse and assigns it to the Agents field.
+func (o *AgentToServerInstantTestResponse) SetAgents(v []TestAgentResponse) {
 	o.Agents = v
 }
 

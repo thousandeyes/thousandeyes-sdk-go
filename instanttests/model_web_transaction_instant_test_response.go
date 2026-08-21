@@ -143,7 +143,7 @@ type WebTransactionInstantTestResponse struct {
 	// Contains a list of credential IDs (get `credentialId` from `/credentials` endpoint).
 	Credentials []string `json:"credentials,omitempty"`
 	// Contains list of agents.
-	Agents []AgentResponse `json:"agents,omitempty"`
+	Agents []TestAgentResponse `json:"agents,omitempty"`
 }
 
 type _WebTransactionInstantTestResponse WebTransactionInstantTestResponse
@@ -2408,9 +2408,9 @@ func (o *WebTransactionInstantTestResponse) SetCredentials(v []string) {
 }
 
 // GetAgents returns the Agents field value if set, zero value otherwise.
-func (o *WebTransactionInstantTestResponse) GetAgents() []AgentResponse {
+func (o *WebTransactionInstantTestResponse) GetAgents() []TestAgentResponse {
 	if o == nil || utils.IsNil(o.Agents) {
-		var ret []AgentResponse
+		var ret []TestAgentResponse
 		return ret
 	}
 	return o.Agents
@@ -2418,7 +2418,7 @@ func (o *WebTransactionInstantTestResponse) GetAgents() []AgentResponse {
 
 // GetAgentsOk returns a tuple with the Agents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *WebTransactionInstantTestResponse) GetAgentsOk() ([]AgentResponse, bool) {
+func (o *WebTransactionInstantTestResponse) GetAgentsOk() ([]TestAgentResponse, bool) {
 	if o == nil || utils.IsNil(o.Agents) {
 		return nil, false
 	}
@@ -2434,8 +2434,8 @@ func (o *WebTransactionInstantTestResponse) HasAgents() bool {
 	return false
 }
 
-// SetAgents gets a reference to the given []AgentResponse and assigns it to the Agents field.
-func (o *WebTransactionInstantTestResponse) SetAgents(v []AgentResponse) {
+// SetAgents gets a reference to the given []TestAgentResponse and assigns it to the Agents field.
+func (o *WebTransactionInstantTestResponse) SetAgents(v []TestAgentResponse) {
 	o.Agents = v
 }
 
