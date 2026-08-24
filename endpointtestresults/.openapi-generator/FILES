@@ -175,3 +175,4 @@ model_vpn_network_ping.go
 model_vpn_profile.go
 model_vpn_traceroute.go
 model_vpn_type.go
+model_wireless_onboarding.go
