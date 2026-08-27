@@ -15,43 +15,43 @@ import (
 	"fmt"
 )
 
-// checks if the DashboardScheduleNonCustomCronSpec type satisfies the MappedNullable interface at compile time
-var _ utils.MappedNullable = &DashboardScheduleNonCustomCronSpec{}
+// checks if the DashboardScheduleCronSpecBase type satisfies the MappedNullable interface at compile time
+var _ utils.MappedNullable = &DashboardScheduleCronSpecBase{}
 
-// DashboardScheduleNonCustomCronSpec struct for DashboardScheduleNonCustomCronSpec
-type DashboardScheduleNonCustomCronSpec struct {
+// DashboardScheduleCronSpecBase Common properties for a dashboard snapshot schedule recurrence.
+type DashboardScheduleCronSpecBase struct {
 	// Schedule start time as a Unix timestamp in seconds.
 	StartTime int64 `json:"startTime"`
 	// An IANA time zone identifier used to interpret `startTime` and recurrence. For example, `America/Los_Angeles`.
 	ZoneCode string `json:"zoneCode"`
-	Repeat DashboardScheduleNonCustomRepeat `json:"repeat"`
+	Repeat DashboardScheduleRepeat `json:"repeat"`
 	EndRepeat *DashboardScheduleEndCondition `json:"endRepeat,omitempty"`
 }
 
-type _DashboardScheduleNonCustomCronSpec DashboardScheduleNonCustomCronSpec
+type _DashboardScheduleCronSpecBase DashboardScheduleCronSpecBase
 
-// NewDashboardScheduleNonCustomCronSpec instantiates a new DashboardScheduleNonCustomCronSpec object
+// NewDashboardScheduleCronSpecBase instantiates a new DashboardScheduleCronSpecBase object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDashboardScheduleNonCustomCronSpec(startTime int64, zoneCode string, repeat DashboardScheduleNonCustomRepeat) *DashboardScheduleNonCustomCronSpec {
-	this := DashboardScheduleNonCustomCronSpec{}
+func NewDashboardScheduleCronSpecBase(startTime int64, zoneCode string, repeat DashboardScheduleRepeat) *DashboardScheduleCronSpecBase {
+	this := DashboardScheduleCronSpecBase{}
 	this.StartTime = startTime
 	this.ZoneCode = zoneCode
 	this.Repeat = repeat
 	return &this
 }
 
-// NewDashboardScheduleNonCustomCronSpecWithDefaults instantiates a new DashboardScheduleNonCustomCronSpec object
+// NewDashboardScheduleCronSpecBaseWithDefaults instantiates a new DashboardScheduleCronSpecBase object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewDashboardScheduleNonCustomCronSpecWithDefaults() *DashboardScheduleNonCustomCronSpec {
-	this := DashboardScheduleNonCustomCronSpec{}
+func NewDashboardScheduleCronSpecBaseWithDefaults() *DashboardScheduleCronSpecBase {
+	this := DashboardScheduleCronSpecBase{}
 	return &this
 }
 
 // GetStartTime returns the StartTime field value
-func (o *DashboardScheduleNonCustomCronSpec) GetStartTime() int64 {
+func (o *DashboardScheduleCronSpecBase) GetStartTime() int64 {
 	if o == nil {
 		var ret int64
 		return ret
@@ -62,7 +62,7 @@ func (o *DashboardScheduleNonCustomCronSpec) GetStartTime() int64 {
 
 // GetStartTimeOk returns a tuple with the StartTime field value
 // and a boolean to check if the value has been set.
-func (o *DashboardScheduleNonCustomCronSpec) GetStartTimeOk() (*int64, bool) {
+func (o *DashboardScheduleCronSpecBase) GetStartTimeOk() (*int64, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -70,12 +70,12 @@ func (o *DashboardScheduleNonCustomCronSpec) GetStartTimeOk() (*int64, bool) {
 }
 
 // SetStartTime sets field value
-func (o *DashboardScheduleNonCustomCronSpec) SetStartTime(v int64) {
+func (o *DashboardScheduleCronSpecBase) SetStartTime(v int64) {
 	o.StartTime = v
 }
 
 // GetZoneCode returns the ZoneCode field value
-func (o *DashboardScheduleNonCustomCronSpec) GetZoneCode() string {
+func (o *DashboardScheduleCronSpecBase) GetZoneCode() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -86,7 +86,7 @@ func (o *DashboardScheduleNonCustomCronSpec) GetZoneCode() string {
 
 // GetZoneCodeOk returns a tuple with the ZoneCode field value
 // and a boolean to check if the value has been set.
-func (o *DashboardScheduleNonCustomCronSpec) GetZoneCodeOk() (*string, bool) {
+func (o *DashboardScheduleCronSpecBase) GetZoneCodeOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -94,14 +94,14 @@ func (o *DashboardScheduleNonCustomCronSpec) GetZoneCodeOk() (*string, bool) {
 }
 
 // SetZoneCode sets field value
-func (o *DashboardScheduleNonCustomCronSpec) SetZoneCode(v string) {
+func (o *DashboardScheduleCronSpecBase) SetZoneCode(v string) {
 	o.ZoneCode = v
 }
 
 // GetRepeat returns the Repeat field value
-func (o *DashboardScheduleNonCustomCronSpec) GetRepeat() DashboardScheduleNonCustomRepeat {
+func (o *DashboardScheduleCronSpecBase) GetRepeat() DashboardScheduleRepeat {
 	if o == nil {
-		var ret DashboardScheduleNonCustomRepeat
+		var ret DashboardScheduleRepeat
 		return ret
 	}
 
@@ -110,7 +110,7 @@ func (o *DashboardScheduleNonCustomCronSpec) GetRepeat() DashboardScheduleNonCus
 
 // GetRepeatOk returns a tuple with the Repeat field value
 // and a boolean to check if the value has been set.
-func (o *DashboardScheduleNonCustomCronSpec) GetRepeatOk() (*DashboardScheduleNonCustomRepeat, bool) {
+func (o *DashboardScheduleCronSpecBase) GetRepeatOk() (*DashboardScheduleRepeat, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -118,12 +118,12 @@ func (o *DashboardScheduleNonCustomCronSpec) GetRepeatOk() (*DashboardScheduleNo
 }
 
 // SetRepeat sets field value
-func (o *DashboardScheduleNonCustomCronSpec) SetRepeat(v DashboardScheduleNonCustomRepeat) {
+func (o *DashboardScheduleCronSpecBase) SetRepeat(v DashboardScheduleRepeat) {
 	o.Repeat = v
 }
 
 // GetEndRepeat returns the EndRepeat field value if set, zero value otherwise.
-func (o *DashboardScheduleNonCustomCronSpec) GetEndRepeat() DashboardScheduleEndCondition {
+func (o *DashboardScheduleCronSpecBase) GetEndRepeat() DashboardScheduleEndCondition {
 	if o == nil || utils.IsNil(o.EndRepeat) {
 		var ret DashboardScheduleEndCondition
 		return ret
@@ -133,7 +133,7 @@ func (o *DashboardScheduleNonCustomCronSpec) GetEndRepeat() DashboardScheduleEnd
 
 // GetEndRepeatOk returns a tuple with the EndRepeat field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DashboardScheduleNonCustomCronSpec) GetEndRepeatOk() (*DashboardScheduleEndCondition, bool) {
+func (o *DashboardScheduleCronSpecBase) GetEndRepeatOk() (*DashboardScheduleEndCondition, bool) {
 	if o == nil || utils.IsNil(o.EndRepeat) {
 		return nil, false
 	}
@@ -141,7 +141,7 @@ func (o *DashboardScheduleNonCustomCronSpec) GetEndRepeatOk() (*DashboardSchedul
 }
 
 // HasEndRepeat returns a boolean if a field has been set.
-func (o *DashboardScheduleNonCustomCronSpec) HasEndRepeat() bool {
+func (o *DashboardScheduleCronSpecBase) HasEndRepeat() bool {
 	if o != nil && !utils.IsNil(o.EndRepeat) {
 		return true
 	}
@@ -150,11 +150,11 @@ func (o *DashboardScheduleNonCustomCronSpec) HasEndRepeat() bool {
 }
 
 // SetEndRepeat gets a reference to the given DashboardScheduleEndCondition and assigns it to the EndRepeat field.
-func (o *DashboardScheduleNonCustomCronSpec) SetEndRepeat(v DashboardScheduleEndCondition) {
+func (o *DashboardScheduleCronSpecBase) SetEndRepeat(v DashboardScheduleEndCondition) {
 	o.EndRepeat = &v
 }
 
-func (o DashboardScheduleNonCustomCronSpec) MarshalJSON() ([]byte, error) {
+func (o DashboardScheduleCronSpecBase) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -162,7 +162,7 @@ func (o DashboardScheduleNonCustomCronSpec) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o DashboardScheduleNonCustomCronSpec) ToMap() (map[string]interface{}, error) {
+func (o DashboardScheduleCronSpecBase) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["startTime"] = o.StartTime
 	toSerialize["zoneCode"] = o.ZoneCode
@@ -173,7 +173,7 @@ func (o DashboardScheduleNonCustomCronSpec) ToMap() (map[string]interface{}, err
 	return toSerialize, nil
 }
 
-func (o *DashboardScheduleNonCustomCronSpec) UnmarshalJSON(data []byte) (err error) {
+func (o *DashboardScheduleCronSpecBase) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -197,51 +197,51 @@ func (o *DashboardScheduleNonCustomCronSpec) UnmarshalJSON(data []byte) (err err
 		}
 	}
 
-	varDashboardScheduleNonCustomCronSpec := _DashboardScheduleNonCustomCronSpec{}
+	varDashboardScheduleCronSpecBase := _DashboardScheduleCronSpecBase{}
 
-    err = json.Unmarshal(data, &varDashboardScheduleNonCustomCronSpec)
+    err = json.Unmarshal(data, &varDashboardScheduleCronSpecBase)
 
 	if err != nil {
 		return err
 	}
 
-	*o = DashboardScheduleNonCustomCronSpec(varDashboardScheduleNonCustomCronSpec)
+	*o = DashboardScheduleCronSpecBase(varDashboardScheduleCronSpecBase)
 
 	return err
 }
 
-type NullableDashboardScheduleNonCustomCronSpec struct {
-	value *DashboardScheduleNonCustomCronSpec
+type NullableDashboardScheduleCronSpecBase struct {
+	value *DashboardScheduleCronSpecBase
 	isSet bool
 }
 
-func (v NullableDashboardScheduleNonCustomCronSpec) Get() *DashboardScheduleNonCustomCronSpec {
+func (v NullableDashboardScheduleCronSpecBase) Get() *DashboardScheduleCronSpecBase {
 	return v.value
 }
 
-func (v *NullableDashboardScheduleNonCustomCronSpec) Set(val *DashboardScheduleNonCustomCronSpec) {
+func (v *NullableDashboardScheduleCronSpecBase) Set(val *DashboardScheduleCronSpecBase) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableDashboardScheduleNonCustomCronSpec) IsSet() bool {
+func (v NullableDashboardScheduleCronSpecBase) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableDashboardScheduleNonCustomCronSpec) Unset() {
+func (v *NullableDashboardScheduleCronSpecBase) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableDashboardScheduleNonCustomCronSpec(val *DashboardScheduleNonCustomCronSpec) *NullableDashboardScheduleNonCustomCronSpec {
-	return &NullableDashboardScheduleNonCustomCronSpec{value: val, isSet: true}
+func NewNullableDashboardScheduleCronSpecBase(val *DashboardScheduleCronSpecBase) *NullableDashboardScheduleCronSpecBase {
+	return &NullableDashboardScheduleCronSpecBase{value: val, isSet: true}
 }
 
-func (v NullableDashboardScheduleNonCustomCronSpec) MarshalJSON() ([]byte, error) {
+func (v NullableDashboardScheduleCronSpecBase) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableDashboardScheduleNonCustomCronSpec) UnmarshalJSON(src []byte) error {
+func (v *NullableDashboardScheduleCronSpecBase) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

@@ -22,6 +22,8 @@ const (
 	AGENTLICENSETYPE_ESSENTIALS AgentLicenseType = "essentials"
 	AGENTLICENSETYPE_ADVANTAGE AgentLicenseType = "advantage"
 	AGENTLICENSETYPE_EMBEDDED AgentLicenseType = "embedded"
+	AGENTLICENSETYPE_EMBED_WIRELESS_ADVANTAGE AgentLicenseType = "embed-wireless-advantage"
+	AGENTLICENSETYPE_EMBED_WIRELESS_ESSENTIALS AgentLicenseType = "embed-wireless-essentials"
 	AGENTLICENSETYPE_UNKNOWN AgentLicenseType = "unknown"
 )
 
@@ -30,6 +32,8 @@ var AllowedAgentLicenseTypeEnumValues = []AgentLicenseType{
 	"essentials",
 	"advantage",
 	"embedded",
+	"embed-wireless-advantage",
+	"embed-wireless-essentials",
 	"unknown",
 }
 

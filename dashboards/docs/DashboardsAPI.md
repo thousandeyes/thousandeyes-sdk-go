@@ -786,7 +786,7 @@ import (
 
 func main() {
 	dashboardId := "646f4d2ce3c99b0536c3821e" // string | A Identifier for a dashboard which can be obtained from the `/dashboards` endpoint.
-	dashboardScheduleRequest := *dashboards.NewDashboardScheduleRequest(dashboards.DashboardScheduleCronSpec{DashboardScheduleCustomCronSpec: dashboards.NewDashboardScheduleCustomCronSpec(*dashboards.NewDashboardScheduleCustomRepeat(int32(2), dashboards.DashboardScheduleCustomRepeatUnit("DAY")))}, *dashboards.NewDashboardScheduleDataSource("Weekly network report"), *dashboards.NewDashboardScheduleTimespan(int32(1), dashboards.DashboardScheduleTimespanPeriod("DAY")), true) // DashboardScheduleRequest | Snapshot schedule configuration.
+	dashboardScheduleRequest := *dashboards.NewDashboardScheduleRequest(dashboards.DashboardScheduleCronSpec{DashboardScheduleCustomCronSpec: dashboards.NewDashboardScheduleCustomCronSpec(int64(1753200000), "America/Los_Angeles", dashboards.DashboardScheduleCustomRepeatType("CUSTOM"), *dashboards.NewDashboardScheduleCustomRepeat(int32(2), dashboards.DashboardScheduleCustomRepeatUnit("DAY")))}, *dashboards.NewDashboardScheduleDataSource("Weekly network report"), *dashboards.NewDashboardScheduleTimespan(int32(1), dashboards.DashboardScheduleTimespanPeriod("DAY")), true) // DashboardScheduleRequest | Snapshot schedule configuration.
 	aid := "1234" // string | A unique identifier associated with your account group. You can retrieve your `AccountGroupId` from the `/account-groups` endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. (optional)
 
 	configuration := client.NewConfiguration().WithAuthToken("<bearer-token>")
