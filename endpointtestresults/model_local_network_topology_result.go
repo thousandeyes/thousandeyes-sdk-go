@@ -44,6 +44,7 @@ type LocalNetworkTopologyResult struct {
 	GatewayScore *EndpointProbeGatewayScore `json:"gatewayScore,omitempty"`
 	ProxyScore *EndpointProbeProxyScore `json:"proxyScore,omitempty"`
 	ConnectionScore *EndpointProbeConnectionScore `json:"connectionScore,omitempty"`
+	WirelessOnboarding *WirelessOnboarding `json:"wirelessOnboarding,omitempty"`
 	AgentScore *EndpointProbeAgentScore `json:"agentScore,omitempty"`
 	BatteryMetrics *BatteryMetrics `json:"batteryMetrics,omitempty"`
 	CellularProfile *CellularProfile `json:"cellularProfile,omitempty"`
@@ -615,6 +616,38 @@ func (o *LocalNetworkTopologyResult) SetConnectionScore(v EndpointProbeConnectio
 	o.ConnectionScore = &v
 }
 
+// GetWirelessOnboarding returns the WirelessOnboarding field value if set, zero value otherwise.
+func (o *LocalNetworkTopologyResult) GetWirelessOnboarding() WirelessOnboarding {
+	if o == nil || utils.IsNil(o.WirelessOnboarding) {
+		var ret WirelessOnboarding
+		return ret
+	}
+	return *o.WirelessOnboarding
+}
+
+// GetWirelessOnboardingOk returns a tuple with the WirelessOnboarding field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LocalNetworkTopologyResult) GetWirelessOnboardingOk() (*WirelessOnboarding, bool) {
+	if o == nil || utils.IsNil(o.WirelessOnboarding) {
+		return nil, false
+	}
+	return o.WirelessOnboarding, true
+}
+
+// HasWirelessOnboarding returns a boolean if a field has been set.
+func (o *LocalNetworkTopologyResult) HasWirelessOnboarding() bool {
+	if o != nil && !utils.IsNil(o.WirelessOnboarding) {
+		return true
+	}
+
+	return false
+}
+
+// SetWirelessOnboarding gets a reference to the given WirelessOnboarding and assigns it to the WirelessOnboarding field.
+func (o *LocalNetworkTopologyResult) SetWirelessOnboarding(v WirelessOnboarding) {
+	o.WirelessOnboarding = &v
+}
+
 // GetAgentScore returns the AgentScore field value if set, zero value otherwise.
 func (o *LocalNetworkTopologyResult) GetAgentScore() EndpointProbeAgentScore {
 	if o == nil || utils.IsNil(o.AgentScore) {
@@ -931,6 +964,9 @@ func (o LocalNetworkTopologyResult) ToMap() (map[string]interface{}, error) {
 	}
 	if !utils.IsNil(o.ConnectionScore) {
 		toSerialize["connectionScore"] = o.ConnectionScore
+	}
+	if !utils.IsNil(o.WirelessOnboarding) {
+		toSerialize["wirelessOnboarding"] = o.WirelessOnboarding
 	}
 	if !utils.IsNil(o.AgentScore) {
 		toSerialize["agentScore"] = o.AgentScore

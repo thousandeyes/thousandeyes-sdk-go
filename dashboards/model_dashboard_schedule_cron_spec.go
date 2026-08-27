@@ -11,6 +11,7 @@ package dashboards
 
 import (
 	"encoding/json"
+    "github.com/thousandeyes/thousandeyes-sdk-go/v3/internal/utils"
 	"fmt"
 )
 
@@ -38,44 +39,134 @@ func DashboardScheduleNonCustomCronSpecAsDashboardScheduleCronSpec(v *DashboardS
 // Unmarshal JSON data into one of the pointers in the struct
 func (dst *DashboardScheduleCronSpec) UnmarshalJSON(data []byte) error {
 	var err error
-	match := 0
-	// try to unmarshal data into DashboardScheduleCustomCronSpec
-	err = json.Unmarshal(data, &dst.DashboardScheduleCustomCronSpec)
-	if err == nil {
-		jsonDashboardScheduleCustomCronSpec, _ := json.Marshal(dst.DashboardScheduleCustomCronSpec)
-		if string(jsonDashboardScheduleCustomCronSpec) == "{}" { // empty struct
-			dst.DashboardScheduleCustomCronSpec = nil
-		} else {
-			match++
-		}
-	} else {
-		dst.DashboardScheduleCustomCronSpec = nil
+	// use discriminator value to speed up the lookup
+	var jsonDict map[string]interface{}
+	err = utils.NewStrictDecoder(data).Decode(&jsonDict)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
-	// try to unmarshal data into DashboardScheduleNonCustomCronSpec
-	err = json.Unmarshal(data, &dst.DashboardScheduleNonCustomCronSpec)
-	if err == nil {
-		jsonDashboardScheduleNonCustomCronSpec, _ := json.Marshal(dst.DashboardScheduleNonCustomCronSpec)
-		if string(jsonDashboardScheduleNonCustomCronSpec) == "{}" { // empty struct
+	// check if the discriminator value is 'ALT_EVERY_DAY'
+	if jsonDict["repeat"] == "ALT_EVERY_DAY" {
+		// try to unmarshal JSON data into DashboardScheduleNonCustomCronSpec
+		err = json.Unmarshal(data, &dst.DashboardScheduleNonCustomCronSpec)
+		if err == nil {
+			return nil // data stored in dst.DashboardScheduleNonCustomCronSpec, return on the first match
+		} else {
 			dst.DashboardScheduleNonCustomCronSpec = nil
-		} else {
-			match++
+			return fmt.Errorf("failed to unmarshal DashboardScheduleCronSpec as DashboardScheduleNonCustomCronSpec: %s", err.Error())
 		}
-	} else {
-		dst.DashboardScheduleNonCustomCronSpec = nil
 	}
 
-	if match > 1 { // more than 1 match
-		// reset to nil
-		dst.DashboardScheduleCustomCronSpec = nil
-		dst.DashboardScheduleNonCustomCronSpec = nil
-
-		return fmt.Errorf("data matches more than one schema in oneOf(DashboardScheduleCronSpec)")
-	} else if match == 1 {
-		return nil // exactly one match
-	} else { // no match
-		return fmt.Errorf("data failed to match schemas in oneOf(DashboardScheduleCronSpec)")
+	// check if the discriminator value is 'CUSTOM'
+	if jsonDict["repeat"] == "CUSTOM" {
+		// try to unmarshal JSON data into DashboardScheduleCustomCronSpec
+		err = json.Unmarshal(data, &dst.DashboardScheduleCustomCronSpec)
+		if err == nil {
+			return nil // data stored in dst.DashboardScheduleCustomCronSpec, return on the first match
+		} else {
+			dst.DashboardScheduleCustomCronSpec = nil
+			return fmt.Errorf("failed to unmarshal DashboardScheduleCronSpec as DashboardScheduleCustomCronSpec: %s", err.Error())
+		}
 	}
+
+	// check if the discriminator value is 'EVERY_DAY'
+	if jsonDict["repeat"] == "EVERY_DAY" {
+		// try to unmarshal JSON data into DashboardScheduleNonCustomCronSpec
+		err = json.Unmarshal(data, &dst.DashboardScheduleNonCustomCronSpec)
+		if err == nil {
+			return nil // data stored in dst.DashboardScheduleNonCustomCronSpec, return on the first match
+		} else {
+			dst.DashboardScheduleNonCustomCronSpec = nil
+			return fmt.Errorf("failed to unmarshal DashboardScheduleCronSpec as DashboardScheduleNonCustomCronSpec: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'EVERY_MONTH'
+	if jsonDict["repeat"] == "EVERY_MONTH" {
+		// try to unmarshal JSON data into DashboardScheduleNonCustomCronSpec
+		err = json.Unmarshal(data, &dst.DashboardScheduleNonCustomCronSpec)
+		if err == nil {
+			return nil // data stored in dst.DashboardScheduleNonCustomCronSpec, return on the first match
+		} else {
+			dst.DashboardScheduleNonCustomCronSpec = nil
+			return fmt.Errorf("failed to unmarshal DashboardScheduleCronSpec as DashboardScheduleNonCustomCronSpec: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'EVERY_THREE_MONTHS'
+	if jsonDict["repeat"] == "EVERY_THREE_MONTHS" {
+		// try to unmarshal JSON data into DashboardScheduleNonCustomCronSpec
+		err = json.Unmarshal(data, &dst.DashboardScheduleNonCustomCronSpec)
+		if err == nil {
+			return nil // data stored in dst.DashboardScheduleNonCustomCronSpec, return on the first match
+		} else {
+			dst.DashboardScheduleNonCustomCronSpec = nil
+			return fmt.Errorf("failed to unmarshal DashboardScheduleCronSpec as DashboardScheduleNonCustomCronSpec: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'EVERY_TWO_WEEKS'
+	if jsonDict["repeat"] == "EVERY_TWO_WEEKS" {
+		// try to unmarshal JSON data into DashboardScheduleNonCustomCronSpec
+		err = json.Unmarshal(data, &dst.DashboardScheduleNonCustomCronSpec)
+		if err == nil {
+			return nil // data stored in dst.DashboardScheduleNonCustomCronSpec, return on the first match
+		} else {
+			dst.DashboardScheduleNonCustomCronSpec = nil
+			return fmt.Errorf("failed to unmarshal DashboardScheduleCronSpec as DashboardScheduleNonCustomCronSpec: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'EVERY_WEEK'
+	if jsonDict["repeat"] == "EVERY_WEEK" {
+		// try to unmarshal JSON data into DashboardScheduleNonCustomCronSpec
+		err = json.Unmarshal(data, &dst.DashboardScheduleNonCustomCronSpec)
+		if err == nil {
+			return nil // data stored in dst.DashboardScheduleNonCustomCronSpec, return on the first match
+		} else {
+			dst.DashboardScheduleNonCustomCronSpec = nil
+			return fmt.Errorf("failed to unmarshal DashboardScheduleCronSpec as DashboardScheduleNonCustomCronSpec: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'NONE'
+	if jsonDict["repeat"] == "NONE" {
+		// try to unmarshal JSON data into DashboardScheduleNonCustomCronSpec
+		err = json.Unmarshal(data, &dst.DashboardScheduleNonCustomCronSpec)
+		if err == nil {
+			return nil // data stored in dst.DashboardScheduleNonCustomCronSpec, return on the first match
+		} else {
+			dst.DashboardScheduleNonCustomCronSpec = nil
+			return fmt.Errorf("failed to unmarshal DashboardScheduleCronSpec as DashboardScheduleNonCustomCronSpec: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'DashboardScheduleCustomCronSpec'
+	if jsonDict["repeat"] == "DashboardScheduleCustomCronSpec" {
+		// try to unmarshal JSON data into DashboardScheduleCustomCronSpec
+		err = json.Unmarshal(data, &dst.DashboardScheduleCustomCronSpec)
+		if err == nil {
+			return nil // data stored in dst.DashboardScheduleCustomCronSpec, return on the first match
+		} else {
+			dst.DashboardScheduleCustomCronSpec = nil
+			return fmt.Errorf("failed to unmarshal DashboardScheduleCronSpec as DashboardScheduleCustomCronSpec: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'DashboardScheduleNonCustomCronSpec'
+	if jsonDict["repeat"] == "DashboardScheduleNonCustomCronSpec" {
+		// try to unmarshal JSON data into DashboardScheduleNonCustomCronSpec
+		err = json.Unmarshal(data, &dst.DashboardScheduleNonCustomCronSpec)
+		if err == nil {
+			return nil // data stored in dst.DashboardScheduleNonCustomCronSpec, return on the first match
+		} else {
+			dst.DashboardScheduleNonCustomCronSpec = nil
+			return fmt.Errorf("failed to unmarshal DashboardScheduleCronSpec as DashboardScheduleNonCustomCronSpec: %s", err.Error())
+		}
+	}
+
+	return nil
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON
