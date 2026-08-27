@@ -20,7 +20,12 @@ var _ utils.MappedNullable = &DashboardScheduleCustomCronSpec{}
 
 // DashboardScheduleCustomCronSpec struct for DashboardScheduleCustomCronSpec
 type DashboardScheduleCustomCronSpec struct {
-	Repeat *DashboardScheduleCustomRepeatType `json:"repeat,omitempty"`
+	// Schedule start time as a Unix timestamp in seconds.
+	StartTime int64 `json:"startTime"`
+	// An IANA time zone identifier used to interpret `startTime` and recurrence. For example, `America/Los_Angeles`.
+	ZoneCode string `json:"zoneCode"`
+	Repeat DashboardScheduleCustomRepeatType `json:"repeat"`
+	EndRepeat *DashboardScheduleEndCondition `json:"endRepeat,omitempty"`
 	CustomRepeat DashboardScheduleCustomRepeat `json:"customRepeat"`
 }
 
@@ -30,8 +35,11 @@ type _DashboardScheduleCustomCronSpec DashboardScheduleCustomCronSpec
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDashboardScheduleCustomCronSpec(customRepeat DashboardScheduleCustomRepeat) *DashboardScheduleCustomCronSpec {
+func NewDashboardScheduleCustomCronSpec(startTime int64, zoneCode string, repeat DashboardScheduleCustomRepeatType, customRepeat DashboardScheduleCustomRepeat) *DashboardScheduleCustomCronSpec {
 	this := DashboardScheduleCustomCronSpec{}
+	this.StartTime = startTime
+	this.ZoneCode = zoneCode
+	this.Repeat = repeat
 	this.CustomRepeat = customRepeat
 	return &this
 }
@@ -44,36 +52,108 @@ func NewDashboardScheduleCustomCronSpecWithDefaults() *DashboardScheduleCustomCr
 	return &this
 }
 
-// GetRepeat returns the Repeat field value if set, zero value otherwise.
+// GetStartTime returns the StartTime field value
+func (o *DashboardScheduleCustomCronSpec) GetStartTime() int64 {
+	if o == nil {
+		var ret int64
+		return ret
+	}
+
+	return o.StartTime
+}
+
+// GetStartTimeOk returns a tuple with the StartTime field value
+// and a boolean to check if the value has been set.
+func (o *DashboardScheduleCustomCronSpec) GetStartTimeOk() (*int64, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.StartTime, true
+}
+
+// SetStartTime sets field value
+func (o *DashboardScheduleCustomCronSpec) SetStartTime(v int64) {
+	o.StartTime = v
+}
+
+// GetZoneCode returns the ZoneCode field value
+func (o *DashboardScheduleCustomCronSpec) GetZoneCode() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.ZoneCode
+}
+
+// GetZoneCodeOk returns a tuple with the ZoneCode field value
+// and a boolean to check if the value has been set.
+func (o *DashboardScheduleCustomCronSpec) GetZoneCodeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ZoneCode, true
+}
+
+// SetZoneCode sets field value
+func (o *DashboardScheduleCustomCronSpec) SetZoneCode(v string) {
+	o.ZoneCode = v
+}
+
+// GetRepeat returns the Repeat field value
 func (o *DashboardScheduleCustomCronSpec) GetRepeat() DashboardScheduleCustomRepeatType {
-	if o == nil || utils.IsNil(o.Repeat) {
+	if o == nil {
 		var ret DashboardScheduleCustomRepeatType
 		return ret
 	}
-	return *o.Repeat
+
+	return o.Repeat
 }
 
-// GetRepeatOk returns a tuple with the Repeat field value if set, nil otherwise
+// GetRepeatOk returns a tuple with the Repeat field value
 // and a boolean to check if the value has been set.
 func (o *DashboardScheduleCustomCronSpec) GetRepeatOk() (*DashboardScheduleCustomRepeatType, bool) {
-	if o == nil || utils.IsNil(o.Repeat) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Repeat, true
+	return &o.Repeat, true
 }
 
-// HasRepeat returns a boolean if a field has been set.
-func (o *DashboardScheduleCustomCronSpec) HasRepeat() bool {
-	if o != nil && !utils.IsNil(o.Repeat) {
+// SetRepeat sets field value
+func (o *DashboardScheduleCustomCronSpec) SetRepeat(v DashboardScheduleCustomRepeatType) {
+	o.Repeat = v
+}
+
+// GetEndRepeat returns the EndRepeat field value if set, zero value otherwise.
+func (o *DashboardScheduleCustomCronSpec) GetEndRepeat() DashboardScheduleEndCondition {
+	if o == nil || utils.IsNil(o.EndRepeat) {
+		var ret DashboardScheduleEndCondition
+		return ret
+	}
+	return *o.EndRepeat
+}
+
+// GetEndRepeatOk returns a tuple with the EndRepeat field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DashboardScheduleCustomCronSpec) GetEndRepeatOk() (*DashboardScheduleEndCondition, bool) {
+	if o == nil || utils.IsNil(o.EndRepeat) {
+		return nil, false
+	}
+	return o.EndRepeat, true
+}
+
+// HasEndRepeat returns a boolean if a field has been set.
+func (o *DashboardScheduleCustomCronSpec) HasEndRepeat() bool {
+	if o != nil && !utils.IsNil(o.EndRepeat) {
 		return true
 	}
 
 	return false
 }
 
-// SetRepeat gets a reference to the given DashboardScheduleCustomRepeatType and assigns it to the Repeat field.
-func (o *DashboardScheduleCustomCronSpec) SetRepeat(v DashboardScheduleCustomRepeatType) {
-	o.Repeat = &v
+// SetEndRepeat gets a reference to the given DashboardScheduleEndCondition and assigns it to the EndRepeat field.
+func (o *DashboardScheduleCustomCronSpec) SetEndRepeat(v DashboardScheduleEndCondition) {
+	o.EndRepeat = &v
 }
 
 // GetCustomRepeat returns the CustomRepeat field value
@@ -110,8 +190,11 @@ func (o DashboardScheduleCustomCronSpec) MarshalJSON() ([]byte, error) {
 
 func (o DashboardScheduleCustomCronSpec) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !utils.IsNil(o.Repeat) {
-		toSerialize["repeat"] = o.Repeat
+	toSerialize["startTime"] = o.StartTime
+	toSerialize["zoneCode"] = o.ZoneCode
+	toSerialize["repeat"] = o.Repeat
+	if !utils.IsNil(o.EndRepeat) {
+		toSerialize["endRepeat"] = o.EndRepeat
 	}
 	toSerialize["customRepeat"] = o.CustomRepeat
 	return toSerialize, nil
@@ -122,6 +205,9 @@ func (o *DashboardScheduleCustomCronSpec) UnmarshalJSON(data []byte) (err error)
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
+		"startTime",
+		"zoneCode",
+		"repeat",
 		"customRepeat",
 	}
 
