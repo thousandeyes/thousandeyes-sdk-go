@@ -77,8 +77,8 @@ type VoiceTestRequest struct {
 	SharedWithAccounts []string `json:"sharedWithAccounts,omitempty"`
 	// List of alert rules IDs to apply to the test (get `ruleId` from `/alerts/rules` endpoint. If `alertsEnabled` is set to `true` and `alertRules` is not included on test creation or update, applicable user default alert rules will be used)
 	AlertRules []string `json:"alertRules,omitempty"`
-	// Contains list of Agent IDs (get `agentId` from `/agents` endpoint).
-	Agents []TestAgentRequest `json:"agents"`
+	// Agents assigned to the test. To select a source interface, set `sourceIpAddress` on the same object as its `agentId`.
+	Agents []TestAgentWithSourceIpRequest `json:"agents"`
 	// Contains list of BGP monitor IDs (get `monitorId` from `/monitors` endpoint)
 	Monitors []string `json:"monitors,omitempty"`
 }
@@ -89,7 +89,7 @@ type _VoiceTestRequest VoiceTestRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewVoiceTestRequest(interval TestInterval, targetAgentId string, agents []TestAgentRequest) *VoiceTestRequest {
+func NewVoiceTestRequest(interval TestInterval, targetAgentId string, agents []TestAgentWithSourceIpRequest) *VoiceTestRequest {
 	this := VoiceTestRequest{}
 	this.Interval = interval
 	var enabled bool = true
@@ -1084,9 +1084,9 @@ func (o *VoiceTestRequest) SetAlertRules(v []string) {
 }
 
 // GetAgents returns the Agents field value
-func (o *VoiceTestRequest) GetAgents() []TestAgentRequest {
+func (o *VoiceTestRequest) GetAgents() []TestAgentWithSourceIpRequest {
 	if o == nil {
-		var ret []TestAgentRequest
+		var ret []TestAgentWithSourceIpRequest
 		return ret
 	}
 
@@ -1095,7 +1095,7 @@ func (o *VoiceTestRequest) GetAgents() []TestAgentRequest {
 
 // GetAgentsOk returns a tuple with the Agents field value
 // and a boolean to check if the value has been set.
-func (o *VoiceTestRequest) GetAgentsOk() ([]TestAgentRequest, bool) {
+func (o *VoiceTestRequest) GetAgentsOk() ([]TestAgentWithSourceIpRequest, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -1103,7 +1103,7 @@ func (o *VoiceTestRequest) GetAgentsOk() ([]TestAgentRequest, bool) {
 }
 
 // SetAgents sets field value
-func (o *VoiceTestRequest) SetAgents(v []TestAgentRequest) {
+func (o *VoiceTestRequest) SetAgents(v []TestAgentWithSourceIpRequest) {
 	o.Agents = v
 }
 

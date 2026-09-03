@@ -72,8 +72,8 @@ type AgentToServerInstantTestRequest struct {
 	Tags []string `json:"tags,omitempty"`
 	// A list of account group identifiers that the test is shared with (get `aid` from `/account-groups` endpoint).
 	SharedWithAccounts []string `json:"sharedWithAccounts,omitempty"`
-	// A list of objects with `agentId` (required) and `sourceIpAddress` (optional).
-	Agents []TestAgent `json:"agents"`
+	// Agents assigned to the test. To select a source interface, set `sourceIpAddress` on the same object as its `agentId`.
+	Agents []TestAgentWithSourceIpAddress `json:"agents"`
 }
 
 type _AgentToServerInstantTestRequest AgentToServerInstantTestRequest
@@ -82,7 +82,7 @@ type _AgentToServerInstantTestRequest AgentToServerInstantTestRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAgentToServerInstantTestRequest(server string, agents []TestAgent) *AgentToServerInstantTestRequest {
+func NewAgentToServerInstantTestRequest(server string, agents []TestAgentWithSourceIpAddress) *AgentToServerInstantTestRequest {
 	this := AgentToServerInstantTestRequest{}
 	var numPathTraces int32 = 3
 	this.NumPathTraces = &numPathTraces
@@ -1050,9 +1050,9 @@ func (o *AgentToServerInstantTestRequest) SetSharedWithAccounts(v []string) {
 }
 
 // GetAgents returns the Agents field value
-func (o *AgentToServerInstantTestRequest) GetAgents() []TestAgent {
+func (o *AgentToServerInstantTestRequest) GetAgents() []TestAgentWithSourceIpAddress {
 	if o == nil {
-		var ret []TestAgent
+		var ret []TestAgentWithSourceIpAddress
 		return ret
 	}
 
@@ -1061,7 +1061,7 @@ func (o *AgentToServerInstantTestRequest) GetAgents() []TestAgent {
 
 // GetAgentsOk returns a tuple with the Agents field value
 // and a boolean to check if the value has been set.
-func (o *AgentToServerInstantTestRequest) GetAgentsOk() ([]TestAgent, bool) {
+func (o *AgentToServerInstantTestRequest) GetAgentsOk() ([]TestAgentWithSourceIpAddress, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -1069,7 +1069,7 @@ func (o *AgentToServerInstantTestRequest) GetAgentsOk() ([]TestAgent, bool) {
 }
 
 // SetAgents sets field value
-func (o *AgentToServerInstantTestRequest) SetAgents(v []TestAgent) {
+func (o *AgentToServerInstantTestRequest) SetAgents(v []TestAgentWithSourceIpAddress) {
 	o.Agents = v
 }
 

@@ -22,8 +22,6 @@ var _ utils.MappedNullable = &TestAgentRequest{}
 type TestAgentRequest struct {
 	// The agent ID. Get `agentId` from `/agents` endpoint.
 	AgentId string `json:"agentId"`
-	// The IP address from the `ipAddresses` field in agent details, used for interface selection. Get `ipAddresses` from the `/agents` endpoint.
-	SourceIpAddress *string `json:"sourceIpAddress,omitempty"`
 }
 
 type _TestAgentRequest TestAgentRequest
@@ -70,38 +68,6 @@ func (o *TestAgentRequest) SetAgentId(v string) {
 	o.AgentId = v
 }
 
-// GetSourceIpAddress returns the SourceIpAddress field value if set, zero value otherwise.
-func (o *TestAgentRequest) GetSourceIpAddress() string {
-	if o == nil || utils.IsNil(o.SourceIpAddress) {
-		var ret string
-		return ret
-	}
-	return *o.SourceIpAddress
-}
-
-// GetSourceIpAddressOk returns a tuple with the SourceIpAddress field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *TestAgentRequest) GetSourceIpAddressOk() (*string, bool) {
-	if o == nil || utils.IsNil(o.SourceIpAddress) {
-		return nil, false
-	}
-	return o.SourceIpAddress, true
-}
-
-// HasSourceIpAddress returns a boolean if a field has been set.
-func (o *TestAgentRequest) HasSourceIpAddress() bool {
-	if o != nil && !utils.IsNil(o.SourceIpAddress) {
-		return true
-	}
-
-	return false
-}
-
-// SetSourceIpAddress gets a reference to the given string and assigns it to the SourceIpAddress field.
-func (o *TestAgentRequest) SetSourceIpAddress(v string) {
-	o.SourceIpAddress = &v
-}
-
 func (o TestAgentRequest) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -113,9 +79,6 @@ func (o TestAgentRequest) MarshalJSON() ([]byte, error) {
 func (o TestAgentRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["agentId"] = o.AgentId
-	if !utils.IsNil(o.SourceIpAddress) {
-		toSerialize["sourceIpAddress"] = o.SourceIpAddress
-	}
 	return toSerialize, nil
 }
 
