@@ -40,7 +40,6 @@ docs/SIPServerInstantTestsAPI.md
 docs/VoiceInstantTestsAPI.md
 docs/WebTransactionInstantTestsAPI.md
 model_agent_base.go
-model_agent_interfaces.go
 model_agent_response.go
 model_agent_to_agent_instant_test_.go
 model_agent_to_agent_instant_test_request.go
@@ -96,6 +95,7 @@ model_http_server_instant_test_response.go
 model_http_server_properties.go
 model_instant_test_.go
 model_instant_test_request.go
+model_instant_test_request_properties.go
 model_link.go
 model_network_provider_info.go
 model_network_provider_type.go
@@ -114,9 +114,11 @@ model_sip_server_instant_test_request.go
 model_sip_server_instant_test_response.go
 model_sip_server_properties.go
 model_sip_test_protocol.go
+model_source_interface_instant_test_request.go
 model_test_agent.go
 model_test_agent_response.go
 model_test_agent_response_properties.go
+model_test_agent_with_source_ip_address.go
 model_test_auth_type.go
 model_test_chromium_track.go
 model_test_custom_headers.go

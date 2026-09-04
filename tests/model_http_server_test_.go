@@ -54,7 +54,6 @@ type HttpServerTest struct {
 	Tags []TestTag `json:"tags,omitempty"`
 	SharedWithAccounts []SharedWithAccount `json:"sharedWithAccounts,omitempty"`
 	AuthType *TestAuthType `json:"authType,omitempty"`
-	AgentInterfaces *AgentInterfaces `json:"agentInterfaces,omitempty"`
 	// Set to `true` to enable bandwidth measurements, only applies to Enterprise agents assigned to the test.
 	BandwidthMeasurements *bool `json:"bandwidthMeasurements,omitempty"`
 	// String representation (containing newline characters) of client certificate, the private key must be placed first, then the certificate.
@@ -838,38 +837,6 @@ func (o *HttpServerTest) HasAuthType() bool {
 // SetAuthType gets a reference to the given TestAuthType and assigns it to the AuthType field.
 func (o *HttpServerTest) SetAuthType(v TestAuthType) {
 	o.AuthType = &v
-}
-
-// GetAgentInterfaces returns the AgentInterfaces field value if set, zero value otherwise.
-func (o *HttpServerTest) GetAgentInterfaces() AgentInterfaces {
-	if o == nil || utils.IsNil(o.AgentInterfaces) {
-		var ret AgentInterfaces
-		return ret
-	}
-	return *o.AgentInterfaces
-}
-
-// GetAgentInterfacesOk returns a tuple with the AgentInterfaces field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *HttpServerTest) GetAgentInterfacesOk() (*AgentInterfaces, bool) {
-	if o == nil || utils.IsNil(o.AgentInterfaces) {
-		return nil, false
-	}
-	return o.AgentInterfaces, true
-}
-
-// HasAgentInterfaces returns a boolean if a field has been set.
-func (o *HttpServerTest) HasAgentInterfaces() bool {
-	if o != nil && !utils.IsNil(o.AgentInterfaces) {
-		return true
-	}
-
-	return false
-}
-
-// SetAgentInterfaces gets a reference to the given AgentInterfaces and assigns it to the AgentInterfaces field.
-func (o *HttpServerTest) SetAgentInterfaces(v AgentInterfaces) {
-	o.AgentInterfaces = &v
 }
 
 // GetBandwidthMeasurements returns the BandwidthMeasurements field value if set, zero value otherwise.
@@ -2272,9 +2239,6 @@ func (o HttpServerTest) ToMap() (map[string]interface{}, error) {
 	}
 	if !utils.IsNil(o.AuthType) {
 		toSerialize["authType"] = o.AuthType
-	}
-	if !utils.IsNil(o.AgentInterfaces) {
-		toSerialize["agentInterfaces"] = o.AgentInterfaces
 	}
 	if !utils.IsNil(o.BandwidthMeasurements) {
 		toSerialize["bandwidthMeasurements"] = o.BandwidthMeasurements

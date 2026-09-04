@@ -46,7 +46,6 @@ docs/TestsAPI.md
 docs/VoiceTestsAPI.md
 docs/WebTransactionTestsAPI.md
 model_agent_base.go
-model_agent_interfaces.go
 model_agent_response.go
 model_agent_to_agent_instant_test_.go
 model_agent_to_agent_properties.go
@@ -161,9 +160,11 @@ model_sip_server_test_request.go
 model_sip_server_test_response.go
 model_sip_server_tests.go
 model_sip_test_protocol.go
+model_source_interface_test_request.go
 model_test_agent_request.go
 model_test_agent_response.go
 model_test_agent_response_properties.go
+model_test_agent_with_source_ip_request.go
 model_test_auth_type.go
 model_test_chromium_track.go
 model_test_custom_headers.go

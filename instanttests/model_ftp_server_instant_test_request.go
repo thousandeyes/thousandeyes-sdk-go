@@ -80,8 +80,8 @@ type FtpServerInstantTestRequest struct {
 	Tags []string `json:"tags,omitempty"`
 	// A list of account group identifiers that the test is shared with (get `aid` from `/account-groups` endpoint).
 	SharedWithAccounts []string `json:"sharedWithAccounts,omitempty"`
-	// A list of objects with `agentId` (required) and `sourceIpAddress` (optional).
-	Agents []TestAgent `json:"agents"`
+	// Agents assigned to the test. To select a source interface, set `sourceIpAddress` on the same object as its `agentId`.
+	Agents []TestAgentWithSourceIpAddress `json:"agents"`
 }
 
 type _FtpServerInstantTestRequest FtpServerInstantTestRequest
@@ -90,7 +90,7 @@ type _FtpServerInstantTestRequest FtpServerInstantTestRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFtpServerInstantTestRequest(password string, requestType FtpServerRequestType, url string, username string, agents []TestAgent) *FtpServerInstantTestRequest {
+func NewFtpServerInstantTestRequest(password string, requestType FtpServerRequestType, url string, username string, agents []TestAgentWithSourceIpAddress) *FtpServerInstantTestRequest {
 	this := FtpServerInstantTestRequest{}
 	var ftpTimeLimit int32 = 10
 	this.FtpTimeLimit = &ftpTimeLimit
@@ -1169,9 +1169,9 @@ func (o *FtpServerInstantTestRequest) SetSharedWithAccounts(v []string) {
 }
 
 // GetAgents returns the Agents field value
-func (o *FtpServerInstantTestRequest) GetAgents() []TestAgent {
+func (o *FtpServerInstantTestRequest) GetAgents() []TestAgentWithSourceIpAddress {
 	if o == nil {
-		var ret []TestAgent
+		var ret []TestAgentWithSourceIpAddress
 		return ret
 	}
 
@@ -1180,7 +1180,7 @@ func (o *FtpServerInstantTestRequest) GetAgents() []TestAgent {
 
 // GetAgentsOk returns a tuple with the Agents field value
 // and a boolean to check if the value has been set.
-func (o *FtpServerInstantTestRequest) GetAgentsOk() ([]TestAgent, bool) {
+func (o *FtpServerInstantTestRequest) GetAgentsOk() ([]TestAgentWithSourceIpAddress, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -1188,7 +1188,7 @@ func (o *FtpServerInstantTestRequest) GetAgentsOk() ([]TestAgent, bool) {
 }
 
 // SetAgents sets field value
-func (o *FtpServerInstantTestRequest) SetAgents(v []TestAgent) {
+func (o *FtpServerInstantTestRequest) SetAgents(v []TestAgentWithSourceIpAddress) {
 	o.Agents = v
 }
 

@@ -81,7 +81,7 @@ type ApiInstantTestRequest struct {
 	Tags []string `json:"tags,omitempty"`
 	// A list of account group identifiers that the test is shared with (get `aid` from `/account-groups` endpoint).
 	SharedWithAccounts []string `json:"sharedWithAccounts,omitempty"`
-	// A list of objects with `agentId` (required) and `sourceIpAddress` (optional).
+	// Agents assigned to the test.
 	Agents []TestAgent `json:"agents"`
 	// Contains a list of credential IDs (get `credentialId` from `/credentials` endpoint).
 	Credentials []string `json:"credentials,omitempty"`

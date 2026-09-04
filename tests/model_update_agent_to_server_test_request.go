@@ -54,8 +54,8 @@ type UpdateAgentToServerTestRequest struct {
 	PingPayloadSize *int32 `json:"pingPayloadSize,omitempty"`
 	// View packet loss in 1-second intervals. This is only available for 1-minute interval tests. Set to `true` to enable network measurements.
 	NetworkMeasurements *bool `json:"networkMeasurements,omitempty"`
-	// Contains list of Agent IDs (get `agentId` from `/agents` endpoint).
-	Agents []TestAgentRequest `json:"agents,omitempty"`
+	// Agents assigned to the test. To select a source interface, set `sourceIpAddress` on the same object as its `agentId`.
+	Agents []TestAgentWithSourceIpRequest `json:"agents,omitempty"`
 	Interval *TestInterval `json:"interval,omitempty"`
 	// Indicates if alerts are enabled.
 	AlertsEnabled *bool `json:"alertsEnabled,omitempty"`
@@ -779,9 +779,9 @@ func (o *UpdateAgentToServerTestRequest) SetNetworkMeasurements(v bool) {
 }
 
 // GetAgents returns the Agents field value if set, zero value otherwise.
-func (o *UpdateAgentToServerTestRequest) GetAgents() []TestAgentRequest {
+func (o *UpdateAgentToServerTestRequest) GetAgents() []TestAgentWithSourceIpRequest {
 	if o == nil || utils.IsNil(o.Agents) {
-		var ret []TestAgentRequest
+		var ret []TestAgentWithSourceIpRequest
 		return ret
 	}
 	return o.Agents
@@ -789,7 +789,7 @@ func (o *UpdateAgentToServerTestRequest) GetAgents() []TestAgentRequest {
 
 // GetAgentsOk returns a tuple with the Agents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdateAgentToServerTestRequest) GetAgentsOk() ([]TestAgentRequest, bool) {
+func (o *UpdateAgentToServerTestRequest) GetAgentsOk() ([]TestAgentWithSourceIpRequest, bool) {
 	if o == nil || utils.IsNil(o.Agents) {
 		return nil, false
 	}
@@ -805,8 +805,8 @@ func (o *UpdateAgentToServerTestRequest) HasAgents() bool {
 	return false
 }
 
-// SetAgents gets a reference to the given []TestAgentRequest and assigns it to the Agents field.
-func (o *UpdateAgentToServerTestRequest) SetAgents(v []TestAgentRequest) {
+// SetAgents gets a reference to the given []TestAgentWithSourceIpRequest and assigns it to the Agents field.
+func (o *UpdateAgentToServerTestRequest) SetAgents(v []TestAgentWithSourceIpRequest) {
 	o.Agents = v
 }
 

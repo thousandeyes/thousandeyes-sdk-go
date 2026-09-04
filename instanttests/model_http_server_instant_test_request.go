@@ -42,7 +42,6 @@ type HttpServerInstantTestRequest struct {
 	Type *string `json:"type,omitempty"`
 	Links *TestLinks `json:"_links,omitempty"`
 	AuthType *TestAuthType `json:"authType,omitempty"`
-	AgentInterfaces *AgentInterfaces `json:"agentInterfaces,omitempty"`
 	// Set to `true` to enable bandwidth measurements, only applies to Enterprise agents assigned to the test.
 	BandwidthMeasurements *bool `json:"bandwidthMeasurements,omitempty"`
 	// String representation (containing newline characters) of client certificate, the private key must be placed first, then the certificate.
@@ -119,8 +118,8 @@ type HttpServerInstantTestRequest struct {
 	Tags []string `json:"tags,omitempty"`
 	// A list of account group identifiers that the test is shared with (get `aid` from `/account-groups` endpoint).
 	SharedWithAccounts []string `json:"sharedWithAccounts,omitempty"`
-	// A list of objects with `agentId` (required) and `sourceIpAddress` (optional).
-	Agents []TestAgent `json:"agents"`
+	// Agents assigned to the test. To select a source interface, set `sourceIpAddress` on the same object as its `agentId`.
+	Agents []TestAgentWithSourceIpAddress `json:"agents"`
 }
 
 type _HttpServerInstantTestRequest HttpServerInstantTestRequest
@@ -129,7 +128,7 @@ type _HttpServerInstantTestRequest HttpServerInstantTestRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewHttpServerInstantTestRequest(url string, agents []TestAgent) *HttpServerInstantTestRequest {
+func NewHttpServerInstantTestRequest(url string, agents []TestAgentWithSourceIpAddress) *HttpServerInstantTestRequest {
 	this := HttpServerInstantTestRequest{}
 	var authType TestAuthType = "none"
 	this.AuthType = &authType
@@ -598,38 +597,6 @@ func (o *HttpServerInstantTestRequest) HasAuthType() bool {
 // SetAuthType gets a reference to the given TestAuthType and assigns it to the AuthType field.
 func (o *HttpServerInstantTestRequest) SetAuthType(v TestAuthType) {
 	o.AuthType = &v
-}
-
-// GetAgentInterfaces returns the AgentInterfaces field value if set, zero value otherwise.
-func (o *HttpServerInstantTestRequest) GetAgentInterfaces() AgentInterfaces {
-	if o == nil || utils.IsNil(o.AgentInterfaces) {
-		var ret AgentInterfaces
-		return ret
-	}
-	return *o.AgentInterfaces
-}
-
-// GetAgentInterfacesOk returns a tuple with the AgentInterfaces field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *HttpServerInstantTestRequest) GetAgentInterfacesOk() (*AgentInterfaces, bool) {
-	if o == nil || utils.IsNil(o.AgentInterfaces) {
-		return nil, false
-	}
-	return o.AgentInterfaces, true
-}
-
-// HasAgentInterfaces returns a boolean if a field has been set.
-func (o *HttpServerInstantTestRequest) HasAgentInterfaces() bool {
-	if o != nil && !utils.IsNil(o.AgentInterfaces) {
-		return true
-	}
-
-	return false
-}
-
-// SetAgentInterfaces gets a reference to the given AgentInterfaces and assigns it to the AgentInterfaces field.
-func (o *HttpServerInstantTestRequest) SetAgentInterfaces(v AgentInterfaces) {
-	o.AgentInterfaces = &v
 }
 
 // GetBandwidthMeasurements returns the BandwidthMeasurements field value if set, zero value otherwise.
@@ -1969,9 +1936,9 @@ func (o *HttpServerInstantTestRequest) SetSharedWithAccounts(v []string) {
 }
 
 // GetAgents returns the Agents field value
-func (o *HttpServerInstantTestRequest) GetAgents() []TestAgent {
+func (o *HttpServerInstantTestRequest) GetAgents() []TestAgentWithSourceIpAddress {
 	if o == nil {
-		var ret []TestAgent
+		var ret []TestAgentWithSourceIpAddress
 		return ret
 	}
 
@@ -1980,7 +1947,7 @@ func (o *HttpServerInstantTestRequest) GetAgents() []TestAgent {
 
 // GetAgentsOk returns a tuple with the Agents field value
 // and a boolean to check if the value has been set.
-func (o *HttpServerInstantTestRequest) GetAgentsOk() ([]TestAgent, bool) {
+func (o *HttpServerInstantTestRequest) GetAgentsOk() ([]TestAgentWithSourceIpAddress, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -1988,7 +1955,7 @@ func (o *HttpServerInstantTestRequest) GetAgentsOk() ([]TestAgent, bool) {
 }
 
 // SetAgents sets field value
-func (o *HttpServerInstantTestRequest) SetAgents(v []TestAgent) {
+func (o *HttpServerInstantTestRequest) SetAgents(v []TestAgentWithSourceIpAddress) {
 	o.Agents = v
 }
 
@@ -2037,9 +2004,6 @@ func (o HttpServerInstantTestRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if !utils.IsNil(o.AuthType) {
 		toSerialize["authType"] = o.AuthType
-	}
-	if !utils.IsNil(o.AgentInterfaces) {
-		toSerialize["agentInterfaces"] = o.AgentInterfaces
 	}
 	if !utils.IsNil(o.BandwidthMeasurements) {
 		toSerialize["bandwidthMeasurements"] = o.BandwidthMeasurements
