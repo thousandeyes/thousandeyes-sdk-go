@@ -33,7 +33,7 @@ import (
 )
 
 func main() {
-	agentToAgentTestRequest := *tests.NewAgentToAgentTestRequest(tests.TestInterval(60), "2954", []tests.TestAgentRequest{*tests.NewTestAgentRequest("AgentId_example")}) // AgentToAgentTestRequest | 
+	agentToAgentTestRequest := *tests.NewAgentToAgentTestRequest(tests.TestInterval(60), "2954", []tests.TestAgentWithSourceIpRequest{*tests.NewTestAgentWithSourceIpRequest("AgentId_example")}) // AgentToAgentTestRequest | 
 	aid := "1234" // string | A unique identifier associated with your account group. You can retrieve your `AccountGroupId` from the `/account-groups` endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. (optional)
 	expand := []tests.ExpandTestOptions{tests.ExpandTestOptions("agent")} // []ExpandTestOptions | Optional parameter on whether or not to expand the test sub-resources. By default no expansion is going to take place if the query parameter is not present. If the user wishes to expand the `agents` sub-resource, they need to pass the `?expand=agent` query. (optional)
 
@@ -319,7 +319,7 @@ import (
 
 func main() {
 	testId := "202701" // string | Test ID
-	agentToAgentTestRequest := *tests.NewAgentToAgentTestRequest(tests.TestInterval(60), "2954", []tests.TestAgentRequest{*tests.NewTestAgentRequest("AgentId_example")}) // AgentToAgentTestRequest | 
+	agentToAgentTestRequest := *tests.NewAgentToAgentTestRequest(tests.TestInterval(60), "2954", []tests.TestAgentWithSourceIpRequest{*tests.NewTestAgentWithSourceIpRequest("AgentId_example")}) // AgentToAgentTestRequest | 
 	aid := "1234" // string | A unique identifier associated with your account group. You can retrieve your `AccountGroupId` from the `/account-groups` endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. (optional)
 	expand := []tests.ExpandTestOptions{tests.ExpandTestOptions("agent")} // []ExpandTestOptions | Optional parameter on whether or not to expand the test sub-resources. By default no expansion is going to take place if the query parameter is not present. If the user wishes to expand the `agents` sub-resource, they need to pass the `?expand=agent` query. (optional)
 

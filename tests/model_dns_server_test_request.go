@@ -82,7 +82,7 @@ type DnsServerTestRequest struct {
 	SharedWithAccounts []string `json:"sharedWithAccounts,omitempty"`
 	// List of alert rules IDs to apply to the test (get `ruleId` from `/alerts/rules` endpoint. If `alertsEnabled` is set to `true` and `alertRules` is not included on test creation or update, applicable user default alert rules will be used)
 	AlertRules []string `json:"alertRules,omitempty"`
-	// Contains list of Agent IDs (get `agentId` from `/agents` endpoint).
+	// Agents assigned to the test.
 	Agents []TestAgentRequest `json:"agents"`
 	// Contains list of BGP monitor IDs (get `monitorId` from `/monitors` endpoint)
 	Monitors []string `json:"monitors,omitempty"`

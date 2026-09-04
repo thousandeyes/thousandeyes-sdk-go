@@ -68,8 +68,8 @@ type SipServerInstantTestRequest struct {
 	Tags []string `json:"tags,omitempty"`
 	// A list of account group identifiers that the test is shared with (get `aid` from `/account-groups` endpoint).
 	SharedWithAccounts []string `json:"sharedWithAccounts,omitempty"`
-	// A list of objects with `agentId` (required) and `sourceIpAddress` (optional).
-	Agents []TestAgent `json:"agents"`
+	// Agents assigned to the test. To select a source interface, set `sourceIpAddress` on the same object as its `agentId`.
+	Agents []TestAgentWithSourceIpAddress `json:"agents"`
 	TargetSipCredentials TestSipCredentials `json:"targetSipCredentials"`
 }
 
@@ -79,7 +79,7 @@ type _SipServerInstantTestRequest SipServerInstantTestRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSipServerInstantTestRequest(agents []TestAgent, targetSipCredentials TestSipCredentials) *SipServerInstantTestRequest {
+func NewSipServerInstantTestRequest(agents []TestAgentWithSourceIpAddress, targetSipCredentials TestSipCredentials) *SipServerInstantTestRequest {
 	this := SipServerInstantTestRequest{}
 	var networkMeasurements bool = true
 	this.NetworkMeasurements = &networkMeasurements
@@ -959,9 +959,9 @@ func (o *SipServerInstantTestRequest) SetSharedWithAccounts(v []string) {
 }
 
 // GetAgents returns the Agents field value
-func (o *SipServerInstantTestRequest) GetAgents() []TestAgent {
+func (o *SipServerInstantTestRequest) GetAgents() []TestAgentWithSourceIpAddress {
 	if o == nil {
-		var ret []TestAgent
+		var ret []TestAgentWithSourceIpAddress
 		return ret
 	}
 
@@ -970,7 +970,7 @@ func (o *SipServerInstantTestRequest) GetAgents() []TestAgent {
 
 // GetAgentsOk returns a tuple with the Agents field value
 // and a boolean to check if the value has been set.
-func (o *SipServerInstantTestRequest) GetAgentsOk() ([]TestAgent, bool) {
+func (o *SipServerInstantTestRequest) GetAgentsOk() ([]TestAgentWithSourceIpAddress, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -978,7 +978,7 @@ func (o *SipServerInstantTestRequest) GetAgentsOk() ([]TestAgent, bool) {
 }
 
 // SetAgents sets field value
-func (o *SipServerInstantTestRequest) SetAgents(v []TestAgent) {
+func (o *SipServerInstantTestRequest) SetAgents(v []TestAgentWithSourceIpAddress) {
 	o.Agents = v
 }
 

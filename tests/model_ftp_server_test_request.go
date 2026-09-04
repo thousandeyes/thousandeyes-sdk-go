@@ -91,8 +91,8 @@ type FtpServerTestRequest struct {
 	SharedWithAccounts []string `json:"sharedWithAccounts,omitempty"`
 	// List of alert rules IDs to apply to the test (get `ruleId` from `/alerts/rules` endpoint. If `alertsEnabled` is set to `true` and `alertRules` is not included on test creation or update, applicable user default alert rules will be used)
 	AlertRules []string `json:"alertRules,omitempty"`
-	// Contains list of Agent IDs (get `agentId` from `/agents` endpoint).
-	Agents []TestAgentRequest `json:"agents"`
+	// Agents assigned to the test. To select a source interface, set `sourceIpAddress` on the same object as its `agentId`.
+	Agents []TestAgentWithSourceIpRequest `json:"agents"`
 	// Contains list of BGP monitor IDs (get `monitorId` from `/monitors` endpoint)
 	Monitors []string `json:"monitors,omitempty"`
 }
@@ -103,7 +103,7 @@ type _FtpServerTestRequest FtpServerTestRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFtpServerTestRequest(interval TestInterval, password string, requestType FtpServerRequestType, url string, username string, agents []TestAgentRequest) *FtpServerTestRequest {
+func NewFtpServerTestRequest(interval TestInterval, password string, requestType FtpServerRequestType, url string, username string, agents []TestAgentWithSourceIpRequest) *FtpServerTestRequest {
 	this := FtpServerTestRequest{}
 	this.Interval = interval
 	var enabled bool = true
@@ -1381,9 +1381,9 @@ func (o *FtpServerTestRequest) SetAlertRules(v []string) {
 }
 
 // GetAgents returns the Agents field value
-func (o *FtpServerTestRequest) GetAgents() []TestAgentRequest {
+func (o *FtpServerTestRequest) GetAgents() []TestAgentWithSourceIpRequest {
 	if o == nil {
-		var ret []TestAgentRequest
+		var ret []TestAgentWithSourceIpRequest
 		return ret
 	}
 
@@ -1392,7 +1392,7 @@ func (o *FtpServerTestRequest) GetAgents() []TestAgentRequest {
 
 // GetAgentsOk returns a tuple with the Agents field value
 // and a boolean to check if the value has been set.
-func (o *FtpServerTestRequest) GetAgentsOk() ([]TestAgentRequest, bool) {
+func (o *FtpServerTestRequest) GetAgentsOk() ([]TestAgentWithSourceIpRequest, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -1400,7 +1400,7 @@ func (o *FtpServerTestRequest) GetAgentsOk() ([]TestAgentRequest, bool) {
 }
 
 // SetAgents sets field value
-func (o *FtpServerTestRequest) SetAgents(v []TestAgentRequest) {
+func (o *FtpServerTestRequest) SetAgents(v []TestAgentWithSourceIpRequest) {
 	o.Agents = v
 }
 
