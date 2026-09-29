@@ -21,7 +21,7 @@ var _ utils.MappedNullable = &Stream{}
 type Stream struct {
 	// Name of the data stream. When omitted, a name is generated on creation and the existing name is preserved on update.
 	Name *string `json:"name,omitempty"`
-	// Custom headers.
+	// Custom headers. Send `{}` to clear existing headers.
 	CustomHeaders *map[string]string `json:"customHeaders,omitempty"`
 	// The URL ThousandEyes sends data stream to. For a URL to be valid, it needs to: - Be syntactically correct. - Be reachable. - Use the HTTPS protocol. - When using the `grpc` endpointType, streamEndpointUrl cannot contain paths:     - Valid . `grpc` - `https://example.com`     - Invalid . `grpc` - `https://example.com/collector`.     - Valid . `http` - `https://example.com/collector`.  - When using the `http` endpointType, the operation must match the exact final full URL (including the path if there is one) to which the data will be sent. Examples below:     - `https://api.honeycomb.io:443/v1/metrics`     - `https://ingest.eu0.signalfx.com/v2/datapoint/otlp`
 	StreamEndpointUrl *string `json:"streamEndpointUrl,omitempty"`
