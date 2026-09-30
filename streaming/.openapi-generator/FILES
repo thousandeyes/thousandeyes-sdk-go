@@ -19,6 +19,10 @@ model_exporter_config_authorization.go
 model_exporter_config_o_auth2.go
 model_exporter_config_splunk_hec.go
 model_filters.go
+model_filters_attributes.go
+model_filters_attributes_excluded_attributes.go
+model_filters_metrics.go
+model_filters_metrics_excluded_metrics.go
 model_filters_test_types.go
 model_get_stream_response.go
 model_input_config.go
@@ -37,3 +41,9 @@ model_test_match.go
 model_test_match_domain.go
 model_test_type.go
 model_unauthorized_error.go
+model_v1_metric_attribute_filter_name.go
+model_v1_metric_filter_name.go
+model_v2_log_attribute_filter_name.go
+model_v2_metric_attribute_filter_name.go
+model_v2_metric_filter_name.go
+model_v2_trace_attribute_filter_name.go
