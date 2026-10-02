@@ -32,7 +32,7 @@ type CreateStreamResponse struct {
 	DataModelVersion *DataModelVersion `json:"dataModelVersion,omitempty"`
 	// Name of the data stream. When omitted, a name is generated on creation and the existing name is preserved on update.
 	Name *string `json:"name,omitempty"`
-	// Custom headers.
+	// Custom headers. Send `{}` to clear existing headers.
 	CustomHeaders *map[string]string `json:"customHeaders,omitempty"`
 	// A collection of tags that determine what tests are included in the data stream. These tag values are also included as attributes in the data stream metrics. Tags are invalid if the tag key includes characters that are not allowed by the [OpenTelemetry naming recommendations for attributes](https://opentelemetry.io/docs/specs/semconv/general/naming/#recommendations-for-application-developers).
 	TagMatch []TagMatch `json:"tagMatch,omitempty"`
