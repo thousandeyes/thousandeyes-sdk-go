@@ -51,7 +51,7 @@ func (r ApiGetUserEventsRequest) UseAllPermittedAids(useAllPermittedAids bool) A
 	return r
 }
 
-// A dynamic time interval up to the current time of the request. Specify the interval as a number followed by an optional type: &#x60;s&#x60; for seconds (default if no type is specified), &#x60;m&#x60; for minutes, &#x60;h&#x60; for hours, &#x60;d&#x60; for days, and &#x60;w&#x60; for weeks. For a precise date range, use &#x60;startDate&#x60; and &#x60;endDate&#x60;.
+// A dynamic time interval up to the current time of the request. Specify the interval as a number followed by a type: &#x60;s&#x60; for seconds, &#x60;m&#x60; for minutes, &#x60;h&#x60; for hours, &#x60;d&#x60; for days, and &#x60;w&#x60; for weeks. For a precise date range, use &#x60;startDate&#x60; and &#x60;endDate&#x60;.
 func (r ApiGetUserEventsRequest) Window(window string) ApiGetUserEventsRequest {
 	r.window = &window
 	return r

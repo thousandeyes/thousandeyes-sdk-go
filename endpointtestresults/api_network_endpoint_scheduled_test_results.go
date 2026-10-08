@@ -48,7 +48,7 @@ func (r ApiFilterScheduledTestNetworkResultsRequest) Aid(aid string) ApiFilterSc
 	return r
 }
 
-// A dynamic time interval up to the current time of the request. Specify the interval as a number followed by an optional type: &#x60;s&#x60; for seconds (default if no type is specified), &#x60;m&#x60; for minutes, &#x60;h&#x60; for hours, &#x60;d&#x60; for days, and &#x60;w&#x60; for weeks. For a precise date range, use &#x60;startDate&#x60; and &#x60;endDate&#x60;.
+// A dynamic time interval up to the current time of the request. Specify the interval as a number followed by a type: &#x60;s&#x60; for seconds, &#x60;m&#x60; for minutes, &#x60;h&#x60; for hours, &#x60;d&#x60; for days, and &#x60;w&#x60; for weeks. For a precise date range, use &#x60;startDate&#x60; and &#x60;endDate&#x60;.
 func (r ApiFilterScheduledTestNetworkResultsRequest) Window(window string) ApiFilterScheduledTestNetworkResultsRequest {
 	r.window = &window
 	return r
@@ -281,7 +281,7 @@ func (r ApiFilterScheduledTestsNetworkResultsRequest) Aid(aid string) ApiFilterS
 	return r
 }
 
-// A dynamic time interval up to the current time of the request. Specify the interval as a number followed by an optional type: &#x60;s&#x60; for seconds (default if no type is specified), &#x60;m&#x60; for minutes, &#x60;h&#x60; for hours, &#x60;d&#x60; for days, and &#x60;w&#x60; for weeks. For a precise date range, use &#x60;startDate&#x60; and &#x60;endDate&#x60;.
+// A dynamic time interval up to the current time of the request. Specify the interval as a number followed by a type: &#x60;s&#x60; for seconds, &#x60;m&#x60; for minutes, &#x60;h&#x60; for hours, &#x60;d&#x60; for days, and &#x60;w&#x60; for weeks. For a precise date range, use &#x60;startDate&#x60; and &#x60;endDate&#x60;.
 func (r ApiFilterScheduledTestsNetworkResultsRequest) Window(window string) ApiFilterScheduledTestsNetworkResultsRequest {
 	r.window = &window
 	return r
@@ -664,7 +664,7 @@ func (r ApiGetScheduledTestPathVisResultsRequest) Aid(aid string) ApiGetSchedule
 	return r
 }
 
-// A dynamic time interval up to the current time of the request. Specify the interval as a number followed by an optional type: &#x60;s&#x60; for seconds (default if no type is specified), &#x60;m&#x60; for minutes, &#x60;h&#x60; for hours, &#x60;d&#x60; for days, and &#x60;w&#x60; for weeks. For a precise date range, use &#x60;startDate&#x60; and &#x60;endDate&#x60;.
+// A dynamic time interval up to the current time of the request. Specify the interval as a number followed by a type: &#x60;s&#x60; for seconds, &#x60;m&#x60; for minutes, &#x60;h&#x60; for hours, &#x60;d&#x60; for days, and &#x60;w&#x60; for weeks. For a precise date range, use &#x60;startDate&#x60; and &#x60;endDate&#x60;.
 func (r ApiGetScheduledTestPathVisResultsRequest) Window(window string) ApiGetScheduledTestPathVisResultsRequest {
 	r.window = &window
 	return r

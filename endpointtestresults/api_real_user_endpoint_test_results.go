@@ -46,7 +46,7 @@ func (r ApiFilterRealUserTestsNetworkResultsRequest) Aid(aid string) ApiFilterRe
 	return r
 }
 
-// A dynamic time interval up to the current time of the request. Specify the interval as a number followed by an optional type: &#x60;s&#x60; for seconds (default if no type is specified), &#x60;m&#x60; for minutes, &#x60;h&#x60; for hours, &#x60;d&#x60; for days, and &#x60;w&#x60; for weeks. For a precise date range, use &#x60;startDate&#x60; and &#x60;endDate&#x60;.
+// A dynamic time interval up to the current time of the request. Specify the interval as a number followed by a type: &#x60;s&#x60; for seconds, &#x60;m&#x60; for minutes, &#x60;h&#x60; for hours, &#x60;d&#x60; for days, and &#x60;w&#x60; for weeks. For a precise date range, use &#x60;startDate&#x60; and &#x60;endDate&#x60;.
 func (r ApiFilterRealUserTestsNetworkResultsRequest) Window(window string) ApiFilterRealUserTestsNetworkResultsRequest {
 	r.window = &window
 	return r
@@ -313,7 +313,7 @@ func (r ApiFilterRealUserTestsResultsRequest) Aid(aid string) ApiFilterRealUserT
 	return r
 }
 
-// A dynamic time interval up to the current time of the request. Specify the interval as a number followed by an optional type: &#x60;s&#x60; for seconds (default if no type is specified), &#x60;m&#x60; for minutes, &#x60;h&#x60; for hours, &#x60;d&#x60; for days, and &#x60;w&#x60; for weeks. For a precise date range, use &#x60;startDate&#x60; and &#x60;endDate&#x60;.
+// A dynamic time interval up to the current time of the request. Specify the interval as a number followed by a type: &#x60;s&#x60; for seconds, &#x60;m&#x60; for minutes, &#x60;h&#x60; for hours, &#x60;d&#x60; for days, and &#x60;w&#x60; for weeks. For a precise date range, use &#x60;startDate&#x60; and &#x60;endDate&#x60;.
 func (r ApiFilterRealUserTestsResultsRequest) Window(window string) ApiFilterRealUserTestsResultsRequest {
 	r.window = &window
 	return r
@@ -582,7 +582,7 @@ func (r ApiFilterRealUserTestsVisitedPagesResultsRequest) Aid(aid string) ApiFil
 	return r
 }
 
-// A dynamic time interval up to the current time of the request. Specify the interval as a number followed by an optional type: &#x60;s&#x60; for seconds (default if no type is specified), &#x60;m&#x60; for minutes, &#x60;h&#x60; for hours, &#x60;d&#x60; for days, and &#x60;w&#x60; for weeks. For a precise date range, use &#x60;startDate&#x60; and &#x60;endDate&#x60;.
+// A dynamic time interval up to the current time of the request. Specify the interval as a number followed by a type: &#x60;s&#x60; for seconds, &#x60;m&#x60; for minutes, &#x60;h&#x60; for hours, &#x60;d&#x60; for days, and &#x60;w&#x60; for weeks. For a precise date range, use &#x60;startDate&#x60; and &#x60;endDate&#x60;.
 func (r ApiFilterRealUserTestsVisitedPagesResultsRequest) Window(window string) ApiFilterRealUserTestsVisitedPagesResultsRequest {
 	r.window = &window
 	return r

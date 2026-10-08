@@ -700,7 +700,7 @@ func (r ApiGetDashboardWidgetDataRequest) Aid(aid string) ApiGetDashboardWidgetD
 	return r
 }
 
-// A dynamic time interval up to the current time of the request. Specify the interval as a number followed by an optional type: &#x60;s&#x60; for seconds (default if no type is specified), &#x60;m&#x60; for minutes, &#x60;h&#x60; for hours, &#x60;d&#x60; for days, and &#x60;w&#x60; for weeks. For a precise date range, use &#x60;startDate&#x60; and &#x60;endDate&#x60;.
+// A dynamic time interval up to the current time of the request. Specify the interval as a number followed by a type: &#x60;s&#x60; for seconds, &#x60;m&#x60; for minutes, &#x60;h&#x60; for hours, &#x60;d&#x60; for days, and &#x60;w&#x60; for weeks. For a precise date range, use &#x60;startDate&#x60; and &#x60;endDate&#x60;.
 func (r ApiGetDashboardWidgetDataRequest) Window(window string) ApiGetDashboardWidgetDataRequest {
 	r.window = &window
 	return r
@@ -1062,7 +1062,7 @@ func (r ApiGetIndividualCardDataRequest) Aid(aid string) ApiGetIndividualCardDat
 	return r
 }
 
-// A dynamic time interval up to the current time of the request. Specify the interval as a number followed by an optional type: &#x60;s&#x60; for seconds (default if no type is specified), &#x60;m&#x60; for minutes, &#x60;h&#x60; for hours, &#x60;d&#x60; for days, and &#x60;w&#x60; for weeks. For a precise date range, use &#x60;startDate&#x60; and &#x60;endDate&#x60;.
+// A dynamic time interval up to the current time of the request. Specify the interval as a number followed by a type: &#x60;s&#x60; for seconds, &#x60;m&#x60; for minutes, &#x60;h&#x60; for hours, &#x60;d&#x60; for days, and &#x60;w&#x60; for weeks. For a precise date range, use &#x60;startDate&#x60; and &#x60;endDate&#x60;.
 func (r ApiGetIndividualCardDataRequest) Window(window string) ApiGetIndividualCardDataRequest {
 	r.window = &window
 	return r
@@ -1226,7 +1226,7 @@ func (r ApiGetIndividualColumnDataRequest) Aid(aid string) ApiGetIndividualColum
 	return r
 }
 
-// A dynamic time interval up to the current time of the request. Specify the interval as a number followed by an optional type: &#x60;s&#x60; for seconds (default if no type is specified), &#x60;m&#x60; for minutes, &#x60;h&#x60; for hours, &#x60;d&#x60; for days, and &#x60;w&#x60; for weeks. For a precise date range, use &#x60;startDate&#x60; and &#x60;endDate&#x60;.
+// A dynamic time interval up to the current time of the request. Specify the interval as a number followed by a type: &#x60;s&#x60; for seconds, &#x60;m&#x60; for minutes, &#x60;h&#x60; for hours, &#x60;d&#x60; for days, and &#x60;w&#x60; for weeks. For a precise date range, use &#x60;startDate&#x60; and &#x60;endDate&#x60;.
 func (r ApiGetIndividualColumnDataRequest) Window(window string) ApiGetIndividualColumnDataRequest {
 	r.window = &window
 	return r
