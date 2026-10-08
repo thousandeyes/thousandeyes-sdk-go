@@ -58,6 +58,10 @@ type EndpointAgent struct {
 	VpnProfiles []EndpointVpnProfile `json:"vpnProfiles,omitempty"`
 	// List of external metadata assigned to the endpoint agent.  Visible only if the `expandAgent=externalMetadata` query parameter is included. 
 	ExternalMetadata []ExternalMetadataItem `json:"externalMetadata,omitempty"`
+	// Current failures reported by the agent. An empty list means no current failures.
+	AgentExplainabilityFailures []AgentExplainabilityFailure `json:"agentExplainabilityFailures,omitempty"`
+	// Included when the agent has reported deployment metadata.
+	DeploymentInfo []DeploymentInfoItem `json:"deploymentInfo,omitempty"`
 	// List of network interfaces on the agent. Not populated by default. 
 	NetworkInterfaceProfiles []InterfaceProfile `json:"networkInterfaceProfiles,omitempty"`
 	AsnDetails *EndpointAsnDetails `json:"asnDetails,omitempty"`
@@ -982,6 +986,70 @@ func (o *EndpointAgent) SetExternalMetadata(v []ExternalMetadataItem) {
 	o.ExternalMetadata = v
 }
 
+// GetAgentExplainabilityFailures returns the AgentExplainabilityFailures field value if set, zero value otherwise.
+func (o *EndpointAgent) GetAgentExplainabilityFailures() []AgentExplainabilityFailure {
+	if o == nil || utils.IsNil(o.AgentExplainabilityFailures) {
+		var ret []AgentExplainabilityFailure
+		return ret
+	}
+	return o.AgentExplainabilityFailures
+}
+
+// GetAgentExplainabilityFailuresOk returns a tuple with the AgentExplainabilityFailures field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EndpointAgent) GetAgentExplainabilityFailuresOk() ([]AgentExplainabilityFailure, bool) {
+	if o == nil || utils.IsNil(o.AgentExplainabilityFailures) {
+		return nil, false
+	}
+	return o.AgentExplainabilityFailures, true
+}
+
+// HasAgentExplainabilityFailures returns a boolean if a field has been set.
+func (o *EndpointAgent) HasAgentExplainabilityFailures() bool {
+	if o != nil && !utils.IsNil(o.AgentExplainabilityFailures) {
+		return true
+	}
+
+	return false
+}
+
+// SetAgentExplainabilityFailures gets a reference to the given []AgentExplainabilityFailure and assigns it to the AgentExplainabilityFailures field.
+func (o *EndpointAgent) SetAgentExplainabilityFailures(v []AgentExplainabilityFailure) {
+	o.AgentExplainabilityFailures = v
+}
+
+// GetDeploymentInfo returns the DeploymentInfo field value if set, zero value otherwise.
+func (o *EndpointAgent) GetDeploymentInfo() []DeploymentInfoItem {
+	if o == nil || utils.IsNil(o.DeploymentInfo) {
+		var ret []DeploymentInfoItem
+		return ret
+	}
+	return o.DeploymentInfo
+}
+
+// GetDeploymentInfoOk returns a tuple with the DeploymentInfo field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EndpointAgent) GetDeploymentInfoOk() ([]DeploymentInfoItem, bool) {
+	if o == nil || utils.IsNil(o.DeploymentInfo) {
+		return nil, false
+	}
+	return o.DeploymentInfo, true
+}
+
+// HasDeploymentInfo returns a boolean if a field has been set.
+func (o *EndpointAgent) HasDeploymentInfo() bool {
+	if o != nil && !utils.IsNil(o.DeploymentInfo) {
+		return true
+	}
+
+	return false
+}
+
+// SetDeploymentInfo gets a reference to the given []DeploymentInfoItem and assigns it to the DeploymentInfo field.
+func (o *EndpointAgent) SetDeploymentInfo(v []DeploymentInfoItem) {
+	o.DeploymentInfo = v
+}
+
 // GetNetworkInterfaceProfiles returns the NetworkInterfaceProfiles field value if set, zero value otherwise.
 func (o *EndpointAgent) GetNetworkInterfaceProfiles() []InterfaceProfile {
 	if o == nil || utils.IsNil(o.NetworkInterfaceProfiles) {
@@ -1328,6 +1396,12 @@ func (o EndpointAgent) ToMap() (map[string]interface{}, error) {
 	}
 	if !utils.IsNil(o.ExternalMetadata) {
 		toSerialize["externalMetadata"] = o.ExternalMetadata
+	}
+	if !utils.IsNil(o.AgentExplainabilityFailures) {
+		toSerialize["agentExplainabilityFailures"] = o.AgentExplainabilityFailures
+	}
+	if !utils.IsNil(o.DeploymentInfo) {
+		toSerialize["deploymentInfo"] = o.DeploymentInfo
 	}
 	if !utils.IsNil(o.NetworkInterfaceProfiles) {
 		toSerialize["networkInterfaceProfiles"] = o.NetworkInterfaceProfiles
