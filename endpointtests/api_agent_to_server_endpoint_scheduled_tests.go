@@ -138,6 +138,10 @@ func (a *AgentToServerEndpointScheduledTestsAPIService) CreateAgentToServerEndpo
 			var v Error
 			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
 		}
+		if localVarHTTPResponse.StatusCode == 409 {
+			var v ValidationError
+			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
+		}
 		if localVarHTTPResponse.StatusCode == 429 {
 			var v Error
 			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
@@ -649,6 +653,10 @@ func (a *AgentToServerEndpointScheduledTestsAPIService) UpdateAgentToServerEndpo
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
 			var v Error
+			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
+		}
+		if localVarHTTPResponse.StatusCode == 409 {
+			var v ValidationError
 			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
