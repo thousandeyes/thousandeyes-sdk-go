@@ -21,7 +21,7 @@ var _ utils.MappedNullable = &PathVisDetailEndpointTestResults{}
 type PathVisDetailEndpointTestResults struct {
 	Results []PathVisDetailEndpointTestResult `json:"results,omitempty"`
 	// The scheduled test configuration. Omitted when the user lacks the `View endpoint experience tests` permission.
-	Test *EndpointScheduledTest `json:"test,omitempty"`
+	Test *EndpointTest `json:"test,omitempty"`
 	Links *SelfLinks `json:"_links,omitempty"`
 }
 
@@ -75,9 +75,9 @@ func (o *PathVisDetailEndpointTestResults) SetResults(v []PathVisDetailEndpointT
 }
 
 // GetTest returns the Test field value if set, zero value otherwise.
-func (o *PathVisDetailEndpointTestResults) GetTest() EndpointScheduledTest {
+func (o *PathVisDetailEndpointTestResults) GetTest() EndpointTest {
 	if o == nil || utils.IsNil(o.Test) {
-		var ret EndpointScheduledTest
+		var ret EndpointTest
 		return ret
 	}
 	return *o.Test
@@ -85,7 +85,7 @@ func (o *PathVisDetailEndpointTestResults) GetTest() EndpointScheduledTest {
 
 // GetTestOk returns a tuple with the Test field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PathVisDetailEndpointTestResults) GetTestOk() (*EndpointScheduledTest, bool) {
+func (o *PathVisDetailEndpointTestResults) GetTestOk() (*EndpointTest, bool) {
 	if o == nil || utils.IsNil(o.Test) {
 		return nil, false
 	}
@@ -101,8 +101,8 @@ func (o *PathVisDetailEndpointTestResults) HasTest() bool {
 	return false
 }
 
-// SetTest gets a reference to the given EndpointScheduledTest and assigns it to the Test field.
-func (o *PathVisDetailEndpointTestResults) SetTest(v EndpointScheduledTest) {
+// SetTest gets a reference to the given EndpointTest and assigns it to the Test field.
+func (o *PathVisDetailEndpointTestResults) SetTest(v EndpointTest) {
 	o.Test = &v
 }
 

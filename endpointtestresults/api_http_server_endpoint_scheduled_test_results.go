@@ -47,7 +47,7 @@ func (r ApiGetHttpServerScheduledTestResultsRequest) Aid(aid string) ApiGetHttpS
 	return r
 }
 
-// A dynamic time interval up to the current time of the request. Specify the interval as a number followed by an optional type: &#x60;s&#x60; for seconds (default if no type is specified), &#x60;m&#x60; for minutes, &#x60;h&#x60; for hours, &#x60;d&#x60; for days, and &#x60;w&#x60; for weeks. For a precise date range, use &#x60;startDate&#x60; and &#x60;endDate&#x60;.
+// A dynamic time interval up to the current time of the request. Specify the interval as a number followed by a type: &#x60;s&#x60; for seconds, &#x60;m&#x60; for minutes, &#x60;h&#x60; for hours, &#x60;d&#x60; for days, and &#x60;w&#x60; for weeks. For a precise date range, use &#x60;startDate&#x60; and &#x60;endDate&#x60;.
 func (r ApiGetHttpServerScheduledTestResultsRequest) Window(window string) ApiGetHttpServerScheduledTestResultsRequest {
 	r.window = &window
 	return r
@@ -270,7 +270,7 @@ func (r ApiGetMultiTestFilteredHttpServerScheduledTestResultsRequest) Aid(aid st
 	return r
 }
 
-// A dynamic time interval up to the current time of the request. Specify the interval as a number followed by an optional type: &#x60;s&#x60; for seconds (default if no type is specified), &#x60;m&#x60; for minutes, &#x60;h&#x60; for hours, &#x60;d&#x60; for days, and &#x60;w&#x60; for weeks. For a precise date range, use &#x60;startDate&#x60; and &#x60;endDate&#x60;.
+// A dynamic time interval up to the current time of the request. Specify the interval as a number followed by a type: &#x60;s&#x60; for seconds, &#x60;m&#x60; for minutes, &#x60;h&#x60; for hours, &#x60;d&#x60; for days, and &#x60;w&#x60; for weeks. For a precise date range, use &#x60;startDate&#x60; and &#x60;endDate&#x60;.
 func (r ApiGetMultiTestFilteredHttpServerScheduledTestResultsRequest) Window(window string) ApiGetMultiTestFilteredHttpServerScheduledTestResultsRequest {
 	r.window = &window
 	return r
@@ -515,7 +515,7 @@ func (r ApiGetSingleTestFilteredHttpServerScheduledTestResultsRequest) Aid(aid s
 	return r
 }
 
-// A dynamic time interval up to the current time of the request. Specify the interval as a number followed by an optional type: &#x60;s&#x60; for seconds (default if no type is specified), &#x60;m&#x60; for minutes, &#x60;h&#x60; for hours, &#x60;d&#x60; for days, and &#x60;w&#x60; for weeks. For a precise date range, use &#x60;startDate&#x60; and &#x60;endDate&#x60;.
+// A dynamic time interval up to the current time of the request. Specify the interval as a number followed by a type: &#x60;s&#x60; for seconds, &#x60;m&#x60; for minutes, &#x60;h&#x60; for hours, &#x60;d&#x60; for days, and &#x60;w&#x60; for weeks. For a precise date range, use &#x60;startDate&#x60; and &#x60;endDate&#x60;.
 func (r ApiGetSingleTestFilteredHttpServerScheduledTestResultsRequest) Window(window string) ApiGetSingleTestFilteredHttpServerScheduledTestResultsRequest {
 	r.window = &window
 	return r
