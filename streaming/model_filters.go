@@ -1,7 +1,7 @@
 /*
 ThousandEyes for OpenTelemetry API
 
-**Note:** The following ThousandEyes for OpenTelemetry API capabilities are not available for ThousandEyes for Government instance:  * Traces * Connected Devices * OTel-based integrations that rely on connectors and operations, including:   * Splunk Cloud Platform HEC   * Splunk Enterprise HEC   * Splunk Observability APM   * Dynatrace Observability APM  ThousandEyes for OpenTelemetry provides machine-to-machine integration between ThousandEyes and its customers. It allows you to export ThousandEyes telemetry data in OTel format, which is widely used in the industry. With ThousandEyes for OTel, you can leverage frameworks widely used in the observability domain - such as Splunk, Grafana, and Honeycomb - to capture and analyze ThousandEyes data. Any client that supports OTel can use ThousandEyes for OpenTelemetry.  ThousandEyes for OTel is made up of the following components:  * Data streaming APIs that you can use to configure and enable your ThousandEyes tests with OTel-compatible streams, in particular to configure how ThousandEyes telemetry data is exported to client integrations. * A set of streaming pipelines called _collectors_ that actively fetch ThousandEyes network test data, enrich the data with some additional detail, filter, and push the data to the customer-configured endpoints, depending on what you configure via the public APIs. * Third-party OTel collectors that receive, transform, filter, and export different metrics to client applications such as AppD, or any other OTel-capable client configuration.  For more information about ThousandEyes for OpenTelemetry, see the [product documentation](https://docs.thousandeyes.com/product-documentation/integration-guides/opentelemetry). 
+**Note:** The following ThousandEyes for OpenTelemetry API capabilities are not available for ThousandEyes for Government instance:  * Traces * Connected Devices  ThousandEyes for OpenTelemetry provides machine-to-machine integration between ThousandEyes and its customers. It allows you to export ThousandEyes telemetry data in OTel format, which is widely used in the industry. With ThousandEyes for OTel, you can leverage frameworks widely used in the observability domain - such as Splunk, Grafana, and Honeycomb - to capture and analyze ThousandEyes data. Any client that supports OTel can use ThousandEyes for OpenTelemetry.  ThousandEyes for OTel is made up of the following components:  * Data streaming APIs that you can use to configure and enable your ThousandEyes tests with OTel-compatible streams, in particular to configure how ThousandEyes telemetry data is exported to client integrations. * A set of streaming pipelines called _collectors_ that actively fetch ThousandEyes network test data, enrich the data with some additional detail, filter, and push the data to the customer-configured endpoints, depending on what you configure via the public APIs. * Third-party OTel collectors that receive, transform, filter, and export different metrics to client applications such as AppD, or any other OTel-capable client configuration.  For more information about ThousandEyes for OpenTelemetry, see the [product documentation](https://docs.thousandeyes.com/product-documentation/integration-guides/opentelemetry). 
 
 */
 
@@ -17,9 +17,11 @@ import (
 // checks if the Filters type satisfies the MappedNullable interface at compile time
 var _ utils.MappedNullable = &Filters{}
 
-// Filters Provides the ability to filter data points based on the specified test types.
+// Filters Controls which test data the integration exports.  `testTypes` is an inclusion filter: when specified, only data from the selected test types is included. `metricsFilter` and `attributesFilter` exclude metrics or attributes from the included data.  Filter support depends on the stream's signal and data model version:  - For `metric` streams using data model `v1` or `v2`, both   `metricsFilter` and `attributesFilter` are supported. - For `log` and `trace` streams using data model `v2`, only   `attributesFilter` is supported. `metricsFilter` is not supported.  On create, an omitted `testTypes` filter includes all test types, while omitted exclusion filters exclude nothing. On update, each omitted filter remains unchanged. Empty exclusion lists clear existing exclusions; `testTypes.values` must not be empty. 
 type Filters struct {
 	TestTypes *FiltersTestTypes `json:"testTypes,omitempty"`
+	MetricsFilter *FiltersMetrics `json:"metricsFilter,omitempty"`
+	AttributesFilter *FiltersAttributes `json:"attributesFilter,omitempty"`
 }
 
 // NewFilters instantiates a new Filters object
@@ -71,6 +73,70 @@ func (o *Filters) SetTestTypes(v FiltersTestTypes) {
 	o.TestTypes = &v
 }
 
+// GetMetricsFilter returns the MetricsFilter field value if set, zero value otherwise.
+func (o *Filters) GetMetricsFilter() FiltersMetrics {
+	if o == nil || utils.IsNil(o.MetricsFilter) {
+		var ret FiltersMetrics
+		return ret
+	}
+	return *o.MetricsFilter
+}
+
+// GetMetricsFilterOk returns a tuple with the MetricsFilter field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Filters) GetMetricsFilterOk() (*FiltersMetrics, bool) {
+	if o == nil || utils.IsNil(o.MetricsFilter) {
+		return nil, false
+	}
+	return o.MetricsFilter, true
+}
+
+// HasMetricsFilter returns a boolean if a field has been set.
+func (o *Filters) HasMetricsFilter() bool {
+	if o != nil && !utils.IsNil(o.MetricsFilter) {
+		return true
+	}
+
+	return false
+}
+
+// SetMetricsFilter gets a reference to the given FiltersMetrics and assigns it to the MetricsFilter field.
+func (o *Filters) SetMetricsFilter(v FiltersMetrics) {
+	o.MetricsFilter = &v
+}
+
+// GetAttributesFilter returns the AttributesFilter field value if set, zero value otherwise.
+func (o *Filters) GetAttributesFilter() FiltersAttributes {
+	if o == nil || utils.IsNil(o.AttributesFilter) {
+		var ret FiltersAttributes
+		return ret
+	}
+	return *o.AttributesFilter
+}
+
+// GetAttributesFilterOk returns a tuple with the AttributesFilter field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Filters) GetAttributesFilterOk() (*FiltersAttributes, bool) {
+	if o == nil || utils.IsNil(o.AttributesFilter) {
+		return nil, false
+	}
+	return o.AttributesFilter, true
+}
+
+// HasAttributesFilter returns a boolean if a field has been set.
+func (o *Filters) HasAttributesFilter() bool {
+	if o != nil && !utils.IsNil(o.AttributesFilter) {
+		return true
+	}
+
+	return false
+}
+
+// SetAttributesFilter gets a reference to the given FiltersAttributes and assigns it to the AttributesFilter field.
+func (o *Filters) SetAttributesFilter(v FiltersAttributes) {
+	o.AttributesFilter = &v
+}
+
 func (o Filters) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -83,6 +149,12 @@ func (o Filters) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !utils.IsNil(o.TestTypes) {
 		toSerialize["testTypes"] = o.TestTypes
+	}
+	if !utils.IsNil(o.MetricsFilter) {
+		toSerialize["metricsFilter"] = o.MetricsFilter
+	}
+	if !utils.IsNil(o.AttributesFilter) {
+		toSerialize["attributesFilter"] = o.AttributesFilter
 	}
 	return toSerialize, nil
 }
