@@ -1,7 +1,7 @@
 /*
 ThousandEyes for OpenTelemetry API
 
-**Note:** The following ThousandEyes for OpenTelemetry API capabilities are not available for ThousandEyes for Government instance:  * Traces * Connected Devices * OTel-based integrations that rely on connectors and operations, including:   * Splunk Cloud Platform HEC   * Splunk Enterprise HEC   * Splunk Observability APM   * Dynatrace Observability APM  ThousandEyes for OpenTelemetry provides machine-to-machine integration between ThousandEyes and its customers. It allows you to export ThousandEyes telemetry data in OTel format, which is widely used in the industry. With ThousandEyes for OTel, you can leverage frameworks widely used in the observability domain - such as Splunk, Grafana, and Honeycomb - to capture and analyze ThousandEyes data. Any client that supports OTel can use ThousandEyes for OpenTelemetry.  ThousandEyes for OTel is made up of the following components:  * Data streaming APIs that you can use to configure and enable your ThousandEyes tests with OTel-compatible streams, in particular to configure how ThousandEyes telemetry data is exported to client integrations. * A set of streaming pipelines called _collectors_ that actively fetch ThousandEyes network test data, enrich the data with some additional detail, filter, and push the data to the customer-configured endpoints, depending on what you configure via the public APIs. * Third-party OTel collectors that receive, transform, filter, and export different metrics to client applications such as AppD, or any other OTel-capable client configuration.  For more information about ThousandEyes for OpenTelemetry, see the [product documentation](https://docs.thousandeyes.com/product-documentation/integration-guides/opentelemetry). 
+**Note:** The following ThousandEyes for OpenTelemetry API capabilities are not available for ThousandEyes for Government instance:  * Traces * Connected Devices  ThousandEyes for OpenTelemetry provides machine-to-machine integration between ThousandEyes and its customers. It allows you to export ThousandEyes telemetry data in OTel format, which is widely used in the industry. With ThousandEyes for OTel, you can leverage frameworks widely used in the observability domain - such as Splunk, Grafana, and Honeycomb - to capture and analyze ThousandEyes data. Any client that supports OTel can use ThousandEyes for OpenTelemetry.  ThousandEyes for OTel is made up of the following components:  * Data streaming APIs that you can use to configure and enable your ThousandEyes tests with OTel-compatible streams, in particular to configure how ThousandEyes telemetry data is exported to client integrations. * A set of streaming pipelines called _collectors_ that actively fetch ThousandEyes network test data, enrich the data with some additional detail, filter, and push the data to the customer-configured endpoints, depending on what you configure via the public APIs. * Third-party OTel collectors that receive, transform, filter, and export different metrics to client applications such as AppD, or any other OTel-capable client configuration.  For more information about ThousandEyes for OpenTelemetry, see the [product documentation](https://docs.thousandeyes.com/product-documentation/integration-guides/opentelemetry). 
 
 */
 
@@ -19,9 +19,12 @@ var _ utils.MappedNullable = &TagMatch{}
 
 // TagMatch struct for TagMatch
 type TagMatch struct {
-	// The name of the tag key to match. The key is invalid if it includes characters that are not allowed by the [OpenTelemetry naming recommendations for attributes](https://opentelemetry.io/docs/specs/semconv/general/naming/#recommendations-for-application-developers).
+	// The stable ID of the tag to match.
+	TagId *string `json:"tagId,omitempty"`
+	ObjectType *TagMatchObjectType `json:"objectType,omitempty"`
+	// For requests, use `tagId` instead. This legacy property is retained for compatibility. The key is invalid if it includes characters that are not allowed by the [OpenTelemetry naming recommendations for attributes](https://opentelemetry.io/docs/specs/semconv/general/naming/#recommendations-for-application-developers).
 	Key *string `json:"key,omitempty"`
-	// The value of the tag to match
+	// For requests, use `tagId` instead. This legacy property is retained for compatibility. The value of the tag to match.
 	Value *string `json:"value,omitempty"`
 }
 
@@ -40,6 +43,70 @@ func NewTagMatch() *TagMatch {
 func NewTagMatchWithDefaults() *TagMatch {
 	this := TagMatch{}
 	return &this
+}
+
+// GetTagId returns the TagId field value if set, zero value otherwise.
+func (o *TagMatch) GetTagId() string {
+	if o == nil || utils.IsNil(o.TagId) {
+		var ret string
+		return ret
+	}
+	return *o.TagId
+}
+
+// GetTagIdOk returns a tuple with the TagId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TagMatch) GetTagIdOk() (*string, bool) {
+	if o == nil || utils.IsNil(o.TagId) {
+		return nil, false
+	}
+	return o.TagId, true
+}
+
+// HasTagId returns a boolean if a field has been set.
+func (o *TagMatch) HasTagId() bool {
+	if o != nil && !utils.IsNil(o.TagId) {
+		return true
+	}
+
+	return false
+}
+
+// SetTagId gets a reference to the given string and assigns it to the TagId field.
+func (o *TagMatch) SetTagId(v string) {
+	o.TagId = &v
+}
+
+// GetObjectType returns the ObjectType field value if set, zero value otherwise.
+func (o *TagMatch) GetObjectType() TagMatchObjectType {
+	if o == nil || utils.IsNil(o.ObjectType) {
+		var ret TagMatchObjectType
+		return ret
+	}
+	return *o.ObjectType
+}
+
+// GetObjectTypeOk returns a tuple with the ObjectType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TagMatch) GetObjectTypeOk() (*TagMatchObjectType, bool) {
+	if o == nil || utils.IsNil(o.ObjectType) {
+		return nil, false
+	}
+	return o.ObjectType, true
+}
+
+// HasObjectType returns a boolean if a field has been set.
+func (o *TagMatch) HasObjectType() bool {
+	if o != nil && !utils.IsNil(o.ObjectType) {
+		return true
+	}
+
+	return false
+}
+
+// SetObjectType gets a reference to the given TagMatchObjectType and assigns it to the ObjectType field.
+func (o *TagMatch) SetObjectType(v TagMatchObjectType) {
+	o.ObjectType = &v
 }
 
 // GetKey returns the Key field value if set, zero value otherwise.
@@ -116,6 +183,12 @@ func (o TagMatch) MarshalJSON() ([]byte, error) {
 
 func (o TagMatch) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !utils.IsNil(o.TagId) {
+		toSerialize["tagId"] = o.TagId
+	}
+	if !utils.IsNil(o.ObjectType) {
+		toSerialize["objectType"] = o.ObjectType
+	}
 	if !utils.IsNil(o.Key) {
 		toSerialize["key"] = o.Key
 	}

@@ -23,9 +23,9 @@ model_endpoint_ip_version_in.go
 model_endpoint_run_scheduled_instant_test_result.go
 model_endpoint_scheduled_test_type.go
 model_endpoint_specific_agents_selector_config.go
-model_endpoint_test_.go
 model_endpoint_test_agent_selector_type.go
 model_endpoint_test_auth_type.go
+model_endpoint_test_base.go
 model_endpoint_test_links.go
 model_endpoint_test_protocol.go
 model_endpoint_test_self_link.go

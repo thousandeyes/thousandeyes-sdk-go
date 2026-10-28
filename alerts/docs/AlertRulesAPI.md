@@ -225,7 +225,7 @@ Name | Type | Description  | Notes
 
 ## GetAlertsRules
 
-> Rules GetAlertsRules().Aid(aid).Execute()
+> Rules GetAlertsRules().Aid(aid).HasOptimization(hasOptimization).Execute()
 
 List alert rules
 
@@ -245,13 +245,14 @@ import (
 
 func main() {
 	aid := "1234" // string | A unique identifier associated with your account group. You can retrieve your `AccountGroupId` from the `/account-groups` endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. (optional)
+	hasOptimization := true // bool | Filters alert rules by whether they currently have an active optimization. `true` returns only rules with an active optimization; every successfully returned row contains `hasOptimization: true`. `false` returns only rules without an active optimization; every successfully returned row contains `hasOptimization: false`. When omitted, the list is unfiltered. Rows whose lookup succeeds include `hasOptimization` `true` or `false`; the field is omitted when enrichment is unavailable. When this parameter is explicitly supplied and optimization data cannot be retrieved, the request returns `503` with `OPTIMIZATION_DATA_UNAVAILABLE`. (optional)
 
 	configuration := client.NewConfiguration().WithAuthToken("<bearer-token>")
 	apiClient := client.NewAPIClient(configuration)
 
 	api := (*alerts.AlertRulesAPIService)(&apiClient.Common)
 
-	resp, r, err := api.GetAlertsRules().Aid(aid).Execute()
+	resp, r, err := api.GetAlertsRules().Aid(aid).HasOptimization(hasOptimization).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AlertRulesAPI.GetAlertsRules``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -274,6 +275,7 @@ Other parameters are passed through a pointer to a ApiGetAlertsRulesRequest stru
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **aid** | **string** | A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. | 
+ **hasOptimization** | **bool** | Filters alert rules by whether they currently have an active optimization. &#x60;true&#x60; returns only rules with an active optimization; every successfully returned row contains &#x60;hasOptimization: true&#x60;. &#x60;false&#x60; returns only rules without an active optimization; every successfully returned row contains &#x60;hasOptimization: false&#x60;. When omitted, the list is unfiltered. Rows whose lookup succeeds include &#x60;hasOptimization&#x60; &#x60;true&#x60; or &#x60;false&#x60;; the field is omitted when enrichment is unavailable. When this parameter is explicitly supplied and optimization data cannot be retrieved, the request returns &#x60;503&#x60; with &#x60;OPTIMIZATION_DATA_UNAVAILABLE&#x60;. | 
 
 ### Return type
 

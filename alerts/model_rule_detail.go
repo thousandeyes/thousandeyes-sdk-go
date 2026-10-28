@@ -58,6 +58,7 @@ type RuleDetail struct {
 	Tests []AlertSimpleTest `json:"tests,omitempty"`
 	// Array of test IDs to link to alert rule (get `testId` from `/tests` endpoint).
 	TestIds []string `json:"testIds,omitempty"`
+	Optimization NullableAlertRuleOptimization `json:"optimization,omitempty"`
 	Links *SelfLinks `json:"_links,omitempty"`
 }
 
@@ -788,6 +789,48 @@ func (o *RuleDetail) SetTestIds(v []string) {
 	o.TestIds = v
 }
 
+// GetOptimization returns the Optimization field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *RuleDetail) GetOptimization() AlertRuleOptimization {
+	if o == nil || utils.IsNil(o.Optimization.Get()) {
+		var ret AlertRuleOptimization
+		return ret
+	}
+	return *o.Optimization.Get()
+}
+
+// GetOptimizationOk returns a tuple with the Optimization field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *RuleDetail) GetOptimizationOk() (*AlertRuleOptimization, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Optimization.Get(), o.Optimization.IsSet()
+}
+
+// HasOptimization returns a boolean if a field has been set.
+func (o *RuleDetail) HasOptimization() bool {
+	if o != nil && o.Optimization.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetOptimization gets a reference to the given NullableAlertRuleOptimization and assigns it to the Optimization field.
+func (o *RuleDetail) SetOptimization(v AlertRuleOptimization) {
+	o.Optimization.Set(&v)
+}
+// SetOptimizationNil sets the value for Optimization to be an explicit nil
+func (o *RuleDetail) SetOptimizationNil() {
+	o.Optimization.Set(nil)
+}
+
+// UnsetOptimization ensures that no value is present for Optimization, not even an explicit nil
+func (o *RuleDetail) UnsetOptimization() {
+	o.Optimization.Unset()
+}
+
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *RuleDetail) GetLinks() SelfLinks {
 	if o == nil || utils.IsNil(o.Links) {
@@ -890,6 +933,9 @@ func (o RuleDetail) ToMap() (map[string]interface{}, error) {
 	}
 	if !utils.IsNil(o.TestIds) {
 		toSerialize["testIds"] = o.TestIds
+	}
+	if o.Optimization.IsSet() {
+		toSerialize["optimization"] = o.Optimization.Get()
 	}
 	if !utils.IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
