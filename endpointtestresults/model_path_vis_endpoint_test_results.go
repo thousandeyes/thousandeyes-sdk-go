@@ -22,7 +22,7 @@ var _ utils.MappedNullable = &PathVisEndpointTestResults{}
 type PathVisEndpointTestResults struct {
 	Results []PathVisEndpointTestResult `json:"results,omitempty"`
 	// The scheduled test configuration. Omitted when the user lacks the `View endpoint experience tests` permission.
-	Test *EndpointScheduledTest `json:"test,omitempty"`
+	Test *EndpointTest `json:"test,omitempty"`
 	// (Optional) When passing `window` or `startDate` parameter,  the client will also receive the `startDate` field indicating the UTC start date of the data's time range being retrieved  (ISO date-time format).
 	StartDate *time.Time `json:"startDate,omitempty"`
 	// (Optional) When passing `window` or `endDate` parameter,  the client will also receive the `endDate` field indicating the UTC end date of the data's time range being retrieved  (ISO date-time format).
@@ -80,9 +80,9 @@ func (o *PathVisEndpointTestResults) SetResults(v []PathVisEndpointTestResult) {
 }
 
 // GetTest returns the Test field value if set, zero value otherwise.
-func (o *PathVisEndpointTestResults) GetTest() EndpointScheduledTest {
+func (o *PathVisEndpointTestResults) GetTest() EndpointTest {
 	if o == nil || utils.IsNil(o.Test) {
-		var ret EndpointScheduledTest
+		var ret EndpointTest
 		return ret
 	}
 	return *o.Test
@@ -90,7 +90,7 @@ func (o *PathVisEndpointTestResults) GetTest() EndpointScheduledTest {
 
 // GetTestOk returns a tuple with the Test field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PathVisEndpointTestResults) GetTestOk() (*EndpointScheduledTest, bool) {
+func (o *PathVisEndpointTestResults) GetTestOk() (*EndpointTest, bool) {
 	if o == nil || utils.IsNil(o.Test) {
 		return nil, false
 	}
@@ -106,8 +106,8 @@ func (o *PathVisEndpointTestResults) HasTest() bool {
 	return false
 }
 
-// SetTest gets a reference to the given EndpointScheduledTest and assigns it to the Test field.
-func (o *PathVisEndpointTestResults) SetTest(v EndpointScheduledTest) {
+// SetTest gets a reference to the given EndpointTest and assigns it to the Test field.
+func (o *PathVisEndpointTestResults) SetTest(v EndpointTest) {
 	o.Test = &v
 }
 

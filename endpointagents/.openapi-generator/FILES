@@ -14,6 +14,7 @@ docs/EndpointAgentsTransferAPI.md
 docs/EndpointProxiesAPI.md
 model_address_profile.go
 model_address_type.go
+model_agent_explainability_failure.go
 model_agent_license_type.go
 model_agent_search_filters.go
 model_agent_search_request.go
@@ -32,6 +33,7 @@ model_bulk_agent_transfer_response.go
 model_cellular_profile.go
 model_conditional_operator.go
 model_connection_string.go
+model_deployment_info_item.go
 model_endpoint_agent.go
 model_endpoint_agent_ethernet_profile.go
 model_endpoint_agent_location.go
