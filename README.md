@@ -64,7 +64,6 @@ endpoint and model documentation:
 - [Instant tests](./instanttests/README.md)
 - [Internet Insights](./internetinsights/README.md)
 - [Snapshots](./snapshots/README.md)
-- [Streaming](./streaming/README.md)
 - [Tags](./tags/README.md)
 - [Test results](./testresults/README.md)
 - [Tests](./tests/README.md)
