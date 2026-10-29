@@ -54,8 +54,6 @@ type EndpointHttpServerTest struct {
 	// Type of test being queried.
 	Type string `json:"type"`
 	TcpProbeMode *TestProbeModeResponse `json:"tcpProbeMode,omitempty"`
-	// Port number.
-	Port *int32 `json:"port,omitempty"`
 	AuthType *EndpointTestAuthType `json:"authType,omitempty"`
 	// Maximum amount of time in milliseconds the agents wait before a request times out.
 	HttpTimeLimit *int32 `json:"httpTimeLimit,omitempty"`
@@ -72,6 +70,8 @@ type EndpointHttpServerTest struct {
 	HttpTargetTime *int32 `json:"httpTargetTime,omitempty"`
 	// HTTP protocol version. Set to '2' to prefer HTTP/2, or '1' to use only HTTP/1.1.
 	HttpVersion *int32 `json:"httpVersion,omitempty"`
+	// Port number.
+	Port *int32 `json:"port,omitempty"`
 	// Reflects the verbose SSL protocol version used by a test.
 	SslVersion *string `json:"sslVersion,omitempty"`
 	// Set to true to use NTLM, false to use Basic Authentication. Requires username and password to be set.
@@ -99,8 +99,6 @@ func NewEndpointHttpServerTest(type_ string) *EndpointHttpServerTest {
 	this.Type = type_
 	var tcpProbeMode TestProbeModeResponse = "auto"
 	this.TcpProbeMode = &tcpProbeMode
-	var port int32 = 443
-	this.Port = &port
 	var authType EndpointTestAuthType = "none"
 	this.AuthType = &authType
 	var httpTimeLimit int32 = 5000
@@ -113,6 +111,8 @@ func NewEndpointHttpServerTest(type_ string) *EndpointHttpServerTest {
 	this.FollowRedirects = &followRedirects
 	var httpVersion int32 = 2
 	this.HttpVersion = &httpVersion
+	var port int32 = 443
+	this.Port = &port
 	return &this
 }
 
@@ -133,8 +133,6 @@ func NewEndpointHttpServerTestWithDefaults() *EndpointHttpServerTest {
 	this.Protocol = &protocol
 	var tcpProbeMode TestProbeModeResponse = "auto"
 	this.TcpProbeMode = &tcpProbeMode
-	var port int32 = 443
-	this.Port = &port
 	var authType EndpointTestAuthType = "none"
 	this.AuthType = &authType
 	var httpTimeLimit int32 = 5000
@@ -147,6 +145,8 @@ func NewEndpointHttpServerTestWithDefaults() *EndpointHttpServerTest {
 	this.FollowRedirects = &followRedirects
 	var httpVersion int32 = 2
 	this.HttpVersion = &httpVersion
+	var port int32 = 443
+	this.Port = &port
 	return &this
 }
 
@@ -750,38 +750,6 @@ func (o *EndpointHttpServerTest) SetTcpProbeMode(v TestProbeModeResponse) {
 	o.TcpProbeMode = &v
 }
 
-// GetPort returns the Port field value if set, zero value otherwise.
-func (o *EndpointHttpServerTest) GetPort() int32 {
-	if o == nil || utils.IsNil(o.Port) {
-		var ret int32
-		return ret
-	}
-	return *o.Port
-}
-
-// GetPortOk returns a tuple with the Port field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *EndpointHttpServerTest) GetPortOk() (*int32, bool) {
-	if o == nil || utils.IsNil(o.Port) {
-		return nil, false
-	}
-	return o.Port, true
-}
-
-// HasPort returns a boolean if a field has been set.
-func (o *EndpointHttpServerTest) HasPort() bool {
-	if o != nil && !utils.IsNil(o.Port) {
-		return true
-	}
-
-	return false
-}
-
-// SetPort gets a reference to the given int32 and assigns it to the Port field.
-func (o *EndpointHttpServerTest) SetPort(v int32) {
-	o.Port = &v
-}
-
 // GetAuthType returns the AuthType field value if set, zero value otherwise.
 func (o *EndpointHttpServerTest) GetAuthType() EndpointTestAuthType {
 	if o == nil || utils.IsNil(o.AuthType) {
@@ -1070,6 +1038,38 @@ func (o *EndpointHttpServerTest) SetHttpVersion(v int32) {
 	o.HttpVersion = &v
 }
 
+// GetPort returns the Port field value if set, zero value otherwise.
+func (o *EndpointHttpServerTest) GetPort() int32 {
+	if o == nil || utils.IsNil(o.Port) {
+		var ret int32
+		return ret
+	}
+	return *o.Port
+}
+
+// GetPortOk returns a tuple with the Port field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EndpointHttpServerTest) GetPortOk() (*int32, bool) {
+	if o == nil || utils.IsNil(o.Port) {
+		return nil, false
+	}
+	return o.Port, true
+}
+
+// HasPort returns a boolean if a field has been set.
+func (o *EndpointHttpServerTest) HasPort() bool {
+	if o != nil && !utils.IsNil(o.Port) {
+		return true
+	}
+
+	return false
+}
+
+// SetPort gets a reference to the given int32 and assigns it to the Port field.
+func (o *EndpointHttpServerTest) SetPort(v int32) {
+	o.Port = &v
+}
+
 // GetSslVersion returns the SslVersion field value if set, zero value otherwise.
 func (o *EndpointHttpServerTest) GetSslVersion() string {
 	if o == nil || utils.IsNil(o.SslVersion) {
@@ -1199,9 +1199,6 @@ func (o EndpointHttpServerTest) ToMap() (map[string]interface{}, error) {
 	if !utils.IsNil(o.TcpProbeMode) {
 		toSerialize["tcpProbeMode"] = o.TcpProbeMode
 	}
-	if !utils.IsNil(o.Port) {
-		toSerialize["port"] = o.Port
-	}
 	if !utils.IsNil(o.AuthType) {
 		toSerialize["authType"] = o.AuthType
 	}
@@ -1228,6 +1225,9 @@ func (o EndpointHttpServerTest) ToMap() (map[string]interface{}, error) {
 	}
 	if !utils.IsNil(o.HttpVersion) {
 		toSerialize["httpVersion"] = o.HttpVersion
+	}
+	if !utils.IsNil(o.Port) {
+		toSerialize["port"] = o.Port
 	}
 	if !utils.IsNil(o.SslVersion) {
 		toSerialize["sslVersion"] = o.SslVersion

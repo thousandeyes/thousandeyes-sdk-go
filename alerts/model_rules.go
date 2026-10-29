@@ -19,7 +19,7 @@ var _ utils.MappedNullable = &Rules{}
 
 // Rules struct for Rules
 type Rules struct {
-	AlertRules []BaseRule `json:"alertRules,omitempty"`
+	AlertRules []RuleListItem `json:"alertRules,omitempty"`
 	Links *SelfLinks `json:"_links,omitempty"`
 }
 
@@ -41,9 +41,9 @@ func NewRulesWithDefaults() *Rules {
 }
 
 // GetAlertRules returns the AlertRules field value if set, zero value otherwise.
-func (o *Rules) GetAlertRules() []BaseRule {
+func (o *Rules) GetAlertRules() []RuleListItem {
 	if o == nil || utils.IsNil(o.AlertRules) {
-		var ret []BaseRule
+		var ret []RuleListItem
 		return ret
 	}
 	return o.AlertRules
@@ -51,7 +51,7 @@ func (o *Rules) GetAlertRules() []BaseRule {
 
 // GetAlertRulesOk returns a tuple with the AlertRules field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Rules) GetAlertRulesOk() ([]BaseRule, bool) {
+func (o *Rules) GetAlertRulesOk() ([]RuleListItem, bool) {
 	if o == nil || utils.IsNil(o.AlertRules) {
 		return nil, false
 	}
@@ -67,8 +67,8 @@ func (o *Rules) HasAlertRules() bool {
 	return false
 }
 
-// SetAlertRules gets a reference to the given []BaseRule and assigns it to the AlertRules field.
-func (o *Rules) SetAlertRules(v []BaseRule) {
+// SetAlertRules gets a reference to the given []RuleListItem and assigns it to the AlertRules field.
+func (o *Rules) SetAlertRules(v []RuleListItem) {
 	o.AlertRules = v
 }
 

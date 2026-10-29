@@ -24,7 +24,7 @@ type NetworkEndpointTestResults struct {
 	// Total number of measurements that match the search criteria.
 	TotalHits *int32 `json:"totalHits,omitempty"`
 	// The scheduled test configuration. Omitted when the user lacks the `View endpoint experience tests` permission.
-	Test *EndpointScheduledTest `json:"test,omitempty"`
+	Test *EndpointTest `json:"test,omitempty"`
 	// (Optional) When passing `window` or `startDate` parameter,  the client will also receive the `startDate` field indicating the UTC start date of the data's time range being retrieved  (ISO date-time format).
 	StartDate *time.Time `json:"startDate,omitempty"`
 	// (Optional) When passing `window` or `endDate` parameter,  the client will also receive the `endDate` field indicating the UTC end date of the data's time range being retrieved  (ISO date-time format).
@@ -114,9 +114,9 @@ func (o *NetworkEndpointTestResults) SetTotalHits(v int32) {
 }
 
 // GetTest returns the Test field value if set, zero value otherwise.
-func (o *NetworkEndpointTestResults) GetTest() EndpointScheduledTest {
+func (o *NetworkEndpointTestResults) GetTest() EndpointTest {
 	if o == nil || utils.IsNil(o.Test) {
-		var ret EndpointScheduledTest
+		var ret EndpointTest
 		return ret
 	}
 	return *o.Test
@@ -124,7 +124,7 @@ func (o *NetworkEndpointTestResults) GetTest() EndpointScheduledTest {
 
 // GetTestOk returns a tuple with the Test field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NetworkEndpointTestResults) GetTestOk() (*EndpointScheduledTest, bool) {
+func (o *NetworkEndpointTestResults) GetTestOk() (*EndpointTest, bool) {
 	if o == nil || utils.IsNil(o.Test) {
 		return nil, false
 	}
@@ -140,8 +140,8 @@ func (o *NetworkEndpointTestResults) HasTest() bool {
 	return false
 }
 
-// SetTest gets a reference to the given EndpointScheduledTest and assigns it to the Test field.
-func (o *NetworkEndpointTestResults) SetTest(v EndpointScheduledTest) {
+// SetTest gets a reference to the given EndpointTest and assigns it to the Test field.
+func (o *NetworkEndpointTestResults) SetTest(v EndpointTest) {
 	o.Test = &v
 }
 
