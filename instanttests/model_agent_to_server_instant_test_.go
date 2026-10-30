@@ -67,8 +67,8 @@ type AgentToServerInstantTest struct {
 	Dscp *string `json:"dscp,omitempty"`
 	DscpId *TestDscpId `json:"dscpId,omitempty"`
 	Ipv6Policy *TestIpv6Policy `json:"ipv6Policy,omitempty"`
-	// Payload size (not total packet size) for the end-to-end metric's probes, ping payload size allows values from 0 to 1400 bytes. When set to null, payload sizes are 0 bytes for ICMP-based tests and 1 byte for TCP-based tests.
-	PingPayloadSize *int32 `json:"pingPayloadSize,omitempty"`
+	// Payload size (not total packet size) for the end-to-end metric's probes, ping payload size allows values from 0 to 9188 bytes. When omitted or set to null, payload sizes are 0 bytes for ICMP-based tests and 1 byte for TCP-based tests.
+	PingPayloadSize utils.NullableInt32 `json:"pingPayloadSize,omitempty"`
 	// View packet loss in 1-second intervals. This is only available for 1-minute interval tests. Set to `true` to enable network measurements.
 	NetworkMeasurements *bool `json:"networkMeasurements,omitempty"`
 }
@@ -981,36 +981,46 @@ func (o *AgentToServerInstantTest) SetIpv6Policy(v TestIpv6Policy) {
 	o.Ipv6Policy = &v
 }
 
-// GetPingPayloadSize returns the PingPayloadSize field value if set, zero value otherwise.
+// GetPingPayloadSize returns the PingPayloadSize field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *AgentToServerInstantTest) GetPingPayloadSize() int32 {
-	if o == nil || utils.IsNil(o.PingPayloadSize) {
+	if o == nil || utils.IsNil(o.PingPayloadSize.Get()) {
 		var ret int32
 		return ret
 	}
-	return *o.PingPayloadSize
+	return *o.PingPayloadSize.Get()
 }
 
 // GetPingPayloadSizeOk returns a tuple with the PingPayloadSize field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *AgentToServerInstantTest) GetPingPayloadSizeOk() (*int32, bool) {
-	if o == nil || utils.IsNil(o.PingPayloadSize) {
+	if o == nil {
 		return nil, false
 	}
-	return o.PingPayloadSize, true
+	return o.PingPayloadSize.Get(), o.PingPayloadSize.IsSet()
 }
 
 // HasPingPayloadSize returns a boolean if a field has been set.
 func (o *AgentToServerInstantTest) HasPingPayloadSize() bool {
-	if o != nil && !utils.IsNil(o.PingPayloadSize) {
+	if o != nil && o.PingPayloadSize.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetPingPayloadSize gets a reference to the given int32 and assigns it to the PingPayloadSize field.
+// SetPingPayloadSize gets a reference to the given NullableInt32 and assigns it to the PingPayloadSize field.
 func (o *AgentToServerInstantTest) SetPingPayloadSize(v int32) {
-	o.PingPayloadSize = &v
+	o.PingPayloadSize.Set(&v)
+}
+// SetPingPayloadSizeNil sets the value for PingPayloadSize to be an explicit nil
+func (o *AgentToServerInstantTest) SetPingPayloadSizeNil() {
+	o.PingPayloadSize.Set(nil)
+}
+
+// UnsetPingPayloadSize ensures that no value is present for PingPayloadSize, not even an explicit nil
+func (o *AgentToServerInstantTest) UnsetPingPayloadSize() {
+	o.PingPayloadSize.Unset()
 }
 
 // GetNetworkMeasurements returns the NetworkMeasurements field value if set, zero value otherwise.
@@ -1134,8 +1144,8 @@ func (o AgentToServerInstantTest) ToMap() (map[string]interface{}, error) {
 	if !utils.IsNil(o.Ipv6Policy) {
 		toSerialize["ipv6Policy"] = o.Ipv6Policy
 	}
-	if !utils.IsNil(o.PingPayloadSize) {
-		toSerialize["pingPayloadSize"] = o.PingPayloadSize
+	if o.PingPayloadSize.IsSet() {
+		toSerialize["pingPayloadSize"] = o.PingPayloadSize.Get()
 	}
 	if !utils.IsNil(o.NetworkMeasurements) {
 		toSerialize["networkMeasurements"] = o.NetworkMeasurements
