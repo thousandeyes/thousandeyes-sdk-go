@@ -166,7 +166,21 @@ func (r ApiDisableEndpointAgentRequest) Execute() (*EndpointAgent, *http.Respons
 /*
 DisableEndpointAgent Disable endpoint agent
 
-Disables an endpoint agent. If it's already disabled, it has no effect (no operation).
+Disables an endpoint agent. If the agent is already disabled, this operation has no effect.
+
+**Required permissions**
+
+This operation requires all of the following permissions:
+
+* View endpoint agent settings (`SETTINGS_ENDPOINT_AGENTS_READ`)
+* Edit endpoint agent settings (`SETTINGS_ENDPOINT_AGENTS_UPDATE`)
+* View endpoint experience data that identifies network (`VIEWS_ENDPOINT_AGENTS_PII_NETWORK_DATA`)
+* View endpoint experience data that identifies users (`VIEWS_ENDPOINT_AGENTS_PII_USER_DATA`)
+* View endpoint experience data that identifies Endpoint Agents (`VIEWS_ENDPOINT_AGENTS_PII_AGENT_DATA`)
+* View endpoint experience data that identifies location (`VIEWS_ENDPOINT_AGENTS_PII_LOCATION_DATA`)
+
+If any required permission is missing, the API returns `403 Forbidden`.
+
 
  @param agentId The identifier of the agent to operate on.
  @return ApiDisableEndpointAgentRequest
@@ -285,7 +299,21 @@ func (r ApiEnableEndpointAgentRequest) Execute() (*EndpointAgent, *http.Response
 /*
 EnableEndpointAgent Enable endpoint agent
 
-Enables an endpoint agent. If it's already enabled, it has no effect (no operation).
+Enables an endpoint agent. If the agent is already enabled, this operation has no effect.
+
+**Required permissions**
+
+This operation requires all of the following permissions:
+
+* View endpoint agent settings (`SETTINGS_ENDPOINT_AGENTS_READ`)
+* Edit endpoint agent settings (`SETTINGS_ENDPOINT_AGENTS_UPDATE`)
+* View endpoint experience data that identifies network (`VIEWS_ENDPOINT_AGENTS_PII_NETWORK_DATA`)
+* View endpoint experience data that identifies users (`VIEWS_ENDPOINT_AGENTS_PII_USER_DATA`)
+* View endpoint experience data that identifies Endpoint Agents (`VIEWS_ENDPOINT_AGENTS_PII_AGENT_DATA`)
+* View endpoint experience data that identifies location (`VIEWS_ENDPOINT_AGENTS_PII_LOCATION_DATA`)
+
+If any required permission is missing, the API returns `403 Forbidden`.
+
 
  @param agentId The identifier of the agent to operate on.
  @return ApiEnableEndpointAgentRequest
@@ -481,7 +509,19 @@ FilterEndpointAgents Filter endpoint agents
 
 Retrieves a list of endpoint agents within the specified account group that match the specified filters.
 
-If no agents meet the filter criteria, the API returns an empty array.
+**Required permissions**
+
+This operation requires all of the following permissions:
+
+* View endpoint agent settings (`SETTINGS_ENDPOINT_AGENTS_READ`)
+* View endpoint experience data that identifies network (`VIEWS_ENDPOINT_AGENTS_PII_NETWORK_DATA`)
+* View endpoint experience data that identifies users (`VIEWS_ENDPOINT_AGENTS_PII_USER_DATA`)
+* View endpoint experience data that identifies Endpoint Agents (`VIEWS_ENDPOINT_AGENTS_PII_AGENT_DATA`)
+* View endpoint experience data that identifies location (`VIEWS_ENDPOINT_AGENTS_PII_LOCATION_DATA`)
+
+If any required permission is missing, the API returns `403 Forbidden`.
+
+If no agents match the filter criteria, the API returns an empty array.
 
 
 
@@ -634,6 +674,19 @@ func (r ApiGetEndpointAgentRequest) Execute() (*EndpointAgent, *http.Response, e
 GetEndpointAgent Retrieve endpoint agent
 
 Retrieves details of an agent with the specified `agent_id`.
+
+**Required permissions**
+
+This operation requires all of the following permissions:
+
+* View endpoint agent settings (`SETTINGS_ENDPOINT_AGENTS_READ`)
+* View endpoint experience data that identifies network (`VIEWS_ENDPOINT_AGENTS_PII_NETWORK_DATA`)
+* View endpoint experience data that identifies users (`VIEWS_ENDPOINT_AGENTS_PII_USER_DATA`)
+* View endpoint experience data that identifies Endpoint Agents (`VIEWS_ENDPOINT_AGENTS_PII_AGENT_DATA`)
+* View endpoint experience data that identifies location (`VIEWS_ENDPOINT_AGENTS_PII_LOCATION_DATA`)
+
+If any required permission is missing, the API returns `403 Forbidden`.
+
 
  @param agentId The identifier of the agent to operate on.
  @return ApiGetEndpointAgentRequest
@@ -849,7 +902,19 @@ GetEndpointAgents List endpoint agents
 
 Retrieves a list of endpoint agents in a given account group.
 
-If there are no agents in the specified account group, it returns an empty array.
+**Required permissions**
+
+This operation requires all of the following permissions:
+
+* View endpoint agent settings (`SETTINGS_ENDPOINT_AGENTS_READ`)
+* View endpoint experience data that identifies network (`VIEWS_ENDPOINT_AGENTS_PII_NETWORK_DATA`)
+* View endpoint experience data that identifies users (`VIEWS_ENDPOINT_AGENTS_PII_USER_DATA`)
+* View endpoint experience data that identifies Endpoint Agents (`VIEWS_ENDPOINT_AGENTS_PII_AGENT_DATA`)
+* View endpoint experience data that identifies location (`VIEWS_ENDPOINT_AGENTS_PII_LOCATION_DATA`)
+
+If any required permission is missing, the API returns `403 Forbidden`.
+
+If there are no agents in the specified account group, the API returns an empty array.
 
 
 
@@ -1120,7 +1185,20 @@ Updates the agent with the specified `agent_id`. This API supports the modificat
 
 * `licenseType`
 
-Any attempt to update fields other than those listed above, with a value different from their current value, will result in a 400 Bad Request response.
+**Required permissions**
+
+This operation requires all of the following permissions:
+
+* View endpoint agent settings (`SETTINGS_ENDPOINT_AGENTS_READ`)
+* Edit endpoint agent settings (`SETTINGS_ENDPOINT_AGENTS_UPDATE`)
+* View endpoint experience data that identifies network (`VIEWS_ENDPOINT_AGENTS_PII_NETWORK_DATA`)
+* View endpoint experience data that identifies users (`VIEWS_ENDPOINT_AGENTS_PII_USER_DATA`)
+* View endpoint experience data that identifies Endpoint Agents (`VIEWS_ENDPOINT_AGENTS_PII_AGENT_DATA`)
+* View endpoint experience data that identifies location (`VIEWS_ENDPOINT_AGENTS_PII_LOCATION_DATA`)
+
+If any required permission is missing, the API returns `403 Forbidden`.
+
+Any attempt to update fields other than those listed above, with a value different from their current value, results in a `400 Bad Request` response.
 
 
  @param agentId The identifier of the agent to operate on.

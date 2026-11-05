@@ -37,7 +37,7 @@ func main() {
 	startDate := time.Now() // time.Time | Use with the `endDate` parameter. Include the complete time (hours, minutes, and seconds) in UTC time zone, following the ISO 8601 date-time format. See the example for reference. Please note that this parameter can't be used with `window`. (optional)
 	endDate := time.Now() // time.Time | Defaults to current time the request is made. Use with the `startDate` parameter. Include the complete time (hours, minutes, and seconds) in UTC time zone, following the ISO 8601 date-time format. See the example for reference. Please note that this parameter can't be used with `window`. (optional)
 	cursor := "cursor_example" // string | (Optional) Opaque cursor used for pagination. Clients should use `next` value from `_links` instead of this parameter. (optional)
-	expand := []endpointtestresults.ExpandLocalNetworkTopologyOptions{endpointtestresults.ExpandLocalNetworkTopologyOptions("system-metric-detail")} // []ExpandLocalNetworkTopologyOptions | This parameter is optional and determines whether to expand resources related to local network topologies. By default, no expansion occurs when this query parameter is omitted. To expand a specific resource, such as `systemMetricDetails`, append  `?expand=system-metric-detail` to the query. (optional)
+	expand := []endpointtestresults.ExpandLocalNetworkTopologyOptions{endpointtestresults.ExpandLocalNetworkTopologyOptions("system-metric-detail")} // []ExpandLocalNetworkTopologyOptions | This parameter is optional and determines whether to expand resources related to local network topologies. By default, no expansion occurs when this query parameter is omitted. To expand a specific resource, such as `systemMetricDetails`, append `?expand=system-metric-detail` to the query. (optional)
 	endpointNetworkTopologyResultRequest := *endpointtestresults.NewEndpointNetworkTopologyResultRequest() // EndpointNetworkTopologyResultRequest |  (optional)
 
 	configuration := client.NewConfiguration().WithAuthToken("<bearer-token>")
@@ -72,7 +72,7 @@ Name | Type | Description  | Notes
  **startDate** | **time.Time** | Use with the &#x60;endDate&#x60; parameter. Include the complete time (hours, minutes, and seconds) in UTC time zone, following the ISO 8601 date-time format. See the example for reference. Please note that this parameter can&#39;t be used with &#x60;window&#x60;. | 
  **endDate** | **time.Time** | Defaults to current time the request is made. Use with the &#x60;startDate&#x60; parameter. Include the complete time (hours, minutes, and seconds) in UTC time zone, following the ISO 8601 date-time format. See the example for reference. Please note that this parameter can&#39;t be used with &#x60;window&#x60;. | 
  **cursor** | **string** | (Optional) Opaque cursor used for pagination. Clients should use &#x60;next&#x60; value from &#x60;_links&#x60; instead of this parameter. | 
- **expand** | [**[]ExpandLocalNetworkTopologyOptions**](ExpandLocalNetworkTopologyOptions.md) | This parameter is optional and determines whether to expand resources related to local network topologies. By default, no expansion occurs when this query parameter is omitted. To expand a specific resource, such as &#x60;systemMetricDetails&#x60;, append  &#x60;?expand&#x3D;system-metric-detail&#x60; to the query. | 
+ **expand** | [**[]ExpandLocalNetworkTopologyOptions**](ExpandLocalNetworkTopologyOptions.md) | This parameter is optional and determines whether to expand resources related to local network topologies. By default, no expansion occurs when this query parameter is omitted. To expand a specific resource, such as &#x60;systemMetricDetails&#x60;, append &#x60;?expand&#x3D;system-metric-detail&#x60; to the query. | 
  **endpointNetworkTopologyResultRequest** | [**EndpointNetworkTopologyResultRequest**](EndpointNetworkTopologyResultRequest.md) |  | 
 
 ### Return type
@@ -182,7 +182,7 @@ import (
 func main() {
 	networkTopologyId := "00160:39c518560de9:1491651900:236e6f18" // string | The network topology ID.
 	aid := "1234" // string | A unique identifier associated with your account group. You can retrieve your `AccountGroupId` from the `/account-groups` endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. (optional)
-	expand := []endpointtestresults.ExpandLocalNetworkTopologyOptions{endpointtestresults.ExpandLocalNetworkTopologyOptions("system-metric-detail")} // []ExpandLocalNetworkTopologyOptions | This parameter is optional and determines whether to expand resources related to local network topologies. By default, no expansion occurs when this query parameter is omitted. To expand a specific resource, such as `systemMetricDetails`, append  `?expand=system-metric-detail` to the query. (optional)
+	expand := []endpointtestresults.ExpandLocalNetworkTopologyOptions{endpointtestresults.ExpandLocalNetworkTopologyOptions("system-metric-detail")} // []ExpandLocalNetworkTopologyOptions | This parameter is optional and determines whether to expand resources related to local network topologies. By default, no expansion occurs when this query parameter is omitted. To expand a specific resource, such as `systemMetricDetails`, append `?expand=system-metric-detail` to the query. (optional)
 
 	configuration := client.NewConfiguration().WithAuthToken("<bearer-token>")
 	apiClient := client.NewAPIClient(configuration)
@@ -215,7 +215,7 @@ Other parameters are passed through a pointer to a ApiGetLocalNetworksTestResult
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **aid** | **string** | A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. | 
- **expand** | [**[]ExpandLocalNetworkTopologyOptions**](ExpandLocalNetworkTopologyOptions.md) | This parameter is optional and determines whether to expand resources related to local network topologies. By default, no expansion occurs when this query parameter is omitted. To expand a specific resource, such as &#x60;systemMetricDetails&#x60;, append  &#x60;?expand&#x3D;system-metric-detail&#x60; to the query. | 
+ **expand** | [**[]ExpandLocalNetworkTopologyOptions**](ExpandLocalNetworkTopologyOptions.md) | This parameter is optional and determines whether to expand resources related to local network topologies. By default, no expansion occurs when this query parameter is omitted. To expand a specific resource, such as &#x60;systemMetricDetails&#x60;, append &#x60;?expand&#x3D;system-metric-detail&#x60; to the query. | 
 
 ### Return type
 
