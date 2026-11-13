@@ -122,7 +122,7 @@ func (r ApiFilterRealUserTestsNetworkResultsRequest) All(ctx context.Context) it
 /*
 FilterRealUserTestsNetworkResults List endpoint real user tests networks
 
-Returns a list of all endpoint real user tests. 
+Returns a list of all endpoint real user tests.
 Sessions from the last round are provided unless an explicit start and end is provided with `startDate`, `endDate` or `window` optional parameters.
 
 ## Request body filters
@@ -167,7 +167,7 @@ curl --location --request POST 'https://api.thousandeyes.com/v7/endpoint/test-re
   }}'
 ```
 
-Returns a `results` array of endpoint real user tests. 
+Returns a `results` array of endpoint real user tests.
 Network sessions shown are from the latest round, or based on the time range specified.
 
 
@@ -658,7 +658,7 @@ func (r ApiFilterRealUserTestsVisitedPagesResultsRequest) All(ctx context.Contex
 /*
 FilterRealUserTestsVisitedPagesResults List endpoint real user tests visited pages
 
-Returns a list of all endpoint real user tests visited pages. 
+Returns a list of all endpoint real user tests visited pages.
 Sessions from the last round are provided unless an explicit start and end is provided with `startDate`, `endDate` or `window` optional parameters.
 
 ## Request body filters
@@ -703,7 +703,7 @@ curl --location --request POST 'https://api.thousandeyes.com/v7/endpoint/test-re
   }}'
 ```
 
-Returns a `results` array of user loaded pages in an endpoint real user test. 
+Returns a `results` array of user loaded pages in an endpoint real user test.
 Pages shown are from the latest round, or based on the time range specified.
 
 
@@ -852,15 +852,15 @@ func (r ApiGetRealUserTestPageResultsRequest) Execute() (*RealUserEndpointTestPa
 /*
 GetRealUserTestPageResults Retrieve endpoint real user test page
 
-Returns details for endpoint real user test web page request. 
+Returns details for endpoint real user test web page request.
 Provides complete waterfall information with all object requests.
 
 Sends back detailed endpoint real user test web page request.
 
-Returned object has a single field: `har` which is an HAR object according to the HTTP Archive 1.2 specifications. 
+Returned object has a single field: `har` which is an HAR object according to the HTTP Archive 1.2 specifications.
 [You can read more about the specification](http://www.softwareishard.com/blog/har-12-spec/).
 
-In addition to standard fields, the object har includes a custom property `systemMetrics` which contain metrics about CPU and physical memory usage. 
+In addition to standard fields, the object har includes a custom property `systemMetrics` which contain metrics about CPU and physical memory usage.
 Check `SystemMetrics` on schemas tab for more information.
 
 
