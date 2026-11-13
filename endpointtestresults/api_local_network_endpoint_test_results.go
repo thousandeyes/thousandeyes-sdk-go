@@ -1,7 +1,7 @@
 /*
 Endpoint Test Results API
 
-Retrieve results for scheduled and dynamic tests on endpoint agents.
+Retrieve results for scheduled and dynamic tests on endpoint agents.  For endpoints that require PII permissions, all required PII permissions must be granted. Otherwise, the API returns `403 Forbidden` instead of masked values.  Role and permission changes may not take effect immediately because API permissions are cached. This delay applies to both permission grants and removals. 
 
 */
 
@@ -71,7 +71,7 @@ func (r ApiFilterLocalNetworksTestResultsTopologiesRequest) Cursor(cursor string
 	return r
 }
 
-// This parameter is optional and determines whether to expand resources related to local network topologies. By default, no expansion occurs when this query parameter is omitted. To expand a specific resource, such as &#x60;systemMetricDetails&#x60;, append  &#x60;?expand&#x3D;system-metric-detail&#x60; to the query.
+// This parameter is optional and determines whether to expand resources related to local network topologies. By default, no expansion occurs when this query parameter is omitted. To expand a specific resource, such as &#x60;systemMetricDetails&#x60;, append &#x60;?expand&#x3D;system-metric-detail&#x60; to the query.
 func (r ApiFilterLocalNetworksTestResultsTopologiesRequest) Expand(expand []ExpandLocalNetworkTopologyOptions) ApiFilterLocalNetworksTestResultsTopologiesRequest {
 	r.expand = &expand
 	return r
@@ -129,7 +129,7 @@ func (r ApiFilterLocalNetworksTestResultsTopologiesRequest) All(ctx context.Cont
 /*
 FilterLocalNetworksTestResultsTopologies List endpoint network topologies probes
 
-Returns a list of all endpoint local network topologies probes. 
+Returns a list of all endpoint local network topologies probes.
 All results are provided, oldest to newest (according to a specified page index and size) unless an explicit start and end is provided with `startDate`, `endDate` or `window` optional parameters.
 
 ## Request body filters
@@ -175,10 +175,10 @@ curl --location --request POST 'https://api.thousandeyes.com/v7/endpoint/test-re
 ```
 
 ### Warning
-Note that a maximum of 12h worth of data can be retrieved at once. 
+Note that a maximum of 12h worth of data can be retrieved at once.
 If you need more, you need to make multiple requests.
 
-Returns a `results` array of network topology probes. 
+Returns a `results` array of network topology probes.
 Network topology probes shown are from the latest round, or based on the time range specified.
 
 
@@ -450,7 +450,7 @@ func (r ApiGetLocalNetworksTestResultsTopologyRequest) Aid(aid string) ApiGetLoc
 	return r
 }
 
-// This parameter is optional and determines whether to expand resources related to local network topologies. By default, no expansion occurs when this query parameter is omitted. To expand a specific resource, such as &#x60;systemMetricDetails&#x60;, append  &#x60;?expand&#x3D;system-metric-detail&#x60; to the query.
+// This parameter is optional and determines whether to expand resources related to local network topologies. By default, no expansion occurs when this query parameter is omitted. To expand a specific resource, such as &#x60;systemMetricDetails&#x60;, append &#x60;?expand&#x3D;system-metric-detail&#x60; to the query.
 func (r ApiGetLocalNetworksTestResultsTopologyRequest) Expand(expand []ExpandLocalNetworkTopologyOptions) ApiGetLocalNetworksTestResultsTopologyRequest {
 	r.expand = &expand
 	return r
