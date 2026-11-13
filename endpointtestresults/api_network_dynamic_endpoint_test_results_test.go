@@ -1,7 +1,7 @@
 /*
 Endpoint Test Results API
 
-Retrieve results for scheduled and dynamic tests on endpoint agents.
+Retrieve results for scheduled and dynamic tests on endpoint agents.  For endpoints that require PII permissions, all required PII permissions must be granted. Otherwise, the API returns `403 Forbidden` instead of masked values.  Role and permission changes may not take effect immediately because API permissions are cached. This delay applies to both permission grants and removals. 
 
 */
 

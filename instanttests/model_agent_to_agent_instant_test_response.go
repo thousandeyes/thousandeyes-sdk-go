@@ -62,6 +62,8 @@ type AgentToAgentInstantTestResponse struct {
 	RandomizedStartTime *bool `json:"randomizedStartTime,omitempty"`
 	// `agentId` of the target agent for the test.
 	TargetAgentId string `json:"targetAgentId"`
+	// IP address of the target Enterprise Agent interface to use for the test. The value must match an address in the target agent's `ipAddresses` field returned by `GET /v7/agents`. This field is not supported for Cloud Agents or Enterprise Agent clusters. If omitted, the test does not select a specific target interface.
+	TargetAgentInterface *string `json:"targetAgentInterface,omitempty"`
 	// Enable or disable throughput measurements. Throughput measurements cannot be enabled when the source or target of the test is a cloud agent.
 	ThroughputMeasurements *bool `json:"throughputMeasurements,omitempty"`
 	// The throughput duration.
@@ -890,6 +892,38 @@ func (o *AgentToAgentInstantTestResponse) SetTargetAgentId(v string) {
 	o.TargetAgentId = v
 }
 
+// GetTargetAgentInterface returns the TargetAgentInterface field value if set, zero value otherwise.
+func (o *AgentToAgentInstantTestResponse) GetTargetAgentInterface() string {
+	if o == nil || utils.IsNil(o.TargetAgentInterface) {
+		var ret string
+		return ret
+	}
+	return *o.TargetAgentInterface
+}
+
+// GetTargetAgentInterfaceOk returns a tuple with the TargetAgentInterface field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AgentToAgentInstantTestResponse) GetTargetAgentInterfaceOk() (*string, bool) {
+	if o == nil || utils.IsNil(o.TargetAgentInterface) {
+		return nil, false
+	}
+	return o.TargetAgentInterface, true
+}
+
+// HasTargetAgentInterface returns a boolean if a field has been set.
+func (o *AgentToAgentInstantTestResponse) HasTargetAgentInterface() bool {
+	if o != nil && !utils.IsNil(o.TargetAgentInterface) {
+		return true
+	}
+
+	return false
+}
+
+// SetTargetAgentInterface gets a reference to the given string and assigns it to the TargetAgentInterface field.
+func (o *AgentToAgentInstantTestResponse) SetTargetAgentInterface(v string) {
+	o.TargetAgentInterface = &v
+}
+
 // GetThroughputMeasurements returns the ThroughputMeasurements field value if set, zero value otherwise.
 func (o *AgentToAgentInstantTestResponse) GetThroughputMeasurements() bool {
 	if o == nil || utils.IsNil(o.ThroughputMeasurements) {
@@ -1130,6 +1164,9 @@ func (o AgentToAgentInstantTestResponse) ToMap() (map[string]interface{}, error)
 		toSerialize["randomizedStartTime"] = o.RandomizedStartTime
 	}
 	toSerialize["targetAgentId"] = o.TargetAgentId
+	if !utils.IsNil(o.TargetAgentInterface) {
+		toSerialize["targetAgentInterface"] = o.TargetAgentInterface
+	}
 	if !utils.IsNil(o.ThroughputMeasurements) {
 		toSerialize["throughputMeasurements"] = o.ThroughputMeasurements
 	}
