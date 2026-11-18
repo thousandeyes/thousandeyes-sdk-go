@@ -4,12 +4,83 @@ All URIs are relative to *https://api.thousandeyes.com/v7*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**BulkDeleteHttpServerEndpointScheduledTests**](HTTPServerEndpointScheduledTestsAPI.md#BulkDeleteHttpServerEndpointScheduledTests) | **Delete** /endpoint/tests/scheduled-tests/http-server | Bulk delete HTTP server endpoint scheduled tests
 [**CreateHttpServerEndpointScheduledTest**](HTTPServerEndpointScheduledTestsAPI.md#CreateHttpServerEndpointScheduledTest) | **Post** /endpoint/tests/scheduled-tests/http-server | Create HTTP server endpoint scheduled test
 [**DeleteHttpServerEndpointScheduledTest**](HTTPServerEndpointScheduledTestsAPI.md#DeleteHttpServerEndpointScheduledTest) | **Delete** /endpoint/tests/scheduled-tests/http-server/{testId} | Delete HTTP server scheduled test
 [**GetHttpServerEndpointScheduledTest**](HTTPServerEndpointScheduledTestsAPI.md#GetHttpServerEndpointScheduledTest) | **Get** /endpoint/tests/scheduled-tests/http-server/{testId} | Retrieves HTTP server endpoint scheduled test
 [**GetHttpServerEndpointScheduledTests**](HTTPServerEndpointScheduledTestsAPI.md#GetHttpServerEndpointScheduledTests) | **Get** /endpoint/tests/scheduled-tests/http-server | List HTTP server endpoint scheduled tests
 [**UpdateHttpServerEndpointScheduledTest**](HTTPServerEndpointScheduledTestsAPI.md#UpdateHttpServerEndpointScheduledTest) | **Patch** /endpoint/tests/scheduled-tests/http-server/{testId} | Update HTTP server endpoint scheduled test
 
+
+
+## BulkDeleteHttpServerEndpointScheduledTests
+
+> EndpointTestBulkDeleteResult BulkDeleteHttpServerEndpointScheduledTests().TestId(testId).Aid(aid).Execute()
+
+Bulk delete HTTP server endpoint scheduled tests
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"fmt"
+	"os"
+	"github.com/thousandeyes/thousandeyes-sdk-go/v3/client"
+	"github.com/thousandeyes/thousandeyes-sdk-go/v3/endpointtests"
+)
+
+func main() {
+	testId := []string{"4503599627370497"} // []string | Endpoint test IDs to delete. Specify this parameter once for each test ID. The request must not contain more than the maximum number of tests supported by the operation. If the limit is exceeded, the `400 Bad Request` response includes the supported maximum in `maximumTestsSupported`.
+	aid := "1234" // string | A unique identifier associated with your account group. You can retrieve your `AccountGroupId` from the `/account-groups` endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. (optional)
+
+	configuration := client.NewConfiguration().WithAuthToken("<bearer-token>")
+	apiClient := client.NewAPIClient(configuration)
+
+	api := (*endpointtests.HTTPServerEndpointScheduledTestsAPIService)(&apiClient.Common)
+
+	resp, r, err := api.BulkDeleteHttpServerEndpointScheduledTests().TestId(testId).Aid(aid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `HTTPServerEndpointScheduledTestsAPI.BulkDeleteHttpServerEndpointScheduledTests``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `BulkDeleteHttpServerEndpointScheduledTests`: EndpointTestBulkDeleteResult
+	json, _ := resp.MarshalJSON()
+	fmt.Fprintf(os.Stdout, "Response from `HTTPServerEndpointScheduledTestsAPI.BulkDeleteHttpServerEndpointScheduledTests`: %v\n", string(json))
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a ApiBulkDeleteHttpServerEndpointScheduledTestsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **testId** | **[]string** | Endpoint test IDs to delete. Specify this parameter once for each test ID. The request must not contain more than the maximum number of tests supported by the operation. If the limit is exceeded, the &#x60;400 Bad Request&#x60; response includes the supported maximum in &#x60;maximumTestsSupported&#x60;. | 
+ **aid** | **string** | A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. | 
+
+### Return type
+
+[**EndpointTestBulkDeleteResult**](EndpointTestBulkDeleteResult.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)[[Back to README]](../README.md)
 
 
 ## CreateHttpServerEndpointScheduledTest

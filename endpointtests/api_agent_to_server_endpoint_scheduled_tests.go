@@ -18,11 +18,163 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
+	"reflect"
 )
 
 
 // AgentToServerEndpointScheduledTestsAPIService AgentToServerEndpointScheduledTestsAPI service
 type AgentToServerEndpointScheduledTestsAPIService client.Service
+
+type ApiBulkDeleteAgentToServerEndpointScheduledTestsRequest struct {
+
+	ApiService *AgentToServerEndpointScheduledTestsAPIService
+	testId *[]string
+	aid *string
+}
+
+// Endpoint test IDs to delete. Specify this parameter once for each test ID. The request must not contain more than the maximum number of tests supported by the operation. If the limit is exceeded, the &#x60;400 Bad Request&#x60; response includes the supported maximum in &#x60;maximumTestsSupported&#x60;.
+func (r ApiBulkDeleteAgentToServerEndpointScheduledTestsRequest) TestId(testId []string) ApiBulkDeleteAgentToServerEndpointScheduledTestsRequest {
+	r.testId = &testId
+	return r
+}
+
+// A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response.
+func (r ApiBulkDeleteAgentToServerEndpointScheduledTestsRequest) Aid(aid string) ApiBulkDeleteAgentToServerEndpointScheduledTestsRequest {
+	r.aid = &aid
+	return r
+}
+
+func (r ApiBulkDeleteAgentToServerEndpointScheduledTestsRequest) Execute() (*EndpointTestBulkDeleteResult, *http.Response, error) {
+	return r.ApiService.BulkDeleteAgentToServerEndpointScheduledTestsExecute(r)
+}
+
+/*
+BulkDeleteAgentToServerEndpointScheduledTests Bulk delete agent to server endpoint scheduled tests
+
+Deletes multiple agent to server endpoint scheduled tests in one all-or-nothing operation. Missing test IDs are ignored.
+
+Before any tests are deleted, all found tests are validated to ensure they belong to this test family and can be deleted by the caller or, for partner-owned tests, by the owning partner. If any validation check fails, no tests are deleted.
+
+
+
+ @return ApiBulkDeleteAgentToServerEndpointScheduledTestsRequest
+*/
+func (a *AgentToServerEndpointScheduledTestsAPIService) BulkDeleteAgentToServerEndpointScheduledTests() ApiBulkDeleteAgentToServerEndpointScheduledTestsRequest {
+	return ApiBulkDeleteAgentToServerEndpointScheduledTestsRequest{
+		ApiService: a,
+	}
+}
+
+// Execute executes the request
+//  @return EndpointTestBulkDeleteResult
+func (a *AgentToServerEndpointScheduledTestsAPIService) BulkDeleteAgentToServerEndpointScheduledTestsExecute(r ApiBulkDeleteAgentToServerEndpointScheduledTestsRequest) (*EndpointTestBulkDeleteResult, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodDelete
+		localVarPostBody     interface{}
+		localVarReturnValue  *EndpointTestBulkDeleteResult
+	)
+
+	localBasePath := a.Client.GetConfig().ServerURL
+
+	localVarPath := localBasePath + "/endpoint/tests/scheduled-tests/agent-to-server"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.testId == nil {
+		return localVarReturnValue, nil, internalerror.ReportError("testId is required and must be specified")
+	}
+	if len(*r.testId) < 1 {
+		return localVarReturnValue, nil, internalerror.ReportError("testId must have at least 1 elements")
+	}
+
+	if r.aid != nil {
+		request.ParameterAddToHeaderOrQuery(localVarQueryParams, "aid", r.aid, "")
+	}
+	{
+		t := *r.testId
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				request.ParameterAddToHeaderOrQuery(localVarQueryParams, "testId", s.Index(i).Interface(), "multi")
+			}
+		} else {
+			request.ParameterAddToHeaderOrQuery(localVarQueryParams, "testId", t, "multi")
+		}
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := request.SelectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := request.SelectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.Client.PrepareRequest(localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.Client.CallAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v EndpointTestBulkDeleteValidationError
+			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v UnauthorizedError
+			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v Error
+			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
+		}
+		if localVarHTTPResponse.StatusCode == 429 {
+			var v Error
+			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v Error
+			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
+		}
+		if localVarHTTPResponse.StatusCode == 502 {
+			var v Error
+			return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, &v, localVarBody, localVarHTTPResponse)
+		}
+		return localVarReturnValue, localVarHTTPResponse, internalerror.DecodeError(a.Client.Decode, nil, localVarBody, localVarHTTPResponse)
+	}
+
+	err = a.Client.Decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &internalerror.GenericAPIError{
+			Body:  localVarBody,
+			ErrorMessage: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
 
 type ApiCreateAgentToServerEndpointScheduledTestRequest struct {
 
