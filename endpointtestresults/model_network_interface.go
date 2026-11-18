@@ -1,7 +1,7 @@
 /*
 Endpoint Test Results API
 
-Retrieve results for scheduled and dynamic tests on endpoint agents.
+Retrieve results for scheduled and dynamic tests on endpoint agents.  For endpoints that require PII permissions, all required PII permissions must be granted. Otherwise, the API returns `403 Forbidden` instead of masked values.  Role and permission changes may not take effect immediately because API permissions are cached. This delay applies to both permission grants and removals. 
 
 */
 
@@ -23,6 +23,8 @@ type NetworkInterface struct {
 	IpAddress *string `json:"ipAddress,omitempty"`
 	// Network subnet mask - only for IPv4.
 	SubnetMask *string `json:"subnetMask,omitempty"`
+	// Number of bits in the network prefix, for IPv4 and IPv6.
+	PrefixLength *int32 `json:"prefixLength,omitempty"`
 	// Network public IP address.
 	PublicIpAddress *string `json:"publicIpAddress,omitempty"`
 	// Network local prefix.
@@ -115,6 +117,38 @@ func (o *NetworkInterface) HasSubnetMask() bool {
 // SetSubnetMask gets a reference to the given string and assigns it to the SubnetMask field.
 func (o *NetworkInterface) SetSubnetMask(v string) {
 	o.SubnetMask = &v
+}
+
+// GetPrefixLength returns the PrefixLength field value if set, zero value otherwise.
+func (o *NetworkInterface) GetPrefixLength() int32 {
+	if o == nil || utils.IsNil(o.PrefixLength) {
+		var ret int32
+		return ret
+	}
+	return *o.PrefixLength
+}
+
+// GetPrefixLengthOk returns a tuple with the PrefixLength field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *NetworkInterface) GetPrefixLengthOk() (*int32, bool) {
+	if o == nil || utils.IsNil(o.PrefixLength) {
+		return nil, false
+	}
+	return o.PrefixLength, true
+}
+
+// HasPrefixLength returns a boolean if a field has been set.
+func (o *NetworkInterface) HasPrefixLength() bool {
+	if o != nil && !utils.IsNil(o.PrefixLength) {
+		return true
+	}
+
+	return false
+}
+
+// SetPrefixLength gets a reference to the given int32 and assigns it to the PrefixLength field.
+func (o *NetworkInterface) SetPrefixLength(v int32) {
+	o.PrefixLength = &v
 }
 
 // GetPublicIpAddress returns the PublicIpAddress field value if set, zero value otherwise.
@@ -324,6 +358,9 @@ func (o NetworkInterface) ToMap() (map[string]interface{}, error) {
 	}
 	if !utils.IsNil(o.SubnetMask) {
 		toSerialize["subnetMask"] = o.SubnetMask
+	}
+	if !utils.IsNil(o.PrefixLength) {
+		toSerialize["prefixLength"] = o.PrefixLength
 	}
 	if !utils.IsNil(o.PublicIpAddress) {
 		toSerialize["publicIpAddress"] = o.PublicIpAddress

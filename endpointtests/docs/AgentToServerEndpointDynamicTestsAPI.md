@@ -4,12 +4,83 @@ All URIs are relative to *https://api.thousandeyes.com/v7*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**BulkDeleteAgentToServerEndpointDynamicTests**](AgentToServerEndpointDynamicTestsAPI.md#BulkDeleteAgentToServerEndpointDynamicTests) | **Delete** /endpoint/tests/dynamic-tests/agent-to-server | Bulk delete agent to server endpoint dynamic tests
 [**CreateAgentToServerEndpointDynamicTest**](AgentToServerEndpointDynamicTestsAPI.md#CreateAgentToServerEndpointDynamicTest) | **Post** /endpoint/tests/dynamic-tests/agent-to-server | Create endpoint dynamic test
 [**DeleteAgentToServerEndpointDynamicTest**](AgentToServerEndpointDynamicTestsAPI.md#DeleteAgentToServerEndpointDynamicTest) | **Delete** /endpoint/tests/dynamic-tests/agent-to-server/{testId} | Delete agent to server dynamic test
 [**GetAgentToServerEndpointDynamicTest**](AgentToServerEndpointDynamicTestsAPI.md#GetAgentToServerEndpointDynamicTest) | **Get** /endpoint/tests/dynamic-tests/agent-to-server/{testId} | Retrieve endpoint dynamic test
 [**GetAgentToServerEndpointDynamicTests**](AgentToServerEndpointDynamicTestsAPI.md#GetAgentToServerEndpointDynamicTests) | **Get** /endpoint/tests/dynamic-tests/agent-to-server | List endpoint dynamic tests
 [**UpdateAgentToServerEndpointDynamicTest**](AgentToServerEndpointDynamicTestsAPI.md#UpdateAgentToServerEndpointDynamicTest) | **Patch** /endpoint/tests/dynamic-tests/agent-to-server/{testId} | Update agent to server dynamic test
 
+
+
+## BulkDeleteAgentToServerEndpointDynamicTests
+
+> EndpointTestBulkDeleteResult BulkDeleteAgentToServerEndpointDynamicTests().TestId(testId).Aid(aid).Execute()
+
+Bulk delete agent to server endpoint dynamic tests
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"fmt"
+	"os"
+	"github.com/thousandeyes/thousandeyes-sdk-go/v3/client"
+	"github.com/thousandeyes/thousandeyes-sdk-go/v3/endpointtests"
+)
+
+func main() {
+	testId := []string{"4503599627370497"} // []string | Endpoint test IDs to delete. Specify this parameter once for each test ID. The request must not contain more than the maximum number of tests supported by the operation. If the limit is exceeded, the `400 Bad Request` response includes the supported maximum in `maximumTestsSupported`.
+	aid := "1234" // string | A unique identifier associated with your account group. You can retrieve your `AccountGroupId` from the `/account-groups` endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. (optional)
+
+	configuration := client.NewConfiguration().WithAuthToken("<bearer-token>")
+	apiClient := client.NewAPIClient(configuration)
+
+	api := (*endpointtests.AgentToServerEndpointDynamicTestsAPIService)(&apiClient.Common)
+
+	resp, r, err := api.BulkDeleteAgentToServerEndpointDynamicTests().TestId(testId).Aid(aid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentToServerEndpointDynamicTestsAPI.BulkDeleteAgentToServerEndpointDynamicTests``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `BulkDeleteAgentToServerEndpointDynamicTests`: EndpointTestBulkDeleteResult
+	json, _ := resp.MarshalJSON()
+	fmt.Fprintf(os.Stdout, "Response from `AgentToServerEndpointDynamicTestsAPI.BulkDeleteAgentToServerEndpointDynamicTests`: %v\n", string(json))
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a ApiBulkDeleteAgentToServerEndpointDynamicTestsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **testId** | **[]string** | Endpoint test IDs to delete. Specify this parameter once for each test ID. The request must not contain more than the maximum number of tests supported by the operation. If the limit is exceeded, the &#x60;400 Bad Request&#x60; response includes the supported maximum in &#x60;maximumTestsSupported&#x60;. | 
+ **aid** | **string** | A unique identifier associated with your account group. You can retrieve your &#x60;AccountGroupId&#x60; from the &#x60;/account-groups&#x60; endpoint. Note that you must be assigned to the target account group. Specifying this parameter without being assigned to the target account group will result in an error response. | 
+
+### Return type
+
+[**EndpointTestBulkDeleteResult**](EndpointTestBulkDeleteResult.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)[[Back to README]](../README.md)
 
 
 ## CreateAgentToServerEndpointDynamicTest

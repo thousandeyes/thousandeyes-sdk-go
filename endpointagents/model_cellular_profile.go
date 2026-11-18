@@ -1,7 +1,7 @@
 /*
 Endpoint Agents API
 
-**Note:** The Endpoint Agents Transfer APIs are not available for ThousandEyes for Government instance.  Manage ThousandEyes Endpoint Agents using this API.   For more information about Endpoint Agents, see [Endpoint Agents](https://docs.thousandeyes.com/product-documentation/global-vantage-points/endpoint-agents).
+**Note:** The Endpoint Agents Transfer APIs are not available for ThousandEyes for Government instance.  Manage ThousandEyes Endpoint Agents using this API.   For more information about Endpoint Agents, see [Endpoint Agents](https://docs.thousandeyes.com/product-documentation/global-vantage-points/endpoint-agents).  For endpoints that require PII permissions, all required PII permissions must be granted. Otherwise, the API returns `403 Forbidden` instead of masked values.  Role and permission changes may not take effect immediately because API permissions are cached. This delay applies to both permission grants and removals.
 
 */
 

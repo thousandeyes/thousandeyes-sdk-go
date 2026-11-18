@@ -24,6 +24,242 @@ import (
 	internalerror "github.com/thousandeyes/thousandeyes-sdk-go/v3/internal/error"
 )
 
+func TestAgentToServerEndpointDynamicTestsAPIService_BulkDeleteAgentToServerEndpointDynamicTests(t *testing.T) {
+	const testToken = "test-token"
+
+	var testId []string
+	var aid string = "1234"
+	responseBodyJSON := []byte("{\n  \"deletedTestIds\" : [ \"281474976710706\", \"281474976710707\" ]\n}")
+	responseStatus := 200
+	responseContentType := "application/json"
+	var expectedResponse EndpointTestBulkDeleteResult
+	if err := json.Unmarshal(responseBodyJSON, &expectedResponse); err != nil {
+		t.Fatalf("unmarshal response body: %v", err)
+	}
+
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != http.MethodDelete {
+			t.Errorf("method = %q, want %q", r.Method, http.MethodDelete)
+		}
+
+		expectedPath := "/endpoint/tests/dynamic-tests/agent-to-server"
+		if r.URL.EscapedPath() != expectedPath {
+			t.Errorf("path = %q, want %q", r.URL.EscapedPath(), expectedPath)
+		}
+		if got := r.Header.Get("Authorization"); got != "Bearer "+testToken {
+			t.Errorf("Authorization = %q, want %q", got, "Bearer "+testToken)
+		}
+		if _, ok := r.URL.Query()["aid"]; !ok {
+			t.Errorf("query parameter %q was not sent", "aid")
+		}
+		w.Header().Set("Content-Type", responseContentType)
+		w.WriteHeader(responseStatus)
+		_, _ = w.Write(responseBodyJSON)
+	}))
+	t.Cleanup(server.Close)
+
+	config := client.NewConfiguration().
+		WithServerUrl(server.URL).
+		WithAuthToken(testToken)
+	config.HTTPClient = server.Client()
+
+	apiClient := client.NewAPIClient(config)
+	api := (*AgentToServerEndpointDynamicTestsAPIService)(&apiClient.Common)
+
+	actualResponse, httpResponse, err := api.BulkDeleteAgentToServerEndpointDynamicTests().TestId(testId).Aid(aid).Execute()
+	if err != nil {
+		t.Fatalf("BulkDeleteAgentToServerEndpointDynamicTests() error = %v", err)
+	}
+	if httpResponse == nil {
+		t.Fatal("BulkDeleteAgentToServerEndpointDynamicTests() returned a nil HTTP response")
+	}
+	if httpResponse.StatusCode != responseStatus {
+		t.Errorf("BulkDeleteAgentToServerEndpointDynamicTests() status = %d, want %d", httpResponse.StatusCode, responseStatus)
+	}
+	expected := &expectedResponse
+	if !reflect.DeepEqual(actualResponse, expected) {
+		t.Errorf("BulkDeleteAgentToServerEndpointDynamicTests() response = %#v, want %#v", actualResponse, expected)
+	}
+}
+
+func TestAgentToServerEndpointDynamicTestsAPIService_BulkDeleteAgentToServerEndpointDynamicTests_Errors(t *testing.T) {
+	const testToken = "test-token"
+
+	var testId []string
+	var aid string = "1234"
+
+	runErrorCase := func(
+		t *testing.T,
+		responseStatus int,
+		responseContentType string,
+		responseBodyJSON []byte,
+		expectedModel interface{},
+	) {
+		t.Helper()
+
+		server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			if r.Method != http.MethodDelete {
+				t.Errorf("method = %q, want %q", r.Method, http.MethodDelete)
+			}
+
+			expectedPath := "/endpoint/tests/dynamic-tests/agent-to-server"
+			if r.URL.EscapedPath() != expectedPath {
+				t.Errorf("path = %q, want %q", r.URL.EscapedPath(), expectedPath)
+			}
+			if got := r.Header.Get("Authorization"); got != "Bearer "+testToken {
+				t.Errorf("Authorization = %q, want %q", got, "Bearer "+testToken)
+			}
+			if _, ok := r.URL.Query()["aid"]; !ok {
+				t.Errorf("query parameter %q was not sent", "aid")
+			}
+			w.Header().Set("Content-Type", responseContentType)
+			w.WriteHeader(responseStatus)
+			_, _ = w.Write(responseBodyJSON)
+		}))
+		t.Cleanup(server.Close)
+
+		config := client.NewConfiguration().
+			WithServerUrl(server.URL).
+			WithAuthToken(testToken)
+		config.HTTPClient = server.Client()
+
+		apiClient := client.NewAPIClient(config)
+		apiClient.GetConfig().HTTPClient = server.Client()
+		api := (*AgentToServerEndpointDynamicTestsAPIService)(&apiClient.Common)
+
+		_, httpResponse, err := api.BulkDeleteAgentToServerEndpointDynamicTests().TestId(testId).Aid(aid).Execute()
+		if err == nil {
+			t.Fatalf("BulkDeleteAgentToServerEndpointDynamicTests() error = nil, want *GenericAPIError")
+		}
+		if httpResponse == nil {
+			t.Fatal("BulkDeleteAgentToServerEndpointDynamicTests() returned a nil HTTP response")
+		}
+		if httpResponse.StatusCode != responseStatus {
+			t.Errorf("BulkDeleteAgentToServerEndpointDynamicTests() status = %d, want %d", httpResponse.StatusCode, responseStatus)
+		}
+
+		var apiError *internalerror.GenericAPIError
+		if !errors.As(err, &apiError) {
+			t.Fatalf("BulkDeleteAgentToServerEndpointDynamicTests() error type = %T, want *GenericAPIError", err)
+		}
+		if !reflect.DeepEqual(apiError.Body, responseBodyJSON) {
+			t.Errorf("GenericAPIError.Body = %q, want %q", apiError.Body, responseBodyJSON)
+		}
+		if !reflect.DeepEqual(apiError.Model, expectedModel) {
+			t.Errorf("GenericAPIError.Model = %#v, want %#v", apiError.Model, expectedModel)
+		}
+
+		expectedErrorMessage := internalerror.FormatErrorMessage(
+			httpResponse.Status,
+			string(responseBodyJSON),
+			expectedModel,
+		)
+		if apiError.ErrorMessage != expectedErrorMessage {
+			t.Errorf(
+				"GenericAPIError.ErrorMessage = %q, want %q",
+				apiError.ErrorMessage,
+				expectedErrorMessage,
+			)
+		}
+	}
+
+	t.Run("400", func(t *testing.T) {
+		responseBodyJSON := []byte("{\n  \"instance\" : \"instance\",\n  \"maximumTestsSupported\" : 200,\n  \"detail\" : \"detail\",\n  \"type\" : \"type\",\n  \"title\" : \"title\",\n  \"errors\" : [ {\n    \"code\" : \"code\",\n    \"field\" : \"field\",\n    \"message\" : \"message\"\n  }, {\n    \"code\" : \"code\",\n    \"field\" : \"field\",\n    \"message\" : \"message\"\n  } ],\n  \"status\" : 0\n}")
+		var expectedErrorModel EndpointTestBulkDeleteValidationError
+		if err := json.Unmarshal(responseBodyJSON, &expectedErrorModel); err != nil {
+			t.Fatalf("unmarshal 400 error body: %v", err)
+		}
+
+		runErrorCase(
+			t,
+			400,
+			"application/problem+json",
+			responseBodyJSON,
+			&expectedErrorModel,
+		)
+	})
+
+	t.Run("401", func(t *testing.T) {
+		responseBodyJSON := []byte("{\n  \"error_description\" : \"Invalid access token\",\n  \"error\" : \"invalid_token\"\n}")
+		var expectedErrorModel UnauthorizedError
+		if err := json.Unmarshal(responseBodyJSON, &expectedErrorModel); err != nil {
+			t.Fatalf("unmarshal 401 error body: %v", err)
+		}
+
+		runErrorCase(
+			t,
+			401,
+			"application/problem+json",
+			responseBodyJSON,
+			&expectedErrorModel,
+		)
+	})
+
+	t.Run("403", func(t *testing.T) {
+		responseBodyJSON := []byte("{\n  \"instance\" : \"instance\",\n  \"detail\" : \"detail\",\n  \"type\" : \"type\",\n  \"title\" : \"title\",\n  \"status\" : 0\n}")
+		var expectedErrorModel Error
+		if err := json.Unmarshal(responseBodyJSON, &expectedErrorModel); err != nil {
+			t.Fatalf("unmarshal 403 error body: %v", err)
+		}
+
+		runErrorCase(
+			t,
+			403,
+			"application/problem+json",
+			responseBodyJSON,
+			&expectedErrorModel,
+		)
+	})
+
+	t.Run("429", func(t *testing.T) {
+		responseBodyJSON := []byte("{\n  \"instance\" : \"instance\",\n  \"detail\" : \"detail\",\n  \"type\" : \"type\",\n  \"title\" : \"title\",\n  \"status\" : 0\n}")
+		var expectedErrorModel Error
+		if err := json.Unmarshal(responseBodyJSON, &expectedErrorModel); err != nil {
+			t.Fatalf("unmarshal 429 error body: %v", err)
+		}
+
+		runErrorCase(
+			t,
+			429,
+			"application/problem+json",
+			responseBodyJSON,
+			&expectedErrorModel,
+		)
+	})
+
+	t.Run("500", func(t *testing.T) {
+		responseBodyJSON := []byte("{\n  \"instance\" : \"instance\",\n  \"detail\" : \"detail\",\n  \"type\" : \"type\",\n  \"title\" : \"title\",\n  \"status\" : 0\n}")
+		var expectedErrorModel Error
+		if err := json.Unmarshal(responseBodyJSON, &expectedErrorModel); err != nil {
+			t.Fatalf("unmarshal 500 error body: %v", err)
+		}
+
+		runErrorCase(
+			t,
+			500,
+			"application/problem+json",
+			responseBodyJSON,
+			&expectedErrorModel,
+		)
+	})
+
+	t.Run("502", func(t *testing.T) {
+		responseBodyJSON := []byte("{\n  \"instance\" : \"instance\",\n  \"detail\" : \"detail\",\n  \"type\" : \"type\",\n  \"title\" : \"title\",\n  \"status\" : 0\n}")
+		var expectedErrorModel Error
+		if err := json.Unmarshal(responseBodyJSON, &expectedErrorModel); err != nil {
+			t.Fatalf("unmarshal 502 error body: %v", err)
+		}
+
+		runErrorCase(
+			t,
+			502,
+			"application/problem+json",
+			responseBodyJSON,
+			&expectedErrorModel,
+		)
+	})
+
+}
 func TestAgentToServerEndpointDynamicTestsAPIService_CreateAgentToServerEndpointDynamicTest(t *testing.T) {
 	const testToken = "test-token"
 

@@ -1,7 +1,7 @@
 /*
 Endpoint Agent Labels API
 
-Manage labels applied to endpoint agents using this API. 
+Manage labels applied to endpoint agents using this API.  For endpoints that require PII permissions, all required PII permissions must be granted. Otherwise, the API returns `403 Forbidden` instead of masked values.  Role and permission changes may not take effect immediately because API permissions are cached. This delay applies to both permission grants and removals. 
 
 */
 
